@@ -39,7 +39,7 @@ jobs:
           REELS_KEY: ${{ secrets.REELS_KEY }}
         run: |
           set -uo pipefail
-          style='Read this sentence in clear Modern Standard Arabic like a calm, warm TV sports presenter: natural and human, steady medium pace, only light excitement where a goal is mentioned. No exaggeration.'
+          style='Say in a calm, warm sports-presenter voice:'
           i=0
           while IFS= read -r line; do
             [ -z "$line" ] && continue
@@ -51,6 +51,18 @@ jobs:
             rm -f "sample/p-$i.wav"
             sleep 8
           done < sample/puck.txt
+      - name: Write down what each clip says (to check nothing extra is read)
+        if: hashFiles('sample/p-1.mp3') != ''
+        run: |
+          pip install -q faster-whisper
+          python3 - <<'PY'
+          import glob
+          from faster_whisper import WhisperModel
+          m = WhisperModel('small', device='cpu', compute_type='int8')
+          for f in sorted(glob.glob('sample/p-*.mp3')):
+              segs, info = m.transcribe(f, language=None)
+              print(f, info.language, '|', ' '.join(s.text.strip() for s in segs))
+          PY
       - name: Keep the audio on this branch
         run: |
           git config user.name "github-actions[bot]"
