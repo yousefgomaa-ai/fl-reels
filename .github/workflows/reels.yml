@@ -1,0 +1,64 @@
+# Makes the queued reels of football-legend.com: asks the site's API for waiting jobs and, only when there is one,
+# animates the cards into an MP4 with ffmpeg (make.mjs) and uploads it back. A run with nothing to do takes seconds.
+# This repository holds only the reel maker and its own synthesised music, so it can be public: public repositories
+# have no Actions minutes limit (owner, 2026-10-27). The site's code stays in its private repository.
+name: Reels
+
+on:
+  schedule:
+    - cron: '40 7-23 * * *'
+    # The next day's matches reel is queued from 8pm Cairo and posted from 1am; GitHub often runs schedules late.
+    - cron: '5,25 17-23 * * *'
+    - cron: '10 0 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: reels
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  reels:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check for queued reels
+        id: jobs
+        env:
+          REELS_KEY_SECRET: ${{ secrets.REELS_KEY }}
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          # The site's key: set directly (REELS_KEY), or derived from the Cloudflare token as the site derives it.
+          if [ -n "${REELS_KEY_SECRET:-}" ]; then key="$REELS_KEY_SECRET"; else key=$(printf 'fl-reels:%s' "$CF_API_TOKEN" | sha256sum | cut -c1-48); fi
+          echo "::add-mask::$key"
+          echo "key=$key" >> "$GITHUB_OUTPUT"
+          n=$(curl -sS --max-time 30 "https://api.football-legend.com/v2/reels/jobs?key=$key" | jq '.jobs | length' || echo 0)
+          echo "queued reels: $n"
+          echo "count=$n" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v4
+        if: steps.jobs.outputs.count != '0'
+
+      - uses: actions/setup-node@v4
+        if: steps.jobs.outputs.count != '0'
+        with:
+          node-version: 22
+
+      - name: Install ffmpeg
+        if: steps.jobs.outputs.count != '0'
+        # apt sometimes hangs on a runner; a few tries with a time limit each.
+        run: |
+          for i in 1 2 3; do
+            timeout 240 sudo apt-get update -qq && timeout 240 sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null && exit 0
+            echo "ffmpeg install try $i failed"; sleep 10
+          done
+          exit 1
+
+      - name: Make and upload the reels
+        if: steps.jobs.outputs.count != '0'
+        env:
+          REELS_KEY: ${{ steps.jobs.outputs.key }}
+        run: node make.mjs
