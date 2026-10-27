@@ -39,7 +39,7 @@ jobs:
           REELS_KEY: ${{ secrets.REELS_KEY }}
         run: |
           set -uo pipefail
-          style='Say in a calm, warm sports-presenter voice:'
+          style=''
           i=0
           while IFS= read -r line; do
             [ -z "$line" ] && continue
