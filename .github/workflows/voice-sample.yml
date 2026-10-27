@@ -4,7 +4,7 @@ name: Voice sample
 on:
   push:
     branches: [voice-sample]
-    paths: [sample/gemini.txt]
+    paths: [sample/gemini.txt, sample/puck.txt]
 permissions:
   contents: write
 jobs:
@@ -13,6 +13,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
       - name: Install ffmpeg
         run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null
       - name: Read the narration with each voice
@@ -22,6 +24,7 @@ jobs:
           set -uo pipefail
           style='Read this in Modern Standard Arabic like an energetic, passionate Arab football commentator on TV: natural and human, lively pace, rising excitement on the goals, a short pause between sentences.'
           text=$(cat sample/gemini.txt)
+          [ -n "$(git diff --name-only HEAD~1 HEAD -- sample/gemini.txt)" ] || exit 0
           for v in Charon Fenrir Orus Puck; do
             code=$(curl -sS -G -o "sample/g-$v.wav" -w '%{http_code}' --max-time 120 "https://api.football-legend.com/v2/reels/voice" \
               --data-urlencode "key=$REELS_KEY" --data-urlencode "voice=$v" --data-urlencode "style=$style" --data-urlencode "text=$text")
@@ -30,9 +33,27 @@ jobs:
             rm -f "sample/g-$v.wav"
           done
           ls -la sample
+      - name: Puck, one sentence at a time, calm
+        if: hashFiles('sample/puck.txt') != ''
+        env:
+          REELS_KEY: ${{ secrets.REELS_KEY }}
+        run: |
+          set -uo pipefail
+          style='Read this sentence in clear Modern Standard Arabic like a calm, warm TV sports presenter: natural and human, steady medium pace, only light excitement where a goal is mentioned. No exaggeration.'
+          i=0
+          while IFS= read -r line; do
+            [ -z "$line" ] && continue
+            i=$((i+1))
+            code=$(curl -sS -G -o "sample/p-$i.wav" -w '%{http_code}' --max-time 120 "https://api.football-legend.com/v2/reels/voice" \
+              --data-urlencode "key=$REELS_KEY" --data-urlencode "voice=Puck" --data-urlencode "style=$style" --data-urlencode "text=$line")
+            echo "line $i: HTTP $code"
+            if [ "$code" = "200" ]; then ffmpeg -loglevel error -y -i "sample/p-$i.wav" -b:a 128k "sample/p-$i.mp3"; else cat "sample/p-$i.wav"; echo; fi
+            rm -f "sample/p-$i.wav"
+            sleep 8
+          done < sample/puck.txt
       - name: Keep the audio on this branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add sample/g-*.mp3 || true
+          git add sample/g-*.mp3 sample/p-*.mp3 2>/dev/null || git add sample/p-*.mp3 || true
           git commit -m "Gemini voice sample audio" && git push || echo "nothing to keep"
