@@ -43,7 +43,7 @@ export function backgroundArgs(card, out) {
 // ffmpeg arguments for cards shown `secs[i]` seconds each over their backgrounds `bgs[i]` (backgroundArgs), joined by a
 // slide. `hook` (optional) is a transparent 1080x1920 PNG laid over the whole video: a title above the card and a
 // question under it.
-export function reelArgs(frames, secs, out, track, hook, bgs, endCard = false) {
+export function reelArgs(frames, secs, out, track, hook, bgs, endCard = false, narr = null) {
   const args = ['-y'];
   frames.forEach((f) => args.push('-i', f));
   if (track) args.push('-stream_loop', '-1', '-i', track);
@@ -51,6 +51,7 @@ export function reelArgs(frames, secs, out, track, hook, bgs, endCard = false) {
   if (hook) args.push('-loop', '1', '-framerate', String(FPS), '-i', hook);
   const bg0 = frames.length + 1 + (hook ? 1 : 0);
   bgs.forEach((b, i) => args.push('-loop', '1', '-framerate', String(FPS), '-t', String(secs[i]), '-i', b));
+  if (narr) args.push('-i', narr);
   const parts = [];
   frames.forEach((_, i) => {
     const n = Math.round(secs[i] * FPS);
@@ -72,7 +73,11 @@ export function reelArgs(frames, secs, out, track, hook, bgs, endCard = false) {
     parts.push(`[${a + 1}:v]format=rgba[hk]`, `[${last}][hk]overlay=0:0:shortest=1:format=auto${until},format=yuv420p[vh]`);
     last = 'vh';
   }
-  parts.push(`[${a}:a]atrim=0:${total.toFixed(2)},afade=t=in:d=0.5,afade=t=out:st=${Math.max(0, total - 1.2).toFixed(2)}:d=1.2[aout]`);
+  // With a narration (YouTube tests, owner 2026-10-28) the music goes under the voice.
+  if (narr) {
+    parts.push(`[${a}:a]atrim=0:${total.toFixed(2)},volume=0.16,afade=t=in:d=0.5,afade=t=out:st=${Math.max(0, total - 1.2).toFixed(2)}:d=1.2[mus]`,
+      `[${bg0 + bgs.length}:a]aresample=44100,apad,atrim=0:${total.toFixed(2)}[nar]`, '[nar][mus]amix=inputs=2:duration=first:normalize=0[aout]');
+  } else parts.push(`[${a}:a]atrim=0:${total.toFixed(2)},afade=t=in:d=0.5,afade=t=out:st=${Math.max(0, total - 1.2).toFixed(2)}:d=1.2[aout]`);
   args.push('-filter_complex', parts.join(';'), '-map', `[${last}]`, '-map', '[aout]',
     '-t', total.toFixed(2), '-r', String(FPS), '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '22', '-maxrate', '2400k', '-bufsize', '4800k', '-pix_fmt', 'yuv420p',
     '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', out);
@@ -108,6 +113,47 @@ function jpegSize(b) {
     i += 2 + len;
   }
   return null;
+}
+// The narration (job.voice: one line per card, the YouTube tests of owner 2026-10-28): each line read by the site's
+// voice (/v2/reels/voice, Gemini), each card held long enough for its line, the lines laid where their cards start.
+// Any line that cannot be read drops the whole narration: the reel then goes out with music only, as before.
+function probeSeconds(f) {
+  return new Promise((resolve) => {
+    const p = spawn(process.env.FFPROBE || 'ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f], { stdio: ['ignore', 'pipe', 'ignore'] });
+    let o = ''; p.stdout.on('data', (d) => { o += d; }); p.on('close', () => resolve(Number(o) || 0));
+  });
+}
+async function narration(job, dir, secs) {
+  if (!Array.isArray(job.voice) || !job.voice.some(Boolean)) return null;
+  const clips = [];
+  for (let i = 0; i < secs.length; i++) {
+    const text = String(job.voice[i] || '').trim();
+    if (!text) { clips.push(null); continue; }
+    const u = `${API}/v2/reels/voice?key=${encodeURIComponent(KEY)}&voice=${encodeURIComponent(job.voiceName || 'Puck')}&text=${encodeURIComponent(text)}`;
+    let buf = null;
+    for (let t = 0; t < 3 && !buf; t++) {
+      const res = await fetch(u, { signal: AbortSignal.timeout(120000) }).catch(() => null);
+      const b = res?.ok ? Buffer.from(await res.arrayBuffer()) : null;
+      if (b && b.length > 2000 && b.toString('latin1', 0, 4) === 'RIFF') buf = b;
+      else await new Promise((r) => setTimeout(r, 8000));
+    }
+    if (!buf) { console.log(`${job.id}: narration line ${i + 1} failed, music only`); return null; }
+    const f = join(dir, `v${i}.wav`);
+    await writeFile(f, buf);
+    const d = await probeSeconds(f);
+    secs[i] = Math.max(secs[i], d + 1.1);
+    clips.push(f);
+  }
+  const inputs = [], parts = [];
+  let start = 0;
+  clips.forEach((f, i) => {
+    if (f) { const k = inputs.length / 2; inputs.push('-i', f); parts.push(`[${k}:a]aresample=44100,adelay=${Math.round((start + 0.35) * 1000)}:all=1[c${k}]`); }
+    start += secs[i] - FADE;
+  });
+  const n = inputs.length / 2;
+  const out = join(dir, 'narration.wav');
+  await run(FF, ['-y', ...inputs, '-filter_complex', `${parts.join(';')};${Array.from({ length: n }, (_, k) => `[c${k}]`).join('')}amix=inputs=${n}:duration=longest:normalize=0[o]`, '-map', '[o]', out]);
+  return out;
 }
 async function makeReel(job, dir) {
   // A video made elsewhere (the app ad, owner 2026-10-24): taken as it is, only checked to be an MP4.
@@ -159,8 +205,10 @@ async function makeReel(job, dir) {
     await run(FF, backgroundArgs(files[i], bg));
     bgs.push(bg);
   }
-  const out = join(dir, 'reel.mp4');
-  await run(FF, reelArgs(files, job.seconds, out, await music(), hook, bgs, !!job.endCard));
+  const out = join(dir, 'reel.mp4'), secs = [...job.seconds];
+  const narr = await narration(job, dir, secs).catch((e) => { console.log(`${job.id}: narration skipped (${e.message})`); return null; });
+  if (!narr) secs.splice(0, secs.length, ...job.seconds);
+  await run(FF, reelArgs(files, secs, out, await music(), hook, bgs, !!job.endCard, narr));
   const size = (await stat(out)).size;
   if (size < 100000) throw new Error(`video too small (${size} bytes)`);
   return out;
