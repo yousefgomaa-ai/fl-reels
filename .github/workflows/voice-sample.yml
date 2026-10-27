@@ -44,8 +44,12 @@ jobs:
           while IFS= read -r line; do
             [ -z "$line" ] && continue
             i=$((i+1))
-            code=$(curl -sS -G -o "sample/p-$i.wav" -w '%{http_code}' --max-time 120 "https://api.football-legend.com/v2/reels/voice" \
-              --data-urlencode "key=$REELS_KEY" --data-urlencode "voice=Puck" --data-urlencode "style=$style" --data-urlencode "text=$line")
+            for t in 1 2 3; do
+              code=$(curl -sS -G -o "sample/p-$i.wav" -w '%{http_code}' --max-time 120 "https://api.football-legend.com/v2/reels/voice" \
+                --data-urlencode "key=$REELS_KEY" --data-urlencode "voice=Puck" --data-urlencode "style=$style" --data-urlencode "text=$line" || echo 000)
+              [ "$code" = "200" ] && break
+              echo "line $i try $t: HTTP $code"; sleep 15
+            done
             echo "line $i: HTTP $code"
             if [ "$code" = "200" ]; then ffmpeg -loglevel error -y -i "sample/p-$i.wav" -b:a 128k "sample/p-$i.mp3"; else cat "sample/p-$i.wav"; echo; fi
             rm -f "sample/p-$i.wav"
