@@ -1,34 +1,38 @@
-# A one-off sample: the reel's narration read by the free Arabic voices, for the owner to listen to (2026-10-27).
+# A one-off sample: the reel's narration read by Gemini's voices through the site's API (it holds the Gemini key),
+# for the owner to listen to and choose (2026-10-28).
 name: Voice sample
 on:
   push:
     branches: [voice-sample]
-    paths: [sample/lines.txt]
+    paths: [sample/gemini.txt]
 permissions:
   contents: write
 jobs:
   voice:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - run: pip install edge-tts
-      - name: Read each line with each voice
+      - name: Install ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null
+      - name: Read the narration with each voice
+        env:
+          REELS_KEY: ${{ secrets.REELS_KEY }}
         run: |
-          set -euo pipefail
-          for v in ar-EG-ShakirNeural ar-EG-SalmaNeural; do
-            i=0
-            while IFS= read -r line; do
-              [ -z "$line" ] && continue
-              i=$((i+1))
-              edge-tts --voice "$v" --rate=+8% --text "$line" --write-media "sample/$v-$i.mp3"
-            done < sample/lines.txt
+          set -uo pipefail
+          style='Read this in Modern Standard Arabic like an energetic, passionate Arab football commentator on TV: natural and human, lively pace, rising excitement on the goals, a short pause between sentences.'
+          text=$(cat sample/gemini.txt)
+          for v in Charon Fenrir Orus Puck; do
+            code=$(curl -sS -G -o "sample/g-$v.wav" -w '%{http_code}' --max-time 120 "https://api.football-legend.com/v2/reels/voice" \
+              --data-urlencode "key=$REELS_KEY" --data-urlencode "voice=$v" --data-urlencode "style=$style" --data-urlencode "text=$text")
+            echo "$v: HTTP $code"
+            if [ "$code" = "200" ]; then ffmpeg -loglevel error -y -i "sample/g-$v.wav" -b:a 128k "sample/g-$v.mp3"; else cat "sample/g-$v.wav"; echo; fi
+            rm -f "sample/g-$v.wav"
           done
           ls -la sample
       - name: Keep the audio on this branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add sample/*.mp3
-          git commit -m "Voice sample audio"
-          git push
+          git add sample/g-*.mp3 || true
+          git commit -m "Gemini voice sample audio" && git push || echo "nothing to keep"
