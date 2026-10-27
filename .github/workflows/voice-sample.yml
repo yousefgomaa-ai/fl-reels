@@ -53,14 +53,17 @@ jobs:
           done < sample/puck.txt
       - name: Write down what each clip says (to check nothing extra is read)
         if: hashFiles('sample/p-1.mp3') != ''
+        continue-on-error: true
         run: |
           pip install -q faster-whisper
           python3 - <<'PY'
-          import glob
+          import glob, subprocess
+          import numpy as np
           from faster_whisper import WhisperModel
           m = WhisperModel('small', device='cpu', compute_type='int8')
           for f in sorted(glob.glob('sample/p-*.mp3')):
-              segs, info = m.transcribe(f, language=None)
+              pcm = subprocess.run(['ffmpeg', '-loglevel', 'error', '-i', f, '-f', 'f32le', '-ac', '1', '-ar', '16000', '-'], capture_output=True, check=True).stdout
+              segs, info = m.transcribe(np.frombuffer(pcm, np.float32), language=None)
               print(f, info.language, '|', ' '.join(s.text.strip() for s in segs))
           PY
       - name: Keep the audio on this branch
