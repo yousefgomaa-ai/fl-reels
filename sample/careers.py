@@ -7,7 +7,10 @@ KEY = urllib.parse.quote(os.environ.get('REELS_KEY', ''), safe='')
 STYLE = urllib.parse.quote('Read aloud in a warm, natural Egyptian Arabic accent, like an Egyptian football presenter on TV:', safe='')
 model = None
 for d in sorted(glob.glob('sample/career/*/')):
-    vt, vm = d + 'voice.txt', d + 'voice.mp3'
+    vt, vm, vj = d + 'voice.txt', d + 'voice.mp3', d + 'voice.json'
+    # Whisper's word timings place each line's start inside a long segment (Ronaldo's came in nine segments for 17 lines).
+    if os.path.exists(vj) and not any('w' in x for x in json.load(open(vj))):
+        os.remove(vj)
     if os.path.exists(vt) and not os.path.exists(vm):
         text = '\n\n'.join(l.strip() for l in open(vt) if l.strip())
         body = json.dumps({'text': text}).encode()
@@ -20,13 +23,14 @@ for d in sorted(glob.glob('sample/career/*/')):
         else:
             continue
         subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', '/tmp/v.wav', '-b:a', '160k', vm], check=True)
+    if os.path.exists(vm) and not os.path.exists(vj):
         import numpy as np
         from faster_whisper import WhisperModel
         model = model or WhisperModel('small', device='cpu', compute_type='int8')
         pcm = subprocess.run(['ffmpeg', '-loglevel', 'error', '-i', vm, '-f', 'f32le', '-ac', '1', '-ar', '16000', '-'], capture_output=True, check=True).stdout
         segs, _ = model.transcribe(np.frombuffer(pcm, np.float32), language='ar', word_timestamps=True)
-        out = [{'s': round(s.start, 2), 'e': round(s.end, 2), 't': s.text.strip()} for s in segs]
-        json.dump(out, open(d + 'voice.json', 'w'), ensure_ascii=False)
+        out = [{'s': round(s.start, 2), 'e': round(s.end, 2), 't': s.text.strip(), 'w': [[round(w.start, 2), w.word.strip()] for w in (s.words or [])]} for s in segs]
+        json.dump(out, open(vj, 'w'), ensure_ascii=False)
         print(d, 'voice', round(len(pcm) / 64000, 1), 's')
         for s in out: print('  ', s['s'], s['t'])
     pt = d + 'photos.txt'
