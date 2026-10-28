@@ -1,6 +1,6 @@
 # Facts and pictures for the «مسار اللاعب» videos (owner, 2026-10-28): each line of sample/players.txt is
 # "search name|commons search". FotMob's career (clubs, seasons, trophies) and logos, and Commons photo candidates.
-import json, os, re, urllib.parse, urllib.request
+import json, os, re, time, urllib.parse, urllib.request
 UA = {'User-Agent': 'Mozilla/5.0 (FootballLegends/1.0; football-legend.com)'}
 def get(u, raw=False):
     r = urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=30).read()
@@ -33,6 +33,7 @@ for line in open('sample/players.txt'):
                 except Exception as e: print('logo', t, e)
     except Exception as e:
         print(name, 'fotmob failed', e)
+    time.sleep(5)
     try:
         q = get('https://commons.wikimedia.org/w/api.php?' + urllib.parse.urlencode({'action': 'query', 'format': 'json', 'generator': 'search',
             'gsrsearch': cs + ' filetype:bitmap', 'gsrnamespace': 6, 'gsrlimit': 8, 'prop': 'imageinfo', 'iiprop': 'url|extmetadata|size', 'iiurlwidth': 600}))
@@ -40,6 +41,7 @@ for line in open('sample/players.txt'):
         for i, p in enumerate(sorted((q.get('query') or {}).get('pages', {}).values(), key=lambda x: x.get('index', 0))):
             ii = p['imageinfo'][0]; em = ii.get('extmetadata', {})
             f = f'sample/pl/{slug}-c{i}.jpg'
+            time.sleep(2)
             open(f, 'wb').write(get(ii['thumburl'], True))
             meta.append({'n': i, 'title': p['title'], 'w': ii.get('width'), 'h': ii.get('height'), 'artist': re.sub('<[^>]+>', '', em.get('Artist', {}).get('value', '')), 'license': em.get('LicenseShortName', {}).get('value', '')})
         json.dump(meta, open(f'sample/pl/{slug}-photos.json', 'w'), ensure_ascii=False, indent=1)
