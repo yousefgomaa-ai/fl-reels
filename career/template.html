@@ -1,0 +1,137 @@
+<!doctype html>
+<html dir="rtl"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Cairo;font-weight:700;src:url(cairo700.woff2) format('woff2')}
+@font-face{font-family:Cairo;font-weight:900;src:url(cairo900.woff2) format('woff2')}
+*{margin:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;font-family:Cairo,sans-serif;color:#fff;background:#060816}
+#bg{position:absolute;inset:0;background:radial-gradient(1100px 900px at 50% 38%,var(--glow,#2a1a5e) 0%,#0b0f2a 55%,#05070f 100%);transition:none}
+#grid{position:absolute;inset:0;opacity:.14;background-image:linear-gradient(rgba(120,140,255,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(120,140,255,.35) 1px,transparent 1px);background-size:90px 90px}
+.brand{position:absolute;top:56px;width:100%;text-align:center;font:900 36px 'DejaVu Sans',sans-serif;letter-spacing:8px;background:linear-gradient(90deg,#22e9ff,#ff2f97);-webkit-background-clip:text;color:transparent}
+.kick{position:absolute;top:112px;left:50%;transform:translateX(-50%);background:#ff2f97;border-radius:40px;padding:2px 40px;font-size:38px;font-weight:900;white-space:nowrap}
+/* the path strip */
+#strip{position:absolute;top:200px;left:60px;right:60px;height:120px}
+#strip .ln{position:absolute;top:58px;left:40px;right:40px;height:6px;background:rgba(255,255,255,.12);border-radius:3px}
+#strip .fill{position:absolute;top:58px;right:40px;height:6px;border-radius:3px;background:linear-gradient(270deg,#22e9ff,#ff2f97)}
+#strip .lg{position:absolute;top:14px;width:92px;height:92px;margin-right:-46px;border-radius:50%;background:#10163a;border:4px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center}
+#strip .lg img{width:64px;height:64px;object-fit:contain}
+.scene{position:absolute;top:400px;left:60px;right:60px;height:1250px;display:flex;flex-direction:column;align-items:center;gap:46px;text-align:center}
+.big{width:470px;height:470px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,rgba(255,255,255,.14),rgba(255,255,255,.02) 70%);box-shadow:0 0 120px var(--c,rgba(34,233,255,.35))}
+.big img{width:310px;height:310px;object-fit:contain;filter:drop-shadow(0 18px 30px rgba(0,0,0,.5))}
+.ttl{font-size:96px;font-weight:900;line-height:1.1;text-shadow:0 8px 30px rgba(0,0,0,.6)}
+.yrs{font:900 56px 'DejaVu Sans',sans-serif;color:#ffd84a;letter-spacing:2px}
+.chips{display:flex;gap:24px;justify-content:center;width:100%}
+.chip{flex:1;max-width:340px;background:rgba(12,18,48,.85);border:2px solid rgba(255,255,255,.14);border-radius:30px;padding:16px 8px}
+.chip b{display:block;font:900 124px 'DejaVu Sans',sans-serif;color:#22e9ff;line-height:1.05}
+.chip span{font-size:42px;font-weight:700}
+.rows{width:100%;display:flex;flex-direction:column;gap:20px}
+.row{display:flex;align-items:center;gap:24px;background:rgba(12,18,48,.85);border:2px solid rgba(255,255,255,.14);border-radius:30px;padding:26px 36px;font-size:54px;font-weight:900}
+.row .v{margin-right:auto;font:900 64px 'DejaVu Sans','Cairo',sans-serif;color:#22e9ff}
+.vs{display:flex;align-items:center;gap:50px}
+.vs img{width:260px;height:260px;object-fit:contain}
+.vs .x{font:900 80px 'DejaVu Sans',sans-serif;color:#ff2f97}
+#hook{position:absolute;inset:0}
+#hook .ph{position:absolute;top:340px;left:50%;width:640px;height:640px;margin-left:-320px;border-radius:50%;overflow:hidden;border:8px solid #ffd84a;box-shadow:0 0 120px rgba(255,216,74,.45)}
+#hook .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+#hook .nm{position:absolute;top:1000px;width:100%;text-align:center;font-size:120px;font-weight:900;color:#ffd84a;text-shadow:0 0 50px rgba(255,216,74,.55)}
+#hook .bd{position:absolute;top:1205px;left:60px;right:60px;display:flex;gap:20px;justify-content:center}
+#hook .bd div{background:rgba(12,18,48,.88);border:2px solid #ffd84a;border-radius:24px;padding:10px 22px;font-size:40px;font-weight:900;white-space:nowrap}
+#credit{position:absolute;bottom:18px;left:20px;right:20px;font-size:24px;color:#aab3d8;direction:ltr;text-shadow:0 1px 4px #000}
+.cap{position:absolute;bottom:190px;left:50px;right:50px;text-align:center}
+.cap span{background:rgba(0,0,0,.75);-webkit-box-decoration-break:clone;box-decoration-break:clone;padding:6px 22px;border-radius:14px;font-size:48px;font-weight:700;line-height:1.75}
+.site{position:absolute;bottom:100px;width:100%;text-align:center;font:700 34px 'DejaVu Sans',sans-serif;color:#9aa3c7}
+.bar{position:absolute;bottom:0;height:10px;width:100%;background:linear-gradient(90deg,#22e9ff,#ff2f97)}
+#ph{position:absolute;inset:0;overflow:hidden}
+#ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;will-change:transform,opacity}
+#phv{position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,10,24,.62) 0%,rgba(7,10,24,.78) 45%,rgba(7,10,24,.93) 100%)}
+</style></head><body>
+<div id="bg"></div><div id="grid"></div><div id="ph"></div><div id="phv" style="opacity:0"></div>
+<div class="brand">FOOTBALL LEGENDS</div>
+<div class="kick">مسيرة اللاعب</div>
+<div id="strip"><div class="ln"></div><div class="fill" id="fill"></div></div>
+<div id="scenes"></div>
+<div id="hook"><div class="ph"><img src="photo.jpg"></div><div class="nm">هاري كين</div>
+<div class="bd"><div>🏆 الكرة الذهبية</div><div>👟 ×2</div><div>⚽ 91 لإنجلترا</div></div></div>
+<div class="cap"><span id="cap"></span></div>
+<div class="site">football-legend.com</div>
+<div id="credit">Photo: Werner100359, CC BY-SA 4.0, via Wikimedia Commons</div>
+<div class="bar"></div>
+<script>window.PHOTOS=[{"n": 0, "artist": "Ecco4k", "license": "CC BY 4.0"}, {"n": 1, "artist": "Brad Tutterow", "license": "CC BY 2.0"}, {"n": 2, "artist": "Ardfern", "license": "CC BY-SA 4.0"}, {"n": 3, "artist": "Voltmetro", "license": "CC BY 3.0"}, {"n": 4, "artist": "Bryan Berlin", "license": "CC BY-SA 4.0"}, {"n": 5, "artist": "Bryan Berlin", "license": "CC BY-SA 4.0"}, {"n": 6, "artist": "Bryan Berlin", "license": "CC BY-SA 4.0"}, {"n": 7, "artist": "Werner100359", "license": "CC BY-SA 4.0"}, {"n": 8, "artist": "Werner100359", "license": "CC BY-SA 4.0"}, {"n": 9, "artist": "Werner100359", "license": "CC BY-SA 4.0"}];</script>
+<script>
+const L = (id) => `logo-${id}.png`;
+const CLUBS = [8351, 10004, 9850, 8197, 8586, 9823, 8491];
+// Scene per narration line: which club of the path is current, and what the screen shows.
+const chip = (v, u, n) => `<div class="chip"><b data-n="${n ?? ''}">${v}</b><span>${u}</span></div>`;
+const row = (i, t, v) => `<div class="row"><span>${i}</span><span>${t}</span><span class="v">${v}</span></div>`;
+const head = (id, t, y, c) => `<div class="big" style="--c:${c}"><img src="${L(id)}"></div><div class="ttl">${t}</div><div class="yrs">${y}</div>`;
+const loan = (id, n, g, a) => `<div class="row"><img src="${L(id)}" style="width:84px;height:84px;object-fit:contain"><span>${n}</span><span class="v" style="font-size:40px">${g} • ${a}</span></div>`;
+const SPURS = 'rgba(19,34,87,.6)', FCB = 'rgba(220,5,45,.5)', ENG = 'rgba(255,255,255,.3)';
+const SUB = (t) => `<div class="sub" style="font-size:46px;color:#c9d0f5;font-weight:700">${t}</div>`;
+const SC = [
+  { club: -1, html: '' },
+  { ph: 0, club: 3, glow: '#1a2048', html: `<div class="ttl">4 إعارات</div><div class="yrs">2011 - 2013</div><div class="rows">${loan(8351, 'ليتون أورينت', '5 أهداف', '18 مباراة')}${loan(10004, 'ميلوول', '9 أهداف', '27 مباراة')}${loan(9850, 'نوريتش', '0', '5 مباريات')}${loan(8197, 'ليستر', 'هدفان', '14 مباراة')}</div>` },
+  { ph: 1, club: 4, glow: '#101a44', html: head(8586, 'توتنهام', 'موسم 2014-2015', SPURS) + `<div class="chips">${chip(31, 'هدفًا في كل البطولات', 31)}${chip(21, 'في الدوري', 21)}</div>` },
+  { ph: 2, club: 4, glow: '#2e2a0c', html: `<div class="ttl" style="font-size:140px">👟</div><div class="ttl">هداف الدوري الإنجليزي</div><div class="rows">${row('👟', 'موسم 2015-2016', '<b data-n="25">25</b>')}${row('👟', 'موسم 2016-2017', '<b data-n="29">29</b>')}</div>` },
+  { ph: 1, club: 4, glow: '#101a44', html: head(8586, 'توتنهام', 'موسم 2017-2018', SPURS) + `<div class="chips">${chip(30, 'في الدوري', 30)}${chip(41, 'في كل البطولات', 41)}</div>` },
+  { ph: 3, club: 4, glow: '#2a1a1a', html: head(8491, 'كأس العالم 2018', '', ENG) + `<div class="rows">${row('👟', 'الحذاء الذهبي', '<b data-n="6">6</b> أهداف')}${row('⚽', 'إنجلترا في نصف النهائي', '✓')}</div>` },
+  { club: 4, glow: '#14204a', html: `<div class="yrs" style="font-size:120px">2019</div><div class="ttl" style="font-size:66px">نهائي دوري أبطال أوروبا</div><div class="vs"><img src="${L(8586)}"><span class="x">×</span><img src="${L(8650)}"></div>${SUB('أول نهائي في تاريخ توتنهام')}` },
+  { ph: 2, club: 4, glow: '#101a44', html: `<div class="yrs" style="font-size:90px">2020-2021</div><div class="chips">${chip(23, 'هدفًا', 23)}${chip(14, 'تمريرة حاسمة', 14)}</div><div class="rows">${row('👟', 'هداف الدوري', '✓')}${row('🎯', 'الأكثر صناعة في الدوري', '✓')}</div>` },
+  { ph: 0, club: 4, glow: '#101a44', html: head(8586, 'توتنهام', '2011 - 2023', SPURS) + `<div class="chips">${chip(280, 'هدفًا', 280)}${chip(435, 'مباراة', 435)}</div><div class="rows">${row('🥇', 'الهداف التاريخي للنادي', 'فبراير 2023')}${row('🏆', 'بطولات', '0')}</div>` },
+  { ph: 1, club: 4, glow: '#1a1a3a', html: `<div class="yrs" style="font-size:220px;line-height:1"><b data-n="213">213</b></div><div class="ttl">هدفًا في الدوري الإنجليزي</div><div class="rows">${row('🥈', 'ثاني أفضل هداف في تاريخ البطولة', '')}</div>` },
+  { ph: 7, club: 5, glow: '#3a0c14', html: head(9823, 'بايرن ميونخ', 'موسم 2023-2024', FCB) + `<div class="chips">${chip(36, 'في الدوري', 36)}${chip(44, 'في كل البطولات', 44)}</div><div class="rows">${row('👟', 'الحذاء الذهبي الأوروبي', '✓')}</div>` },
+  { ph: 8, club: 5, glow: '#3a0c14', html: `<div class="yrs" style="font-size:120px">2025</div><div class="ttl">🏆 الدوري الألماني</div>${SUB('أول بطولة في مسيرته')}<div class="rows">${row('👟', 'هداف الدوري', '<b data-n="26">26</b>')}</div>` },
+  { ph: 7, club: 5, glow: '#3a0c14', html: `<div class="yrs" style="font-size:90px">2025-2026</div><div class="chips">${chip(61, 'هدفًا', 61)}${chip(36, 'في الدوري', 36)}</div><div class="rows">${row('🏆', 'الدوري الألماني', '✓')}${row('🏆', 'كأس ألمانيا', 'هاتريك في النهائي')}${row('👟', 'الحذاء الذهبي الأوروبي', '×2')}</div>` },
+  { ph: 9, club: 5, glow: '#3a0c14', html: head(9823, 'بايرن ميونخ', 'منذ 2023', FCB) + `<div class="chips">${chip(156, 'هدفًا', 156)}${chip(38, 'تمريرة حاسمة', 38)}${chip(159, 'مباراة', 159)}</div><div class="rows">${row('🏆', 'بطولات', '5')}</div>` },
+  { ph: 4, club: 6, glow: '#2a1a1a', html: head(8491, 'منتخب إنجلترا', '', ENG) + `<div class="chips">${chip(91, 'هدفًا', 91)}${chip(125, 'مباراة', 125)}</div><div class="rows">${row('🥇', 'الهداف التاريخي', '✓')}${row('🥈', 'نهائي أمم أوروبا', '×2')}</div>` },
+  { ph: 5, club: 6, glow: '#2a1a1a', html: `<div class="ttl" style="font-size:72px">كأس العالم 2026</div><div class="chips">${chip(6, 'أهداف', 6)}${chip(14, 'هدفًا في كؤوس العالم', 14)}</div><div class="rows">${row('🥇', 'هداف إنجلترا التاريخي في المونديال', '')}</div>` },
+  { ph: 6, club: 6, glow: '#2e2a0c', html: `<div class="ttl" style="font-size:170px">🏆</div><div class="ttl">الكرة الذهبية 2026</div>${SUB('أول إنجليزي يفوز بها منذ 2001')}` },
+  { club: 6, glow: '#2a1a5e', html: `<div class="vs" style="gap:14px;flex-wrap:wrap;justify-content:center">${CLUBS.map((id) => `<img src="${L(id)}" style="width:118px;height:118px">`).join('<span class="x" style="font-size:40px">←</span>')}</div><div class="ttl" style="margin-top:30px">أي محطة هي<br>الأجمل في رأيك؟</div>${SUB('اكتبها في التعليقات 👇')}` },
+];
+// A range of years reads left to right inside Arabic text (2014-2015 showed as 2015-2014).
+const ltrYears = (t) => String(t).replace(/(\d{4})\s*-\s*(\d{4})/g, '\u2066$1-$2\u2069');
+const PH = window.PHOTOS || [];
+document.getElementById('ph').innerHTML = PH.map((p, i) => `<img id="ph${i}" src="ph/${String(p.n).padStart(2, '0')}.jpg">`).join('');
+const HOOK_CREDIT = document.getElementById('credit').textContent;
+document.getElementById('scenes').innerHTML = SC.map((s, i) => `<div class="scene" id="sc${i}" style="opacity:0">${s.html}</div>`).join('');
+const strip = document.getElementById('strip');
+CLUBS.forEach((id, i) => { const d = document.createElement('div'); d.className = 'lg'; d.id = 'lg' + i; d.style.right = `${40 + i * (840 / (CLUBS.length - 1))}px`; d.innerHTML = `<img src="${L(id)}">`; strip.appendChild(d); });
+const ease = (x) => (x <= 0 ? 0 : x >= 1 ? 1 : 1 - Math.pow(1 - x, 3));
+const back = (x) => { x = Math.max(0, Math.min(1, x)); const c = 1.7; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+let T = null; window.setTimeline = (tl) => { T = tl; };
+window.draw = (t) => {
+  const seg = T.seg; let k = 0; for (let i = 0; i < seg.length; i++) if (t >= seg[i][0] - 0.25) k = i;
+  const local = t - (seg[k][0] - 0.25);
+  // the hook: photo zooms in at once, the name and the badges pop in within the first second and a half
+  const hk = document.getElementById('hook'), ht = t;
+  hk.style.opacity = k === 0 ? 1 : 0;
+  hk.querySelector('.ph').style.transform = `scale(${0.75 + 0.25 * back(ht / 0.6) + 0.03 * ht / 8})`;
+  hk.querySelector('.nm').style.opacity = ease((ht - 0.2) / 0.4); hk.querySelector('.nm').style.transform = `translateY(${(1 - ease((ht - 0.2) / 0.4)) * 40}px)`;
+  [...hk.querySelectorAll('.bd div')].forEach((b, i) => { const p = back((ht - 0.5 - i * 0.22) / 0.4); b.style.opacity = Math.min(1, Math.max(0, p)); b.style.transform = `scale(${Math.max(0, p)})`; });
+  // the photo behind the scene: a slow zoom, crossfading with the next one, its credit at the bottom
+  const cur = SC[k].ph;
+  PH.forEach((p, i) => { const el = document.getElementById('ph' + i); if (!el) return;
+    const on = i === cur; const q = on ? ease(local / 0.7) : 0; el.style.opacity = q;
+    const span = (seg[k][1] || seg[k][0] + 8) - seg[k][0] + 0.5; el.style.transform = `scale(${1.04 + 0.1 * Math.min(1, local / span)})`; });
+  document.getElementById('phv').style.opacity = cur != null ? 1 : 0;
+  const cr = document.getElementById('credit');
+  if (k === 0) { cr.textContent = HOOK_CREDIT; cr.style.opacity = 1; }
+  else if (cur != null && PH[cur]) { cr.textContent = `Photo: ${PH[cur].artist}, ${PH[cur].license}, via Wikimedia Commons`; cr.style.opacity = 1; }
+  else cr.style.opacity = 0;
+  // the strip appears after the hook; passed clubs lit, the current one big
+  const club = SC[k].club;
+  strip.style.opacity = k === 0 ? 0 : 1;
+  CLUBS.forEach((_, i) => { const el = document.getElementById('lg' + i); const cur = i === club, past = i < club;
+    el.style.opacity = cur || past ? 1 : 0.3; el.style.transform = `scale(${cur ? 1.25 : 1})`; el.style.borderColor = cur ? '#ffd84a' : past ? '#22e9ff' : 'rgba(255,255,255,.18)'; });
+  const span = 840 / (CLUBS.length - 1), fillTo = club < 0 ? 0 : Math.min(CLUBS.length - 1, club) * span;
+  document.getElementById('fill').style.width = `${fillTo}px`;
+  document.getElementById('bg').style.setProperty('--glow', SC[k].glow || '#2a1a5e');
+  // scenes: the current one slides in, numbers count up
+  SC.forEach((_, i) => { const el = document.getElementById('sc' + i); if (i !== k || i === 0) { el.style.opacity = 0; return; }
+    const p = ease(local / 0.45); el.style.opacity = p; el.style.transform = `translateY(${(1 - p) * 60}px)`;
+    const big = el.querySelector('.big'); if (big) big.style.transform = `scale(${0.6 + 0.4 * back(local / 0.55)}) rotate(${(1 - ease(local / 0.6)) * -12}deg)`;
+    el.querySelectorAll('[data-n]').forEach((b) => { const n = Number(b.dataset.n); if (n) b.textContent = String(Math.round(n * ease((local - 0.2) / 1.0))); });
+    [...el.querySelectorAll('.row,.chip')].forEach((r, j) => { const q = ease((local - 0.3 - j * 0.15) / 0.4); r.style.opacity = q; r.style.transform = `translateX(${(1 - q) * -50}px)`; }); });
+  const c = T.caps.find((x) => t >= x[0] && t < x[1]);
+  document.getElementById('cap').textContent = c ? ltrYears(c[2]) : ''; document.querySelector('.cap').style.opacity = c ? 1 : 0;
+};
+</script></body></html>
