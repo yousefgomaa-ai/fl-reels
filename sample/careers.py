@@ -50,3 +50,4 @@ for d in sorted(glob.glob('sample/career/*/')):
             except Exception as e:
                 print(d, i, t, 'failed', e)
         json.dump(cred, open(d + 'ph/credits.json', 'w'), ensure_ascii=False, indent=1)
+
