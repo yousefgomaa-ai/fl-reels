@@ -1,0 +1,15 @@
+# Where the latest reels stand on the site (made, posted, failed), read by hand when one seems stuck (2026-10-28).
+# Read-only: job ids and states only, never a token.
+name: Reels status
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  status:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - env:
+          REELS_KEY: ${{ secrets.REELS_KEY }}
+        run: curl -sS -G --max-time 60 "https://api.football-legend.com/v2/reels/status" --data-urlencode "key=$REELS_KEY" | jq '{now, approvalOn, reels}'
