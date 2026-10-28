@@ -3,6 +3,9 @@
 name: Reels status
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [.github/workflows/status.yml]
 permissions:
   contents: read
 jobs:
@@ -12,4 +15,9 @@ jobs:
     steps:
       - env:
           REELS_KEY: ${{ secrets.REELS_KEY }}
-        run: curl -sS -G --max-time 60 "https://api.football-legend.com/v2/reels/status" --data-urlencode "key=$REELS_KEY" | jq '{now, approvalOn, reels: [.reels[] | {id, status, ytQueuedAt}], youtube}'
+        run: |
+          curl -sS -G --max-time 60 "https://api.football-legend.com/v2/reels/status" --data-urlencode "key=$REELS_KEY" | jq '{now, approvalOn, reels: [.reels[] | {id, status, ytQueuedAt}], youtube}'
+      - env:
+          REELS_KEY: ${{ secrets.REELS_KEY }}
+        run: |
+          curl -sS -G --max-time 60 "https://api.football-legend.com/v2/errors" --data-urlencode "key=$REELS_KEY" | jq '{day, groups: [.groups[] | select(.group | test("reel|path|youtube"))], samples: [.samples[]? | tostring | select(test("reel|path"))][0:10]}'
