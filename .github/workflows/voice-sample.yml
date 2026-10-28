@@ -4,7 +4,7 @@ name: Voice sample
 on:
   push:
     branches: [voice-sample]
-    paths: [sample/gemini.txt, sample/puck.txt, sample/photo.txt, sample/logos.txt, sample/whole.txt, sample/accent.json, sample/players.txt, sample/photos.txt]
+    paths: [sample/gemini.txt, sample/puck.txt, sample/photo.txt, sample/logos.txt, sample/whole.txt, sample/accent.json, sample/players.txt, sample/photos.txt, 'sample/career/**']
 permissions:
   contents: write
 jobs:
@@ -155,10 +155,18 @@ jobs:
         if: hashFiles('sample/photos.txt') != ''
         continue-on-error: true
         run: python3 sample/photos.py
+      - name: Career videos (voice in one reading, scene photos), only what is missing
+        if: hashFiles('sample/career/**') != ''
+        continue-on-error: true
+        env:
+          REELS_KEY: ${{ secrets.REELS_KEY }}
+        run: |
+          pip install -q faster-whisper
+          python3 sample/careers.py
       - name: Keep the audio on this branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add sample/pl 2>/dev/null || true; git add sample/ph 2>/dev/null || true; git add sample/acc-*.mp3 2>/dev/null || true; git add sample/whole.mp3 sample/whole.json sample/photo.jpg sample/photo.json sample/logo-*.png 2>/dev/null || true
+          git add sample/pl 2>/dev/null || true; git add sample/career 2>/dev/null || true; git add sample/ph 2>/dev/null || true; git add sample/acc-*.mp3 2>/dev/null || true; git add sample/whole.mp3 sample/whole.json sample/photo.jpg sample/photo.json sample/logo-*.png 2>/dev/null || true
           git commit -m "Gemini voice sample audio" || exit 0
           for t in 1 2 3 4; do git push && break; sleep $((t * 5)); done
