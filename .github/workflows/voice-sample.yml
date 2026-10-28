@@ -4,7 +4,7 @@ name: Voice sample
 on:
   push:
     branches: [voice-sample]
-    paths: [sample/gemini.txt, sample/puck.txt, sample/photo.txt, sample/logos.txt, sample/whole.txt, sample/accent.json, sample/players.txt, sample/photos.txt, 'sample/career/**']
+    paths: [sample/gemini.txt, sample/puck.txt, sample/photo.txt, sample/logos.txt, sample/whole.txt, sample/accent.json, sample/players.txt, sample/photos.txt, 'sample/career/**', sample/careers.py]
 permissions:
   contents: write
 jobs:
