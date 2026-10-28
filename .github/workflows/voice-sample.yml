@@ -4,7 +4,7 @@ name: Voice sample
 on:
   push:
     branches: [voice-sample]
-    paths: [sample/gemini.txt, sample/puck.txt]
+    paths: [sample/gemini.txt, sample/puck.txt, sample/photo.txt]
 permissions:
   contents: write
 jobs:
@@ -70,9 +70,20 @@ jobs:
               segs, info = m.transcribe(np.frombuffer(pcm, np.float32), language=None)
               print(f, info.language, '|', ' '.join(s.text.strip() for s in segs))
           PY
+      - name: The photo from Wikimedia Commons, with its author and licence
+        if: hashFiles('sample/photo.txt') != ''
+        run: |
+          set -euo pipefail
+          t=$(head -1 sample/photo.txt)
+          curl -sS -G "https://commons.wikimedia.org/w/api.php" -A "FootballLegends/1.0 (football-legend.com)" \
+            --data-urlencode action=query --data-urlencode format=json --data-urlencode prop=imageinfo \
+            --data-urlencode "iiprop=url|extmetadata" --data-urlencode iiurlwidth=1080 --data-urlencode "titles=$t" > sample/photo.json
+          u=$(jq -r '.query.pages[].imageinfo[0].thumburl' sample/photo.json)
+          curl -sS -L -A "FootballLegends/1.0 (football-legend.com)" -o sample/photo.jpg "$u"
+          jq -r '.query.pages[].imageinfo[0].extmetadata | "\(.Artist.value) | \(.LicenseShortName.value)"' sample/photo.json
       - name: Keep the audio on this branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add sample/g-*.mp3 sample/p-*.mp3 2>/dev/null || git add sample/p-*.mp3 || true
+          git add sample/p-*.mp3 sample/photo.jpg sample/photo.json 2>/dev/null || true
           git commit -m "Gemini voice sample audio" && git push || echo "nothing to keep"
