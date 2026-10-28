@@ -15,6 +15,6 @@ SC = r'''
   { ph: 3, club: 5, glow: '#10284a', html: `<div class="yrs" style="font-size:90px">2025-2026</div><div class="rows">${row('🏆', 'كأس الرابطة الإنجليزية', '✓')}${row('🏆', 'كأس الاتحاد الإنجليزي', '✓')}${row('⚽', 'هدفان في نصف نهائي الرابطة', '✓')}</div>` },
   { ph: 3, club: 5, glow: '#10284a', html: head(8456, 'مانشستر سيتي', '2025 - 2026', MCI) + `<div class="chips">${chip(16, 'هدفًا', 16)}${chip(62, 'مباراة', 62)}</div>` },
   { club: 6, glow: '#101a44', html: head(8586, 'توتنهام', 'منذ صيف 2026 • إعارة', 'rgba(19,34,87,.6)') },
-  { ph: 4, club: 7, glow: '#3a1010', html: head(10255, 'منتخب مصر', '', EGY) + `<div class="chips">${chip(12, 'هدفًا', 12)}${chip(58, 'مباراة', 58)}</div><div class="rows">${row('🌍', 'كأس العالم 2026', '✓')}${row('🏆', 'أمم أفريقيا', '3 مشاركات')}</div>` },
+  { ph: 4, club: 7, glow: '#3a1010', html: head(10255, 'منتخب مصر', '', EGY) + `<div class="chips">${chip(12, 'هدفًا', 12)}${chip(58, 'مباراة', 58)}</div><div class="rows">${row('🌍', 'كأس العالم الأخيرة', '✓')}${row('🏆', 'أمم أفريقيا', '3 مشاركات')}</div>` },
   { club: 7, glow: '#2a1a5e', html: `<div class="vs" style="gap:12px;flex-wrap:wrap;justify-content:center">${CLUBS.map((id) => `<img src="${L(id)}" style="width:104px;height:104px">`).join('<span class="x" style="font-size:36px">←</span>')}</div><div class="ttl" style="margin-top:30px">أي محطة هي<br>الأجمل في رأيك؟</div>${SUB('اكتبها في التعليقات 👇')}` },
 '''
