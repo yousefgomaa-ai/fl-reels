@@ -64,9 +64,10 @@ jobs:
           body=$(python3 -c "import json;l=[x.strip() for x in open('sample/whole.txt') if x.strip()];print(json.dumps({'text':'\n\n'.join(l),'voice':'Puck','lang':'ar-EG'}))")
           echo "body bytes: ${#body}"; echo "$body" | head -c 120; echo
           echo "$body" > /tmp/body.json
+          st=$(python3 -c "import urllib.parse;print(urllib.parse.quote(open('sample/whole-style.txt').read().strip(),safe=''))" 2>/dev/null || true)
           for try in 1 2 3; do
             code=$(curl -sS -o sample/whole.wav -w '%{http_code}' --max-time 240 -X POST -H 'Content-Type: application/json' \
-              --data-binary @/tmp/body.json "https://api.football-legend.com/v2/reels/voice?key=$(python3 -c 'import os,urllib.parse;print(urllib.parse.quote(os.environ["REELS_KEY"],safe=""))')&voice=Puck&lang=ar-EG" || echo 000)
+              --data-binary @/tmp/body.json "https://api.football-legend.com/v2/reels/voice?key=$(python3 -c 'import os,urllib.parse;print(urllib.parse.quote(os.environ["REELS_KEY"],safe=""))')&voice=Puck&lang=ar-EG&style=$st" || echo 000)
             [ "$code" = "200" ] && break; echo "try $try: HTTP $code"; head -c 300 sample/whole.wav; echo; sleep 20
           done
           echo "whole: HTTP $code"
@@ -151,4 +152,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add sample/acc-*.mp3 2>/dev/null || true; git add sample/whole.mp3 sample/whole.json sample/photo.jpg sample/photo.json sample/logo-*.png 2>/dev/null || true
-          git commit -m "Gemini voice sample audio" && git push || echo "nothing to keep"
+          git commit -m "Gemini voice sample audio" || exit 0
+          for t in 1 2 3 4; do git push && break; sleep $((t * 5)); done
