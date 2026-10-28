@@ -1,4 +1,4 @@
-# Where the latest reels stand on the site (made, posted, failed), read by hand when one seems stuck (2026-10-28).
+# Where the latest reels stand on the site (made, posted, failed), read by hand when one seems stuck (2026-10-28; read again after the career-video fix).
 # Read-only: job ids and states only, never a token.
 name: Reels status
 on:
