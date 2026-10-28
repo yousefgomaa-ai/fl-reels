@@ -117,5 +117,5 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add sample/p-*.mp3 sample/photo.jpg sample/photo.json sample/logo-*.png sample/whole.mp3 sample/whole.json 2>/dev/null; git add sample/whole.mp3 sample/whole.json 2>/dev/null || true
+          git add sample/whole.mp3 sample/whole.json sample/photo.jpg sample/photo.json sample/logo-*.png 2>/dev/null || true
           git commit -m "Gemini voice sample audio" && git push || echo "nothing to keep"
