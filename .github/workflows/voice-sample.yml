@@ -4,7 +4,7 @@ name: Voice sample
 on:
   push:
     branches: [voice-sample]
-    paths: [sample/gemini.txt, sample/puck.txt, sample/photo.txt]
+    paths: [sample/gemini.txt, sample/puck.txt, sample/photo.txt, sample/logos.txt]
 permissions:
   contents: write
 jobs:
@@ -81,9 +81,13 @@ jobs:
           u=$(jq -r '.query.pages[].imageinfo[0].thumburl' sample/photo.json)
           curl -sS -L -A "FootballLegends/1.0 (football-legend.com)" -o sample/photo.jpg "$u"
           jq -r '.query.pages[].imageinfo[0].extmetadata | "\(.Artist.value) | \(.LicenseShortName.value)"' sample/photo.json
+      - name: Club logos
+        if: hashFiles('sample/logos.txt') != ''
+        run: |
+          for id in $(cat sample/logos.txt); do curl -sS -A "Mozilla/5.0" -o "sample/logo-$id.png" "https://images.fotmob.com/image_resources/logo/teamlogo/$id.png"; file "sample/logo-$id.png"; done
       - name: Keep the audio on this branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add sample/p-*.mp3 sample/photo.jpg sample/photo.json 2>/dev/null || true
+          git add sample/p-*.mp3 sample/photo.jpg sample/photo.json sample/logo-*.png 2>/dev/null || true
           git commit -m "Gemini voice sample audio" && git push || echo "nothing to keep"
