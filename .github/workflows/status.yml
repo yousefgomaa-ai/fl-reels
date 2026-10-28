@@ -12,4 +12,4 @@ jobs:
     steps:
       - env:
           REELS_KEY: ${{ secrets.REELS_KEY }}
-        run: curl -sS -G --max-time 60 "https://api.football-legend.com/v2/reels/status" --data-urlencode "key=$REELS_KEY" | jq '{now, approvalOn, reels}'
+        run: curl -sS -G --max-time 60 "https://api.football-legend.com/v2/reels/status" --data-urlencode "key=$REELS_KEY" | jq '{now, approvalOn, reels: [.reels[] | {id, status, ytQueuedAt}], youtube}'
