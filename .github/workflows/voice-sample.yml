@@ -4,7 +4,7 @@ name: Voice sample
 on:
   push:
     branches: [voice-sample]
-    paths: [sample/gemini.txt, sample/puck.txt, sample/photo.txt, sample/logos.txt]
+    paths: [sample/gemini.txt, sample/puck.txt, sample/photo.txt, sample/logos.txt, sample/whole.txt]
 permissions:
   contents: write
 jobs:
@@ -55,6 +55,32 @@ jobs:
             rm -f "sample/p-$i.wav"
             sleep 8
           done < sample/puck.txt
+      - name: The whole narration in one reading (one voice from start to end)
+        if: hashFiles('sample/whole.txt') != ''
+        env:
+          REELS_KEY: ${{ secrets.REELS_KEY }}
+        run: |
+          set -uo pipefail
+          body=$(python3 -c "import json;l=[x.strip() for x in open('sample/whole.txt') if x.strip()];print(json.dumps({'text':'\n\n'.join(l),'voice':'Puck','lang':'ar-EG'}))")
+          code=$(curl -sS -o sample/whole.wav -w '%{http_code}' --max-time 240 -X POST -H 'Content-Type: application/json' \
+            "https://api.football-legend.com/v2/reels/voice?key=$REELS_KEY&voice=Puck&lang=ar-EG" --data "$body" || echo 000)
+          echo "whole: HTTP $code"
+          if [ "$code" = "200" ]; then ffmpeg -loglevel error -y -i sample/whole.wav -b:a 160k sample/whole.mp3; ffprobe -v error -show_entries format=duration -of csv=p=0 sample/whole.mp3; else cat sample/whole.wav; fi
+          rm -f sample/whole.wav
+          pip install -q faster-whisper
+          python3 - <<'PY'
+          import subprocess, json
+          import numpy as np
+          from faster_whisper import WhisperModel
+          pcm = subprocess.run(['ffmpeg', '-loglevel', 'error', '-i', 'sample/whole.mp3', '-f', 'f32le', '-ac', '1', '-ar', '16000', '-'], capture_output=True, check=True).stdout
+          m = WhisperModel('small', device='cpu', compute_type='int8')
+          segs, info = m.transcribe(np.frombuffer(pcm, np.float32), language='ar', word_timestamps=True)
+          out = []
+          for s in segs:
+              out.append({'s': round(s.start, 2), 'e': round(s.end, 2), 't': s.text.strip(), 'w': [[round(w.start, 2), w.word.strip()] for w in (s.words or [])]})
+              print(round(s.start, 2), round(s.end, 2), s.text.strip())
+          json.dump(out, open('sample/whole.json', 'w'), ensure_ascii=False)
+          PY
       - name: Write down what each clip says (to check nothing extra is read)
         if: hashFiles('sample/p-1.mp3') != ''
         continue-on-error: true
@@ -89,5 +115,5 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add sample/p-*.mp3 sample/photo.jpg sample/photo.json sample/logo-*.png 2>/dev/null || true
+          git add sample/p-*.mp3 sample/photo.jpg sample/photo.json sample/logo-*.png sample/whole.mp3 sample/whole.json 2>/dev/null; git add sample/whole.mp3 sample/whole.json 2>/dev/null || true
           git commit -m "Gemini voice sample audio" && git push || echo "nothing to keep"
