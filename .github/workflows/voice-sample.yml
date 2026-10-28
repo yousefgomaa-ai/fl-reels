@@ -46,7 +46,7 @@ jobs:
             i=$((i+1))
             for t in 1 2 3; do
               code=$(curl -sS -G -o "sample/p-$i.wav" -w '%{http_code}' --max-time 120 "https://api.football-legend.com/v2/reels/voice" \
-                --data-urlencode "key=$REELS_KEY" --data-urlencode "voice=Puck" --data-urlencode "style=$style" --data-urlencode "text=$line" || echo 000)
+                --data-urlencode "key=$REELS_KEY" --data-urlencode "voice=Puck" --data-urlencode "lang=ar-EG" --data-urlencode "style=$style" --data-urlencode "text=$line" || echo 000)
               [ "$code" = "200" ] && break
               echo "line $i try $t: HTTP $code"; sleep 15
             done
