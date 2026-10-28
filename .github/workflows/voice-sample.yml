@@ -4,7 +4,7 @@ name: Voice sample
 on:
   push:
     branches: [voice-sample]
-    paths: [sample/gemini.txt, sample/puck.txt, sample/photo.txt, sample/logos.txt, sample/whole.txt, sample/accent.json]
+    paths: [sample/gemini.txt, sample/puck.txt, sample/photo.txt, sample/logos.txt, sample/whole.txt, sample/accent.json, sample/players.txt]
 permissions:
   contents: write
 jobs:
@@ -147,10 +147,14 @@ jobs:
         if: hashFiles('sample/logos.txt') != ''
         run: |
           for id in $(cat sample/logos.txt); do curl -sS -A "Mozilla/5.0" -o "sample/logo-$id.png" "https://images.fotmob.com/image_resources/logo/teamlogo/$id.png"; file "sample/logo-$id.png"; done
+      - name: Player facts and photos (FotMob career, logos, Commons candidates)
+        if: hashFiles('sample/players.txt') != ''
+        continue-on-error: true
+        run: python3 sample/research.py
       - name: Keep the audio on this branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add sample/acc-*.mp3 2>/dev/null || true; git add sample/whole.mp3 sample/whole.json sample/photo.jpg sample/photo.json sample/logo-*.png 2>/dev/null || true
+          git add sample/acc-*.mp3 sample/pl 2>/dev/null || true; git add sample/whole.mp3 sample/whole.json sample/photo.jpg sample/photo.json sample/logo-*.png 2>/dev/null || true
           git commit -m "Gemini voice sample audio" || exit 0
           for t in 1 2 3 4; do git push && break; sleep $((t * 5)); done
