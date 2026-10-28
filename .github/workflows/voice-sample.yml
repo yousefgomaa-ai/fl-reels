@@ -86,7 +86,7 @@ jobs:
               print(round(s.start, 2), round(s.end, 2), s.text.strip())
           json.dump(out, open('sample/whole.json', 'w'), ensure_ascii=False)
           PY
-      - name: Accent tries (owner, 2026-10-28: he wants the Egyptian accent heard in the Liverpool part)
+      - name: Accent tries (owner, 2026-10-28, the Egyptian accent of the Liverpool part)
         if: hashFiles('sample/accent.json') != ''
         env:
           REELS_KEY: ${{ secrets.REELS_KEY }}
