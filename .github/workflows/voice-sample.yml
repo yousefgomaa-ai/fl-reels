@@ -64,8 +64,11 @@ jobs:
           body=$(python3 -c "import json;l=[x.strip() for x in open('sample/whole.txt') if x.strip()];print(json.dumps({'text':'\n\n'.join(l),'voice':'Puck','lang':'ar-EG'}))")
           echo "body bytes: ${#body}"; echo "$body" | head -c 120; echo
           echo "$body" > /tmp/body.json
-          code=$(curl -sS -o sample/whole.wav -w '%{http_code}' --max-time 240 -X POST -H 'Content-Type: application/json' \
-            --data-binary @/tmp/body.json "https://api.football-legend.com/v2/reels/voice?key=$(python3 -c 'import os,urllib.parse;print(urllib.parse.quote(os.environ["REELS_KEY"],safe=""))')&voice=Puck&lang=ar-EG" || echo 000)
+          for try in 1 2 3; do
+            code=$(curl -sS -o sample/whole.wav -w '%{http_code}' --max-time 240 -X POST -H 'Content-Type: application/json' \
+              --data-binary @/tmp/body.json "https://api.football-legend.com/v2/reels/voice?key=$(python3 -c 'import os,urllib.parse;print(urllib.parse.quote(os.environ["REELS_KEY"],safe=""))')&voice=Puck&lang=ar-EG" || echo 000)
+            [ "$code" = "200" ] && break; echo "try $try: HTTP $code"; head -c 300 sample/whole.wav; echo; sleep 20
+          done
           echo "whole: HTTP $code"
           if [ "$code" = "200" ]; then ffmpeg -loglevel error -y -i sample/whole.wav -b:a 160k sample/whole.mp3; ffprobe -v error -show_entries format=duration -of csv=p=0 sample/whole.mp3; else cat sample/whole.wav; fi
           rm -f sample/whole.wav
