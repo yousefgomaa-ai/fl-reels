@@ -33,18 +33,29 @@ for line in open('sample/players.txt'):
                 except Exception as e: print('logo', t, e)
     except Exception as e:
         print(name, 'fotmob failed', e)
-    time.sleep(5)
-    try:
+    meta = []
+    for k, csq in enumerate([x.strip() for x in cs.split(';') if x.strip()]):
+      time.sleep(5)
+      try:
         q = get('https://commons.wikimedia.org/w/api.php?' + urllib.parse.urlencode({'action': 'query', 'format': 'json', 'generator': 'search',
-            'gsrsearch': cs + ' filetype:bitmap', 'gsrnamespace': 6, 'gsrlimit': 8, 'prop': 'imageinfo', 'iiprop': 'url|extmetadata|size', 'iiurlwidth': 600}))
-        meta = []
+            'gsrsearch': csq + ' filetype:bitmap', 'gsrnamespace': 6, 'gsrlimit': 8, 'prop': 'imageinfo', 'iiprop': 'url|extmetadata|size', 'iiurlwidth': 600}))
         for i, p in enumerate(sorted((q.get('query') or {}).get('pages', {}).values(), key=lambda x: x.get('index', 0))):
             ii = p['imageinfo'][0]; em = ii.get('extmetadata', {})
-            f = f'sample/pl/{slug}-c{i}.jpg'
+            f = f'sample/pl/{slug}-s{k}c{i}.jpg'
             time.sleep(2)
             open(f, 'wb').write(get(ii['thumburl'], True))
-            meta.append({'n': i, 'title': p['title'], 'w': ii.get('width'), 'h': ii.get('height'), 'artist': re.sub('<[^>]+>', '', em.get('Artist', {}).get('value', '')), 'license': em.get('LicenseShortName', {}).get('value', '')})
-        json.dump(meta, open(f'sample/pl/{slug}-photos.json', 'w'), ensure_ascii=False, indent=1)
+            meta.append({'n': f'{k}-{i}', 'title': p['title'], 'w': ii.get('width'), 'h': ii.get('height'), 'artist': re.sub('<[^>]+>', '', em.get('Artist', {}).get('value', '')), 'license': em.get('LicenseShortName', {}).get('value', '')})
         print('  photos', len(meta))
-    except Exception as e:
+      except Exception as e:
         print(name, 'commons failed', e)
+    json.dump(meta, open(f'sample/pl/{slug}-photos.json', 'w'), ensure_ascii=False, indent=1)
+
+# The domestic cups' names in FotMob's day list (owner, 2026-10-28: the EFL Cup is missing on the site).
+for day in ('20261028', '20261029', '20261104'):
+    try:
+        d = get('https://www.fotmob.com/api/data/matches?date=' + day)
+        for l in d.get('leagues') or []:
+            if str(l.get('ccode')).upper() in ('ENG', 'ESP', 'ITA', 'GER', 'FRA', 'EGY', 'KSA'):
+                print('day', day, l.get('ccode'), l.get('primaryId'), l.get('id'), repr(l.get('name')), len(l.get('matches') or []))
+    except Exception as e:
+        print('day', day, 'failed', e)
