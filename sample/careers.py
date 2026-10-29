@@ -19,7 +19,7 @@ for d in sorted(glob.glob('sample/career/*/')):
                 req = urllib.request.Request(f'https://api.football-legend.com/v2/reels/voice?key={KEY}&voice=Puck&lang=ar-EG&style={STYLE}', data=body, headers={'Content-Type': 'application/json', **UA})
                 open('/tmp/v.wav', 'wb').write(urllib.request.urlopen(req, timeout=240).read()); break
             except Exception as e:
-                print(d, 'voice try', attempt + 1, e); time.sleep(20)
+                print(d, 'voice try', attempt + 1, e, (e.read()[:300] if hasattr(e, 'read') else b'')); time.sleep(45)
         else:
             continue
         subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', '/tmp/v.wav', '-b:a', '160k', vm], check=True)
