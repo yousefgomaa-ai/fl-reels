@@ -1,0 +1,1904 @@
+{
+ "id": 770881,
+ "name": "Achraf Hakimi",
+ "birthDate": {
+  "utcTime": "1998-11-04T00:00:00.000Z",
+  "timezone": "UTC"
+ },
+ "primaryTeam": {
+  "teamId": 9847,
+  "teamName": "Paris Saint-Germain",
+  "onLoan": false,
+  "teamColors": {
+   "color": "#273F6D",
+   "colorAlternate": "#245593",
+   "colorAway": "#e30613",
+   "colorAwayAlternate": "#ffffff"
+  }
+ },
+ "careerHistory": {
+  "showFootnote": false,
+  "careerItems": {
+   "senior": {
+    "teamEntries": [
+     {
+      "participantId": 770881,
+      "teamId": 9847,
+      "team": "Paris Saint-Germain",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2021-07-06T00:00:00",
+      "endDate": null,
+      "active": true,
+      "role": null,
+      "appearances": "219",
+      "goals": "28",
+      "assists": "41",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 770881,
+      "teamId": 8636,
+      "team": "Inter",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2020-09-01T00:00:00",
+      "endDate": "2021-07-05T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "45",
+      "goals": "7",
+      "assists": "9",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 770881,
+      "teamId": 9789,
+      "team": "Borussia Dortmund",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": {
+       "text": "on loan",
+       "localizationKey": "on_loan"
+      },
+      "startDate": "2018-07-11T00:00:00",
+      "endDate": "2020-06-30T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "73",
+      "goals": "12",
+      "assists": "17",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 770881,
+      "teamId": 8633,
+      "team": "Real Madrid",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2017-01-01T00:00:00",
+      "endDate": "2018-07-11T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "17",
+      "goals": "2",
+      "assists": "1",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 770881,
+      "teamId": 8367,
+      "team": "Real Madrid Castilla",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2016-07-01T00:00:00",
+      "endDate": "2017-08-21T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "28",
+      "goals": "1",
+      "assists": "0",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 770881,
+      "teamId": 8633,
+      "team": "Real Madrid",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2016-07-01T00:00:00",
+      "endDate": "2016-08-05T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": null,
+      "goals": null,
+      "assists": null,
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2026/2027",
+      "appearances": "12",
+      "goals": "0",
+      "assists": "1",
+      "rating": {
+       "rating": "7.27"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 53,
+        "leagueName": "Ligue 1",
+        "seasonName": "2026/2027",
+        "tournamentId": 37298,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "7",
+        "rating": {
+         "rating": "7.05"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 207,
+        "leagueName": "Trophée des champions",
+        "seasonName": "2026/2027",
+        "tournamentId": -1,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2026/2027",
+        "tournamentId": 47760,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "3",
+        "rating": {
+         "rating": "7.80"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 74,
+        "leagueName": "UEFA Super Cup",
+        "seasonName": "2026/2027",
+        "tournamentId": -1,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 9847,
+      "team": "Paris Saint-Germain",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2025/2026",
+      "appearances": "39",
+      "goals": "5",
+      "assists": "10",
+      "rating": {
+       "rating": "7.40"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 53,
+        "leagueName": "Ligue 1",
+        "seasonName": "2025/2026",
+        "tournamentId": 27212,
+        "goals": "2",
+        "assists": "2",
+        "appearances": "18",
+        "rating": {
+         "rating": "7.18"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2025/2026",
+        "tournamentId": 28184,
+        "goals": "1",
+        "assists": "6",
+        "appearances": "13",
+        "rating": {
+         "rating": "7.67"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 74,
+        "leagueName": "UEFA Super Cup",
+        "seasonName": "2025/2026",
+        "tournamentId": 34901,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "8.02"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 78,
+        "leagueName": "FIFA Club World Cup",
+        "seasonName": "2025",
+        "tournamentId": 24449,
+        "goals": "2",
+        "assists": "2",
+        "appearances": "7",
+        "rating": {
+         "rating": "7.61"
+        }
+       }
+      ],
+      "teamId": 9847,
+      "team": "Paris Saint-Germain",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024/2025",
+      "appearances": "48",
+      "goals": "9",
+      "assists": "12",
+      "rating": {
+       "rating": "7.85"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 53,
+        "leagueName": "Ligue 1",
+        "seasonName": "2024/2025",
+        "tournamentId": 23724,
+        "goals": "4",
+        "assists": "6",
+        "appearances": "25",
+        "rating": {
+         "rating": "7.91"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 207,
+        "leagueName": "Trophée des champions",
+        "seasonName": "2024/2025",
+        "tournamentId": 28515,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 134,
+        "leagueName": "Coupe de France",
+        "seasonName": "2024/2025",
+        "tournamentId": 24294,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "5",
+        "rating": {
+         "rating": "7.57"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2024/2025",
+        "tournamentId": 24110,
+        "goals": "4",
+        "assists": "5",
+        "appearances": "17",
+        "rating": {
+         "rating": "7.87"
+        }
+       }
+      ],
+      "teamId": 9847,
+      "team": "Paris Saint-Germain",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023/2024",
+      "appearances": "40",
+      "goals": "5",
+      "assists": "7",
+      "rating": {
+       "rating": "7.50"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 53,
+        "leagueName": "Ligue 1",
+        "seasonName": "2023/2024",
+        "tournamentId": 20868,
+        "goals": "4",
+        "assists": "5",
+        "appearances": "25",
+        "rating": {
+         "rating": "7.48"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 207,
+        "leagueName": "Trophée des champions",
+        "seasonName": "2023/2024",
+        "tournamentId": 23589,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "7.94"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 134,
+        "leagueName": "Coupe de France",
+        "seasonName": "2023/2024",
+        "tournamentId": 22192,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "3",
+        "rating": {
+         "rating": "7.91"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2023/2024",
+        "tournamentId": 20961,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "11",
+        "rating": {
+         "rating": "7.40"
+        }
+       }
+      ],
+      "teamId": 9847,
+      "team": "Paris Saint-Germain",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2022/2023",
+      "appearances": "39",
+      "goals": "5",
+      "assists": "5",
+      "rating": {
+       "rating": "7.26"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 53,
+        "leagueName": "Ligue 1",
+        "seasonName": "2022/2023",
+        "tournamentId": 17810,
+        "goals": "5",
+        "assists": "3",
+        "appearances": "28",
+        "rating": {
+         "rating": "7.33"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 207,
+        "leagueName": "Trophée des champions",
+        "seasonName": "2022/2023",
+        "tournamentId": 20724,
+        "goals": "0",
+        "assists": "undefined",
+        "appearances": "1",
+        "rating": {
+         "rating": "8.74"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 134,
+        "leagueName": "Coupe de France",
+        "seasonName": "2022/2023",
+        "tournamentId": 18310,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "6.86"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2022/2023",
+        "tournamentId": 17697,
+        "goals": "0",
+        "assists": "2",
+        "appearances": "8",
+        "rating": {
+         "rating": "6.93"
+        }
+       }
+      ],
+      "teamId": 9847,
+      "team": "Paris Saint-Germain",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2021/2022",
+      "appearances": "41",
+      "goals": "4",
+      "assists": "6",
+      "rating": {
+       "rating": "7.25"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 53,
+        "leagueName": "Ligue 1",
+        "seasonName": "2021/2022",
+        "tournamentId": 16499,
+        "goals": "4",
+        "assists": "6",
+        "appearances": "32",
+        "rating": {
+         "rating": "7.33"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 207,
+        "leagueName": "Trophée des champions",
+        "seasonName": "2021/2022",
+        "tournamentId": 17620,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "7.30"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2021/2022",
+        "tournamentId": 16407,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "8",
+        "rating": {
+         "rating": "6.96"
+        }
+       }
+      ],
+      "teamId": 9847,
+      "team": "Paris Saint-Germain",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2020/2021",
+      "appearances": "45",
+      "goals": "7",
+      "assists": "9",
+      "rating": {
+       "rating": "7.12"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 55,
+        "leagueName": "Serie A",
+        "seasonName": "2020/2021",
+        "tournamentId": 15604,
+        "goals": "7",
+        "assists": "8",
+        "appearances": "37",
+        "rating": {
+         "rating": "7.24"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 141,
+        "leagueName": "Coppa Italia",
+        "seasonName": "2020/2021",
+        "tournamentId": 15629,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": "6.80"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2020/2021",
+        "tournamentId": 15237,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "5",
+        "rating": {
+         "rating": "6.43"
+        }
+       }
+      ],
+      "teamId": 8636,
+      "team": "Inter",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019/2020",
+      "appearances": "45",
+      "goals": "9",
+      "assists": "10",
+      "rating": {
+       "rating": "7.33"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 54,
+        "leagueName": "Bundesliga",
+        "seasonName": "2019/2020",
+        "tournamentId": 14144,
+        "goals": "5",
+        "assists": "10",
+        "appearances": "33",
+        "rating": {
+         "rating": "7.29"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 209,
+        "leagueName": "DFB Pokal",
+        "seasonName": "2019/2020",
+        "tournamentId": 14035,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 8924,
+        "leagueName": "Super Cup",
+        "seasonName": "2019/2020",
+        "tournamentId": 15329,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2019/2020",
+        "tournamentId": 14006,
+        "goals": "4",
+        "assists": "0",
+        "appearances": "8",
+        "rating": {
+         "rating": "7.52"
+        }
+       }
+      ],
+      "teamId": 9789,
+      "team": "Borussia Dortmund",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": {
+       "text": "on loan",
+       "localizationKey": "on_loan"
+      }
+     },
+     {
+      "seasonName": "2018/2019",
+      "appearances": "28",
+      "goals": "3",
+      "assists": "7",
+      "rating": {
+       "rating": "7.14"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 54,
+        "leagueName": "Bundesliga",
+        "seasonName": "2018/2019",
+        "tournamentId": 12876,
+        "goals": "2",
+        "assists": "4",
+        "appearances": "21",
+        "rating": {
+         "rating": "7.15"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 209,
+        "leagueName": "DFB Pokal",
+        "seasonName": "2018/2019",
+        "tournamentId": 12743,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2018/2019",
+        "tournamentId": 12764,
+        "goals": "0",
+        "assists": "3",
+        "appearances": "5",
+        "rating": {
+         "rating": "7.10"
+        }
+       }
+      ],
+      "teamId": 9789,
+      "team": "Borussia Dortmund",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": {
+       "text": "on loan",
+       "localizationKey": "on_loan"
+      }
+     },
+     {
+      "seasonName": "2017/2018",
+      "appearances": "17",
+      "goals": "2",
+      "assists": "1",
+      "rating": {
+       "rating": "7.05"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2017/2018",
+        "tournamentId": 11742,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "9",
+        "rating": {
+         "rating": "7.23"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 138,
+        "leagueName": "Copa del Rey",
+        "seasonName": "2017/2018",
+        "tournamentId": 11811,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "5",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2017/2018",
+        "tournamentId": 11542,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "6.29"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 10703,
+        "leagueName": "FIFA Intercontinental Cup",
+        "seasonName": "2017",
+        "tournamentId": -1,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8633,
+      "team": "Real Madrid",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2016/2017",
+      "appearances": "28",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueName": "Primera División RFEF",
+        "seasonName": "2016/2017",
+        "tournamentId": -1,
+        "goals": "1",
+        "assists": "undefined",
+        "appearances": "28",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8367,
+      "team": "Real Madrid Castilla",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   },
+   "youth": {
+    "teamEntries": [
+     {
+      "participantId": 770881,
+      "teamId": 603058,
+      "team": "Real Madrid U19",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2015-07-01T00:00:00",
+      "endDate": "2017-06-30T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "16",
+      "goals": "3",
+      "assists": "0",
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2016/2017",
+      "appearances": "6",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 9741,
+        "leagueName": "UEFA Youth League",
+        "seasonName": "2016/2017",
+        "tournamentId": -1,
+        "goals": "1",
+        "assists": "undefined",
+        "appearances": "6",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 603058,
+      "team": "Real Madrid U19",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2015/2016",
+      "appearances": "10",
+      "goals": "2",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 9741,
+        "leagueName": "UEFA Youth League",
+        "seasonName": "2015/2016",
+        "tournamentId": -1,
+        "goals": "2",
+        "assists": "undefined",
+        "appearances": "10",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 603058,
+      "team": "Real Madrid U19",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   },
+   "national team": {
+    "teamEntries": [
+     {
+      "participantId": 770881,
+      "teamId": 6262,
+      "team": "Morocco",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2016-01-01T00:00:00",
+      "endDate": null,
+      "active": true,
+      "role": null,
+      "appearances": "92",
+      "goals": "12",
+      "assists": "15",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 770881,
+      "teamId": 316155,
+      "team": "Morocco U23",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2024-07-04T00:00:00",
+      "endDate": "2024-12-31T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "6",
+      "goals": "2",
+      "assists": "1",
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2026/2027",
+      "appearances": "1",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": "6.21"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10608,
+        "leagueName": "Africa Cup of Nations Qualification",
+        "seasonName": "2026/2027",
+        "tournamentId": 32101,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "6.21"
+        }
+       }
+      ],
+      "teamId": 6262,
+      "team": "Morocco",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2026",
+      "appearances": "9",
+      "goals": "1",
+      "assists": "5",
+      "rating": {
+       "rating": "7.77"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 77,
+        "leagueName": "World Cup",
+        "seasonName": "2026",
+        "tournamentId": 24254,
+        "goals": "1",
+        "assists": "2",
+        "appearances": "6",
+        "rating": {
+         "rating": "7.78"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2026",
+        "tournamentId": 29822,
+        "goals": "0",
+        "assists": "3",
+        "appearances": "3",
+        "rating": {
+         "rating": "7.77"
+        }
+       }
+      ],
+      "teamId": 6262,
+      "team": "Morocco",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2025/2026",
+      "appearances": "5",
+      "goals": "0",
+      "assists": "1",
+      "rating": {
+       "rating": "7.51"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 289,
+        "leagueName": "Africa Cup of Nations",
+        "seasonName": "2025/2026",
+        "tournamentId": 24309,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "5",
+        "rating": {
+         "rating": "7.51"
+        }
+       }
+      ],
+      "teamId": 6262,
+      "team": "Morocco",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2025",
+      "appearances": "3",
+      "goals": "1",
+      "assists": "1",
+      "rating": {
+       "rating": "8.61"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2025",
+        "tournamentId": 24481,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "3",
+        "rating": {
+         "rating": "8.61"
+        }
+       }
+      ],
+      "teamId": 6262,
+      "team": "Morocco",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024",
+      "appearances": "11",
+      "goals": "2",
+      "assists": "2",
+      "rating": {
+       "rating": "7.73"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 289,
+        "leagueName": "Africa Cup of Nations",
+        "seasonName": "2024",
+        "tournamentId": 22109,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.70"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 10608,
+        "leagueName": "Africa Cup of Nations Qualification",
+        "seasonName": "2024",
+        "tournamentId": -1,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "5",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2024",
+        "tournamentId": 22275,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "7.80"
+        }
+       }
+      ],
+      "teamId": 6262,
+      "team": "Morocco",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023/2025",
+      "appearances": "6",
+      "goals": "0",
+      "assists": "3",
+      "rating": {
+       "rating": "7.99"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10196,
+        "leagueName": "World Cup Qualification CAF",
+        "seasonName": "2023/2025",
+        "tournamentId": 21577,
+        "goals": "0",
+        "assists": "3",
+        "appearances": "6",
+        "rating": {
+         "rating": "7.99"
+        }
+       }
+      ],
+      "teamId": 6262,
+      "team": "Morocco",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023",
+      "appearances": "4",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": "7.34"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2023",
+        "tournamentId": 18498,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.34"
+        }
+       }
+      ],
+      "teamId": 6262,
+      "team": "Morocco",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2022/2023",
+      "appearances": "4",
+      "goals": "0",
+      "assists": "1",
+      "rating": {
+       "rating": "7.57"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10608,
+        "leagueName": "Africa Cup of Nations Qualification",
+        "seasonName": "2022/2023",
+        "tournamentId": 23214,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.57"
+        }
+       }
+      ],
+      "teamId": 6262,
+      "team": "Morocco",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2022",
+      "appearances": "16",
+      "goals": "2",
+      "assists": "1",
+      "rating": {
+       "rating": "7.39"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 289,
+        "leagueName": "Africa Cup of Nations",
+        "seasonName": "2022",
+        "tournamentId": 16803,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "5",
+        "rating": {
+         "rating": "7.91"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 77,
+        "leagueName": "World Cup",
+        "seasonName": "2022",
+        "tournamentId": 15338,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "7",
+        "rating": {
+         "rating": "7.27"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2022",
+        "tournamentId": 17169,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": "6.98"
+        }
+       }
+      ],
+      "teamId": 6262,
+      "team": "Morocco",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2021",
+      "appearances": "2",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2021",
+        "tournamentId": 15943,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6262,
+      "team": "Morocco",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2020",
+      "appearances": "2",
+      "goals": "0",
+      "assists": "1",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2020",
+        "tournamentId": 14773,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6262,
+      "team": "Morocco",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019/2022",
+      "appearances": "7",
+      "goals": "2",
+      "assists": "0",
+      "rating": {
+       "rating": "7.32"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10196,
+        "leagueName": "World Cup Qualification CAF",
+        "seasonName": "2019/2022",
+        "tournamentId": 17236,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "7",
+        "rating": {
+         "rating": "7.32"
+        }
+       }
+      ],
+      "teamId": 6262,
+      "team": "Morocco",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019/2021",
+      "appearances": null,
+      "goals": "2",
+      "assists": null,
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10608,
+        "leagueName": "Africa Cup of Nations Qualification",
+        "seasonName": "2019/2021",
+        "tournamentId": 23213,
+        "goals": "2",
+        "assists": null,
+        "appearances": null,
+        "rating": {
+         "rating": "7.41"
+        }
+       }
+      ],
+      "teamId": 6262,
+      "team": "Morocco",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019",
+      "appearances": "8",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": "7.32"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 289,
+        "leagueName": "Africa Cup of Nations",
+        "seasonName": "2019",
+        "tournamentId": 13796,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.32"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2019",
+        "tournamentId": 13365,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6262,
+      "team": "Morocco",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2018",
+      "appearances": "8",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": "7.08"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 77,
+        "leagueName": "World Cup",
+        "seasonName": "2018",
+        "tournamentId": 9731,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": "7.08"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2018",
+        "tournamentId": 11352,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "5",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6262,
+      "team": "Morocco",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2017",
+      "appearances": "1",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2017",
+        "tournamentId": 10882,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6262,
+      "team": "Morocco",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2016",
+      "appearances": "1",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2016",
+        "tournamentId": 10041,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6262,
+      "team": "Morocco",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2015/2017",
+      "appearances": "4",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": "7.29"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10196,
+        "leagueName": "World Cup Qualification CAF",
+        "seasonName": "2015/2017",
+        "tournamentId": 17235,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.29"
+        }
+       }
+      ],
+      "teamId": 6262,
+      "team": "Morocco",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024",
+      "appearances": "6",
+      "goals": "2",
+      "assists": "1",
+      "rating": {
+       "rating": "7.90"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 66,
+        "leagueName": "Summer Olympics",
+        "seasonName": "2024",
+        "tournamentId": 23037,
+        "goals": "2",
+        "assists": "1",
+        "appearances": "6",
+        "rating": {
+         "rating": "7.90"
+        }
+       }
+      ],
+      "teamId": 316155,
+      "team": "Morocco U23",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   }
+  },
+  "fullCareer": true
+ },
+ "trophies": {
+  "playerTrophies": [
+   {
+    "ccode": "INT",
+    "teamId": 6262,
+    "teamName": "Morocco",
+    "tournaments": [
+     {
+      "ccode": "INT",
+      "leagueId": 289,
+      "leagueName": "Africa Cup of Nations",
+      "seasonsWon": [
+       "2025 Morocco"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 10242,
+      "leagueName": "FIFA Arab Cup",
+      "seasonsWon": [
+       "2025 Qatar"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   },
+   {
+    "ccode": "FRA",
+    "teamId": 9847,
+    "teamName": "Paris Saint-Germain",
+    "tournaments": [
+     {
+      "ccode": "FRA",
+      "leagueId": 207,
+      "leagueName": "Trophée des Champions",
+      "seasonsWon": [
+       "2025/2026",
+       "2024/2025",
+       "2023/2024",
+       "2022/2023"
+      ],
+      "seasonsRunnerUp": [
+       "2026/2027",
+       "2021/2022"
+      ]
+     },
+     {
+      "ccode": "FRA",
+      "leagueId": 134,
+      "leagueName": "Coupe de France",
+      "seasonsWon": [
+       "2024/2025",
+       "2023/2024"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 42,
+      "leagueName": "Champions League",
+      "seasonsWon": [
+       "2025/2026",
+       "2024/2025"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 74,
+      "leagueName": "UEFA Super Cup",
+      "seasonsWon": [
+       "2026/2027",
+       "2025/2026"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 10703,
+      "leagueName": "FIFA Intercontinental Cup",
+      "seasonsWon": [
+       "2025"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "FRA",
+      "leagueId": 53,
+      "leagueName": "Ligue 1",
+      "seasonsWon": [
+       "2025/2026",
+       "2024/2025",
+       "2023/2024",
+       "2022/2023",
+       "2021/2022"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   },
+   {
+    "ccode": "ITA",
+    "teamId": 8636,
+    "teamName": "Inter",
+    "tournaments": [
+     {
+      "ccode": "ITA",
+      "leagueId": 55,
+      "leagueName": "Serie A",
+      "seasonsWon": [
+       "2020/2021"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   },
+   {
+    "ccode": "GER",
+    "teamId": 9789,
+    "teamName": "Borussia Dortmund",
+    "tournaments": [
+     {
+      "ccode": "GER",
+      "leagueId": 8924,
+      "leagueName": "Super Cup",
+      "seasonsWon": [
+       "2019/2020"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   },
+   {
+    "ccode": "ESP",
+    "teamId": 8633,
+    "teamName": "Real Madrid",
+    "tournaments": [
+     {
+      "ccode": "ESP",
+      "leagueId": 87,
+      "leagueName": "LaLiga",
+      "seasonsWon": [
+       "2016/2017"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 42,
+      "leagueName": "Champions League",
+      "seasonsWon": [
+       "2017/2018",
+       "2016/2017"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 74,
+      "leagueName": "UEFA Super Cup",
+      "seasonsWon": [
+       "2017/2018"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 78,
+      "leagueName": "FIFA Club World Cup",
+      "seasonsWon": [
+       "2017 UAE"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "ESP",
+      "leagueId": 139,
+      "leagueName": "Supercopa de España",
+      "seasonsWon": [
+       "2017/2018"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   },
+   {
+    "ccode": "ESP",
+    "teamId": 603058,
+    "teamName": "Real Madrid U19",
+    "tournaments": [
+     {
+      "ccode": "ESP",
+      "leagueId": -1,
+      "leagueName": "Copa del Rey Juvenil",
+      "seasonsWon": [
+       "2017"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "ESP",
+      "leagueId": -1,
+      "leagueName": "División de Honor Juvenil",
+      "seasonsWon": [
+       "2016/2017"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   }
+  ],
+  "coachTrophies": []
+ },
+ "playerInformation": [
+  {
+   "value": {
+    "numberValue": 181,
+    "key": null,
+    "fallback": "181 cm"
+   },
+   "title": "Height",
+   "translationKey": "height_sentencecase"
+  },
+  {
+   "value": {
+    "numberValue": 2,
+    "options": {},
+    "key": null,
+    "fallback": 2
+   },
+   "title": "Shirt",
+   "translationKey": "shirt"
+  },
+  {
+   "value": {
+    "numberValue": 27,
+    "options": {
+     "style": "unit",
+     "unit": "year",
+     "unitDisplay": "long"
+    },
+    "key": null,
+    "fallback": "27"
+   },
+   "title": "Age",
+   "translationKey": "age_sentencecase"
+  },
+  {
+   "value": {
+    "key": "right",
+    "fallback": "Right"
+   },
+   "title": "Preferred foot",
+   "translationKey": "preferred_foot"
+  },
+  {
+   "value": {
+    "key": null,
+    "fallback": "Morocco"
+   },
+   "title": "Country",
+   "translationKey": "country_sentencecase",
+   "icon": {
+    "type": "country",
+    "id": "MAR"
+   },
+   "countryCode": "MAR",
+   "nationalTeamId": 6262
+  },
+  {
+   "value": {
+    "numberValue": 82789688,
+    "key": null,
+    "fallback": "€82.8m"
+   },
+   "title": "Market value",
+   "translationKey": "transfer_value"
+  },
+  {
+   "value": {
+    "dateValue": "2029-06-30",
+    "key": null,
+    "fallback": {
+     "utcTime": "2029-06-30T00:00:00.000Z",
+     "timezone": "UTC"
+    }
+   },
+   "title": "Contract end",
+   "translationKey": "contract_end"
+  }
+ ],
+ "mainLeague": {
+  "leagueId": 53,
+  "leagueName": "Ligue 1",
+  "season": "2026/2027",
+  "stats": [
+   {
+    "title": "Goals",
+    "localizedTitleId": "goals",
+    "value": 0
+   },
+   {
+    "title": "Assists",
+    "localizedTitleId": "assists",
+    "value": 0
+   },
+   {
+    "title": "Started",
+    "localizedTitleId": "started",
+    "value": 6
+   },
+   {
+    "title": "Matches",
+    "localizedTitleId": "matches_uppercase",
+    "value": 7
+   },
+   {
+    "title": "Minutes played",
+    "localizedTitleId": "minutes_played",
+    "value": 498
+   },
+   {
+    "title": "Rating",
+    "localizedTitleId": "rating",
+    "value": 7.05
+   },
+   {
+    "title": "Yellow cards",
+    "localizedTitleId": "yellow_cards",
+    "value": 1
+   },
+   {
+    "title": "Red cards",
+    "localizedTitleId": "red_cards",
+    "value": 0
+   }
+  ]
+ }
+}
