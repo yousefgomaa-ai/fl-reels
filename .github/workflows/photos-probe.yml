@@ -2,7 +2,7 @@ name: photos-probe
 on:
   push:
     branches: [photos-probe]
-    paths: [probe/sheets.py, probe/stars.txt]
+    paths: [probe/fetch.txt]
 permissions:
   contents: write
 jobs:
@@ -11,8 +11,8 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-      - run: pip install -q pillow && python3 probe/sheets.py
+      - run: python3 probe/fetch.py
       - run: |
           git config user.name "fl-reels bot"; git config user.email "actions@users.noreply.github.com"
-          git add probe/out && git commit -qm "Star photo candidates" || exit 0
+          git add probe/full && git commit -qm "Picked photos at 720px" || exit 0
           for t in 1 2 3 4; do git push && break; sleep $((t * 5)); done
