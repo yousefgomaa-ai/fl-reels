@@ -1,0 +1,54 @@
+mohamed-salah|Mohamed Salah|
+omar-marmoush|Omar Marmoush|
+achraf-hakimi|Achraf Hakimi|
+brahim-diaz|Brahim Díaz|
+noussair-mazraoui|Noussair Mazraoui|
+mohamed-abdelmonem|Mohamed Abdelmonem|
+bilal-el-khannouss|Bilal El Khannouss|
+hamza-abdelkarim|Hamza Abdelkarim|
+haissem-hassan|Haissem Hassan|
+ismael-saibari|Ismael Saibari|
+hannibal-mejbri|Hannibal Mejbri|
+lionel-messi|Lionel Messi|
+cristiano-ronaldo|Cristiano Ronaldo|
+kylian-mbappe|Kylian Mbappé|
+erling-haaland|Erling Haaland|
+lamine-yamal|Lamine Yamal|
+jude-bellingham|Jude Bellingham|
+vinicius-junior|Vinícius Júnior|
+harry-kane|Harry Kane|
+michael-olise|Michael Olise|
+raphinha|Raphinha|
+pedri|Pedri|
+ousmane-dembele|Ousmane Dembélé|
+vitinha|Vitinha|
+khvicha-kvaratskhelia|Khvicha Kvaratskhelia|
+bukayo-saka|Bukayo Saka|
+declan-rice|Declan Rice|
+cole-palmer|Cole Palmer|
+florian-wirtz|Florian Wirtz|
+alexander-isak|Alexander Isak|
+jamal-musiala|Jamal Musiala|
+lautaro-martinez|Lautaro Martínez|
+kevin-de-bruyne|Kevin De Bruyne|
+julian-alvarez|Julián Álvarez|
+rodrygo|Rodrygo|
+arda-guler|Arda Güler|
+kenan-yildiz|Kenan Yıldız|
+zizo|Ahmed Sayed Zizo|Q79
+emam-ashour|Emam Ashour|Q79
+akram-tawfik|Akram Tawfik|Q79
+mohamed-el-shenawy|Mohamed El Shenawy|Q79
+yasser-ibrahim|Yasser Ibrahim|Q79
+achraf-bencharki|Achraf Bencharki|Q1028
+mahmoud-bentayg|Mahmoud Bentayg|Q1028
+omar-gaber|Omar Gaber|Q79
+mohamed-shehata|Mohamed Shehata|Q79
+abdalla-el-said|Abdallah El Said|Q79
+nasser-mansy|Nasser Mansy|Q79
+oday-dabbagh|Oday Dabbagh|
+mohanad-lasheen|Mohanad Lasheen|Q79
+mohamed-chibi|Mohamed Chibi|Q1028
+mostafa-fathi|Mostafa Fathi|Q79
+nasser-maher|Nasser Maher|Q79
+ahmed-el-shenawy|Ahmed El Shenawy|Q79
