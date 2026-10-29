@@ -2,12 +2,20 @@
 # From the player's Commons category (Wikidata P373) and its sub-categories two levels down: free JPEGs (CC BY, CC BY-SA,
 # CC0, public domain) at least 800px on each side whose file name carries his name. Up to 9 per star, newest first, one
 # a day of shooting; a numbered contact sheet and a manifest with each file's author and licence.
-import json, os, re, sys, unicodedata, urllib.parse, urllib.request
+import json, os, re, sys, time, unicodedata, urllib.parse, urllib.request
 from PIL import Image, ImageDraw
 UA = {'User-Agent': 'FootballLegendsBot/1.0 (https://football-legend.com/about)'}
 def get(url, **q):
-    with urllib.request.urlopen(urllib.request.Request(url + '?' + urllib.parse.urlencode(q), headers=UA), timeout=25) as r:
-        return json.load(r)
+    # Wikidata answers an error object (no 'search') when asked too fast: a pause between calls and a few tries.
+    for t in range(5):
+        time.sleep(0.4 + t * 3)
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url + '?' + urllib.parse.urlencode(q), headers=UA), timeout=25) as r:
+                d = json.load(r)
+            if 'error' not in d: return d
+            print('  ! api', d['error'].get('code'))
+        except Exception as e: print('  ! get', e)
+    return {}
 LIC = re.compile(r"^(CC BY(-SA)? \d(\.\d)?|CC0( 1\.0)?|Public domain)$", re.I)
 txt = lambda h: re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", h or "")).strip()
 fold = lambda s: unicodedata.normalize('NFD', s).encode('ascii', 'ignore').decode().lower()
@@ -17,11 +25,12 @@ def members(cat, kind):
     try: return list(get('https://commons.wikimedia.org/w/api.php', **q).get('query', {}).get('pages', {}).values())
     except Exception as e: print('  !', cat, e); return []
 def item_of(name, cit):
-    ids = [x['id'] for x in get('https://www.wikidata.org/w/api.php', action='wbsearchentities', search=name, language='en', type='item', limit=6, format='json')['search']]
+    ids = [x['id'] for x in get('https://www.wikidata.org/w/api.php', action='wbsearchentities', search=name, language='en', type='item', limit=6, format='json').get('search', [])]
     if not ids: return None
-    ents = get('https://www.wikidata.org/w/api.php', action='wbgetentities', ids='|'.join(ids), props='claims', format='json')['entities']
+    ents = get('https://www.wikidata.org/w/api.php', action='wbgetentities', ids='|'.join(ids), props='claims', format='json').get('entities', {})
+    if not ents: return None
     for i in ids:
-        c = ents[i].get('claims', {}); v = lambda p: [x['mainsnak'].get('datavalue', {}).get('value') for x in c.get(p, [])]
+        c = ents.get(i, {}).get('claims', {}); v = lambda p: [x['mainsnak'].get('datavalue', {}).get('value') for x in c.get(p, [])]
         if cit and not any(isinstance(x, dict) and x.get('id') == cit for x in v('P27')): continue
         if any(isinstance(x, dict) and x.get('id') == 'Q937857' for x in v('P106')): return dict(img=(v('P18') or [''])[0], cat=(v('P373') or [None])[0])
     return None
