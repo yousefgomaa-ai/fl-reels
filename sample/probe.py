@@ -1,4 +1,4 @@
-# One-off (2026-10-29): why Nahdat Berkane v Maghreb Fes shows twice in the live list.
+# One-off (2026-10-29): Nahdat Berkane v Maghreb Fes, checked again after #434 (should be one copy).
 import json, urllib.request
 for d in ('20261029', '20261028', '20261030'):
     j = json.loads(urllib.request.urlopen(urllib.request.Request(f'https://api.football-legend.com/matches?date={d}', headers={'User-Agent': 'Mozilla/5.0'}), timeout=60).read())
