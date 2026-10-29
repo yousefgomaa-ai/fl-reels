@@ -5,7 +5,7 @@ CONSTS = "const MON = 'rgba(226,0,26,.45)', PSG = 'rgba(0,65,112,.6)', RM = 'rgb
 SC = r'''
   { club: -1, html: '' },
   { club: 0, glow: '#3a0c10', html: `<div class="yrs" style="font-size:110px">2015</div><div class="vs"><img src="${L(9829)}"></div><div class="ttl">البداية مع موناكو</div>${SUB('وعمره 16 عامًا')}` },
-  { club: 0, glow: '#3a0c10', html: head(9829, 'موناكو', '2015 - 2017', MON) + `<div class="chips">${chip(27, 'هدفًا', 27)}${chip(60, 'مباراة', 60)}</div><div class="rows">${row('🏆', 'الدوري الفرنسي', '2017')}</div>` },
+  { club: 0, glow: '#3a0c10', html: head(9829, 'موناكو', '2015 - 2017', MON) + `<div class="chips">${chip(27, 'هدفًا', 27)}${chip(60, 'مباراة', 60)}</div>${SUB('🏆 بطل الدوري الفرنسي 2017')}` },
   { ph: 1, club: 1, glow: '#0c1a3a', html: `<div class="yrs" style="font-size:90px">صيف 2017</div><div class="vs"><img src="${L(9829)}"><span class="x">←</span><img src="${L(9847)}"></div><div class="rows">${row('🏆', 'بطل العالم 2018', '✓')}${row('⚽', 'هدف في النهائي', '✓')}</div>${SUB('وعمره 19 عامًا')}` },
   { ph: 1, club: 1, glow: '#0c1a3a', html: head(9847, '<span style="font-size:84px">باريس سان جيرمان</span>', '2017 - 2024', PSG) + `<div class="chips">${chip(256, 'هدفًا', 256)}${chip(308, 'مباراة', 308)}</div><div class="rows">${row('🥇', 'الهداف التاريخي للنادي', '✓')}</div>` },
   { ph: 2, club: 1, glow: '#0c1a3a', html: `<div class="ttl">مع باريس</div><div class="rows">${row('🏆', 'الدوري الفرنسي', '×6')}${row('🏆', 'كأس فرنسا', '×4')}</div>` },
