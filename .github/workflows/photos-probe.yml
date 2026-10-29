@@ -1,0 +1,11 @@
+name: photos-probe
+on:
+  push:
+    branches: [photos-probe]
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 probe/photos.py "Mohamed Salah" "Kylian Mbappé" "Omar Marmoush" "Erling Haaland" "Achraf Hakimi" "Lamine Yamal" "Raphinha"
