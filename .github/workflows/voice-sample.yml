@@ -4,7 +4,7 @@ name: Voice sample
 on:
   push:
     branches: [voice-sample]
-    paths: [sample/gemini.txt, sample/puck.txt, sample/photo.txt, sample/logos.txt, sample/whole.txt, sample/accent.json, sample/players.txt, sample/photos.txt, 'sample/career/**', sample/careers.py]
+    paths: [sample/gemini.txt, sample/puck.txt, sample/photo.txt, sample/logos.txt, sample/whole.txt, sample/accent.json, sample/players.txt, sample/photos.txt, 'sample/career/**', sample/careers.py, sample/probe.py]
 permissions:
   contents: write
 jobs:
@@ -163,6 +163,10 @@ jobs:
         run: |
           pip install -q faster-whisper
           python3 sample/careers.py
+      - name: Probe (one-off)
+        if: hashFiles('sample/probe.py') != ''
+        continue-on-error: true
+        run: python3 sample/probe.py
       - name: Keep the audio on this branch
         run: |
           git config user.name "github-actions[bot]"
