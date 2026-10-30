@@ -86,7 +86,8 @@ def clock(h, m):
 # ---- reading numbers back from whisper's text ----
 def norm(t):
     t = re.sub('[ً-ْٰـ]', '', t)
-    t = re.sub('[أإآٱ]', 'ا', t).replace('ة', 'ه').replace('ى', 'ي')
+    # The Egyptian accent says ث as ت and ذ as د («التامنة», «بتلاتة»), and whisper writes it that way.
+    t = re.sub('[أإآٱ]', 'ا', t).replace('ة', 'ه').replace('ى', 'ي').replace('ث', 'ت').replace('ذ', 'د')
     return t.translate(str.maketrans('٠١٢٣٤٥٦٧٨٩', '0123456789'))
 
 
