@@ -1,0 +1,61 @@
+# The long YouTube videos of football-legend.com (owner, 2026-10-30): «قبل القمة» and «ملخص الجولة» for seven leagues.
+# Asks the site's API for a waiting video and, only when there is one, writes its script from the data, reads it in one
+# voice, checks every number against whisper, draws it at 1920x1080 and keeps it as a release asset (youtube/auto/).
+# A run with nothing to do takes seconds. The site starts this workflow itself when a video is queued.
+name: YouTube long videos
+
+on:
+  schedule:
+    - cron: '17 */2 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: youtube-long
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  video:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Check for a waiting video
+        id: jobs
+        env:
+          REELS_KEY_SECRET: ${{ secrets.REELS_KEY }}
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -n "${REELS_KEY_SECRET:-}" ]; then key="$REELS_KEY_SECRET"; else key=$(printf 'fl-reels:%s' "$CF_API_TOKEN" | sha256sum | cut -c1-48); fi
+          echo "::add-mask::$key"
+          echo "key=$key" >> "$GITHUB_OUTPUT"
+          n=$(curl -sS --max-time 30 "https://api.football-legend.com/v2/ytv/jobs?key=$key" | jq '.jobs | length' || echo 0)
+          echo "waiting videos: $n"
+          echo "count=$n" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v4
+        if: steps.jobs.outputs.count != '0'
+
+      - uses: actions/setup-node@v4
+        if: steps.jobs.outputs.count != '0'
+        with:
+          node-version: 22
+
+      - name: Install ffmpeg, Chromium and whisper
+        if: steps.jobs.outputs.count != '0'
+        run: |
+          for i in 1 2 3; do
+            timeout 240 sudo apt-get update -qq && timeout 240 sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null && break
+            echo "ffmpeg install try $i failed"; sleep 10
+          done
+          npm init -y > /dev/null && npm install --no-save playwright@1.48.2 > /dev/null && npx playwright install --with-deps chromium > /dev/null
+          pip install -q faster-whisper pillow
+
+      - name: Make the video
+        if: steps.jobs.outputs.count != '0'
+        env:
+          REELS_KEY: ${{ steps.jobs.outputs.key }}
+          GH_TOKEN: ${{ github.token }}
+        run: NODE_PATH=$PWD/node_modules python3 youtube/auto/run.py
