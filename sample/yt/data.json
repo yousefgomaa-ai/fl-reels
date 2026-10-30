@@ -1,0 +1,2610 @@
+{
+ "eng.1:past": [
+  {
+   "id": "401878771",
+   "date": "2026-10-17T11:30Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Everton",
+    "id": "368",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/368.png"
+   },
+   "away": {
+    "name": "Chelsea",
+    "id": "363",
+    "score": "2",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png"
+   },
+   "goals": [
+    {
+     "min": "46'",
+     "team": "363",
+     "who": [
+      "Pedro Neto"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "90'",
+     "team": "363",
+     "who": [
+      "Pedro Neto"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Hill Dickinson Stadium",
+   "att": 52271
+  },
+  {
+   "id": "401879262",
+   "date": "2026-10-17T14:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Brentford",
+    "id": "337",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png"
+   },
+   "away": {
+    "name": "Liverpool",
+    "id": "364",
+    "score": "2",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png"
+   },
+   "goals": [
+    {
+     "min": "44'",
+     "team": "337",
+     "who": [
+      "Keane Lewis-Potter"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "62'",
+     "team": "364",
+     "who": [
+      "Víctor Muñoz"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "70'",
+     "team": "364",
+     "who": [
+      "Alexander Isak"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Gtech Community Stadium",
+   "att": 0
+  },
+  {
+   "id": "401878770",
+   "date": "2026-10-17T14:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Fulham",
+    "id": "370",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png"
+   },
+   "away": {
+    "name": "Hull City",
+    "id": "306",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png"
+   },
+   "goals": [
+    {
+     "min": "33'",
+     "team": "370",
+     "who": [
+      "Alex Iwobi"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Craven Cottage",
+   "att": 0
+  },
+  {
+   "id": "401879259",
+   "date": "2026-10-17T14:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Manchester City",
+    "id": "382",
+    "score": "3",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png"
+   },
+   "away": {
+    "name": "Ipswich Town",
+    "id": "373",
+    "score": "2",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/373.png"
+   },
+   "goals": [
+    {
+     "min": "19'",
+     "team": "382",
+     "who": [
+      "Phil Foden"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "21'",
+     "team": "373",
+     "who": [
+      "Daizen Maeda"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "34'",
+     "team": "382",
+     "who": [
+      "Erling Haaland"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "69'",
+     "team": "382",
+     "who": [
+      "Erling Haaland"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "90'",
+     "team": "373",
+     "who": [
+      "Zian Flemming"
+     ],
+     "pen": true,
+     "og": false
+    }
+   ],
+   "venue": "Etihad Stadium",
+   "att": 60817
+  },
+  {
+   "id": "401879258",
+   "date": "2026-10-17T16:30Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Newcastle United",
+    "id": "361",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/361.png"
+   },
+   "away": {
+    "name": "Aston Villa",
+    "id": "362",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png"
+   },
+   "goals": [
+    {
+     "min": "36'",
+     "team": "362",
+     "who": [
+      "Johan Manzambi"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "St. James' Park",
+   "att": 52626
+  },
+  {
+   "id": "401879263",
+   "date": "2026-10-18T13:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "AFC Bournemouth",
+    "id": "349",
+    "score": "2",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png"
+   },
+   "away": {
+    "name": "Sunderland",
+    "id": "366",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png"
+   },
+   "goals": [
+    {
+     "min": "6'",
+     "team": "349",
+     "who": [
+      "Marcus Tavernier"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "48'",
+     "team": "349",
+     "who": [
+      "Evanilson"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Vitality Stadium",
+   "att": 12004
+  },
+  {
+   "id": "401879261",
+   "date": "2026-10-18T13:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Brighton & Hove Albion",
+    "id": "331",
+    "score": "5",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png"
+   },
+   "away": {
+    "name": "Crystal Palace",
+    "id": "384",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/384.png"
+   },
+   "goals": [
+    {
+     "min": "4'",
+     "team": "331",
+     "who": [
+      "Jaydee Canvot"
+     ],
+     "pen": false,
+     "og": true
+    },
+    {
+     "min": "7'",
+     "team": "331",
+     "who": [
+      "Diego Gómez"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "10'",
+     "team": "331",
+     "who": [
+      "Yasin Ayari"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "49'",
+     "team": "331",
+     "who": [
+      "Charalambos Kostoulas"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "84'",
+     "team": "331",
+     "who": [
+      "Jack Hinshelwood"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "American Express Stadium",
+   "att": 31440
+  },
+  {
+   "id": "401879260",
+   "date": "2026-10-18T13:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Leeds United",
+    "id": "357",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/357.png"
+   },
+   "away": {
+    "name": "Manchester United",
+    "id": "360",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png"
+   },
+   "goals": [
+    {
+     "min": "35'",
+     "team": "360",
+     "who": [
+      "Bryan Mbeumo"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "51'",
+     "team": "357",
+     "who": [
+      "Dominic Calvert-Lewin"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Elland Road",
+   "att": 36983
+  },
+  {
+   "id": "401878769",
+   "date": "2026-10-18T15:30Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Nottingham Forest",
+    "id": "393",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/393.png"
+   },
+   "away": {
+    "name": "Arsenal",
+    "id": "359",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png"
+   },
+   "goals": [
+    {
+     "min": "80'",
+     "team": "359",
+     "who": [
+      "Noni Madueke"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "The City Ground",
+   "att": 30893
+  },
+  {
+   "id": "401879257",
+   "date": "2026-10-19T19:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Tottenham Hotspur",
+    "id": "367",
+    "score": "3",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png"
+   },
+   "away": {
+    "name": "Coventry City",
+    "id": "388",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/388.png"
+   },
+   "goals": [
+    {
+     "min": "14'",
+     "team": "367",
+     "who": [
+      "James Maddison"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "49'",
+     "team": "388",
+     "who": [
+      "Jack Rudoni"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "58'",
+     "team": "367",
+     "who": [
+      "Omar Marmoush"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "90'+6'",
+     "team": "367",
+     "who": [
+      "Ben Davies"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Tottenham Hotspur Stadium",
+   "att": 60913
+  },
+  {
+   "id": "401879253",
+   "date": "2026-10-23T19:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Ipswich Town",
+    "id": "373",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/373.png"
+   },
+   "away": {
+    "name": "Nottingham Forest",
+    "id": "393",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/393.png"
+   },
+   "goals": [
+    {
+     "min": "13'",
+     "team": "393",
+     "who": [
+      "Neco Williams"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "41'",
+     "team": "373",
+     "who": [
+      "Julio Enciso"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Portman Road",
+   "att": 29198
+  },
+  {
+   "id": "401879256",
+   "date": "2026-10-24T11:30Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Aston Villa",
+    "id": "362",
+    "score": "2",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png"
+   },
+   "away": {
+    "name": "Manchester City",
+    "id": "382",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png"
+   },
+   "goals": [
+    {
+     "min": "6'",
+     "team": "362",
+     "who": [
+      "Nicolas Jackson"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "52'",
+     "team": "382",
+     "who": [
+      "Erling Haaland"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "60'",
+     "team": "362",
+     "who": [
+      "Nicolas Jackson"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Villa Park",
+   "att": 36743
+  },
+  {
+   "id": "401878768",
+   "date": "2026-10-24T14:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Arsenal",
+    "id": "359",
+    "score": "2",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png"
+   },
+   "away": {
+    "name": "Everton",
+    "id": "368",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/368.png"
+   },
+   "goals": [
+    {
+     "min": "7'",
+     "team": "359",
+     "who": [
+      "Ezri Konsa"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "68'",
+     "team": "359",
+     "who": [
+      "Gabriel Magalhães"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Emirates Stadium",
+   "att": 60207
+  },
+  {
+   "id": "401879255",
+   "date": "2026-10-24T14:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Coventry City",
+    "id": "388",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/388.png"
+   },
+   "away": {
+    "name": "Fulham",
+    "id": "370",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png"
+   },
+   "goals": [
+    {
+     "min": "80'",
+     "team": "370",
+     "who": [
+      "Oscar Bobb"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Coventry Building Society Arena",
+   "att": 31449
+  },
+  {
+   "id": "401878767",
+   "date": "2026-10-24T16:30Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Chelsea",
+    "id": "363",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png"
+   },
+   "away": {
+    "name": "Tottenham Hotspur",
+    "id": "367",
+    "score": "2",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png"
+   },
+   "goals": [
+    {
+     "min": "77'",
+     "team": "367",
+     "who": [
+      "Mike Penders"
+     ],
+     "pen": false,
+     "og": true
+    },
+    {
+     "min": "87'",
+     "team": "367",
+     "who": [
+      "Mathys Tel"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Stamford Bridge",
+   "att": 0
+  },
+  {
+   "id": "401879254",
+   "date": "2026-10-25T14:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Crystal Palace",
+    "id": "384",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/384.png"
+   },
+   "away": {
+    "name": "Newcastle United",
+    "id": "361",
+    "score": "2",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/361.png"
+   },
+   "goals": [
+    {
+     "min": "47'",
+     "team": "361",
+     "who": [
+      "William Osula"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "58'",
+     "team": "361",
+     "who": [
+      "Harvey Barnes"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Selhurst Park",
+   "att": 0
+  },
+  {
+   "id": "401878766",
+   "date": "2026-10-25T14:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Hull City",
+    "id": "306",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png"
+   },
+   "away": {
+    "name": "Brentford",
+    "id": "337",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png"
+   },
+   "goals": [
+    {
+     "min": "24'",
+     "team": "306",
+     "who": [
+      "Oliver McBurnie"
+     ],
+     "pen": true,
+     "og": false
+    },
+    {
+     "min": "63'",
+     "team": "337",
+     "who": [
+      "Dango Ouattara"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "The MKM Stadium",
+   "att": 24259
+  },
+  {
+   "id": "401878765",
+   "date": "2026-10-25T14:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Liverpool",
+    "id": "364",
+    "score": "2",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png"
+   },
+   "away": {
+    "name": "Brighton & Hove Albion",
+    "id": "331",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png"
+   },
+   "goals": [
+    {
+     "min": "17'",
+     "team": "364",
+     "who": [
+      "Pascal Gross"
+     ],
+     "pen": false,
+     "og": true
+    },
+    {
+     "min": "21'",
+     "team": "364",
+     "who": [
+      "Alexander Isak"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Anfield",
+   "att": 0
+  },
+  {
+   "id": "401879252",
+   "date": "2026-10-25T14:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Manchester United",
+    "id": "360",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png"
+   },
+   "away": {
+    "name": "AFC Bournemouth",
+    "id": "349",
+    "score": "3",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png"
+   },
+   "goals": [
+    {
+     "min": "38'",
+     "team": "349",
+     "who": [
+      "Rayan"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "43'",
+     "team": "349",
+     "who": [
+      "Marcus Tavernier"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "71'",
+     "team": "349",
+     "who": [
+      "Evanilson"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Old Trafford",
+   "att": 0
+  },
+  {
+   "id": "401878764",
+   "date": "2026-10-25T16:30Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Sunderland",
+    "id": "366",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png"
+   },
+   "away": {
+    "name": "Leeds United",
+    "id": "357",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/357.png"
+   },
+   "goals": [],
+   "venue": "Stadium of Light",
+   "att": 46182
+  }
+ ],
+ "eng.1:table": [
+  {
+   "team": "Manchester City",
+   "id": "382",
+   "rank": 1.0,
+   "gamesPlayed": 8.0,
+   "wins": 7.0,
+   "ties": 0.0,
+   "losses": 1.0,
+   "pointsFor": 20.0,
+   "pointsAgainst": 9.0,
+   "points": 21.0
+  },
+  {
+   "team": "Arsenal",
+   "id": "359",
+   "rank": 2.0,
+   "gamesPlayed": 8.0,
+   "wins": 7.0,
+   "ties": 0.0,
+   "losses": 1.0,
+   "pointsFor": 13.0,
+   "pointsAgainst": 5.0,
+   "points": 21.0
+  },
+  {
+   "team": "Brighton & Hove Albion",
+   "id": "331",
+   "rank": 3.0,
+   "gamesPlayed": 8.0,
+   "wins": 5.0,
+   "ties": 1.0,
+   "losses": 2.0,
+   "pointsFor": 23.0,
+   "pointsAgainst": 7.0,
+   "points": 16.0
+  },
+  {
+   "team": "Liverpool",
+   "id": "364",
+   "rank": 4.0,
+   "gamesPlayed": 8.0,
+   "wins": 4.0,
+   "ties": 3.0,
+   "losses": 1.0,
+   "pointsFor": 11.0,
+   "pointsAgainst": 8.0,
+   "points": 15.0
+  },
+  {
+   "team": "Chelsea",
+   "id": "363",
+   "rank": 5.0,
+   "gamesPlayed": 8.0,
+   "wins": 4.0,
+   "ties": 1.0,
+   "losses": 3.0,
+   "pointsFor": 17.0,
+   "pointsAgainst": 15.0,
+   "points": 13.0
+  },
+  {
+   "team": "Brentford",
+   "id": "337",
+   "rank": 6.0,
+   "gamesPlayed": 8.0,
+   "wins": 2.0,
+   "ties": 5.0,
+   "losses": 1.0,
+   "pointsFor": 14.0,
+   "pointsAgainst": 9.0,
+   "points": 11.0
+  },
+  {
+   "team": "Leeds United",
+   "id": "357",
+   "rank": 7.0,
+   "gamesPlayed": 8.0,
+   "wins": 2.0,
+   "ties": 5.0,
+   "losses": 1.0,
+   "pointsFor": 9.0,
+   "pointsAgainst": 6.0,
+   "points": 11.0
+  },
+  {
+   "team": "Newcastle United",
+   "id": "361",
+   "rank": 8.0,
+   "gamesPlayed": 8.0,
+   "wins": 3.0,
+   "ties": 2.0,
+   "losses": 3.0,
+   "pointsFor": 12.0,
+   "pointsAgainst": 14.0,
+   "points": 11.0
+  },
+  {
+   "team": "Aston Villa",
+   "id": "362",
+   "rank": 9.0,
+   "gamesPlayed": 8.0,
+   "wins": 3.0,
+   "ties": 2.0,
+   "losses": 3.0,
+   "pointsFor": 9.0,
+   "pointsAgainst": 12.0,
+   "points": 11.0
+  },
+  {
+   "team": "Hull City",
+   "id": "306",
+   "rank": 10.0,
+   "gamesPlayed": 8.0,
+   "wins": 2.0,
+   "ties": 4.0,
+   "losses": 2.0,
+   "pointsFor": 9.0,
+   "pointsAgainst": 8.0,
+   "points": 10.0
+  },
+  {
+   "team": "Everton",
+   "id": "368",
+   "rank": 11.0,
+   "gamesPlayed": 8.0,
+   "wins": 2.0,
+   "ties": 4.0,
+   "losses": 2.0,
+   "pointsFor": 8.0,
+   "pointsAgainst": 9.0,
+   "points": 10.0
+  },
+  {
+   "team": "Ipswich Town",
+   "id": "373",
+   "rank": 12.0,
+   "gamesPlayed": 8.0,
+   "wins": 3.0,
+   "ties": 1.0,
+   "losses": 4.0,
+   "pointsFor": 12.0,
+   "pointsAgainst": 16.0,
+   "points": 10.0
+  },
+  {
+   "team": "AFC Bournemouth",
+   "id": "349",
+   "rank": 13.0,
+   "gamesPlayed": 8.0,
+   "wins": 2.0,
+   "ties": 3.0,
+   "losses": 3.0,
+   "pointsFor": 12.0,
+   "pointsAgainst": 13.0,
+   "points": 9.0
+  },
+  {
+   "team": "Tottenham Hotspur",
+   "id": "367",
+   "rank": 14.0,
+   "gamesPlayed": 8.0,
+   "wins": 2.0,
+   "ties": 3.0,
+   "losses": 3.0,
+   "pointsFor": 8.0,
+   "pointsAgainst": 10.0,
+   "points": 9.0
+  },
+  {
+   "team": "Fulham",
+   "id": "370",
+   "rank": 15.0,
+   "gamesPlayed": 8.0,
+   "wins": 2.0,
+   "ties": 2.0,
+   "losses": 4.0,
+   "pointsFor": 8.0,
+   "pointsAgainst": 10.0,
+   "points": 8.0
+  },
+  {
+   "team": "Manchester United",
+   "id": "360",
+   "rank": 16.0,
+   "gamesPlayed": 8.0,
+   "wins": 1.0,
+   "ties": 4.0,
+   "losses": 3.0,
+   "pointsFor": 10.0,
+   "pointsAgainst": 13.0,
+   "points": 7.0
+  },
+  {
+   "team": "Crystal Palace",
+   "id": "384",
+   "rank": 17.0,
+   "gamesPlayed": 8.0,
+   "wins": 2.0,
+   "ties": 1.0,
+   "losses": 5.0,
+   "pointsFor": 9.0,
+   "pointsAgainst": 19.0,
+   "points": 7.0
+  },
+  {
+   "team": "Nottingham Forest",
+   "id": "393",
+   "rank": 18.0,
+   "gamesPlayed": 8.0,
+   "wins": 1.0,
+   "ties": 3.0,
+   "losses": 4.0,
+   "pointsFor": 6.0,
+   "pointsAgainst": 10.0,
+   "points": 6.0
+  },
+  {
+   "team": "Coventry City",
+   "id": "388",
+   "rank": 19.0,
+   "gamesPlayed": 8.0,
+   "wins": 2.0,
+   "ties": 0.0,
+   "losses": 6.0,
+   "pointsFor": 6.0,
+   "pointsAgainst": 15.0,
+   "points": 6.0
+  },
+  {
+   "team": "Sunderland",
+   "id": "366",
+   "rank": 20.0,
+   "gamesPlayed": 8.0,
+   "wins": 1.0,
+   "ties": 2.0,
+   "losses": 5.0,
+   "pointsFor": 6.0,
+   "pointsAgainst": 14.0,
+   "points": 5.0
+  }
+ ],
+ "esp.1:past": [
+  {
+   "id": "401882844",
+   "date": "2026-10-16T19:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Deportivo",
+    "id": "90",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/90.png"
+   },
+   "away": {
+    "name": "Levante",
+    "id": "1538",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/1538.png"
+   },
+   "goals": [
+    {
+     "min": "63'",
+     "team": "90",
+     "who": [
+      "Bil Nsongo"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "82'",
+     "team": "1538",
+     "who": [
+      "Dani Requena"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Riazor",
+   "att": 28437
+  },
+  {
+   "id": "401882843",
+   "date": "2026-10-17T12:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Espanyol",
+    "id": "88",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/88.png"
+   },
+   "away": {
+    "name": "Atlético Madrid",
+    "id": "1068",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/1068.png"
+   },
+   "goals": [
+    {
+     "min": "89'",
+     "team": "1068",
+     "who": [
+      "Álex Baena"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "RCDE Stadium",
+   "att": 30882
+  },
+  {
+   "id": "401882837",
+   "date": "2026-10-17T14:15Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Villarreal",
+    "id": "102",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/102.png"
+   },
+   "away": {
+    "name": "Elche",
+    "id": "3751",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3751.png"
+   },
+   "goals": [],
+   "venue": "Estadio de la Cerámica",
+   "att": 17329
+  },
+  {
+   "id": "401882846",
+   "date": "2026-10-17T16:30Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Real Betis",
+    "id": "244",
+    "score": "2",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/244.png"
+   },
+   "away": {
+    "name": "Barcelona",
+    "id": "83",
+    "score": "5",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/83.png"
+   },
+   "goals": [
+    {
+     "min": "10'",
+     "team": "83",
+     "who": [
+      "Lamine Yamal"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "27'",
+     "team": "244",
+     "who": [
+      "Valentín Gómez"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "41'",
+     "team": "83",
+     "who": [
+      "Rodri"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "51'",
+     "team": "83",
+     "who": [
+      "Gabriel Jesus"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "53'",
+     "team": "244",
+     "who": [
+      "Abde Ezzalzouli"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "62'",
+     "team": "83",
+     "who": [
+      "Eric García"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "81'",
+     "team": "83",
+     "who": [
+      "Dani Olmo"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Estadio La Cartuja",
+   "att": 66924
+  },
+  {
+   "id": "401882838",
+   "date": "2026-10-17T19:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Valencia",
+    "id": "94",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/94.png"
+   },
+   "away": {
+    "name": "Athletic Club",
+    "id": "93",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/93.png"
+   },
+   "goals": [],
+   "venue": "Mestalla Stadium",
+   "att": 43223
+  },
+  {
+   "id": "401882840",
+   "date": "2026-10-18T12:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Osasuna",
+    "id": "97",
+    "score": "2",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/97.png"
+   },
+   "away": {
+    "name": "Racing Santander",
+    "id": "87",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/87.png"
+   },
+   "goals": [
+    {
+     "min": "9'",
+     "team": "97",
+     "who": [
+      "Ante Budimir"
+     ],
+     "pen": true,
+     "og": false
+    },
+    {
+     "min": "88'",
+     "team": "97",
+     "who": [
+      "Asier Osambela"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "El Sadar",
+   "att": 0
+  },
+  {
+   "id": "401882845",
+   "date": "2026-10-18T14:15Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Celta Vigo",
+    "id": "85",
+    "score": "2",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/85.png"
+   },
+   "away": {
+    "name": "Alavés",
+    "id": "96",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/96.png"
+   },
+   "goals": [
+    {
+     "min": "53'",
+     "team": "85",
+     "who": [
+      "Ferran Jutglà"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "71'",
+     "team": "85",
+     "who": [
+      "Javi Rodríguez"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "87'",
+     "team": "96",
+     "who": [
+      "Hugo Novoa"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Balaidos",
+   "att": 19568
+  },
+  {
+   "id": "401882841",
+   "date": "2026-10-18T16:30Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Málaga",
+    "id": "99",
+    "score": "2",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/99.png"
+   },
+   "away": {
+    "name": "Real Sociedad",
+    "id": "89",
+    "score": "5",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/89.png"
+   },
+   "goals": [
+    {
+     "min": "3'",
+     "team": "89",
+     "who": [
+      "Takefusa Kubo"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "26'",
+     "team": "89",
+     "who": [
+      "Orri Óskarsson"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "54'",
+     "team": "99",
+     "who": [
+      "Adrián Niño"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "59'",
+     "team": "89",
+     "who": [
+      "Mikel Oyarzabal"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "66'",
+     "team": "99",
+     "who": [
+      "Pablo Martínez"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "67'",
+     "team": "89",
+     "who": [
+      "Mikel Oyarzabal"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "73'",
+     "team": "89",
+     "who": [
+      "Gonçalo Guedes"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "La Rosaleda",
+   "att": 0
+  },
+  {
+   "id": "401882839",
+   "date": "2026-10-18T19:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Real Madrid",
+    "id": "86",
+    "score": "4",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/86.png"
+   },
+   "away": {
+    "name": "Sevilla",
+    "id": "243",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/243.png"
+   },
+   "goals": [
+    {
+     "min": "30'",
+     "team": "86",
+     "who": [
+      "Arda Güler"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "37'",
+     "team": "86",
+     "who": [
+      "Kylian Mbappé"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "63'",
+     "team": "86",
+     "who": [
+      "Kylian Mbappé"
+     ],
+     "pen": true,
+     "og": false
+    },
+    {
+     "min": "80'",
+     "team": "243",
+     "who": [
+      "Manu Bueno"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "82'",
+     "team": "86",
+     "who": [
+      "Yan Diomande"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Santiago Bernabéu",
+   "att": 73907
+  },
+  {
+   "id": "401882842",
+   "date": "2026-10-19T19:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Getafe",
+    "id": "2922",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2922.png"
+   },
+   "away": {
+    "name": "Rayo Vallecano",
+    "id": "101",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/101.png"
+   },
+   "goals": [
+    {
+     "min": "11'",
+     "team": "101",
+     "who": [
+      "Álvaro García"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "56'",
+     "team": "2922",
+     "who": [
+      "Martín Satriano"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Estadio Coliseum",
+   "att": 7674
+  },
+  {
+   "id": "401882870",
+   "date": "2026-10-21T18:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Levante",
+    "id": "1538",
+    "score": "3",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/1538.png"
+   },
+   "away": {
+    "name": "Athletic Club",
+    "id": "93",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/93.png"
+   },
+   "goals": [
+    {
+     "min": "20'",
+     "team": "1538",
+     "who": [
+      "Roger Brugué"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "22'",
+     "team": "1538",
+     "who": [
+      "Roger Brugué"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "67'",
+     "team": "93",
+     "who": [
+      "Álex Berenguer"
+     ],
+     "pen": true,
+     "og": false
+    },
+    {
+     "min": "90'+8'",
+     "team": "1538",
+     "who": [
+      "Etta Eyong"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Estadi Ciutat de València",
+   "att": 18779
+  },
+  {
+   "id": "401882836",
+   "date": "2026-10-23T19:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Alavés",
+    "id": "96",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/96.png"
+   },
+   "away": {
+    "name": "Málaga",
+    "id": "99",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/99.png"
+   },
+   "goals": [
+    {
+     "min": "44'",
+     "team": "99",
+     "who": [
+      "Adrián Niño"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "89'",
+     "team": "96",
+     "who": [
+      "Aitor Mañas"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Mendizorrotza",
+   "att": 16099
+  },
+  {
+   "id": "401882830",
+   "date": "2026-10-24T12:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Rayo Vallecano",
+    "id": "101",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/101.png"
+   },
+   "away": {
+    "name": "Elche",
+    "id": "3751",
+    "score": "3",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3751.png"
+   },
+   "goals": [
+    {
+     "min": "23'",
+     "team": "3751",
+     "who": [
+      "Federico Redondo"
+     ],
+     "pen": true,
+     "og": false
+    },
+    {
+     "min": "36'",
+     "team": "3751",
+     "who": [
+      "Fer Niño"
+     ],
+     "pen": true,
+     "og": false
+    },
+    {
+     "min": "68'",
+     "team": "3751",
+     "who": [
+      "Germán Valera"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Estadio de Vallecas",
+   "att": 8405
+  },
+  {
+   "id": "401882831",
+   "date": "2026-10-24T14:15Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Racing Santander",
+    "id": "87",
+    "score": "2",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/87.png"
+   },
+   "away": {
+    "name": "Espanyol",
+    "id": "88",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/88.png"
+   },
+   "goals": [
+    {
+     "min": "62'",
+     "team": "88",
+     "who": [
+      "Edu Expósito"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "69'",
+     "team": "87",
+     "who": [
+      "Jeanuël Belocian"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "84'",
+     "team": "87",
+     "who": [
+      "Yassir Zabiri"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "El Sardineros",
+   "att": 0
+  },
+  {
+   "id": "401882827",
+   "date": "2026-10-24T16:30Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Valencia",
+    "id": "94",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/94.png"
+   },
+   "away": {
+    "name": "Villarreal",
+    "id": "102",
+    "score": "2",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/102.png"
+   },
+   "goals": [
+    {
+     "min": "38'",
+     "team": "94",
+     "who": [
+      "Pepelu"
+     ],
+     "pen": true,
+     "og": false
+    },
+    {
+     "min": "69'",
+     "team": "102",
+     "who": [
+      "Alex Freeman"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "90'+6'",
+     "team": "102",
+     "who": [
+      "Georges Mikautadze"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Mestalla Stadium",
+   "att": 0
+  },
+  {
+   "id": "401882834",
+   "date": "2026-10-24T19:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Atlético Madrid",
+    "id": "1068",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/1068.png"
+   },
+   "away": {
+    "name": "Deportivo",
+    "id": "90",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/90.png"
+   },
+   "goals": [
+    {
+     "min": "48'",
+     "team": "1068",
+     "who": [
+      "Julián Álvarez"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Riyadh Air Metropolitano",
+   "att": 68674
+  },
+  {
+   "id": "401882835",
+   "date": "2026-10-25T13:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Athletic Club",
+    "id": "93",
+    "score": "4",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/93.png"
+   },
+   "away": {
+    "name": "Getafe",
+    "id": "2922",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2922.png"
+   },
+   "goals": [
+    {
+     "min": "17'",
+     "team": "93",
+     "who": [
+      "Álex Berenguer"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "35'",
+     "team": "93",
+     "who": [
+      "Iñaki Williams"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "70'",
+     "team": "93",
+     "who": [
+      "Aitor Paredes"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "88'",
+     "team": "93",
+     "who": [
+      "Yuri Berchiche"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "San Mamés",
+   "att": 0
+  },
+  {
+   "id": "401882833",
+   "date": "2026-10-25T15:15Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Celta Vigo",
+    "id": "85",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/85.png"
+   },
+   "away": {
+    "name": "Real Betis",
+    "id": "244",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/244.png"
+   },
+   "goals": [],
+   "venue": "Balaidos",
+   "att": 0
+  },
+  {
+   "id": "401882829",
+   "date": "2026-10-25T17:30Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Real Sociedad",
+    "id": "89",
+    "score": "2",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/89.png"
+   },
+   "away": {
+    "name": "Levante",
+    "id": "1538",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/1538.png"
+   },
+   "goals": [
+    {
+     "min": "6'",
+     "team": "89",
+     "who": [
+      "Orri Óskarsson"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "22'",
+     "team": "1538",
+     "who": [
+      "Nacho Pérez"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "27'",
+     "team": "89",
+     "who": [
+      "Beñat Turrientes"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Reale Arena",
+   "att": 30035
+  },
+  {
+   "id": "401882832",
+   "date": "2026-10-25T20:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Barcelona",
+    "id": "83",
+    "score": "1",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/83.png"
+   },
+   "away": {
+    "name": "Real Madrid",
+    "id": "86",
+    "score": "2",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/86.png"
+   },
+   "goals": [
+    {
+     "min": "41'",
+     "team": "86",
+     "who": [
+      "Kylian Mbappé"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "61'",
+     "team": "83",
+     "who": [
+      "Raphinha"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "87'",
+     "team": "86",
+     "who": [
+      "Kylian Mbappé"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Spotify Camp Nou",
+   "att": 62055
+  },
+  {
+   "id": "401882828",
+   "date": "2026-10-26T20:00Z",
+   "status": "STATUS_FULL_TIME",
+   "home": {
+    "name": "Sevilla",
+    "id": "243",
+    "score": "2",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/243.png"
+   },
+   "away": {
+    "name": "Osasuna",
+    "id": "97",
+    "score": "0",
+    "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/97.png"
+   },
+   "goals": [
+    {
+     "min": "24'",
+     "team": "243",
+     "who": [
+      "Isaac Romero"
+     ],
+     "pen": false,
+     "og": false
+    },
+    {
+     "min": "82'",
+     "team": "243",
+     "who": [
+      "Felix Correia"
+     ],
+     "pen": false,
+     "og": false
+    }
+   ],
+   "venue": "Ramón Sánchez Pizjuán Stadium",
+   "att": 38523
+  }
+ ],
+ "esp.1:table": [
+  {
+   "team": "Barcelona",
+   "id": "83",
+   "rank": 1.0,
+   "gamesPlayed": 10.0,
+   "wins": 9.0,
+   "ties": 0.0,
+   "losses": 1.0,
+   "pointsFor": 40.0,
+   "pointsAgainst": 11.0,
+   "points": 27.0
+  },
+  {
+   "team": "Atlético Madrid",
+   "id": "1068",
+   "rank": 2.0,
+   "gamesPlayed": 10.0,
+   "wins": 8.0,
+   "ties": 1.0,
+   "losses": 1.0,
+   "pointsFor": 20.0,
+   "pointsAgainst": 8.0,
+   "points": 25.0
+  },
+  {
+   "team": "Real Madrid",
+   "id": "86",
+   "rank": 3.0,
+   "gamesPlayed": 10.0,
+   "wins": 8.0,
+   "ties": 0.0,
+   "losses": 2.0,
+   "pointsFor": 25.0,
+   "pointsAgainst": 10.0,
+   "points": 24.0
+  },
+  {
+   "team": "Real Betis",
+   "id": "244",
+   "rank": 4.0,
+   "gamesPlayed": 10.0,
+   "wins": 6.0,
+   "ties": 2.0,
+   "losses": 2.0,
+   "pointsFor": 16.0,
+   "pointsAgainst": 14.0,
+   "points": 20.0
+  },
+  {
+   "team": "Real Sociedad",
+   "id": "89",
+   "rank": 5.0,
+   "gamesPlayed": 10.0,
+   "wins": 6.0,
+   "ties": 1.0,
+   "losses": 3.0,
+   "pointsFor": 19.0,
+   "pointsAgainst": 18.0,
+   "points": 19.0
+  },
+  {
+   "team": "Sevilla",
+   "id": "243",
+   "rank": 6.0,
+   "gamesPlayed": 10.0,
+   "wins": 5.0,
+   "ties": 2.0,
+   "losses": 3.0,
+   "pointsFor": 16.0,
+   "pointsAgainst": 16.0,
+   "points": 17.0
+  },
+  {
+   "team": "Alavés",
+   "id": "96",
+   "rank": 7.0,
+   "gamesPlayed": 10.0,
+   "wins": 3.0,
+   "ties": 3.0,
+   "losses": 4.0,
+   "pointsFor": 14.0,
+   "pointsAgainst": 11.0,
+   "points": 12.0
+  },
+  {
+   "team": "Athletic Club",
+   "id": "93",
+   "rank": 8.0,
+   "gamesPlayed": 9.0,
+   "wins": 3.0,
+   "ties": 3.0,
+   "losses": 3.0,
+   "pointsFor": 12.0,
+   "pointsAgainst": 9.0,
+   "points": 12.0
+  },
+  {
+   "team": "Celta Vigo",
+   "id": "85",
+   "rank": 9.0,
+   "gamesPlayed": 10.0,
+   "wins": 2.0,
+   "ties": 6.0,
+   "losses": 2.0,
+   "pointsFor": 10.0,
+   "pointsAgainst": 7.0,
+   "points": 12.0
+  },
+  {
+   "team": "Villarreal",
+   "id": "102",
+   "rank": 10.0,
+   "gamesPlayed": 10.0,
+   "wins": 3.0,
+   "ties": 3.0,
+   "losses": 4.0,
+   "pointsFor": 15.0,
+   "pointsAgainst": 14.0,
+   "points": 12.0
+  },
+  {
+   "team": "Deportivo",
+   "id": "90",
+   "rank": 11.0,
+   "gamesPlayed": 10.0,
+   "wins": 2.0,
+   "ties": 5.0,
+   "losses": 3.0,
+   "pointsFor": 13.0,
+   "pointsAgainst": 13.0,
+   "points": 11.0
+  },
+  {
+   "team": "Osasuna",
+   "id": "97",
+   "rank": 12.0,
+   "gamesPlayed": 10.0,
+   "wins": 3.0,
+   "ties": 2.0,
+   "losses": 5.0,
+   "pointsFor": 10.0,
+   "pointsAgainst": 20.0,
+   "points": 11.0
+  },
+  {
+   "team": "Racing Santander",
+   "id": "87",
+   "rank": 13.0,
+   "gamesPlayed": 10.0,
+   "wins": 3.0,
+   "ties": 2.0,
+   "losses": 5.0,
+   "pointsFor": 15.0,
+   "pointsAgainst": 26.0,
+   "points": 11.0
+  },
+  {
+   "team": "Levante",
+   "id": "1538",
+   "rank": 14.0,
+   "gamesPlayed": 10.0,
+   "wins": 2.0,
+   "ties": 4.0,
+   "losses": 4.0,
+   "pointsFor": 16.0,
+   "pointsAgainst": 19.0,
+   "points": 10.0
+  },
+  {
+   "team": "Elche",
+   "id": "3751",
+   "rank": 15.0,
+   "gamesPlayed": 10.0,
+   "wins": 2.0,
+   "ties": 4.0,
+   "losses": 4.0,
+   "pointsFor": 14.0,
+   "pointsAgainst": 17.0,
+   "points": 10.0
+  },
+  {
+   "team": "Rayo Vallecano",
+   "id": "101",
+   "rank": 16.0,
+   "gamesPlayed": 9.0,
+   "wins": 2.0,
+   "ties": 3.0,
+   "losses": 4.0,
+   "pointsFor": 12.0,
+   "pointsAgainst": 20.0,
+   "points": 9.0
+  },
+  {
+   "team": "Getafe",
+   "id": "2922",
+   "rank": 17.0,
+   "gamesPlayed": 10.0,
+   "wins": 2.0,
+   "ties": 3.0,
+   "losses": 5.0,
+   "pointsFor": 5.0,
+   "pointsAgainst": 15.0,
+   "points": 9.0
+  },
+  {
+   "team": "Espanyol",
+   "id": "88",
+   "rank": 18.0,
+   "gamesPlayed": 10.0,
+   "wins": 2.0,
+   "ties": 2.0,
+   "losses": 6.0,
+   "pointsFor": 12.0,
+   "pointsAgainst": 14.0,
+   "points": 8.0
+  },
+  {
+   "team": "Valencia",
+   "id": "94",
+   "rank": 19.0,
+   "gamesPlayed": 10.0,
+   "wins": 1.0,
+   "ties": 3.0,
+   "losses": 6.0,
+   "pointsFor": 7.0,
+   "pointsAgainst": 17.0,
+   "points": 6.0
+  },
+  {
+   "team": "Málaga",
+   "id": "99",
+   "rank": 20.0,
+   "gamesPlayed": 10.0,
+   "wins": 0.0,
+   "ties": 5.0,
+   "losses": 5.0,
+   "pointsFor": 7.0,
+   "pointsAgainst": 19.0,
+   "points": 5.0
+  }
+ ],
+ "egy.1:past": [],
+ "egy.1:table": [],
+ "eng.1:next": [
+  {
+   "id": "401879248",
+   "date": "2026-10-31T12:30Z",
+   "name": "Manchester United at Chelsea"
+  },
+  {
+   "id": "401879251",
+   "date": "2026-10-31T15:00Z",
+   "name": "Leeds United at AFC Bournemouth"
+  },
+  {
+   "id": "401879249",
+   "date": "2026-10-31T15:00Z",
+   "name": "Nottingham Forest at Brentford"
+  },
+  {
+   "id": "401879247",
+   "date": "2026-10-31T15:00Z",
+   "name": "Sunderland at Coventry City"
+  },
+  {
+   "id": "401878763",
+   "date": "2026-10-31T15:00Z",
+   "name": "Ipswich Town at Hull City"
+  },
+  {
+   "id": "401879245",
+   "date": "2026-10-31T15:00Z",
+   "name": "Brighton & Hove Albion at Manchester City"
+  },
+  {
+   "id": "401878761",
+   "date": "2026-10-31T17:30Z",
+   "name": "Crystal Palace at Tottenham Hotspur"
+  },
+  {
+   "id": "401879250",
+   "date": "2026-10-31T20:00Z",
+   "name": "Fulham at Aston Villa"
+  },
+  {
+   "id": "401879246",
+   "date": "2026-11-01T16:30Z",
+   "name": "Arsenal at Liverpool"
+  },
+  {
+   "id": "401878762",
+   "date": "2026-11-02T20:00Z",
+   "name": "Everton at Newcastle United"
+  }
+ ],
+ "esp.1:next": [
+  {
+   "id": "401882817",
+   "date": "2026-10-30T20:00Z",
+   "name": "Espanyol at Villarreal"
+  },
+  {
+   "id": "401882820",
+   "date": "2026-10-31T13:00Z",
+   "name": "Atlético Madrid at Levante"
+  },
+  {
+   "id": "401882818",
+   "date": "2026-10-31T15:15Z",
+   "name": "Celta Vigo at Rayo Vallecano"
+  },
+  {
+   "id": "401882825",
+   "date": "2026-10-31T17:30Z",
+   "name": "Málaga at Real Betis"
+  },
+  {
+   "id": "401882822",
+   "date": "2026-10-31T20:00Z",
+   "name": "Alavés at Barcelona"
+  },
+  {
+   "id": "401882821",
+   "date": "2026-11-01T13:00Z",
+   "name": "Sevilla at Getafe"
+  },
+  {
+   "id": "401882819",
+   "date": "2026-11-01T15:15Z",
+   "name": "Real Madrid at Racing Santander"
+  },
+  {
+   "id": "401882823",
+   "date": "2026-11-01T17:30Z",
+   "name": "Valencia at Elche"
+  },
+  {
+   "id": "401882826",
+   "date": "2026-11-01T20:00Z",
+   "name": "Real Sociedad at Athletic Club"
+  },
+  {
+   "id": "401882824",
+   "date": "2026-11-02T20:00Z",
+   "name": "Osasuna at Deportivo"
+  }
+ ],
+ "ita.1:next": [
+  {
+   "id": "401874798",
+   "date": "2026-10-31T14:00Z",
+   "name": "Monza at Bologna"
+  },
+  {
+   "id": "401874990",
+   "date": "2026-10-31T17:00Z",
+   "name": "AS Roma at Udinese"
+  },
+  {
+   "id": "401874795",
+   "date": "2026-10-31T19:45Z",
+   "name": "Internazionale at AC Milan"
+  },
+  {
+   "id": "401875002",
+   "date": "2026-11-01T11:30Z",
+   "name": "Venezia at Como"
+  },
+  {
+   "id": "401874782",
+   "date": "2026-11-01T14:00Z",
+   "name": "Torino at Frosinone"
+  },
+  {
+   "id": "401874983",
+   "date": "2026-11-01T14:00Z",
+   "name": "Cagliari at Lazio"
+  },
+  {
+   "id": "401874968",
+   "date": "2026-11-01T17:00Z",
+   "name": "Genoa at Lecce"
+  },
+  {
+   "id": "401874949",
+   "date": "2026-11-01T19:45Z",
+   "name": "Napoli at Juventus"
+  },
+  {
+   "id": "401874963",
+   "date": "2026-11-02T17:30Z",
+   "name": "Fiorentina at Sassuolo"
+  },
+  {
+   "id": "401874971",
+   "date": "2026-11-02T19:45Z",
+   "name": "Parma at Atalanta"
+  }
+ ],
+ "ger.1:next": [
+  {
+   "id": "401884746",
+   "date": "2026-10-30T19:30Z",
+   "name": "Mainz at SV Elversberg"
+  },
+  {
+   "id": "401884753",
+   "date": "2026-10-31T14:30Z",
+   "name": "VfB Stuttgart at Bayer Leverkusen"
+  },
+  {
+   "id": "401884749",
+   "date": "2026-10-31T14:30Z",
+   "name": "SC Paderborn 07 at Borussia Mönchengladbach"
+  },
+  {
+   "id": "401884751",
+   "date": "2026-10-31T14:30Z",
+   "name": "SC Freiburg at FC Augsburg"
+  },
+  {
+   "id": "401884747",
+   "date": "2026-10-31T14:30Z",
+   "name": "RB Leipzig at Schalke 04"
+  },
+  {
+   "id": "401884748",
+   "date": "2026-10-31T14:30Z",
+   "name": "TSG Hoffenheim at Werder Bremen"
+  },
+  {
+   "id": "401884754",
+   "date": "2026-10-31T17:30Z",
+   "name": "Borussia Dortmund at Bayern Munich"
+  },
+  {
+   "id": "401884750",
+   "date": "2026-11-01T14:30Z",
+   "name": "FC Cologne at 1. FC Union Berlin"
+  },
+  {
+   "id": "401884752",
+   "date": "2026-11-01T16:30Z",
+   "name": "Hamburg SV at Eintracht Frankfurt"
+  }
+ ],
+ "fra.1:next": [
+  {
+   "id": "401876421",
+   "date": "2026-10-30T18:00Z",
+   "name": "Paris Saint-Germain at Le Havre AC"
+  },
+  {
+   "id": "401876416",
+   "date": "2026-10-30T18:00Z",
+   "name": "Stade Rennais at Nice"
+  },
+  {
+   "id": "401876420",
+   "date": "2026-10-30T20:05Z",
+   "name": "Lens at Lille"
+  },
+  {
+   "id": "401876413",
+   "date": "2026-10-31T19:45Z",
+   "name": "Le Mans at Troyes"
+  },
+  {
+   "id": "401876414",
+   "date": "2026-11-01T14:00Z",
+   "name": "AJ Auxerre at Strasbourg"
+  },
+  {
+   "id": "401876418",
+   "date": "2026-11-01T16:15Z",
+   "name": "Angers at Lyon"
+  },
+  {
+   "id": "401876415",
+   "date": "2026-11-01T16:15Z",
+   "name": "AS Monaco at Paris FC"
+  },
+  {
+   "id": "401876417",
+   "date": "2026-11-01T19:45Z",
+   "name": "Toulouse at Marseille"
+  },
+  {
+   "id": "401876419",
+   "date": "2026-11-02T19:45Z",
+   "name": "Brest at Lorient"
+  }
+ ],
+ "egy.1:next": [],
+ "uefa.champions:next": [
+  {
+   "id": "401915311",
+   "date": "2026-11-03T17:45Z",
+   "name": "VfB Stuttgart at Galatasaray"
+  },
+  {
+   "id": "401915310",
+   "date": "2026-11-03T17:45Z",
+   "name": "Sporting CP at Shakhtar Donetsk"
+  },
+  {
+   "id": "401915386",
+   "date": "2026-11-03T20:00Z",
+   "name": "Bayern Munich at Atlético Madrid"
+  },
+  {
+   "id": "401915387",
+   "date": "2026-11-03T20:00Z",
+   "name": "Aston Villa at Barcelona"
+  },
+  {
+   "id": "401915384",
+   "date": "2026-11-03T20:00Z",
+   "name": "Lille at Bodo/Glimt"
+  },
+  {
+   "id": "401915307",
+   "date": "2026-11-03T20:00Z",
+   "name": "Internazionale at Feyenoord Rotterdam"
+  },
+  {
+   "id": "401915385",
+   "date": "2026-11-03T20:00Z",
+   "name": "Slovan Bratislava at LASK Linz"
+  },
+  {
+   "id": "401915308",
+   "date": "2026-11-03T20:00Z",
+   "name": "AS Roma at Manchester United"
+  },
+  {
+   "id": "401915309",
+   "date": "2026-11-03T20:00Z",
+   "name": "Paris Saint-Germain at Villarreal"
+  },
+  {
+   "id": "401915383",
+   "date": "2026-11-04T17:45Z",
+   "name": "Real Madrid at AEK Athens"
+  },
+  {
+   "id": "401915382",
+   "date": "2026-11-04T17:45Z",
+   "name": "Liverpool at Fenerbahce"
+  },
+  {
+   "id": "401915304",
+   "date": "2026-11-04T20:00Z",
+   "name": "Real Betis at Borussia Dortmund"
+  },
+  {
+   "id": "401915301",
+   "date": "2026-11-04T20:00Z",
+   "name": "Napoli at FC Porto"
+  },
+  {
+   "id": "401915305",
+   "date": "2026-11-04T20:00Z",
+   "name": "Como at Lens"
+  },
+  {
+   "id": "401915303",
+   "date": "2026-11-04T20:00Z",
+   "name": "Club Brugge at PSV Eindhoven"
+  },
+  {
+   "id": "401915306",
+   "date": "2026-11-04T20:00Z",
+   "name": "Manchester City at RB Leipzig"
+  },
+  {
+   "id": "401915381",
+   "date": "2026-11-04T20:00Z",
+   "name": "Arsenal at Slavia Prague"
+  },
+  {
+   "id": "401915302",
+   "date": "2026-11-04T20:00Z",
+   "name": "Sabah FK at Viking FK"
+  }
+ ]
+}
