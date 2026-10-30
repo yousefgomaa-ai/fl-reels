@@ -1,0 +1,3001 @@
+{
+ "id": 30981,
+ "name": "Lionel Messi",
+ "birthDate": {
+  "utcTime": "1987-06-24T00:00:00.000Z",
+  "timezone": "UTC"
+ },
+ "primaryTeam": {
+  "teamId": 960720,
+  "teamName": "Inter Miami CF",
+  "onLoan": false,
+  "teamColors": {
+   "color": "#e28fb8",
+   "colorAlternate": "#ECADC5",
+   "colorAway": "#231F20",
+   "colorAwayAlternate": "#ffffff"
+  }
+ },
+ "careerHistory": {
+  "showFootnote": false,
+  "careerItems": {
+   "senior": {
+    "teamEntries": [
+     {
+      "participantId": 30981,
+      "teamId": 960720,
+      "team": "Inter Miami CF",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": {
+       "text": "free transfer",
+       "localizationKey": "free_transfer"
+      },
+      "startDate": "2023-07-15T00:00:00",
+      "endDate": null,
+      "active": true,
+      "role": null,
+      "appearances": "122",
+      "goals": "106",
+      "assists": "57",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 30981,
+      "teamId": 207967,
+      "team": "MLS All-Stars",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2024-07-02T00:00:00",
+      "endDate": "2024-07-22T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": null,
+      "goals": null,
+      "assists": null,
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 30981,
+      "teamId": 9847,
+      "team": "Paris Saint-Germain",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": {
+       "text": "free transfer",
+       "localizationKey": "free_transfer"
+      },
+      "startDate": "2021-08-10T00:00:00",
+      "endDate": "2023-06-30T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "75",
+      "goals": "32",
+      "assists": "34",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 30981,
+      "teamId": 8634,
+      "team": "Barcelona",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2004-07-01T00:00:00",
+      "endDate": "2021-06-30T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "764",
+      "goals": "666",
+      "assists": "230",
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2026",
+      "appearances": "34",
+      "goals": "29",
+      "assists": "14",
+      "rating": {
+       "rating": "8.16"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 130,
+        "leagueName": "MLS",
+        "seasonName": "2026",
+        "tournamentId": 29580,
+        "goals": "25",
+        "assists": "12",
+        "appearances": "29",
+        "rating": {
+         "rating": "8.20"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 10043,
+        "leagueName": "Leagues Cup",
+        "seasonName": "2026",
+        "tournamentId": 38600,
+        "goals": "2",
+        "assists": "1",
+        "appearances": "2",
+        "rating": {
+         "rating": "8.34"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 297,
+        "leagueName": "CONCACAF Champions Cup",
+        "seasonName": "2026",
+        "tournamentId": 30052,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "7.19"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 9875,
+        "leagueName": "Campeones Cup",
+        "seasonName": "2026",
+        "tournamentId": 47168,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "1",
+        "rating": {
+         "rating": "8.69"
+        }
+       }
+      ],
+      "teamId": 960720,
+      "team": "Inter Miami CF",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": {
+       "text": "free transfer",
+       "localizationKey": "free_transfer"
+      }
+     },
+     {
+      "seasonName": "2025",
+      "appearances": "49",
+      "goals": "43",
+      "assists": "25",
+      "rating": {
+       "rating": "8.25"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 130,
+        "leagueName": "MLS",
+        "seasonName": "2025",
+        "tournamentId": 24524,
+        "goals": "35",
+        "assists": "23",
+        "appearances": "34",
+        "rating": {
+         "rating": "8.52"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 10043,
+        "leagueName": "Leagues Cup",
+        "seasonName": "2025",
+        "tournamentId": 25098,
+        "goals": "2",
+        "assists": "2",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.55"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 78,
+        "leagueName": "FIFA Club World Cup",
+        "seasonName": "2025",
+        "tournamentId": 24449,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.54"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 297,
+        "leagueName": "CONCACAF Champions Cup",
+        "seasonName": "2025",
+        "tournamentId": 24477,
+        "goals": "5",
+        "assists": "0",
+        "appearances": "7",
+        "rating": {
+         "rating": "7.78"
+        }
+       }
+      ],
+      "teamId": 960720,
+      "team": "Inter Miami CF",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": {
+       "text": "free transfer",
+       "localizationKey": "free_transfer"
+      }
+     },
+     {
+      "seasonName": "2024",
+      "appearances": "25",
+      "goals": "23",
+      "assists": "13",
+      "rating": {
+       "rating": "8.29"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 130,
+        "leagueName": "MLS",
+        "seasonName": "2024",
+        "tournamentId": 22602,
+        "goals": "21",
+        "assists": "11",
+        "appearances": "22",
+        "rating": {
+         "rating": "8.30"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 297,
+        "leagueName": "CONCACAF Champions Cup",
+        "seasonName": "2024",
+        "tournamentId": 22577,
+        "goals": "2",
+        "assists": "2",
+        "appearances": "3",
+        "rating": {
+         "rating": "8.22"
+        }
+       }
+      ],
+      "teamId": 960720,
+      "team": "Inter Miami CF",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": {
+       "text": "free transfer",
+       "localizationKey": "free_transfer"
+      }
+     },
+     {
+      "seasonName": "2023",
+      "appearances": "14",
+      "goals": "11",
+      "assists": "5",
+      "rating": {
+       "rating": "8.03"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 130,
+        "leagueName": "MLS",
+        "seasonName": "2023",
+        "tournamentId": 18572,
+        "goals": "1",
+        "assists": "2",
+        "appearances": "6",
+        "rating": {
+         "rating": "7.27"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 9441,
+        "leagueName": "Open Cup",
+        "seasonName": "2023",
+        "tournamentId": 18753,
+        "goals": "0",
+        "assists": "2",
+        "appearances": "1",
+        "rating": {
+         "rating": "8.91"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 10043,
+        "leagueName": "Leagues Cup",
+        "seasonName": "2023",
+        "tournamentId": 19154,
+        "goals": "10",
+        "assists": "1",
+        "appearances": "7",
+        "rating": {
+         "rating": "8.56"
+        }
+       }
+      ],
+      "teamId": 960720,
+      "team": "Inter Miami CF",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": {
+       "text": "free transfer",
+       "localizationKey": "free_transfer"
+      }
+     },
+     {
+      "seasonName": "2022/2023",
+      "appearances": "41",
+      "goals": "21",
+      "assists": "20",
+      "rating": {
+       "rating": "8.10"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 53,
+        "leagueName": "Ligue 1",
+        "seasonName": "2022/2023",
+        "tournamentId": 17810,
+        "goals": "16",
+        "assists": "16",
+        "appearances": "32",
+        "rating": {
+         "rating": "8.18"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 207,
+        "leagueName": "Trophée des champions",
+        "seasonName": "2022/2023",
+        "tournamentId": 20724,
+        "goals": "1",
+        "assists": "undefined",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 134,
+        "leagueName": "Coupe de France",
+        "seasonName": "2022/2023",
+        "tournamentId": 18310,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "6.06"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2022/2023",
+        "tournamentId": 17697,
+        "goals": "4",
+        "assists": "4",
+        "appearances": "7",
+        "rating": {
+         "rating": "8.04"
+        }
+       }
+      ],
+      "teamId": 9847,
+      "team": "Paris Saint-Germain",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": {
+       "text": "free transfer",
+       "localizationKey": "free_transfer"
+      }
+     },
+     {
+      "seasonName": "2021/2022",
+      "appearances": "34",
+      "goals": "11",
+      "assists": "14",
+      "rating": {
+       "rating": "7.93"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 53,
+        "leagueName": "Ligue 1",
+        "seasonName": "2021/2022",
+        "tournamentId": 16499,
+        "goals": "6",
+        "assists": "14",
+        "appearances": "26",
+        "rating": {
+         "rating": "7.96"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 134,
+        "leagueName": "Coupe de France",
+        "seasonName": "2021/2022",
+        "tournamentId": 16985,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "6.78"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2021/2022",
+        "tournamentId": 16407,
+        "goals": "5",
+        "assists": "0",
+        "appearances": "7",
+        "rating": {
+         "rating": "8.00"
+        }
+       }
+      ],
+      "teamId": 9847,
+      "team": "Paris Saint-Germain",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": {
+       "text": "free transfer",
+       "localizationKey": "free_transfer"
+      }
+     },
+     {
+      "seasonName": "2020/2021",
+      "appearances": "47",
+      "goals": "38",
+      "assists": "12",
+      "rating": {
+       "rating": "8.41"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2020/2021",
+        "tournamentId": 15585,
+        "goals": "30",
+        "assists": "9",
+        "appearances": "35",
+        "rating": {
+         "rating": "8.35"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 138,
+        "leagueName": "Copa del Rey",
+        "seasonName": "2020/2021",
+        "tournamentId": 15839,
+        "goals": "3",
+        "assists": "1",
+        "appearances": "5",
+        "rating": {
+         "rating": "8.81"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 139,
+        "leagueName": "Supercopa de España",
+        "seasonName": "2020/2021",
+        "tournamentId": 16602,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2020/2021",
+        "tournamentId": 15237,
+        "goals": "5",
+        "assists": "2",
+        "appearances": "6",
+        "rating": {
+         "rating": "8.45"
+        }
+       }
+      ],
+      "teamId": 8634,
+      "team": "Barcelona",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019/2020",
+      "appearances": "44",
+      "goals": "31",
+      "assists": "25",
+      "rating": {
+       "rating": "8.30"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2019/2020",
+        "tournamentId": 14180,
+        "goals": "25",
+        "assists": "21",
+        "appearances": "33",
+        "rating": {
+         "rating": "8.47"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 138,
+        "leagueName": "Copa del Rey",
+        "seasonName": "2019/2020",
+        "tournamentId": 14765,
+        "goals": "2",
+        "assists": "1",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 139,
+        "leagueName": "Supercopa de España",
+        "seasonName": "2019/2020",
+        "tournamentId": 15919,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "5.83"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2019/2020",
+        "tournamentId": 14006,
+        "goals": "3",
+        "assists": "3",
+        "appearances": "8",
+        "rating": {
+         "rating": "7.92"
+        }
+       }
+      ],
+      "teamId": 8634,
+      "team": "Barcelona",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2018/2019",
+      "appearances": "50",
+      "goals": "51",
+      "assists": "19",
+      "rating": {
+       "rating": "8.48"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2018/2019",
+        "tournamentId": 13025,
+        "goals": "36",
+        "assists": "13",
+        "appearances": "34",
+        "rating": {
+         "rating": "8.48"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 138,
+        "leagueName": "Copa del Rey",
+        "seasonName": "2018/2019",
+        "tournamentId": 13054,
+        "goals": "3",
+        "assists": "2",
+        "appearances": "5",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 139,
+        "leagueName": "Supercopa de España",
+        "seasonName": "2018/2019",
+        "tournamentId": 13936,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2018/2019",
+        "tournamentId": 12764,
+        "goals": "12",
+        "assists": "3",
+        "appearances": "10",
+        "rating": {
+         "rating": "8.52"
+        }
+       }
+      ],
+      "teamId": 8634,
+      "team": "Barcelona",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2017/2018",
+      "appearances": "54",
+      "goals": "45",
+      "assists": "18",
+      "rating": {
+       "rating": "8.41"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2017/2018",
+        "tournamentId": 11742,
+        "goals": "34",
+        "assists": "12",
+        "appearances": "36",
+        "rating": {
+         "rating": "8.58"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 138,
+        "leagueName": "Copa del Rey",
+        "seasonName": "2017/2018",
+        "tournamentId": 11811,
+        "goals": "4",
+        "assists": "4",
+        "appearances": "6",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 139,
+        "leagueName": "Supercopa de España",
+        "seasonName": "2017/2018",
+        "tournamentId": 12655,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2017/2018",
+        "tournamentId": 11542,
+        "goals": "6",
+        "assists": "2",
+        "appearances": "10",
+        "rating": {
+         "rating": "7.84"
+        }
+       }
+      ],
+      "teamId": 8634,
+      "team": "Barcelona",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2016/2017",
+      "appearances": "52",
+      "goals": "54",
+      "assists": "16",
+      "rating": {
+       "rating": "8.36"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2016/2017",
+        "tournamentId": 10639,
+        "goals": "37",
+        "assists": "9",
+        "appearances": "34",
+        "rating": {
+         "rating": "8.42"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 138,
+        "leagueName": "Copa del Rey",
+        "seasonName": "2016/2017",
+        "tournamentId": 10712,
+        "goals": "5",
+        "assists": "3",
+        "appearances": "7",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 139,
+        "leagueName": "Supercopa de España",
+        "seasonName": "2016/2017",
+        "tournamentId": 11462,
+        "goals": "1",
+        "assists": "2",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2016/2017",
+        "tournamentId": 10436,
+        "goals": "11",
+        "assists": "2",
+        "appearances": "9",
+        "rating": {
+         "rating": "8.15"
+        }
+       }
+      ],
+      "teamId": 8634,
+      "team": "Barcelona",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2015/2016",
+      "appearances": "49",
+      "goals": "41",
+      "assists": "20",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2015/2016",
+        "tournamentId": 9671,
+        "goals": "26",
+        "assists": "16",
+        "appearances": "33",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 138,
+        "leagueName": "Copa del Rey",
+        "seasonName": "2015/2016",
+        "tournamentId": 9717,
+        "goals": "5",
+        "assists": "3",
+        "appearances": "5",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 139,
+        "leagueName": "Supercopa de España",
+        "seasonName": "2015/2016",
+        "tournamentId": 10416,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2015/2016",
+        "tournamentId": 9528,
+        "goals": "6",
+        "assists": "1",
+        "appearances": "7",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 74,
+        "leagueName": "UEFA Super Cup",
+        "seasonName": "2015/2016",
+        "tournamentId": 10384,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 10703,
+        "leagueName": "FIFA Intercontinental Cup",
+        "seasonName": "2015",
+        "tournamentId": -1,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8634,
+      "team": "Barcelona",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2014/2015",
+      "appearances": "57",
+      "goals": "58",
+      "assists": "25",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2014/2015",
+        "tournamentId": 8812,
+        "goals": "43",
+        "assists": "18",
+        "appearances": "38",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 138,
+        "leagueName": "Copa del Rey",
+        "seasonName": "2014/2015",
+        "tournamentId": 8866,
+        "goals": "5",
+        "assists": "2",
+        "appearances": "6",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2014/2015",
+        "tournamentId": 8630,
+        "goals": "10",
+        "assists": "5",
+        "appearances": "13",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8634,
+      "team": "Barcelona",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2013/2014",
+      "appearances": "46",
+      "goals": "41",
+      "assists": "14",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2013/2014",
+        "tournamentId": 7870,
+        "goals": "28",
+        "assists": "11",
+        "appearances": "31",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 138,
+        "leagueName": "Copa del Rey",
+        "seasonName": "2013/2014",
+        "tournamentId": 8030,
+        "goals": "5",
+        "assists": "3",
+        "appearances": "6",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 139,
+        "leagueName": "Supercopa de España",
+        "seasonName": "2013/2014",
+        "tournamentId": 8618,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2013/2014",
+        "tournamentId": 7781,
+        "goals": "8",
+        "assists": "0",
+        "appearances": "7",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8634,
+      "team": "Barcelona",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2012/2013",
+      "appearances": "50",
+      "goals": "60",
+      "assists": "15",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2012/2013",
+        "tournamentId": 7056,
+        "goals": "46",
+        "assists": "12",
+        "appearances": "32",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 138,
+        "leagueName": "Copa del Rey",
+        "seasonName": "2012/2013",
+        "tournamentId": 7138,
+        "goals": "4",
+        "assists": "1",
+        "appearances": "5",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 139,
+        "leagueName": "Supercopa de España",
+        "seasonName": "2012/2013",
+        "tournamentId": 7681,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2012/2013",
+        "tournamentId": 6981,
+        "goals": "8",
+        "assists": "2",
+        "appearances": "11",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8634,
+      "team": "Barcelona",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2011/2012",
+      "appearances": "60",
+      "goals": "73",
+      "assists": "29",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2011/2012",
+        "tournamentId": 6226,
+        "goals": "50",
+        "assists": "19",
+        "appearances": "37",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 138,
+        "leagueName": "Copa del Rey",
+        "seasonName": "2011/2012",
+        "tournamentId": 6340,
+        "goals": "3",
+        "assists": "undefined",
+        "appearances": "7",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 139,
+        "leagueName": "Supercopa de España",
+        "seasonName": "2011/2012",
+        "tournamentId": 6909,
+        "goals": "3",
+        "assists": "2",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2011/2012",
+        "tournamentId": 6131,
+        "goals": "14",
+        "assists": "5",
+        "appearances": "11",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 74,
+        "leagueName": "UEFA Super Cup",
+        "seasonName": "2011/2012",
+        "tournamentId": 6838,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 10703,
+        "leagueName": "FIFA Intercontinental Cup",
+        "seasonName": "2011",
+        "tournamentId": -1,
+        "goals": "2",
+        "assists": "2",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8634,
+      "team": "Barcelona",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2010/2011",
+      "appearances": "55",
+      "goals": "53",
+      "assists": "22",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2010/2011",
+        "tournamentId": 5451,
+        "goals": "31",
+        "assists": "18",
+        "appearances": "33",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 138,
+        "leagueName": "Copa del Rey",
+        "seasonName": "2010/2011",
+        "tournamentId": 5477,
+        "goals": "7",
+        "assists": "undefined",
+        "appearances": "7",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 139,
+        "leagueName": "Supercopa de España",
+        "seasonName": "2010/2011",
+        "tournamentId": 6061,
+        "goals": "3",
+        "assists": "undefined",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2010/2011",
+        "tournamentId": 5279,
+        "goals": "12",
+        "assists": "4",
+        "appearances": "13",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8634,
+      "team": "Barcelona",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2009/2010",
+      "appearances": "53",
+      "goals": "47",
+      "assists": "10",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2009/2010",
+        "tournamentId": 4598,
+        "goals": "34",
+        "assists": "9",
+        "appearances": "35",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 138,
+        "leagueName": "Copa del Rey",
+        "seasonName": "2009/2010",
+        "tournamentId": 4659,
+        "goals": "1",
+        "assists": "undefined",
+        "appearances": "3",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 139,
+        "leagueName": "Supercopa de España",
+        "seasonName": "2009/2010",
+        "tournamentId": 5301,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2009/2010",
+        "tournamentId": 4508,
+        "goals": "8",
+        "assists": "0",
+        "appearances": "11",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 74,
+        "leagueName": "UEFA Super Cup",
+        "seasonName": "2009/2010",
+        "tournamentId": 5206,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 10703,
+        "leagueName": "FIFA Intercontinental Cup",
+        "seasonName": "2009",
+        "tournamentId": -1,
+        "goals": "2",
+        "assists": "undefined",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8634,
+      "team": "Barcelona",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2008/2009",
+      "appearances": "43",
+      "goals": "32",
+      "assists": "5",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2008/2009",
+        "tournamentId": 3928,
+        "goals": "23",
+        "assists": "undefined",
+        "appearances": "31",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2008/2009",
+        "tournamentId": 3787,
+        "goals": "9",
+        "assists": "5",
+        "appearances": "12",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8634,
+      "team": "Barcelona",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2007/2008",
+      "appearances": "37",
+      "goals": "16",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2007/2008",
+        "tournamentId": 3179,
+        "goals": "10",
+        "assists": "undefined",
+        "appearances": "28",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2007/2008",
+        "tournamentId": 3122,
+        "goals": "6",
+        "assists": "undefined",
+        "appearances": "9",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8634,
+      "team": "Barcelona",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2006/2007",
+      "appearances": "34",
+      "goals": "17",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2006/2007",
+        "tournamentId": 352,
+        "goals": "14",
+        "assists": "undefined",
+        "appearances": "26",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 138,
+        "leagueName": "Copa del Rey",
+        "seasonName": "2006/2007",
+        "tournamentId": 1412,
+        "goals": "2",
+        "assists": "undefined",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2006/2007",
+        "tournamentId": 108,
+        "goals": "1",
+        "assists": "undefined",
+        "appearances": "5",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 74,
+        "leagueName": "UEFA Super Cup",
+        "seasonName": "2006/2007",
+        "tournamentId": 3032,
+        "goals": "0",
+        "assists": "undefined",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8634,
+      "team": "Barcelona",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2005/2006",
+      "appearances": "25",
+      "goals": "8",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2005/2006",
+        "tournamentId": 351,
+        "goals": "6",
+        "assists": "undefined",
+        "appearances": "17",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 138,
+        "leagueName": "Copa del Rey",
+        "seasonName": "2005/2006",
+        "tournamentId": 1411,
+        "goals": "1",
+        "assists": "undefined",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2005/2006",
+        "tournamentId": 103,
+        "goals": "1",
+        "assists": "undefined",
+        "appearances": "6",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8634,
+      "team": "Barcelona",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2004/2005",
+      "appearances": "9",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2004/2005",
+        "tournamentId": 350,
+        "goals": "1",
+        "assists": "undefined",
+        "appearances": "7",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 138,
+        "leagueName": "Copa del Rey",
+        "seasonName": "2004/2005",
+        "tournamentId": 1410,
+        "goals": "0",
+        "assists": "undefined",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2004/2005",
+        "tournamentId": 2800,
+        "goals": "0",
+        "assists": "undefined",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8634,
+      "team": "Barcelona",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   },
+   "national team": {
+    "teamEntries": [
+     {
+      "participantId": 30981,
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2005-01-01T00:00:00",
+      "endDate": null,
+      "active": true,
+      "role": null,
+      "appearances": "208",
+      "goals": "126",
+      "assists": "48",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 30981,
+      "teamId": 317232,
+      "team": "Argentina U23",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2008-08-01T00:00:00",
+      "endDate": "2008-08-31T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "5",
+      "goals": "2",
+      "assists": "0",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 30981,
+      "teamId": 5860,
+      "team": "Argentina U20",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2005-06-01T00:00:00",
+      "endDate": "2005-08-31T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": null,
+      "goals": null,
+      "assists": null,
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2026",
+      "appearances": "12",
+      "goals": "11",
+      "assists": "6",
+      "rating": {
+       "rating": "8.30"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 77,
+        "leagueName": "World Cup",
+        "seasonName": "2026",
+        "tournamentId": 24254,
+        "goals": "8",
+        "assists": "4",
+        "appearances": "8",
+        "rating": {
+         "rating": "8.48"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2026",
+        "tournamentId": 29822,
+        "goals": "3",
+        "assists": "2",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.94"
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2025",
+      "appearances": "2",
+      "goals": "1",
+      "assists": "3",
+      "rating": {
+       "rating": "8.88"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2025",
+        "tournamentId": 24481,
+        "goals": "1",
+        "assists": "3",
+        "appearances": "2",
+        "rating": {
+         "rating": "8.88"
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024",
+      "appearances": "7",
+      "goals": "3",
+      "assists": "2",
+      "rating": {
+       "rating": "7.65"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 44,
+        "leagueName": "Copa America",
+        "seasonName": "2024",
+        "tournamentId": 22518,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "5",
+        "rating": {
+         "rating": "7.51"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2024",
+        "tournamentId": 22275,
+        "goals": "2",
+        "assists": "1",
+        "appearances": "2",
+        "rating": {
+         "rating": "8.02"
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023/2025",
+      "appearances": "12",
+      "goals": "8",
+      "assists": "3",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueName": "CONMEBOL World Cup Qualifiers",
+        "seasonName": "2023/2025",
+        "tournamentId": -1,
+        "goals": "8",
+        "assists": "3",
+        "appearances": "12",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023",
+      "appearances": "3",
+      "goals": "5",
+      "assists": "1",
+      "rating": {
+       "rating": "9.23"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2023",
+        "tournamentId": 18498,
+        "goals": "5",
+        "assists": "1",
+        "appearances": "3",
+        "rating": {
+         "rating": "9.23"
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2022",
+      "appearances": "12",
+      "goals": "17",
+      "assists": "6",
+      "rating": {
+       "rating": "8.70"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 77,
+        "leagueName": "World Cup",
+        "seasonName": "2022",
+        "tournamentId": 15338,
+        "goals": "7",
+        "assists": "3",
+        "appearances": "7",
+        "rating": {
+         "rating": "8.49"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2022",
+        "tournamentId": 17169,
+        "goals": "10",
+        "assists": "1",
+        "appearances": "4",
+        "rating": {
+         "rating": "9.09"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueName": "CONMEBOL/UEFA Finalissima",
+        "seasonName": "2022",
+        "tournamentId": -1,
+        "goals": "0",
+        "assists": "2",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2021",
+      "appearances": "7",
+      "goals": "4",
+      "assists": "5",
+      "rating": {
+       "rating": "8.40"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 44,
+        "leagueName": "Copa America",
+        "seasonName": "2021",
+        "tournamentId": 15148,
+        "goals": "4",
+        "assists": "5",
+        "appearances": "7",
+        "rating": {
+         "rating": "8.40"
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2020/2022",
+      "appearances": "15",
+      "goals": "7",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueName": "CONMEBOL World Cup Qualifiers",
+        "seasonName": "2020/2022",
+        "tournamentId": -1,
+        "goals": "7",
+        "assists": "0",
+        "appearances": "15",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019",
+      "appearances": "10",
+      "goals": "5",
+      "assists": "2",
+      "rating": {
+       "rating": "7.36"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 44,
+        "leagueName": "Copa America",
+        "seasonName": "2019",
+        "tournamentId": 13572,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "6",
+        "rating": {
+         "rating": "7.36"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2019",
+        "tournamentId": 13365,
+        "goals": "4",
+        "assists": "1",
+        "appearances": "4",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2018",
+      "appearances": "5",
+      "goals": "4",
+      "assists": "3",
+      "rating": {
+       "rating": "7.92"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 77,
+        "leagueName": "World Cup",
+        "seasonName": "2018",
+        "tournamentId": 9731,
+        "goals": "1",
+        "assists": "2",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.92"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2018",
+        "tournamentId": 11352,
+        "goals": "3",
+        "assists": "1",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2017",
+      "appearances": "2",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2017",
+        "tournamentId": 10882,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2016",
+      "appearances": "6",
+      "goals": "5",
+      "assists": "4",
+      "rating": {
+       "rating": "8.50"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 44,
+        "leagueName": "Copa America",
+        "seasonName": "2016",
+        "tournamentId": 10093,
+        "goals": "5",
+        "assists": "4",
+        "appearances": "5",
+        "rating": {
+         "rating": "8.50"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2016",
+        "tournamentId": 10041,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2015/2017",
+      "appearances": "10",
+      "goals": "7",
+      "assists": "2",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueName": "CONMEBOL World Cup Qualifiers",
+        "seasonName": "2015/2017",
+        "tournamentId": -1,
+        "goals": "7",
+        "assists": "2",
+        "appearances": "10",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2015",
+      "appearances": "8",
+      "goals": "4",
+      "assists": "3",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 44,
+        "leagueName": "Copa America",
+        "seasonName": "2015",
+        "tournamentId": 9113,
+        "goals": "1",
+        "assists": "3",
+        "appearances": "6",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2015",
+        "tournamentId": 9099,
+        "goals": "3",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2014",
+      "appearances": "28",
+      "goals": "18",
+      "assists": "2",
+      "rating": {
+       "rating": "7.32"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 77,
+        "leagueName": "World Cup",
+        "seasonName": "2014",
+        "tournamentId": 7628,
+        "goals": "4",
+        "assists": "1",
+        "appearances": "7",
+        "rating": {
+         "rating": "7.32"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2014",
+        "tournamentId": 8170,
+        "goals": "4",
+        "assists": "1",
+        "appearances": "7",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueName": "CONMEBOL World Cup Qualifiers",
+        "seasonName": "2014",
+        "tournamentId": -1,
+        "goals": "10",
+        "assists": "undefined",
+        "appearances": "14",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2013",
+      "appearances": "2",
+      "goals": "3",
+      "assists": "1",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2013",
+        "tournamentId": 7374,
+        "goals": "3",
+        "assists": "1",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2012",
+      "appearances": "4",
+      "goals": "7",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2012",
+        "tournamentId": 6538,
+        "goals": "7",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2011",
+      "appearances": "9",
+      "goals": "2",
+      "assists": "3",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 44,
+        "leagueName": "Copa America",
+        "seasonName": "2011",
+        "tournamentId": 5784,
+        "goals": "0",
+        "assists": "3",
+        "appearances": "4",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2011",
+        "tournamentId": 5834,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "5",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2010",
+      "appearances": "28",
+      "goals": "6",
+      "assists": "1",
+      "rating": {
+       "rating": "7.76"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 77,
+        "leagueName": "World Cup",
+        "seasonName": "2010",
+        "tournamentId": 4887,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "5",
+        "rating": {
+         "rating": "7.76"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2010",
+        "tournamentId": 4948,
+        "goals": "2",
+        "assists": "undefined",
+        "appearances": "5",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueName": "CONMEBOL World Cup Qualifiers",
+        "seasonName": "2010",
+        "tournamentId": -1,
+        "goals": "4",
+        "assists": "undefined",
+        "appearances": "18",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2009",
+      "appearances": "2",
+      "goals": "2",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2009",
+        "tournamentId": 4163,
+        "goals": "2",
+        "assists": "undefined",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2008",
+      "appearances": "2",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2008",
+        "tournamentId": 3328,
+        "goals": "1",
+        "assists": "undefined",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2007",
+      "appearances": "10",
+      "goals": "4",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 44,
+        "leagueName": "Copa America",
+        "seasonName": "2007",
+        "tournamentId": 2648,
+        "goals": "2",
+        "assists": "undefined",
+        "appearances": "6",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2007",
+        "tournamentId": 1450,
+        "goals": "2",
+        "assists": "undefined",
+        "appearances": "4",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2006",
+      "appearances": "10",
+      "goals": "2",
+      "assists": "1",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 77,
+        "leagueName": "World Cup",
+        "seasonName": "2006",
+        "tournamentId": 306,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "3",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2006",
+        "tournamentId": 1449,
+        "goals": "1",
+        "assists": "undefined",
+        "appearances": "4",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueName": "CONMEBOL World Cup Qualifiers",
+        "seasonName": "2006",
+        "tournamentId": -1,
+        "goals": "0",
+        "assists": "undefined",
+        "appearances": "3",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2005",
+      "appearances": "2",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2005",
+        "tournamentId": 1448,
+        "goals": "0",
+        "assists": "undefined",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2008",
+      "appearances": "5",
+      "goals": "2",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 66,
+        "leagueName": "Summer Olympics",
+        "seasonName": "2008",
+        "tournamentId": 3676,
+        "goals": "2",
+        "assists": "undefined",
+        "appearances": "5",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 317232,
+      "team": "Argentina U23",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   }
+  },
+  "fullCareer": true
+ },
+ "trophies": {
+  "playerTrophies": [
+   {
+    "ccode": "USA",
+    "teamId": 960720,
+    "teamName": "Inter Miami CF",
+    "tournaments": [
+     {
+      "ccode": "USA",
+      "leagueId": 130,
+      "leagueName": "MLS",
+      "seasonsWon": [
+       "2025"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 9875,
+      "leagueName": "Campeones Cup",
+      "seasonsWon": [
+       "2026"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 10043,
+      "leagueName": "Leagues Cup",
+      "seasonsWon": [
+       "2023"
+      ],
+      "seasonsRunnerUp": [
+       "2025"
+      ]
+     }
+    ]
+   },
+   {
+    "ccode": "FRA",
+    "teamId": 9847,
+    "teamName": "Paris Saint-Germain",
+    "tournaments": [
+     {
+      "ccode": "FRA",
+      "leagueId": 207,
+      "leagueName": "Trophée des Champions",
+      "seasonsWon": [
+       "2022/2023"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "FRA",
+      "leagueId": 53,
+      "leagueName": "Ligue 1",
+      "seasonsWon": [
+       "2022/2023",
+       "2021/2022"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   },
+   {
+    "ccode": "INT",
+    "teamId": 6706,
+    "teamName": "Argentina",
+    "tournaments": [
+     {
+      "ccode": "INT",
+      "leagueId": 44,
+      "leagueName": "Copa America",
+      "seasonsWon": [
+       "2024 USA",
+       "2021 Brazil"
+      ],
+      "seasonsRunnerUp": [
+       "2016  USA",
+       "2016 USA",
+       "2015 Chile",
+       "2007 Venezuela"
+      ]
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 77,
+      "leagueName": "World Cup",
+      "seasonsWon": [
+       "2022 Qatar"
+      ],
+      "seasonsRunnerUp": [
+       "2026 Canada/Mexico/USA",
+       "2014 Brazil"
+      ]
+     },
+     {
+      "ccode": "INT",
+      "leagueId": -1,
+      "leagueName": "CONMEBOL/UEFA Finalissima",
+      "seasonsWon": [
+       "2022"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   },
+   {
+    "ccode": "ESP",
+    "teamId": 8634,
+    "teamName": "Barcelona",
+    "tournaments": [
+     {
+      "ccode": "ESP",
+      "leagueId": -1,
+      "leagueName": "Supercopa de Catalunya",
+      "seasonsWon": [
+       "2018"
+      ],
+      "seasonsRunnerUp": [
+       "2019",
+       "2016"
+      ]
+     },
+     {
+      "ccode": "ESP",
+      "leagueId": 87,
+      "leagueName": "LaLiga",
+      "seasonsWon": [
+       "2018/2019",
+       "2017/2018",
+       "2015/2016",
+       "2014/2015",
+       "2012/2013",
+       "2010/2011",
+       "2009/2010",
+       "2008/2009",
+       "2005/2006",
+       "2004/2005"
+      ],
+      "seasonsRunnerUp": [
+       "2019/2020",
+       "2016/2017",
+       "2013/2014",
+       "2011/2012",
+       "2006/2007"
+      ]
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 42,
+      "leagueName": "Champions League",
+      "seasonsWon": [
+       "2014/2015",
+       "2010/2011",
+       "2008/2009",
+       "2005/2006"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "ESP",
+      "leagueId": -1,
+      "leagueName": "Copa Catalunya",
+      "seasonsWon": [
+       "2013/2014"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 9675,
+      "leagueName": "Audi Cup",
+      "seasonsWon": [
+       "2011"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 74,
+      "leagueName": "UEFA Super Cup",
+      "seasonsWon": [
+       "2015/2016",
+       "2011/2012",
+       "2009/2010"
+      ],
+      "seasonsRunnerUp": [
+       "2006/2007"
+      ]
+     },
+     {
+      "ccode": "ESP",
+      "leagueId": 138,
+      "leagueName": "Copa del Rey",
+      "seasonsWon": [
+       "2020/2021",
+       "2017/2018",
+       "2016/2017",
+       "2015/2016",
+       "2014/2015",
+       "2011/2012",
+       "2008/2009"
+      ],
+      "seasonsRunnerUp": [
+       "2018/2019",
+       "2013/2014",
+       "2010/2011"
+      ]
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 78,
+      "leagueName": "FIFA Club World Cup",
+      "seasonsWon": [
+       "2015 Japan",
+       "2011 Japan",
+       "2009 UAE"
+      ],
+      "seasonsRunnerUp": [
+       "2006 Japan"
+      ]
+     },
+     {
+      "ccode": "ESP",
+      "leagueId": -1,
+      "leagueName": "Trofeo Joan Gamper",
+      "seasonsWon": [
+       "2020",
+       "2019",
+       "2018",
+       "2017",
+       "2016"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "ESP",
+      "leagueId": 139,
+      "leagueName": "Supercopa de España",
+      "seasonsWon": [
+       "2018/2019",
+       "2016/2017",
+       "2013/2014",
+       "2011/2012",
+       "2010/2011",
+       "2009/2010",
+       "2006/2007",
+       "2005/2006"
+      ],
+      "seasonsRunnerUp": [
+       "2020/2021",
+       "2017/2018",
+       "2015/2016",
+       "2012/2013"
+      ]
+     }
+    ]
+   },
+   {
+    "ccode": "INT",
+    "teamId": 317232,
+    "teamName": "Argentina U23",
+    "tournaments": [
+     {
+      "ccode": "INT",
+      "leagueId": 66,
+      "leagueName": "Summer Olympics",
+      "seasonsWon": [
+       "2008 Beijing"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   }
+  ],
+  "coachTrophies": []
+ },
+ "playerInformation": [
+  {
+   "value": {
+    "numberValue": 170,
+    "key": null,
+    "fallback": "170 cm"
+   },
+   "title": "Height",
+   "translationKey": "height_sentencecase"
+  },
+  {
+   "value": {
+    "numberValue": 10,
+    "options": {},
+    "key": null,
+    "fallback": 10
+   },
+   "title": "Shirt",
+   "translationKey": "shirt"
+  },
+  {
+   "value": {
+    "numberValue": 39,
+    "options": {
+     "style": "unit",
+     "unit": "year",
+     "unitDisplay": "long"
+    },
+    "key": null,
+    "fallback": "39"
+   },
+   "title": "Age",
+   "translationKey": "age_sentencecase"
+  },
+  {
+   "value": {
+    "key": "left",
+    "fallback": "Left"
+   },
+   "title": "Preferred foot",
+   "translationKey": "preferred_foot"
+  },
+  {
+   "value": {
+    "key": null,
+    "fallback": "Argentina"
+   },
+   "title": "Country",
+   "translationKey": "country_sentencecase",
+   "icon": {
+    "type": "country",
+    "id": "ARG"
+   },
+   "countryCode": "ARG",
+   "nationalTeamId": 6706
+  },
+  {
+   "value": {
+    "numberValue": 13963174,
+    "key": null,
+    "fallback": "€14m"
+   },
+   "title": "Market value",
+   "translationKey": "transfer_value"
+  },
+  {
+   "value": {
+    "dateValue": "2028-12-31",
+    "key": null,
+    "fallback": {
+     "utcTime": "2028-12-31T00:00:00.000Z",
+     "timezone": "UTC"
+    }
+   },
+   "title": "Contract end",
+   "translationKey": "contract_end"
+  }
+ ],
+ "mainLeague": {
+  "leagueId": 130,
+  "leagueName": "Major League Soccer",
+  "season": "2026",
+  "stats": [
+   {
+    "title": "Goals",
+    "localizedTitleId": "goals",
+    "value": 25
+   },
+   {
+    "title": "Assists",
+    "localizedTitleId": "assists",
+    "value": 12
+   },
+   {
+    "title": "Started",
+    "localizedTitleId": "started",
+    "value": 27
+   },
+   {
+    "title": "Matches",
+    "localizedTitleId": "matches_uppercase",
+    "value": 29
+   },
+   {
+    "title": "Minutes played",
+    "localizedTitleId": "minutes_played",
+    "value": 2484
+   },
+   {
+    "title": "Rating",
+    "localizedTitleId": "rating",
+    "value": 8.2
+   },
+   {
+    "title": "Yellow cards",
+    "localizedTitleId": "yellow_cards",
+    "value": 5
+   },
+   {
+    "title": "Red cards",
+    "localizedTitleId": "red_cards",
+    "value": 0
+   }
+  ]
+ }
+}

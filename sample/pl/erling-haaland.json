@@ -1,0 +1,1830 @@
+{
+ "id": 737066,
+ "name": "Erling Haaland",
+ "birthDate": {
+  "utcTime": "2000-07-21T00:00:00.000Z",
+  "timezone": "UTC"
+ },
+ "primaryTeam": {
+  "teamId": 8456,
+  "teamName": "Manchester City",
+  "onLoan": false,
+  "teamColors": {
+   "color": "#69A8D8",
+   "colorAlternate": "#76b4e5",
+   "colorAway": "#8d3445",
+   "colorAwayAlternate": "#8d3445"
+  }
+ },
+ "careerHistory": {
+  "showFootnote": false,
+  "careerItems": {
+   "senior": {
+    "teamEntries": [
+     {
+      "participantId": 737066,
+      "teamId": 8456,
+      "team": "Manchester City",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2022-07-01T00:00:00",
+      "endDate": null,
+      "active": true,
+      "role": null,
+      "appearances": "209",
+      "goals": "175",
+      "assists": "29",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 737066,
+      "teamId": 9789,
+      "team": "Borussia Dortmund",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2020-01-01T00:00:00",
+      "endDate": "2022-06-30T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "89",
+      "goals": "86",
+      "assists": "19",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 737066,
+      "teamId": 10013,
+      "team": "Salzburg",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2019-01-01T00:00:00",
+      "endDate": "2019-12-31T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "27",
+      "goals": "29",
+      "assists": "5",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 737066,
+      "teamId": 9917,
+      "team": "Molde",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2017-02-01T00:00:00",
+      "endDate": "2018-12-31T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "48",
+      "goals": "19",
+      "assists": "5",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 737066,
+      "teamId": 8531,
+      "team": "Bryne",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2016-03-30T00:00:00",
+      "endDate": "2017-01-31T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "16",
+      "goals": "0",
+      "assists": "0",
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2026/2027",
+      "appearances": "11",
+      "goals": "13",
+      "assists": "0",
+      "rating": {
+       "rating": "8.20"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 47,
+        "leagueName": "Premier League",
+        "seasonName": "2026/2027",
+        "tournamentId": 36781,
+        "goals": "9",
+        "assists": "0",
+        "appearances": "8",
+        "rating": {
+         "rating": "8.01"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 247,
+        "leagueName": "Community Shield",
+        "seasonName": "2026/2027",
+        "tournamentId": -1,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2026/2027",
+        "tournamentId": 47760,
+        "goals": "4",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "8.99"
+        }
+       }
+      ],
+      "teamId": 8456,
+      "team": "Manchester City",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2025/2026",
+      "appearances": "56",
+      "goals": "41",
+      "assists": "10",
+      "rating": {
+       "rating": "7.56"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 47,
+        "leagueName": "Premier League",
+        "seasonName": "2025/2026",
+        "tournamentId": 27110,
+        "goals": "27",
+        "assists": "8",
+        "appearances": "35",
+        "rating": {
+         "rating": "7.67"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 132,
+        "leagueName": "FA Cup",
+        "seasonName": "2025/2026",
+        "tournamentId": 28891,
+        "goals": "3",
+        "assists": "1",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.44"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 133,
+        "leagueName": "EFL Cup",
+        "seasonName": "2025/2026",
+        "tournamentId": 27199,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": "6.72"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2025/2026",
+        "tournamentId": 28184,
+        "goals": "8",
+        "assists": "0",
+        "appearances": "10",
+        "rating": {
+         "rating": "7.50"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 78,
+        "leagueName": "FIFA Club World Cup",
+        "seasonName": "2025",
+        "tournamentId": 24449,
+        "goals": "3",
+        "assists": "1",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.52"
+        }
+       }
+      ],
+      "teamId": 8456,
+      "team": "Manchester City",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024/2025",
+      "appearances": "44",
+      "goals": "31",
+      "assists": "4",
+      "rating": {
+       "rating": "7.46"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 47,
+        "leagueName": "Premier League",
+        "seasonName": "2024/2025",
+        "tournamentId": 23685,
+        "goals": "22",
+        "assists": "3",
+        "appearances": "31",
+        "rating": {
+         "rating": "7.49"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 247,
+        "leagueName": "Community Shield",
+        "seasonName": "2024/2025",
+        "tournamentId": 26704,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 132,
+        "leagueName": "FA Cup",
+        "seasonName": "2024/2025",
+        "tournamentId": 24289,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "3",
+        "rating": {
+         "rating": "6.78"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2024/2025",
+        "tournamentId": 24110,
+        "goals": "8",
+        "assists": "0",
+        "appearances": "9",
+        "rating": {
+         "rating": "7.61"
+        }
+       }
+      ],
+      "teamId": 8456,
+      "team": "Manchester City",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023/2024",
+      "appearances": "45",
+      "goals": "38",
+      "assists": "6",
+      "rating": {
+       "rating": "7.61"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 47,
+        "leagueName": "Premier League",
+        "seasonName": "2023/2024",
+        "tournamentId": 20720,
+        "goals": "27",
+        "assists": "5",
+        "appearances": "31",
+        "rating": {
+         "rating": "7.64"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 247,
+        "leagueName": "Community Shield",
+        "seasonName": "2023/2024",
+        "tournamentId": 23529,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "6.24"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 132,
+        "leagueName": "FA Cup",
+        "seasonName": "2023/2024",
+        "tournamentId": 21876,
+        "goals": "5",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": "7.38"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2023/2024",
+        "tournamentId": 20961,
+        "goals": "6",
+        "assists": "1",
+        "appearances": "9",
+        "rating": {
+         "rating": "7.78"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 74,
+        "leagueName": "UEFA Super Cup",
+        "seasonName": "2023/2024",
+        "tournamentId": 23525,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8456,
+      "team": "Manchester City",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2022/2023",
+      "appearances": "53",
+      "goals": "52",
+      "assists": "9",
+      "rating": {
+       "rating": "7.62"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 47,
+        "leagueName": "Premier League",
+        "seasonName": "2022/2023",
+        "tournamentId": 17664,
+        "goals": "36",
+        "assists": "8",
+        "appearances": "35",
+        "rating": {
+         "rating": "7.76"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 247,
+        "leagueName": "Community Shield",
+        "seasonName": "2022/2023",
+        "tournamentId": 20745,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "6.27"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 132,
+        "leagueName": "FA Cup",
+        "seasonName": "2022/2023",
+        "tournamentId": 17927,
+        "goals": "3",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.20"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 133,
+        "leagueName": "EFL Cup",
+        "seasonName": "2022/2023",
+        "tournamentId": 17837,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "6.63"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2022/2023",
+        "tournamentId": 17697,
+        "goals": "12",
+        "assists": "1",
+        "appearances": "11",
+        "rating": {
+         "rating": "7.67"
+        }
+       }
+      ],
+      "teamId": 8456,
+      "team": "Manchester City",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2021/2022",
+      "appearances": "30",
+      "goals": "29",
+      "assists": "7",
+      "rating": {
+       "rating": "7.82"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 54,
+        "leagueName": "Bundesliga",
+        "seasonName": "2021/2022",
+        "tournamentId": 16494,
+        "goals": "22",
+        "assists": "7",
+        "appearances": "24",
+        "rating": {
+         "rating": "7.77"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 209,
+        "leagueName": "DFB Pokal",
+        "seasonName": "2021/2022",
+        "tournamentId": 16553,
+        "goals": "4",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "8.56"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 8924,
+        "leagueName": "Super Cup",
+        "seasonName": "2021/2022",
+        "tournamentId": 17657,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2021/2022",
+        "tournamentId": 16407,
+        "goals": "3",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": "7.74"
+        }
+       }
+      ],
+      "teamId": 9789,
+      "team": "Borussia Dortmund",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2020/2021",
+      "appearances": "41",
+      "goals": "41",
+      "assists": "10",
+      "rating": {
+       "rating": "7.90"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 54,
+        "leagueName": "Bundesliga",
+        "seasonName": "2020/2021",
+        "tournamentId": 15481,
+        "goals": "27",
+        "assists": "6",
+        "appearances": "28",
+        "rating": {
+         "rating": "7.88"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 209,
+        "leagueName": "DFB Pokal",
+        "seasonName": "2020/2021",
+        "tournamentId": 15391,
+        "goals": "3",
+        "assists": "1",
+        "appearances": "4",
+        "rating": {
+         "rating": "8.03"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 8924,
+        "leagueName": "Super Cup",
+        "seasonName": "2020/2021",
+        "tournamentId": 16369,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "1",
+        "rating": {
+         "rating": "5.90"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2020/2021",
+        "tournamentId": 15237,
+        "goals": "10",
+        "assists": "2",
+        "appearances": "8",
+        "rating": {
+         "rating": "8.20"
+        }
+       }
+      ],
+      "teamId": 9789,
+      "team": "Borussia Dortmund",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019/2020",
+      "appearances": "18",
+      "goals": "16",
+      "assists": "2",
+      "rating": {
+       "rating": "7.45"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 54,
+        "leagueName": "Bundesliga",
+        "seasonName": "2019/2020",
+        "tournamentId": 14144,
+        "goals": "13",
+        "assists": "2",
+        "appearances": "15",
+        "rating": {
+         "rating": "7.44"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 209,
+        "leagueName": "DFB Pokal",
+        "seasonName": "2019/2020",
+        "tournamentId": 14035,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2019/2020",
+        "tournamentId": 14006,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "7.54"
+        }
+       }
+      ],
+      "teamId": 9789,
+      "team": "Borussia Dortmund",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019/2020",
+      "appearances": "22",
+      "goals": "28",
+      "assists": "5",
+      "rating": {
+       "rating": "7.75"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 38,
+        "leagueName": "Bundesliga",
+        "seasonName": "2019/2020",
+        "tournamentId": 14072,
+        "goals": "16",
+        "assists": "4",
+        "appearances": "14",
+        "rating": {
+         "rating": "7.84"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2019/2020",
+        "tournamentId": 14006,
+        "goals": "8",
+        "assists": "1",
+        "appearances": "6",
+        "rating": {
+         "rating": "7.54"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueName": "Cup",
+        "seasonName": "2019/2020",
+        "tournamentId": -1,
+        "goals": "4",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 10013,
+      "team": "Salzburg",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2018/2019",
+      "appearances": "5",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": "6.85"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 38,
+        "leagueName": "Bundesliga",
+        "seasonName": "2018/2019",
+        "tournamentId": 12787,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "6.85"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 73,
+        "leagueName": "Europa League",
+        "seasonName": "2018/2019",
+        "tournamentId": 12765,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueName": "Cup",
+        "seasonName": "2018/2019",
+        "tournamentId": -1,
+        "goals": "0",
+        "assists": "undefined",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 10013,
+      "team": "Salzburg",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2018",
+      "appearances": "30",
+      "goals": "16",
+      "assists": "4",
+      "rating": {
+       "rating": "6.86"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 59,
+        "leagueName": "Eliteserien",
+        "seasonName": "2018",
+        "tournamentId": 12361,
+        "goals": "12",
+        "assists": "4",
+        "appearances": "25",
+        "rating": {
+         "rating": "6.86"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 73,
+        "leagueName": "Europa League",
+        "seasonName": "2018/2019",
+        "tournamentId": 12765,
+        "goals": "4",
+        "assists": "0",
+        "appearances": "5",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 9917,
+      "team": "Molde",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2017",
+      "appearances": "18",
+      "goals": "3",
+      "assists": "1",
+      "rating": {
+       "rating": "6.22"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 59,
+        "leagueName": "Eliteserien",
+        "seasonName": "2017",
+        "tournamentId": 11105,
+        "goals": "2",
+        "assists": "1",
+        "appearances": "14",
+        "rating": {
+         "rating": "6.22"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 206,
+        "leagueName": "Norgesmesterskapet",
+        "seasonName": "2017",
+        "tournamentId": 11209,
+        "goals": "1",
+        "assists": "undefined",
+        "appearances": "4",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 9917,
+      "team": "Molde",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2016",
+      "appearances": "16",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 203,
+        "leagueName": "OBOS-ligaen",
+        "seasonName": "2016",
+        "tournamentId": 10063,
+        "goals": "0",
+        "assists": "undefined",
+        "appearances": "16",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8531,
+      "team": "Bryne",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   },
+   "youth": {
+    "teamEntries": [
+     {
+      "participantId": 737066,
+      "teamId": 394209,
+      "team": "Molde U19",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2017-07-01T00:00:00",
+      "endDate": "2018-12-31T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "1",
+      "goals": "0",
+      "assists": "0",
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2017/2018",
+      "appearances": "1",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 9741,
+        "leagueName": "UEFA Youth League",
+        "seasonName": "2017/2018",
+        "tournamentId": 12103,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 394209,
+      "team": "Molde U19",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   },
+   "national team": {
+    "teamEntries": [
+     {
+      "participantId": 737066,
+      "teamId": 8492,
+      "team": "Norway",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2019-08-27T00:00:00",
+      "endDate": null,
+      "active": true,
+      "role": null,
+      "appearances": "59",
+      "goals": "65",
+      "assists": "7",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 737066,
+      "teamId": 1025413,
+      "team": "Norway U20",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2019-05-16T00:00:00",
+      "endDate": "2019-06-30T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "3",
+      "goals": "9",
+      "assists": "0",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 737066,
+      "teamId": 5830,
+      "team": "Norway U21",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2018-09-01T00:00:00",
+      "endDate": "2019-06-30T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "3",
+      "goals": "0",
+      "assists": "0",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 737066,
+      "teamId": 5964,
+      "team": "Norway U19",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2017-10-01T00:00:00",
+      "endDate": "2018-10-08T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "9",
+      "goals": "10",
+      "assists": "0",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 737066,
+      "teamId": 401900,
+      "team": "Norway U17",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2016-01-01T00:00:00",
+      "endDate": "2017-10-17T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "8",
+      "goals": "2",
+      "assists": "0",
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2026/2027",
+      "appearances": "4",
+      "goals": "3",
+      "assists": "0",
+      "rating": {
+       "rating": "7.34"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 9806,
+        "leagueName": "UEFA Nations League A",
+        "seasonName": "2026/2027",
+        "tournamentId": 31436,
+        "goals": "3",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.34"
+        }
+       }
+      ],
+      "teamId": 8492,
+      "team": "Norway",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2026",
+      "appearances": "7",
+      "goals": "7",
+      "assists": "0",
+      "rating": {
+       "rating": "7.65"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 77,
+        "leagueName": "World Cup",
+        "seasonName": "2026",
+        "tournamentId": 24254,
+        "goals": "7",
+        "assists": "0",
+        "appearances": "5",
+        "rating": {
+         "rating": "8.24"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2026",
+        "tournamentId": 29822,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "6.20"
+        }
+       }
+      ],
+      "teamId": 8492,
+      "team": "Norway",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2025/2026",
+      "appearances": "8",
+      "goals": "16",
+      "assists": "2",
+      "rating": {
+       "rating": "8.69"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10195,
+        "leagueName": "World Cup Qualification UEFA",
+        "seasonName": "2025/2026",
+        "tournamentId": 24488,
+        "goals": "16",
+        "assists": "2",
+        "appearances": "8",
+        "rating": {
+         "rating": "8.69"
+        }
+       }
+      ],
+      "teamId": 8492,
+      "team": "Norway",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2025",
+      "appearances": "1",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": "7.28"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2025",
+        "tournamentId": 24481,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "7.28"
+        }
+       }
+      ],
+      "teamId": 8492,
+      "team": "Norway",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024/2026",
+      "appearances": "6",
+      "goals": "7",
+      "assists": "1",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 9806,
+        "leagueName": "UEFA Nations League A",
+        "seasonName": "2024/2026",
+        "tournamentId": 22886,
+        "goals": "7",
+        "assists": "1",
+        "appearances": "6",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8492,
+      "team": "Norway",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024",
+      "appearances": "4",
+      "goals": "4",
+      "assists": "0",
+      "rating": {
+       "rating": "7.51"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2024",
+        "tournamentId": 22275,
+        "goals": "4",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.51"
+        }
+       }
+      ],
+      "teamId": 8492,
+      "team": "Norway",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023/2024",
+      "appearances": "5",
+      "goals": "6",
+      "assists": "1",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10607,
+        "leagueName": "EURO Qualification",
+        "seasonName": "2023/2024",
+        "tournamentId": -1,
+        "goals": "6",
+        "assists": "1",
+        "appearances": "5",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8492,
+      "team": "Norway",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023",
+      "appearances": "1",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": "6.39"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2023",
+        "tournamentId": 18498,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "6.39"
+        }
+       }
+      ],
+      "teamId": 8492,
+      "team": "Norway",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2022/2024",
+      "appearances": "6",
+      "goals": "6",
+      "assists": "1",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 9806,
+        "leagueName": "UEFA Nations League A",
+        "seasonName": "2022/2024",
+        "tournamentId": 17161,
+        "goals": "6",
+        "assists": "1",
+        "appearances": "6",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8492,
+      "team": "Norway",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2022",
+      "appearances": "2",
+      "goals": "3",
+      "assists": "1",
+      "rating": {
+       "rating": "8.52"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2022",
+        "tournamentId": 17169,
+        "goals": "3",
+        "assists": "1",
+        "appearances": "2",
+        "rating": {
+         "rating": "8.52"
+        }
+       }
+      ],
+      "teamId": 8492,
+      "team": "Norway",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2021/2022",
+      "appearances": "6",
+      "goals": "5",
+      "assists": "0",
+      "rating": {
+       "rating": "7.46"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10195,
+        "leagueName": "World Cup Qualification UEFA",
+        "seasonName": "2021/2022",
+        "tournamentId": 17272,
+        "goals": "5",
+        "assists": "0",
+        "appearances": "6",
+        "rating": {
+         "rating": "7.46"
+        }
+       }
+      ],
+      "teamId": 8492,
+      "team": "Norway",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2021",
+      "appearances": "2",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": "7.20"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2021",
+        "tournamentId": 15943,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "7.20"
+        }
+       }
+      ],
+      "teamId": 8492,
+      "team": "Norway",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2020/2022",
+      "appearances": "4",
+      "goals": "6",
+      "assists": "1",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 9806,
+        "leagueName": "UEFA Nations League A",
+        "seasonName": "2020/2022",
+        "tournamentId": 15023,
+        "goals": "6",
+        "assists": "1",
+        "appearances": "4",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8492,
+      "team": "Norway",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019/2020",
+      "appearances": "3",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10607,
+        "leagueName": "EURO Qualification",
+        "seasonName": "2019/2020",
+        "tournamentId": -1,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8492,
+      "team": "Norway",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019",
+      "appearances": "3",
+      "goals": "9",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueName": "FIFA U20 World Cup",
+        "seasonName": "2019",
+        "tournamentId": -1,
+        "goals": "9",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 1025413,
+      "team": "Norway U20",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2017/2019",
+      "appearances": "3",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 288,
+        "leagueName": "EURO U21",
+        "seasonName": "2017/2019",
+        "tournamentId": 12600,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 5830,
+      "team": "Norway U21",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2018",
+      "appearances": "9",
+      "goals": "10",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 287,
+        "leagueName": "UEFA U19 Championship",
+        "seasonName": "2018",
+        "tournamentId": 12597,
+        "goals": "10",
+        "assists": "0",
+        "appearances": "9",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 5964,
+      "team": "Norway U19",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2017",
+      "appearances": "8",
+      "goals": "2",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 301,
+        "leagueName": "UEFA U17 Championship",
+        "seasonName": "2017",
+        "tournamentId": 11355,
+        "goals": "2",
+        "assists": "undefined",
+        "appearances": "8",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 401900,
+      "team": "Norway U17",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   }
+  },
+  "fullCareer": true
+ },
+ "trophies": {
+  "playerTrophies": [
+   {
+    "ccode": "ENG",
+    "teamId": 8456,
+    "teamName": "Manchester City",
+    "tournaments": [
+     {
+      "ccode": "ENG",
+      "leagueId": 132,
+      "leagueName": "FA Cup",
+      "seasonsWon": [
+       "2025/2026",
+       "2022/2023"
+      ],
+      "seasonsRunnerUp": [
+       "2024/2025",
+       "2023/2024"
+      ]
+     },
+     {
+      "ccode": "ENG",
+      "leagueId": 47,
+      "leagueName": "Premier League",
+      "seasonsWon": [
+       "2023/2024",
+       "2022/2023"
+      ],
+      "seasonsRunnerUp": [
+       "2025/2026"
+      ]
+     },
+     {
+      "ccode": "INT",
+      "leagueId": -1,
+      "leagueName": "J.League World Challenge",
+      "seasonsWon": [
+       "2023"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 42,
+      "leagueName": "Champions League",
+      "seasonsWon": [
+       "2022/2023"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "ENG",
+      "leagueId": 133,
+      "leagueName": "EFL Cup",
+      "seasonsWon": [
+       "2025/2026"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 74,
+      "leagueName": "UEFA Super Cup",
+      "seasonsWon": [
+       "2023/2024"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 78,
+      "leagueName": "FIFA Club World Cup",
+      "seasonsWon": [
+       "2023 Saudi Arabia"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "ENG",
+      "leagueId": 247,
+      "leagueName": "Community Shield",
+      "seasonsWon": [
+       "2024/2025"
+      ],
+      "seasonsRunnerUp": [
+       "2026/2027",
+       "2023/2024",
+       "2022/2023"
+      ]
+     }
+    ]
+   },
+   {
+    "ccode": "GER",
+    "teamId": 9789,
+    "teamName": "Borussia Dortmund",
+    "tournaments": [
+     {
+      "ccode": "GER",
+      "leagueId": 209,
+      "leagueName": "DFB Pokal",
+      "seasonsWon": [
+       "2020/2021"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   },
+   {
+    "ccode": "AUT",
+    "teamId": 10013,
+    "teamName": "Salzburg",
+    "tournaments": [
+     {
+      "ccode": "AUT",
+      "leagueId": -1,
+      "leagueName": "Cup",
+      "seasonsWon": [
+       "2018/2019"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "AUT",
+      "leagueId": 38,
+      "leagueName": "Bundesliga",
+      "seasonsWon": [
+       "2018/2019"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": -1,
+      "leagueName": "The Atlantic Cup",
+      "seasonsWon": [
+       "2019"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   }
+  ],
+  "coachTrophies": []
+ },
+ "playerInformation": [
+  {
+   "value": {
+    "numberValue": 195,
+    "key": null,
+    "fallback": "195 cm"
+   },
+   "title": "Height",
+   "translationKey": "height_sentencecase"
+  },
+  {
+   "value": {
+    "numberValue": 9,
+    "options": {},
+    "key": null,
+    "fallback": 9
+   },
+   "title": "Shirt",
+   "translationKey": "shirt"
+  },
+  {
+   "value": {
+    "numberValue": 26,
+    "options": {
+     "style": "unit",
+     "unit": "year",
+     "unitDisplay": "long"
+    },
+    "key": null,
+    "fallback": "26"
+   },
+   "title": "Age",
+   "translationKey": "age_sentencecase"
+  },
+  {
+   "value": {
+    "key": "left",
+    "fallback": "Left"
+   },
+   "title": "Preferred foot",
+   "translationKey": "preferred_foot"
+  },
+  {
+   "value": {
+    "key": null,
+    "fallback": "Norway"
+   },
+   "title": "Country",
+   "translationKey": "country_sentencecase",
+   "icon": {
+    "type": "country",
+    "id": "NOR"
+   },
+   "countryCode": "NOR",
+   "nationalTeamId": 8492
+  },
+  {
+   "value": {
+    "numberValue": 159349200,
+    "key": null,
+    "fallback": "€159.3m"
+   },
+   "title": "Market value",
+   "translationKey": "transfer_value"
+  },
+  {
+   "value": {
+    "dateValue": "2034-06-30",
+    "key": null,
+    "fallback": {
+     "utcTime": "2034-06-30T00:00:00.000Z",
+     "timezone": "UTC"
+    }
+   },
+   "title": "Contract end",
+   "translationKey": "contract_end"
+  }
+ ],
+ "mainLeague": {
+  "leagueId": 47,
+  "leagueName": "Premier League",
+  "season": "2026/2027",
+  "stats": [
+   {
+    "title": "Goals",
+    "localizedTitleId": "goals",
+    "value": 9
+   },
+   {
+    "title": "Assists",
+    "localizedTitleId": "assists",
+    "value": 0
+   },
+   {
+    "title": "Started",
+    "localizedTitleId": "started",
+    "value": 8
+   },
+   {
+    "title": "Matches",
+    "localizedTitleId": "matches_uppercase",
+    "value": 8
+   },
+   {
+    "title": "Minutes played",
+    "localizedTitleId": "minutes_played",
+    "value": 710
+   },
+   {
+    "title": "Rating",
+    "localizedTitleId": "rating",
+    "value": 8.01
+   },
+   {
+    "title": "Yellow cards",
+    "localizedTitleId": "yellow_cards",
+    "value": 0
+   },
+   {
+    "title": "Red cards",
+    "localizedTitleId": "red_cards",
+    "value": 0
+   }
+  ]
+ }
+}
