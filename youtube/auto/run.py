@@ -130,31 +130,37 @@ def main():
     lines = [l['text'] for l in S.lines]
     open(f'{DIR}/voice.txt', 'w').write('\n'.join(lines))
     print('\n'.join(lines))
-    if not voice('\n\n'.join(lines)):
-        return report(job, state='failed', reason='voice')
     from faster_whisper import WhisperModel
-    m = WhisperModel('small', device='cpu', compute_type='int8')
-    segs, _ = m.transcribe(pcm(f'{DIR}/voice.mp3'), language='ar', word_timestamps=True)
-    words = [[round(w.start, 2), round(w.end, 2), w.word.strip()] for s in segs for w in (s.words or [])]
-    dur = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f'{DIR}/voice.mp3'], capture_output=True, text=True).stdout.strip())
-    starts, cover, at, owner = align(lines, words, dur)
-    for i, l in enumerate(lines): print(f'{starts[i]:7.2f} {cover[i]:.2f} {l[:70]}')
-    bad = numbers_check(lines, [l['nums'] for l in S.lines], words, starts, dur)
-    if bad:
-        # A doubtful number is heard again by the bigger model before anything is held (the career videos' rule).
-        big = WhisperModel('large-v3', device='cpu', compute_type='int8')
-        for i in list(bad):
-            a, b = starts[i] - 1.0, (starts[i + 1] if i + 1 < len(starts) else dur) + 1.0
-            heard = ' '.join(s.text for s in big.transcribe(pcm(f'{DIR}/voice.mp3', a, b), language='ar')[0])
-            left = [n for n in bad[i] if n not in numbers_in(heard)]
-            print('large-v3', i, bad[i], '->', left, '|', heard)
-            if left: bad[i] = {'missing': left, 'heard': heard.strip()[:200]}
-            else: del bad[i]
-    lost = [i for i, c in enumerate(cover) if c < 0.3]
-    if bad or lost:
+    m, big = WhisperModel('small', device='cpu', compute_type='int8'), None
+    # A number read wrong is read again: up to three readings of the whole script (one voice each), and only if none
+    # passes is the video held (owner, 2026-10-31: the first sample said «التامة» for «الثامنة»).
+    for reading in range(1, 4):
+        if not voice('\n\n'.join(lines)):
+            return report(job, state='failed', reason='voice')
+        segs, _ = m.transcribe(pcm(f'{DIR}/voice.mp3'), language='ar', word_timestamps=True)
+        words = [[round(w.start, 2), round(w.end, 2), w.word.strip()] for s in segs for w in (s.words or [])]
+        dur = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f'{DIR}/voice.mp3'], capture_output=True, text=True).stdout.strip())
+        starts, cover, at, owner = align(lines, words, dur)
+        for i, l in enumerate(lines): print(f'{starts[i]:7.2f} {cover[i]:.2f} {l[:70]}')
+        bad = numbers_check(lines, [l['nums'] for l in S.lines], words, starts, dur)
+        if bad:
+            # A doubtful number is heard again by the bigger model before anything is held (the career videos' rule).
+            big = big or WhisperModel('large-v3', device='cpu', compute_type='int8')
+            for i in list(bad):
+                a, b = starts[i] - 1.0, (starts[i + 1] if i + 1 < len(starts) else dur) + 1.0
+                heard = ' '.join(s.text for s in big.transcribe(pcm(f'{DIR}/voice.mp3', a, b), language='ar')[0])
+                left = [n for n in bad[i] if n not in numbers_in(heard)]
+                print('large-v3', i, bad[i], '->', left, '|', heard)
+                if left: bad[i] = {'missing': left, 'heard': heard.strip()[:200]}
+                else: del bad[i]
+        lost = [i for i, c in enumerate(cover) if c < 0.3]
+        if not bad and not lost:
+            break
         why = '; '.join([f'السطر {i + 1}: الرقم {x["missing"]} مش مسموع (اتسمع: {x["heard"]})' for i, x in bad.items()] + [f'السطر {i + 1} مش مقروء تقريبًا' for i in lost])
-        print('held:', why)
-        return report(job, state='held', reason=why[:1500], lines=[lines[i] for i in list(bad)[:5]])
+        print(f'reading {reading} held:', why)
+        if reading == 3:
+            return report(job, state='held', reason=f'بعد 3 قراءات للصوت: {why}'[:1500], lines=[lines[i] for i in list(bad)[:5]])
+        time.sleep(60)  # the voice endpoint answers 502 when called too fast
     caps = captions(lines, starts, dur, words, at, owner)
     tl = {'starts': [round(s, 2) for s in starts], 'end': round(dur, 2), 'lead': LEAD, 'total': round(dur + LEAD + 1.5, 2), 'caps': caps}
     json.dump(tl, open(f'{DIR}/timeline.json', 'w'), ensure_ascii=False)
