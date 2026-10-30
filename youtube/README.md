@@ -1,7 +1,7 @@
 # Long YouTube videos (owner, 2026-10-30)
 
 Three kinds, each with its own design (YouTube penalises one template for everything):
-- `round.py`: «الجولة بالأرقام», the broadcast-board design (dark purple, neon green).
+- `round.py`: «ملخص الجولة» (was «الجولة بالأرقام»), the broadcast-board design (dark purple, neon green).
 - `preview.py`: «قبل القمة», the split design in the two clubs' colours.
 - `history.py`: «تاريخ نادٍ مع بطولة», the museum design (old paper, gold, serif type, the titles lighting up).
 
@@ -36,6 +36,21 @@ How:
 6. **Approve**: the worker announces each video on Telegram (👁 watch, 🚀 YouTube), like the career videos.
 7. **Upload**: the worker streams the release asset to YouTube's resumable upload (the Shorts path keeps the whole
    file in KV, 25 MB at most, too small for long videos), with title, description, chapters and tags.
+
+## The automatic line (`auto/`, 2026-10-30)
+
+`.github/workflows/youtube.yml` runs every two hours and whenever the site starts it (a video queued). It asks
+`/v2/ytv/jobs` for a waiting video and `auto/run.py` makes the oldest one:
+- `build.py` writes the script from the job's data (templates in MSA, `arnum.py` says every number in words) and the
+  page in the approved designs (`round.css`, `preview.css`: the home side's colour from its crest, on the right).
+  A team name in Latin letters holds the video; a scorer's or absent player's Latin name is shown, never read.
+- the voice in one call (Puck, ar-EG), whisper `small` with word timings; `check.py` finds each line (its scene's
+  start and captions) and every number of the line must be heard there (words or digits). A miss is heard again by
+  `large-v3`; still missing, or a line not read, the video is held and the site tells the owner (`/v2/ytv/done`).
+- `ov.cjs job`: nothing wider than the frame (long names are shrunk by `fitAll`), else held.
+- `make.sh job`, then an 854 px preview for Telegram (20 MB at most by URL); both kept as the release `<job id>`.
+The site announces the video on Telegram (👁 the preview, 🚀 YouTube) and streams the release asset to YouTube's
+resumable upload; long videos go before the Shorts in the day's upload quota.
 
 ## «تاريخ نادٍ أو منتخب مع بطولة» every week (owner, 2026-10-30)
 A scheduled task fires into the owner's session once a week: the first line of `history-queue.txt`.

@@ -1,5 +1,7 @@
 # Each video's work folder (voice, photos, logos, frames, stills) and the finished MP4s stay out.
 */
 !fonts/
+!auto/
+auto/__pycache__/
 out-*.mp4
 make.log
