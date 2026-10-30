@@ -1,5 +1,4 @@
 # «مسيرة اللاعب»: the order of the series (owner, 2026-10-28). Two a day; a line moves to done.txt when its video is in videos/.
-Erling Haaland
 Ousmane Dembélé
 Sadio Mané
 Lamine Yamal

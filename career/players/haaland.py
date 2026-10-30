@@ -14,7 +14,7 @@ SC = r'''
   { ph: 3, club: 4, glow: '#0c2a3a', html: `<div class="ttl">مع سيتي</div><div class="rows">${row('🏆', 'الدوري الإنجليزي', '×2')}${row('🏆', 'كأس إنجلترا', '×2')}${row('🏆', 'كأس الرابطة', '2026')}</div>` },
   { ph: 3, club: 4, glow: '#0c2a3a', html: head(8456, 'مانشستر سيتي', 'منذ 2022', MCI) + `<div class="chips">${chip(175, 'هدفًا', 175)}${chip(209, 'مباراة', 209)}</div>` },
   { ph: 3, club: 4, glow: '#0c2a3a', html: `<div class="chips">${chip(50, 'هدفًا', 50)}</div><div class="ttl" style="font-size:66px">الأسرع إليها</div>${SUB('في دوري أبطال أوروبا')}` },
-  { ph: 2, club: 5, glow: '#3a1010', html: head(8492, 'منتخب النرويج', 'كأس العالم 2026', NOR) + `<div class="rows">${row('🌍', 'أول مشاركة منذ 1998', '✓')}</div><div class="chips">${chip(7, 'أهداف', 7)}</div>` },
+  { ph: 2, club: 5, glow: '#3a1010', html: head(8492, 'منتخب النرويج', 'كأس العالم 2026', NOR) + `<div class="rows">${row('🌍', 'أول مشاركة منذ 1998', '✓')}${row('⚽', 'أهداف في البطولة', '7')}</div>` },
   { ph: 2, club: 5, glow: '#3a1010', html: `<div class="ttl" style="font-size:72px">دور الستة عشر</div><div class="rows">${row('⚽', 'هدفان أمام البرازيل', '✓')}${row('🌍', 'ربع النهائي لأول مرة', '✓')}</div>` },
   { ph: 2, club: 5, glow: '#3a1010', html: `<div class="ttl" style="font-size:66px">الهداف التاريخي للنرويج</div><div class="chips">${chip(65, 'هدفًا', 65)}${chip(59, 'مباراة', 59)}</div>` },
   { club: 5, glow: '#2a1a5e', html: `<div class="vs" style="gap:14px;flex-wrap:wrap;justify-content:center">${CLUBS.map((id) => `<img src="${L(id)}" style="width:110px;height:110px">`).join('<span class="x" style="font-size:40px">←</span>')}</div><div class="ttl" style="margin-top:30px">أي محطة هي<br>الأجمل في رأيك؟</div>${SUB('اكتبها في التعليقات 👇')}` },
