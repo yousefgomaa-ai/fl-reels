@@ -1,29 +1,14 @@
-# One-off test of the automatic long videos on the youtube-auto branch (deleted before merging).
-name: YouTube long video test
+# One-off: removes the test release of the long videos (this file is deleted in the next commit).
+name: YouTube long video test cleanup
 on:
   push:
     branches: [youtube-auto]
 permissions:
   contents: write
 jobs:
-  test:
+  clean:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - name: Install
-        run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null
-          npm init -y > /dev/null && npm install --no-save playwright@1.48.2 > /dev/null && npx playwright install --with-deps chromium > /dev/null
-          pip install -q faster-whisper pillow
-      - name: Make the test video
-        env:
-          REELS_KEY: ${{ secrets.REELS_KEY }}
+      - env:
           GH_TOKEN: ${{ github.token }}
-        run: python3 youtube/auto/run.py youtube/auto/test-round.json
-      - name: Stills
-        if: always()
-        run: ls -la youtube/job youtube/*.mp4 || true
+        run: gh release delete ytv-test-round-1 --yes --cleanup-tag --repo ${{ github.repository }}
