@@ -36,3 +36,16 @@ How:
 6. **Approve**: the worker announces each video on Telegram (👁 watch, 🚀 YouTube), like the career videos.
 7. **Upload**: the worker streams the release asset to YouTube's resumable upload (the Shorts path keeps the whole
    file in KV, 25 MB at most, too small for long videos), with title, description, chapters and tags.
+
+## «تاريخ نادٍ أو منتخب مع بطولة» every week (owner, 2026-10-30)
+A scheduled task fires into the owner's session once a week: the first line of `history-queue.txt`.
+1. Research on the web: every final, score, year, scorer and record (from the club's and the competition's own sites
+   where possible); leave out anything disputed.
+2. `voice.txt` (MSA, numbers in words, one line per scene, about 18 lines) and `photos.txt` + `keys.txt` (Commons,
+   checked by eye) in `sample/career/yt-<slug>/` on `voice-sample` → voice, whisper and photos.
+3. Check EVERY number and year against whisper; doubtful ones with large-v3 (`sample/probe.py`); never assume it is
+   whisper's error.
+4. Copy `history.py` to a new `<slug>.py` and change YEARS, LIT, the scenes and the crest; keep the museum design and
+   the strip of titles. Scores as «الفوز على X 2-0» with `<bdi dir="ltr">`. `still.cjs`, `ov.cjs`, look at every still.
+5. `make.sh`, check frames, send the owner the MP4, a 1280x720 thumbnail and the title, description (chapters,
+   Commons credits) and tags, as for Real Madrid. Move the line to `history-done.txt`.
