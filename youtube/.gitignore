@@ -1,0 +1,5 @@
+# Each video's work folder (voice, photos, logos, frames, stills) and the finished MP4s stay out.
+*/
+!fonts/
+out-*.mp4
+make.log
