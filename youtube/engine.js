@@ -1,5 +1,7 @@
 // Long YouTube videos (owner, 2026-10-30): one scene per narration line, drawn at time t by draw(t).
 // Children with data-in fade in one after another, data-n counts up, data-w grows a bar, .kb slowly zooms a photo.
+// Nothing may widen the page: a zooming photo did, and the whole frame slid sideways (owner, 2026-10-30).
+document.head.insertAdjacentHTML('beforeend', '<style>html,body{overflow:hidden}.scene{overflow:hidden}</style>');
 const clamp = (x) => Math.max(0, Math.min(1, x)), ease = (p) => 1 - Math.pow(1 - p, 3);
 let TL = { starts: [0], end: 10, caps: [] };
 function setTimeline(tl) { TL = tl; }
