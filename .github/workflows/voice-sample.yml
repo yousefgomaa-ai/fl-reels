@@ -166,6 +166,8 @@ jobs:
       - name: Probe (one-off)
         if: hashFiles('sample/probe.py') != ''
         continue-on-error: true
+        env:
+          REELS_KEY: ${{ secrets.REELS_KEY }}
         run: python3 sample/probe.py
       - name: Keep the audio on this branch
         run: |
