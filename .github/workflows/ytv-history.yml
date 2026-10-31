@@ -1,0 +1,42 @@
+# «تاريخ نادٍ مع بطولة» (owner, 2026-10-31): a finished video made in a session (sample/ytv/<id>.mp4 + <id>.json with
+# title, description and tags) is kept as a release of this repository, reported ready to the site (asked on Telegram,
+# 🚀 uploads it to YouTube as a normal video), and its files leave the branch.
+name: YouTube history video
+on:
+  push:
+    branches: [voice-sample]
+    paths: ['sample/ytv/**']
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Release and report
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REELS_KEY: ${{ secrets.REELS_KEY }}
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null
+          for m in sample/ytv/*.json; do
+            id=$(basename "$m" .json); v="sample/ytv/$id.mp4"
+            [ -f "$v" ] || { echo "no video for $id"; continue; }
+            ffmpeg -loglevel error -y -i "$v" -vf scale=854:-2 -c:v libx264 -preset veryfast -crf 30 -c:a aac -b:a 64k -movflags +faststart "/tmp/$id-preview.mp4"
+            cp "$v" "/tmp/$id.mp4"
+            gh release delete "$id" --yes --cleanup-tag 2>/dev/null || true
+            gh release create "$id" "/tmp/$id.mp4" "/tmp/$id-preview.mp4" --title "$(jq -r .title "$m" | cut -c1-120)" --notes "$(jq -r .title "$m")"
+            base="https://github.com/$GITHUB_REPOSITORY/releases/download/$id"
+            secs=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$v" | cut -d. -f1)
+            jq --arg id "$id" --arg video "$base/$id.mp4" --arg preview "$base/$id-preview.mp4" --argjson size "$(stat -c %s "$v")" --argjson seconds "$secs" \
+              '{id:$id, state:"ready", video:$video, preview:$preview, size:$size, seconds:$seconds, title:.title, description:.description, tags:.tags}' "$m" > /tmp/body.json
+            k=$(python3 -c 'import os,urllib.parse;print(urllib.parse.quote(os.environ["REELS_KEY"],safe=""))')
+            code=$(curl -sS -o /tmp/r.json -w '%{http_code}' -X POST -H 'Content-Type: application/json' --data-binary @/tmp/body.json "https://api.football-legend.com/v2/ytv/done?key=$k")
+            echo "$id: HTTP $code $(cat /tmp/r.json)"
+            [ "$code" = "200" ] || exit 1
+            git rm -q "$v" "$m"
+          done
+          git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "YouTube history video released and reported" && for t in 1 2 3 4; do git push && break; sleep $((t * 5)); done
