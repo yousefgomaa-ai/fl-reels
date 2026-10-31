@@ -1,0 +1,1436 @@
+{
+ "id": 696679,
+ "name": "Raphinha",
+ "birthDate": {
+  "utcTime": "1996-12-14T00:00:00.000Z",
+  "timezone": "UTC"
+ },
+ "primaryTeam": {
+  "teamId": 8634,
+  "teamName": "Barcelona",
+  "onLoan": false,
+  "teamColors": {
+   "color": "#971e48",
+   "colorAlternate": "#ab2151",
+   "colorAway": "#004D98",
+   "colorAwayAlternate": "#2058a5"
+  }
+ },
+ "careerHistory": {
+  "showFootnote": false,
+  "careerItems": {
+   "senior": {
+    "teamEntries": [
+     {
+      "participantId": 696679,
+      "teamId": 8634,
+      "team": "Barcelona",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2022-07-15T00:00:00",
+      "endDate": null,
+      "active": true,
+      "role": null,
+      "appearances": "189",
+      "goals": "90",
+      "assists": "55",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 696679,
+      "teamId": 8463,
+      "team": "Leeds United",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2020-10-05T00:00:00",
+      "endDate": "2022-07-15T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "67",
+      "goals": "17",
+      "assists": "12",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 696679,
+      "teamId": 9851,
+      "team": "Rennes",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2019-09-02T00:00:00",
+      "endDate": "2020-10-05T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "36",
+      "goals": "8",
+      "assists": "6",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 696679,
+      "teamId": 9768,
+      "team": "Sporting CP",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2018-07-02T00:00:00",
+      "endDate": "2019-09-02T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "41",
+      "goals": "9",
+      "assists": "2",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 696679,
+      "teamId": 7844,
+      "team": "Vitória de Guimarães",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2016-02-02T00:00:00",
+      "endDate": "2018-07-02T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "84",
+      "goals": "22",
+      "assists": "11",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 696679,
+      "teamId": -1,
+      "team": "Vitória SC Guimarães II",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2016-02-02T00:00:00",
+      "endDate": "2016-06-30T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "16",
+      "goals": "5",
+      "assists": "0",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 696679,
+      "teamId": 104822,
+      "team": "Avaí",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2015-11-01T00:00:00",
+      "endDate": "2016-02-01T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": null,
+      "goals": null,
+      "assists": null,
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2026/2027",
+      "appearances": "12",
+      "goals": "15",
+      "assists": "3",
+      "rating": {
+       "rating": "8.40"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2026/2027",
+        "tournamentId": 38843,
+        "goals": "13",
+        "assists": "3",
+        "appearances": "10",
+        "rating": {
+         "rating": "8.47"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2026/2027",
+        "tournamentId": 47760,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "8.05"
+        }
+       }
+      ],
+      "teamId": 8634,
+      "team": "Barcelona",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2025/2026",
+      "appearances": "33",
+      "goals": "21",
+      "assists": "7",
+      "rating": {
+       "rating": "7.77"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2025/2026",
+        "tournamentId": 27233,
+        "goals": "13",
+        "assists": "3",
+        "appearances": "22",
+        "rating": {
+         "rating": "7.77"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 138,
+        "leagueName": "Copa del Rey",
+        "seasonName": "2025/2026",
+        "tournamentId": 28392,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "2",
+        "rating": {
+         "rating": "7.88"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 139,
+        "leagueName": "Supercopa de España",
+        "seasonName": "2025/2026",
+        "tournamentId": 47879,
+        "goals": "4",
+        "assists": "1",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2025/2026",
+        "tournamentId": 28184,
+        "goals": "3",
+        "assists": "2",
+        "appearances": "7",
+        "rating": {
+         "rating": "7.75"
+        }
+       }
+      ],
+      "teamId": 8634,
+      "team": "Barcelona",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024/2025",
+      "appearances": "57",
+      "goals": "34",
+      "assists": "22",
+      "rating": {
+       "rating": "8.07"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2024/2025",
+        "tournamentId": 23686,
+        "goals": "18",
+        "assists": "9",
+        "appearances": "36",
+        "rating": {
+         "rating": "7.90"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 138,
+        "leagueName": "Copa del Rey",
+        "seasonName": "2024/2025",
+        "tournamentId": 24269,
+        "goals": "1",
+        "assists": "4",
+        "appearances": "5",
+        "rating": {
+         "rating": "8.21"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 139,
+        "leagueName": "Supercopa de España",
+        "seasonName": "2024/2025",
+        "tournamentId": 27485,
+        "goals": "2",
+        "assists": "1",
+        "appearances": "2",
+        "rating": {
+         "rating": "9.28"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2024/2025",
+        "tournamentId": 24110,
+        "goals": "13",
+        "assists": "8",
+        "appearances": "14",
+        "rating": {
+         "rating": "8.31"
+        }
+       }
+      ],
+      "teamId": 8634,
+      "team": "Barcelona",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023/2024",
+      "appearances": "37",
+      "goals": "10",
+      "assists": "11",
+      "rating": {
+       "rating": "7.44"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2023/2024",
+        "tournamentId": 21053,
+        "goals": "6",
+        "assists": "9",
+        "appearances": "28",
+        "rating": {
+         "rating": "7.33"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 138,
+        "leagueName": "Copa del Rey",
+        "seasonName": "2023/2024",
+        "tournamentId": 22078,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "8.56"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 139,
+        "leagueName": "Supercopa de España",
+        "seasonName": "2023/2024",
+        "tournamentId": 23954,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "8.46"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2023/2024",
+        "tournamentId": 20961,
+        "goals": "3",
+        "assists": "2",
+        "appearances": "7",
+        "rating": {
+         "rating": "7.61"
+        }
+       }
+      ],
+      "teamId": 8634,
+      "team": "Barcelona",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2022/2023",
+      "appearances": "50",
+      "goals": "10",
+      "assists": "12",
+      "rating": {
+       "rating": "7.28"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2022/2023",
+        "tournamentId": 17852,
+        "goals": "7",
+        "assists": "7",
+        "appearances": "36",
+        "rating": {
+         "rating": "7.33"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 138,
+        "leagueName": "Copa del Rey",
+        "seasonName": "2022/2023",
+        "tournamentId": 18381,
+        "goals": "2",
+        "assists": "2",
+        "appearances": "5",
+        "rating": {
+         "rating": "7.47"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 139,
+        "leagueName": "Supercopa de España",
+        "seasonName": "2022/2023",
+        "tournamentId": 20741,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "5.97"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2022/2023",
+        "tournamentId": 17697,
+        "goals": "0",
+        "assists": "2",
+        "appearances": "5",
+        "rating": {
+         "rating": "7.08"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 73,
+        "leagueName": "Europa League",
+        "seasonName": "2022/2023",
+        "tournamentId": 17700,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "2",
+        "rating": {
+         "rating": "7.77"
+        }
+       }
+      ],
+      "teamId": 8634,
+      "team": "Barcelona",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2021/2022",
+      "appearances": "36",
+      "goals": "11",
+      "assists": "3",
+      "rating": {
+       "rating": "7.30"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 47,
+        "leagueName": "Premier League",
+        "seasonName": "2021/2022",
+        "tournamentId": 16390,
+        "goals": "11",
+        "assists": "3",
+        "appearances": "35",
+        "rating": {
+         "rating": "7.34"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 132,
+        "leagueName": "FA Cup",
+        "seasonName": "2021/2022",
+        "tournamentId": 16818,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "6.01"
+        }
+       }
+      ],
+      "teamId": 8463,
+      "team": "Leeds United",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2020/2021",
+      "appearances": "31",
+      "goals": "6",
+      "assists": "9",
+      "rating": {
+       "rating": "7.34"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 47,
+        "leagueName": "Premier League",
+        "seasonName": "2020/2021",
+        "tournamentId": 15382,
+        "goals": "6",
+        "assists": "9",
+        "appearances": "30",
+        "rating": {
+         "rating": "7.39"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 132,
+        "leagueName": "FA Cup",
+        "seasonName": "2020/2021",
+        "tournamentId": 15661,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "6.09"
+        }
+       }
+      ],
+      "teamId": 8463,
+      "team": "Leeds United",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2020/2021",
+      "appearances": "6",
+      "goals": "1",
+      "assists": "2",
+      "rating": {
+       "rating": "7.22"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 53,
+        "leagueName": "Ligue 1",
+        "seasonName": "2020/2021",
+        "tournamentId": 15293,
+        "goals": "1",
+        "assists": "2",
+        "appearances": "6",
+        "rating": {
+         "rating": "7.22"
+        }
+       }
+      ],
+      "teamId": 9851,
+      "team": "Rennes",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019/2020",
+      "appearances": "30",
+      "goals": "7",
+      "assists": "4",
+      "rating": {
+       "rating": "6.89"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 53,
+        "leagueName": "Ligue 1",
+        "seasonName": "2019/2020",
+        "tournamentId": 14026,
+        "goals": "5",
+        "assists": "3",
+        "appearances": "22",
+        "rating": {
+         "rating": "6.95"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 134,
+        "leagueName": "Coupe de France",
+        "seasonName": "2019/2020",
+        "tournamentId": 14634,
+        "goals": "2",
+        "assists": "1",
+        "appearances": "3",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 150,
+        "leagueName": "Coupe de la Ligue",
+        "seasonName": "2019/2020",
+        "tournamentId": 14278,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 73,
+        "leagueName": "Europa League",
+        "seasonName": "2019/2020",
+        "tournamentId": 14007,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": "6.59"
+        }
+       }
+      ],
+      "teamId": 9851,
+      "team": "Rennes",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019/2020",
+      "appearances": "5",
+      "goals": "2",
+      "assists": "0",
+      "rating": {
+       "rating": "6.96"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 61,
+        "leagueName": "Liga Portugal",
+        "seasonName": "2019/2020",
+        "tournamentId": 14196,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": "6.96"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 188,
+        "leagueName": "Super Cup",
+        "seasonName": "2019/2020",
+        "tournamentId": 15473,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 9768,
+      "team": "Sporting CP",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2018/2019",
+      "appearances": "36",
+      "goals": "7",
+      "assists": "2",
+      "rating": {
+       "rating": "7.09"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 61,
+        "leagueName": "Liga Portugal",
+        "seasonName": "2018/2019",
+        "tournamentId": 12920,
+        "goals": "4",
+        "assists": "1",
+        "appearances": "24",
+        "rating": {
+         "rating": "7.07"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 187,
+        "leagueName": "League Cup",
+        "seasonName": "2018/2019",
+        "tournamentId": 12949,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 186,
+        "leagueName": "Taça de Portugal",
+        "seasonName": "2018/2019",
+        "tournamentId": 13272,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 73,
+        "leagueName": "Europa League",
+        "seasonName": "2018/2019",
+        "tournamentId": 12765,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.22"
+        }
+       }
+      ],
+      "teamId": 9768,
+      "team": "Sporting CP",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2017/2018",
+      "appearances": "43",
+      "goals": "18",
+      "assists": "4",
+      "rating": {
+       "rating": "7.19"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 61,
+        "leagueName": "Liga Portugal",
+        "seasonName": "2017/2018",
+        "tournamentId": 11676,
+        "goals": "15",
+        "assists": "4",
+        "appearances": "32",
+        "rating": {
+         "rating": "7.19"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 187,
+        "leagueName": "League Cup",
+        "seasonName": "2017/2018",
+        "tournamentId": 11720,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 186,
+        "leagueName": "Taça de Portugal",
+        "seasonName": "2017/2018",
+        "tournamentId": 12070,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 188,
+        "leagueName": "Super Cup",
+        "seasonName": "2017/2018",
+        "tournamentId": 12703,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 73,
+        "leagueName": "Europa League",
+        "seasonName": "2017/2018",
+        "tournamentId": 11543,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "6",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 7844,
+      "team": "Vitória de Guimarães",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2016/2017",
+      "appearances": "40",
+      "goals": "4",
+      "assists": "7",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 61,
+        "leagueName": "Liga Portugal",
+        "seasonName": "2016/2017",
+        "tournamentId": 10645,
+        "goals": "4",
+        "assists": "6",
+        "appearances": "32",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 187,
+        "leagueName": "League Cup",
+        "seasonName": "2016/2017",
+        "tournamentId": 10649,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 186,
+        "leagueName": "Taça de Portugal",
+        "seasonName": "2016/2017",
+        "tournamentId": 10927,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "6",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 7844,
+      "team": "Vitória de Guimarães",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2015/2016",
+      "appearances": "1",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 61,
+        "leagueName": "Liga Portugal",
+        "seasonName": "2015/2016",
+        "tournamentId": 9617,
+        "goals": "0",
+        "assists": "undefined",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 7844,
+      "team": "Vitória de Guimarães",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2015/2016",
+      "appearances": "16",
+      "goals": "5",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 185,
+        "leagueName": "Liga Portugal 2",
+        "seasonName": "2015/2016",
+        "tournamentId": 9618,
+        "goals": "5",
+        "assists": "undefined",
+        "appearances": "16",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": -1,
+      "team": "Vitória SC Guimarães II",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   },
+   "youth": {
+    "teamEntries": [
+     {
+      "participantId": 696679,
+      "teamId": 578298,
+      "team": "Leeds United U23",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2020-10-24T00:00:00",
+      "endDate": "2021-06-30T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "1",
+      "goals": "1",
+      "assists": "0",
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2020/2021",
+      "appearances": "1",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10176,
+        "leagueName": "Premier League 2 Div 2",
+        "seasonName": "2020/2021",
+        "tournamentId": 15634,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 578298,
+      "team": "Leeds United U23",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   },
+   "national team": {
+    "teamEntries": [
+     {
+      "participantId": 696679,
+      "teamId": 8256,
+      "team": "Brazil",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2021-08-13T00:00:00",
+      "endDate": null,
+      "active": true,
+      "role": null,
+      "appearances": "43",
+      "goals": "12",
+      "assists": "9",
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2026",
+      "appearances": "7",
+      "goals": "1",
+      "assists": "2",
+      "rating": {
+       "rating": "7.06"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 77,
+        "leagueName": "World Cup",
+        "seasonName": "2026",
+        "tournamentId": 24254,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "6.58"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2026",
+        "tournamentId": 29822,
+        "goals": "1",
+        "assists": "2",
+        "appearances": "5",
+        "rating": {
+         "rating": "7.26"
+        }
+       }
+      ],
+      "teamId": 8256,
+      "team": "Brazil",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024",
+      "appearances": "7",
+      "goals": "1",
+      "assists": "1",
+      "rating": {
+       "rating": "7.08"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 44,
+        "leagueName": "Copa America",
+        "seasonName": "2024",
+        "tournamentId": 22518,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.13"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2024",
+        "tournamentId": 22275,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "3",
+        "rating": {
+         "rating": "7.02"
+        }
+       }
+      ],
+      "teamId": 8256,
+      "team": "Brazil",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023/2025",
+      "appearances": "13",
+      "goals": "5",
+      "assists": "2",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueName": "CONMEBOL World Cup Qualifiers",
+        "seasonName": "2023/2025",
+        "tournamentId": -1,
+        "goals": "5",
+        "assists": "2",
+        "appearances": "13",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8256,
+      "team": "Brazil",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2022",
+      "appearances": "9",
+      "goals": "2",
+      "assists": "2",
+      "rating": {
+       "rating": "7.41"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 77,
+        "leagueName": "World Cup",
+        "seasonName": "2022",
+        "tournamentId": 15338,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "5",
+        "rating": {
+         "rating": "7.02"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2022",
+        "tournamentId": 17169,
+        "goals": "2",
+        "assists": "2",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.90"
+        }
+       }
+      ],
+      "teamId": 8256,
+      "team": "Brazil",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2020/2022",
+      "appearances": "7",
+      "goals": "3",
+      "assists": "2",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueName": "CONMEBOL World Cup Qualifiers",
+        "seasonName": "2020/2022",
+        "tournamentId": -1,
+        "goals": "3",
+        "assists": "2",
+        "appearances": "7",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8256,
+      "team": "Brazil",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   }
+  },
+  "fullCareer": true
+ },
+ "trophies": {
+  "playerTrophies": [
+   {
+    "ccode": "ESP",
+    "teamId": 8634,
+    "teamName": "Barcelona",
+    "tournaments": [
+     {
+      "ccode": "ESP",
+      "leagueId": 87,
+      "leagueName": "LaLiga",
+      "seasonsWon": [
+       "2025/2026",
+       "2024/2025",
+       "2022/2023"
+      ],
+      "seasonsRunnerUp": [
+       "2023/2024"
+      ]
+     },
+     {
+      "ccode": "ESP",
+      "leagueId": 138,
+      "leagueName": "Copa del Rey",
+      "seasonsWon": [
+       "2024/2025"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "ESP",
+      "leagueId": -1,
+      "leagueName": "Trofeo Joan Gamper",
+      "seasonsWon": [
+       "2025",
+       "2023",
+       "2022"
+      ],
+      "seasonsRunnerUp": [
+       "2024"
+      ]
+     },
+     {
+      "ccode": "ESP",
+      "leagueId": 139,
+      "leagueName": "Supercopa de España",
+      "seasonsWon": [
+       "2025/2026",
+       "2024/2025",
+       "2022/2023"
+      ],
+      "seasonsRunnerUp": [
+       "2023/2024"
+      ]
+     }
+    ]
+   },
+   {
+    "ccode": "ENG",
+    "teamId": 578298,
+    "teamName": "Leeds United U23",
+    "tournaments": [
+     {
+      "ccode": "ENG",
+      "leagueId": 10176,
+      "leagueName": "Premier League 2 Div 2",
+      "seasonsWon": [
+       "2020/2021"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   },
+   {
+    "ccode": "POR",
+    "teamId": 9768,
+    "teamName": "Sporting CP",
+    "tournaments": [
+     {
+      "ccode": "POR",
+      "leagueId": 186,
+      "leagueName": "Taça de Portugal",
+      "seasonsWon": [
+       "2018/2019"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "POR",
+      "leagueId": 187,
+      "leagueName": "League Cup",
+      "seasonsWon": [
+       "2018/2019"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   }
+  ],
+  "coachTrophies": []
+ },
+ "playerInformation": [
+  {
+   "value": {
+    "numberValue": 176,
+    "key": null,
+    "fallback": "176 cm"
+   },
+   "title": "Height",
+   "translationKey": "height_sentencecase"
+  },
+  {
+   "value": {
+    "numberValue": 11,
+    "options": {},
+    "key": null,
+    "fallback": 11
+   },
+   "title": "Shirt",
+   "translationKey": "shirt"
+  },
+  {
+   "value": {
+    "numberValue": 29,
+    "options": {
+     "style": "unit",
+     "unit": "year",
+     "unitDisplay": "long"
+    },
+    "key": null,
+    "fallback": "29"
+   },
+   "title": "Age",
+   "translationKey": "age_sentencecase"
+  },
+  {
+   "value": {
+    "key": "left",
+    "fallback": "Left"
+   },
+   "title": "Preferred foot",
+   "translationKey": "preferred_foot"
+  },
+  {
+   "value": {
+    "key": null,
+    "fallback": "Brazil"
+   },
+   "title": "Country",
+   "translationKey": "country_sentencecase",
+   "icon": {
+    "type": "country",
+    "id": "BRA"
+   },
+   "countryCode": "BRA",
+   "nationalTeamId": 8256
+  },
+  {
+   "value": {
+    "numberValue": 51689508,
+    "key": null,
+    "fallback": "€51.7m"
+   },
+   "title": "Market value",
+   "translationKey": "transfer_value"
+  },
+  {
+   "value": {
+    "dateValue": "2028-06-30",
+    "key": null,
+    "fallback": {
+     "utcTime": "2028-06-30T00:00:00.000Z",
+     "timezone": "UTC"
+    }
+   },
+   "title": "Contract end",
+   "translationKey": "contract_end"
+  }
+ ],
+ "mainLeague": {
+  "leagueId": 87,
+  "leagueName": "LaLiga",
+  "season": "2026/2027",
+  "stats": [
+   {
+    "title": "Goals",
+    "localizedTitleId": "goals",
+    "value": 15
+   },
+   {
+    "title": "Assists",
+    "localizedTitleId": "assists",
+    "value": 3
+   },
+   {
+    "title": "Started",
+    "localizedTitleId": "started",
+    "value": 9
+   },
+   {
+    "title": "Matches",
+    "localizedTitleId": "matches_uppercase",
+    "value": 9
+   },
+   {
+    "title": "Minutes played",
+    "localizedTitleId": "minutes_played",
+    "value": 661
+   },
+   {
+    "title": "Rating",
+    "localizedTitleId": "rating",
+    "value": 8.61
+   },
+   {
+    "title": "Yellow cards",
+    "localizedTitleId": "yellow_cards",
+    "value": 0
+   },
+   {
+    "title": "Red cards",
+    "localizedTitleId": "red_cards",
+    "value": 0
+   }
+  ]
+ }
+}
