@@ -1,0 +1,2232 @@
+{
+ "id": 303339,
+ "name": "Sadio Mané",
+ "birthDate": {
+  "utcTime": "1992-04-10T00:00:00.000Z",
+  "timezone": "UTC"
+ },
+ "primaryTeam": {
+  "teamId": 101918,
+  "teamName": "Al Nassr FC",
+  "onLoan": false,
+  "teamColors": {
+   "color": "#d99f00",
+   "colorAlternate": "#FBD129",
+   "colorAway": "#2080E1",
+   "colorAwayAlternate": "#2080E1"
+  }
+ },
+ "careerHistory": {
+  "showFootnote": false,
+  "careerItems": {
+   "senior": {
+    "teamEntries": [
+     {
+      "participantId": 303339,
+      "teamId": 101918,
+      "team": "Al Nassr FC",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2023-08-01T00:00:00Z",
+      "endDate": null,
+      "active": true,
+      "role": null,
+      "appearances": "147",
+      "goals": "54",
+      "assists": "38",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 303339,
+      "teamId": 9823,
+      "team": "Bayern München",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2022-07-01T00:00:00Z",
+      "endDate": "2023-08-01T00:00:00Z",
+      "active": false,
+      "role": null,
+      "appearances": "38",
+      "goals": "12",
+      "assists": "6",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 303339,
+      "teamId": 8650,
+      "team": "Liverpool",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2016-07-01T00:00:00Z",
+      "endDate": "2022-06-30T00:00:00Z",
+      "active": false,
+      "role": null,
+      "appearances": "269",
+      "goals": "120",
+      "assists": "37",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 303339,
+      "teamId": 8466,
+      "team": "Southampton",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2014-09-01T00:00:00Z",
+      "endDate": "2016-06-30T00:00:00Z",
+      "active": false,
+      "role": null,
+      "appearances": "75",
+      "goals": "25",
+      "assists": "9",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 303339,
+      "teamId": 10013,
+      "team": "Salzburg",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2012-08-31T00:00:00Z",
+      "endDate": "2014-09-01T00:00:00Z",
+      "active": false,
+      "role": null,
+      "appearances": "87",
+      "goals": "45",
+      "assists": "7",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 303339,
+      "teamId": 8550,
+      "team": "Metz",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2012-01-01T00:00:00Z",
+      "endDate": "2012-08-31T00:00:00Z",
+      "active": false,
+      "role": null,
+      "appearances": "23",
+      "goals": "2",
+      "assists": "0",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 303339,
+      "teamId": 213346,
+      "team": "Metz B",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2010-07-01T00:00:00Z",
+      "endDate": "2012-07-31T00:00:00Z",
+      "active": false,
+      "role": null,
+      "appearances": "12",
+      "goals": "2",
+      "assists": "0",
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2026/2027",
+      "appearances": "14",
+      "goals": "3",
+      "assists": "6",
+      "rating": {
+       "rating": "7.79"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 536,
+        "leagueName": "Saudi Pro League",
+        "seasonName": "2026/2027",
+        "tournamentId": 1000000494,
+        "goals": "3",
+        "assists": "5",
+        "appearances": "11",
+        "rating": {
+         "rating": "8.06"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 9942,
+        "leagueName": "King's Cup",
+        "seasonName": "2026/2027",
+        "tournamentId": 38628,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "1",
+        "rating": {
+         "rating": "7.98"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 525,
+        "leagueName": "AFC Champions League Elite",
+        "seasonName": "2026/2027",
+        "tournamentId": 48121,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "6.26"
+        }
+       }
+      ],
+      "teamId": 101918,
+      "team": "Al Nassr FC",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2025/2026",
+      "appearances": "36",
+      "goals": "14",
+      "assists": "9",
+      "rating": {
+       "rating": "7.75"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 536,
+        "leagueName": "Saudi Pro League",
+        "seasonName": "2025/2026",
+        "tournamentId": 27963,
+        "goals": "10",
+        "assists": "6",
+        "appearances": "25",
+        "rating": {
+         "rating": "7.90"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 9469,
+        "leagueName": "AFC Champions League Two",
+        "seasonName": "2025/2026",
+        "tournamentId": 27998,
+        "goals": "3",
+        "assists": "3",
+        "appearances": "8",
+        "rating": {
+         "rating": "7.53"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 9942,
+        "leagueName": "King's Cup",
+        "seasonName": "2025/2026",
+        "tournamentId": 27213,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "6.80"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 10074,
+        "leagueName": "Super Cup",
+        "seasonName": "2025/2026",
+        "tournamentId": 52340,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 101918,
+      "team": "Al Nassr FC",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024/2025",
+      "appearances": "47",
+      "goals": "18",
+      "assists": "12",
+      "rating": {
+       "rating": "7.60"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 536,
+        "leagueName": "Saudi Pro League",
+        "seasonName": "2024/2025",
+        "tournamentId": 1000000152,
+        "goals": "14",
+        "assists": "11",
+        "appearances": "32",
+        "rating": {
+         "rating": "7.80"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 9942,
+        "leagueName": "King's Cup",
+        "seasonName": "2024/2025",
+        "tournamentId": 1000000107,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "7.16"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 10074,
+        "leagueName": "Super Cup",
+        "seasonName": "2024/2025",
+        "tournamentId": 1000000122,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "6.28"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 525,
+        "leagueName": "AFC Champions League Elite",
+        "seasonName": "2024/2025",
+        "tournamentId": 1000000073,
+        "goals": "3",
+        "assists": "1",
+        "appearances": "11",
+        "rating": {
+         "rating": "7.35"
+        }
+       }
+      ],
+      "teamId": 101918,
+      "team": "Al Nassr FC",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023/2024",
+      "appearances": "46",
+      "goals": "19",
+      "assists": "11",
+      "rating": {
+       "rating": "7.63"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 536,
+        "leagueName": "Saudi Pro League",
+        "seasonName": "2023/2024",
+        "tournamentId": 21460,
+        "goals": "13",
+        "assists": "8",
+        "appearances": "32",
+        "rating": {
+         "rating": "7.70"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 9942,
+        "leagueName": "King's Cup",
+        "seasonName": "2023/2024",
+        "tournamentId": 21694,
+        "goals": "4",
+        "assists": "1",
+        "appearances": "5",
+        "rating": {
+         "rating": "7.95"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 10074,
+        "leagueName": "Super Cup",
+        "seasonName": "2023/2024",
+        "tournamentId": 23610,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "6.47"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 525,
+        "leagueName": "AFC Champions League Elite",
+        "seasonName": "2023/2024",
+        "tournamentId": 21082,
+        "goals": "1",
+        "assists": "2",
+        "appearances": "8",
+        "rating": {
+         "rating": "7.31"
+        }
+       }
+      ],
+      "teamId": 101918,
+      "team": "Al Nassr FC",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023",
+      "appearances": "4",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10474,
+        "leagueName": "Arab Club Champions Cup",
+        "seasonName": "2023",
+        "tournamentId": 21566,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 101918,
+      "team": "Al Nassr FC",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2022/2023",
+      "appearances": "38",
+      "goals": "12",
+      "assists": "6",
+      "rating": {
+       "rating": "7.17"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 54,
+        "leagueName": "Bundesliga",
+        "seasonName": "2022/2023",
+        "tournamentId": 17801,
+        "goals": "7",
+        "assists": "5",
+        "appearances": "25",
+        "rating": {
+         "rating": "7.16"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 209,
+        "leagueName": "DFB Pokal",
+        "seasonName": "2022/2023",
+        "tournamentId": 17692,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": "6.88"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 8924,
+        "leagueName": "Super Cup",
+        "seasonName": "2022/2023",
+        "tournamentId": 20738,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2022/2023",
+        "tournamentId": 17697,
+        "goals": "3",
+        "assists": "1",
+        "appearances": "9",
+        "rating": {
+         "rating": "7.30"
+        }
+       }
+      ],
+      "teamId": 9823,
+      "team": "Bayern München",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2021/2022",
+      "appearances": "51",
+      "goals": "23",
+      "assists": "2",
+      "rating": {
+       "rating": "7.36"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 47,
+        "leagueName": "Premier League",
+        "seasonName": "2021/2022",
+        "tournamentId": 16390,
+        "goals": "16",
+        "assists": "2",
+        "appearances": "34",
+        "rating": {
+         "rating": "7.47"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 132,
+        "leagueName": "FA Cup",
+        "seasonName": "2021/2022",
+        "tournamentId": 16818,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": "7.46"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 133,
+        "leagueName": "EFL Cup",
+        "seasonName": "2021/2022",
+        "tournamentId": 16490,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "7.39"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2021/2022",
+        "tournamentId": 16407,
+        "goals": "5",
+        "assists": "0",
+        "appearances": "13",
+        "rating": {
+         "rating": "7.06"
+        }
+       }
+      ],
+      "teamId": 8650,
+      "team": "Liverpool",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2020/2021",
+      "appearances": "48",
+      "goals": "16",
+      "assists": "8",
+      "rating": {
+       "rating": "7.30"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 47,
+        "leagueName": "Premier League",
+        "seasonName": "2020/2021",
+        "tournamentId": 15382,
+        "goals": "11",
+        "assists": "7",
+        "appearances": "35",
+        "rating": {
+         "rating": "7.40"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 247,
+        "leagueName": "Community Shield",
+        "seasonName": "2020/2021",
+        "tournamentId": 16338,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 132,
+        "leagueName": "FA Cup",
+        "seasonName": "2020/2021",
+        "tournamentId": 15661,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "7.38"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2020/2021",
+        "tournamentId": 15237,
+        "goals": "3",
+        "assists": "1",
+        "appearances": "10",
+        "rating": {
+         "rating": "6.96"
+        }
+       }
+      ],
+      "teamId": 8650,
+      "team": "Liverpool",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019/2020",
+      "appearances": "47",
+      "goals": "22",
+      "assists": "9",
+      "rating": {
+       "rating": "7.48"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 47,
+        "leagueName": "Premier League",
+        "seasonName": "2019/2020",
+        "tournamentId": 14022,
+        "goals": "18",
+        "assists": "7",
+        "appearances": "35",
+        "rating": {
+         "rating": "7.58"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 132,
+        "leagueName": "FA Cup",
+        "seasonName": "2019/2020",
+        "tournamentId": 14445,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "6.65"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2019/2020",
+        "tournamentId": 14006,
+        "goals": "2",
+        "assists": "1",
+        "appearances": "8",
+        "rating": {
+         "rating": "7.15"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 74,
+        "leagueName": "UEFA Super Cup",
+        "seasonName": "2019/2020",
+        "tournamentId": 15239,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 10703,
+        "leagueName": "FIFA Intercontinental Cup",
+        "seasonName": "2019",
+        "tournamentId": -1,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8650,
+      "team": "Liverpool",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2018/2019",
+      "appearances": "50",
+      "goals": "26",
+      "assists": "2",
+      "rating": {
+       "rating": "7.39"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 47,
+        "leagueName": "Premier League",
+        "seasonName": "2018/2019",
+        "tournamentId": 12776,
+        "goals": "22",
+        "assists": "1",
+        "appearances": "36",
+        "rating": {
+         "rating": "7.54"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 133,
+        "leagueName": "EFL Cup",
+        "seasonName": "2018/2019",
+        "tournamentId": 12785,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2018/2019",
+        "tournamentId": 12764,
+        "goals": "4",
+        "assists": "1",
+        "appearances": "13",
+        "rating": {
+         "rating": "6.99"
+        }
+       }
+      ],
+      "teamId": 8650,
+      "team": "Liverpool",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2017/2018",
+      "appearances": "44",
+      "goals": "20",
+      "assists": "9",
+      "rating": {
+       "rating": "7.65"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 47,
+        "leagueName": "Premier League",
+        "seasonName": "2017/2018",
+        "tournamentId": 11522,
+        "goals": "10",
+        "assists": "7",
+        "appearances": "29",
+        "rating": {
+         "rating": "7.50"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 132,
+        "leagueName": "FA Cup",
+        "seasonName": "2017/2018",
+        "tournamentId": 11952,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "6.41"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2017/2018",
+        "tournamentId": 11542,
+        "goals": "10",
+        "assists": "2",
+        "appearances": "13",
+        "rating": {
+         "rating": "8.18"
+        }
+       }
+      ],
+      "teamId": 8650,
+      "team": "Liverpool",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2016/2017",
+      "appearances": "29",
+      "goals": "13",
+      "assists": "7",
+      "rating": {
+       "rating": "7.61"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 47,
+        "leagueName": "Premier League",
+        "seasonName": "2016/2017",
+        "tournamentId": 10418,
+        "goals": "13",
+        "assists": "5",
+        "appearances": "27",
+        "rating": {
+         "rating": "7.61"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 133,
+        "leagueName": "EFL Cup",
+        "seasonName": "2016/2017",
+        "tournamentId": 10458,
+        "goals": "0",
+        "assists": "2",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8650,
+      "team": "Liverpool",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2015/2016",
+      "appearances": "43",
+      "goals": "15",
+      "assists": "6",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 47,
+        "leagueName": "Premier League",
+        "seasonName": "2015/2016",
+        "tournamentId": 9501,
+        "goals": "11",
+        "assists": "6",
+        "appearances": "37",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 132,
+        "leagueName": "FA Cup",
+        "seasonName": "2015/2016",
+        "tournamentId": 9840,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 133,
+        "leagueName": "EFL Cup",
+        "seasonName": "2015/2016",
+        "tournamentId": 9495,
+        "goals": "3",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 73,
+        "leagueName": "Europa League",
+        "seasonName": "2015/2016",
+        "tournamentId": 9529,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8466,
+      "team": "Southampton",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2014/2015",
+      "appearances": "32",
+      "goals": "10",
+      "assists": "3",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 47,
+        "leagueName": "Premier League",
+        "seasonName": "2014/2015",
+        "tournamentId": 8598,
+        "goals": "10",
+        "assists": "3",
+        "appearances": "30",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 133,
+        "leagueName": "EFL Cup",
+        "seasonName": "2014/2015",
+        "tournamentId": 8595,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8466,
+      "team": "Southampton",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2014/2015",
+      "appearances": "8",
+      "goals": "3",
+      "assists": "5",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 38,
+        "leagueName": "Bundesliga",
+        "seasonName": "2014/2015",
+        "tournamentId": 8568,
+        "goals": "2",
+        "assists": "4",
+        "appearances": "4",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2014/2015",
+        "tournamentId": 8630,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "3",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueName": "Cup",
+        "seasonName": "2014/2015",
+        "tournamentId": -1,
+        "goals": "1",
+        "assists": "undefined",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 10013,
+      "team": "Salzburg",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2013/2014",
+      "appearances": "50",
+      "goals": "23",
+      "assists": "2",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 38,
+        "leagueName": "Bundesliga",
+        "seasonName": "2013/2014",
+        "tournamentId": 7775,
+        "goals": "13",
+        "assists": "undefined",
+        "appearances": "33",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2013/2014",
+        "tournamentId": 7781,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 73,
+        "leagueName": "Europa League",
+        "seasonName": "2013/2014",
+        "tournamentId": 7780,
+        "goals": "5",
+        "assists": "2",
+        "appearances": "11",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueName": "Cup",
+        "seasonName": "2013/2014",
+        "tournamentId": -1,
+        "goals": "5",
+        "assists": "undefined",
+        "appearances": "4",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 10013,
+      "team": "Salzburg",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2012/2013",
+      "appearances": "29",
+      "goals": "19",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 38,
+        "leagueName": "Bundesliga",
+        "seasonName": "2012/2013",
+        "tournamentId": 6965,
+        "goals": "16",
+        "assists": "undefined",
+        "appearances": "26",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueName": "Cup",
+        "seasonName": "2012/2013",
+        "tournamentId": -1,
+        "goals": "3",
+        "assists": "undefined",
+        "appearances": "3",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 10013,
+      "team": "Salzburg",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2012/2013",
+      "appearances": "4",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 150,
+        "leagueName": "Coupe de la Ligue",
+        "seasonName": "2012/2013",
+        "tournamentId": 7059,
+        "goals": "0",
+        "assists": "undefined",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueName": "National 1",
+        "seasonName": "2012/2013",
+        "tournamentId": -1,
+        "goals": "1",
+        "assists": "undefined",
+        "appearances": "3",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8550,
+      "team": "Metz",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2011/2012",
+      "appearances": "19",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 110,
+        "leagueName": "Ligue 2",
+        "seasonName": "2011/2012",
+        "tournamentId": 6097,
+        "goals": "1",
+        "assists": "undefined",
+        "appearances": "19",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8550,
+      "team": "Metz",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2011/2012",
+      "appearances": "12",
+      "goals": "2",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueName": "National 2",
+        "seasonName": "2011/2012",
+        "tournamentId": -1,
+        "goals": "2",
+        "assists": "undefined",
+        "appearances": "12",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 213346,
+      "team": "Metz B",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   },
+   "national team": {
+    "teamEntries": [
+     {
+      "participantId": 303339,
+      "teamId": 6395,
+      "team": "Senegal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2012-01-01T00:00:00Z",
+      "endDate": "2026-09-18T00:00:00Z",
+      "active": false,
+      "role": null,
+      "appearances": "100",
+      "goals": "53",
+      "assists": "17",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 303339,
+      "teamId": 316112,
+      "team": "Senegal U23",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2012-07-09T00:00:00Z",
+      "endDate": "2012-12-31T00:00:00Z",
+      "active": false,
+      "role": null,
+      "appearances": "4",
+      "goals": "0",
+      "assists": "1",
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2026",
+      "appearances": "6",
+      "goals": "2",
+      "assists": "1",
+      "rating": {
+       "rating": "7.40"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 77,
+        "leagueName": "World Cup",
+        "seasonName": "2026",
+        "tournamentId": 24254,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.34"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2026",
+        "tournamentId": 29822,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "7.54"
+        }
+       }
+      ],
+      "teamId": 6395,
+      "team": "Senegal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2025/2026",
+      "appearances": "7",
+      "goals": "2",
+      "assists": "3",
+      "rating": {
+       "rating": "8.11"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 289,
+        "leagueName": "Africa Cup of Nations",
+        "seasonName": "2025/2026",
+        "tournamentId": 24309,
+        "goals": "2",
+        "assists": "3",
+        "appearances": "7",
+        "rating": {
+         "rating": "8.11"
+        }
+       }
+      ],
+      "teamId": 6395,
+      "team": "Senegal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2025",
+      "appearances": "2",
+      "goals": "3",
+      "assists": "0",
+      "rating": {
+       "rating": "7.92"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2025",
+        "tournamentId": 1000000213,
+        "goals": "3",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "7.92"
+        }
+       }
+      ],
+      "teamId": 6395,
+      "team": "Senegal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024",
+      "appearances": "12",
+      "goals": "6",
+      "assists": "3",
+      "rating": {
+       "rating": "7.79"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 289,
+        "leagueName": "Africa Cup of Nations",
+        "seasonName": "2024",
+        "tournamentId": 1000000157,
+        "goals": "1",
+        "assists": "3",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.95"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 10608,
+        "leagueName": "Africa Cup of Nations Qualification",
+        "seasonName": "2024",
+        "tournamentId": 1000000127,
+        "goals": "3",
+        "assists": "0",
+        "appearances": "6",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2024",
+        "tournamentId": 1000000075,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "7.47"
+        }
+       }
+      ],
+      "teamId": 6395,
+      "team": "Senegal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023/2025",
+      "appearances": "8",
+      "goals": "5",
+      "assists": "1",
+      "rating": {
+       "rating": "7.92"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10196,
+        "leagueName": "World Cup Qualification CAF",
+        "seasonName": "2023/2025",
+        "tournamentId": 1000000119,
+        "goals": "5",
+        "assists": "1",
+        "appearances": "8",
+        "rating": {
+         "rating": "7.92"
+        }
+       }
+      ],
+      "teamId": 6395,
+      "team": "Senegal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023",
+      "appearances": "3",
+      "goals": "3",
+      "assists": "0",
+      "rating": {
+       "rating": "8.25"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2023",
+        "tournamentId": 18498,
+        "goals": "3",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": "8.25"
+        }
+       }
+      ],
+      "teamId": 6395,
+      "team": "Senegal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2022/2023",
+      "appearances": "5",
+      "goals": "5",
+      "assists": "1",
+      "rating": {
+       "rating": "8.52"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10608,
+        "leagueName": "Africa Cup of Nations Qualification",
+        "seasonName": "2022/2023",
+        "tournamentId": 23214,
+        "goals": "5",
+        "assists": "1",
+        "appearances": "5",
+        "rating": {
+         "rating": "8.52"
+        }
+       }
+      ],
+      "teamId": 6395,
+      "team": "Senegal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2022",
+      "appearances": "9",
+      "goals": "4",
+      "assists": "2",
+      "rating": {
+       "rating": "7.66"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 289,
+        "leagueName": "Africa Cup of Nations",
+        "seasonName": "2022",
+        "tournamentId": 16803,
+        "goals": "3",
+        "assists": "2",
+        "appearances": "7",
+        "rating": {
+         "rating": "7.73"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2022",
+        "tournamentId": 17169,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "7.42"
+        }
+       }
+      ],
+      "teamId": 6395,
+      "team": "Senegal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2021",
+      "appearances": "2",
+      "goals": "2",
+      "assists": "1",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2021",
+        "tournamentId": 15943,
+        "goals": "2",
+        "assists": "1",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6395,
+      "team": "Senegal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019/2022",
+      "appearances": "7",
+      "goals": "3",
+      "assists": "0",
+      "rating": {
+       "rating": "7.93"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10196,
+        "leagueName": "World Cup Qualification CAF",
+        "seasonName": "2019/2022",
+        "tournamentId": 17236,
+        "goals": "3",
+        "assists": "0",
+        "appearances": "7",
+        "rating": {
+         "rating": "7.93"
+        }
+       }
+      ],
+      "teamId": 6395,
+      "team": "Senegal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019/2021",
+      "appearances": null,
+      "goals": "2",
+      "assists": null,
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10608,
+        "leagueName": "Africa Cup of Nations Qualification",
+        "seasonName": "2019/2021",
+        "tournamentId": 23213,
+        "goals": "2",
+        "assists": null,
+        "appearances": null,
+        "rating": {
+         "rating": "7.40"
+        }
+       }
+      ],
+      "teamId": 6395,
+      "team": "Senegal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019",
+      "appearances": "8",
+      "goals": "4",
+      "assists": "1",
+      "rating": {
+       "rating": "7.44"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 289,
+        "leagueName": "Africa Cup of Nations",
+        "seasonName": "2019",
+        "tournamentId": 13796,
+        "goals": "3",
+        "assists": "1",
+        "appearances": "6",
+        "rating": {
+         "rating": "7.44"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2019",
+        "tournamentId": 13365,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6395,
+      "team": "Senegal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2018",
+      "appearances": "6",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": "6.62"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 77,
+        "leagueName": "World Cup",
+        "seasonName": "2018",
+        "tournamentId": 9731,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": "6.62"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2018",
+        "tournamentId": 11352,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6395,
+      "team": "Senegal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2017",
+      "appearances": "5",
+      "goals": "5",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 289,
+        "leagueName": "Africa Cup of Nations",
+        "seasonName": "2017",
+        "tournamentId": 10953,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 10608,
+        "leagueName": "Africa Cup of Nations Qualification",
+        "seasonName": "2017",
+        "tournamentId": -1,
+        "goals": "2",
+        "assists": null,
+        "appearances": null,
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2017",
+        "tournamentId": 10882,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6395,
+      "team": "Senegal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2015/2017",
+      "appearances": "7",
+      "goals": "2",
+      "assists": "3",
+      "rating": {
+       "rating": "7.74"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10196,
+        "leagueName": "World Cup Qualification CAF",
+        "seasonName": "2015/2017",
+        "tournamentId": 17235,
+        "goals": "2",
+        "assists": "3",
+        "appearances": "7",
+        "rating": {
+         "rating": "7.74"
+        }
+       }
+      ],
+      "teamId": 6395,
+      "team": "Senegal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2015",
+      "appearances": "5",
+      "goals": "2",
+      "assists": "1",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 289,
+        "leagueName": "Africa Cup of Nations",
+        "seasonName": "2015",
+        "tournamentId": 9124,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 10608,
+        "leagueName": "Africa Cup of Nations Qualification",
+        "seasonName": "2015",
+        "tournamentId": -1,
+        "goals": "2",
+        "assists": null,
+        "appearances": null,
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2015",
+        "tournamentId": 9099,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "3",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6395,
+      "team": "Senegal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2014",
+      "appearances": "8",
+      "goals": "2",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10196,
+        "leagueName": "World Cup Qualification CAF",
+        "seasonName": "2014",
+        "tournamentId": -1,
+        "goals": "2",
+        "assists": "undefined",
+        "appearances": "8",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6395,
+      "team": "Senegal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2012",
+      "appearances": "4",
+      "goals": "0",
+      "assists": "1",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 66,
+        "leagueName": "Summer Olympics",
+        "seasonName": "2012",
+        "tournamentId": 6774,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "4",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 316112,
+      "team": "Senegal U23",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   }
+  },
+  "fullCareer": true
+ },
+ "trophies": {
+  "playerTrophies": [
+   {
+    "ccode": "KSA",
+    "teamId": 101918,
+    "teamName": "Al Nassr FC",
+    "tournaments": [
+     {
+      "ccode": "INT",
+      "leagueId": 10474,
+      "leagueName": "Arab Club Champions Cup",
+      "seasonsWon": [
+       "2023"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "KSA",
+      "leagueId": 536,
+      "leagueName": "Saudi Pro League",
+      "seasonsWon": [
+       "2025/2026"
+      ],
+      "seasonsRunnerUp": [
+       "2023/2024"
+      ]
+     }
+    ]
+   },
+   {
+    "ccode": "GER",
+    "teamId": 9823,
+    "teamName": "Bayern München",
+    "tournaments": [
+     {
+      "ccode": "GER",
+      "leagueId": 54,
+      "leagueName": "Bundesliga",
+      "seasonsWon": [
+       "2022/2023"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "GER",
+      "leagueId": 8924,
+      "leagueName": "Super Cup",
+      "seasonsWon": [
+       "2022/2023"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   },
+   {
+    "ccode": "ENG",
+    "teamId": 8650,
+    "teamName": "Liverpool",
+    "tournaments": [
+     {
+      "ccode": "ENG",
+      "leagueId": 132,
+      "leagueName": "FA Cup",
+      "seasonsWon": [
+       "2021/2022"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "ENG",
+      "leagueId": 47,
+      "leagueName": "Premier League",
+      "seasonsWon": [
+       "2019/2020"
+      ],
+      "seasonsRunnerUp": [
+       "2021/2022",
+       "2018/2019"
+      ]
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 42,
+      "leagueName": "Champions League",
+      "seasonsWon": [
+       "2018/2019"
+      ],
+      "seasonsRunnerUp": [
+       "2021/2022",
+       "2017/2018"
+      ]
+     },
+     {
+      "ccode": "ENG",
+      "leagueId": 133,
+      "leagueName": "EFL Cup",
+      "seasonsWon": [
+       "2021/2022"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 74,
+      "leagueName": "UEFA Super Cup",
+      "seasonsWon": [
+       "2019/2020"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 9543,
+      "leagueName": "Premier League Asia Trophy",
+      "seasonsWon": [
+       "2017"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 78,
+      "leagueName": "FIFA Club World Cup",
+      "seasonsWon": [
+       "2019 Qatar"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   },
+   {
+    "ccode": "INT",
+    "teamId": 6395,
+    "teamName": "Senegal",
+    "tournaments": [
+     {
+      "ccode": "INT",
+      "leagueId": 289,
+      "leagueName": "Africa Cup of Nations",
+      "seasonsWon": [
+       "2021 Cameroon"
+      ],
+      "seasonsRunnerUp": [
+       "2025 Morocco",
+       "2019 Egypt"
+      ]
+     }
+    ]
+   },
+   {
+    "ccode": "AUT",
+    "teamId": 10013,
+    "teamName": "Salzburg",
+    "tournaments": [
+     {
+      "ccode": "AUT",
+      "leagueId": -1,
+      "leagueName": "Cup",
+      "seasonsWon": [
+       "2013/2014"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "AUT",
+      "leagueId": 38,
+      "leagueName": "Bundesliga",
+      "seasonsWon": [
+       "2013/2014"
+      ],
+      "seasonsRunnerUp": [
+       "2012/2013"
+      ]
+     }
+    ]
+   }
+  ],
+  "coachTrophies": []
+ },
+ "playerInformation": [
+  {
+   "value": {
+    "numberValue": 175,
+    "key": null,
+    "fallback": "175 cm"
+   },
+   "title": "Height",
+   "translationKey": "height_sentencecase"
+  },
+  {
+   "value": {
+    "numberValue": 10,
+    "options": {},
+    "key": null,
+    "fallback": 10
+   },
+   "title": "Shirt",
+   "translationKey": "shirt"
+  },
+  {
+   "value": {
+    "numberValue": 34,
+    "options": {
+     "style": "unit",
+     "unit": "year",
+     "unitDisplay": "long"
+    },
+    "key": null,
+    "fallback": "34"
+   },
+   "title": "Age",
+   "translationKey": "age_sentencecase"
+  },
+  {
+   "value": {
+    "key": "right",
+    "fallback": "Right"
+   },
+   "title": "Preferred foot",
+   "translationKey": "preferred_foot"
+  },
+  {
+   "value": {
+    "key": null,
+    "fallback": "Senegal"
+   },
+   "title": "Country",
+   "translationKey": "country_sentencecase",
+   "icon": {
+    "type": "country",
+    "id": "SEN"
+   },
+   "countryCode": "SEN",
+   "nationalTeamId": 6395
+  },
+  {
+   "value": {
+    "numberValue": 4844754,
+    "key": null,
+    "fallback": "€4.8m"
+   },
+   "title": "Market value",
+   "translationKey": "transfer_value"
+  },
+  {
+   "value": {
+    "dateValue": "2027-06-30",
+    "key": null,
+    "fallback": {
+     "utcTime": "2027-06-30T00:00:00.000Z",
+     "timezone": "UTC"
+    }
+   },
+   "title": "Contract end",
+   "translationKey": "contract_end"
+  }
+ ],
+ "mainLeague": {
+  "leagueId": 536,
+  "leagueName": "Saudi Pro League",
+  "season": "2026/2027",
+  "stats": [
+   {
+    "title": "Goals",
+    "localizedTitleId": "goals",
+    "value": 3
+   },
+   {
+    "title": "Assists",
+    "localizedTitleId": "assists",
+    "value": 5
+   },
+   {
+    "title": "Started",
+    "localizedTitleId": "started",
+    "value": 11
+   },
+   {
+    "title": "Matches",
+    "localizedTitleId": "matches_uppercase",
+    "value": 11
+   },
+   {
+    "title": "Minutes played",
+    "localizedTitleId": "minutes_played",
+    "value": 956
+   },
+   {
+    "title": "Rating",
+    "localizedTitleId": "rating",
+    "value": 8.06
+   },
+   {
+    "title": "Yellow cards",
+    "localizedTitleId": "yellow_cards",
+    "value": 0
+   },
+   {
+    "title": "Red cards",
+    "localizedTitleId": "red_cards",
+    "value": 0
+   }
+  ]
+ }
+}
