@@ -62,5 +62,8 @@ A scheduled task fires into the owner's session once a week: the first line of `
    whisper's error.
 4. Copy `history.py` to a new `<slug>.py` and change YEARS, LIT, the scenes and the crest; keep the museum design and
    the strip of titles. Scores as «الفوز على X 2-0» with `<bdi dir="ltr">`. `still.cjs`, `ov.cjs`, look at every still.
-5. `make.sh`, check frames, send the owner the MP4, a 1280x720 thumbnail and the title, description (chapters,
-   Commons credits) and tags, as for Real Madrid. Move the line to `history-done.txt`.
+5. `make.sh`, check frames. Publish it from the server (owner, 2026-10-31: "خلي السيرفر يرفعه كفيديو مش ريل"): put
+   `ytv-history-<slug>.mp4` and `ytv-history-<slug>.json` (`title` ≤100, `description` with chapters and Commons
+   credits, `tags`) in `sample/ytv/` on `voice-sample`; `ytv-history.yml` keeps it as a release, reports it ready to
+   `/v2/ytv/done` and removes the files. The owner gets 👁 / 🚀 on Telegram; 🚀 uploads it as a normal video.
+   Move the line to `history-done.txt`.
