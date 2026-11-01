@@ -1,0 +1,1702 @@
+{
+ "id": 900433,
+ "name": "Khvicha Kvaratskhelia",
+ "birthDate": {
+  "utcTime": "2001-02-12T00:00:00.000Z",
+  "timezone": "UTC"
+ },
+ "primaryTeam": {
+  "teamId": 9847,
+  "teamName": "Paris Saint-Germain",
+  "onLoan": false,
+  "teamColors": {
+   "color": "#273F6D",
+   "colorAlternate": "#245593",
+   "colorAway": "#e30613",
+   "colorAwayAlternate": "#ffffff"
+  }
+ },
+ "careerHistory": {
+  "showFootnote": false,
+  "careerItems": {
+   "senior": {
+    "teamEntries": [
+     {
+      "participantId": 900433,
+      "teamId": 9847,
+      "team": "Paris Saint-Germain",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2025-01-17T00:00:00",
+      "endDate": null,
+      "active": true,
+      "role": null,
+      "appearances": "91",
+      "goals": "29",
+      "assists": "18",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 900433,
+      "teamId": 9875,
+      "team": "Napoli",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2022-07-01T00:00:00",
+      "endDate": "2025-01-17T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "107",
+      "goals": "30",
+      "assists": "24",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 900433,
+      "teamId": 6193,
+      "team": "Dinamo Batumi",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": {
+       "text": "on loan",
+       "localizationKey": "on_loan"
+      },
+      "startDate": "2022-03-24T00:00:00",
+      "endDate": "2022-06-30T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "11",
+      "goals": "8",
+      "assists": "0",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 900433,
+      "teamId": 8683,
+      "team": "Rubin Kazan",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": {
+       "text": "free transfer",
+       "localizationKey": "free_transfer"
+      },
+      "startDate": "2019-07-06T00:00:00",
+      "endDate": "2022-03-24T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "73",
+      "goals": "9",
+      "assists": "10",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 900433,
+      "teamId": 8710,
+      "team": "Lokomotiv Moscow",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": {
+       "text": "on loan",
+       "localizationKey": "on_loan"
+      },
+      "startDate": "2019-02-12T00:00:00",
+      "endDate": "2019-06-30T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "10",
+      "goals": "1",
+      "assists": "0",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 900433,
+      "teamId": 321780,
+      "team": "FC Rustavi",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": {
+       "text": "free transfer",
+       "localizationKey": "free_transfer"
+      },
+      "startDate": "2018-03-20T00:00:00",
+      "endDate": "2019-02-12T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "18",
+      "goals": "3",
+      "assists": "0",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 900433,
+      "teamId": 7755,
+      "team": "Dinamo Tbilisi",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2017-01-01T00:00:00",
+      "endDate": "2017-12-31T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "5",
+      "goals": "1",
+      "assists": "0",
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2026/2027",
+      "appearances": "11",
+      "goals": "2",
+      "assists": "1",
+      "rating": {
+       "rating": "7.11"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 53,
+        "leagueName": "Ligue 1",
+        "seasonName": "2026/2027",
+        "tournamentId": 37298,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "7",
+        "rating": {
+         "rating": "7.19"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 207,
+        "leagueName": "Trophée des champions",
+        "seasonName": "2026/2027",
+        "tournamentId": -1,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2026/2027",
+        "tournamentId": 47760,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "6.84"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 74,
+        "leagueName": "UEFA Super Cup",
+        "seasonName": "2026/2027",
+        "tournamentId": -1,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 9847,
+      "team": "Paris Saint-Germain",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2025/2026",
+      "appearances": "55",
+      "goals": "20",
+      "assists": "12",
+      "rating": {
+       "rating": "7.52"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 53,
+        "leagueName": "Ligue 1",
+        "seasonName": "2025/2026",
+        "tournamentId": 27212,
+        "goals": "8",
+        "assists": "4",
+        "appearances": "28",
+        "rating": {
+         "rating": "7.30"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 207,
+        "leagueName": "Trophée des champions",
+        "seasonName": "2025/2026",
+        "tournamentId": 35819,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "6.73"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 134,
+        "leagueName": "Coupe de France",
+        "seasonName": "2025/2026",
+        "tournamentId": 28916,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "7.10"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2025/2026",
+        "tournamentId": 28184,
+        "goals": "10",
+        "assists": "6",
+        "appearances": "16",
+        "rating": {
+         "rating": "7.94"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 74,
+        "leagueName": "UEFA Super Cup",
+        "seasonName": "2025/2026",
+        "tournamentId": 34901,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "8.29"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 10703,
+        "leagueName": "FIFA Intercontinental Cup",
+        "seasonName": "2025",
+        "tournamentId": 28320,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "7.98"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 78,
+        "leagueName": "FIFA Club World Cup",
+        "seasonName": "2025",
+        "tournamentId": 24449,
+        "goals": "1",
+        "assists": "2",
+        "appearances": "7",
+        "rating": {
+         "rating": "7.32"
+        }
+       }
+      ],
+      "teamId": 9847,
+      "team": "Paris Saint-Germain",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024/2025",
+      "appearances": "25",
+      "goals": "7",
+      "assists": "5",
+      "rating": {
+       "rating": "7.49"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 53,
+        "leagueName": "Ligue 1",
+        "seasonName": "2024/2025",
+        "tournamentId": 23724,
+        "goals": "4",
+        "assists": "3",
+        "appearances": "14",
+        "rating": {
+         "rating": "7.39"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 134,
+        "leagueName": "Coupe de France",
+        "seasonName": "2024/2025",
+        "tournamentId": 24294,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "8.02"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2024/2025",
+        "tournamentId": 24110,
+        "goals": "3",
+        "assists": "2",
+        "appearances": "9",
+        "rating": {
+         "rating": "7.55"
+        }
+       }
+      ],
+      "teamId": 9847,
+      "team": "Paris Saint-Germain",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024/2025",
+      "appearances": "19",
+      "goals": "5",
+      "assists": "3",
+      "rating": {
+       "rating": "7.26"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 55,
+        "leagueName": "Serie A",
+        "seasonName": "2024/2025",
+        "tournamentId": 23819,
+        "goals": "5",
+        "assists": "3",
+        "appearances": "17",
+        "rating": {
+         "rating": "7.24"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 141,
+        "leagueName": "Coppa Italia",
+        "seasonName": "2024/2025",
+        "tournamentId": 23825,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "7.51"
+        }
+       }
+      ],
+      "teamId": 9875,
+      "team": "Napoli",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023/2024",
+      "appearances": "45",
+      "goals": "11",
+      "assists": "7",
+      "rating": {
+       "rating": "7.51"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 55,
+        "leagueName": "Serie A",
+        "seasonName": "2023/2024",
+        "tournamentId": 20956,
+        "goals": "11",
+        "assists": "6",
+        "appearances": "34",
+        "rating": {
+         "rating": "7.61"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 141,
+        "leagueName": "Coppa Italia",
+        "seasonName": "2023/2024",
+        "tournamentId": 21553,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "6.15"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 222,
+        "leagueName": "Supercoppa",
+        "seasonName": "2023/2024",
+        "tournamentId": 24248,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2023/2024",
+        "tournamentId": 20961,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "8",
+        "rating": {
+         "rating": "7.30"
+        }
+       }
+      ],
+      "teamId": 9875,
+      "team": "Napoli",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2022/2023",
+      "appearances": "43",
+      "goals": "14",
+      "assists": "14",
+      "rating": {
+       "rating": "7.62"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 55,
+        "leagueName": "Serie A",
+        "seasonName": "2022/2023",
+        "tournamentId": 17866,
+        "goals": "12",
+        "assists": "10",
+        "appearances": "34",
+        "rating": {
+         "rating": "7.60"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2022/2023",
+        "tournamentId": 17697,
+        "goals": "2",
+        "assists": "4",
+        "appearances": "9",
+        "rating": {
+         "rating": "7.71"
+        }
+       }
+      ],
+      "teamId": 9875,
+      "team": "Napoli",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2022",
+      "appearances": "11",
+      "goals": "8",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueName": "Erovnuli Liga",
+        "seasonName": "2022",
+        "tournamentId": -1,
+        "goals": "8",
+        "assists": "undefined",
+        "appearances": "11",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6193,
+      "team": "Dinamo Batumi",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": {
+       "text": "on loan",
+       "localizationKey": "on_loan"
+      }
+     },
+     {
+      "seasonName": "2021/2022",
+      "appearances": "22",
+      "goals": "2",
+      "assists": "4",
+      "rating": {
+       "rating": "7.27"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 63,
+        "leagueName": "Premier League",
+        "seasonName": "2021/2022",
+        "tournamentId": 16437,
+        "goals": "2",
+        "assists": "4",
+        "appearances": "19",
+        "rating": {
+         "rating": "7.27"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 193,
+        "leagueName": "Russian Cup",
+        "seasonName": "2021/2022",
+        "tournamentId": 16785,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 10216,
+        "leagueName": "Conference League",
+        "seasonName": "2021/2022",
+        "tournamentId": 16432,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8683,
+      "team": "Rubin Kazan",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": {
+       "text": "free transfer",
+       "localizationKey": "free_transfer"
+      }
+     },
+     {
+      "seasonName": "2020/2021",
+      "appearances": "23",
+      "goals": "4",
+      "assists": "4",
+      "rating": {
+       "rating": "6.99"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 63,
+        "leagueName": "Premier League",
+        "seasonName": "2020/2021",
+        "tournamentId": 15405,
+        "goals": "4",
+        "assists": "4",
+        "appearances": "23",
+        "rating": {
+         "rating": "6.99"
+        }
+       }
+      ],
+      "teamId": 8683,
+      "team": "Rubin Kazan",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": {
+       "text": "free transfer",
+       "localizationKey": "free_transfer"
+      }
+     },
+     {
+      "seasonName": "2019/2020",
+      "appearances": "28",
+      "goals": "3",
+      "assists": "2",
+      "rating": {
+       "rating": "6.64"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 63,
+        "leagueName": "Premier League",
+        "seasonName": "2019/2020",
+        "tournamentId": 13978,
+        "goals": "3",
+        "assists": "2",
+        "appearances": "27",
+        "rating": {
+         "rating": "6.64"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 193,
+        "leagueName": "Russian Cup",
+        "seasonName": "2019/2020",
+        "tournamentId": 14345,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8683,
+      "team": "Rubin Kazan",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": {
+       "text": "free transfer",
+       "localizationKey": "free_transfer"
+      }
+     },
+     {
+      "seasonName": "2018/2019",
+      "appearances": "10",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": "6.39"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 63,
+        "leagueName": "Premier League",
+        "seasonName": "2018/2019",
+        "tournamentId": 12821,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "7",
+        "rating": {
+         "rating": "6.39"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 193,
+        "leagueName": "Russian Cup",
+        "seasonName": "2018/2019",
+        "tournamentId": 13083,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8710,
+      "team": "Lokomotiv Moscow",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": {
+       "text": "on loan",
+       "localizationKey": "on_loan"
+      }
+     },
+     {
+      "seasonName": "2018",
+      "appearances": "18",
+      "goals": "3",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueName": "Erovnuli Liga",
+        "seasonName": "2018",
+        "tournamentId": -1,
+        "goals": "3",
+        "assists": "undefined",
+        "appearances": "18",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 321780,
+      "team": "FC Rustavi",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": {
+       "text": "free transfer",
+       "localizationKey": "free_transfer"
+      }
+     },
+     {
+      "seasonName": "2017",
+      "appearances": "5",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueName": "David Kipiani Cup",
+        "seasonName": "2017",
+        "tournamentId": -1,
+        "goals": "0",
+        "assists": "undefined",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueName": "Erovnuli Liga",
+        "seasonName": "2017",
+        "tournamentId": -1,
+        "goals": "1",
+        "assists": "undefined",
+        "appearances": "4",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 7755,
+      "team": "Dinamo Tbilisi",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   },
+   "youth": {
+    "teamEntries": [
+     {
+      "participantId": 900433,
+      "teamId": 1677375,
+      "team": "Dinamo Tbilisi U19",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2016-07-01T00:00:00",
+      "endDate": "2016-12-31T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": null,
+      "goals": null,
+      "assists": null,
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": null
+   },
+   "national team": {
+    "teamEntries": [
+     {
+      "participantId": 900433,
+      "teamId": 8268,
+      "team": "Georgia",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2019-05-28T00:00:00",
+      "endDate": null,
+      "active": true,
+      "role": null,
+      "appearances": "54",
+      "goals": "23",
+      "assists": "7",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 900433,
+      "teamId": 401885,
+      "team": "Georgia U19",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2017-11-03T00:00:00",
+      "endDate": "2021-03-31T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "7",
+      "goals": "2",
+      "assists": "0",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 900433,
+      "teamId": 5855,
+      "team": "Georgia U21",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2019-11-13T00:00:00",
+      "endDate": "2020-06-30T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "2",
+      "goals": "1",
+      "assists": "0",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 900433,
+      "teamId": 313963,
+      "team": "Georgia U17",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2016-01-01T00:00:00",
+      "endDate": "2018-10-22T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "8",
+      "goals": "3",
+      "assists": "0",
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2026/2027",
+      "appearances": "4",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 9806,
+        "leagueName": "UEFA Nations League A",
+        "seasonName": "2026/2027",
+        "tournamentId": 31436,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8268,
+      "team": "Georgia",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2026",
+      "appearances": "3",
+      "goals": "3",
+      "assists": "0",
+      "rating": {
+       "rating": "8.96"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2026",
+        "tournamentId": 29822,
+        "goals": "3",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": "8.96"
+        }
+       }
+      ],
+      "teamId": 8268,
+      "team": "Georgia",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2025/2026",
+      "appearances": "6",
+      "goals": "2",
+      "assists": "0",
+      "rating": {
+       "rating": "7.29"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10195,
+        "leagueName": "World Cup Qualification UEFA",
+        "seasonName": "2025/2026",
+        "tournamentId": 24488,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "6",
+        "rating": {
+         "rating": "7.29"
+        }
+       }
+      ],
+      "teamId": 8268,
+      "team": "Georgia",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024/2026",
+      "appearances": "7",
+      "goals": "2",
+      "assists": "2",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 9806,
+        "leagueName": "UEFA Nations League A",
+        "seasonName": "2024/2026",
+        "tournamentId": 22886,
+        "goals": "2",
+        "assists": "2",
+        "appearances": "7",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8268,
+      "team": "Georgia",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024",
+      "appearances": "5",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": "7.18"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 50,
+        "leagueName": "EURO",
+        "seasonName": "2024",
+        "tournamentId": 18307,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.10"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2024",
+        "tournamentId": 22275,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "7.53"
+        }
+       }
+      ],
+      "teamId": 8268,
+      "team": "Georgia",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023/2024",
+      "appearances": "9",
+      "goals": "4",
+      "assists": "1",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10607,
+        "leagueName": "EURO Qualification",
+        "seasonName": "2023/2024",
+        "tournamentId": -1,
+        "goals": "4",
+        "assists": "1",
+        "appearances": "9",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8268,
+      "team": "Georgia",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023",
+      "appearances": "1",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": "8.46"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2023",
+        "tournamentId": 18498,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "8.46"
+        }
+       }
+      ],
+      "teamId": 8268,
+      "team": "Georgia",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2022/2024",
+      "appearances": "6",
+      "goals": "5",
+      "assists": "2",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 9806,
+        "leagueName": "UEFA Nations League A",
+        "seasonName": "2022/2024",
+        "tournamentId": 17161,
+        "goals": "5",
+        "assists": "2",
+        "appearances": "6",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8268,
+      "team": "Georgia",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2022",
+      "appearances": "1",
+      "goals": "0",
+      "assists": "1",
+      "rating": {
+       "rating": "7.12"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2022",
+        "tournamentId": 17169,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "1",
+        "rating": {
+         "rating": "7.12"
+        }
+       }
+      ],
+      "teamId": 8268,
+      "team": "Georgia",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2021/2022",
+      "appearances": "6",
+      "goals": "4",
+      "assists": "0",
+      "rating": {
+       "rating": "7.37"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10195,
+        "leagueName": "World Cup Qualification UEFA",
+        "seasonName": "2021/2022",
+        "tournamentId": 17272,
+        "goals": "4",
+        "assists": "0",
+        "appearances": "6",
+        "rating": {
+         "rating": "7.37"
+        }
+       }
+      ],
+      "teamId": 8268,
+      "team": "Georgia",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2021",
+      "appearances": "1",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2021",
+        "tournamentId": 15943,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8268,
+      "team": "Georgia",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2020/2022",
+      "appearances": "3",
+      "goals": "1",
+      "assists": "1",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 9806,
+        "leagueName": "UEFA Nations League A",
+        "seasonName": "2020/2022",
+        "tournamentId": 15023,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "3",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8268,
+      "team": "Georgia",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019/2020",
+      "appearances": "2",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10607,
+        "leagueName": "EURO Qualification",
+        "seasonName": "2019/2020",
+        "tournamentId": -1,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8268,
+      "team": "Georgia",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2020",
+      "appearances": "1",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 287,
+        "leagueName": "UEFA U19 Championship",
+        "seasonName": "2020",
+        "tournamentId": -1,
+        "goals": "1",
+        "assists": "undefined",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 401885,
+      "team": "Georgia U19",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019",
+      "appearances": "3",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 287,
+        "leagueName": "UEFA U19 Championship",
+        "seasonName": "2019",
+        "tournamentId": 13944,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 401885,
+      "team": "Georgia U19",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2018",
+      "appearances": "3",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 287,
+        "leagueName": "UEFA U19 Championship",
+        "seasonName": "2018",
+        "tournamentId": 12597,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 401885,
+      "team": "Georgia U19",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019/2021",
+      "appearances": "2",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 288,
+        "leagueName": "EURO U21",
+        "seasonName": "2019/2021",
+        "tournamentId": 15894,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 5855,
+      "team": "Georgia U21",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2018",
+      "appearances": "6",
+      "goals": "3",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 301,
+        "leagueName": "UEFA U17 Championship",
+        "seasonName": "2018",
+        "tournamentId": 12586,
+        "goals": "3",
+        "assists": "0",
+        "appearances": "6",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 313963,
+      "team": "Georgia U17",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2017",
+      "appearances": "2",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 301,
+        "leagueName": "UEFA U17 Championship",
+        "seasonName": "2017",
+        "tournamentId": 11355,
+        "goals": "0",
+        "assists": "undefined",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 313963,
+      "team": "Georgia U17",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   }
+  },
+  "fullCareer": true
+ },
+ "trophies": {
+  "playerTrophies": [
+   {
+    "ccode": "FRA",
+    "teamId": 9847,
+    "teamName": "Paris Saint-Germain",
+    "tournaments": [
+     {
+      "ccode": "FRA",
+      "leagueId": 207,
+      "leagueName": "Trophée des Champions",
+      "seasonsWon": [
+       "2025/2026"
+      ],
+      "seasonsRunnerUp": [
+       "2026/2027"
+      ]
+     },
+     {
+      "ccode": "FRA",
+      "leagueId": 134,
+      "leagueName": "Coupe de France",
+      "seasonsWon": [
+       "2024/2025"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 42,
+      "leagueName": "Champions League",
+      "seasonsWon": [
+       "2025/2026",
+       "2024/2025"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 74,
+      "leagueName": "UEFA Super Cup",
+      "seasonsWon": [
+       "2026/2027",
+       "2025/2026"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 10703,
+      "leagueName": "FIFA Intercontinental Cup",
+      "seasonsWon": [
+       "2025"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "FRA",
+      "leagueId": 53,
+      "leagueName": "Ligue 1",
+      "seasonsWon": [
+       "2025/2026",
+       "2024/2025"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   },
+   {
+    "ccode": "ITA",
+    "teamId": 9875,
+    "teamName": "Napoli",
+    "tournaments": [
+     {
+      "ccode": "ITA",
+      "leagueId": 55,
+      "leagueName": "Serie A",
+      "seasonsWon": [
+       "2022/2023"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   },
+   {
+    "ccode": "RUS",
+    "teamId": 8710,
+    "teamName": "Lokomotiv Moscow",
+    "tournaments": [
+     {
+      "ccode": "RUS",
+      "leagueId": 193,
+      "leagueName": "Russian Cup",
+      "seasonsWon": [
+       "2018/2019"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   }
+  ],
+  "coachTrophies": []
+ },
+ "playerInformation": [
+  {
+   "value": {
+    "numberValue": 183,
+    "key": null,
+    "fallback": "183 cm"
+   },
+   "title": "Height",
+   "translationKey": "height_sentencecase"
+  },
+  {
+   "value": {
+    "numberValue": 7,
+    "options": {},
+    "key": null,
+    "fallback": 7
+   },
+   "title": "Shirt",
+   "translationKey": "shirt"
+  },
+  {
+   "value": {
+    "numberValue": 25,
+    "options": {
+     "style": "unit",
+     "unit": "year",
+     "unitDisplay": "long"
+    },
+    "key": null,
+    "fallback": "25"
+   },
+   "title": "Age",
+   "translationKey": "age_sentencecase"
+  },
+  {
+   "value": {
+    "key": "both",
+    "fallback": "Both"
+   },
+   "title": "Preferred foot",
+   "translationKey": "preferred_foot"
+  },
+  {
+   "value": {
+    "key": null,
+    "fallback": "Georgia"
+   },
+   "title": "Country",
+   "translationKey": "country_sentencecase",
+   "icon": {
+    "type": "country",
+    "id": "GEO"
+   },
+   "countryCode": "GEO",
+   "nationalTeamId": 8268
+  },
+  {
+   "value": {
+    "numberValue": 101507130,
+    "key": null,
+    "fallback": "€101.5m"
+   },
+   "title": "Market value",
+   "translationKey": "transfer_value"
+  },
+  {
+   "value": {
+    "dateValue": "2029-06-30",
+    "key": null,
+    "fallback": {
+     "utcTime": "2029-06-30T00:00:00.000Z",
+     "timezone": "UTC"
+    }
+   },
+   "title": "Contract end",
+   "translationKey": "contract_end"
+  }
+ ],
+ "mainLeague": {
+  "leagueId": 53,
+  "leagueName": "Ligue 1",
+  "season": "2026/2027",
+  "stats": [
+   {
+    "title": "Goals",
+    "localizedTitleId": "goals",
+    "value": 1
+   },
+   {
+    "title": "Assists",
+    "localizedTitleId": "assists",
+    "value": 1
+   },
+   {
+    "title": "Started",
+    "localizedTitleId": "started",
+    "value": 5
+   },
+   {
+    "title": "Matches",
+    "localizedTitleId": "matches_uppercase",
+    "value": 7
+   },
+   {
+    "title": "Minutes played",
+    "localizedTitleId": "minutes_played",
+    "value": 377
+   },
+   {
+    "title": "Rating",
+    "localizedTitleId": "rating",
+    "value": 7.19
+   },
+   {
+    "title": "Yellow cards",
+    "localizedTitleId": "yellow_cards",
+    "value": 0
+   },
+   {
+    "title": "Red cards",
+    "localizedTitleId": "red_cards",
+    "value": 0
+   }
+  ]
+ }
+}
