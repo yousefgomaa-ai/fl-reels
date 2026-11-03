@@ -32,9 +32,9 @@
       "endDate": null,
       "active": true,
       "role": null,
-      "appearances": "12",
+      "appearances": "13",
       "goals": "1",
-      "assists": "0",
+      "assists": "1",
       "hasUncertainData": false
      },
      {
@@ -105,11 +105,11 @@
     "seasonEntries": [
      {
       "seasonName": "2026/2027",
-      "appearances": "12",
+      "appearances": "13",
       "goals": "1",
-      "assists": "0",
+      "assists": "1",
       "rating": {
-       "rating": "7.56"
+       "rating": "7.59"
       },
       "tournamentStats": [
        {
@@ -119,10 +119,10 @@
         "seasonName": "2026/2027",
         "tournamentId": 38843,
         "goals": "1",
-        "assists": "0",
-        "appearances": "9",
+        "assists": "1",
+        "appearances": "10",
         "rating": {
-         "rating": "7.66"
+         "rating": "7.69"
         }
        },
        {
@@ -747,7 +747,7 @@
         "assists": "3",
         "appearances": "37",
         "rating": {
-         "rating": "7.15"
+         "rating": "7.16"
         }
        },
        {
@@ -1816,9 +1816,9 @@
   },
   {
    "value": {
-    "numberValue": 55932786,
+    "numberValue": 53364886,
     "key": null,
-    "fallback": "€55.9m"
+    "fallback": "€53.4m"
    },
    "title": "Market value",
    "translationKey": "transfer_value"
@@ -1849,27 +1849,27 @@
    {
     "title": "Assists",
     "localizedTitleId": "assists",
-    "value": 0
+    "value": 1
    },
    {
     "title": "Started",
     "localizedTitleId": "started",
-    "value": 7
+    "value": 8
    },
    {
     "title": "Matches",
     "localizedTitleId": "matches_uppercase",
-    "value": 9
+    "value": 10
    },
    {
     "title": "Minutes played",
     "localizedTitleId": "minutes_played",
-    "value": 607
+    "value": 697
    },
    {
     "title": "Rating",
     "localizedTitleId": "rating",
-    "value": 7.66
+    "value": 7.69
    },
    {
     "title": "Yellow cards",

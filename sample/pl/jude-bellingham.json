@@ -1,0 +1,1461 @@
+{
+ "id": 1077894,
+ "name": "Jude Bellingham",
+ "birthDate": {
+  "utcTime": "2003-06-29T00:00:00.000Z",
+  "timezone": "UTC"
+ },
+ "primaryTeam": {
+  "teamId": 8633,
+  "teamName": "Real Madrid",
+  "onLoan": false,
+  "teamColors": {
+   "color": "#085098",
+   "colorAlternate": "#FFFFFF",
+   "colorAway": "#d99f00",
+   "colorAwayAlternate": "#FEBE10"
+  }
+ },
+ "careerHistory": {
+  "showFootnote": false,
+  "careerItems": {
+   "senior": {
+    "teamEntries": [
+     {
+      "participantId": 1077894,
+      "teamId": 8633,
+      "team": "Real Madrid",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2023-07-01T00:00:00",
+      "endDate": null,
+      "active": true,
+      "role": null,
+      "appearances": "154",
+      "goals": "50",
+      "assists": "35",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 1077894,
+      "teamId": 9789,
+      "team": "Borussia Dortmund",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2020-07-23T00:00:00",
+      "endDate": "2023-07-01T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "132",
+      "goals": "24",
+      "assists": "23",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 1077894,
+      "teamId": 8658,
+      "team": "Birmingham City",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2019-07-01T00:00:00",
+      "endDate": "2020-07-23T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "44",
+      "goals": "4",
+      "assists": "2",
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2026/2027",
+      "appearances": "14",
+      "goals": "4",
+      "assists": "3",
+      "rating": {
+       "rating": "7.87"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2026/2027",
+        "tournamentId": 38843,
+        "goals": "4",
+        "assists": "3",
+        "appearances": "11",
+        "rating": {
+         "rating": "7.98"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2026/2027",
+        "tournamentId": 47760,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": "7.51"
+        }
+       }
+      ],
+      "teamId": 8633,
+      "team": "Real Madrid",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2025/2026",
+      "appearances": "46",
+      "goals": "9",
+      "assists": "6",
+      "rating": {
+       "rating": "7.45"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2025/2026",
+        "tournamentId": 27233,
+        "goals": "6",
+        "assists": "4",
+        "appearances": "28",
+        "rating": {
+         "rating": "7.53"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 138,
+        "leagueName": "Copa del Rey",
+        "seasonName": "2025/2026",
+        "tournamentId": 28392,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "6.30"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 139,
+        "leagueName": "Supercopa de España",
+        "seasonName": "2025/2026",
+        "tournamentId": 47879,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2025/2026",
+        "tournamentId": 28184,
+        "goals": "2",
+        "assists": "1",
+        "appearances": "9",
+        "rating": {
+         "rating": "7.37"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 78,
+        "leagueName": "FIFA Club World Cup",
+        "seasonName": "2025",
+        "tournamentId": 24449,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "6",
+        "rating": {
+         "rating": "7.48"
+        }
+       }
+      ],
+      "teamId": 8633,
+      "team": "Real Madrid",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024/2025",
+      "appearances": "52",
+      "goals": "14",
+      "assists": "13",
+      "rating": {
+       "rating": "7.59"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2024/2025",
+        "tournamentId": 23686,
+        "goals": "9",
+        "assists": "8",
+        "appearances": "31",
+        "rating": {
+         "rating": "7.60"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 138,
+        "leagueName": "Copa del Rey",
+        "seasonName": "2024/2025",
+        "tournamentId": 24269,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.84"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 139,
+        "leagueName": "Supercopa de España",
+        "seasonName": "2024/2025",
+        "tournamentId": 27485,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "6.90"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2024/2025",
+        "tournamentId": 24110,
+        "goals": "3",
+        "assists": "3",
+        "appearances": "13",
+        "rating": {
+         "rating": "7.60"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 74,
+        "leagueName": "UEFA Super Cup",
+        "seasonName": "2024/2025",
+        "tournamentId": 26880,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 10703,
+        "leagueName": "FIFA Intercontinental Cup",
+        "seasonName": "2024",
+        "tournamentId": 24226,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "7.86"
+        }
+       }
+      ],
+      "teamId": 8633,
+      "team": "Real Madrid",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023/2024",
+      "appearances": "42",
+      "goals": "23",
+      "assists": "13",
+      "rating": {
+       "rating": "8.03"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 87,
+        "leagueName": "LaLiga",
+        "seasonName": "2023/2024",
+        "tournamentId": 21053,
+        "goals": "19",
+        "assists": "6",
+        "appearances": "28",
+        "rating": {
+         "rating": "8.12"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 138,
+        "leagueName": "Copa del Rey",
+        "seasonName": "2023/2024",
+        "tournamentId": 22078,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "1",
+        "rating": {
+         "rating": "8.60"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 139,
+        "leagueName": "Supercopa de España",
+        "seasonName": "2023/2024",
+        "tournamentId": 23954,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "2",
+        "rating": {
+         "rating": "7.94"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2023/2024",
+        "tournamentId": 20961,
+        "goals": "4",
+        "assists": "5",
+        "appearances": "11",
+        "rating": {
+         "rating": "7.77"
+        }
+       }
+      ],
+      "teamId": 8633,
+      "team": "Real Madrid",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2022/2023",
+      "appearances": "42",
+      "goals": "14",
+      "assists": "6",
+      "rating": {
+       "rating": "7.67"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 54,
+        "leagueName": "Bundesliga",
+        "seasonName": "2022/2023",
+        "tournamentId": 17801,
+        "goals": "8",
+        "assists": "4",
+        "appearances": "31",
+        "rating": {
+         "rating": "7.68"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 209,
+        "leagueName": "DFB Pokal",
+        "seasonName": "2022/2023",
+        "tournamentId": 17692,
+        "goals": "2",
+        "assists": "1",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.68"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2022/2023",
+        "tournamentId": 17697,
+        "goals": "4",
+        "assists": "1",
+        "appearances": "7",
+        "rating": {
+         "rating": "7.63"
+        }
+       }
+      ],
+      "teamId": 9789,
+      "team": "Borussia Dortmund",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2021/2022",
+      "appearances": "44",
+      "goals": "6",
+      "assists": "13",
+      "rating": {
+       "rating": "7.51"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 54,
+        "leagueName": "Bundesliga",
+        "seasonName": "2021/2022",
+        "tournamentId": 16494,
+        "goals": "3",
+        "assists": "8",
+        "appearances": "32",
+        "rating": {
+         "rating": "7.42"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 209,
+        "leagueName": "DFB Pokal",
+        "seasonName": "2021/2022",
+        "tournamentId": 16553,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": "7.19"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 8924,
+        "leagueName": "Super Cup",
+        "seasonName": "2021/2022",
+        "tournamentId": 17657,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2021/2022",
+        "tournamentId": 16407,
+        "goals": "1",
+        "assists": "3",
+        "appearances": "6",
+        "rating": {
+         "rating": "7.74"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 73,
+        "leagueName": "Europa League",
+        "seasonName": "2021/2022",
+        "tournamentId": 16640,
+        "goals": "2",
+        "assists": "1",
+        "appearances": "2",
+        "rating": {
+         "rating": "8.79"
+        }
+       }
+      ],
+      "teamId": 9789,
+      "team": "Borussia Dortmund",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2020/2021",
+      "appearances": "46",
+      "goals": "4",
+      "assists": "4",
+      "rating": {
+       "rating": "6.87"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 54,
+        "leagueName": "Bundesliga",
+        "seasonName": "2020/2021",
+        "tournamentId": 15481,
+        "goals": "1",
+        "assists": "3",
+        "appearances": "29",
+        "rating": {
+         "rating": "6.75"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 209,
+        "leagueName": "DFB Pokal",
+        "seasonName": "2020/2021",
+        "tournamentId": 15391,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "6",
+        "rating": {
+         "rating": "7.31"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 8924,
+        "leagueName": "Super Cup",
+        "seasonName": "2020/2021",
+        "tournamentId": 16369,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "7.75"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2020/2021",
+        "tournamentId": 15237,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "10",
+        "rating": {
+         "rating": "6.87"
+        }
+       }
+      ],
+      "teamId": 9789,
+      "team": "Borussia Dortmund",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019/2020",
+      "appearances": "44",
+      "goals": "4",
+      "assists": "2",
+      "rating": {
+       "rating": "6.63"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 48,
+        "leagueName": "Championship",
+        "seasonName": "2019/2020",
+        "tournamentId": 14066,
+        "goals": "4",
+        "assists": "2",
+        "appearances": "41",
+        "rating": {
+         "rating": "6.63"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 132,
+        "leagueName": "FA Cup",
+        "seasonName": "2019/2020",
+        "tournamentId": 14445,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 133,
+        "leagueName": "EFL Cup",
+        "seasonName": "2019/2020",
+        "tournamentId": 14065,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8658,
+      "team": "Birmingham City",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   },
+   "youth": {
+    "teamEntries": [
+     {
+      "participantId": 1077894,
+      "teamId": 1281663,
+      "team": "Birmingham City U18",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2018-07-01T00:00:00",
+      "endDate": "2020-07-23T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "1",
+      "goals": "0",
+      "assists": "0",
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2018/2019",
+      "appearances": "1",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueName": "FA Youth Cup",
+        "seasonName": "2018/2019",
+        "tournamentId": -1,
+        "goals": "0",
+        "assists": "undefined",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 1281663,
+      "team": "Birmingham City U18",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   },
+   "national team": {
+    "teamEntries": [
+     {
+      "participantId": 1077894,
+      "teamId": 8491,
+      "team": "England",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2020-11-10T00:00:00",
+      "endDate": null,
+      "active": true,
+      "role": null,
+      "appearances": "60",
+      "goals": "14",
+      "assists": "12",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 1077894,
+      "teamId": -1,
+      "team": "England Under 16",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2019-02-01T00:00:00",
+      "endDate": "2021-03-31T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "5",
+      "goals": "2",
+      "assists": "3",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 1077894,
+      "teamId": 5935,
+      "team": "England U17",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2019-09-01T00:00:00",
+      "endDate": "2020-12-31T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "3",
+      "goals": "2",
+      "assists": "0",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 1077894,
+      "teamId": 5846,
+      "team": "England U21",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2020-08-26T00:00:00",
+      "endDate": "2020-11-10T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "4",
+      "goals": "1",
+      "assists": "0",
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2026/2027",
+      "appearances": "4",
+      "goals": "1",
+      "assists": "4",
+      "rating": {
+       "rating": "7.92"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 9806,
+        "leagueName": "UEFA Nations League A",
+        "seasonName": "2026/2027",
+        "tournamentId": 31436,
+        "goals": "1",
+        "assists": "4",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.92"
+        }
+       }
+      ],
+      "teamId": 8491,
+      "team": "England",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2026",
+      "appearances": "10",
+      "goals": "7",
+      "assists": "1",
+      "rating": {
+       "rating": "7.75"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 77,
+        "leagueName": "World Cup",
+        "seasonName": "2026",
+        "tournamentId": 24254,
+        "goals": "7",
+        "assists": "1",
+        "appearances": "8",
+        "rating": {
+         "rating": "7.84"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2026",
+        "tournamentId": 29822,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "7.40"
+        }
+       }
+      ],
+      "teamId": 8491,
+      "team": "England",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2025/2026",
+      "appearances": "5",
+      "goals": "0",
+      "assists": "1",
+      "rating": {
+       "rating": "7.57"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10195,
+        "leagueName": "World Cup Qualification UEFA",
+        "seasonName": "2025/2026",
+        "tournamentId": 24488,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "5",
+        "rating": {
+         "rating": "7.57"
+        }
+       }
+      ],
+      "teamId": 8491,
+      "team": "England",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2025",
+      "appearances": "1",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": "5.81"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2025",
+        "tournamentId": 24481,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "5.81"
+        }
+       }
+      ],
+      "teamId": 8491,
+      "team": "England",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024/2026",
+      "appearances": "4",
+      "goals": "1",
+      "assists": "2",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 9806,
+        "leagueName": "UEFA Nations League A",
+        "seasonName": "2024/2026",
+        "tournamentId": 22886,
+        "goals": "1",
+        "assists": "2",
+        "appearances": "4",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8491,
+      "team": "England",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024",
+      "appearances": "9",
+      "goals": "3",
+      "assists": "1",
+      "rating": {
+       "rating": "7.62"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 50,
+        "leagueName": "EURO",
+        "seasonName": "2024",
+        "tournamentId": 18307,
+        "goals": "2",
+        "assists": "1",
+        "appearances": "7",
+        "rating": {
+         "rating": "7.51"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2024",
+        "tournamentId": 22275,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "8.02"
+        }
+       }
+      ],
+      "teamId": 8491,
+      "team": "England",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023/2024",
+      "appearances": "4",
+      "goals": "0",
+      "assists": "1",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10607,
+        "leagueName": "EURO Qualification",
+        "seasonName": "2023/2024",
+        "tournamentId": -1,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "4",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8491,
+      "team": "England",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023",
+      "appearances": "1",
+      "goals": "1",
+      "assists": "1",
+      "rating": {
+       "rating": "8.58"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2023",
+        "tournamentId": 18498,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "1",
+        "rating": {
+         "rating": "8.58"
+        }
+       }
+      ],
+      "teamId": 8491,
+      "team": "England",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2022/2024",
+      "appearances": "5",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": "7.26"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 9806,
+        "leagueName": "UEFA Nations League A",
+        "seasonName": "2022/2024",
+        "tournamentId": 17161,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "5",
+        "rating": {
+         "rating": "7.26"
+        }
+       }
+      ],
+      "teamId": 8491,
+      "team": "England",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2022",
+      "appearances": "7",
+      "goals": "1",
+      "assists": "1",
+      "rating": {
+       "rating": "7.36"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 77,
+        "leagueName": "World Cup",
+        "seasonName": "2022",
+        "tournamentId": 15338,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "5",
+        "rating": {
+         "rating": "7.64"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2022",
+        "tournamentId": 17169,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "6.66"
+        }
+       }
+      ],
+      "teamId": 8491,
+      "team": "England",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2021/2022",
+      "appearances": "4",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": "7.52"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10195,
+        "leagueName": "World Cup Qualification UEFA",
+        "seasonName": "2021/2022",
+        "tournamentId": 17272,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.52"
+        }
+       }
+      ],
+      "teamId": 8491,
+      "team": "England",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2021",
+      "appearances": "5",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": "6.69"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 50,
+        "leagueName": "EURO",
+        "seasonName": "2021",
+        "tournamentId": 12715,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": "6.35"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2021",
+        "tournamentId": 15943,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "7.20"
+        }
+       }
+      ],
+      "teamId": 8491,
+      "team": "England",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2020",
+      "appearances": "1",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": "5.93"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2020",
+        "tournamentId": 14773,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "5.93"
+        }
+       }
+      ],
+      "teamId": 8491,
+      "team": "England",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019",
+      "appearances": "5",
+      "goals": "2",
+      "assists": "3",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueName": "U16 National Team Friendlies",
+        "seasonName": "2019",
+        "tournamentId": -1,
+        "goals": "2",
+        "assists": "3",
+        "appearances": "5",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": -1,
+      "team": "England Under 16",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019",
+      "appearances": "3",
+      "goals": "2",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueName": "U17 National Team Friendlies",
+        "seasonName": "2019",
+        "tournamentId": -1,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 5935,
+      "team": "England U17",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019/2021",
+      "appearances": "4",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 288,
+        "leagueName": "EURO U21",
+        "seasonName": "2019/2021",
+        "tournamentId": 15894,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 5846,
+      "team": "England U21",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   }
+  },
+  "fullCareer": true
+ },
+ "trophies": {
+  "playerTrophies": [
+   {
+    "ccode": "ESP",
+    "teamId": 8633,
+    "teamName": "Real Madrid",
+    "tournaments": [
+     {
+      "ccode": "ESP",
+      "leagueId": 87,
+      "leagueName": "LaLiga",
+      "seasonsWon": [
+       "2023/2024"
+      ],
+      "seasonsRunnerUp": [
+       "2025/2026",
+       "2024/2025"
+      ]
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 42,
+      "leagueName": "Champions League",
+      "seasonsWon": [
+       "2023/2024"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 74,
+      "leagueName": "UEFA Super Cup",
+      "seasonsWon": [
+       "2024/2025"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 10703,
+      "leagueName": "FIFA Intercontinental Cup",
+      "seasonsWon": [
+       "2024"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "ESP",
+      "leagueId": 139,
+      "leagueName": "Supercopa de España",
+      "seasonsWon": [
+       "2023/2024"
+      ],
+      "seasonsRunnerUp": [
+       "2025/2026",
+       "2024/2025"
+      ]
+     }
+    ]
+   },
+   {
+    "ccode": "GER",
+    "teamId": 9789,
+    "teamName": "Borussia Dortmund",
+    "tournaments": [
+     {
+      "ccode": "GER",
+      "leagueId": 209,
+      "leagueName": "DFB Pokal",
+      "seasonsWon": [
+       "2020/2021"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   }
+  ],
+  "coachTrophies": []
+ },
+ "playerInformation": [
+  {
+   "value": {
+    "numberValue": 186,
+    "key": null,
+    "fallback": "186 cm"
+   },
+   "title": "Height",
+   "translationKey": "height_sentencecase"
+  },
+  {
+   "value": {
+    "numberValue": 5,
+    "options": {},
+    "key": null,
+    "fallback": 5
+   },
+   "title": "Shirt",
+   "translationKey": "shirt"
+  },
+  {
+   "value": {
+    "numberValue": 23,
+    "options": {
+     "style": "unit",
+     "unit": "year",
+     "unitDisplay": "long"
+    },
+    "key": null,
+    "fallback": "23"
+   },
+   "title": "Age",
+   "translationKey": "age_sentencecase"
+  },
+  {
+   "value": {
+    "key": "right",
+    "fallback": "Right"
+   },
+   "title": "Preferred foot",
+   "translationKey": "preferred_foot"
+  },
+  {
+   "value": {
+    "key": null,
+    "fallback": "England"
+   },
+   "title": "Country",
+   "translationKey": "country_sentencecase",
+   "icon": {
+    "type": "country",
+    "id": "ENG"
+   },
+   "countryCode": "ENG",
+   "nationalTeamId": 8491
+  },
+  {
+   "value": {
+    "numberValue": 91567983,
+    "key": null,
+    "fallback": "€91.6m"
+   },
+   "title": "Market value",
+   "translationKey": "transfer_value"
+  },
+  {
+   "value": {
+    "dateValue": "2029-06-30",
+    "key": null,
+    "fallback": {
+     "utcTime": "2029-06-30T00:00:00.000Z",
+     "timezone": "UTC"
+    }
+   },
+   "title": "Contract end",
+   "translationKey": "contract_end"
+  }
+ ],
+ "mainLeague": {
+  "leagueId": 87,
+  "leagueName": "LaLiga",
+  "season": "2026/2027",
+  "stats": [
+   {
+    "title": "Goals",
+    "localizedTitleId": "goals",
+    "value": 4
+   },
+   {
+    "title": "Assists",
+    "localizedTitleId": "assists",
+    "value": 3
+   },
+   {
+    "title": "Started",
+    "localizedTitleId": "started",
+    "value": 10
+   },
+   {
+    "title": "Matches",
+    "localizedTitleId": "matches_uppercase",
+    "value": 11
+   },
+   {
+    "title": "Minutes played",
+    "localizedTitleId": "minutes_played",
+    "value": 868
+   },
+   {
+    "title": "Rating",
+    "localizedTitleId": "rating",
+    "value": 7.98
+   },
+   {
+    "title": "Yellow cards",
+    "localizedTitleId": "yellow_cards",
+    "value": 2
+   },
+   {
+    "title": "Red cards",
+    "localizedTitleId": "red_cards",
+    "value": 0
+   }
+  ]
+ }
+}
