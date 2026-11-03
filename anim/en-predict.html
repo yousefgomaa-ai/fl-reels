@@ -1,0 +1,41 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends «PREDICT THE SCORE» (owner, 2026-11-03): the big match of the day, both sides' last five, then the empty
+   score for the comments. */
+#lg{top:62px;right:44px;font:700 32px O;letter-spacing:3px;text-transform:uppercase;text-align:right;z-index:20}
+#hk{top:150px;width:100%;font:400 160px/0.88 B;letter-spacing:3px;transform:skewX(-8deg);text-shadow:0 8px 40px rgba(0,0,0,.6)}
+#when{top:450px;width:100%;font:700 38px O;letter-spacing:4px;color:#46d7ff}
+.sd{position:absolute;top:530px;width:440px;text-align:center}.sd img{width:250px;height:250px;object-fit:contain;filter:drop-shadow(0 10px 30px rgba(0,0,0,.6))}.sd b{display:block;font:400 72px/1 B;letter-spacing:2px;margin-top:16px}
+#s1{left:40px}#s2{right:40px}#vs{top:620px;left:50%;margin-left:-60px;width:120px;height:120px;border-radius:50%;background:#ffd21f;color:#040a2e;font:400 70px/124px B;text-align:center}
+.fm{position:absolute;top:1010px;width:440px;display:flex;justify-content:center;gap:10px}.fm i{width:70px;height:70px;border-radius:14px;font:400 52px/72px B;text-align:center;font-style:normal;opacity:0}
+.fm .W{background:#16a34a}.fm .D{background:#64748b}.fm .L{background:#dc2626}#f1{left:40px}#f2{right:40px}
+#fl{top:1100px;width:100%;font:700 30px O;letter-spacing:5px;color:rgba(255,255,255,.75)}
+#box{top:1190px;left:50%;width:640px;margin-left:-320px;height:290px;border-radius:34px;background:rgba(4,10,46,.9);border:6px solid #ffd21f;display:flex;align-items:center;justify-content:center;font:400 250px/1 B;letter-spacing:10px;color:#ffd21f}
+#cta{bottom:60px}
+</style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div><div class="abs" id="lg"></div>
+<div class="abs c" id="hk">PREDICT<br><span class="y">THE SCORE</span></div><div class="abs c" id="when"></div>
+<div class="sd" id="s1"></div><div class="abs" id="vs">VS</div><div class="sd" id="s2"></div>
+<div class="fm" id="f1"></div><div class="fm" id="f2"></div><div class="abs c" id="fl">RECENT FORM</div>
+<div class="abs" id="box">?-?</div><div class="cta" id="cta"></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA;
+$('lg').textContent = D.league || ''; $('when').textContent = D.when || '';
+const side = (id, n, l) => ($(id).innerHTML = `${l ? `<img src="${l}">` : ''}<b>${n}</b>`);
+side('s1', D.home, D.homeLogo); side('s2', D.away, D.awayLogo);
+const form = (id, f) => ($(id).innerHTML = (f || []).slice(-5).map((x) => `<i class="${x}">${x}</i>`).join(''));
+form('f1', D.homeForm); form('f2', D.awayForm);
+$('cta').textContent = D.cta || 'DROP YOUR PREDICTION 👇';
+const chips = [...document.querySelectorAll('#f1 i')], chips2 = [...document.querySelectorAll('#f2 i')];
+window.TOTAL = 10;
+window.draw = (t) => {
+  $('hk').style.transform = `skewX(-8deg) scale(${1 + .04 * (1 - ease(t / .5))})`;
+  $('s1').style.transform = `translateX(${(1 - ease(t / .5)) * -60}px)`; $('s2').style.transform = `translateX(${(1 - ease(t / .5)) * 60}px)`;
+  $('vs').style.transform = `scale(${1 + .08 * Math.sin(t * 4)})`;
+  [chips, chips2].forEach((cs) => cs.forEach((c, i) => { const a = back((t - 1.2 - i * .3) / .35); c.style.opacity = cl((t - 1.2 - i * .3) / .15); c.style.transform = `scale(${Math.max(0, a)})`; }));
+  $('fl').style.opacity = ease((t - 1) / .4);
+  const k = ease((t - 3.4) / .5); $('box').style.opacity = k; $('box').style.transform = `scale(${t > 3.4 ? 1.3 - .3 * back((t - 3.4) / .6) : 1.3})`;
+  $('box').style.boxShadow = `0 0 ${30 + 30 * Math.abs(Math.sin(t * 3))}px rgba(255,210,31,.55)`;
+  const c = ease((t - 4.4) / .5); $('cta').style.opacity = c;
+};
+progBar();
+draw(0);
+</script></body></html>

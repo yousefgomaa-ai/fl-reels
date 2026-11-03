@@ -1,5 +1,5 @@
-# One-off (FB Legends samples, 2026-11-03): two weeks of results in the big five leagues and the Champions League,
-# committed as sample/data.json for the new reels' samples. Lives on claude/en-sample only; never merged.
+# One-off: renders FB Legends sample reels (sample/jobs.json) and commits them to this branch for the owner.
+# Lives on claude/en-sample only; never merged.
 name: EN sample
 on:
   push:
@@ -7,16 +7,20 @@ on:
 permissions:
   contents: write
 jobs:
-  data:
+  sample:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
       - run: |
-          mkdir -p sample; echo '[]' > sample/data.json
-          for i in $(seq 0 20); do d=$(date -u -d "$i days ago" +%Y%m%d)
-            curl -sS --max-time 40 "https://api.football-legend.com/matches?date=$d" | jq -c '[.events[]? | select(.leagueSlug|test("^(eng\\.1|esp\\.1|ita\\.1|ger\\.1|fra\\.1|uefa\\.champions)$")) | {id, l:.leagueSlug, date:.fixture.date, st:.fixture.status.state, h:.teams.home.name, a:.teams.away.name, hl:.teams.home.logo, al:.teams.away.logo, hs:.goals.home, as:.goals.away}]' > d.json || echo '[]' > d.json
-            jq -s '.[0] + .[1]' sample/data.json d.json > t.json && mv t.json sample/data.json; sleep 1; done
-          jq length sample/data.json
+          for i in 1 2 3; do timeout 240 sudo apt-get update -qq && timeout 240 sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null && break; sleep 10; done
+          npm i --no-save --no-audit --no-fund playwright@1.48.2
+          timeout 300 npx playwright install --with-deps chromium
+      - env:
+          REELS_KEY: ${{ secrets.REELS_KEY }}
+        run: mkdir -p sample/out && node sample/render.mjs sample/jobs.json sample/out
+      - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          git add sample/data.json && git commit -m "sample data [skip ci]" && git push
+          git add -A sample/out && git commit -m "sample output [skip ci]" && git push

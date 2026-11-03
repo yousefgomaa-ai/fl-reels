@@ -34,5 +34,6 @@ window.draw = (t) => {
   $('hl').style.transform = `skewX(-6deg) translateX(${(1 - ease(t / .45)) * -50}px)`;
   const k = ease((t - 7) / .5); $('cta').style.opacity = k; $('cta').style.transform = `scale(${t > 7 ? 1.25 - .25 * back((t - 7) / .6) : 1})`;
 };
+progBar();
 draw(0);
 </script></body></html>
