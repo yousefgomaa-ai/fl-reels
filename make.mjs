@@ -169,7 +169,8 @@ async function makeAnim(job, dir) {
   for (const [o, k] of pics) {
     if (!cache.has(o[k])) {
       try {
-        const res = await fetch(o[k], { signal: AbortSignal.timeout(20000) });
+        // Wikimedia refuses requests without a User-Agent (2026-11-03: the star's photo was missing on a runner).
+        const res = await fetch(o[k], { headers: { 'User-Agent': 'FootballLegendsReels/1.0 (https://football-legend.com)' }, signal: AbortSignal.timeout(20000) });
         const buf = Buffer.from(await res.arrayBuffer());
         cache.set(o[k], res.ok && buf.length > 200 ? `data:${res.headers.get('content-type') || 'image/png'};base64,${buf.toString('base64')}` : '');
       } catch { cache.set(o[k], ''); }
