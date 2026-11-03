@@ -14,6 +14,7 @@
 #h{left:20px}#a{right:20px}
 #box{position:absolute;top:960px;left:50%;width:720px;margin-left:-360px;height:330px;border-radius:36px;background:rgba(4,10,46,.92);border:6px solid #46d7ff;display:flex;align-items:center;justify-content:center;font:400 290px/1 B;letter-spacing:14px}
 #box .w{color:#ffd21f}
+#sc{position:absolute;top:1475px;left:60px;right:60px;text-align:center;font:500 38px/1.3 O;color:#c9d0f5}#sc b{color:#fff}
 #ln{position:absolute;top:1360px;left:60px;right:60px;text-align:center;font:400 92px/0.95 B;letter-spacing:2px;transform:skewX(-6deg)}
 #ou .t{position:absolute;top:150px;width:100%;text-align:center;font:400 120px/0.9 B;letter-spacing:2px}
 #ou .l{position:absolute;top:420px;left:50px;right:50px}
@@ -22,7 +23,7 @@
 #cta{bottom:56px;opacity:0}
 </style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div><div class="abs" id="lg"></div>
 <div class="sc" id="in"><div class="t"></div><div class="n"></div><div class="cr"></div></div>
-<div class="sc" id="mt"><div class="k"></div><div class="big">BIGGEST WIN OF THE NIGHT</div><div class="sd" id="h"></div><div class="sd" id="a"></div><div id="box"></div><div id="ln"></div></div>
+<div class="sc" id="mt"><div class="k"></div><div class="big">BIGGEST WIN OF THE NIGHT</div><div class="sd" id="h"></div><div class="sd" id="a"></div><div id="box"></div><div id="ln"></div><div id="sc"></div></div>
 <div class="sc" id="ou"><div class="t"></div><div class="l"></div></div><div class="cta" id="cta"></div>
 <script src="lib.js"></script><script src="en-lib.js"></script><script>
 const D = window.DATA, M = D.rows || [], n = M.length, q = (s, sel) => document.querySelector(`#${s} ${sel}`);
@@ -40,6 +41,8 @@ const setMatch = (i) => {
   const m = M[i]; q('mt', '.k').textContent = `RESULT ${i + 1} OF ${n}`; q('mt', '.big').style.display = i === n - 1 && D.bigLast ? 'block' : 'none';
   $('h').innerHTML = `${m.homeLogo ? `<img src="${m.homeLogo}">` : ''}<b>${m.home}</b>`; $('a').innerHTML = `${m.awayLogo ? `<img src="${m.awayLogo}">` : ''}<b>${m.away}</b>`;
   $('ln').innerHTML = m.head || '';
+  // The scorers under the reveal, home | away (ESPN's summary, when it adds up).
+  $('sc').innerHTML = m.sc ? `⚽ ${[m.sc[0] ? `<b>${m.home}:</b> ${m.sc[0]}` : '', m.sc[1] ? `<b>${m.away}:</b> ${m.sc[1]}` : ''].filter(Boolean).join('<br>')}` : '';
 };
 window.draw = (t) => {
   const bi = B.findIndex(([s, l]) => t >= s && t < s + l), k = bi < 0 ? B.length - 1 : bi, [s, l] = B[k], u = t - s;
@@ -54,7 +57,7 @@ window.draw = (t) => {
     $('box').innerHTML = u < rv ? '?<span style="color:#46d7ff">-</span>?' : `<span class="${m.hs > m.as ? 'w' : ''}">${m.hs}</span><span style="color:#46d7ff">-</span><span class="${m.as > m.hs ? 'w' : ''}">${m.as}</span>`;
     $('box').style.transform = `scale(${u < rv ? 1 + .03 * Math.sin(u * 9) : 1.18 - .18 * back((u - rv) / .45)})`;
     $('box').style.borderColor = u >= rv && big ? '#ffd21f' : '#46d7ff'; $('box').style.boxShadow = u >= rv ? `0 0 ${big ? 70 : 40}px rgba(${big ? '255,210,31' : '70,215,255'},.55)` : 'none';
-    $('ln').style.opacity = ease((u - rv - .2) / .35); $('ln').style.transform = `skewX(-6deg) translateY(${(1 - ease((u - rv - .2) / .35)) * 30}px)`;
+    $('ln').style.opacity = ease((u - rv - .2) / .35); $('sc').style.opacity = ease((u - rv - .5) / .35); $('ln').style.transform = `skewX(-6deg) translateY(${(1 - ease((u - rv - .2) / .35)) * 30}px)`;
     q('mt', '.big').style.transform = `translateX(-50%) scale(${big ? 1 + .05 * Math.sin(u * 5) : 1})`;
   }
   const isO = k === B.length - 1; $('ou').style.opacity = isO ? ease(u / .35) : 0;

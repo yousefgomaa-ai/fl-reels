@@ -1,22 +1,26 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
 /* FB Legends «FULL-TIME» (owner, 2026-11-03: «لسه مستني منك الأحلى»): the result in the first frame with the winner's
    star cut out behind the score, then «HOW IT HAPPENED» goal by goal, then the question. */
-#ghost{position:absolute;top:240px;left:50%;width:900px;height:900px;margin-left:-450px;object-fit:contain;opacity:.12;filter:blur(2px)}
-#st{position:absolute;left:0;right:0;top:330px;height:840px}#st .cut{left:50%;transform:translateX(-50%);height:840px;width:900px;bottom:0}
+#ghost{position:absolute;top:250px;left:50%;width:640px;height:640px;margin-left:-320px;object-fit:contain;opacity:.12;filter:blur(2px)}
+#st{position:absolute;left:0;right:0;top:300px;height:600px}#st .cut{left:50%;transform:translateX(-50%);height:600px;width:800px;bottom:0}
 #st .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 18%;-webkit-mask-image:linear-gradient(#000 60%,transparent)}
 #lg{top:62px;right:44px;font:700 34px O;letter-spacing:3px;text-transform:uppercase;text-align:right;z-index:20}#lg span{display:block;height:5px;background:#ffd21f;margin-top:8px}
 #ft{top:150px;width:100%;font:400 210px/0.9 B;letter-spacing:4px;transform:skewX(-8deg);text-shadow:0 8px 40px rgba(0,0,0,.6);z-index:20}
-#panel{left:30px;right:30px;top:1100px;height:380px;border-radius:30px;background:linear-gradient(180deg,rgba(10,26,92,.95),rgba(4,10,46,.98));border-top:6px solid #46d7ff;z-index:10}
+#panel{left:30px;right:30px;top:860px;height:380px;border-radius:30px;background:linear-gradient(180deg,rgba(10,26,92,.95),rgba(4,10,46,.98));border-top:6px solid #46d7ff;z-index:10}
 .cr{position:absolute;top:30px;width:250px;text-align:center}.cr img{width:210px;height:210px;object-fit:contain;filter:drop-shadow(0 8px 20px rgba(0,0,0,.6))}.cr b{display:block;font:700 44px/1.05 O;margin-top:10px}
 #c1{left:20px}#c2{right:20px}#sc{position:absolute;left:0;right:0;top:30px;text-align:center;font:400 300px/1 B;letter-spacing:6px}
-#pens{top:1490px;width:100%;font:700 38px O;color:#ffd21f;z-index:20}
-#how{top:1540px;width:100%;font:700 30px O;letter-spacing:6px;color:#46d7ff;z-index:20}
-#gl{left:60px;right:60px;top:1590px;z-index:20}.g{display:flex;align-items:center;gap:18px;font:500 44px O;height:62px;opacity:0}.g img{width:46px;height:46px;object-fit:contain}.g .m{font:400 54px B;color:#ffd21f;width:110px}
-#cta{bottom:46px;z-index:31}.credit{left:24px;top:1072px}
+#pens{top:1250px;width:100%;font:700 38px O;color:#ffd21f;z-index:20}
+#how{top:1300px;width:100%;font:700 30px O;letter-spacing:6px;color:#46d7ff;z-index:20}
+#gl{left:60px;right:60px;top:1350px;z-index:20}.g{display:flex;align-items:center;gap:18px;font:500 44px O;height:62px;opacity:0}.g img{width:46px;height:46px;object-fit:contain}.g .m{font:400 54px B;color:#ffd21f;width:110px}
+#cta{bottom:46px;z-index:31}
+/* The match in numbers after the goals (owner, 2026-11-03: «الاستحواذ والتفاصيل دي»), then the best-rated player. */
+#stb{left:60px;right:60px;top:1310px;z-index:20;opacity:0}.sr{margin-bottom:14px}.sr .lb{display:flex;justify-content:space-between;font:400 48px/1 B;letter-spacing:1px}.sr .lb span{font:700 26px O;letter-spacing:3px;color:#c9d0f5;align-self:center}
+.sr .tr{display:flex;height:18px;gap:8px;margin-top:6px}.sr .tr div{flex:1;background:#111938;border-radius:9px;overflow:hidden;display:flex}.sr .tr .b{justify-content:flex-end}.sr i{display:block;height:100%;border-radius:9px}
+#motm{left:60px;right:60px;top:1620px;z-index:21;opacity:0;text-align:center;font:400 52px B;letter-spacing:2px;background:linear-gradient(90deg,#b45309,#ffd21f);color:#040a2e;border-radius:20px;padding:8px}.credit{left:24px;top:832px}
 </style></head><body><div class="bg"></div><div class="streak"></div><img id="ghost"><div id="st"></div>
 <div class="logo">FB<i>LEGENDS</i></div><div class="abs" id="lg"></div><div class="abs c" id="ft">FULL-TIME</div>
 <div class="abs" id="panel"><div class="cr" id="c1"></div><div id="sc"></div><div class="cr" id="c2"></div></div>
-<div class="abs c" id="pens"></div><div class="abs c" id="how">HOW IT HAPPENED</div><div class="abs" id="gl"></div><div class="cta" id="cta"></div><div class="credit" id="cr"></div>
+<div class="abs c" id="pens"></div><div class="abs c" id="how">HOW IT HAPPENED</div><div class="abs" id="gl"></div><div class="abs" id="stb"></div><div class="abs" id="motm"></div><div class="cta" id="cta"></div><div class="credit" id="cr"></div>
 <script src="lib.js"></script><script src="en-lib.js"></script><script>
 const D = window.DATA;
 $('lg').innerHTML = `${D.league || ''}<span></span>`; $('pens').textContent = D.pens || '';
@@ -30,13 +34,20 @@ $('gl').innerHTML = G.map((g) => `<div class="g"><span class="m">${g.m}'</span>$
 if (G.length > 5) document.querySelectorAll('.g').forEach((x) => { x.style.height = '46px'; x.style.fontSize = '36px'; });
 if (!G.length) $('how').style.display = 'none';
 $('cta').textContent = D.cta || 'WHO WAS MAN OF THE MATCH? 👇';
-const rows = [...document.querySelectorAll('.g')], T1 = 1.4, PER = .75, TE = T1 + rows.length * PER + .4;
-window.TOTAL = Math.max(9, Math.min(15, TE + 3.2));
+const ST = (D.stats || []).slice(0, 3);
+$('stb').innerHTML = ST.map(([l, x, y, u]) => `<div class="sr"><div class="lb"><b>${x}${u || ''}</b><span>${l}</span><b>${y}${u || ''}</b></div><div class="tr"><div class="b"><i style="background:#46d7ff"></i></div><div><i style="background:#ffd21f"></i></div></div></div>`).join('');
+if (D.motm) $('motm').textContent = `⭐ TOP RATED: ${D.motm.name} ${D.motm.rating}`;
+const rows = [...document.querySelectorAll('.g')], T1 = 1.4, PER = .75, TG = T1 + rows.length * PER + .4;
+// The goals, then (with numbers) the goals give way to them, then the top-rated player, then the question.
+const TS = ST.length ? TG + (rows.length ? .9 : 0) : 0, TM = D.motm ? (ST.length ? TS + 1.8 : TG + .4) : 0, TE = Math.max(TG, TS ? TS + 1.4 : 0, TM ? TM + .9 : 0);
+window.TOTAL = Math.max(9, Math.min(17, TE + 3));
 window.draw = (t) => {
   $('sc').style.transform = `scale(${1 + .14 * (1 - ease(t / .4))})`;
   const im = document.querySelector('#st img'); if (im) im.style.transform = `${im.classList.contains('cut') ? 'translateX(-50%) ' : ''}scale(${1.04 - .04 * cl(t / window.TOTAL)})`;
   if ($('ghost')) $('ghost').style.transform = `rotate(${-4 + 8 * cl(t / window.TOTAL)}deg)`;
-  $('how').style.opacity = ease((t - 1) / .4);
+  const gOut = TS ? ease((t - TS + .3) / .3) : 0; $('gl').style.opacity = 1 - gOut; $('how').style.opacity = ease((t - 1) / .4) * (1 - gOut);
+  if (TS) { $('stb').style.opacity = ease((t - TS) / .35); document.querySelectorAll('.sr').forEach((r, i) => { const k = ease((t - TS - .1 - i * .2) / .7), [, x, y] = ST[i], sm = Math.max(1, Number(x) + Number(y)); r.querySelector('.b i').style.width = (k * x / sm * 100) + '%'; r.querySelectorAll('i')[1].style.width = (k * y / sm * 100) + '%'; }); }
+  if (TM) { const k = back((t - TM) / .5); $('motm').style.opacity = cl((t - TM) / .2); $('motm').style.transform = `scale(${t > TM ? Math.max(.6, k) : .6})`; }
   rows.forEach((r, i) => { const a = ease((t - T1 - i * PER) / .35); r.style.opacity = a; r.style.transform = `translateX(${(1 - a) * -80}px)`; const m = r.querySelector('.m'); m.style.textShadow = `0 0 ${30 * Math.max(0, 1 - Math.abs(t - T1 - i * PER - .2) / .4)}px #ffd21f`; });
   const k = ease((t - TE) / .5); $('cta').style.opacity = .3 + .7 * k; $('cta').style.transform = `scale(${1 + .2 * (1 - back((t - TE) / .6)) * (t > TE ? 1 : 0)})`;
 };
