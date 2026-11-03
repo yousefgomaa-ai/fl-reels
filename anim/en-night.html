@@ -39,6 +39,12 @@ window.draw = (t) => {
   if (D.live) $('live').style.opacity = .55 + .45 * Math.abs(Math.sin(t * 3));
   const c = TB + 1.2, k2 = ease((t - c) / .5); $('cta').style.opacity = k2; $('cta').style.transform = `scale(${t > c ? 1.25 - .25 * back((t - c) / .6) : 1})`;
 };
+<<<<<<< HEAD
+=======
+// The cover (owner, 2026-11-03: «كل فيديو حطله غلاف رايق»): the first frame, which Facebook shows in the grid, is the reel at its
+// fullest moment; a quiz's cover never shows its answer.
+window.POSTER = Math.min(window.TOTAL - .3, TB + .6);
+>>>>>>> origin/main
 progBar();
 draw(0);
 </script></body></html>
