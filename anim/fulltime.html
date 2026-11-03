@@ -41,6 +41,7 @@ if (!bars.length) $('st').style.display = 'none';
 if (D.motm) $('motm').textContent = `الأعلى تقييمًا: ${D.motm.name} (${D.motm.rating})`; else $('motm').style.display = 'none';
 const RUN = 4.2;
 window.TOTAL = 12.5;
+window.POSTER = 9.6; // the cover frame: score, stats and man of the match
 window.draw = (t) => {
   $('chip').dataset.tf = 'translateX(-50%)'; pop($('chip'), t, 0, .5, -30);
   const s = ease((t - .3) / .6); $('t1').style.transform = `translateX(${(1 - s) * 400}px)`; $('t2').style.transform = `translateX(${(1 - s) * -400}px)`; $('t1').style.opacity = $('t2').style.opacity = s; $('sc').style.opacity = ease((t - .8) / .4);

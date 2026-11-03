@@ -30,6 +30,7 @@ const rows = R.slice(0, PAGES * PER).map((m, i) => {
 const more = R.length - rows.length;
 const T0 = B ? 2.6 : 1.2, PT = 3.2;
 window.TOTAL = T0 + Math.max(1, PAGES) * PT + 2.6;
+window.POSTER = T0 + PT - .6; // the cover frame: the first page full
 window.draw = (t) => {
   $('chip').dataset.tf = 'translateX(-50%)'; pop($('chip'), t, 0, .5, -30); pop($('date'), t, .3, .5, -20);
   if (B) {

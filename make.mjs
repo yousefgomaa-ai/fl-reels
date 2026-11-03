@@ -192,8 +192,11 @@ async function makeAnim(job, dir) {
     await p.waitForTimeout(500);
     if (errs.length) throw new Error('page: ' + errs[0]);
     const total = await p.evaluate(() => window.TOTAL), fps = 30;
+    // The first frame is the finished card (window.POSTER): Instagram's grid, Facebook and Telegram show a reel by its
+    // first frame, and the animation starts on an empty background (owner, 2026-11-03: «ليه الريلز الجديد كله طالع بخلفية سودا»).
+    const poster = await p.evaluate(() => (typeof window.POSTER === 'number' ? window.POSTER : null));
     for (let i = 0; i < Math.round(total * fps); i++) {
-      await p.evaluate((t) => window.draw(t), i / fps);
+      await p.evaluate((t) => window.draw(t), i === 0 && poster != null ? poster : i / fps);
       await p.screenshot({ path: join(frames, `${String(i).padStart(5, '0')}.jpg`), type: 'jpeg', quality: 90 });
     }
     const out = join(dir, 'reel.mp4');

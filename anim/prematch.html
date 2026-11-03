@@ -34,6 +34,7 @@ if (D.form && (D.form.home || D.form.away)) {
   dots = [...fill('f1', D.form.home), ...fill('f2', D.form.away)];
 }
 window.TOTAL = 12;
+window.POSTER = 9; // the cover frame: everything in
 window.draw = (t) => {
   $('chip').dataset.tf = 'translateX(-50%)'; pop($('chip'), t, 0, .5, -30);
   const s = ease((t - .4) / .7); $('s1').style.transform = `translateX(${(1 - s) * 600}px)`; $('s2').style.transform = `translateX(${(1 - s) * -600}px)`; $('s1').style.opacity = $('s2').style.opacity = s;
