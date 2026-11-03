@@ -11,14 +11,18 @@
 .m.big{border-color:#ffd21f;box-shadow:0 0 40px rgba(255,210,31,.45)}
 #tag{position:absolute;right:40px;padding:4px 22px;border-radius:12px;background:#ffd21f;color:#040a2e;font:400 44px B;letter-spacing:2px;opacity:0;z-index:5}
 #cta{bottom:48px;font-size:64px}
+#live{top:338px;left:48px;font:700 34px O;letter-spacing:4px;color:#fff;background:#e11d48;padding:4px 18px;border-radius:10px;display:none}
+.m .tg{position:absolute;top:6px;left:0;right:0;text-align:center;font:700 18px O;letter-spacing:2px;color:#46d7ff}
 </style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div>
-<div class="abs" id="cp"></div><div class="abs" id="hl">TONIGHT'S<br><span class="y">RESULTS</span></div><div id="list"></div><div id="tag">BIGGEST WIN</div><div class="cta" id="cta"></div>
+<div class="abs" id="cp"></div><div class="abs" id="hl"></div><div class="abs" id="live">● LIVE</div><div id="list"></div><div id="tag">BIGGEST WIN</div><div class="cta" id="cta"></div>
 <script src="lib.js"></script><script>
 const D = window.DATA, M = (D.rows || []).slice(0, 10), n = M.length;
+// The same page for half-time (owner, 2026-11-03: «ريلز مجمع بنتائج الشوط الأول»): its own headline, a LIVE mark, the biggest lead.
+$('hl').innerHTML = `${D.h1 || "TONIGHT'S"}<br><span class="y">${D.h2 || 'RESULTS'}</span>`; if (D.live) $('live').style.display = 'block'; $('tag').textContent = D.bigLabel || 'BIGGEST WIN';
 $('cp').textContent = (D.league || '').toUpperCase();
 const h = n > 8 ? 112 : n > 6 ? 128 : 150;
 document.documentElement.style.cssText = `--h:${h}px;--c:${Math.round(h * .58)}px;--f:${n > 8 ? 34 : 38}px;--sf:${n > 8 ? 70 : 80}px`;
-$('list').innerHTML = M.map((m) => `<div class="m"><img src="${m.homeLogo || ''}" ${m.homeLogo ? '' : 'style="visibility:hidden"'}><span class="n">${m.home}</span><span class="s"><span class="${m.hs > m.as ? 'w' : ''}">${m.hs}</span>-<span class="${m.as > m.hs ? 'w' : ''}">${m.as}</span></span><span class="n r">${m.away}</span><img src="${m.awayLogo || ''}" ${m.awayLogo ? '' : 'style="visibility:hidden"'}>${m.pens ? `<small>${m.pens}</small>` : ''}</div>`).join('');
+$('list').innerHTML = M.map((m) => `<div class="m"><img src="${m.homeLogo || ''}" ${m.homeLogo ? '' : 'style="visibility:hidden"'}><span class="n">${m.home}</span><span class="s"><span class="${m.hs > m.as ? 'w' : ''}">${m.hs}</span>-<span class="${m.as > m.hs ? 'w' : ''}">${m.as}</span></span><span class="n r">${m.away}</span><img src="${m.awayLogo || ''}" ${m.awayLogo ? '' : 'style="visibility:hidden"'}>${m.pens ? `<small>${m.pens}</small>` : ''}${m.tag ? `<span class="tg">${m.tag}</span>` : ''}</div>`).join('');
 $('cta').textContent = D.cta || 'WHICH RESULT SURPRISED YOU? 👇';
 const rows = [...document.querySelectorAll('.m')];
 let bi = -1, bm = 0; M.forEach((m, i) => { const d = Math.abs(m.hs - m.as); if (d > bm) { bm = d; bi = i; } });
@@ -30,6 +34,7 @@ window.draw = (t) => {
   $('hl').style.transform = `skewX(-6deg) translateX(${(1 - ease(t / .4)) * -50}px)`;
   if (bi >= 0) { const k = ease((t - TB) / .4), r = rows[bi]; r.classList.toggle('big', t > TB); r.style.transform = `scale(${1 + .04 * k})`;
     $('tag').style.opacity = k * (1 - ease((t - TB - 2.6) / .3)); $('tag').style.top = (440 + bi * (h + 12) - 34) + 'px'; }
+  if (D.live) $('live').style.opacity = .55 + .45 * Math.abs(Math.sin(t * 3));
   const c = TB + 1.2, k2 = ease((t - c) / .5); $('cta').style.opacity = k2; $('cta').style.transform = `scale(${t > c ? 1.25 - .25 * back((t - c) / .6) : 1})`;
 };
 draw(0);
