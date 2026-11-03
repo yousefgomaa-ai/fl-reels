@@ -284,3 +284,4 @@ async function main() {
   }
 }
 if (process.argv[1] && import.meta.url.endsWith(process.argv[1].split('/').pop())) main().catch((e) => { console.error(e); process.exit(1); });
+export { makeAnim };
