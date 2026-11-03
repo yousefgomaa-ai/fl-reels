@@ -165,9 +165,12 @@ async function animVoice(job, dir, total) {
     const res = await fetch(`${API}/v2/reels/voice?${q}`, { signal: AbortSignal.timeout(120000) }).catch(() => null);
     const b = res?.ok ? Buffer.from(await res.arrayBuffer()) : null;
     if (b && b.length > 2000 && b.toString('latin1', 0, 4) === 'RIFF') {
-      const f = join(dir, 'said.wav');
-      await writeFile(f, b);
-      const d = await probeSeconds(f);
+      const raw = join(dir, 'said-raw.wav'), f = join(dir, 'said.wav');
+      await writeFile(raw, b);
+      // Silence trimmed at both ends; a line far longer than its words (the style read out with it, 2026-11-03) is not used.
+      await run(FF, ['-y', '-i', raw, '-af', 'silenceremove=start_periods=1:start_threshold=-45dB,areverse,silenceremove=start_periods=1:start_threshold=-45dB,areverse', f]);
+      const d = await probeSeconds(f), words = text.split(/\s+/).length;
+      if (d > words * 0.6 + 1.5) throw new Error(`line of ${d.toFixed(1)} s for ${words} words: more than the line was read`);
       if (d > 0.5 && d < total - 0.6) return f;
       throw new Error(`line of ${d.toFixed(1)} s for a ${total} s reel`);
     }
