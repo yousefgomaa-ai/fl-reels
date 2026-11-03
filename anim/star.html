@@ -1,0 +1,32 @@
+<!doctype html><html dir="rtl"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><style>
+/* «النجم بالأرقام» moving (owner, 2026-11-03): his Commons photo slowly moving, his numbers counting up. */
+#ph{position:absolute;left:0;right:0;top:0;height:1150px;overflow:hidden}#ph img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+#ph:after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(5,8,18,.15) 40%,#060914 98%)}
+#nm{top:870px;width:100%;font-weight:900;font-size:100px;text-shadow:0 6px 30px rgba(0,0,0,.6);line-height:1.1}#sub{top:1010px;width:100%;font-size:38px;color:#22e9ff;font-weight:700}
+#cards{top:1110px;left:50px;right:50px;display:flex;gap:20px;justify-content:center}
+.cd{flex:1;max-width:330px;background:rgba(17,25,56,.95);border:2px solid rgba(34,233,255,.35);border-radius:28px;padding:22px 12px;text-align:center}.cd b{display:block;font:900 104px Arial;background:linear-gradient(#fff,#22e9ff);-webkit-background-clip:text;color:transparent}.cd span{display:block;font-size:28px;font-weight:700;color:#c9d0f5;line-height:1.25}
+#rk{top:1480px;left:60px;right:60px;background:linear-gradient(90deg,#ff2f97,#7a2cff);border-radius:28px;padding:20px;text-align:center;font-weight:900;font-size:38px}
+#q{bottom:180px;width:100%;font-weight:900;font-size:52px}
+#cr{position:absolute;top:1080px;right:16px;left:16px;text-align:right;font:700 18px Arial;color:#c9d0f5;opacity:.85;direction:ltr;z-index:3}
+</style></head><body><div class="bg"></div><div id="ph"></div><div class="brand" style="z-index:2">FOOTBALL LEGENDS</div><div class="chip" id="chip" style="z-index:2">بالأرقام</div>
+<div id="cr"></div><div class="abs c" id="nm"></div><div class="abs c" id="sub"></div><div class="abs" id="cards"></div><div class="abs" id="rk"></div><div class="abs c" id="q"></div>
+<div class="foot">football-legend.com</div><div class="bar" style="bottom:0"></div>
+<script src="lib.js"></script><script>
+const D = window.DATA;
+if (D.photo) $('ph').innerHTML = `<img id="img" src="${D.photo}">`; else $('ph').style.background = 'radial-gradient(900px 700px at 50% 30%,#2a1a6b,#060914)';
+$('cr').textContent = D.credit ? `Photo: ${D.credit}, via Wikimedia Commons` : '';
+$('nm').textContent = D.name; $('sub').textContent = D.sub || ''; $('q').textContent = D.q || '';
+$('cards').innerHTML = (D.tiles || []).slice(0, 3).map((x) => `<div class="cd"><b data-n="${Number(x.stat) || 0}">0</b><span>${x.text}</span></div>`).join('');
+if (D.note) $('rk').textContent = D.note; else $('rk').style.display = 'none';
+if (!D.photo) { $('nm').style.top = '520px'; $('sub').style.top = '660px'; }
+window.TOTAL = 10;
+window.draw = (t) => {
+  $('chip').dataset.tf = 'translateX(-50%)'; pop($('chip'), t, .2, .5, -30);
+  const im = document.getElementById('img'); if (im) im.style.transform = `scale(${1.18 - .12 * cl(t / 10)}) translateY(${-20 * cl(t / 10)}px)`;
+  $('ph').style.opacity = ease(t / .6); $('cr').style.opacity = .85 * ease((t - .6) / .5);
+  pop($('nm'), t, .6, .6, 60); pop($('sub'), t, 1, .5, 30);
+  document.querySelectorAll('.cd').forEach((c, i) => { const a = back((t - 1.8 - i * .25) / .5); c.style.opacity = cl((t - 1.8 - i * .25) / .3); c.style.transform = `scale(${Math.max(0, a)})`; const b = c.querySelector('b'); b.textContent = Math.round(+b.dataset.n * ease((t - 2 - i * .25) / 1.2)); });
+  pop($('rk'), t, 4.2, .5, 40); $('rk').style.boxShadow = `0 0 ${30 + 20 * Math.sin(t * 5)}px rgba(255,47,151,.5)`; pop($('q'), t, 6.5, .6, 40);
+};
+draw(0);
+</script></body></html>

@@ -1,0 +1,48 @@
+<!doctype html><html dir="rtl"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><style>
+/* «قبل المباراة» moving (owner, 2026-11-03): the sides clash in, when, the head-to-head, the form, the question. */
+.side{top:300px;width:540px;display:flex;flex-direction:column;align-items:center;gap:16px}.side img{width:270px;height:270px;object-fit:contain;filter:drop-shadow(0 0 30px rgba(34,233,255,.35))}.side b{font-size:48px;font-weight:900;text-align:center;line-height:1.15;padding:0 20px}
+#vs{top:400px;left:50%;transform:translateX(-50%);font:900 120px Arial;background:linear-gradient(#22e9ff,#ff2f97);-webkit-background-clip:text;color:transparent}
+#when{top:760px;left:50%;transform:translateX(-50%);background:rgba(17,25,56,.95);border:2px solid #22e9ff;border-radius:30px;padding:8px 36px;font-weight:900;font-size:38px;white-space:nowrap}
+#tv{top:840px;width:100%;font-size:30px;color:#c9d0f5;font-weight:700}
+#h2h{top:930px;left:70px;right:70px}#h2h h3{font-size:40px;text-align:center;color:#22e9ff;margin-bottom:20px}
+.br{display:flex;align-items:center;gap:18px;margin:16px 0;font-weight:900;font-size:40px}.br .v{width:70px;text-align:center}.br .tr{flex:1;height:30px;border-radius:15px;background:#111938;overflow:hidden;display:flex}.br .tr i{display:block;height:100%}.br .lb{width:260px;font-size:30px;color:#c9d0f5;white-space:nowrap;overflow:hidden}
+#form{top:1330px;left:70px;right:70px}#form h3{font-size:36px;text-align:center;color:#22e9ff;margin-bottom:6px}.fr{display:flex;align-items:center;justify-content:space-between;margin:16px 0}.fr b{font-size:34px;max-width:420px;white-space:nowrap;overflow:hidden}.dots{display:flex;gap:12px;direction:ltr}.dt{width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:30px}
+#poll{top:1560px;width:100%;display:flex;flex-direction:column;align-items:center;gap:18px}#poll h2{font-size:58px}#poll .ops{display:flex;gap:18px}#poll .ops div{background:#111938;border:2px solid #ff2f97;border-radius:24px;padding:8px 26px;font-size:32px;font-weight:900;max-width:330px;white-space:nowrap;overflow:hidden}
+</style></head><body><div class="bg"></div><div class="grid"></div><div class="bar" style="top:0"></div><div class="brand">FOOTBALL LEGENDS</div><div class="chip" id="chip"></div>
+<div class="abs side" id="s1" style="right:0"></div><div class="abs side" id="s2" style="left:0"></div><div class="abs" id="vs">VS</div>
+<div class="abs" id="when"></div><div class="abs c" id="tv"></div><div class="abs" id="h2h"></div><div class="abs" id="form"></div>
+<div class="abs" id="poll"><h2>من سيفوز؟</h2><div class="ops" id="ops"></div></div>
+<div class="foot">football-legend.com</div><div class="bar" style="bottom:0"></div>
+<script src="lib.js"></script><script>
+const D = window.DATA;
+$('chip').textContent = D.chip; $('when').textContent = D.when; $('tv').textContent = D.tv ? 'القناة: ' + D.tv : '';
+$('s1').innerHTML = `${D.homeLogo ? `<img src="${D.homeLogo}">` : ''}<b>${D.home}</b>`; $('s2').innerHTML = `${D.awayLogo ? `<img src="${D.awayLogo}">` : ''}<b>${D.away}</b>`;
+$('ops').innerHTML = `<div>${D.home}</div><div>تعادل</div><div>${D.away}</div>`;
+let bars = [];
+if (D.h2h) {
+  const H = D.h2h, n = Math.max(1, H.home + H.draws + H.away);
+  $('h2h').innerHTML = `<h3>${H.label}</h3>` + [['فوز ' + D.home, H.home, '#22e9ff'], ['تعادل', H.draws, '#8f98bd'], ['فوز ' + D.away, H.away, '#ff2f97']].map(([l, v, c]) => `<div class="br"><span class="lb">${l}</span><div class="tr"><i style="background:${c}"></i></div><span class="v">${v}</span></div>`).join('');
+  bars = [...$('h2h').querySelectorAll('.br')].map((e, i) => [e, [H.home, H.draws, H.away][i] / n]);
+} else if (D.table) {
+  $('h2h').innerHTML = `<h3>في جدول الترتيب</h3>` + [['المركز', D.table[0].rank, D.table[1].rank], ['النقاط', D.table[0].points, D.table[1].points]].map(([l, a, b]) => `<div class="br" style="justify-content:space-between"><span class="v" style="width:120px">${a}</span><span class="lb" style="text-align:center">${l}</span><span class="v" style="width:120px">${b}</span></div>`).join('');
+}
+const C = { W: ['ف', '#1fae5b'], D: ['ت', '#8f98bd'], L: ['خ', '#e8445a'] };
+let dots = [];
+if (D.form && (D.form.home || D.form.away)) {
+  $('form').innerHTML = `<h3>آخر 5 مباريات</h3><div class="fr"><b>${D.home}</b><div class="dots" id="f1"></div></div><div class="fr"><b>${D.away}</b><div class="dots" id="f2"></div></div>`;
+  const fill = (id, s) => String(s || '').split('').filter((x) => C[x]).map((x) => { const d = document.createElement('div'); d.className = 'dt'; d.style.background = C[x][1]; d.textContent = C[x][0]; $(id).appendChild(d); return d; });
+  dots = [...fill('f1', D.form.home), ...fill('f2', D.form.away)];
+}
+window.TOTAL = 12;
+window.draw = (t) => {
+  $('chip').dataset.tf = 'translateX(-50%)'; pop($('chip'), t, 0, .5, -30);
+  const s = ease((t - .4) / .7); $('s1').style.transform = `translateX(${(1 - s) * 600}px)`; $('s2').style.transform = `translateX(${(1 - s) * -600}px)`; $('s1').style.opacity = $('s2').style.opacity = s;
+  const v = back((t - 1.1) / .5); $('vs').style.transform = `translateX(-50%) scale(${Math.max(0, v) + (t > 1.6 ? .05 * Math.sin(t * 6) : 0)})`; $('vs').style.opacity = cl((t - 1.1) / .2);
+  $('when').dataset.tf = 'translateX(-50%)'; pop($('when'), t, 1.6, .5, 30); pop($('tv'), t, 1.9, .5, 20);
+  $('h2h').style.opacity = ease((t - 2.6) / .4);
+  bars.forEach(([e, p], i) => { const a = ease((t - 3 - i * .3) / .8); e.querySelector('i').style.width = (a * p * 100) + '%'; e.style.opacity = cl((t - 2.8 - i * .3) / .3); });
+  $('form').style.opacity = ease((t - 5) / .4); dots.forEach((d, i) => { d.style.transform = `scale(${Math.max(0, back((t - 5.3 - i * .12) / .4))})`; });
+  $('poll').style.opacity = ease((t - 8) / .5); $('poll').style.transform = `translateY(${(1 - ease((t - 8) / .5)) * 60}px)`;
+};
+draw(0);
+</script></body></html>

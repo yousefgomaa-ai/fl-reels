@@ -1,0 +1,50 @@
+<!doctype html><html dir="rtl"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><style>
+/* «التشكيلة» moving (owner, 2026-11-03): each side's eleven dropping onto the pitch in its formation, one after the other. */
+.team{top:190px;width:100%;display:flex;align-items:center;justify-content:center;gap:24px}.team img{width:110px;height:110px;object-fit:contain}.team b{font-size:54px;font-weight:900}.team span{font-size:36px;color:#22e9ff;direction:ltr;unicode-bidi:isolate}
+#pitch{top:360px;left:70px;width:940px;height:1300px}
+.p{position:absolute;width:210px;margin-left:-105px;display:flex;flex-direction:column;align-items:center;gap:6px}.p .s{width:88px;height:88px;border-radius:50%;background:linear-gradient(#fff,#d9dcef);color:#0a1233;display:flex;align-items:center;justify-content:center;font:900 38px Arial;box-shadow:0 6px 20px rgba(0,0,0,.5);border:4px solid #22e9ff}.p .nm{background:rgba(5,8,18,.85);padding:2px 12px;border-radius:14px;font-weight:900;font-size:26px;white-space:nowrap;max-width:210px;overflow:hidden;text-overflow:ellipsis}
+.p.away .s{border-color:#ff2f97}
+#cta{bottom:150px;width:100%;font-size:44px;font-weight:900}
+</style></head><body><div class="bg"></div><div class="grid"></div><div class="bar" style="top:0"></div><div class="brand">FOOTBALL LEGENDS</div><div class="chip" id="chip"></div>
+<div id="teams"></div>
+<svg class="abs" id="pitch" viewBox="0 0 940 1300"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f6b3a"/><stop offset="1" stop-color="#0a4f2b"/></linearGradient></defs>
+<rect x="0" y="0" width="940" height="1300" rx="30" fill="url(#g)"/>
+<g fill="none" stroke="rgba(255,255,255,.55)" stroke-width="5" id="lines"><rect x="30" y="30" width="880" height="1240" rx="10"/><line x1="30" y1="650" x2="910" y2="650"/><circle cx="470" cy="650" r="110"/><rect x="250" y="1070" width="440" height="200"/><rect x="360" y="1190" width="220" height="80"/><rect x="250" y="30" width="440" height="200"/><rect x="360" y="30" width="220" height="80"/></g></svg>
+<div id="pl"></div><div class="abs c" id="cta">من سيصنع الفارق اليوم؟</div><div class="foot">football-legend.com</div><div class="bar" style="bottom:0"></div>
+<script src="lib.js"></script><script>
+const D = window.DATA, S = D.sides || [];
+$('chip').textContent = D.chip || 'التشكيلة الرسمية';
+// Places from the formation (e.g. 4-3-3): the goalkeeper at the back, then each line up the pitch.
+const spots = (f) => {
+  let lines = String(f || '').split('-').map(Number).filter((n) => n > 0);
+  if (lines.reduce((a, b) => a + b, 0) !== 10) lines = [4, 4, 2];
+  const out = [[50, 91]], n = lines.length;
+  lines.forEach((k, li) => { const y = 74 - li * (54 / Math.max(1, n - 1)); for (let j = 0; j < k; j++) out.push([100 - (j + 1) * 100 / (k + 1), y]); });
+  return out;
+};
+const sides = S.map((s, si) => {
+  const head = document.createElement('div'); head.className = 'abs team'; head.innerHTML = `${s.logo ? `<img src="${s.logo}">` : ''}<b>${s.team}</b><span dir="ltr">${s.formation || ''}</span>`; $('teams').appendChild(head);
+  const pos = spots(s.formation);
+  const els = (s.players || []).slice(0, 11).map((p, i) => {
+    const d = document.createElement('div'); d.className = 'p' + (si ? ' away' : ''); const [x, y] = pos[i] || [50, 50];
+    d.style.left = (70 + 940 * x / 100) + 'px'; d.style.top = (360 + 1300 * y / 100 - 50) + 'px';
+    d.innerHTML = `<div class="s">${p.num || ''}</div><div class="nm">${p.n}</div>`; $('pl').appendChild(d); return d;
+  });
+  return { head, els };
+});
+const len = [...document.querySelectorAll('#lines *')].map((e) => { const l = e.getTotalLength ? e.getTotalLength() : 2000; e.style.strokeDasharray = l; return l; });
+const SPAN = 6.4, T0 = .6;
+window.TOTAL = T0 + SPAN * Math.max(1, sides.length) + 2.2;
+window.draw = (t) => {
+  $('chip').dataset.tf = 'translateX(-50%)'; pop($('chip'), t, 0, .5, -30);
+  $('pitch').style.opacity = ease((t - .3) / .5); $('pitch').style.transform = `perspective(1600px) rotateX(${(1 - ease((t - .3) / .9)) * 35}deg)`;
+  [...document.querySelectorAll('#lines *')].forEach((e, i) => (e.style.strokeDashoffset = len[i] * (1 - ease((t - .7) / 1.2))));
+  sides.forEach(({ head, els }, si) => {
+    const s = T0 + si * SPAN, o = si < sides.length - 1 ? ease((t - s - SPAN + .4) / .4) : 0;
+    head.style.opacity = ease((t - s) / .5) * (1 - o); head.style.transform = `translateY(${(1 - ease((t - s) / .5)) * -30}px)`;
+    els.forEach((e, i) => { const k = t - s - 1.2 - i * .2; e.style.opacity = cl(k / .2) * (1 - o); e.style.transform = `translateY(${(1 - cl(k / .5)) * -120}px) scale(${Math.max(0, back(k / .5))})`; });
+  });
+  pop($('cta'), t, window.TOTAL - 1.8, .5, 30);
+};
+draw(0);
+</script></body></html>
