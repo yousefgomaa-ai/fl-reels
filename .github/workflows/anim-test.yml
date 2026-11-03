@@ -21,7 +21,7 @@ jobs:
           npm i --no-save --no-audit --no-fund playwright@1.48.2
           timeout 300 npx playwright install --with-deps chromium
       - name: Draw every kind
-        run: node test/run.mjs
+        run: ONLY=star node test/run.mjs
       - name: Keep the results
         if: always()
         run: |

@@ -17,12 +17,12 @@ const jobs = {
   fulltime: { kind: 'fulltime', chip: 'نهاية المباراة • الدوري الإنجليزي', home: 'آرسنال', away: 'ليفربول', homeLogo: L(9825), awayLogo: L(8650), hs: 3, as: 1, end: 90, pens: '',
     goals: [{ m: '23', n: 'ساكا', s: 'h' }, { m: '41', n: 'صلاح', s: 'a', pen: true }, { m: '45+2', n: 'أوديغارد', s: 'h' }, { m: '88', n: '', s: 'h', og: true }],
     stats: [['الاستحواذ %', 58, 42], ['التسديدات', 15, 8], ['على المرمى', 7, 3]], motm: { name: 'ساكا', rating: 8.7 }, cta: 'من رجل المباراة في رأيك؟' },
-  star: { kind: 'star', name: 'لامين يامال', sub: 'برشلونة • الدوري الإسباني', photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Lamine_Yamal_in_2025.jpg/960px-Lamine_Yamal_in_2025.jpg', credit: 'Biso, CC BY 4.0',
+  star: { kind: 'star', name: 'محمد صلاح', sub: 'ليفربول • الدوري الإنجليزي', photo: 'https://commons.wikimedia.org/wiki/Special:FilePath/Mohamed_Salah_Argentina_v_Egypt_7_July_2026-161_(cropped).jpg?width=960', credit: 'Bryan Berlin (CC BY-SA 4.0)',
     tiles: [{ stat: '9', text: 'من أصل 30 سجلها برشلونة' }, { stat: '16', text: 'مساهمة تهديفية في الدوري' }, { stat: '41', text: 'فرصة صنعها للتسجيل' }], note: 'المركز الأول في صناعة الفرص بالدوري', q: 'هل هو الأفضل في الدوري الإسباني الآن؟' },
 };
 await mkdir('test/out', { recursive: true });
 let bad = 0;
-for (const [k, anim] of Object.entries(jobs)) {
+for (const [k, anim] of Object.entries(jobs).filter(([k]) => !process.env.ONLY || process.env.ONLY.split(',').includes(k))) {
   const t = Date.now();
   try {
     const dir = await mkdtemp(join(tmpdir(), 'at-'));
