@@ -34,6 +34,9 @@ window.draw = (t) => {
   $('hl').style.transform = `skewX(-6deg) translateX(${(1 - ease(t / .45)) * -50}px)`;
   const k = ease((t - 7) / .5); $('cta').style.opacity = k; $('cta').style.transform = `scale(${t > 7 ? 1.25 - .25 * back((t - 7) / .6) : 1})`;
 };
+// The cover (owner, 2026-11-03: «كل فيديو حطله غلاف رايق»): the first frame, which Facebook shows in the grid, is the reel at its
+// fullest moment; a quiz's cover never shows its answer.
+window.POSTER = 7.8;
 progBar();
 draw(0);
 </script></body></html>
