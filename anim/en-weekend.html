@@ -1,0 +1,27 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends «THE WEEKEND IN NUMBERS» (owner, 2026-11-03): the big five leagues' weekend in a few counted numbers. */
+#hk{top:150px;width:100%;font:400 136px/0.88 B;letter-spacing:3px;transform:skewX(-8deg);text-shadow:0 8px 40px rgba(0,0,0,.6)}
+#dt{top:420px;width:100%;font:700 34px O;letter-spacing:4px;color:#46d7ff}
+#gr{position:absolute;left:50px;right:50px;top:500px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.t{border-radius:28px;background:rgba(4,10,46,.9);border:2px solid rgba(70,215,255,.35);padding:22px;text-align:center;opacity:0;min-height:300px;display:flex;flex-direction:column;justify-content:center}
+.t b{display:block;font:400 150px/1 B;color:#ffd21f}.t span{display:block;font:700 30px O;letter-spacing:2px;margin-top:8px}.t small{display:block;font:500 28px O;color:rgba(255,255,255,.75);margin-top:6px}
+.t.w{grid-column:1/3;min-height:0}.t.w .ms{display:flex;align-items:center;justify-content:center;gap:22px;font:400 120px/1 B;color:#ffd21f}.t.w img{width:120px;height:120px;object-fit:contain}
+#cta{bottom:56px;font-size:58px}
+</style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div>
+<div class="abs c" id="hk">THE WEEKEND<br><span class="y">IN NUMBERS</span> 📊</div><div class="abs c" id="dt"></div><div id="gr"></div><div class="cta" id="cta"></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA, T = (D.tiles || []).slice(0, 4), B = D.big;
+$('dt').textContent = D.label || '';
+$('gr').innerHTML = T.map((x) => `<div class="t"><b data-n="${x.n}">0</b><span>${x.text}</span>${x.sub ? `<small>${x.sub}</small>` : ''}</div>`).join('')
+  + (B ? `<div class="t w"><span style="margin:0 0 10px">BIGGEST WIN</span><div class="ms">${B.homeLogo ? `<img src="${B.homeLogo}">` : ''}${B.hs}-${B.as}${B.awayLogo ? `<img src="${B.awayLogo}">` : ''}</div><small>${B.home} v ${B.away}</small></div>` : '');
+$('cta').textContent = D.cta || 'YOUR RESULT OF THE WEEKEND? 👇';
+const tiles = [...document.querySelectorAll('.t')];
+window.TOTAL = 10.5;
+window.draw = (t) => {
+  tiles.forEach((x, i) => { const s = (i ? .5 + i * 1 : 0), a = back((t - s) / .5); x.style.opacity = i ? cl((t - s) / .2) : 1; x.style.transform = `scale(${i ? Math.max(0, a) : 1})`;
+    const b = x.querySelector('b[data-n]'); if (b) b.textContent = cnt(b.dataset.n, ease((t - s) / 1)); });
+  const c = ease((t - 1 - tiles.length) / .5); $('cta').style.opacity = c;
+};
+progBar();
+draw(0);
+</script></body></html>
