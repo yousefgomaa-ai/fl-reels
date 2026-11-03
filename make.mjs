@@ -155,6 +155,26 @@ async function narration(job, dir, secs) {
   await run(FF, ['-y', ...inputs, '-filter_complex', `${parts.join(';')};${Array.from({ length: n }, (_, k) => `[c${k}]`).join('')}amix=inputs=${n}:duration=longest:normalize=0[o]`, '-map', '[o]', out]);
   return out;
 }
+// One spoken line for a moving reel (job.voiceText, read by the site's voice: Gemini, its voice, style and accent),
+// three tries; it must end before the reel does.
+async function animVoice(job, dir, total) {
+  const text = String(job.voiceText || '').trim();
+  if (!text) return null;
+  const q = new URLSearchParams({ key: KEY, text, voice: job.voiceName || 'Fenrir', ...(job.voiceStyle ? { style: job.voiceStyle } : {}), ...(job.voiceLang ? { lang: job.voiceLang } : {}) });
+  for (let t = 0; t < 3; t++) {
+    const res = await fetch(`${API}/v2/reels/voice?${q}`, { signal: AbortSignal.timeout(120000) }).catch(() => null);
+    const b = res?.ok ? Buffer.from(await res.arrayBuffer()) : null;
+    if (b && b.length > 2000 && b.toString('latin1', 0, 4) === 'RIFF') {
+      const f = join(dir, 'said.wav');
+      await writeFile(f, b);
+      const d = await probeSeconds(f);
+      if (d > 0.5 && d < total - 0.6) return f;
+      throw new Error(`line of ${d.toFixed(1)} s for a ${total} s reel`);
+    }
+    await new Promise((r) => setTimeout(r, 20000)); // the voice answers 502 when called too fast
+  }
+  return null;
+}
 // Moving reels (owner, 2026-11-03: «الريلز القديم بدائي»): each kind drawn in its own page (anim/<kind>.html: the league
 // table, the day's matches, before the match, the line-up, full time, a star in numbers) from job.anim, recorded frame
 // by frame (window.draw(t), window.TOTAL). Any failure falls back to the still cards (job.frames).
@@ -200,8 +220,14 @@ async function makeAnim(job, dir) {
       await p.screenshot({ path: join(frames, `${String(i).padStart(5, '0')}.jpg`), type: 'jpeg', quality: 90 });
     }
     const out = join(dir, 'reel.mp4');
-    await run(FF, ['-y', '-framerate', String(fps), '-i', join(frames, '%05d.jpg'), '-stream_loop', '-1', '-i', await music(),
-      '-filter_complex', `[1:a]volume=0.5,afade=t=in:d=0.5,afade=t=out:st=${total - 1.5}:d=1.5[a]`, '-map', '0:v', '-map', '[a]',
+    // A spoken line over the start (FB Legends, owner 2026-11-03: «صوت حماسي رايق يليق بالأوروبيين», voice Fenrir):
+    // the music goes under it; a line that cannot be read leaves the reel with music only.
+    const said = await animVoice(job, dir, total).catch((e) => { console.log(`${job.id}: voice skipped (${e.message})`); return null; });
+    const mix = said
+      ? `[1:a]volume=0.2,afade=t=in:d=0.5,afade=t=out:st=${total - 1.5}:d=1.5[m];[2:a]aresample=44100,adelay=300:all=1,apad[v];[m][v]amix=inputs=2:duration=first:normalize=0[a]`
+      : `[1:a]volume=0.5,afade=t=in:d=0.5,afade=t=out:st=${total - 1.5}:d=1.5[a]`;
+    await run(FF, ['-y', '-framerate', String(fps), '-i', join(frames, '%05d.jpg'), '-stream_loop', '-1', '-i', await music(), ...(said ? ['-i', said] : []),
+      '-filter_complex', mix, '-map', '0:v', '-map', '[a]',
       '-c:v', 'libx264', '-crf', '22', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '128k', '-t', String(total), '-movflags', '+faststart', out]);
     if ((await stat(out)).size < 100000) throw new Error('video too small');
     return out;
