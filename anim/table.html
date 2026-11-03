@@ -76,6 +76,7 @@ const pts = (n) => n === 1 ? 'نقطة واحدة' : n === 2 ? 'نقطتين' : 
 document.getElementById('card').innerHTML = `<div class="k">المتصدر</div>${A.logo ? `<img decoding="sync" src="${A.logo}">` : ''}<div class="n">${A.n}</div><div class="p">${A.pts} نقطة</div><div class="g">${B ? (gap > 0 ? `بفارق ${pts(gap)} عن ${B.n}` : `يتساوى في النقاط مع ${B.n}`) : ''}</div>`;
 const moved = rows.some((x) => x.mv || x.r.pp !== x.r.pts);
 window.TOTAL = 14.5;
+window.POSTER = 8.5; // the cover frame: every row in its new place (owner, 2026-11-03: the grid showed black squares)
 window.draw = (t) => {
   const $ = (id) => document.getElementById(id);
   $('brand').style.opacity = ease(t / .8); $('title').style.opacity = ease((t - .2) / .8); $('title').style.transform = `translateY(${(1 - ease((t - .2) / .8)) * -60}px)`;

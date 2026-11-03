@@ -20,6 +20,7 @@ $('cards').innerHTML = (D.tiles || []).slice(0, 3).map((x) => `<div class="cd"><
 if (D.note) $('rk').textContent = D.note; else $('rk').style.display = 'none';
 if (!D.photo) { $('nm').style.top = '520px'; $('sub').style.top = '660px'; }
 window.TOTAL = 10;
+window.POSTER = 7.2; // the cover frame: every number counted
 window.draw = (t) => {
   $('chip').dataset.tf = 'translateX(-50%)'; pop($('chip'), t, .2, .5, -30);
   const im = document.getElementById('img'); if (im) im.style.transform = `scale(${1.18 - .12 * cl(t / 10)}) translateY(${-20 * cl(t / 10)}px)`;
