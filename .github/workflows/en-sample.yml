@@ -1,27 +1,32 @@
-# One-off live check after the FB Legends merge (2026-11-03): the API answers, and the English reels in the queue.
-# Lives on claude/en-sample only; never merged.
+# One-off (FB Legends, owner 2026-11-03: «صوت حماسي رايق يليق بالأوروبيين»): English voice samples from the site's
+# voice endpoint, committed to this branch for the owner to choose. Lives on claude/en-sample only; never merged.
 name: EN sample
 on:
   push:
     branches: [claude/en-sample]
 permissions:
-  contents: read
+  contents: write
 jobs:
-  probe:
+  voices:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
+      - uses: actions/checkout@v4
       - env:
           REELS_KEY_SECRET: ${{ secrets.REELS_KEY }}
-          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
-          sleep 60
-          if [ -n "${REELS_KEY_SECRET:-}" ]; then key="$REELS_KEY_SECRET"; else key=$(printf 'fl-reels:%s' "$CF_API_TOKEN" | sha256sum | cut -c1-48); fi
-          echo "::add-mask::$key"
-          d=$(date -u +%Y%m%d)
-          for u in "https://api.football-legend.com/matches?date=$d" "https://api.football-legend.com/v2/hero" "https://api.football-legend.com/standings?league=eng.1"; do
-            curl -sS -o /dev/null --max-time 40 -w "%{http_code} %{time_total}s $u\n" "$u" || echo "fail $u"; done
-          curl -sS --max-time 40 "https://api.football-legend.com/matches?date=$d" | jq -r '.events[]? | select(.leagueSlug=="uefa.champions") | "\(.fixture.date) \(.fixture.status.state) \(.teams.home.name) \(.goals.home)-\(.goals.away) \(.teams.away.name) details=\(.details|length)"' | head -20
-          curl -sS --max-time 40 "https://api.football-legend.com/v2/reels/jobs?key=$key" | jq -r '.jobs[]? | "queued \(.id) anim=\(.anim.kind // "-")"' | head -30
-          curl -sS --max-time 40 "https://api.football-legend.com/v2/reels/status?key=$key" | jq -r '.reels[]? | select((.id // "")|startswith("en-")) | tostring' | head -20
-          echo done
+          key="$REELS_KEY_SECRET"; echo "::add-mask::$key"
+          mkdir -p sample/voice
+          TEXT="Full time in the Champions League! Paris Saint-Germain run riot in Villarreal, four goals and counting. Who was your man of the match? Tell us in the comments."
+          STYLE="Speak as an energetic but composed British football commentator: warm, confident and upbeat, never shouting, a clear British English accent, natural pace."
+          for v in Fenrir Puck Orus Algieba Charon; do
+            for i in 1 2 3; do
+              code=$(curl -sS -G --max-time 120 -o sample/voice/$v.wav -w "%{http_code}" "https://api.football-legend.com/v2/reels/voice" \
+                --data-urlencode "key=$key" --data-urlencode "text=$TEXT" --data-urlencode "voice=$v" --data-urlencode "style=$STYLE" --data-urlencode "lang=en-GB")
+              echo "$v try $i: $code $(stat -c %s sample/voice/$v.wav)"; [ "$code" = 200 ] && break; rm -f sample/voice/$v.wav; sleep 25
+            done
+            sleep 15
+          done
+      - run: |
+          git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
+          git add -A sample/voice && git commit -m "voice samples [skip ci]" && git push
