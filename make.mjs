@@ -155,23 +155,30 @@ async function narration(job, dir, secs) {
   await run(FF, ['-y', ...inputs, '-filter_complex', `${parts.join(';')};${Array.from({ length: n }, (_, k) => `[c${k}]`).join('')}amix=inputs=${n}:duration=longest:normalize=0[o]`, '-map', '[o]', out]);
   return out;
 }
-// «ترتيب متحرك» (owner, 2026-11-03): the league table drawn in a page (anim/table.html) and recorded frame by frame:
-// the previous order, each side sliding to its new place, the zones, the leader. Logos are fetched here and put in as
-// data, so the page loads nothing. Any failure falls back to the still cards (job.frames).
+// Moving reels (owner, 2026-11-03: «الريلز القديم بدائي»): each kind drawn in its own page (anim/<kind>.html: the league
+// table, the day's matches, before the match, the line-up, full time, a star in numbers) from job.anim, recorded frame
+// by frame (window.draw(t), window.TOTAL). Any failure falls back to the still cards (job.frames).
 async function makeAnim(job, dir) {
   const { chromium } = await import('playwright');
   const d = JSON.parse(JSON.stringify(job.anim));
-  for (const r of d.rows) {
-    if (!r.logo) continue;
-    try {
-      const res = await fetch(r.logo, { signal: AbortSignal.timeout(20000) });
-      const buf = Buffer.from(await res.arrayBuffer());
-      r.logo = res.ok && buf.length > 200 ? `data:${res.headers.get('content-type') || 'image/png'};base64,${buf.toString('base64')}` : '';
-    } catch { r.logo = ''; }
+  // Every picture the page needs (crests, a star's photo) is fetched here and put in as data: the page loads nothing.
+  const pics = [];
+  const walk = (o) => { if (!o || typeof o !== 'object') return; for (const [k, v] of Object.entries(o)) { if (typeof v === 'string' && /^(logo|homeLogo|awayLogo|photo)$/.test(k) && /^https?:/.test(v)) pics.push([o, k]); else walk(v); } };
+  walk(d);
+  const cache = new Map();
+  for (const [o, k] of pics) {
+    if (!cache.has(o[k])) {
+      try {
+        const res = await fetch(o[k], { signal: AbortSignal.timeout(20000) });
+        const buf = Buffer.from(await res.arrayBuffer());
+        cache.set(o[k], res.ok && buf.length > 200 ? `data:${res.headers.get('content-type') || 'image/png'};base64,${buf.toString('base64')}` : '');
+      } catch { cache.set(o[k], ''); }
+    }
+    o[k] = cache.get(o[k]);
   }
-  const page0 = await readFile(new URL('./anim/table.html', import.meta.url), 'utf8');
+  const page0 = await readFile(new URL(`./anim/${d.kind}.html`, import.meta.url), 'utf8');
   const html = new URL(`./anim/_${job.id.replace(/[^\w-]/g, '_')}.html`, import.meta.url);
-  await writeFile(html, page0.replace('<script>\nconst star', `<script>window.DATA=${JSON.stringify(d).replace(/</g, '\\u003c')};</script><script>\nconst star`));
+  await writeFile(html, page0.replace('</head>', `<script>window.DATA=${JSON.stringify(d).replace(/</g, '\\u003c')};</script></head>`));
   const frames = join(dir, 'af');
   await run('mkdir', ['-p', frames]);
   const b = await chromium.launch();
@@ -197,8 +204,8 @@ async function makeAnim(job, dir) {
   } finally { await b.close(); await rm(html, { force: true }); }
 }
 async function makeReel(job, dir) {
-  if (job.anim?.kind === 'table') {
-    try { return await makeAnim(job, dir); } catch (e) { console.log(`${job.id}: moving table failed (${e.message}), the still cards instead`); }
+  if (/^(table|schedule|prematch|lineup|fulltime|star)$/.test(job.anim?.kind || '')) {
+    try { return await makeAnim(job, dir); } catch (e) { console.log(`${job.id}: moving ${job.anim.kind} failed (${e.message}), the still cards instead`); }
   }
   // A video made elsewhere (the app ad, owner 2026-10-24): taken as it is, only checked to be an MP4.
   if (job.video) {
