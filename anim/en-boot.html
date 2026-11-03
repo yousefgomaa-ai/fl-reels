@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
 /* FB Legends «GOLDEN BOOT RACE» (owner, 2026-11-03): the league's top scorers as a race, the bars growing to their goals. */
 #lg{top:62px;right:44px;font:700 32px O;letter-spacing:3px;text-transform:uppercase;text-align:right}
-#hk{top:150px;width:100%;font:400 150px/0.88 B;letter-spacing:3px;transform:skewX(-8deg);text-shadow:0 8px 40px rgba(0,0,0,.6)}
+#hk{top:150px;width:100%;font:400 140px/0.88 B;letter-spacing:3px;transform:skewX(-8deg);text-shadow:0 8px 40px rgba(0,0,0,.6)}
 #rc{position:absolute;left:40px;right:40px;top:470px}
 .p{position:relative;height:150px;margin-bottom:16px}
 .p .nm{position:absolute;left:0;top:0;font:400 54px/1 B;letter-spacing:1px}.p .nm small{font:700 26px O;color:rgba(255,255,255,.7);letter-spacing:1px;margin-left:10px}
@@ -12,11 +12,12 @@
 .p.lead .bar{background:linear-gradient(90deg,#b45309,#ffd21f)}.p .cw{position:absolute;left:-6px;top:30px;font-size:40px;opacity:0}
 #cta{bottom:56px}
 </style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div><div class="abs" id="lg"></div>
-<div class="abs c" id="hk">GOLDEN BOOT<br><span class="y">RACE</span> 👟</div><div id="rc"></div><div class="cta" id="cta"></div>
+<div class="abs c" id="hk"></div><div id="rc"></div><div class="cta" id="cta"></div>
 <script src="lib.js"></script><script src="en-lib.js"></script><script>
 const D = window.DATA, P = (D.players || []).slice(0, 7), max = Math.max(1, ...P.map((p) => p.g));
 $('lg').textContent = D.league || '';
-$('rc').innerHTML = P.map((p, i) => `<div class="p${i === 0 ? ' lead' : ''}"><div class="nm">${p.name}<small>${p.team}</small></div><div class="tr"><div class="bar">${p.logo ? `<img src="${p.logo}">` : ''}</div></div><div class="g">0</div></div>`).join('');
+$('hk').innerHTML = `${D.h1 || 'GOLDEN BOOT'}<br><span class="y">${D.h2 || 'RACE'}</span> 👟`;
+$('rc').innerHTML = P.map((p, i) => `<div class="p${i === 0 ? ' lead' : ''}"><div class="nm">${p.name}<small>${p.team}${p.a != null ? ` • ${p.a} ${p.a === 1 ? 'ASSIST' : 'ASSISTS'}` : ''}</small></div><div class="tr"><div class="bar">${p.logo ? `<img src="${p.logo}">` : ''}</div></div><div class="g">0</div></div>`).join('');
 $('cta').textContent = D.cta || 'WHO FINISHES TOP? 👇';
 const rows = [...document.querySelectorAll('.p')], W = 1000 - 140;
 window.TOTAL = 10;
