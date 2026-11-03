@@ -1,0 +1,48 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends «WHO'S BETTER?» (owner, 2026-11-03): the question and both stars cut out in the first frame; then the
+   numbers one by one (goals, assists, G/A), the higher one lit each time; then «YOU DECIDE». */
+.half{position:absolute;left:0;right:0;height:885px;overflow:hidden}#ha{top:150px;background:radial-gradient(800px 600px at 70% 30%,#8a1230,#2a0510)}#hb{top:1035px;background:radial-gradient(800px 600px at 30% 30%,#1846b8,#06123d)}
+.half .im{position:absolute;top:10px;height:660px;width:620px}#ha .im{right:-10px}#hb .im{left:-10px}
+.half .im .cut{left:0;right:0;bottom:0;width:100%;height:100%}.half .im .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 15%;-webkit-mask-image:linear-gradient(90deg,transparent,#000 30%)}
+.nm{position:absolute;top:150px;width:520px;font:400 120px/0.9 B;letter-spacing:2px;text-shadow:0 6px 30px rgba(0,0,0,.6)}#ha .nm{left:44px}#hb .nm{right:44px;text-align:right}
+.nm small{display:block;font:700 30px O;letter-spacing:2px;color:#ffd21f;margin-top:12px}
+.st{position:absolute;top:640px;left:40px;right:40px;display:flex;align-items:flex-end}.st div{flex:1;text-align:center;transition:none}.st b{display:block;font:400 150px/0.92 B;color:#fff}.st span{font:700 30px O;letter-spacing:2px;color:rgba(255,255,255,.85)}
+.st hr{width:4px;height:130px;border:0;background:rgba(255,210,31,.6)}
+#hook{top:0;left:0;right:0;height:150px;background:#040a2e;z-index:15}#hk{position:absolute;top:22px;right:44px;font:400 100px/1 B;letter-spacing:2px;transform:skewX(-8deg)}
+#line{left:0;right:0;top:1031px;height:8px;background:#ffd21f;z-index:14}
+#vs{left:50%;top:970px;width:130px;height:130px;margin-left:-65px;border-radius:50%;background:#ffd21f;color:#040a2e;font:400 76px/134px B;text-align:center;z-index:16;box-shadow:0 0 0 10px #040a2e}
+#dec{left:50%;top:930px;margin-left:-280px;width:560px;text-align:center;opacity:0}
+.credit{left:20px}#cra{top:160px}#crb{top:1045px}
+</style></head><body><div class="bg"></div>
+<div class="abs" id="hook"><div id="hk">WHO'S <span class="y">BETTER?</span></div></div><div class="logo">FB<i>LEGENDS</i></div>
+<div class="half" id="ha"></div><div class="abs" id="line"></div><div class="abs" id="vs">VS</div><div class="half" id="hb"></div>
+<div class="stamp" id="dec">YOU DECIDE 👇</div><div class="credit" id="cra"></div><div class="credit" id="crb"></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA, K = ['g', 'a', 'ga'], L = ['GOALS', 'ASSISTS', 'G/A'];
+const val = (x, k) => (k === 'ga' ? x.g + x.a : x[k]);
+const half = (x) => `<div class="im"></div><div class="nm">${x.short || x.tag}<small>${x.sub || ''}</small></div>
+  <div class="st">${K.map((k, i) => `${i ? '<hr>' : ''}<div data-k="${k}"><b>?</b><span>${L[i]}</span></div>`).join('')}</div>`;
+$('ha').innerHTML = half(D.a); $('hb').innerHTML = half(D.b);
+starImg(document.querySelector('#ha .im'), D.a.slug, D.a.photo); starImg(document.querySelector('#hb .im'), D.b.slug, D.b.photo);
+const cr = (x) => (x.credit ? `Photo: ${x.credit} / Wikimedia Commons${x.slug ? ', background removed' : ''}` : '');
+$('cra').textContent = cr(D.a); $('crb').textContent = cr(D.b);
+const cells = (h) => [...document.querySelectorAll(`#${h} .st div`)];
+const A = cells('ha'), B = cells('hb'), T0 = 1.1, STEP = 1.5;
+window.TOTAL = 10;
+window.draw = (t) => {
+  $('hk').style.transform = `skewX(-8deg) scale(${1 + .03 * Math.sin(t * 4)})`;
+  document.querySelectorAll('.half .im img').forEach((im, i) => (im.style.transform = `scale(${1.02 + .04 * cl(t / 10)}) translateX(${(i ? 1 : -1) * 10 * cl(t / 10)}px)`));
+  K.forEach((k, i) => {
+    const s = T0 + i * STEP, a = ease((t - s) / .6), va = val(D.a, k), vb = val(D.b, k), on = t >= s;
+    [[A[i], va, vb], [B[i], vb, va]].forEach(([c, v, o]) => {
+      const b = c.querySelector('b'); b.textContent = on ? cnt(v, a) : '?';
+      const won = t > s + .7 && v > o, lost = t > s + .7 && v < o;
+      b.style.color = won ? '#ffd21f' : '#fff'; b.style.textShadow = won ? `0 0 ${30 + 15 * Math.sin(t * 6)}px rgba(255,210,31,.8)` : 'none';
+      c.style.opacity = lost ? .45 : 1; c.style.transform = `scale(${won ? 1.08 : 1})`;
+    });
+  });
+  const d = T0 + 3 * STEP + .3, k = back((t - d) / .5); $('dec').style.opacity = cl((t - d) / .2); $('dec').style.transform = `rotate(-6deg) scale(${t < d ? 1.6 : 1.6 - .6 * k})`;
+  $('vs').style.opacity = 1 - cl((t - d) / .2);
+};
+draw(0);
+</script></body></html>

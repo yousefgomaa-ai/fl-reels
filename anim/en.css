@@ -1,0 +1,26 @@
+/* FB Legends (the English page, owner 2026-11-03): poster-style reels, a sports display face (Bebas Neue, Oswald;
+   SIL Open Font License, fonts/OFL-*.txt), deep navy with light streaks. */
+@font-face{font-family:B;src:url(fonts/bebas-neue-latin-400-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2122}
+@font-face{font-family:B;src:url(fonts/bebas-neue-latin-ext-400-normal.woff2) format('woff2');unicode-range:U+0100-024F,U+1E00-1EFF}
+@font-face{font-family:O;font-weight:500;src:url(fonts/oswald-latin-500-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+@font-face{font-family:O;font-weight:500;src:url(fonts/oswald-latin-ext-500-normal.woff2) format('woff2');unicode-range:U+0100-024F,U+1E00-1EFF}
+@font-face{font-family:O;font-weight:700;src:url(fonts/oswald-latin-700-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+@font-face{font-family:O;font-weight:700;src:url(fonts/oswald-latin-ext-700-normal.woff2) format('woff2');unicode-range:U+0100-024F,U+1E00-1EFF}
+*{box-sizing:border-box;margin:0;padding:0}html{overflow:clip}
+body{position:relative;width:1080px;height:1920px;overflow:clip;font-family:O,Arial,sans-serif;font-weight:500;color:#fff;background:#03082a}
+.bg{position:absolute;inset:0;background:radial-gradient(1200px 900px at 50% 30%,#13328f 0%,#0a1a5c 45%,#040a2e 100%)}
+.streak{position:absolute;inset:-200px;background:repeating-linear-gradient(115deg,rgba(255,255,255,0) 0 140px,rgba(120,170,255,.07) 140px 150px,rgba(255,255,255,0) 150px 330px);mix-blend-mode:screen}
+.logo{position:absolute;top:44px;left:44px;font:400 64px/0.82 B;letter-spacing:2px;transform:skewX(-8deg);z-index:20;text-shadow:0 4px 18px rgba(0,0,0,.5)}
+.logo i{display:block;font-style:normal;color:#ffd21f}
+.b{font-family:B;font-weight:400;letter-spacing:1px}
+.y{color:#ffd21f}.cy{color:#46d7ff}
+.abs{position:absolute}.c{text-align:center}
+.pill{display:inline-block;border:4px solid #ffd21f;border-radius:60px;padding:6px 34px;background:rgba(10,16,50,.85)}
+.fade-b{position:absolute;left:0;right:0;bottom:0;height:55%;background:linear-gradient(rgba(4,10,46,0),#040a2e 92%)}
+.credit{position:absolute;font:500 19px O,Arial;color:rgba(255,255,255,.7);z-index:21}
+.cta{position:absolute;left:0;right:0;text-align:center;font:400 78px B;color:#ffd21f;letter-spacing:2px;text-shadow:0 4px 20px rgba(0,0,0,.6);z-index:20}
+/* A star cut out of his Commons photo (anim/cut/<slug>.webp, background removed, CC licence kept), standing on the
+   frame's lower part; the uncut photo is the fallback. */
+.cut{position:absolute;object-fit:contain;object-position:50% 100%;filter:drop-shadow(0 20px 40px rgba(0,0,0,.55))}
+.glowln{filter:drop-shadow(0 0 3px #ffd21f) drop-shadow(0 0 18px rgba(255,210,31,.7))}
+.stamp{position:absolute;font:400 120px/1 B;letter-spacing:4px;color:#040a2e;background:#ffd21f;padding:10px 40px;border-radius:18px;transform:rotate(-6deg);box-shadow:0 10px 40px rgba(0,0,0,.6);z-index:30}
