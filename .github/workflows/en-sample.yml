@@ -15,7 +15,7 @@ jobs:
           REELS_KEY_SECRET: ${{ secrets.REELS_KEY }}
           CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
-          sleep 110
+          sleep 60
           if [ -n "${REELS_KEY_SECRET:-}" ]; then key="$REELS_KEY_SECRET"; else key=$(printf 'fl-reels:%s' "$CF_API_TOKEN" | sha256sum | cut -c1-48); fi
           echo "::add-mask::$key"
           d=$(date -u +%Y%m%d)
