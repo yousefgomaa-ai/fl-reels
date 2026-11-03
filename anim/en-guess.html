@@ -1,41 +1,43 @@
-<!doctype html><html dir="ltr" lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><style>
-/* FB Legends «Guess the player» (owner, 2026-11-03): his season in numbers with no name from the first frame, a
-   countdown, then his Commons photo and name. Answers in the comments before the reveal are the point. */
-#q{top:210px;width:100%;font-weight:900;font-size:92px;line-height:1.05}#q span{display:block;font-size:44px;color:#22e9ff;margin-top:12px}
-#cl{top:470px;left:70px;right:70px;display:grid;grid-template-columns:1fr 1fr;gap:26px}
-.cd{background:rgba(17,25,56,.95);border:2px solid rgba(34,233,255,.35);border-radius:28px;padding:26px 14px;text-align:center}.cd b{display:block;font:900 110px Arial;background:linear-gradient(#fff,#22e9ff);-webkit-background-clip:text;color:transparent;line-height:1.1}.cd span{display:block;font-size:34px;font-weight:700;color:#c9d0f5}
-#hint{top:1120px;left:70px;right:70px;display:flex;flex-direction:column;gap:16px}.h{font-size:40px;font-weight:700;background:rgba(17,25,56,.92);border-radius:20px;padding:14px 26px;border-left:8px solid #ff2f97}
-#cd{top:1460px;width:100%;font:900 170px Arial;color:#ff2f97}
-#ask{bottom:180px;width:100%;font-weight:900;font-size:54px}
-#rv{position:absolute;inset:0;opacity:0;z-index:5;background:#060914}#rv img{position:absolute;left:0;right:0;top:0;width:100%;height:1300px;object-fit:cover;object-position:50% 20%}
-#rv:after{content:'';position:absolute;left:0;right:0;top:0;height:1300px;background:linear-gradient(rgba(5,8,18,0) 50%,#060914 99%)}
-#an{position:absolute;top:1180px;width:100%;text-align:center;font-weight:900;font-size:104px;z-index:6;line-height:1.05}#an span{display:block;font-size:42px;color:#22e9ff;margin-top:14px}
-#ok{position:absolute;top:1480px;width:100%;text-align:center;font-weight:900;font-size:50px;z-index:6}
-#cr{position:absolute;top:1250px;right:16px;left:16px;text-align:right;font:700 20px Arial;color:#c9d0f5;opacity:.85;z-index:6}
-</style></head><body><div class="bg"></div><div class="grid"></div><div class="bar" style="top:0"></div><div class="brand" style="z-index:7">FB LEGENDS</div>
-<div class="abs c" id="q">GUESS THE PLAYER<span id="ctx"></span></div><div class="abs" id="cl"></div><div class="abs" id="hint"></div><div class="abs c" id="cd"></div><div class="abs c" id="ask">Drop your answer in the comments 👇</div>
-<div id="rv"></div><div id="cr"></div><div id="an"></div><div id="ok"></div>
-<div class="foot" style="z-index:7">football-legend.com</div><div class="bar" style="bottom:0;z-index:7"></div>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends «Guess the player» (owner, 2026-11-03): his Commons photo blurred from the first frame with his numbers,
+   a countdown, then the photo clears and his name lands. */
+#hk{top:150px;width:100%;font:400 150px/0.9 B;letter-spacing:3px;transform:skewX(-8deg);text-shadow:0 6px 30px rgba(0,0,0,.6);z-index:20}
+#ph{position:absolute;left:60px;right:60px;top:340px;height:760px;border-radius:34px;overflow:hidden;border:6px solid #ffd21f;box-shadow:0 0 60px rgba(255,210,31,.35);background:#0a1a5c}
+#ph img{width:100%;height:100%;object-fit:cover;object-position:50% 18%}
+#q{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:400 420px B;color:rgba(255,255,255,.92);text-shadow:0 10px 50px rgba(0,0,0,.7)}
+#cx{top:1125px;width:100%;font:700 38px O;letter-spacing:2px;color:#46d7ff;text-transform:uppercase}
+#tl{top:1185px;left:60px;right:60px;display:flex;gap:18px}.tile{flex:1;border-radius:24px;background:rgba(4,10,46,.85);border:2px solid rgba(70,215,255,.4);text-align:center;padding:14px 0}
+.tile b{display:block;font:400 140px/1 B;color:#ffd21f}.tile span{font:700 30px O;letter-spacing:2px}
+#hints{top:1445px;left:60px;right:60px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}.hint{font:700 36px O;padding:10px 26px;border-radius:40px;background:#ffd21f;color:#040a2e}
+#cd{top:1560px;width:100%;font:400 200px/1 B;color:#fff;text-shadow:0 0 40px rgba(255,210,31,.8)}
+#an{top:1120px;width:100%;font:400 160px/0.9 B;letter-spacing:2px;opacity:0;text-shadow:0 8px 40px rgba(0,0,0,.7);z-index:22}#an small{display:block;font:700 40px O;letter-spacing:3px;color:#46d7ff;margin-top:18px}
+#cta{bottom:52px}
+.credit{left:66px;top:1104px}
+</style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div>
+<div class="abs c" id="hk">GUESS THE <span class="y">PLAYER</span></div><div id="ph"></div>
+<div class="abs c" id="cx"></div><div class="abs" id="tl"></div><div class="abs" id="hints"></div><div class="abs c" id="cd"></div>
+<div class="abs c" id="an"></div><div class="cta" id="cta"></div><div class="credit" id="cr"></div>
 <script src="lib.js"></script><script>
 const D = window.DATA;
-$('ctx').textContent = D.ctx || '';
-$('cl').innerHTML = (D.tiles || []).slice(0, 4).map((x) => `<div class="cd"><b>${x.stat}</b><span>${x.text}</span></div>`).join('');
-$('hint').innerHTML = (D.hints || []).slice(0, 3).map((h) => `<div class="h">${h}</div>`).join('');
-if (D.photo) $('rv').innerHTML = `<img id="img" src="${D.photo}">`;
-$('cr').textContent = D.credit && D.photo ? `Photo: ${D.credit}, via Wikimedia Commons` : '';
-$('an').innerHTML = `${D.name}<span>${D.sub || ''}</span>`; $('ok').textContent = D.ok || 'Did you get it right?';
-const cards = [...document.querySelectorAll('.cd')], hints = [...document.querySelectorAll('.h')];
-const R = 3.6 + hints.length * 1.4 + 3; // the reveal
-window.TOTAL = R + 4.5;
+$('ph').innerHTML = `${D.photo ? `<img id="img" src="${D.photo}">` : ''}<div id="q">?</div>`;
+$('cx').textContent = D.ctx || '';
+$('tl').innerHTML = (D.tiles || []).slice(0, 3).map((x) => `<div class="tile"><b>${x.stat}</b><span>${String(x.text).toUpperCase()}</span></div>`).join('');
+$('hints').innerHTML = (D.hints || []).slice(0, 3).map((h) => `<div class="hint">${h}</div>`).join('');
+$('an').innerHTML = `${D.name}<small>${D.sub || ''}</small>`;
+$('cr').textContent = D.photo && D.credit ? `Photo: ${D.credit} / Wikimedia Commons` : '';
+const R = 8.6; // the reveal
+window.TOTAL = R + 4.4;
 window.draw = (t) => {
-  // The title and the first numbers are there at t=0.
-  cards.forEach((c, i) => { const a = i < 2 ? 1 : ease((t - .8 - (i - 2) * .5) / .4); c.style.opacity = a; c.style.transform = `scale(${i < 2 ? 1 : .7 + .3 * a})`; });
-  hints.forEach((h, i) => pop(h, t, 2.6 + i * 1.4, .45, 30));
-  const left = Math.ceil(R - t); $('cd').textContent = t > R - 3 && t < R ? String(left) : ''; $('cd').style.transform = `scale(${1.3 - .3 * ((R - t) % 1)})`;
-  $('ask').style.opacity = t < R ? .6 + .4 * Math.abs(Math.sin(t * 2)) : 0;
-  const r = ease((t - R) / .5); $('rv').style.opacity = r; $('cr').style.opacity = .85 * r;
-  const im = document.getElementById('img'); if (im) im.style.transform = `scale(${1.15 - .1 * cl((t - R) / 4)})`;
-  pop($('an'), t, R + .3, .5, 60); pop($('ok'), t, R + 1.4, .5, 40);
+  const r = ease((t - R) / .7), im = document.getElementById('img');
+  if (im) { im.style.filter = `blur(${46 * (1 - r)}px) brightness(${.75 + .25 * r})`; im.style.transform = `scale(${1.25 - .15 * r})`; }
+  $('q').style.opacity = 1 - r; $('q').style.transform = `scale(${1 + .05 * Math.sin(t * 4)})`;
+  const left = Math.ceil(R - t); $('cd').textContent = t > R - 3 && t < R ? String(left) : ''; $('cd').style.transform = `scale(${1.35 - .35 * ((R - t) % 1)})`;
+  document.querySelectorAll('.hint').forEach((h, i) => { const a = ease((t - 1.6 - i * 1.3) / .4); h.style.opacity = a; h.style.transform = `scale(${.7 + .3 * a})`; });
+  const o = 1 - r; ['tl', 'hints', 'cx'].forEach((id) => ($(id).style.opacity = o)); $('cd').style.opacity = o;
+  $('an').style.opacity = r; $('an').style.transform = `scale(${1.3 - .3 * back((t - R) / .6)})`;
+  $('cr').style.opacity = r;
+  $('cta').textContent = t < R ? 'COMMENT BEFORE THE REVEAL 👇' : (D.ok || 'DID YOU GET IT RIGHT?');
+  $('cta').style.opacity = t < R ? .55 + .45 * Math.abs(Math.sin(t * 2)) : r;
 };
 draw(0);
 </script></body></html>

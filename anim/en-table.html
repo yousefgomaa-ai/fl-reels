@@ -1,0 +1,32 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends league table (owner, 2026-11-03): posted only after the round ends; the headline is the hook. */
+#hl{top:150px;left:44px;right:44px;font:400 112px/0.95 B;letter-spacing:2px;transform:skewX(-6deg);text-shadow:0 6px 30px rgba(0,0,0,.55)}
+#lg{top:60px;right:44px;text-align:right;font:400 58px/1 B;letter-spacing:3px}#lg small{display:block;font:700 26px O;letter-spacing:8px;color:#46d7ff;margin-top:4px}
+#tb{position:absolute;left:30px;right:30px;top:390px;border-radius:26px;overflow:hidden;background:rgba(4,10,46,.82);border:2px solid rgba(70,215,255,.35)}
+.r{display:flex;align-items:center;height:64px;padding:0 22px;font:500 36px O;border-bottom:1px solid rgba(255,255,255,.08);position:relative}
+.r.h{height:58px;font:700 26px O;letter-spacing:2px;color:#46d7ff;background:rgba(10,26,92,.9)}
+.r .n{width:56px;font-weight:700}.r img{width:46px;height:46px;object-fit:contain;margin-right:16px}.r .t{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.r .v{width:66px;text-align:center}.r .p{width:90px;text-align:center;font:400 46px B;color:#ffd21f}
+.r.top{background:linear-gradient(90deg,#1d4ed8,#0a1a5c);font-weight:700}.r:before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:6px;border-radius:3px;background:var(--z,transparent)}
+.r.cl{--z:#46d7ff}.r.eu{--z:#ff9f1c}.r.rl{--z:#ff3b5c}
+#cta{bottom:40px;font-size:66px}
+</style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div>
+<div class="abs" id="lg"></div><div class="abs" id="hl"></div><div id="tb"></div><div class="cta" id="cta"></div>
+<script src="lib.js"></script><script>
+const D = window.DATA, R = (D.rows || []).slice(0, 20), TOPN = D.top || 4, REL = D.rel || 3;
+$('lg').innerHTML = `${D.league || ''}<small>STANDINGS</small>`; $('hl').innerHTML = D.headline || '';
+const rh = R.length > 18 ? 64 : 70;
+$('tb').innerHTML = `<div class="r h"><span class="n">#</span><span class="t">CLUB</span><span class="v">MP</span><span class="v">W</span><span class="v">D</span><span class="v">L</span><span class="p" style="font:700 26px O;color:#46d7ff">PTS</span></div>`
+  + R.map((r, i) => `<div class="r ${i === 0 ? 'top ' : ''}${i < TOPN ? 'cl' : i >= R.length - REL ? 'rl' : ''}" style="height:${rh}px"><span class="n">${r.rank}</span>${r.logo ? `<img src="${r.logo}">` : '<span style="width:62px"></span>'}<span class="t">${r.name}</span><span class="v">${r.p}</span><span class="v">${r.w}</span><span class="v">${r.d}</span><span class="v">${r.l}</span><span class="p">${r.pts}</span></div>`).join('');
+$('cta').textContent = D.cta || 'WHO WINS THE LEAGUE? 👇';
+const rows = [...document.querySelectorAll('.r:not(.h)')];
+window.TOTAL = 10;
+window.draw = (t) => {
+  // The whole table is readable at t=0; a light runs down the rows and the leader glows.
+  rows.forEach((r, i) => { const d = Math.abs(t * 22 - i); r.style.filter = `brightness(${1 + .35 * Math.max(0, 1 - d / 2)})`; });
+  if (rows[0]) rows[0].style.boxShadow = `inset 0 0 ${20 + 18 * Math.sin(t * 3)}px rgba(70,215,255,.6)`;
+  $('hl').style.transform = `skewX(-6deg) translateX(${(1 - ease(t / .45)) * -50}px)`;
+  const k = ease((t - 2.4) / .5); $('cta').style.opacity = k;
+};
+draw(0);
+</script></body></html>

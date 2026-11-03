@@ -1,0 +1,37 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends «Who's better?» (owner, 2026-11-03, after Imran Sport's Yamal vs Olise): two stars' league numbers this
+   season, his Commons photo over each half; every number is there in the first frame. */
+.half{position:absolute;left:0;right:0;height:880px;overflow:hidden}#ha{top:150px;background:linear-gradient(180deg,#5a0b1d,#2a0510)}#hb{top:1040px;background:linear-gradient(180deg,#0b2a7a,#06123d)}
+.half .p{position:absolute;left:0;right:0;top:0;height:640px;overflow:hidden}.half .p img{width:100%;height:100%;object-fit:cover;object-position:50% 18%}
+.half .p:after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,0) 45%,var(--bg) 98%)}#ha .p{--bg:#3b0715}#hb .p{--bg:#081a55}
+.nm{position:absolute;top:530px;left:0;right:0;text-align:center}.nm .pill{font:700 46px O;letter-spacing:2px;text-transform:uppercase}
+.sub{position:absolute;top:606px;left:0;right:0;text-align:center;font:500 30px O;color:rgba(255,255,255,.8)}
+.st{position:absolute;top:655px;left:50px;right:50px;display:flex;align-items:center}.st div{flex:1;text-align:center}.st b{display:block;font:400 150px/0.92 B;color:#ffd21f;text-shadow:0 6px 24px rgba(0,0,0,.5)}.st span{font:700 32px O;letter-spacing:2px}
+.st hr{width:4px;height:140px;border:0;background:rgba(255,210,31,.75)}
+#hook{top:0;left:0;right:0;height:150px;background:#040a2e;z-index:15}#hk{position:absolute;top:18px;right:44px;font:400 100px/1 B;letter-spacing:2px;transform:skewX(-8deg);text-align:right}#hk small{display:block;font:700 26px O;letter-spacing:3px;color:#46d7ff;transform:skewX(8deg)}
+#vs{left:50%;top:985px;width:130px;height:130px;margin-left:-65px;border-radius:50%;background:#ffd21f;color:#040a2e;font:400 76px/134px B;text-align:center;z-index:16;box-shadow:0 0 0 10px #040a2e}
+#line{left:0;right:0;top:1036px;height:8px;background:#ffd21f;z-index:14}
+#cta{display:none}
+.credit{left:20px}#cra{top:160px}#crb{top:1050px}
+</style></head><body><div class="bg"></div>
+<div class="abs" id="hook"><div id="hk">WHO'S <span class="y">BETTER?</span><small id="hs"></small></div></div><div class="logo">FB<i>LEGENDS</i></div>
+<div class="half" id="ha"></div><div class="abs" id="line"></div><div class="abs" id="vs">VS</div><div class="half" id="hb"></div>
+<div class="credit" id="cra"></div><div class="credit" id="crb"></div><div class="cta" id="cta"></div>
+<script src="lib.js"></script><script>
+const D = window.DATA;
+const half = (x) => `<div class="p">${x.photo ? `<img src="${x.photo}">` : ''}</div><div class="nm"><span class="pill">${x.tag}</span></div><div class="sub">${x.sub || ''}</div>
+  <div class="st"><div><b>${x.g}</b><span>GOALS</span></div><hr><div><b>${x.a}</b><span>ASSISTS</span></div><hr><div><b>${x.g + x.a}</b><span>G/A</span></div></div>`;
+$('ha').innerHTML = half(D.a); $('hb').innerHTML = half(D.b);
+$('cra').textContent = D.a.photo && D.a.credit ? `Photo: ${D.a.credit} / Wikimedia Commons` : ''; $('crb').textContent = D.b.photo && D.b.credit ? `Photo: ${D.b.credit} / Wikimedia Commons` : '';
+$('hs').textContent = D.cta || 'COMMENT YOUR PICK 👇';
+const imgs = [...document.querySelectorAll('.half img')], nums = [...document.querySelectorAll('.st b')];
+window.TOTAL = 9;
+window.draw = (t) => {
+  imgs.forEach((im, i) => (im.style.transform = `scale(${1.12 - .08 * cl(t / 9)}) translateX(${(i ? 1 : -1) * 12 * cl(t / 9)}px)`));
+  $('vs').style.transform = `scale(${1 + .08 * Math.sin(t * 4)})`;
+  nums.forEach((b, i) => (b.style.textShadow = `0 0 ${18 + 22 * Math.max(0, Math.sin(t * 3 - i * .4))}px rgba(255,210,31,.45)`));
+  $('hk').style.transform = `skewX(-8deg) translateX(${(1 - ease(t / .45)) * 60}px)`;
+  $('hs').style.opacity = .6 + .4 * Math.abs(Math.sin(t * 2));
+};
+draw(0);
+</script></body></html>

@@ -1,34 +1,50 @@
-<!doctype html><html dir="ltr" lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><style>
-/* FB Legends (English page, owner 2026-11-03): the full-time score from the very first frame (the Arabic page's
-   reels are watched 3.4 s on average), then the scorers, then one question for the comments. */
-#lg{top:205px;width:100%;font-size:38px;font-weight:700;color:#c9d0f5}
-#sb{top:300px;left:30px;right:30px;display:flex;align-items:flex-start;justify-content:space-between}.tm{width:340px;display:flex;flex-direction:column;align-items:center;gap:16px}.tm img{width:230px;height:230px;object-fit:contain}.tm b{font-size:50px;font-weight:900;text-align:center;line-height:1.1}
-#sc{display:flex;gap:24px;font:900 190px Arial;align-items:center;margin-top:20px}#sc i{font-style:normal;color:#22e9ff;font-size:130px}
-#pens{top:720px;width:100%;font-size:40px;font-weight:900;color:#22e9ff}
-#gs{top:820px;left:70px;right:70px;display:flex;gap:30px}.col{flex:1;display:flex;flex-direction:column;gap:14px}.col.a{align-items:flex-end;text-align:right}
-.g{font-size:38px;font-weight:700;background:rgba(17,25,56,.92);border-radius:20px;padding:10px 22px;border-left:8px solid #22e9ff}.col.a .g{border-left:0;border-right:8px solid #ff2f97}.g small{color:#22e9ff;font-weight:900;margin-left:10px}
-#big{top:1290px;left:60px;right:60px;background:linear-gradient(90deg,#ff2f97,#7a2cff);border-radius:28px;padding:22px;text-align:center;font-weight:900;font-size:44px;line-height:1.2}
-#cta{bottom:190px;width:100%;font-size:60px;font-weight:900;line-height:1.15;padding:0 60px}
-</style></head><body><div class="bg"></div><div class="grid"></div><div class="bar" style="top:0"></div><div class="brand">FB LEGENDS</div><div class="chip" id="chip">FULL TIME</div>
-<div class="abs c" id="lg"></div><div class="abs" id="sb"><div class="tm" id="t1"></div><div id="sc"><span id="s1"></span><i>-</i><span id="s2"></span></div><div class="tm" id="t2"></div></div>
-<div class="abs c" id="pens"></div><div class="abs" id="gs"><div class="col h" id="gh"></div><div class="col a" id="ga"></div></div><div class="abs" id="big"></div><div class="abs c" id="cta"></div>
-<div class="foot">football-legend.com</div><div class="bar" style="bottom:0"></div>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends «FULL-TIME» poster (owner, 2026-11-03, after Imran Sport's look; our rules: Wikimedia Commons photos only).
+   The result is all there in the first frame; then the scorers and one question for the comments. */
+#ph{position:absolute;left:0;right:0;top:0;height:1240px;overflow:hidden}#ph img{width:100%;height:100%;object-fit:cover;object-position:50% 18%}
+#ph:after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(4,10,46,.35),rgba(4,10,46,0) 30%,rgba(4,10,46,.2) 60%,#040a2e 97%)}
+#gh{position:absolute;top:200px;width:100%;display:flex;justify-content:space-between;padding:0 30px;opacity:.13}#gh img{width:470px;height:470px;object-fit:contain}
+#lg{top:62px;right:44px;font:700 34px O;letter-spacing:3px;color:#fff;text-transform:uppercase;text-align:right;z-index:20}#lg span{display:block;width:100%;height:5px;background:#ffd21f;margin-top:8px}
+#ft{top:150px;width:100%;font:400 200px/0.9 B;letter-spacing:4px;transform:skewX(-8deg);text-shadow:0 8px 40px rgba(0,0,0,.6);z-index:20}#ft u{display:block;text-decoration:none;width:520px;height:8px;margin:14px auto 0;background:linear-gradient(90deg,transparent,#ffd21f,transparent)}
+#panel{left:30px;right:30px;top:1120px;height:400px;border-radius:30px;background:linear-gradient(180deg,rgba(10,26,92,.92),rgba(4,10,46,.96));border-top:6px solid #46d7ff;box-shadow:0 -10px 60px rgba(70,215,255,.25);z-index:10}
+.cr{position:absolute;top:34px;width:250px;text-align:center}.cr img{width:220px;height:220px;object-fit:contain;filter:drop-shadow(0 8px 20px rgba(0,0,0,.6))}.cr b{display:block;font:700 46px/1.05 O;margin-top:10px}
+#c1{left:20px}#c2{right:20px}
+#sc{position:absolute;left:0;right:0;top:40px;text-align:center;font:400 300px/1 B;letter-spacing:6px;text-shadow:0 10px 40px rgba(0,0,0,.6)}
+#pens{top:1528px;width:100%;font:700 38px O;color:#ffd21f;z-index:20}
+#gs{left:60px;right:60px;top:1585px;display:flex;z-index:20}.col{flex:1;display:flex;flex-direction:column;gap:6px;font:500 40px/1.15 O}.col.a{text-align:right}
+#mid{width:4px;background:rgba(255,255,255,.45);margin:0 26px;position:relative}#mid i{position:absolute;top:30%;left:-22px;width:48px;height:48px;border-radius:50%;background:#fff;color:#000;font:normal 34px/48px Arial;text-align:center;font-style:normal}
+#cta{bottom:52px}
+#cr{left:24px;top:1080px}
+</style></head><body><div class="bg"></div><div class="streak"></div><div id="gh"></div><div id="ph"></div>
+<div class="logo">FB<i>LEGENDS</i></div><div class="abs" id="lg"></div><div class="abs c" id="ft">FULL-TIME<u></u></div>
+<div class="abs" id="panel"><div class="cr" id="c1"></div><div id="sc"></div><div class="cr" id="c2"></div></div>
+<div class="abs c" id="pens"></div><div class="abs" id="gs"><div class="col" id="gh1"></div><div id="mid"><i>⚽</i></div><div class="col a" id="ga1"></div></div>
+<div class="cta" id="cta"></div><div class="credit" id="cr"></div>
 <script src="lib.js"></script><script>
 const D = window.DATA;
-$('chip').textContent = D.chip || 'FULL TIME'; $('lg').textContent = D.league || ''; $('pens').textContent = D.pens || '';
-$('t1').innerHTML = `${D.homeLogo ? `<img src="${D.homeLogo}">` : ''}<b>${D.home}</b>`; $('t2').innerHTML = `${D.awayLogo ? `<img src="${D.awayLogo}">` : ''}<b>${D.away}</b>`;
-$('s1').textContent = D.hs; $('s2').textContent = D.as;
-const gl = (D.goals || []).slice(0, 12), el = [];
-for (const g of gl) { const d = document.createElement('div'); d.className = 'g'; d.innerHTML = `${g.n}${g.og ? ' (OG)' : g.pen ? ' (P)' : ''}<small>${g.m}'</small>`; $(g.s === 'a' ? 'ga' : 'gh').appendChild(d); el.push(d); }
-if (D.line) $('big').textContent = D.line; else $('big').style.display = 'none';
-$('cta').textContent = D.cta || 'Rate the result in the comments 👇';
-window.TOTAL = Math.min(14, Math.max(10, 7.5 + gl.length * .35));
+$('lg').innerHTML = `${D.league || ''}<span></span>`; $('pens').textContent = D.pens || '';
+$('c1').innerHTML = `${D.homeLogo ? `<img src="${D.homeLogo}">` : ''}<b>${D.home}</b>`; $('c2').innerHTML = `${D.awayLogo ? `<img src="${D.awayLogo}">` : ''}<b>${D.away}</b>`;
+$('sc').textContent = `${D.hs} - ${D.as}`;
+if (D.photo) $('ph').innerHTML = `<img id="img" src="${D.photo}">`;
+else $('gh').innerHTML = `${D.homeLogo ? `<img src="${D.homeLogo}">` : '<span></span>'}${D.awayLogo ? `<img src="${D.awayLogo}">` : ''}`;
+$('cr').textContent = D.photo && D.credit ? `Photo: ${D.credit} / Wikimedia Commons` : '';
+// One line a scorer: «Raphinha 8', 41'».
+const by = (s) => { const m = new Map(); for (const g of (D.goals || []).filter((x) => x.s === s)) { const k = g.n + (g.og ? ' (OG)' : ''); m.set(k, [...(m.get(k) || []), g.m + "'" + (g.pen ? ' (P)' : '')]); } return [...m].map(([n, ms]) => `${n} ${ms.join(', ')}`); };
+const H = by('h'), A = by('a');
+$('gh1').innerHTML = H.map((x) => `<div>${x}</div>`).join(''); $('ga1').innerHTML = A.map((x) => `<div>${x}</div>`).join('');
+if (!H.length && !A.length) $('gs').style.display = 'none';
+const n = Math.max(H.length, A.length); if (n > 4) document.querySelectorAll('.col').forEach((c) => (c.style.fontSize = (n > 6 ? 30 : 34) + 'px'));
+$('cta').textContent = D.cta || 'WHO WAS MAN OF THE MATCH? 👇';
+const rows = [...document.querySelectorAll('.col div')];
+window.TOTAL = 9.5;
 window.draw = (t) => {
-  // The score is there at t=0; only a light pulse moves it.
-  $('sc').style.transform = `scale(${1 + .04 * Math.sin(Math.min(t, 2) * Math.PI)})`;
-  $('chip').dataset.tf = 'translateX(-50%)'; $('chip').style.boxShadow = `0 0 ${20 + 16 * Math.sin(t * 5)}px rgba(255,47,151,.6)`;
-  el.forEach((d, i) => pop(d, t, 1 + i * .3, .4, 30));
-  const t2 = 1.2 + el.length * .3; pop($('big'), t, t2, .5, 40); pop($('cta'), t, t2 + 1.2, .5, 40);
+  // Everything that matters is on screen at t=0; the score lands with a small settle.
+  $('sc').style.transform = `scale(${1 + .12 * (1 - ease(t / .45))})`;
+  $('ft').style.transform = `skewX(-8deg) translateX(${(1 - ease(t / .5)) * -40}px)`;
+  const im = document.getElementById('img'); if (im) im.style.transform = `scale(${1.1 - .08 * cl(t / 9.5)})`;
+  $('panel').style.boxShadow = `0 -10px ${50 + 25 * Math.sin(t * 3)}px rgba(70,215,255,.3)`;
+  rows.forEach((r, i) => { const a = ease((t - .35 - i * .12) / .35); r.style.opacity = .25 + .75 * a; r.style.transform = `translateX(${(1 - a) * (r.parentNode.id === 'ga1' ? 40 : -40)}px)`; });
+  const k = ease((t - 2.2) / .5); $('cta').style.opacity = .35 + .65 * k; $('cta').style.transform = `scale(${1 + .04 * Math.sin(Math.max(0, t - 2.7) * 4) * k})`;
 };
 draw(0);
 </script></body></html>
