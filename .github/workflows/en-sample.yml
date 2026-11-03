@@ -18,12 +18,8 @@ jobs:
           key="$REELS_KEY_SECRET"; echo "::add-mask::$key"; sleep 120; mkdir -p sample/dry
           A="https://api.football-legend.com/v2/fben/dry?key=$key"
           get() { curl -sS --max-time 120 "$A&at=$1&kinds=$2$3" > "sample/dry/$4.json"; echo "$4: $(jq -c .result sample/dry/$4.json 2>/dev/null || head -c 200 sample/dry/$4.json)"; sleep 3; }
-          get "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "results,night,half" "&details=1" now
           get 2026-11-04T10:30:00Z today,predict "" wed-morning
           get 2026-11-04T16:30:00Z streak "" wed-afternoon
-          get 2026-11-04T20:30:00Z hilo "" wed-evening
-          get 2026-11-02T13:00:00Z weekend,table,boot "" mon
-          get 2026-11-01T23:00:00Z dayres "" sun-night
-          get 2026-10-22T23:00:00Z uclboot "" ucl-matchday
+          get 2026-11-03T10:00:00Z weekend "" tue-morning
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
           git add -A sample/dry && git commit -m "dry run [skip ci]" && git push
