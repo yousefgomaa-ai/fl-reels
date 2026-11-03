@@ -1,5 +1,5 @@
-# One-off: renders the FB Legends sample reels (sample/jobs.json) with real crests and Commons photos and commits the
-# MP4s to this branch for the owner to see. Lives on the claude/en-sample branch only; never merged.
+# One-off: cuts the stars' Commons photos out of their background (sample/cut.py), then renders the FB Legends sample
+# reels (sample/jobs.json), and commits both to this branch for review. Lives on claude/en-sample only; never merged.
 name: EN sample
 on:
   push:
@@ -9,16 +9,26 @@ permissions:
 jobs:
   sample:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
-      - run: |
+      - name: Cut-outs
+        if: hashFiles('sample/cut/.todo') != ''
+        run: |
+          pip install -q "rembg[cpu]==2.0.59" pillow
+          python sample/cut.py
+          rm sample/cut/.todo
+      - name: Sample reels
+        if: hashFiles('sample/jobs.json') != ''
+        run: |
           for i in 1 2 3; do timeout 240 sudo apt-get update -qq && timeout 240 sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null && break; sleep 10; done
           npm i --no-save --no-audit --no-fund playwright@1.48.2
           timeout 300 npx playwright install --with-deps chromium
-      - run: mkdir -p sample/out && node sample/render.mjs sample/jobs.json sample/out
+          mkdir -p sample/out && node sample/render.mjs sample/jobs.json sample/out
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          git add sample/out && git commit -m "sample reels [skip ci]" && git push
+          git add -A sample && git commit -m "sample output [skip ci]" && git push
