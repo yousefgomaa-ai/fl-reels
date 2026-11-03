@@ -1,5 +1,5 @@
-# One-off: renders FB Legends sample reels (sample/jobs.json) and commits them to this branch for the owner.
-# Lives on claude/en-sample only; never merged.
+# One-off (FB Legends sample, 2026-11-03): the Champions League top scorers as the site serves them, committed as
+# sample/ucl.json. Lives on claude/en-sample only; never merged.
 name: EN sample
 on:
   push:
@@ -7,20 +7,12 @@ on:
 permissions:
   contents: write
 jobs:
-  sample:
+  data:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: 22 }
       - run: |
-          for i in 1 2 3; do timeout 240 sudo apt-get update -qq && timeout 240 sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null && break; sleep 10; done
-          npm i --no-save --no-audit --no-fund playwright@1.48.2
-          timeout 300 npx playwright install --with-deps chromium
-      - env:
-          REELS_KEY: ${{ secrets.REELS_KEY }}
-        run: mkdir -p sample/out && node sample/render.mjs sample/jobs.json sample/out
-      - run: |
+          mkdir -p sample && curl -sS --max-time 40 "https://api.football-legend.com/ucl/scorers" > sample/ucl.json; head -c 600 sample/ucl.json
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          git add -A sample/out && git commit -m "sample output [skip ci]" && git push
+          git add sample/ucl.json && git commit -m "sample data [skip ci]" && git push
