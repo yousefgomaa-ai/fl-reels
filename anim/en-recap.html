@@ -31,7 +31,7 @@ q('in', '.t').innerHTML = `${D.h1 || "TONIGHT IN THE"}<br><span class="y">${D.h2
 q('in', '.n').textContent = D.count || `${n} RESULTS • ONE NIGHT`;
 q('in', '.cr').innerHTML = M.flatMap((m) => [m.homeLogo, m.awayLogo]).filter(Boolean).slice(0, 16).map((u) => `<img src="${u}">`).join('');
 q('ou', '.t').innerHTML = `ALL <span class="y">${D.h3 || 'THE RESULTS'}</span>`;
-q('ou', '.l').innerHTML = (D.all || M).slice(0, 10).map((m) => `<div class="r"><img src="${m.homeLogo || ''}"><span>${m.home}</span><b>${m.hs}-${m.as}</b><span class="rt">${m.away}</span><img src="${m.awayLogo || ''}"></div>`).join('');
+q('ou', '.l').innerHTML = (D.all || M).slice(0, 10).map((m) => `<div class="r">${m.homeLogo ? `<img src="${m.homeLogo}">` : '<i style="width:62px"></i>'}<span>${m.home}</span><b>${m.hs}-${m.as}</b><span class="rt">${m.away}</span>${m.awayLogo ? `<img src="${m.awayLogo}">` : '<i style="width:62px"></i>'}</div>`).join('');
 $('cta').textContent = D.cta || 'WHICH RESULT SURPRISED YOU? 👇';
 const mins = D.minBeats || [2.6, ...M.map(() => 3), 3.6], B = D.beats || (() => { let t = 0; return mins.map((m) => { const b = [t, m]; t += m; return b; }); })();
 window.TOTAL = B[B.length - 1][0] + B[B.length - 1][1];
