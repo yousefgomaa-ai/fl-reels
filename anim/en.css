@@ -19,3 +19,8 @@ body{position:relative;width:1080px;height:1920px;overflow:clip;font-family:O,Ar
 .fade-b{position:absolute;left:0;right:0;bottom:0;height:55%;background:linear-gradient(rgba(4,10,46,0),#040a2e 92%)}
 .credit{position:absolute;font:500 19px O,Arial;color:rgba(255,255,255,.7);z-index:21}
 .cta{position:absolute;left:0;right:0;text-align:center;font:400 78px B;color:#ffd21f;letter-spacing:2px;text-shadow:0 4px 20px rgba(0,0,0,.6);z-index:20}
+/* A star cut out of his Commons photo (anim/cut/<slug>.webp, background removed, CC licence kept), standing on the
+   frame's lower part; the uncut photo is the fallback. */
+.cut{position:absolute;object-fit:contain;object-position:50% 100%;filter:drop-shadow(0 20px 40px rgba(0,0,0,.55))}
+.glowln{filter:drop-shadow(0 0 3px #ffd21f) drop-shadow(0 0 18px rgba(255,210,31,.7))}
+.stamp{position:absolute;font:400 120px/1 B;letter-spacing:4px;color:#040a2e;background:#ffd21f;padding:10px 40px;border-radius:18px;transform:rotate(-6deg);box-shadow:0 10px 40px rgba(0,0,0,.6);z-index:30}
