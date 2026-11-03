@@ -72,6 +72,27 @@ document.fonts.ready.then(fitAll);
 
 
 # ---------------------------------------------------------------- «ملخص الجولة»
+# Each league's own colours (owner, 2026-11-03: «عايز كل دوري يبقى ليه شكل مختلف»), close to its logo: the round
+# board's green and purple swapped for the league's accent, background and glows. The Premier League keeps the original.
+LEAGUE_LOOK = {
+    'esp.1': ('#ff4b44', '#140808', '#5a1414', '#3a1a0b', '#ffd2cf'), 'ita.1': ('#4fc3ff', '#061233', '#102e7a', '#06343f', '#cfe3ff'),
+    'ger.1': ('#ff2436', '#0b0b0b', '#4a0008', '#2a2a2a', '#ffd6d9'), 'fra.1': ('#dae025', '#08142e', '#1d2f5e', '#2e3a10', '#eef3c2'),
+    'egy.1': ('#d4af37', '#120606', '#4a1010', '#3a2a08', '#f6e3a3'), 'ksa.1': ('#7cf2b8', '#00261a', '#005a3c', '#0b3b2c', '#d6ffec'),
+    'uefa.champions': ('#8fd3ff', '#050b2b', '#1b2f8f', '#0b1a4a', '#dbe9ff'), 'uefa.europa': ('#ff7a1a', '#0d0d0d', '#5a2a00', '#2a1a0b', '#ffe0c7'),
+}
+
+
+def league_css(css, slug):
+    look = LEAGUE_LOOK.get(slug)
+    if not look: return css
+    acc, bg, g1, g2, soft = look
+    r, g, b = int(acc[1:3], 16), int(acc[3:5], 16), int(acc[5:7], 16)
+    for old, new in (('#00ff85', acc), ('rgba(0,255,133,', f'rgba({r},{g},{b},'), ('#12051f', bg), ('rgba(18,5,31,', f'rgba({int(bg[1:3],16)},{int(bg[3:5],16)},{int(bg[5:7],16)},'),
+                     ('rgba(10,3,18,', f'rgba({int(bg[1:3],16)},{int(bg[3:5],16)},{int(bg[5:7],16)},'), ('#3d0f6b', g1), ('#0b3b2c', g2), ('#c9b8ff', soft), ('#e6dcff', soft), ('#a99bd6', soft)):
+        css = css.replace(old, new)
+    return css
+
+
 def round_video(job, L):
     lg, n, T = job['league'], job.get('round'), job['table']
     ms = job['matches']
@@ -194,13 +215,34 @@ def round_video(job, L):
         S.add(t, [nn] if nn else [], f'<div class="kick" data-in>الجولة {nn or "المقبلة"}</div><div class="mini">' + ''.join(f'<div class="mr" data-in><img src="{L(m["homeLogo"])}"><span class="fit">{esc(m["home"])}</span><b>×</b><span class="fit">{esc(m["away"])}</span><img src="{L(m["awayLogo"])}"></div>' for m in nx) + '</div>', 'الجولة المقبلة')
     S.add(f'من كان نجم الجولة{rd} في رأيكم؟ اكتبوه في التعليقات، وتابعوا القناة ليصلكم ملخص كل جولة.', [n] if n else [],
           '<div class="hero"><div class="big" data-in style="font-size:120px">نجم الجولة؟</div><div class="sub" data-in>اكتبه في التعليقات 👇</div><div class="tag" data-in>تابع القناة: ملخص كل جولة</div></div>')
-    css = open(__file__.replace('build.py', 'round.css')).read()
+    css = league_css(open(__file__.replace('build.py', 'round.css')).read(), job.get('slug'))
     body = '<div class="bg"></div><div class="grid"></div><div class="brand">FOOTBALL <i>LEGENDS</i></div><div class="chip">ملخص الجولة</div>' + ''.join(f'<div class="scene" style="opacity:0">{l["scene"]}</div>' for l in S.lines)
-    title = f'ملخص الجولة {n or ""} من {lg}: النتائج والأهداف والترتيب'.replace('  ', ' ')
+    # The title and description people search with (owner, 2026-11-03: «ظبط الدسكريبشن والعنوان عشان الانتشار»): the
+    # round and league first, then the match people look for (the leader's, else the most goals), then the rest.
     best = max(ms, key=lambda m: m['hs'] + m['as'])
+    head = next((m for m in ms if leader in (m['home'], m['away'])), best)
+    hs = f'{head["home"]} {head["hs"]}-{head["as"]} {head["away"]}'
+    rn = f'الجولة {n} ' if n else 'الجولة '
+    title = f'ملخص {rn}من {lg} | {hs} وكل النتائج والأهداف والترتيب'
+    if len(title) > 100: title = f'ملخص {rn}من {lg} | {hs} والترتيب'
+    if len(title) > 100: title = f'ملخص {rn}من {lg}: النتائج والأهداف والترتيب'
     summary = '\n'.join(f'⚽ {m["home"]} {m["hs"]} - {m["as"]} {m["away"]}' for m in ms)
-    meta = {'title': title, 'about': f'كل نتائج الجولة {n or ""} من {lg} وهدافوها، والترتيب بعد الجولة، وأرقام الموسم.\n\n{summary}',
-            'tags': [lg, f'ترتيب {lg}', f'نتائج {lg}', 'ملخص الجولة', best['home'], best['away']]}
+    off = [m for m in job.get('postponed') or [] if ar(m['home'] + m['away'])]
+    lead = ''
+    pn = lambda k: 'نقطة واحدة' if k == 1 else 'نقطتين' if k == 2 else f'{k} نقاط' if 3 <= k <= 10 else f'{k} نقطة'
+    if len(T) >= 2:
+        gap = T[0]['pts'] - T[1]['pts']
+        lead = f'🔝 {T[0]["team"]} في صدارة {lg} برصيد {pn(T[0]["pts"])}' + (f' وبفارق {pn(gap)} عن {T[1]["team"]}' if gap > 0 else f' متساويًا مع {T[1]["team"]}') + '.\n'
+    tag = lambda x: '#' + x.replace(' ', '_')
+    about = (f'ملخص {rn}من {lg}: نتائج كل المباريات، وأهداف الجولة وهدافوها، وترتيب {lg} بعد الجولة، وأرقام الموسم.\n{lead}\n'
+             f'نتائج {rn}من {lg}:\n{summary}\n' + (('⏸ مؤجلة: ' + '، '.join(f'{m["home"]} و{m["away"]}' for m in off) + '\n') if off else '')
+             + f'\n📊 الترتيب الكامل والنتائج مباشرة: https://football-legend.com\n🔔 اشترك وفعّل الجرس ليصلك ملخص كل جولة.\n\n{tag(lg)} {tag("ملخص الجولة")} {tag("ترتيب " + lg)}')
+    tags = [lg, f'ملخص الجولة {n} {lg}' if n else f'ملخص الجولة {lg}', f'نتائج {lg}', f'ترتيب {lg}', f'أهداف {lg}', 'ملخص الجولة', 'نتائج المباريات',
+            f'{head["home"]} و{head["away"]}', head['home'], head['away']] + [x for m in ms[:4] for x in (m['home'], m['away'])]
+    seen, tags2 = set(), []
+    for x in tags:
+        if x and x not in seen and sum(len(y) + 1 for y in tags2) + len(x) < 480: seen.add(x); tags2.append(x)
+    meta = {'title': title, 'about': about, 'tags': tags2}
     return (S, page(css, body, 'ملخص الجولة'), meta), None
 
 
