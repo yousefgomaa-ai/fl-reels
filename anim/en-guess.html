@@ -1,0 +1,41 @@
+<!doctype html><html dir="ltr" lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><style>
+/* FB Legends «Guess the player» (owner, 2026-11-03): his season in numbers with no name from the first frame, a
+   countdown, then his Commons photo and name. Answers in the comments before the reveal are the point. */
+#q{top:210px;width:100%;font-weight:900;font-size:92px;line-height:1.05}#q span{display:block;font-size:44px;color:#22e9ff;margin-top:12px}
+#cl{top:470px;left:70px;right:70px;display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.cd{background:rgba(17,25,56,.95);border:2px solid rgba(34,233,255,.35);border-radius:28px;padding:26px 14px;text-align:center}.cd b{display:block;font:900 110px Arial;background:linear-gradient(#fff,#22e9ff);-webkit-background-clip:text;color:transparent;line-height:1.1}.cd span{display:block;font-size:34px;font-weight:700;color:#c9d0f5}
+#hint{top:1120px;left:70px;right:70px;display:flex;flex-direction:column;gap:16px}.h{font-size:40px;font-weight:700;background:rgba(17,25,56,.92);border-radius:20px;padding:14px 26px;border-left:8px solid #ff2f97}
+#cd{top:1460px;width:100%;font:900 170px Arial;color:#ff2f97}
+#ask{bottom:180px;width:100%;font-weight:900;font-size:54px}
+#rv{position:absolute;inset:0;opacity:0;z-index:5;background:#060914}#rv img{position:absolute;left:0;right:0;top:0;width:100%;height:1300px;object-fit:cover;object-position:50% 20%}
+#rv:after{content:'';position:absolute;left:0;right:0;top:0;height:1300px;background:linear-gradient(rgba(5,8,18,0) 50%,#060914 99%)}
+#an{position:absolute;top:1180px;width:100%;text-align:center;font-weight:900;font-size:104px;z-index:6;line-height:1.05}#an span{display:block;font-size:42px;color:#22e9ff;margin-top:14px}
+#ok{position:absolute;top:1480px;width:100%;text-align:center;font-weight:900;font-size:50px;z-index:6}
+#cr{position:absolute;top:1250px;right:16px;left:16px;text-align:right;font:700 20px Arial;color:#c9d0f5;opacity:.85;z-index:6}
+</style></head><body><div class="bg"></div><div class="grid"></div><div class="bar" style="top:0"></div><div class="brand" style="z-index:7">FB LEGENDS</div>
+<div class="abs c" id="q">GUESS THE PLAYER<span id="ctx"></span></div><div class="abs" id="cl"></div><div class="abs" id="hint"></div><div class="abs c" id="cd"></div><div class="abs c" id="ask">Drop your answer in the comments 👇</div>
+<div id="rv"></div><div id="cr"></div><div id="an"></div><div id="ok"></div>
+<div class="foot" style="z-index:7">football-legend.com</div><div class="bar" style="bottom:0;z-index:7"></div>
+<script src="lib.js"></script><script>
+const D = window.DATA;
+$('ctx').textContent = D.ctx || '';
+$('cl').innerHTML = (D.tiles || []).slice(0, 4).map((x) => `<div class="cd"><b>${x.stat}</b><span>${x.text}</span></div>`).join('');
+$('hint').innerHTML = (D.hints || []).slice(0, 3).map((h) => `<div class="h">${h}</div>`).join('');
+if (D.photo) $('rv').innerHTML = `<img id="img" src="${D.photo}">`;
+$('cr').textContent = D.credit && D.photo ? `Photo: ${D.credit}, via Wikimedia Commons` : '';
+$('an').innerHTML = `${D.name}<span>${D.sub || ''}</span>`; $('ok').textContent = D.ok || 'Did you get it right?';
+const cards = [...document.querySelectorAll('.cd')], hints = [...document.querySelectorAll('.h')];
+const R = 3.6 + hints.length * 1.4 + 3; // the reveal
+window.TOTAL = R + 4.5;
+window.draw = (t) => {
+  // The title and the first numbers are there at t=0.
+  cards.forEach((c, i) => { const a = i < 2 ? 1 : ease((t - .8 - (i - 2) * .5) / .4); c.style.opacity = a; c.style.transform = `scale(${i < 2 ? 1 : .7 + .3 * a})`; });
+  hints.forEach((h, i) => pop(h, t, 2.6 + i * 1.4, .45, 30));
+  const left = Math.ceil(R - t); $('cd').textContent = t > R - 3 && t < R ? String(left) : ''; $('cd').style.transform = `scale(${1.3 - .3 * ((R - t) % 1)})`;
+  $('ask').style.opacity = t < R ? .6 + .4 * Math.abs(Math.sin(t * 2)) : 0;
+  const r = ease((t - R) / .5); $('rv').style.opacity = r; $('cr').style.opacity = .85 * r;
+  const im = document.getElementById('img'); if (im) im.style.transform = `scale(${1.15 - .1 * cl((t - R) / 4)})`;
+  pop($('an'), t, R + .3, .5, 60); pop($('ok'), t, R + 1.4, .5, 40);
+};
+draw(0);
+</script></body></html>

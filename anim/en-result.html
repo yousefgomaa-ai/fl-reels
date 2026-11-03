@@ -1,0 +1,34 @@
+<!doctype html><html dir="ltr" lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><style>
+/* FB Legends (English page, owner 2026-11-03): the full-time score from the very first frame (the Arabic page's
+   reels are watched 3.4 s on average), then the scorers, then one question for the comments. */
+#lg{top:205px;width:100%;font-size:38px;font-weight:700;color:#c9d0f5}
+#sb{top:300px;left:30px;right:30px;display:flex;align-items:flex-start;justify-content:space-between}.tm{width:340px;display:flex;flex-direction:column;align-items:center;gap:16px}.tm img{width:230px;height:230px;object-fit:contain}.tm b{font-size:50px;font-weight:900;text-align:center;line-height:1.1}
+#sc{display:flex;gap:24px;font:900 190px Arial;align-items:center;margin-top:20px}#sc i{font-style:normal;color:#22e9ff;font-size:130px}
+#pens{top:720px;width:100%;font-size:40px;font-weight:900;color:#22e9ff}
+#gs{top:820px;left:70px;right:70px;display:flex;gap:30px}.col{flex:1;display:flex;flex-direction:column;gap:14px}.col.a{align-items:flex-end;text-align:right}
+.g{font-size:38px;font-weight:700;background:rgba(17,25,56,.92);border-radius:20px;padding:10px 22px;border-left:8px solid #22e9ff}.col.a .g{border-left:0;border-right:8px solid #ff2f97}.g small{color:#22e9ff;font-weight:900;margin-left:10px}
+#big{top:1290px;left:60px;right:60px;background:linear-gradient(90deg,#ff2f97,#7a2cff);border-radius:28px;padding:22px;text-align:center;font-weight:900;font-size:44px;line-height:1.2}
+#cta{bottom:190px;width:100%;font-size:60px;font-weight:900;line-height:1.15;padding:0 60px}
+</style></head><body><div class="bg"></div><div class="grid"></div><div class="bar" style="top:0"></div><div class="brand">FB LEGENDS</div><div class="chip" id="chip">FULL TIME</div>
+<div class="abs c" id="lg"></div><div class="abs" id="sb"><div class="tm" id="t1"></div><div id="sc"><span id="s1"></span><i>-</i><span id="s2"></span></div><div class="tm" id="t2"></div></div>
+<div class="abs c" id="pens"></div><div class="abs" id="gs"><div class="col h" id="gh"></div><div class="col a" id="ga"></div></div><div class="abs" id="big"></div><div class="abs c" id="cta"></div>
+<div class="foot">football-legend.com</div><div class="bar" style="bottom:0"></div>
+<script src="lib.js"></script><script>
+const D = window.DATA;
+$('chip').textContent = D.chip || 'FULL TIME'; $('lg').textContent = D.league || ''; $('pens').textContent = D.pens || '';
+$('t1').innerHTML = `${D.homeLogo ? `<img src="${D.homeLogo}">` : ''}<b>${D.home}</b>`; $('t2').innerHTML = `${D.awayLogo ? `<img src="${D.awayLogo}">` : ''}<b>${D.away}</b>`;
+$('s1').textContent = D.hs; $('s2').textContent = D.as;
+const gl = (D.goals || []).slice(0, 12), el = [];
+for (const g of gl) { const d = document.createElement('div'); d.className = 'g'; d.innerHTML = `${g.n}${g.og ? ' (OG)' : g.pen ? ' (P)' : ''}<small>${g.m}'</small>`; $(g.s === 'a' ? 'ga' : 'gh').appendChild(d); el.push(d); }
+if (D.line) $('big').textContent = D.line; else $('big').style.display = 'none';
+$('cta').textContent = D.cta || 'Rate the result in the comments 👇';
+window.TOTAL = Math.min(14, Math.max(10, 7.5 + gl.length * .35));
+window.draw = (t) => {
+  // The score is there at t=0; only a light pulse moves it.
+  $('sc').style.transform = `scale(${1 + .04 * Math.sin(Math.min(t, 2) * Math.PI)})`;
+  $('chip').dataset.tf = 'translateX(-50%)'; $('chip').style.boxShadow = `0 0 ${20 + 16 * Math.sin(t * 5)}px rgba(255,47,151,.6)`;
+  el.forEach((d, i) => pop(d, t, 1 + i * .3, .4, 30));
+  const t2 = 1.2 + el.length * .3; pop($('big'), t, t2, .5, 40); pop($('cta'), t, t2 + 1.2, .5, 40);
+};
+draw(0);
+</script></body></html>
