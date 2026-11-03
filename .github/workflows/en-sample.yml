@@ -1,26 +1,20 @@
-# One-off: renders a FB Legends sample reel with its spoken line (sample/jobs.json) and commits it to this branch for
-# the owner. Lives on claude/en-sample only; never merged.
+# One-off live check (FB Legends, 2026-11-03). Lives on claude/en-sample only; never merged.
 name: EN sample
 on:
   push:
     branches: [claude/en-sample]
 permissions:
-  contents: write
+  contents: read
 jobs:
-  sample:
+  probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: 22 }
-      - run: |
-          for i in 1 2 3; do timeout 240 sudo apt-get update -qq && timeout 240 sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null && break; sleep 10; done
-          npm i --no-save --no-audit --no-fund playwright@1.48.2
-          timeout 300 npx playwright install --with-deps chromium
       - env:
-          REELS_KEY: ${{ secrets.REELS_KEY }}
-        run: mkdir -p sample/out && node sample/render.mjs sample/jobs.json sample/out
-      - run: |
-          git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          git add -A sample/out && git commit -m "sample output [skip ci]" && git push
+          REELS_KEY_SECRET: ${{ secrets.REELS_KEY }}
+        run: |
+          key="$REELS_KEY_SECRET"; echo "::add-mask::$key"; d=$(date -u +%Y%m%d)
+          for u in "https://api.football-legend.com/matches?date=$d" "https://api.football-legend.com/v2/hero"; do curl -sS -o /dev/null --max-time 40 -w "%{http_code} %{time_total}s $u\n" "$u" || echo "fail $u"; done
+          curl -sS --max-time 40 "https://api.football-legend.com/matches?date=$d" | jq -r '.events[]? | select(.leagueSlug=="uefa.champions") | "\(.fixture.status.state) clock=\(.fixture.status.clock) detail=\(.fixture.status.detail) \(.teams.home.name) \(.goals.home)-\(.goals.away) \(.teams.away.name)"'
+          curl -sS --max-time 40 "https://api.football-legend.com/v2/reels/status?key=$key" | jq -r '.reels[]? | select((.id // "")|startswith("en-")) | "\(.id) \(.status) tries=\(.tries) err=\(.error)"' | head
+          curl -sS --max-time 40 "https://api.football-legend.com/v2/reels/jobs?key=$key" | jq -r '.jobs[]? | "queued \(.id)"' | head
