@@ -1,5 +1,5 @@
-# One-off: renders FB Legends sample reels (sample/jobs.json) and commits them to this branch for the owner.
-# Lives on claude/en-sample only; never merged.
+# One-off (FB Legends, 2026-11-03): the English planners' dry run on the live server at several times, committed as
+# sample/dry/*.json for review. Lives on claude/en-sample only; never merged.
 name: EN sample
 on:
   push:
@@ -7,20 +7,23 @@ on:
 permissions:
   contents: write
 jobs:
-  sample:
+  dry:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: 22 }
-      - run: |
-          for i in 1 2 3; do timeout 240 sudo apt-get update -qq && timeout 240 sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null && break; sleep 10; done
-          npm i --no-save --no-audit --no-fund playwright@1.48.2
-          timeout 300 npx playwright install --with-deps chromium
       - env:
-          REELS_KEY: ${{ secrets.REELS_KEY }}
-        run: mkdir -p sample/out && node sample/render.mjs sample/jobs.json sample/out
-      - run: |
+          REELS_KEY_SECRET: ${{ secrets.REELS_KEY }}
+        run: |
+          key="$REELS_KEY_SECRET"; echo "::add-mask::$key"; sleep 120; mkdir -p sample/dry
+          A="https://api.football-legend.com/v2/fben/dry?key=$key"
+          get() { curl -sS --max-time 120 "$A&at=$1&kinds=$2$3" > "sample/dry/$4.json"; echo "$4: $(jq -c .result sample/dry/$4.json 2>/dev/null || head -c 200 sample/dry/$4.json)"; sleep 3; }
+          get "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "results,night,half" "&details=1" now
+          get 2026-11-04T10:30:00Z today,predict "" wed-morning
+          get 2026-11-04T16:30:00Z streak "" wed-afternoon
+          get 2026-11-04T20:30:00Z hilo "" wed-evening
+          get 2026-11-02T13:00:00Z weekend,table,boot "" mon
+          get 2026-11-01T23:00:00Z dayres "" sun-night
+          get 2026-10-22T23:00:00Z uclboot "" ucl-matchday
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          git add -A sample/out && git commit -m "sample output [skip ci]" && git push
+          git add -A sample/dry && git commit -m "dry run [skip ci]" && git push
