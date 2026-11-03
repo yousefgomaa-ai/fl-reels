@@ -1,0 +1,102 @@
+<!doctype html><html dir="rtl"><head><meta charset="utf-8"><style>
+/* «ترتيب متحرك» (owner, 2026-11-03): the league table as a moving reel, each league in its own look (the same looks as
+   the site's table cards). make.mjs puts the data in window.DATA and records draw(t) frame by frame. */
+@font-face{font-family:C;src:url(../career/cairo700.woff2);font-weight:700}@font-face{font-family:C;src:url(../career/cairo900.woff2);font-weight:900}
+*{box-sizing:border-box;margin:0}html{overflow:clip}body{position:relative;width:1080px;height:1920px;overflow:clip;font-family:C;color:var(--ink)}
+#bg{position:absolute;inset:0;background:var(--bg)}#deco{position:absolute;inset:0}
+.stripe{position:absolute;top:-200px;height:900px;transform:skewX(-28deg)}
+#brand{position:absolute;top:70px;width:100%;text-align:center;font:900 34px Arial,sans-serif;letter-spacing:8px;background:var(--brand);-webkit-background-clip:text;color:transparent}
+#title{position:absolute;top:125px;width:100%;text-align:center;font-weight:900;font-size:60px;white-space:nowrap;color:var(--title)}
+#sub{position:absolute;top:222px;width:100%;text-align:center;font-weight:700;font-size:36px;color:var(--sub)}
+#head{position:absolute;top:300px;left:40px;right:40px;height:40px;font-weight:700;font-size:26px;color:var(--dim)}
+.row{position:absolute;left:40px;right:40px;display:flex;align-items:center;font-weight:700;font-size:30px;border-radius:var(--rx)}
+.row .rk{width:70px;text-align:center;font-weight:900;font-size:32px}
+.row img{width:46px;height:46px;object-fit:contain;margin:0 6px}
+.row .nm{flex:1;padding-right:14px;font-size:32px;white-space:nowrap;overflow:hidden;color:var(--ink)}
+.row .mv{width:70px;text-align:center;font-size:24px;font-weight:900}
+.row .c{width:62px;text-align:center;direction:ltr;color:var(--num)}.row .gd{width:82px}
+.row .pt{width:96px;margin-left:10px;border-radius:var(--rx);background:var(--pts);color:var(--ptsInk);font-weight:900;font-size:32px;display:flex;align-items:center;justify-content:center}
+.tag{position:absolute;top:1712px;font-weight:900;font-size:28px;padding:6px 22px;border-radius:24px}
+#card{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+#card img{width:300px;height:300px;object-fit:contain}
+#card .k{font-weight:900;font-size:44px;color:var(--top)}#card .n{font-weight:900;font-size:104px;color:var(--title2)}#card .p{font-weight:900;font-size:64px;color:var(--ink)}#card .g{font-weight:700;font-size:42px;color:var(--sub2)}
+#cta{position:absolute;bottom:250px;width:100%;text-align:center;font-weight:900;font-size:66px;color:var(--title2)}
+#foot{position:absolute;bottom:60px;width:100%;text-align:center;font:700 32px Arial,sans-serif;color:var(--dim)}
+</style></head><body><div id="bg"></div><div id="deco"></div>
+<div id="brand">FOOTBALL LEGENDS</div><div id="title"></div><div id="sub"></div>
+<div id="head"></div><div id="rows"></div><div id="tags"></div><div id="card"></div><div id="cta">من يحسم اللقب؟</div><div id="foot">football-legend.com</div>
+<script>
+const star = (x, y, r, c, o) => `<div style="position:absolute;left:${x - r}px;top:${y - r}px;width:${2 * r}px;height:${2 * r}px;border:3px solid ${c};opacity:${o}"></div><div style="position:absolute;left:${x - r}px;top:${y - r}px;width:${2 * r}px;height:${2 * r}px;border:3px solid ${c};opacity:${o};transform:rotate(45deg)"></div>`;
+const stripes = (list) => list.map(([c, x, o, w]) => `<div class="stripe" style="left:${x}px;width:${w || 70}px;background:${c};opacity:${o}"></div>`).join('');
+const bar = (y, css) => `<div style="position:absolute;left:0;right:0;top:${y}px;height:16px;background:${css}"></div>`;
+// The looks, close to each league's logo (the same as the table cards on the site).
+const THEMES = {
+  'eng.1': { bg: 'radial-gradient(1200px 900px at 80% 0%,#6a0a73 0%,#3d0042 45%,#1c0021 100%)', ink: '#fff', num: '#f3e3f6', dim: '#d6a6de', brand: 'linear-gradient(90deg,#04f5ff,#e90052)', title: '#fff', title2: '#fff', sub: '#00ff85', sub2: '#00ff85',
+    rows: ['#3e0745', '#360540'], rx: '30px', pts: '#fff', ptsInk: '#38003c', top: '#04f5ff', topRGB: '4,245,255', low: '#ff2882', lowRGB: '255,40,130', topInk: '#38003c',
+    deco: () => `<div id="st">${stripes([['#04f5ff', 760, .18], ['#00ff85', 880, .15], ['#e90052', 990, .22]])}</div>` + bar(0, 'linear-gradient(90deg,#04f5ff,#00ff85,#e90052)') + bar(1904, 'linear-gradient(90deg,#04f5ff,#00ff85,#e90052)') },
+  'esp.1': { bg: 'linear-gradient(#fbf7f3,#f1ebe5)', ink: '#1b1b1b', num: '#3a3530', dim: '#9a8f86', brand: 'linear-gradient(90deg,#fff,#ffd2cf)', title: '#fff', title2: '#1b1b1b', sub: '#fff', sub2: '#ff4b44',
+    rows: ['#ffffff', '#f6efe9'], rx: '20px', pts: '#ff4b44', ptsInk: '#fff', top: '#ff4b44', topRGB: '255,75,68', low: '#8f8780', lowRGB: '143,135,128', topInk: '#1b1b1b', border: '#eadfd6',
+    deco: () => `<div id="st" style="position:absolute;left:0;right:0;top:0;height:285px;background:#ff4b44;overflow:hidden"><div style="position:absolute;right:-90px;top:-120px;width:340px;height:340px;border-radius:50%;background:#fff;opacity:.1"></div><div style="position:absolute;right:-20px;top:-50px;width:200px;height:200px;border-radius:50%;border:18px solid #fff;opacity:.18"></div></div>` },
+  'ita.1': { bg: 'linear-gradient(#0a1f5c,#04102f)', ink: '#fff', num: '#e6edff', dim: '#93a6d8', brand: 'linear-gradient(90deg,#fff,#9fc4ff)', title: '#fff', title2: '#fff', sub: '#7fd8ff', sub2: '#7fd8ff',
+    rows: ['#122a6b', '#0e2460'], rx: '8px', pts: '#fff', ptsInk: '#0a1f5c', top: '#7fd8ff', topRGB: '31,111,209', low: '#ff6b7a', lowRGB: '255,107,122', topInk: '#fff',
+    deco: () => `<div id="st"></div>` + bar(0, '#7fd8ff').replace('16px', '10px') + bar(1910, '#7fd8ff').replace('16px', '10px') },
+  'ger.1': { bg: 'linear-gradient(#fff,#efefef)', ink: '#111', num: '#333', dim: '#8a8a8a', brand: 'linear-gradient(90deg,#111,#d20515)', title: '#fff', title2: '#111', sub: '#111', sub2: '#d20515',
+    rows: ['#ffffff', '#f3f3f3'], rx: '0px', pts: '#111', ptsInk: '#fff', top: '#d20515', topRGB: '210,5,21', low: '#8a8a8a', lowRGB: '138,138,138', topInk: '#111', border: '#e2e2e2',
+    deco: () => `<div id="st" style="position:absolute;left:30px;right:30px;top:118px;height:100px;background:#d20515;transform:skewX(-12deg)"></div>` + bar(1904, '#d20515') },
+  'fra.1': { bg: 'linear-gradient(#0c1a3e,#040a1e)', ink: '#fff', num: '#e8eeff', dim: '#8c9bc4', brand: 'linear-gradient(90deg,#dae025,#fff)', title: '#fff', title2: '#fff', sub: '#dae025', sub2: '#dae025',
+    rows: ['#12244f', '#0f1f46'], rx: '14px', pts: '#dae025', ptsInk: '#0c1a3e', top: '#dae025', topRGB: '218,224,37', low: '#ff4d6d', lowRGB: '255,77,109', topInk: '#0c1a3e',
+    deco: () => `<div style="position:absolute;left:-300px;top:900px;width:2200px;height:150px;background:#dae025;opacity:.07;transform:rotate(-48deg)"></div><div id="st" style="position:absolute;right:0;top:0;width:0;height:0;border-top:300px solid #dae025;border-left:300px solid transparent"></div><div style="position:absolute;right:0;top:0;width:0;height:0;border-top:170px solid #0c1a3e;border-left:170px solid transparent"></div>` },
+  'egy.1': { bg: 'linear-gradient(#120606,#030202)', ink: '#fbefe0', num: '#f1dcc0', dim: '#bfa06a', brand: 'linear-gradient(90deg,#d4af37,#f6e3a3)', title: '#f6e3a3', title2: '#f6e3a3', sub: '#d4af37', sub2: '#d4af37',
+    rows: ['#1f0b0b', '#190909'], rx: '6px', pts: '#d4af37', ptsInk: '#120606', top: '#d4af37', topRGB: '212,175,55', low: '#e0393e', lowRGB: '224,57,62', topInk: '#120606', border: '#3a2a12',
+    deco: () => `<div style="position:absolute;inset:14px;border:3px solid #d4af37"></div><div style="position:absolute;inset:26px;border:1px solid #d4af37;opacity:.6"></div><div id="st"><div style="position:absolute;left:340px;top:40px;width:0;height:0;border-left:200px solid transparent;border-right:200px solid transparent;border-bottom:240px solid rgba(212,175,55,.09)"></div><div style="position:absolute;left:660px;top:120px;width:0;height:0;border-left:140px solid transparent;border-right:140px solid transparent;border-bottom:160px solid rgba(212,175,55,.06)"></div><div style="position:absolute;left:140px;top:120px;width:0;height:0;border-left:140px solid transparent;border-right:140px solid transparent;border-bottom:160px solid rgba(212,175,55,.06)"></div></div><div style="position:absolute;left:360px;width:360px;top:282px;height:3px;background:#e0393e"></div>` },
+  'ksa.1': { bg: 'linear-gradient(#005a3c,#00261a)', ink: '#fff', num: '#e6fff3', dim: '#9fd8bd', brand: 'linear-gradient(90deg,#fff,#7cf2b8)', title: '#fff', title2: '#fff', sub: '#7cf2b8', sub2: '#7cf2b8',
+    rows: ['#0b5f43', '#095539'], rx: '22px', pts: '#fff', ptsInk: '#005a3c', top: '#7cf2b8', topRGB: '31,158,110', low: '#ff7b7b', lowRGB: '255,123,123', topInk: '#fff',
+    deco: () => `<div id="st">${[...Array(9)].map((_, i) => star(60 + i * 120, 40, 22, '#7cf2b8', .25)).join('')}</div>${[...Array(9)].map((_, i) => star(120 + i * 120, 1880, 18, '#7cf2b8', .2)).join('')}` },
+};
+const D = window.DATA, T = THEMES[D.slug] || THEMES['eng.1'];
+for (const [k, v] of Object.entries(T)) if (typeof v === 'string') document.documentElement.style.setProperty('--' + k, v);
+document.getElementById('deco').innerHTML = T.deco();
+document.getElementById('title').textContent = 'ترتيب ' + D.league;
+document.getElementById('sub').textContent = D.sub || '';
+const N = D.rows.length, RH = Math.min(66, Math.floor(1330 / N)), Y0 = 350, TOPN = D.top || 4, LOWN = D.bottom ?? 3;
+const cl = (x) => Math.max(0, Math.min(1, x)), ease = (x) => 1 - Math.pow(1 - cl(x), 3), eio = (x) => { x = cl(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+document.getElementById('head').innerHTML = `<div style="display:flex;align-items:center;height:40px"><span style="width:70px"></span><span style="width:58px"></span><span style="flex:1;padding-right:14px">الفريق</span><span style="width:70px"></span>${['لعب', 'ف', 'ت', 'خ'].map((x) => `<span style="width:62px;text-align:center">${x}</span>`).join('')}<span style="width:82px;text-align:center">+/-</span><span style="width:106px;text-align:center">نقاط</span></div>`;
+const rows = D.rows.map((r, i) => {
+  const e = document.createElement('div'); e.className = 'row'; e.style.height = (RH - 6) + 'px'; if (T.border) e.style.border = '1.5px solid ' + T.border;
+  const mv = r.p - r.r;
+  e.innerHTML = `<span class="rk"></span>${r.logo ? `<img decoding="sync" src="${r.logo}">` : '<span style="width:58px"></span>'}<span class="nm">${r.n}</span><span class="mv" style="color:${mv > 0 ? '#1fae5b' : '#e8445a'}">${mv ? (mv > 0 ? '▲' : '▼') + Math.abs(mv) : ''}</span><span class="c">${r.pl}</span><span class="c">${r.w}</span><span class="c">${r.d}</span><span class="c">${r.l}</span><span class="c gd">${r.gd > 0 ? '+' : ''}${r.gd}</span><span class="pt" style="height:${RH - 18}px"></span>`;
+  e.querySelector('.nm').style.fontSize = Math.min(32, RH * 0.5) + 'px';
+  document.getElementById('rows').appendChild(e); return { e, r, i, mv };
+});
+const tg = document.getElementById('tags');
+const tag = (txt, side, bg, ink) => { const d = document.createElement('div'); d.className = 'tag'; d.textContent = txt; d.style[side] = '110px'; d.style.background = bg; d.style.color = ink; tg.appendChild(d); return d; };
+const tags = [tag(D.topLabel || 'المراكز المؤهلة', 'right', T.top, T.ptsInk === '#fff' ? '#fff' : T.ptsInk), tag('منطقة الهبوط', 'left', T.low, '#fff')];
+const A = D.rows[0], B = D.rows[1], gap = A.pts - (B ? B.pts : 0);
+const pts = (n) => n === 1 ? 'نقطة واحدة' : n === 2 ? 'نقطتين' : n <= 10 ? `${n} نقاط` : `${n} نقطة`;
+document.getElementById('card').innerHTML = `<div class="k">المتصدر</div>${A.logo ? `<img decoding="sync" src="${A.logo}">` : ''}<div class="n">${A.n}</div><div class="p">${A.pts} نقطة</div><div class="g">${B ? (gap > 0 ? `بفارق ${pts(gap)} عن ${B.n}` : `يتساوى في النقاط مع ${B.n}`) : ''}</div>`;
+const moved = rows.some((x) => x.mv || x.r.pp !== x.r.pts);
+window.TOTAL = 14.5;
+window.draw = (t) => {
+  const $ = (id) => document.getElementById(id);
+  $('brand').style.opacity = ease(t / .8); $('title').style.opacity = ease((t - .2) / .8); $('title').style.transform = `translateY(${(1 - ease((t - .2) / .8)) * -60}px)`;
+  $('sub').style.opacity = ease((t - .6) / .6); $('head').style.opacity = ease((t - 1) / .5);
+  const st = document.getElementById('st'); if (st) st.style.transform = `translateY(${(1 - ease(t / 1.2)) * -300}px)`, st.style.opacity = ease(t / 1.2);
+  const sw = moved ? eio((t - 4) / 1.4) : 1, lit = cl((t - 5.6) / .4);
+  rows.forEach(({ e, r, i, mv }) => {
+    const a = ease((t - 1 - (r.p - 1) * (2.2 / N)) / .5), yp = Y0 + (r.p - 1) * RH, yn = Y0 + i * RH, y = yp + (yn - yp) * sw;
+    const isTop = i < TOPN, isLow = i >= N - LOWN;
+    e.style.top = y + 'px'; e.style.opacity = a; e.style.transform = `translateX(${(1 - a) * -200}px)`; e.style.zIndex = mv ? 2 : 1;
+    const base = T.rows[i % 2];
+    e.style.background = isTop && t > 5.6 ? `linear-gradient(270deg,rgba(${T.topRGB},${.7 * lit}),${base} 72%)` : isLow && t > 5.6 ? `linear-gradient(270deg,rgba(${T.lowRGB},${.5 * lit}),${base} 72%)` : base;
+    const rk = e.querySelector('.rk'); rk.textContent = sw < .5 ? r.p : r.r; rk.style.color = isTop && t > 5.6 ? T.topInk : isLow && t > 5.6 ? T.low : T.ink;
+    e.querySelector('.pt').textContent = Math.round(r.pp + (r.pts - r.pp) * sw);
+    const m = e.querySelector('.mv'); m.style.opacity = cl((t - 5.2) / .3); m.style.transform = `scale(${1 + .6 * (1 - cl((t - 5.2) / .4))})`;
+  });
+  tags.forEach((x) => (x.style.opacity = cl((t - 6) / .4)));
+  const card = cl((t - 9) / .6), out = cl((t - 12.2) / .4);
+  ['rows', 'head', 'tags'].forEach((id) => { $(id).style.opacity = 1 - card; $(id).style.filter = `blur(${card * 14}px)`; });
+  $('card').style.opacity = card * (1 - out); $('card').style.transform = `scale(${.8 + .2 * ease((t - 9) / .6)})`;
+  $('cta').style.opacity = ease((t - 12.4) / .5); $('cta').style.transform = `translateY(${(1 - ease((t - 12.4) / .5)) * 40}px)`;
+};
+draw(0);
+</script></body></html>

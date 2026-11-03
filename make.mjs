@@ -155,7 +155,51 @@ async function narration(job, dir, secs) {
   await run(FF, ['-y', ...inputs, '-filter_complex', `${parts.join(';')};${Array.from({ length: n }, (_, k) => `[c${k}]`).join('')}amix=inputs=${n}:duration=longest:normalize=0[o]`, '-map', '[o]', out]);
   return out;
 }
+// «ترتيب متحرك» (owner, 2026-11-03): the league table drawn in a page (anim/table.html) and recorded frame by frame:
+// the previous order, each side sliding to its new place, the zones, the leader. Logos are fetched here and put in as
+// data, so the page loads nothing. Any failure falls back to the still cards (job.frames).
+async function makeAnim(job, dir) {
+  const { chromium } = await import('playwright');
+  const d = JSON.parse(JSON.stringify(job.anim));
+  for (const r of d.rows) {
+    if (!r.logo) continue;
+    try {
+      const res = await fetch(r.logo, { signal: AbortSignal.timeout(20000) });
+      const buf = Buffer.from(await res.arrayBuffer());
+      r.logo = res.ok && buf.length > 200 ? `data:${res.headers.get('content-type') || 'image/png'};base64,${buf.toString('base64')}` : '';
+    } catch { r.logo = ''; }
+  }
+  const page0 = await readFile(new URL('./anim/table.html', import.meta.url), 'utf8');
+  const html = new URL(`./anim/_${job.id.replace(/[^\w-]/g, '_')}.html`, import.meta.url);
+  await writeFile(html, page0.replace('<script>\nconst star', `<script>window.DATA=${JSON.stringify(d).replace(/</g, '\\u003c')};</script><script>\nconst star`));
+  const frames = join(dir, 'af');
+  await run('mkdir', ['-p', frames]);
+  const b = await chromium.launch();
+  try {
+    const p = await b.newPage({ viewport: { width: W, height: H } });
+    const errs = []; p.on('pageerror', (e) => errs.push(e.message));
+    await p.goto(html.href);
+    await p.evaluate(() => document.fonts.ready);
+    await p.evaluate(() => Promise.all([...document.images].map((i) => (i.complete ? 0 : new Promise((r) => { i.onload = i.onerror = r; })))));
+    await p.waitForTimeout(500);
+    if (errs.length) throw new Error('page: ' + errs[0]);
+    const total = await p.evaluate(() => window.TOTAL), fps = 30;
+    for (let i = 0; i < Math.round(total * fps); i++) {
+      await p.evaluate((t) => window.draw(t), i / fps);
+      await p.screenshot({ path: join(frames, `${String(i).padStart(5, '0')}.jpg`), type: 'jpeg', quality: 90 });
+    }
+    const out = join(dir, 'reel.mp4');
+    await run(FF, ['-y', '-framerate', String(fps), '-i', join(frames, '%05d.jpg'), '-stream_loop', '-1', '-i', await music(),
+      '-filter_complex', `[1:a]volume=0.5,afade=t=in:d=0.5,afade=t=out:st=${total - 1.5}:d=1.5[a]`, '-map', '0:v', '-map', '[a]',
+      '-c:v', 'libx264', '-crf', '22', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '128k', '-t', String(total), '-movflags', '+faststart', out]);
+    if ((await stat(out)).size < 100000) throw new Error('video too small');
+    return out;
+  } finally { await b.close(); await rm(html, { force: true }); }
+}
 async function makeReel(job, dir) {
+  if (job.anim?.kind === 'table') {
+    try { return await makeAnim(job, dir); } catch (e) { console.log(`${job.id}: moving table failed (${e.message}), the still cards instead`); }
+  }
   // A video made elsewhere (the app ad, owner 2026-10-24): taken as it is, only checked to be an MP4.
   if (job.video) {
     const res = await fetch(job.video, { signal: AbortSignal.timeout(120000) });

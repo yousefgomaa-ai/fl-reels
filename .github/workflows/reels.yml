@@ -38,6 +38,9 @@ jobs:
           n=$(curl -sS --max-time 30 "https://api.football-legend.com/v2/reels/jobs?key=$key" | jq '.jobs | length' || echo 0)
           echo "queued reels: $n"
           echo "count=$n" >> "$GITHUB_OUTPUT"
+          # A moving table (owner, 2026-11-03) is drawn in a browser: Playwright is installed only when one is queued.
+          a=$(curl -sS --max-time 30 "https://api.football-legend.com/v2/reels/jobs?key=$key" | jq '[.jobs[] | select(.anim)] | length' || echo 0)
+          echo "anim=$a" >> "$GITHUB_OUTPUT"
 
       - uses: actions/checkout@v4
         if: steps.jobs.outputs.count != '0'
@@ -56,6 +59,13 @@ jobs:
             echo "ffmpeg install try $i failed"; sleep 10
           done
           exit 1
+
+      - name: Install Playwright (moving tables only)
+        if: steps.jobs.outputs.count != '0' && steps.jobs.outputs.anim != '0'
+        continue-on-error: true
+        run: |
+          npm i --no-save --no-audit --no-fund playwright@1.48.2
+          timeout 300 npx playwright install --with-deps chromium
 
       - name: Make and upload the reels
         if: steps.jobs.outputs.count != '0'
