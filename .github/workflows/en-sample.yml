@@ -1,5 +1,5 @@
-# One-off (FB Legends, owner 2026-11-03: «صوت حماسي رايق يليق بالأوروبيين»): English voice samples from the site's
-# voice endpoint, committed to this branch for the owner to choose. Lives on claude/en-sample only; never merged.
+# One-off: renders a FB Legends sample reel with its spoken line (sample/jobs.json) and commits it to this branch for
+# the owner. Lives on claude/en-sample only; never merged.
 name: EN sample
 on:
   push:
@@ -7,26 +7,20 @@ on:
 permissions:
   contents: write
 jobs:
-  voices:
+  sample:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: |
+          for i in 1 2 3; do timeout 240 sudo apt-get update -qq && timeout 240 sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null && break; sleep 10; done
+          npm i --no-save --no-audit --no-fund playwright@1.48.2
+          timeout 300 npx playwright install --with-deps chromium
       - env:
-          REELS_KEY_SECRET: ${{ secrets.REELS_KEY }}
-        run: |
-          key="$REELS_KEY_SECRET"; echo "::add-mask::$key"
-          mkdir -p sample/voice
-          TEXT="Full time in the Champions League! Paris Saint-Germain run riot in Villarreal, four goals and counting. Who was your man of the match? Tell us in the comments."
-          STYLE="Speak as an energetic but composed British football commentator: warm, confident and upbeat, never shouting, a clear British English accent, natural pace."
-          for v in Fenrir Puck Orus Algieba Charon; do
-            for i in 1 2 3; do
-              code=$(curl -sS -G --max-time 120 -o sample/voice/$v.wav -w "%{http_code}" "https://api.football-legend.com/v2/reels/voice" \
-                --data-urlencode "key=$key" --data-urlencode "text=$TEXT" --data-urlencode "voice=$v" --data-urlencode "style=$STYLE" --data-urlencode "lang=en-GB")
-              echo "$v try $i: $code $(stat -c %s sample/voice/$v.wav)"; [ "$code" = 200 ] && break; rm -f sample/voice/$v.wav; sleep 25
-            done
-            sleep 15
-          done
+          REELS_KEY: ${{ secrets.REELS_KEY }}
+        run: mkdir -p sample/out && node sample/render.mjs sample/jobs.json sample/out
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          git add -A sample/voice && git commit -m "voice samples [skip ci]" && git push
+          git add -A sample/out && git commit -m "sample output [skip ci]" && git push
