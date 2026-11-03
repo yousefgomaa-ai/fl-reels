@@ -44,12 +44,9 @@ window.draw = (t) => {
   $('cta').textContent = t < R ? 'COMMENT YOUR GUESS 👇' : (D.ok || 'DID YOU GET IT RIGHT?');
   $('cta').style.opacity = t < R ? .6 + .4 * Math.abs(Math.sin(t * 2)) : r;
 };
-<<<<<<< HEAD
-=======
 // The cover (owner, 2026-11-03: «كل فيديو حطله غلاف رايق»): the first frame, which Facebook shows in the grid, is the reel at its
 // fullest moment; a quiz's cover never shows its answer.
 window.POSTER = Math.max(.5, R - 3.3);
->>>>>>> origin/main
 progBar();
 draw(0);
 </script></body></html>
