@@ -1,0 +1,35 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends «HIGHER OR LOWER?» (owner, 2026-11-03): one number shown, the other hidden; a 3-2-1, then the answer. */
+#hk{top:140px;width:100%;font:400 140px/0.9 B;letter-spacing:3px;transform:skewX(-8deg);text-shadow:0 8px 40px rgba(0,0,0,.6)}
+#q{top:420px;width:100%;font:700 38px O;letter-spacing:2px;color:#46d7ff;padding:0 60px}
+.cd{position:absolute;left:50px;right:50px;height:440px;border-radius:34px;background:rgba(4,10,46,.9);border:3px solid rgba(70,215,255,.35);display:flex;align-items:center;padding:0 40px;gap:30px}
+.cd img{width:200px;height:200px;object-fit:contain}.cd .tx{flex:1}.cd .nm{font:400 96px/0.95 B;letter-spacing:2px}.cd .tm{font:700 30px O;color:rgba(255,255,255,.75);margin-top:8px}
+.cd .v{font:400 220px/1 B;color:#ffd21f;width:250px;text-align:center}
+#a{top:520px}#b{top:1000px;border-color:#ffd21f}
+#bt{top:1470px;left:50px;right:50px;display:flex;gap:24px}.bt{flex:1;border-radius:26px;height:150px;display:flex;align-items:center;justify-content:center;font:400 84px B;letter-spacing:3px}
+#hi{background:#16a34a}#lo{background:#dc2626}
+#cdn{top:1640px;width:100%;font:400 120px/1 B}
+#cta{bottom:50px}
+</style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div>
+<div class="abs c" id="hk">HIGHER OR <span class="y">LOWER?</span></div><div class="abs c" id="q"></div>
+<div class="cd" id="a"></div><div class="cd" id="b"></div><div class="abs" id="bt"><div class="bt" id="hi">⬆ HIGHER</div><div class="bt" id="lo">⬇ LOWER</div></div><div class="abs c" id="cdn"></div><div class="cta" id="cta"></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA, A = D.a, B = D.b, up = B.v > A.v, same = B.v === A.v;
+$('q').textContent = D.q || '';
+const card = (x, hide) => `${x.logo ? `<img src="${x.logo}">` : ''}<div class="tx"><div class="nm">${x.name}</div><div class="tm">${x.sub || ''}</div></div><div class="v">${hide ? '?' : x.v}</div>`;
+$('a').innerHTML = card(A); $('b').innerHTML = card(B, true);
+const R = 5.2; window.TOTAL = R + 4;
+window.draw = (t) => {
+  $('b').style.boxShadow = `0 0 ${30 + 25 * Math.abs(Math.sin(t * 3))}px rgba(255,210,31,.45)`;
+  const left = Math.ceil(R - t); $('cdn').textContent = t > R - 3 && t < R ? String(left) : ''; $('cdn').style.transform = `scale(${1.4 - .4 * ((R - t) % 1)})`;
+  const r = ease((t - R) / .5), v = document.querySelector('#b .v');
+  v.textContent = t < R ? '?' : cnt(B.v, r);
+  $('hi').style.opacity = t < R ? 1 : (up ? 1 : .25); $('lo').style.opacity = t < R ? 1 : (!up && !same ? 1 : .25);
+  const win = up ? $('hi') : $('lo'); win.style.transform = `scale(${t > R ? 1 + .08 * back((t - R) / .5) : 1 + .03 * Math.sin(t * 5)})`;
+  (up ? $('lo') : $('hi')).style.transform = `scale(${t > R ? 1 : 1 + .03 * Math.sin(t * 5 + 1.5)})`;
+  $('cta').textContent = t < R ? 'COMMENT YOUR ANSWER 👇' : (D.ok || 'DID YOU GET IT? 👇');
+  $('cta').style.opacity = .6 + .4 * Math.abs(Math.sin(t * 2));
+};
+progBar();
+draw(0);
+</script></body></html>
