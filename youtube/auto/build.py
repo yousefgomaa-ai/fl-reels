@@ -140,6 +140,13 @@ def round_video(job, L):
         pairs = join_and([f'{m["home"]} و{m["away"]}' if len(zero) > 1 else f'{m["home"]} مع {m["away"]}' for m in zero])
         text = f'وتعادل {pairs} دون أهداف.' if len(zero) == 1 else f'وانتهت {count(len(zero), MATCH, nom=True)} دون أهداف: {pairs}.'
         S.add(text, [len(zero)] if len(zero) > 1 else [], mini, 'النتائج' if first else None)
+    # Postponed matches are named (owner, 2026-11-03: «لو ماتشات متأجلة نذكرها في الفيديو»).
+    off = [m for m in job.get('postponed') or [] if ar(m['home'] + m['away'])]
+    if off:
+        mini = '<div class="kick" data-in>مباريات مؤجلة</div><div class="mini">' + ''.join(f'<div class="mr" data-in><img src="{L(m["homeLogo"])}"><span class="fit">{esc(m["home"])}</span><b>مؤجلة</b><span class="fit">{esc(m["away"])}</span><img src="{L(m["awayLogo"])}"></div>' for m in off[:5]) + '</div>'
+        pairs = '، و'.join(f'مباراة {m["home"]} و{m["away"]}' for m in off)
+        text = f'وتأجلت {pairs}.' if len(off) == 1 else f'وتأجلت {count(len(off), MATCH, nom=True)}: {pairs}.'
+        S.add(text, [len(off)] if len(off) > 1 else [], mini)
     # The round's scorer: two goals or more.
     tally = {}
     for m in ms:
