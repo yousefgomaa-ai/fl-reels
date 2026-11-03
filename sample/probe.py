@@ -1,8 +1,9 @@
 # One-off (2026-11-03): why only three leagues' round summaries were made (/v2/ytv/status, read-only).
 import json, os, time, urllib.parse, urllib.request
-time.sleep(150)  # the API is deployed by Cloudflare a minute or two after the merge
 u = 'https://api.football-legend.com/v2/ytv/status?key=' + urllib.parse.quote(os.environ['REELS_KEY'], safe='')
-d = json.load(urllib.request.urlopen(urllib.request.Request(u, headers={'User-Agent': 'fl-probe'}), timeout=120))
+for t in range(12):
+    try: d = json.load(urllib.request.urlopen(urllib.request.Request(u, headers={'User-Agent': 'fl-probe'}), timeout=120)); break
+    except Exception as e: print('try', t, e); time.sleep(30)
 print('NOW', d['now'], 'SCOPE', d['scope'])
 for j in d['jobs']: print('JOB', j['id'], j['status'], j.get('note'))
 for slug, x in d['leagues'].items():
