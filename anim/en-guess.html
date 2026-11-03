@@ -44,5 +44,6 @@ window.draw = (t) => {
   $('cta').textContent = t < R ? 'COMMENT YOUR GUESS 👇' : (D.ok || 'DID YOU GET IT RIGHT?');
   $('cta').style.opacity = t < R ? .6 + .4 * Math.abs(Math.sin(t * 2)) : r;
 };
+progBar();
 draw(0);
 </script></body></html>

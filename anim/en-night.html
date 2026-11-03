@@ -15,7 +15,7 @@
 .m .tg{position:absolute;top:6px;left:0;right:0;text-align:center;font:700 18px O;letter-spacing:2px;color:#46d7ff}
 </style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div>
 <div class="abs" id="cp"></div><div class="abs" id="hl"></div><div class="abs" id="live">● LIVE</div><div id="list"></div><div id="tag">BIGGEST WIN</div><div class="cta" id="cta"></div>
-<script src="lib.js"></script><script>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
 const D = window.DATA, M = (D.rows || []).slice(0, 10), n = M.length;
 // The same page for half-time (owner, 2026-11-03: «ريلز مجمع بنتائج الشوط الأول»): its own headline, a LIVE mark, the biggest lead.
 $('hl').innerHTML = `${D.h1 || "TONIGHT'S"}<br><span class="y">${D.h2 || 'RESULTS'}</span>`; if (D.live) $('live').style.display = 'block'; $('tag').textContent = D.bigLabel || 'BIGGEST WIN';
@@ -37,5 +37,6 @@ window.draw = (t) => {
   if (D.live) $('live').style.opacity = .55 + .45 * Math.abs(Math.sin(t * 3));
   const c = TB + 1.2, k2 = ease((t - c) / .5); $('cta').style.opacity = k2; $('cta').style.transform = `scale(${t > c ? 1.25 - .25 * back((t - c) / .6) : 1})`;
 };
+progBar();
 draw(0);
 </script></body></html>
