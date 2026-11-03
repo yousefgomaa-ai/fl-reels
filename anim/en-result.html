@@ -51,6 +51,9 @@ window.draw = (t) => {
   rows.forEach((r, i) => { const a = ease((t - T1 - i * PER) / .35); r.style.opacity = a; r.style.transform = `translateX(${(1 - a) * -80}px)`; const m = r.querySelector('.m'); m.style.textShadow = `0 0 ${30 * Math.max(0, 1 - Math.abs(t - T1 - i * PER - .2) / .4)}px #ffd21f`; });
   const k = ease((t - TE) / .5); $('cta').style.opacity = .3 + .7 * k; $('cta').style.transform = `scale(${1 + .2 * (1 - back((t - TE) / .6)) * (t > TE ? 1 : 0)})`;
 };
+// The cover (owner, 2026-11-03: «كل فيديو حطله غلاف رايق»): the first frame, which Facebook shows in the grid, is the reel at its
+// fullest moment; a quiz's cover never shows its answer.
+window.POSTER = Math.min(window.TOTAL - .5, TE + .6);
 progBar();
 draw(0);
 </script></body></html>
