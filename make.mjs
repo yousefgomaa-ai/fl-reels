@@ -155,9 +155,32 @@ async function narration(job, dir, secs) {
   await run(FF, ['-y', ...inputs, '-filter_complex', `${parts.join(';')};${Array.from({ length: n }, (_, k) => `[c${k}]`).join('')}amix=inputs=${n}:duration=longest:normalize=0[o]`, '-map', '[o]', out]);
   return out;
 }
+// A narrated story (job.voiceLines, one line a beat: «TONIGHT'S RESULTS» told match by match, owner 2026-11-03): each
+// line read, trimmed and timed; each beat lasts its line plus a breath (at least its own minimum, d.minBeats), the page
+// gets the beats (d.beats: [start, length]) and the lines are laid at their starts. Any line that fails: no voice, the
+// beats keep their minimums.
+async function voiceBeats(job, d, dir) {
+  const lines = Array.isArray(job.voiceLines) ? job.voiceLines : null, mins = d.minBeats || [];
+  if (!lines || !lines.length) return null;
+  const files = [];
+  for (let i = 0; i < lines.length; i++) {
+    const one = await animVoice({ ...job, voiceText: lines[i] }, dir, 60, `line${i}`).catch((e) => { console.log(`${job.id}: line ${i + 1} (${e.message})`); return null; });
+    if (!one) { files.length = 0; break; }
+    files.push(one);
+    await new Promise((r) => setTimeout(r, 2500)); // the voice answers 502 when called too fast
+  }
+  let t = 0;
+  const beats = mins.map((m, i) => { const len = Math.max(m, files[i] ? files[i].d + 0.55 : 0); const b = [t, len]; t += len; return b; });
+  d.beats = beats;
+  if (!files.length) return null;
+  const out = join(dir, 'story.wav'), parts = [], inputs = [];
+  files.forEach((f, i) => { inputs.push('-i', f.path); parts.push(`[${i}:a]aresample=44100,adelay=${Math.round((beats[i][0] + 0.25) * 1000)}:all=1[c${i}]`); });
+  await run(FF, ['-y', ...inputs, '-filter_complex', `${parts.join(';')};${files.map((_, i) => `[c${i}]`).join('')}amix=inputs=${files.length}:duration=longest:normalize=0[o]`, '-map', '[o]', out]);
+  return out;
+}
 // One spoken line for a moving reel (job.voiceText, read by the site's voice: Gemini, its voice, style and accent),
 // three tries; it must end before the reel does.
-async function animVoice(job, dir, total) {
+async function animVoice(job, dir, total, name = '') {
   const text = String(job.voiceText || '').trim();
   if (!text) return null;
   const q = new URLSearchParams({ key: KEY, text, voice: job.voiceName || 'Fenrir', ...(job.voiceStyle ? { style: job.voiceStyle } : {}), ...(job.voiceLang ? { lang: job.voiceLang } : {}) });
@@ -165,13 +188,13 @@ async function animVoice(job, dir, total) {
     const res = await fetch(`${API}/v2/reels/voice?${q}`, { signal: AbortSignal.timeout(120000) }).catch(() => null);
     const b = res?.ok ? Buffer.from(await res.arrayBuffer()) : null;
     if (b && b.length > 2000 && b.toString('latin1', 0, 4) === 'RIFF') {
-      const raw = join(dir, 'said-raw.wav'), f = join(dir, 'said.wav');
+      const raw = join(dir, `${name || 'said'}-raw.wav`), f = join(dir, `${name || 'said'}.wav`);
       await writeFile(raw, b);
       // Silence trimmed at both ends; a line far longer than its words (the style read out with it, 2026-11-03) is not used.
       await run(FF, ['-y', '-i', raw, '-af', 'silenceremove=start_periods=1:start_threshold=-45dB,areverse,silenceremove=start_periods=1:start_threshold=-45dB,areverse', f]);
       const d = await probeSeconds(f), words = text.split(/\s+/).length;
       if (d > words * 0.6 + 1.5) throw new Error(`line of ${d.toFixed(1)} s for ${words} words: more than the line was read`);
-      if (d > 0.5 && d < total - 0.6) return f;
+      if (d > 0.5 && d < total - 0.6) return name ? { path: f, d } : f;
       throw new Error(`line of ${d.toFixed(1)} s for a ${total} s reel`);
     }
     await new Promise((r) => setTimeout(r, 20000)); // the voice answers 502 when called too fast
@@ -200,6 +223,7 @@ async function makeAnim(job, dir) {
     }
     o[k] = cache.get(o[k]);
   }
+  const story = await voiceBeats(job, d, dir).catch((e) => { console.log(`${job.id}: story voice skipped (${e.message})`); return null; });
   const page0 = await readFile(new URL(`./anim/${d.kind}.html`, import.meta.url), 'utf8');
   const html = new URL(`./anim/_${job.id.replace(/[^\w-]/g, '_')}.html`, import.meta.url);
   await writeFile(html, page0.replace('</head>', `<script>window.DATA=${JSON.stringify(d).replace(/</g, '\\u003c')};</script></head>`));
@@ -225,9 +249,9 @@ async function makeAnim(job, dir) {
     const out = join(dir, 'reel.mp4');
     // A spoken line over the start (FB Legends, owner 2026-11-03: «صوت حماسي رايق يليق بالأوروبيين», voice Fenrir):
     // the music goes under it; a line that cannot be read leaves the reel with music only.
-    const said = await animVoice(job, dir, total).catch((e) => { console.log(`${job.id}: voice skipped (${e.message})`); return null; });
+    const said = story || await animVoice(job, dir, total).catch((e) => { console.log(`${job.id}: voice skipped (${e.message})`); return null; });
     const mix = said
-      ? `[1:a]volume=0.2,afade=t=in:d=0.5,afade=t=out:st=${total - 1.5}:d=1.5[m];[2:a]aresample=44100,adelay=300:all=1,apad[v];[m][v]amix=inputs=2:duration=first:normalize=0[a]`
+      ? `[1:a]volume=0.2,afade=t=in:d=0.5,afade=t=out:st=${total - 1.5}:d=1.5[m];[2:a]aresample=44100,adelay=${story ? 0 : 300}:all=1,apad[v];[m][v]amix=inputs=2:duration=first:normalize=0[a]`
       : `[1:a]volume=0.5,afade=t=in:d=0.5,afade=t=out:st=${total - 1.5}:d=1.5[a]`;
     await run(FF, ['-y', '-framerate', String(fps), '-i', join(frames, '%05d.jpg'), '-stream_loop', '-1', '-i', await music(), ...(said ? ['-i', said] : []),
       '-filter_complex', mix, '-map', '0:v', '-map', '[a]',
@@ -237,7 +261,7 @@ async function makeAnim(job, dir) {
   } finally { await b.close(); await rm(html, { force: true }); }
 }
 async function makeReel(job, dir) {
-  if (/^(table|schedule|prematch|lineup|fulltime|star|en-result|en-guess|en-compare|en-table|en-night|en-predict|en-streak|en-boot|en-weekend|en-hilo)$/.test(job.anim?.kind || '')) {
+  if (/^(table|schedule|prematch|lineup|fulltime|star|en-result|en-guess|en-compare|en-table|en-night|en-predict|en-streak|en-boot|en-weekend|en-hilo|en-recap)$/.test(job.anim?.kind || '')) {
     try { return await makeAnim(job, dir); } catch (e) { console.log(`${job.id}: moving ${job.anim.kind} failed (${e.message}), the still cards instead`); }
   }
   // A video made elsewhere (the app ad, owner 2026-10-24): taken as it is, only checked to be an MP4.

@@ -1,0 +1,66 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends «TONIGHT'S RESULTS» told as a story (owner, 2026-11-03: «ريل واحد مجمع ... السسبنس ... وشرح رايق يجذب
+   الناس»): an opening, then one result at a time (the crests, «? - ?», the score revealed, a line on it) from the
+   smallest to the biggest win, a calm voice on each, then every result at once and the question. Beats come from the
+   voice (DATA.beats) or their minimums. */
+#lg{top:62px;right:44px;font:700 32px O;letter-spacing:3px;text-transform:uppercase;text-align:right;z-index:20}
+.sc{position:absolute;inset:0;opacity:0}
+#in .t{position:absolute;top:520px;width:100%;text-align:center;font:400 170px/0.88 B;letter-spacing:3px;transform:skewX(-8deg);text-shadow:0 8px 40px rgba(0,0,0,.6)}
+#in .n{position:absolute;top:1000px;width:100%;text-align:center;font:700 46px O;letter-spacing:6px;color:#46d7ff}
+#in .cr{position:absolute;top:1120px;left:60px;right:60px;display:flex;flex-wrap:wrap;justify-content:center;gap:18px}#in .cr img{width:96px;height:96px;object-fit:contain}
+#mt .k{position:absolute;top:200px;width:100%;text-align:center;font:700 34px O;letter-spacing:6px;color:#46d7ff}
+#mt .big{position:absolute;top:262px;left:50%;transform:translateX(-50%);background:#ffd21f;color:#040a2e;font:400 54px B;letter-spacing:3px;padding:6px 28px;border-radius:14px;white-space:nowrap}
+.sd{position:absolute;top:420px;width:470px;text-align:center}.sd img{width:300px;height:300px;object-fit:contain;filter:drop-shadow(0 12px 30px rgba(0,0,0,.6))}.sd b{display:block;font:400 76px/1 B;letter-spacing:2px;margin-top:18px}
+#h{left:20px}#a{right:20px}
+#box{position:absolute;top:960px;left:50%;width:720px;margin-left:-360px;height:330px;border-radius:36px;background:rgba(4,10,46,.92);border:6px solid #46d7ff;display:flex;align-items:center;justify-content:center;font:400 290px/1 B;letter-spacing:14px}
+#box .w{color:#ffd21f}
+#ln{position:absolute;top:1360px;left:60px;right:60px;text-align:center;font:400 92px/0.95 B;letter-spacing:2px;transform:skewX(-6deg)}
+#ou .t{position:absolute;top:150px;width:100%;text-align:center;font:400 120px/0.9 B;letter-spacing:2px}
+#ou .l{position:absolute;top:420px;left:50px;right:50px}
+.r{display:flex;align-items:center;height:110px;margin-bottom:12px;border-radius:22px;background:rgba(4,10,46,.88);border:2px solid rgba(70,215,255,.3);padding:0 18px;gap:12px}
+.r img{width:62px;height:62px;object-fit:contain}.r span{flex:1;font:700 34px O;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.r .rt{text-align:right}.r b{width:170px;text-align:center;font:400 68px B;color:#ffd21f}
+#cta{bottom:56px;opacity:0}
+</style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div><div class="abs" id="lg"></div>
+<div class="sc" id="in"><div class="t"></div><div class="n"></div><div class="cr"></div></div>
+<div class="sc" id="mt"><div class="k"></div><div class="big">BIGGEST WIN OF THE NIGHT</div><div class="sd" id="h"></div><div class="sd" id="a"></div><div id="box"></div><div id="ln"></div></div>
+<div class="sc" id="ou"><div class="t"></div><div class="l"></div></div><div class="cta" id="cta"></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA, M = D.rows || [], n = M.length, q = (s, sel) => document.querySelector(`#${s} ${sel}`);
+$('lg').textContent = D.league || '';
+q('in', '.t').innerHTML = `${D.h1 || "TONIGHT IN THE"}<br><span class="y">${D.h2 || 'CHAMPIONS LEAGUE'}</span>`;
+q('in', '.n').textContent = D.count || `${n} RESULTS • ONE NIGHT`;
+q('in', '.cr').innerHTML = M.flatMap((m) => [m.homeLogo, m.awayLogo]).filter(Boolean).slice(0, 16).map((u) => `<img src="${u}">`).join('');
+q('ou', '.t').innerHTML = `ALL <span class="y">${D.h3 || 'THE RESULTS'}</span>`;
+q('ou', '.l').innerHTML = (D.all || M).slice(0, 10).map((m) => `<div class="r"><img src="${m.homeLogo || ''}"><span>${m.home}</span><b>${m.hs}-${m.as}</b><span class="rt">${m.away}</span><img src="${m.awayLogo || ''}"></div>`).join('');
+$('cta').textContent = D.cta || 'WHICH RESULT SURPRISED YOU? 👇';
+const mins = D.minBeats || [2.6, ...M.map(() => 3), 3.6], B = D.beats || (() => { let t = 0; return mins.map((m) => { const b = [t, m]; t += m; return b; }); })();
+window.TOTAL = B[B.length - 1][0] + B[B.length - 1][1];
+let cur = -2;
+const setMatch = (i) => {
+  const m = M[i]; q('mt', '.k').textContent = `RESULT ${i + 1} OF ${n}`; q('mt', '.big').style.display = i === n - 1 && D.bigLast ? 'block' : 'none';
+  $('h').innerHTML = `${m.homeLogo ? `<img src="${m.homeLogo}">` : ''}<b>${m.home}</b>`; $('a').innerHTML = `${m.awayLogo ? `<img src="${m.awayLogo}">` : ''}<b>${m.away}</b>`;
+  $('ln').innerHTML = m.head || '';
+};
+window.draw = (t) => {
+  const bi = B.findIndex(([s, l]) => t >= s && t < s + l), k = bi < 0 ? B.length - 1 : bi, [s, l] = B[k], u = t - s;
+  $('in').style.opacity = k === 0 ? 1 - ease((u - l + .3) / .3) : 0;
+  const isM = k >= 1 && k <= n;
+  $('mt').style.opacity = isM ? Math.min(ease(u / .25), 1 - ease((u - l + .25) / .25)) : 0;
+  if (isM) {
+    const i = k - 1, m = M[i]; if (cur !== i) { setMatch(i); cur = i; }
+    $('h').style.transform = `translateX(${(1 - ease(u / .4)) * -120}px)`; $('a').style.transform = `translateX(${(1 - ease(u / .4)) * 120}px)`;
+    // The score stays hidden for the first part of its beat: the suspense, then the reveal.
+    const rv = Math.min(1.2, l * .38), r = ease((u - rv) / .3), big = i === n - 1 && D.bigLast;
+    $('box').innerHTML = u < rv ? '?<span style="color:#46d7ff">-</span>?' : `<span class="${m.hs > m.as ? 'w' : ''}">${m.hs}</span><span style="color:#46d7ff">-</span><span class="${m.as > m.hs ? 'w' : ''}">${m.as}</span>`;
+    $('box').style.transform = `scale(${u < rv ? 1 + .03 * Math.sin(u * 9) : 1.18 - .18 * back((u - rv) / .45)})`;
+    $('box').style.borderColor = u >= rv && big ? '#ffd21f' : '#46d7ff'; $('box').style.boxShadow = u >= rv ? `0 0 ${big ? 70 : 40}px rgba(${big ? '255,210,31' : '70,215,255'},.55)` : 'none';
+    $('ln').style.opacity = ease((u - rv - .2) / .35); $('ln').style.transform = `skewX(-6deg) translateY(${(1 - ease((u - rv - .2) / .35)) * 30}px)`;
+    q('mt', '.big').style.transform = `translateX(-50%) scale(${big ? 1 + .05 * Math.sin(u * 5) : 1})`;
+  }
+  const isO = k === B.length - 1; $('ou').style.opacity = isO ? ease(u / .35) : 0;
+  if (isO) document.querySelectorAll('#ou .r').forEach((r, i) => { const a = ease((u - .1 - i * .07) / .3); r.style.opacity = a; r.style.transform = `translateX(${(1 - a) * (i % 2 ? 80 : -80)}px)`; });
+  $('cta').style.opacity = isO ? ease((u - .6) / .4) : 0;
+};
+progBar();
+draw(0);
+</script></body></html>
