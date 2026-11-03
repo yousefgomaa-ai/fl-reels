@@ -14,4 +14,4 @@ jobs:
           REELS_KEY_SECRET: ${{ secrets.REELS_KEY }}
         run: |
           key="$REELS_KEY_SECRET"; echo "::add-mask::$key"; sleep 240
-          for at in 2026-11-04T19:00:00Z 2026-11-05T19:00:00Z; do curl -sS --max-time 120 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=compare&at=$at&list=1" | jq -c "{at: \"$at\", r: .result, jobs: [.jobs[]? | {id, title, a: .anim.a, b: .anim.b}]}"; done
+          for at in 2026-11-04T19:00:00Z 2026-11-05T19:00:00Z; do curl -sS --max-time 120 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=compare&at=$at&list=1" | jq -c "{at: \"$at\", r: .result.compare, jobs: [.jobs[]? | {id, title, a: .anim.a.short, as: .anim.a.sub, ag: .anim.a.g, aa: .anim.a.a, b: .anim.b.short, bs: .anim.b.sub, bg: .anim.b.g, ba: .anim.b.a, logo: .anim.a.logo}]}"; done
