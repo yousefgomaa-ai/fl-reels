@@ -1,0 +1,197 @@
+[
+ {
+  "d": "20261020",
+  "id": "fm-5996745",
+  "slug": "egy.1",
+  "league": {
+   "name": {
+    "ar": "الدوري المصري",
+    "en": "Egyptian Premier League"
+   },
+   "logo": ""
+  },
+  "fm": "Premier League",
+  "h": "Asyut Petroleum",
+  "a": "Zamalek SC"
+ },
+ {
+  "d": "20261020",
+  "id": "fm-5996746",
+  "slug": "egy.1",
+  "league": {
+   "name": {
+    "ar": "الدوري المصري",
+    "en": "Egyptian Premier League"
+   },
+   "logo": ""
+  },
+  "fm": "Premier League",
+  "h": "Wadi Degla FC",
+  "a": "National Bank"
+ },
+ {
+  "d": "20261020",
+  "id": "fm-5996747",
+  "slug": "egy.1",
+  "league": {
+   "name": {
+    "ar": "الدوري المصري",
+    "en": "Egyptian Premier League"
+   },
+   "logo": ""
+  },
+  "fm": "Premier League",
+  "h": "Tala'ea El Gaish",
+  "a": "Pyramids FC"
+ },
+ {
+  "d": "20261020",
+  "id": "fm-5996749",
+  "slug": "egy.1",
+  "league": {
+   "name": {
+    "ar": "الدوري المصري",
+    "en": "Egyptian Premier League"
+   },
+   "logo": ""
+  },
+  "fm": "Premier League",
+  "h": "ZED FC",
+  "a": "Modern Sport FC"
+ },
+ {
+  "d": "20261020",
+  "id": "fm-5996748",
+  "slug": "egy.1",
+  "league": {
+   "name": {
+    "ar": "الدوري المصري",
+    "en": "Egyptian Premier League"
+   },
+   "logo": ""
+  },
+  "fm": "Premier League",
+  "h": "Ghazl Al Mahalla",
+  "a": "Al Ittihad Alexandria"
+ },
+ {
+  "d": "20261029",
+  "id": "fm-5996754",
+  "slug": "egy.1",
+  "league": {
+   "name": {
+    "ar": "الدوري المصري",
+    "en": "Egyptian Premier League"
+   },
+   "logo": ""
+  },
+  "fm": "Premier League",
+  "h": "Modern Sport FC",
+  "a": "Al Ahly SC"
+ },
+ {
+  "d": "20261029",
+  "id": "fm-5996755",
+  "slug": "egy.1",
+  "league": {
+   "name": {
+    "ar": "الدوري المصري",
+    "en": "Egyptian Premier League"
+   },
+   "logo": ""
+  },
+  "fm": "Premier League",
+  "h": "Pyramids FC",
+  "a": "Wadi Degla FC"
+ },
+ {
+  "d": "20261103",
+  "id": "fm-6019555",
+  "slug": "egy.leaguecup",
+  "league": {
+   "name": {
+    "ar": "كأس الرابطة المصرية",
+    "en": "Egyptian League Cup"
+   },
+   "logo": ""
+  },
+  "fm": "League Cup Grp. B",
+  "h": "Olympic El Qanah FC",
+  "a": "Modern Sport FC"
+ },
+ {
+  "d": "20261103",
+  "id": "fm-6019554",
+  "slug": "egy.leaguecup",
+  "league": {
+   "name": {
+    "ar": "كأس الرابطة المصرية",
+    "en": "Egyptian League Cup"
+   },
+   "logo": ""
+  },
+  "fm": "League Cup Grp. B",
+  "h": "Smouha SC",
+  "a": "Pyramids FC"
+ },
+ {
+  "d": "20261103",
+  "id": "fm-6019576",
+  "slug": "egy.leaguecup",
+  "league": {
+   "name": {
+    "ar": "كأس الرابطة المصرية",
+    "en": "Egyptian League Cup"
+   },
+   "logo": ""
+  },
+  "fm": "League Cup Grp. D",
+  "h": "Abo Qir Semad",
+  "a": "Ceramica Cleopatra"
+ },
+ {
+  "d": "20261103",
+  "id": "fm-6019564",
+  "slug": "egy.leaguecup",
+  "league": {
+   "name": {
+    "ar": "كأس الرابطة المصرية",
+    "en": "Egyptian League Cup"
+   },
+   "logo": ""
+  },
+  "fm": "League Cup Grp. C",
+  "h": "Al Sharkeyah-ENPPI",
+  "a": "Asyut Petroleum"
+ },
+ {
+  "d": "20261104",
+  "id": "fm-6019545",
+  "slug": "egy.leaguecup",
+  "league": {
+   "name": {
+    "ar": "كأس الرابطة المصرية",
+    "en": "Egyptian League Cup"
+   },
+   "logo": ""
+  },
+  "fm": "League Cup Grp. A",
+  "h": "ZED FC",
+  "a": "Tala'ea El Gaish"
+ },
+ {
+  "d": "20261104",
+  "id": "fm-6019577",
+  "slug": "egy.leaguecup",
+  "league": {
+   "name": {
+    "ar": "كأس الرابطة المصرية",
+    "en": "Egyptian League Cup"
+   },
+   "logo": ""
+  },
+  "fm": "League Cup Grp. D",
+  "h": "Al Masry SC",
+  "a": "Petrojet-Suez"
+ }
+]
