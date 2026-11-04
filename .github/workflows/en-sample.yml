@@ -17,11 +17,11 @@ jobs:
           for i in 1 2 3; do timeout 240 sudo apt-get update -qq && timeout 240 sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null && break; sleep 10; done
           npm i --no-save --no-audit --no-fund playwright@1.48.2
           timeout 300 npx playwright install --with-deps chromium
-      - env:
-          REELS_KEY: ${{ secrets.REELS_KEY }}
-        run: |
-          key="$REELS_KEY"; echo "::add-mask::$key"; sleep 150
-          for sl in lamine-yamal erling-haaland kylian-mbappe; do curl -sS --max-time 280 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none&clubphoto=$sl" | jq -c "{s: \"$sl\", r: .result.clubphoto}"; done
+      - run: |
+          mkdir -p sample/look; UA="FootballLegendsBot/1.0 (https://football-legend.com/contact/)"
+          curl -sSL -A "$UA" -o sample/look/h.jpg "https://commons.wikimedia.org/wiki/Special:FilePath/Erling_Haaland_2023_(fullcropped).jpg?width=480"
+          curl -sSL -A "$UA" -o sample/look/m.png "https://commons.wikimedia.org/wiki/Special:FilePath/Kylian_Mbapp%C3%A9_against_M%C3%A1laga,_match_valid_for_the_third_round_of_La_Liga_on_August_30,_2026.png?width=480"
+          ls -la sample/look
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          echo done
+          git add -A sample/look && git commit -m "look [skip ci]" && git push
