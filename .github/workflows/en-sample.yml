@@ -24,8 +24,9 @@ jobs:
           A="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
           sleep 150
           curl -sS --max-time 290 "$A&clubphoto=erling-haaland" | jq -c '.result.clubphoto, .result.clubphotoWhy'
-          curl -sS --max-time 290 "$A&clubphoto=lamine-yamal" | jq -c '.result.clubphoto, .result.clubphotoWhy'
-          curl -sS --max-time 60 "https://api.football-legend.com/v2/reels/status?key=$key" | jq -c '.reels[]? | select((.id // "") | test("^en-(duel|guess)")) | {id, status, a: .anim.a.photo, b: .anim.b.photo, p: .anim.photo, c: (.caption // "" | .[0:120])}' | head
+          curl -sS --max-time 290 "$A&clubphotos=erling-haaland,alexander-isak" | jq -c '.result.clubphotos, .result.clubphotosError'
+          curl -sS --max-time 290 "$A&clubphotos=lamine-yamal" | jq -c '.result.clubphotos, .result.clubphotosError'
+          curl -sS --max-time 290 "$A&remake=en-duel-pl-20261104" | jq -c '.result.remake, .result.remakeWhy'
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
           echo done
