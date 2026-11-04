@@ -327,6 +327,7 @@ export async function makeImage(job, dir) {
   const page0 = await readFile(new URL(`./anim/${d.kind}.html`, import.meta.url), 'utf8');
   const html = new URL(`./anim/_${job.id.replace(/[^\w-]/g, '_')}.html`, import.meta.url);
   await writeFile(html, page0.replace('</head>', `<script>window.DATA=${JSON.stringify(d).replace(/</g, '\\u003c')};</script></head>`));
+  const { chromium } = await import('playwright');
   const b = await chromium.launch();
   try {
     const p = await b.newPage({ viewport: { width: 1080, height: 1350 } });
