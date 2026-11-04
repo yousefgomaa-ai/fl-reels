@@ -17,7 +17,7 @@ jobs:
           for i in 1 2 3; do timeout 240 sudo apt-get update -qq && timeout 240 sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null && break; sleep 10; done
           npm i --no-save --no-audit --no-fund playwright@1.48.2
           timeout 300 npx playwright install --with-deps chromium
-      - run: bash sample/commons.sh 'Jude%20Bellingham'
+      - run: for q in Florian%20Wirtz Cole%20Palmer Kvaratskhelia; do bash sample/commons.sh $q; mv sample/look sample/look-${q%%%20*}; done
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          git add -A sample/look && git commit -m "look [skip ci]" && git push
+          git add -A sample && git commit -m "look [skip ci]" && git push
