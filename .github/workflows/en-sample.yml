@@ -20,15 +20,8 @@ jobs:
       - env:
           REELS_KEY: ${{ secrets.REELS_KEY }}
         run: |
-          key="$REELS_KEY"; echo "::add-mask::$key"; sleep 30
-          : > all.json
-          for x in "sched 2026-11-07T07:30:00Z" "sched 2026-11-08T07:30:00Z" "preview 2026-11-04T15:00:00Z" "preview 2026-11-05T15:00:00Z" "preview 2026-11-06T15:00:00Z" "five 2026-11-06T13:00:00Z"; do
-            set -- $x; curl -sS --max-time 200 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=$1&at=$2" > d.json
-            jq -c "{k: \"$1 $2\", r: .result, j: [.jobs[] | {id, title}]}" d.json || head -c 300 d.json; jq -c '.jobs[]' d.json >> all.json || true; sleep 40
-          done
-          jq -s '[group_by(.enKind)[] | .[0] | {id: (.id + "-s"), anim, voiceText, voiceName: "Fenrir", voiceLang: "en-GB", voiceStyle: "", caption, title}]' all.json > sample/jobs.json
-          jq -r '.[] | "== \(.id)\n\(.caption)"' sample/jobs.json
-          mkdir -p sample/out && node sample/render.mjs sample/jobs.json sample/out
+          key="$REELS_KEY"; echo "::add-mask::$key"; sleep 170
+          for at in 2026-11-07T07:30:00Z 2026-11-08T07:30:00Z; do curl -sS --max-time 200 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none&at=$at&upcoming=1" | jq -c '.result.upcoming' || true; sleep 35; done
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          git add -A sample/out && git commit -m "sample output [skip ci]" && git push || true
+          echo done
