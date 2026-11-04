@@ -1,0 +1,1260 @@
+{
+ "id": 1029063,
+ "name": "Michael Olise",
+ "birthDate": {
+  "utcTime": "2001-12-12T00:00:00.000Z",
+  "timezone": "UTC"
+ },
+ "primaryTeam": {
+  "teamId": 9823,
+  "teamName": "Bayern München",
+  "onLoan": false,
+  "teamColors": {
+   "color": "#C60428",
+   "colorAlternate": "#DC052D",
+   "colorAway": "#292229",
+   "colorAwayAlternate": "#FFFFFF"
+  }
+ },
+ "careerHistory": {
+  "showFootnote": false,
+  "careerItems": {
+   "senior": {
+    "teamEntries": [
+     {
+      "participantId": 1029063,
+      "teamId": 9823,
+      "team": "Bayern München",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2024-07-07T00:00:00",
+      "endDate": null,
+      "active": true,
+      "role": null,
+      "appearances": "121",
+      "goals": "54",
+      "assists": "52",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 1029063,
+      "teamId": 9826,
+      "team": "Crystal Palace",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2021-07-08T00:00:00",
+      "endDate": "2024-07-07T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "90",
+      "goals": "16",
+      "assists": "25",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 1029063,
+      "teamId": 9798,
+      "team": "Reading",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2019-03-08T00:00:00",
+      "endDate": "2021-07-08T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "73",
+      "goals": "7",
+      "assists": "14",
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2026/2027",
+      "appearances": "14",
+      "goals": "12",
+      "assists": "6",
+      "rating": {
+       "rating": "8.51"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 54,
+        "leagueName": "Bundesliga",
+        "seasonName": "2026/2027",
+        "tournamentId": 40040,
+        "goals": "6",
+        "assists": "3",
+        "appearances": "8",
+        "rating": {
+         "rating": "8.43"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 209,
+        "leagueName": "DFB Pokal",
+        "seasonName": "2026/2027",
+        "tournamentId": 36095,
+        "goals": "3",
+        "assists": "1",
+        "appearances": "2",
+        "rating": {
+         "rating": "9.22"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 8924,
+        "leagueName": "Super Cup",
+        "seasonName": "2026/2027",
+        "tournamentId": -1,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2026/2027",
+        "tournamentId": 47760,
+        "goals": "2",
+        "assists": "1",
+        "appearances": "3",
+        "rating": {
+         "rating": "8.26"
+        }
+       }
+      ],
+      "teamId": 9823,
+      "team": "Bayern München",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2025/2026",
+      "appearances": "57",
+      "goals": "25",
+      "assists": "28",
+      "rating": {
+       "rating": "8.06"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 54,
+        "leagueName": "Bundesliga",
+        "seasonName": "2025/2026",
+        "tournamentId": 26891,
+        "goals": "15",
+        "assists": "19",
+        "appearances": "32",
+        "rating": {
+         "rating": "8.09"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 209,
+        "leagueName": "DFB Pokal",
+        "seasonName": "2025/2026",
+        "tournamentId": 26893,
+        "goals": "2",
+        "assists": "1",
+        "appearances": "6",
+        "rating": {
+         "rating": "7.78"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 8924,
+        "leagueName": "Super Cup",
+        "seasonName": "2025/2026",
+        "tournamentId": 37297,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "9.06"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2025/2026",
+        "tournamentId": 28184,
+        "goals": "5",
+        "assists": "6",
+        "appearances": "13",
+        "rating": {
+         "rating": "8.04"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 78,
+        "leagueName": "FIFA Club World Cup",
+        "seasonName": "2025",
+        "tournamentId": 24449,
+        "goals": "3",
+        "assists": "2",
+        "appearances": "5",
+        "rating": {
+         "rating": "7.85"
+        }
+       }
+      ],
+      "teamId": 9823,
+      "team": "Bayern München",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024/2025",
+      "appearances": "50",
+      "goals": "17",
+      "assists": "18",
+      "rating": {
+       "rating": "7.78"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 54,
+        "leagueName": "Bundesliga",
+        "seasonName": "2024/2025",
+        "tournamentId": 23794,
+        "goals": "12",
+        "assists": "15",
+        "appearances": "34",
+        "rating": {
+         "rating": "7.99"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 209,
+        "leagueName": "DFB Pokal",
+        "seasonName": "2024/2025",
+        "tournamentId": 23599,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "2",
+        "rating": {
+         "rating": "6.62"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2024/2025",
+        "tournamentId": 24110,
+        "goals": "5",
+        "assists": "2",
+        "appearances": "14",
+        "rating": {
+         "rating": "7.46"
+        }
+       }
+      ],
+      "teamId": 9823,
+      "team": "Bayern München",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023/2024",
+      "appearances": "19",
+      "goals": "10",
+      "assists": "6",
+      "rating": {
+       "rating": "7.71"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 47,
+        "leagueName": "Premier League",
+        "seasonName": "2023/2024",
+        "tournamentId": 20720,
+        "goals": "10",
+        "assists": "6",
+        "appearances": "19",
+        "rating": {
+         "rating": "7.71"
+        }
+       }
+      ],
+      "teamId": 9826,
+      "team": "Crystal Palace",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2022/2023",
+      "appearances": "40",
+      "goals": "2",
+      "assists": "11",
+      "rating": {
+       "rating": "7.25"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 47,
+        "leagueName": "Premier League",
+        "seasonName": "2022/2023",
+        "tournamentId": 17664,
+        "goals": "2",
+        "assists": "11",
+        "appearances": "37",
+        "rating": {
+         "rating": "7.25"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 132,
+        "leagueName": "FA Cup",
+        "seasonName": "2022/2023",
+        "tournamentId": 17927,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "7.77"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 133,
+        "leagueName": "EFL Cup",
+        "seasonName": "2022/2023",
+        "tournamentId": 17837,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "7.14"
+        }
+       }
+      ],
+      "teamId": 9826,
+      "team": "Crystal Palace",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2021/2022",
+      "appearances": "31",
+      "goals": "4",
+      "assists": "8",
+      "rating": {
+       "rating": "7.12"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 47,
+        "leagueName": "Premier League",
+        "seasonName": "2021/2022",
+        "tournamentId": 16390,
+        "goals": "2",
+        "assists": "5",
+        "appearances": "26",
+        "rating": {
+         "rating": "6.95"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 132,
+        "leagueName": "FA Cup",
+        "seasonName": "2021/2022",
+        "tournamentId": 16818,
+        "goals": "2",
+        "assists": "3",
+        "appearances": "5",
+        "rating": {
+         "rating": "8.05"
+        }
+       }
+      ],
+      "teamId": 9826,
+      "team": "Crystal Palace",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2020/2021",
+      "appearances": "46",
+      "goals": "7",
+      "assists": "12",
+      "rating": {
+       "rating": "7.25"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 48,
+        "leagueName": "Championship",
+        "seasonName": "2020/2021",
+        "tournamentId": 15540,
+        "goals": "7",
+        "assists": "12",
+        "appearances": "44",
+        "rating": {
+         "rating": "7.26"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 132,
+        "leagueName": "FA Cup",
+        "seasonName": "2020/2021",
+        "tournamentId": 15661,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "6.81"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 133,
+        "leagueName": "EFL Cup",
+        "seasonName": "2020/2021",
+        "tournamentId": 15532,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 9798,
+      "team": "Reading",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019/2020",
+      "appearances": "23",
+      "goals": "0",
+      "assists": "2",
+      "rating": {
+       "rating": "6.60"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 48,
+        "leagueName": "Championship",
+        "seasonName": "2019/2020",
+        "tournamentId": 14066,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "19",
+        "rating": {
+         "rating": "6.66"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 132,
+        "leagueName": "FA Cup",
+        "seasonName": "2019/2020",
+        "tournamentId": 14445,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "3",
+        "rating": {
+         "rating": "6.23"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 133,
+        "leagueName": "EFL Cup",
+        "seasonName": "2019/2020",
+        "tournamentId": 14065,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 9798,
+      "team": "Reading",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2018/2019",
+      "appearances": "4",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": "6.39"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 48,
+        "leagueName": "Championship",
+        "seasonName": "2018/2019",
+        "tournamentId": 12803,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": "6.39"
+        }
+       }
+      ],
+      "teamId": 9798,
+      "team": "Reading",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   },
+   "youth": {
+    "teamEntries": [
+     {
+      "participantId": 1029063,
+      "teamId": 357212,
+      "team": "Crystal Palace U23",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2021-09-12T00:00:00",
+      "endDate": "2024-07-07T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "1",
+      "goals": "0",
+      "assists": "2",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 1029063,
+      "teamId": 357200,
+      "team": "Reading U23",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2018-07-01T00:00:00",
+      "endDate": "2021-07-08T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "23",
+      "goals": "6",
+      "assists": "5",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 1029063,
+      "teamId": 1113569,
+      "team": "Reading U18",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2018-01-01T00:00:00",
+      "endDate": "2019-06-30T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "15",
+      "goals": "2",
+      "assists": "0",
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2021/2022",
+      "appearances": "1",
+      "goals": "0",
+      "assists": "2",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 9084,
+        "leagueName": "Premier League 2",
+        "seasonName": "2021/2022",
+        "tournamentId": 16691,
+        "goals": "0",
+        "assists": "2",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 357212,
+      "team": "Crystal Palace U23",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019/2020",
+      "appearances": "9",
+      "goals": "4",
+      "assists": "2",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10176,
+        "leagueName": "Premier League 2 Div 2",
+        "seasonName": "2019/2020",
+        "tournamentId": 15635,
+        "goals": "4",
+        "assists": "2",
+        "appearances": "9",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 357200,
+      "team": "Reading U23",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2018/2019",
+      "appearances": "14",
+      "goals": "2",
+      "assists": "3",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10176,
+        "leagueName": "Premier League 2 Div 2",
+        "seasonName": "2018/2019",
+        "tournamentId": -1,
+        "goals": "2",
+        "assists": "2",
+        "appearances": "10",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueName": "Premier League International Cup",
+        "seasonName": "2018/2019",
+        "tournamentId": -1,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "4",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 357200,
+      "team": "Reading U23",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2018/2019",
+      "appearances": "10",
+      "goals": "2",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueName": "U18 Premier League",
+        "seasonName": "2018/2019",
+        "tournamentId": -1,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "8",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueName": "FA Youth Cup",
+        "seasonName": "2018/2019",
+        "tournamentId": -1,
+        "goals": "1",
+        "assists": "undefined",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 1113569,
+      "team": "Reading U18",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2017/2018",
+      "appearances": "5",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueName": "U18 Premier League",
+        "seasonName": "2017/2018",
+        "tournamentId": -1,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "5",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 1113569,
+      "team": "Reading U18",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   },
+   "national team": {
+    "teamEntries": [
+     {
+      "participantId": 1029063,
+      "teamId": 6723,
+      "team": "France",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2024-08-29T00:00:00",
+      "endDate": null,
+      "active": true,
+      "role": null,
+      "appearances": "29",
+      "goals": "11",
+      "assists": "11",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 1029063,
+      "teamId": 1249010,
+      "team": "France U23",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2024-06-03T00:00:00",
+      "endDate": "2025-12-31T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "6",
+      "goals": "2",
+      "assists": "5",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 1029063,
+      "teamId": 1039601,
+      "team": "France U18",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2019-05-26T00:00:00",
+      "endDate": "2023-09-07T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "2",
+      "goals": "0",
+      "assists": "0",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 1029063,
+      "teamId": 6653,
+      "team": "France U21",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2022-03-20T00:00:00",
+      "endDate": "2023-09-01T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "4",
+      "goals": "1",
+      "assists": "0",
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2026/2027",
+      "appearances": "4",
+      "goals": "4",
+      "assists": "2",
+      "rating": {
+       "rating": "8.42"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 9806,
+        "leagueName": "UEFA Nations League A",
+        "seasonName": "2026/2027",
+        "tournamentId": 31436,
+        "goals": "4",
+        "assists": "2",
+        "appearances": "4",
+        "rating": {
+         "rating": "8.42"
+        }
+       }
+      ],
+      "teamId": 6723,
+      "team": "France",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2026",
+      "appearances": "12",
+      "goals": "3",
+      "assists": "8",
+      "rating": {
+       "rating": "7.88"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 77,
+        "leagueName": "World Cup",
+        "seasonName": "2026",
+        "tournamentId": 24254,
+        "goals": "0",
+        "assists": "7",
+        "appearances": "8",
+        "rating": {
+         "rating": "7.87"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2026",
+        "tournamentId": 29822,
+        "goals": "3",
+        "assists": "1",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.90"
+        }
+       }
+      ],
+      "teamId": 6723,
+      "team": "France",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2025/2026",
+      "appearances": "5",
+      "goals": "2",
+      "assists": "0",
+      "rating": {
+       "rating": "8.14"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10195,
+        "leagueName": "World Cup Qualification UEFA",
+        "seasonName": "2025/2026",
+        "tournamentId": 24488,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "5",
+        "rating": {
+         "rating": "8.14"
+        }
+       }
+      ],
+      "teamId": 6723,
+      "team": "France",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024/2026",
+      "appearances": "8",
+      "goals": "2",
+      "assists": "1",
+      "rating": {
+       "rating": "7.24"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 9806,
+        "leagueName": "UEFA Nations League A",
+        "seasonName": "2024/2026",
+        "tournamentId": 22886,
+        "goals": "2",
+        "assists": "1",
+        "appearances": "8",
+        "rating": {
+         "rating": "7.24"
+        }
+       }
+      ],
+      "teamId": 6723,
+      "team": "France",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024",
+      "appearances": "6",
+      "goals": "2",
+      "assists": "5",
+      "rating": {
+       "rating": "8.26"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 66,
+        "leagueName": "Summer Olympics",
+        "seasonName": "2024",
+        "tournamentId": 23037,
+        "goals": "2",
+        "assists": "5",
+        "appearances": "6",
+        "rating": {
+         "rating": "8.26"
+        }
+       }
+      ],
+      "teamId": 1249010,
+      "team": "France U23",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019",
+      "appearances": "2",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueName": "Tournoi Maurice Revello",
+        "seasonName": "2019",
+        "tournamentId": -1,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 1039601,
+      "team": "France U18",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023",
+      "appearances": "3",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": "7.07"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 288,
+        "leagueName": "EURO U21",
+        "seasonName": "2023",
+        "tournamentId": 18334,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "7.07"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueName": "U21 National Team Friendlies",
+        "seasonName": "2023",
+        "tournamentId": -1,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6653,
+      "team": "France U21",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2021/2022",
+      "appearances": "1",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueName": "UEFA U21 Championship Qualificat",
+        "seasonName": "2021/2022",
+        "tournamentId": -1,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6653,
+      "team": "France U21",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   }
+  },
+  "fullCareer": true
+ },
+ "trophies": {
+  "playerTrophies": [
+   {
+    "ccode": "GER",
+    "teamId": 9823,
+    "teamName": "Bayern München",
+    "tournaments": [
+     {
+      "ccode": "GER",
+      "leagueId": 209,
+      "leagueName": "DFB Pokal",
+      "seasonsWon": [
+       "2025/2026"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "GER",
+      "leagueId": 54,
+      "leagueName": "Bundesliga",
+      "seasonsWon": [
+       "2025/2026",
+       "2024/2025"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "GER",
+      "leagueId": 8924,
+      "leagueName": "Super Cup",
+      "seasonsWon": [
+       "2026/2027",
+       "2025/2026"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   }
+  ],
+  "coachTrophies": []
+ },
+ "playerInformation": [
+  {
+   "value": {
+    "numberValue": 184,
+    "key": null,
+    "fallback": "184 cm"
+   },
+   "title": "Height",
+   "translationKey": "height_sentencecase"
+  },
+  {
+   "value": {
+    "numberValue": 17,
+    "options": {},
+    "key": null,
+    "fallback": 17
+   },
+   "title": "Shirt",
+   "translationKey": "shirt"
+  },
+  {
+   "value": {
+    "numberValue": 24,
+    "options": {
+     "style": "unit",
+     "unit": "year",
+     "unitDisplay": "long"
+    },
+    "key": null,
+    "fallback": "24"
+   },
+   "title": "Age",
+   "translationKey": "age_sentencecase"
+  },
+  {
+   "value": {
+    "key": "left",
+    "fallback": "Left"
+   },
+   "title": "Preferred foot",
+   "translationKey": "preferred_foot"
+  },
+  {
+   "value": {
+    "key": null,
+    "fallback": "France"
+   },
+   "title": "Country",
+   "translationKey": "country_sentencecase",
+   "icon": {
+    "type": "country",
+    "id": "FRA"
+   },
+   "countryCode": "FRA",
+   "nationalTeamId": 6723
+  },
+  {
+   "value": {
+    "numberValue": 178377437,
+    "key": null,
+    "fallback": "€178.4m"
+   },
+   "title": "Market value",
+   "translationKey": "transfer_value"
+  },
+  {
+   "value": {
+    "dateValue": "2029-06-30",
+    "key": null,
+    "fallback": {
+     "utcTime": "2029-06-30T00:00:00.000Z",
+     "timezone": "UTC"
+    }
+   },
+   "title": "Contract end",
+   "translationKey": "contract_end"
+  }
+ ],
+ "mainLeague": {
+  "leagueId": 54,
+  "leagueName": "Bundesliga",
+  "season": "2026/2027",
+  "stats": [
+   {
+    "title": "Goals",
+    "localizedTitleId": "goals",
+    "value": 6
+   },
+   {
+    "title": "Assists",
+    "localizedTitleId": "assists",
+    "value": 3
+   },
+   {
+    "title": "Started",
+    "localizedTitleId": "started",
+    "value": 7
+   },
+   {
+    "title": "Matches",
+    "localizedTitleId": "matches_uppercase",
+    "value": 8
+   },
+   {
+    "title": "Minutes played",
+    "localizedTitleId": "minutes_played",
+    "value": 657
+   },
+   {
+    "title": "Rating",
+    "localizedTitleId": "rating",
+    "value": 8.43
+   },
+   {
+    "title": "Yellow cards",
+    "localizedTitleId": "yellow_cards",
+    "value": 0
+   },
+   {
+    "title": "Red cards",
+    "localizedTitleId": "red_cards",
+    "value": 0
+   }
+  ]
+ }
+}
