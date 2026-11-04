@@ -24,11 +24,10 @@ jobs:
           A="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
           sleep 5
           date -u
-          curl -sS --max-time 120 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none&list=1" > out.json || true
-          jq -r '.result.list[]? | select(contains("uefa"))' out.json
           curl -sS --max-time 60 "https://api.football-legend.com/v2/reels/status?key=$key" > st.json || true
-          jq -c '.reels[]? | select((.id // "") | test("^en-")) | {id, status, readyAt, err: (.error // .err // null)}' st.json | tail -15
-          for j in en-night2-x; do :; done
+          jq -c '.reels[]? | select((.id // "") | test("^en-(ucltbl|rres|recap)")) | {id, status, readyAt}' st.json
+          curl -sS --max-time 280 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=ucltable,round" > o.json || true
+          jq -c '.jobs[]? | {id, title}' o.json; jq -c '.result' o.json | cut -c1-600
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
           echo done
