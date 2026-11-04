@@ -22,9 +22,9 @@ jobs:
         run: |
           key="$REELS_KEY"; echo "::add-mask::$key"; sleep 150
           : > all.json
-          for x in "pick 2026-11-04T14:00:00Z" "rate 2026-11-04T23:00:00Z"; do
+          for x in "pick 2026-11-04T14:00:00Z" "compare 2026-11-04T19:00:00Z"; do
             set -- $x; curl -sS --max-time 200 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=$1&at=$2" > d.json
-            jq -c "{k: \"$1 $2\", r: .result, j: [.jobs[] | {id}]}" d.json || head -c 300 d.json; jq -c '.jobs[] | . + {image: true}' d.json >> all.json || true; sleep 5
+            jq -c "{k: \"$1 $2\", r: .result, j: [.jobs[] | {id}]}" d.json || head -c 300 d.json; jq -c '.jobs[] | . + {image: (.enKind == "pick")}' d.json >> all.json || true; sleep 5
           done
           jq -s '[group_by(.enKind)[] | .[0] | {id: (.id + "-s"), image, anim, voiceText, voiceName: "Fenrir", voiceLang: "en-GB", voiceStyle: "", caption, title}]' all.json > sample/jobs.json
           jq -r '.[] | "== \(.id)\n\(.caption)"' sample/jobs.json
