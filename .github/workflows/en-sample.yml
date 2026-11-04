@@ -22,13 +22,9 @@ jobs:
         run: |
           key="$REELS_KEY"; echo "::add-mask::$key"; sleep 5
           A="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
-          sleep 5
+          sleep 150
           curl -sS --max-time 290 "$A&clubphoto=alexander-isak" | jq -c '.result.clubphoto, .result.clubphotoWhy'
-          mkdir -p look
-          U='FootballLegendsBot/1.0 (https://football-legend.com/contact/)'
-          curl -sSL -A "$U" -o look/yamal.png "https://commons.wikimedia.org/wiki/Special:FilePath/Lamine_Yamal_a_Xina_(2025).png?width=640"
-          curl -sSL -A "$U" -o look/haaland.jpg "https://commons.wikimedia.org/wiki/Special:FilePath/Erling_Haaland_2023.jpg?width=640"
-          curl -sS -A "$U" "https://commons.wikimedia.org/w/api.php?action=query&titles=File:Lamine_Yamal_a_Xina_(2025).png&prop=imageinfo|categories&iiprop=extmetadata&format=json" | jq -c '.query.pages[] | {c: [.categories[]?.title], d: .imageinfo[0].extmetadata.ImageDescription.value}'
+          curl -sS --max-time 290 "$A&clubphoto=lamine-yamal" | jq -c '.result.clubphoto, .result.clubphotoWhy'
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          git add look && git commit -qm "look" && git push -q origin HEAD:claude/en-sample; echo done
+          echo done
