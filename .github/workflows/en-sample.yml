@@ -23,10 +23,7 @@ jobs:
           key="$REELS_KEY"; echo "::add-mask::$key"; sleep 5
           A="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
           sleep 150
-          curl -sS --max-time 290 "$A&clubphoto=erling-haaland" | jq -c '.result.clubphoto, .result.clubphotoWhy'
-          curl -sS --max-time 290 "$A&clubphotos=erling-haaland,alexander-isak" | jq -c '.result.clubphotos, .result.clubphotosError'
-          curl -sS --max-time 290 "$A&clubphotos=lamine-yamal" | jq -c '.result.clubphotos, .result.clubphotosError'
-          curl -sS --max-time 290 "$A&remake=en-duel-pl-20261104" | jq -c '.result.remake, .result.remakeWhy'
+          for j in en-duel-cl-20261104 en-guess-20261104; do curl -sS --max-time 60 "$A&job=$j" | jq -c '.result.job'; done
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
           echo done
