@@ -17,14 +17,7 @@ jobs:
           for i in 1 2 3; do timeout 240 sudo apt-get update -qq && timeout 240 sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null && break; sleep 10; done
           npm i --no-save --no-audit --no-fund playwright@1.48.2
           timeout 300 npx playwright install --with-deps chromium
-      - env:
-          REELS_KEY: ${{ secrets.REELS_KEY }}
-        run: |
-          key="$REELS_KEY"; echo "::add-mask::$key"; sleep 150
-          for at in 2026-11-04T08:30:00Z 2026-11-04T10:30:00Z 2026-11-04T13:30:00Z 2026-11-04T16:30:00Z 2026-11-04T19:30:00Z 2026-11-04T22:30:00Z; do
-            curl -sS --max-time 150 "https://api.football-legend.com/v2/fben/dry?key=$key&at=$at" > d.json
-            jq -c "{at: \"$at\", r: .result, jobs: [.jobs[] | {kind, id, title, pa: (.anim.a.photo // .anim.photo // \"\"), ca: (.anim.a.slug // .anim.slug // \"\"), pb: (.anim.b.photo // \"\")}]}" d.json || head -c 300 d.json
-          done
+      - run: bash sample/commons.sh 'Jude%20Bellingham'
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          echo no-render
+          git add -A sample/look && git commit -m "look [skip ci]" && git push
