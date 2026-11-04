@@ -23,11 +23,12 @@ jobs:
           key="$REELS_KEY"; echo "::add-mask::$key"; sleep 5
           A="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
           sleep 5
-          date -u
-          curl -sS --max-time 120 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none&list=1" > out.json || true
-          jq -r '.result.list[]? | select(contains("uefa"))' out.json | head -3
-          curl -sS --max-time 60 "https://api.football-legend.com/v2/reels/status?key=$key" | jq -c '.reels[]? | select((.id // "") | test("^en-(ht|ft|res)")) | {id, status, at, readyAt}' | tail -5
-          for j in en-ht-ucl-20261104-1745; do curl -sS --max-time 60 "$A&job=$j" | jq -c '.result.job'; done
+          sleep 150
+          for at in 2026-11-02T23:30:00Z 2026-11-03T02:00:00Z; do
+            curl -sS --max-time 280 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=round&at=$at" > o.json || true
+            jq -c '.jobs[]? | select(.id|test("rres")) | {id, title, t: .anim.teasers, rows: [.anim.rows[] | "\(.tag) \(.home) \(.hs)-\(.as) \(.away) | \(.sc) | \(.head)"], star: .anim.star, nums: .anim.nums, table: .anim.table, v: .voiceLines, mb: .anim.minBeats}' o.json
+            jq -c '.result | keys' o.json
+          done
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
           echo done
