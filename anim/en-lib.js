@@ -17,3 +17,5 @@ function progBar() {
   const d = window.draw;
   window.draw = (t) => { d(t); b.style.width = (100 * Math.min(1, t / window.TOTAL)) + '%'; };
 }
+// The competition's colours (en.css body.t-*), when the job names one.
+if (window.DATA && window.DATA.theme) document.body.classList.add('t-' + String(window.DATA.theme).replace(/[^a-z0-9]/g, ''));

@@ -1,0 +1,37 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends «EUROPE'S TOP SCORERS» (owner, 2026-11-04: «ريل للهدافين في الخمس دوريات نقارن ارقامهم مع بعض»): each big
+   league's top scorer on his own card, the fewest goals first, the cards dealt in, Europe's number one revealed last. */
+#hk{top:150px;width:100%;font:400 136px/0.88 B;letter-spacing:3px;transform:skewX(-8deg);text-shadow:0 8px 40px rgba(0,0,0,.6)}
+#cards{position:absolute;left:36px;right:36px;top:470px}
+.cd{position:relative;height:224px;margin-bottom:18px;border-radius:28px;background:rgba(4,10,46,.86);border:3px solid rgba(255,255,255,.14);overflow:hidden;opacity:0}
+.cd .lg{position:absolute;left:0;top:0;bottom:0;width:22px}
+.cd .tg{position:absolute;left:48px;top:22px;font:700 28px O;letter-spacing:4px}
+.cd .nm{position:absolute;left:48px;top:62px;right:300px;font:400 86px/1 B;letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cd .tm{position:absolute;left:48px;top:158px;display:flex;align-items:center;gap:12px;font:700 30px O;color:rgba(255,255,255,.8)}
+.cd .tm img{width:44px;height:44px;object-fit:contain}
+.cd .g{position:absolute;right:36px;top:24px;font:400 168px/1 B;color:#fff;text-align:right}.cd .g small{display:block;font:700 24px O;letter-spacing:3px;margin-top:-10px;color:rgba(255,255,255,.75)}
+.cd.top{border-color:#ffd21f;box-shadow:0 0 50px rgba(255,210,31,.5)}.cd.top .g{color:#ffd21f}
+#one{right:60px;padding:6px 26px;font-size:54px;opacity:0}
+#cta{bottom:56px}
+</style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div>
+<div class="abs c" id="hk"></div><div id="cards"></div><div class="stamp" id="one">EUROPE'S No.1</div><div class="cta" id="cta"></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA, P = (D.players || []).slice(0, 5), n = P.length;
+const COL = { 'Premier League': '#00ff85', LaLiga: '#ffb000', 'Serie A': '#3ee0ff', Bundesliga: '#ff2d3a', 'Ligue 1': '#d9ff3f' };
+$('hk').innerHTML = `${D.h1 || "EUROPE'S TOP"}<br><span class="y">${D.h2 || 'SCORERS'}</span> 👟`;
+$('cards').innerHTML = P.map((p) => `<div class="cd"><div class="lg" style="background:${COL[p.league] || '#46d7ff'}"></div><div class="tg" style="color:${COL[p.league] || '#46d7ff'}">${String(p.league).toUpperCase()}</div><div class="nm">${p.name}</div><div class="tm">${p.logo ? `<img src="${p.logo}">` : ''}${p.team}</div><div class="g">0<small>GOALS</small></div></div>`).join('');
+$('cta').textContent = D.cta || 'WHO ENDS AS EUROPE\'S BEST? 👇';
+const cards = [...document.querySelectorAll('.cd')], T0 = .5, PER = 1.0;
+window.TOTAL = Math.max(10, T0 + n * PER + 4);
+window.draw = (t) => {
+  cards.forEach((c, i) => { const s = T0 + i * PER, a = ease((t - s) / .45), k = ease((t - s - .2) / .6);
+    c.style.opacity = a; c.style.transform = `translateX(${(1 - a) * 700}px) rotate(${(1 - a) * 4}deg)`;
+    c.querySelector('.g').firstChild.textContent = t < s ? '0' : cnt(P[i].g, k); });
+  const e = T0 + n * PER, w = ease((t - e) / .4), top = cards[n - 1];
+  if (top) { top.classList.toggle('top', t > e); top.style.transform = `scale(${1 + .03 * w})`; $('one').style.opacity = w; $('one').style.top = (470 + (n - 1) * 242 - 40) + 'px'; $('one').style.transform = `rotate(-6deg) scale(${t < e ? 1.5 : 1.5 - .5 * back((t - e) / .5)})`; }
+  const c = ease((t - e - 1) / .5); $('cta').style.opacity = c;
+};
+window.POSTER = Math.min(window.TOTAL - .3, T0 + n * PER + .8);
+progBar();
+draw(0);
+</script></body></html>

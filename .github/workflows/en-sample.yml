@@ -23,7 +23,7 @@ jobs:
           key="$REELS_KEY"; echo "::add-mask::$key"; sleep 150
           q() { curl -sS --max-time 200 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=$1&at=$2"; }
           : > all.json
-          for x in "sched 2026-11-04T10:00:00Z" "sched 2026-11-07T08:00:00Z" "preview 2026-11-04T15:00:00Z" "preview 2026-11-05T15:00:00Z" "duel 2026-11-04T13:00:00Z" "five 2026-11-06T13:00:00Z" "uclpast 2026-11-05T13:00:00Z"; do
+          for x in "sched 2026-11-07T08:00:00Z" "preview 2026-11-04T15:00:00Z" "preview 2026-11-05T15:00:00Z" "five 2026-11-06T13:00:00Z" "uclpast 2026-11-05T13:00:00Z" "five 2026-11-06T13:05:00Z"; do
             set -- $x; q $1 $2 > d.json; jq -c "{k: \"$1 $2\", r: .result, j: [.jobs[] | {id, title}]}" d.json || head -c 400 d.json; jq -c '.jobs[]' d.json >> all.json || true
           done
           jq -s '[group_by(.enKind)[] | .[0] | {id: (.id + "-s"), anim, voiceText, voiceName: "Fenrir", voiceLang: "en-GB", voiceStyle: "", caption, title}]' all.json > sample/jobs.json

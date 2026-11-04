@@ -1,0 +1,36 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends «THE LAST FIVE SEASONS» (owner, 2026-11-04: «هدافين دوري ابطال اوروبا على مدار خمس نسخ»): a timeline drawn down
+   the page, one season at a time, the scorer, his club and goals; this season's leader and a question at the end. */
+#cp{top:62px;right:44px;font:700 32px O;letter-spacing:4px;text-transform:uppercase;text-align:right;color:var(--ac,#46d7ff)}
+#hk{top:150px;width:100%;font:400 120px/0.9 B;letter-spacing:3px;transform:skewX(-8deg);text-shadow:0 8px 40px rgba(0,0,0,.6)}
+#tl{position:absolute;left:40px;right:40px;top:450px}
+#ln{position:absolute;left:150px;top:0;width:8px;background:var(--ac,#ffd21f);border-radius:4px;box-shadow:0 0 20px var(--ac,#ffd21f)}
+.it{position:relative;height:var(--h);display:flex;align-items:center;opacity:0}
+.it .yr{width:150px;font:400 52px/1 B;letter-spacing:1px;text-align:center}.it .yr small{display:block;font:700 22px O;color:rgba(255,255,255,.6)}
+.it .dt{position:absolute;left:138px;width:32px;height:32px;border-radius:50%;background:#040a2e;border:6px solid var(--ac,#ffd21f)}
+.it .bx{margin-left:46px;flex:1;display:flex;align-items:center;padding:16px 24px;border-radius:24px;background:rgba(4,10,46,.86);border:2px solid rgba(255,255,255,.14)}
+.it .bx div{flex:1}.it .nm{font:400 58px/1 B;letter-spacing:1px}.it .cl{font:700 26px O;color:rgba(255,255,255,.75);margin-top:6px}
+.it .g{font:400 110px/1 B;color:var(--ac,#ffd21f);margin-left:16px}
+.it.now .bx{border-color:var(--ac,#ffd21f);box-shadow:0 0 40px rgba(255,210,31,.35)}
+#cta{bottom:56px}
+</style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div><div class="abs" id="cp"></div>
+<div class="abs c" id="hk"></div><div id="tl"><div id="ln"></div></div><div class="cta" id="cta"></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA, R = (D.rows || []).slice(0, 6), n = R.length, H = n > 5 ? 200 : 230;
+document.documentElement.style.setProperty('--h', H + 'px');
+$('cp').textContent = D.league || '';
+$('hk').innerHTML = `${D.h1 || 'TOP SCORERS'}<br><span class="y">${D.h2 || 'THE LAST 5 SEASONS'}</span>`;
+$('tl').insertAdjacentHTML('beforeend', R.map((r) => `<div class="it${r.now ? ' now' : ''}"><div class="yr">${r.season}${r.sub ? `<small>${r.sub}</small>` : ''}</div><span class="dt"></span><div class="bx"><div><div class="nm">${r.name}</div><div class="cl">${r.club}</div></div><div class="g">${r.g}</div></div></div>`).join(''));
+$('cta').textContent = D.cta || 'WHO TAKES IT THIS SEASON? 👇';
+const its = [...document.querySelectorAll('.it')], T0 = .5, PER = 1.05;
+window.TOTAL = Math.max(10, T0 + n * PER + 3.5);
+window.draw = (t) => {
+  $('ln').style.height = Math.max(0, Math.min(n * H, n * H * (t - T0) / (n * PER))) + 'px';
+  its.forEach((it, i) => { const a = ease((t - T0 - i * PER) / .45); it.style.opacity = a; it.style.transform = `translateX(${(1 - a) * 120}px)`;
+    const g = it.querySelector('.g'); g.textContent = t < T0 + i * PER ? '0' : cnt(R[i].g, ease((t - T0 - i * PER - .2) / .5)); });
+  const c = ease((t - T0 - n * PER - .6) / .5); $('cta').style.opacity = c;
+};
+window.POSTER = Math.min(window.TOTAL - .3, T0 + n * PER + .4);
+progBar();
+draw(0);
+</script></body></html>
