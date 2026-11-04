@@ -22,8 +22,9 @@ jobs:
         run: |
           key="$REELS_KEY"; echo "::add-mask::$key"; sleep 5
           A="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
-          sleep 100
-          curl -sS --max-time 120 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=half,slotft&list=1" | jq -c '(.result.list // [])[] | select(test("uefa"))', '.jobs'
+          sleep 5
+          curl -sS --max-time 120 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=half,slotft&list=1" > out.json || true
+          jq -r '.result.list[]? | select(contains("uefa"))' out.json; jq -c '.jobs' out.json | cut -c1-1500
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
           echo done
