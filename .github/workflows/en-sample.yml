@@ -17,11 +17,18 @@ jobs:
           for i in 1 2 3; do timeout 240 sudo apt-get update -qq && timeout 240 sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null && break; sleep 10; done
           npm i --no-save --no-audit --no-fund playwright@1.48.2
           timeout 300 npx playwright install --with-deps chromium
-      - run: |
-          mkdir -p sample/look; UA="FootballLegendsBot/1.0 (https://football-legend.com/contact/)"
-          curl -sSL -A "$UA" -o sample/look/h.jpg "https://commons.wikimedia.org/wiki/Special:FilePath/Erling_Haaland_2023_(fullcropped).jpg?width=480"
-          curl -sSL -A "$UA" -o sample/look/m.png "https://commons.wikimedia.org/wiki/Special:FilePath/Kylian_Mbapp%C3%A9_against_M%C3%A1laga,_match_valid_for_the_third_round_of_La_Liga_on_August_30,_2026.png?width=480"
-          ls -la sample/look
+      - env:
+          REELS_KEY: ${{ secrets.REELS_KEY }}
+        run: |
+          key="$REELS_KEY"; echo "::add-mask::$key"; sleep 150
+          q() { curl -sS --max-time 200 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=$1&at=$2"; }
+          : > all.json
+          for x in "sched 2026-11-04T10:00:00Z" "sched 2026-11-07T08:00:00Z" "preview 2026-11-04T15:00:00Z" "preview 2026-11-05T15:00:00Z" "duel 2026-11-04T13:00:00Z" "five 2026-11-06T13:00:00Z" "uclpast 2026-11-05T13:00:00Z"; do
+            set -- $x; q $1 $2 > d.json; jq -c "{k: \"$1 $2\", r: .result, j: [.jobs[] | {id, title}]}" d.json || head -c 400 d.json; jq -c '.jobs[]' d.json >> all.json || true
+          done
+          jq -s '[group_by(.enKind)[] | .[0] | {id: (.id + "-s"), anim, voiceText, voiceName: "Fenrir", voiceLang: "en-GB", voiceStyle: "", caption, title}]' all.json > sample/jobs.json
+          jq -r '.[] | "== \(.id)\n\(.title)\n\(.caption)"' sample/jobs.json
+          mkdir -p sample/out && node sample/render.mjs sample/jobs.json sample/out
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          git add -A sample/look && git commit -m "look [skip ci]" && git push
+          git add -A sample/out && git commit -m "sample output [skip ci]" && git push
