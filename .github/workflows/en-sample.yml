@@ -20,8 +20,8 @@ jobs:
       - env:
           REELS_KEY: ${{ secrets.REELS_KEY }}
         run: |
-          key="$REELS_KEY"; echo "::add-mask::$key"; sleep 150
-          curl -sS --max-time 150 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=compare&at=2026-11-05T15:00:00Z" | jq '[.jobs[] | {id: (.id + "-mates3"), anim, voiceText, voiceName: "Fenrir", voiceLang: "en-GB", voiceStyle: "", caption, title}]' > sample/jobs.json
+          key="$REELS_KEY"; echo "::add-mask::$key"; sleep 900
+          curl -sS --max-time 150 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=compare&at=2026-11-05T15:00:00Z" | jq '[.jobs[] | {id: (.id + "-mates4"), anim, voiceText, voiceName: "Fenrir", voiceLang: "en-GB", voiceStyle: "", caption, title}]' > sample/jobs.json
           jq -r '.[] | .title, .voiceText, .caption, .anim.a.sub, .anim.b.sub' sample/jobs.json
           mkdir -p sample/out && node sample/render.mjs sample/jobs.json sample/out
       - run: |
