@@ -48,6 +48,8 @@ document.documentElement.style.setProperty('--f', (n > 7 ? 34 : n > 4 ? 38 : 40)
 const ti = Math.max(0, M.findIndex((m) => m.top));
 $('list').innerHTML = M.map((m, i) => `<div class="m"><span class="no">${i + 1}</span><img src="${m.homeLogo || ''}" ${m.homeLogo ? '' : 'style="visibility:hidden"'}><span class="n">${m.home}</span><span class="k"><b>${m.time}</b><span>${m.tag || ''}</span></span><span class="n r">${m.away}</span><img src="${m.awayLogo || ''}" ${m.awayLogo ? '' : 'style="visibility:hidden"'}></div>`).join('');
 $('cta').innerHTML = `${D.cta || 'WHICH ONE ARE YOU WATCHING?'}<small>COMMENT THE NUMBER 👇</small>`;
+// A long name is shrunk to fit its half of the row, never cut («Nottingham Forest», «Manchester City»).
+document.querySelectorAll('.m .n').forEach((el) => { let f = parseFloat(getComputedStyle(el).fontSize); while (el.scrollWidth > el.clientWidth + 1 && f > 22) { f -= 1; el.style.fontSize = f + 'px'; } });
 const rows = [...document.querySelectorAll('.m')], T1 = .7, PER = .45, TB = T1 + n * PER + .3;
 window.TOTAL = Math.max(9, TB + 4.5);
 window.draw = (t) => {
