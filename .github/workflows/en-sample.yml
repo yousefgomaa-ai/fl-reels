@@ -22,11 +22,11 @@ jobs:
         run: |
           key="$REELS_KEY"; echo "::add-mask::$key"; sleep 150
           A="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
-          curl -sS --max-time 280 "$A&clubphotos=lamine-yamal,erling-haaland,alexander-isak" | jq -c '.result.clubphotos.map'
-          curl -sS --max-time 200 "$A&remake=en-guess-20261104" | jq -c '.result.remake'
-          curl -sS --max-time 200 "$A&remake=en-duel-pl-20261104" | jq -c '.result.remake'
-          for i in 1 2 3 4 5 6 7 8; do curl -sS --max-time 290 "$A&clubphotos=6" | jq -c '.result.clubphotos | {found, stars}' || true; done
-          curl -sS --max-time 100 "$A&clubphotos=0" | jq -c '.result.clubphotos.map'
+          curl -sS --max-time 290 "$A&clubphotos=erling-haaland,alexander-isak,lamine-yamal" | jq -c '.result.clubphotos.map'
+          curl -sS --max-time 200 "$A&kinds=duel" | jq -c '{r: .result.duel, j: [.jobs[] | {id, a: .anim.a.photo, b: .anim.b.photo}]}'
+          curl -sS --max-time 200 "$A&remake=en-duel-pl-20261104" | jq -c '{r: .result.remake, why: .result.remakeWhy}'
+          for i in 1 2 3 4 5 6 7 8 9 10 11 12; do curl -sS --max-time 290 "$A&clubphotos=5" | jq -c '.result.clubphotos | {found, stars}' || true; done
+          curl -sS --max-time 100 "$A&clubphotos=1" | jq -c '.result.clubphotos.map'
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
           echo done
