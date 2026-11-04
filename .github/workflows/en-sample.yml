@@ -20,14 +20,15 @@ jobs:
       - env:
           REELS_KEY: ${{ secrets.REELS_KEY }}
         run: |
-          key="$REELS_KEY"; echo "::add-mask::$key"; sleep 20
-          q() { curl -sS --max-time 200 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=$1&at=$2"; }
+          key="$REELS_KEY"; echo "::add-mask::$key"
           : > all.json
-          curl -sS --max-time 200 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=sched,preview&at=2026-11-04T15:00:00Z&list=1" | jq -c '{r: .result.sched, p: .result.preview, n: (.result.list|length)}'
-          curl -sS --max-time 200 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=sched&at=2026-11-07T08:00:00Z&list=1" | jq -c '{r: .result.sched, list: .result.list[0:8]}'
-          curl -sS --max-time 200 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=preview&at=2026-11-05T15:00:00Z" | jq -c '.result'
-          curl -sS --max-time 200 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none&at=2026-11-08T12:00:00Z&list=1" | jq -c '{list: .result.list[0:12]}'
-          for i in 1 2 3; do curl -sS --max-time 200 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=five&at=2026-11-06T13:00:00Z" | jq -c '.result'; sleep 65; done
+          for x in "sched 2026-11-07T07:30:00Z" "sched 2026-11-08T07:30:00Z" "preview 2026-11-04T15:00:00Z" "preview 2026-11-05T15:00:00Z" "preview 2026-11-06T15:00:00Z" "five 2026-11-06T13:00:00Z"; do
+            set -- $x; curl -sS --max-time 200 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=$1&at=$2" > d.json
+            jq -c "{k: \"$1 $2\", r: .result, j: [.jobs[] | {id, title}]}" d.json || head -c 300 d.json; jq -c '.jobs[]' d.json >> all.json || true; sleep 40
+          done
+          jq -s '[group_by(.enKind)[] | .[0] | {id: (.id + "-s"), anim, voiceText, voiceName: "Fenrir", voiceLang: "en-GB", voiceStyle: "", caption, title}]' all.json > sample/jobs.json
+          jq -r '.[] | "== \(.id)\n\(.caption)"' sample/jobs.json
+          mkdir -p sample/out && node sample/render.mjs sample/jobs.json sample/out
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          echo done-check
+          git add -A sample/out && git commit -m "sample output [skip ci]" && git push

@@ -1,0 +1,65 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends «TODAY IN ...» schedule (owner, 2026-11-04: «خلفية بيضا فيها الجدول بس، نضيف حاجة تميز كل جدول غير التاني»):
+   a clean white page, the table the hero; each competition marked only by its header band, its accent and its name
+   written large and faint behind the table. Numbered rows: the viewer comments the number of the match he will watch. */
+body{background:#f4f6fa}
+.paper{position:absolute;inset:0;background:#f4f6fa}
+.paper:before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(15,23,42,.035) 0 2px,transparent 2px 26px)}
+#wm{position:absolute;left:-40px;top:560px;font:400 330px/0.8 B;color:var(--hd);opacity:.06;transform:rotate(-90deg);transform-origin:0 0;white-space:nowrap;top:1880px;letter-spacing:8px}
+#hd{position:absolute;left:0;right:0;top:0;height:420px;background:var(--hd);overflow:hidden}
+#hd:after{content:'';position:absolute;left:0;right:0;bottom:0;height:14px;background:var(--ac)}
+#hd .lines{position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,0) 0 120px,rgba(255,255,255,.06) 120px 128px)}
+.logo{color:#fff}
+#dt{position:absolute;top:58px;right:44px;font:700 30px O;letter-spacing:4px;color:rgba(255,255,255,.8);text-align:right}
+#t1{position:absolute;left:44px;top:170px;font:400 84px/1 B;letter-spacing:4px;color:rgba(255,255,255,.85)}
+#t2{position:absolute;left:44px;top:246px;font:400 150px/1 B;letter-spacing:2px;color:#fff;white-space:nowrap;transform:skewX(-6deg)}
+#t2 i{font-style:normal;color:var(--ac)}
+#list{position:absolute;left:36px;right:36px;top:470px}
+.m{position:relative;display:flex;align-items:center;height:var(--h);margin-bottom:16px;background:#fff;border-radius:26px;box-shadow:0 10px 30px rgba(15,23,42,.10);padding:0 22px 0 92px;opacity:0;overflow:hidden}
+.m .no{position:absolute;left:0;top:0;bottom:0;width:72px;background:var(--hd);color:#fff;font:400 54px/1 B;display:flex;align-items:center;justify-content:center}
+.m img{width:var(--c);height:var(--c);object-fit:contain}
+.m .n{flex:1;font:700 var(--f) O;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 14px}.m .n.r{text-align:right}
+.m .k{width:190px;text-align:center;border-radius:18px;background:#f1f5f9;padding:8px 0}
+.m .k b{display:block;font:400 var(--sf) B;letter-spacing:2px;color:#0f172a;line-height:1}.m .k span{font:700 20px O;color:#64748b;letter-spacing:1px}
+.m.top{box-shadow:0 0 0 5px var(--ac),0 14px 40px rgba(15,23,42,.18)}
+.m.top .k{background:var(--ac)}.m.top .k b,.m.top .k span{color:var(--hd)}
+#motd{position:absolute;right:56px;padding:6px 20px;border-radius:12px;background:var(--hd);color:#fff;font:400 38px B;letter-spacing:2px;opacity:0;z-index:5}
+#motd i{font-style:normal;color:var(--ac)}
+#cta{bottom:60px;color:var(--hd);text-shadow:none;font-size:66px}
+#cta small{display:block;font:700 30px O;letter-spacing:2px;color:#475569;margin-top:6px}
+</style></head><body><div class="paper"></div><div id="wm"></div>
+<div id="hd"><div class="lines"></div></div><div class="logo">FB<i>LEGENDS</i></div><div id="dt"></div><div id="t1"></div><div id="t2"></div>
+<div id="list"></div><div id="motd">MATCH OF THE <i>DAY</i></div><div class="cta" id="cta"></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA, M = (D.rows || []).slice(0, 9), n = M.length;
+// Each competition's mark: its header band and its accent (not the full page).
+const TH = { pl: ['#2b0a3d', '#00e676'], laliga: ['#14213d', '#fca311'], seriea: ['#0a2a66', '#29d3ff'], bund: ['#1c1c1c', '#ff3b47'], l1: ['#0b1d3a', '#c6f432'],
+  ucl: ['#0a1446', '#8ec5ff'], uel: ['#231507', '#ff8a1f'], cup: ['#073b2a', '#ffcc33'] }[D.theme] || ['#0a1446', '#ffd21f'];
+document.documentElement.style.cssText = `--hd:${TH[0]};--ac:${TH[1]}`;
+document.body.classList.remove(...[...document.body.classList].filter((c) => c.startsWith('t-')));
+$('dt').innerHTML = (D.date || '') + (D.tz ? `<br>${D.tz}` : '');
+$('t1').textContent = D.h1 || 'TODAY IN THE';
+$('t2').innerHTML = D.h2html || D.h2 || '';
+$('wm').textContent = D.mark || D.h2 || '';
+// The rows fill the page between the header and the question, whatever the number of matches.
+const h = Math.max(112, Math.min(230, Math.floor((1920 - 470 - 250) / Math.max(n, 1)) - 16));
+document.documentElement.style.setProperty('--h', h + 'px'); document.documentElement.style.setProperty('--c', Math.round(h * .5) + 'px');
+document.documentElement.style.setProperty('--f', (n > 7 ? 34 : n > 4 ? 38 : 40) + 'px'); document.documentElement.style.setProperty('--sf', (n > 7 ? 58 : n > 4 ? 66 : 78) + 'px');
+const ti = Math.max(0, M.findIndex((m) => m.top));
+$('list').innerHTML = M.map((m, i) => `<div class="m"><span class="no">${i + 1}</span><img src="${m.homeLogo || ''}" ${m.homeLogo ? '' : 'style="visibility:hidden"'}><span class="n">${m.home}</span><span class="k"><b>${m.time}</b><span>${m.tag || ''}</span></span><span class="n r">${m.away}</span><img src="${m.awayLogo || ''}" ${m.awayLogo ? '' : 'style="visibility:hidden"'}></div>`).join('');
+$('cta').innerHTML = `${D.cta || 'WHICH ONE ARE YOU WATCHING?'}<small>COMMENT THE NUMBER 👇</small>`;
+const rows = [...document.querySelectorAll('.m')], T1 = .7, PER = .45, TB = T1 + n * PER + .3;
+window.TOTAL = Math.max(9, TB + 4.5);
+window.draw = (t) => {
+  const a = ease(t / .5); $('t2').style.transform = `skewX(-6deg) translateX(${(1 - a) * -80}px)`; $('t2').style.opacity = a;
+  $('wm').style.transform = `rotate(-90deg) translateX(${-40 * cl(t / window.TOTAL)}px)`;
+  rows.forEach((r, i) => { const s = T1 + i * PER, k = ease((t - s) / .4); r.style.opacity = k; r.style.transform = `translateY(${(1 - k) * 40}px) scale(${.96 + .04 * k})`;
+    r.querySelector('.no').style.transform = `scale(${t > s + .2 ? 1 : .2 + .8 * ease((t - s) / .3)})`; });
+  const k = ease((t - TB) / .4), r = rows[ti];
+  if (r) { r.classList.toggle('top', t > TB); r.style.transform = `scale(${1 + .03 * k})`; $('motd').style.opacity = k; $('motd').style.top = (470 + ti * (h + 16) - 30) + 'px'; }
+  const c = TB + 1.1, k2 = ease((t - c) / .5); $('cta').style.opacity = k2; $('cta').style.transform = `scale(${t > c ? 1.15 - .15 * back((t - c) / .6) : 1})`;
+};
+window.POSTER = Math.min(window.TOTAL - .3, TB + 1.9);
+progBar();
+draw(0);
+</script></body></html>
