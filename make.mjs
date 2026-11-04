@@ -322,7 +322,7 @@ async function makeReel(job, dir) {
   return out;
 }
 // A photo post (FB Legends, owner 2026-11-04: «ممكن نضيف صور بردة»): the page at 1080x1350, taken once as a JPEG.
-async function makeImage(job, dir) {
+export async function makeImage(job, dir) {
   const d = job.anim || {};
   const page0 = await readFile(new URL(`./anim/${d.kind}.html`, import.meta.url), 'utf8');
   const html = new URL(`./anim/_${job.id.replace(/[^\w-]/g, '_')}.html`, import.meta.url);
