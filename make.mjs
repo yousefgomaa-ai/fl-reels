@@ -261,7 +261,7 @@ async function makeAnim(job, dir) {
   } finally { await b.close(); await rm(html, { force: true }); }
 }
 async function makeReel(job, dir) {
-  if (/^(table|schedule|prematch|lineup|fulltime|star|en-result|en-guess|en-compare|en-table|en-night|en-predict|en-streak|en-boot|en-weekend|en-hilo|en-recap|en-preview|en-five|en-history)$/.test(job.anim?.kind || '')) {
+  if (/^(table|schedule|prematch|lineup|fulltime|star|en-result|en-guess|en-compare|en-table|en-night|en-predict|en-streak|en-boot|en-weekend|en-hilo|en-recap|en-preview|en-five|en-history|en-fixtures)$/.test(job.anim?.kind || '')) {
     try { return await makeAnim(job, dir); } catch (e) { console.log(`${job.id}: moving ${job.anim.kind} failed (${e.message}), the still cards instead`); }
   }
   // A video made elsewhere (the app ad, owner 2026-10-24): taken as it is, only checked to be an MP4.
