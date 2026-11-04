@@ -20,14 +20,11 @@ jobs:
       - env:
           REELS_KEY: ${{ secrets.REELS_KEY }}
         run: |
-          key="$REELS_KEY"; echo "::add-mask::$key"
+          key="$REELS_KEY"; echo "::add-mask::$key"; sleep 150
           for at in 2026-11-04T08:30:00Z 2026-11-04T10:30:00Z 2026-11-04T13:30:00Z 2026-11-04T16:30:00Z 2026-11-04T19:30:00Z 2026-11-04T22:30:00Z; do
             curl -sS --max-time 150 "https://api.football-legend.com/v2/fben/dry?key=$key&at=$at" > d.json
             jq -c "{at: \"$at\", r: .result, jobs: [.jobs[] | {kind, id, title, pa: (.anim.a.photo // .anim.photo // \"\"), ca: (.anim.a.slug // .anim.slug // \"\"), pb: (.anim.b.photo // \"\")}]}" d.json || head -c 300 d.json
           done
-          { curl -sS --max-time 150 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=compare&at=2026-11-04T19:00:00Z"; curl -sS --max-time 150 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=guess&at=2026-11-04T13:30:00Z"; } | jq -s '[.[].jobs[] | {id: (.id + "-sample"), anim, voiceText, voiceName: "Fenrir", voiceLang: "en-GB", voiceStyle: "", caption}]' > sample/jobs.json
-          jq -r '.[] | "\(.id)\n\(.caption)\n---"' sample/jobs.json
-          mkdir -p sample/out && node sample/render.mjs sample/jobs.json sample/out
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          git add -A sample/out && git commit -m "sample output [skip ci]" && git push
+          echo no-render
