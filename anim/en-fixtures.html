@@ -42,7 +42,7 @@ $('t1').textContent = D.h1 || 'TODAY IN THE';
 $('t2').innerHTML = D.h2html || D.h2 || '';
 $('wm').textContent = D.mark || D.h2 || '';
 // The rows fill the page between the header and the question, whatever the number of matches.
-const h = Math.max(112, Math.min(230, Math.floor((1920 - 470 - 250) / Math.max(n, 1)) - 16));
+const h = Math.max(100, Math.min(230, Math.floor((1920 - 470 - 250) / Math.max(n, 1)) - 16));
 document.documentElement.style.setProperty('--h', h + 'px'); document.documentElement.style.setProperty('--c', Math.round(h * .5) + 'px');
 document.documentElement.style.setProperty('--f', (n > 7 ? 34 : n > 4 ? 38 : 40) + 'px'); document.documentElement.style.setProperty('--sf', (n > 7 ? 58 : n > 4 ? 66 : 78) + 'px');
 const ti = Math.max(0, M.findIndex((m) => m.top));
