@@ -56,6 +56,9 @@ $('lg').textContent = D.league || '';
 // The order of the beats: the hook, each match, then the extras the server sent (star, numbers, table), then all.
 const SEQ = ['hook', ...M.map((_, i) => 'm' + i), ...(D.star ? ['star'] : []), ...(D.nums ? ['nums'] : []), ...(D.table?.length ? ['table'] : []), 'all'];
 q('hk', '.t').innerHTML = `${D.h1 || 'ROUND'}<br><span class="y">${D.h2 || ''}</span>`;
+// A long name (CHAMPIONS LEAGUE) took two lines and ran into the first number (owner's screenshot, 2026-11-04): the
+// title shrinks until it ends above the numbers.
+{ const t = q('hk', '.t'); let f = 190; while (t.offsetTop + t.offsetHeight > 730 && f > 90) { f -= 8; t.style.fontSize = f + 'px'; } }
 q('hk', '.tz').innerHTML = (D.teasers || []).slice(0, 3).map(([v, w]) => `<div><b>${v}</b>${w}</div>`).join('');
 q('hk', '.sv').textContent = D.save || 'THE RESULT OF THE ROUND IS SAVED FOR LAST 👀';
 if (D.star) { const s = D.star; q('st', 'img').src = s.logo || ''; if (!s.logo) q('st', 'img').style.display = 'none'; q('st', '.nm').textContent = s.name; q('st', '.tm').textContent = s.team; q('st', '.bl').textContent = '⚽'.repeat(Math.min(s.g, 5)); q('st', '.vs').textContent = s.vs || ''; }
