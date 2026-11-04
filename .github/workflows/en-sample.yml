@@ -23,9 +23,7 @@ jobs:
           key="$REELS_KEY"; echo "::add-mask::$key"; sleep 5
           A="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
           sleep 5
-          sleep 150; date -u
-          curl -sS --max-time 120 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none&roundnow=uefa.champions" | jq -c '.result.roundnow'
-          sleep 240
+          date -u
           curl -sS --max-time 60 "https://api.football-legend.com/v2/reels/status?key=$key" > st.json || true
           jq -c '.reels[]? | select((.id // "") | test("^en-(ucltbl|rres)")) | {id, status, readyAt}' st.json
       - run: |
