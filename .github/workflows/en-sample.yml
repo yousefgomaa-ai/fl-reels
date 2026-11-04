@@ -23,9 +23,11 @@ jobs:
           key="$REELS_KEY"; echo "::add-mask::$key"; sleep 5
           A="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
           sleep 5
-          date -u
+          date -u; sleep 160
+          curl -sS --max-time 120 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none&remake=en-rres-ucl-20261104" | jq -c '.result.remake'
+          sleep 200
           curl -sS --max-time 60 "https://api.football-legend.com/v2/reels/status?key=$key" > st.json || true
-          jq -c '.reels[]? | select((.id // "") | test("^en-(ucltbl|rres)")) | {id, status, readyAt}' st.json
+          jq -c '.reels[]? | select((.id // "") | test("^en-rres")) | {id, status, readyAt}' st.json
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
           echo done
