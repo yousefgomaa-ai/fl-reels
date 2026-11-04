@@ -22,7 +22,7 @@ jobs:
         run: |
           key="$REELS_KEY"; echo "::add-mask::$key"; sleep 5
           A="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
-          sleep 150
+          sleep 20
           curl -sS --max-time 290 "$A&clubphoto=erling-haaland" | jq -c '.result.clubphoto, .result.clubphotoWhy'
           curl -sS --max-time 290 "$A&clubphotos=lamine-yamal,alexander-isak" | jq -c '.result.clubphotos, .result.clubphotosError'
       - run: |
