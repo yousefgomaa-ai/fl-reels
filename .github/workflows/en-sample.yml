@@ -22,11 +22,8 @@ jobs:
         run: |
           key="$REELS_KEY"; echo "::add-mask::$key"; sleep 5
           A="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
-          mkdir -p look
-          U='FootballLegendsBot/1.0 (https://football-legend.com/contact/)'
-          F='LamineYamal_-_FCB_-_Partido_Athletic_Club_vs_FC_Barcelona.jpg'
-          curl -sSL -A "$U" -o look/yamal2.jpg "https://commons.wikimedia.org/wiki/Special:FilePath/$F?width=640"
-          curl -sS -A "$U" "https://commons.wikimedia.org/w/api.php?action=query&titles=File:$F&prop=imageinfo&iiprop=size|extmetadata&format=json" | jq -c '.query.pages[] | .imageinfo[0] | {w: .width, h: .height, lic: .extmetadata.LicenseShortName.value, who: .extmetadata.Artist.value, date: .extmetadata.DateTimeOriginal.value}'
+          sleep 100
+          curl -sS --max-time 120 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=half,slotft&list=1" | jq -c '(.result.list // [])[] | select(test("uefa"))', '.jobs'
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          git add look && git commit -qm "look" && git push -q origin HEAD:claude/en-sample; echo done
+          echo done
