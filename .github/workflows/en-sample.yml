@@ -20,7 +20,7 @@ jobs:
       - env:
           REELS_KEY: ${{ secrets.REELS_KEY }}
         run: |
-          key="$REELS_KEY"; echo "::add-mask::$key"; sleep 150
+          key="$REELS_KEY"; echo "::add-mask::$key"; sleep 20
           q() { curl -sS --max-time 200 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=$1&at=$2"; }
           : > all.json
           curl -sS --max-time 200 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=sched,preview&at=2026-11-04T15:00:00Z&list=1" | jq -c '{r: .result.sched, p: .result.preview, n: (.result.list|length)}'
