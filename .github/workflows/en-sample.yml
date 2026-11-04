@@ -8,7 +8,7 @@ permissions:
 jobs:
   sample:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 50
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -21,14 +21,12 @@ jobs:
           REELS_KEY: ${{ secrets.REELS_KEY }}
         run: |
           key="$REELS_KEY"; echo "::add-mask::$key"; sleep 150
-          : > all.json
-          for x in "round 2026-11-02T23:30:00Z" "compare 2026-11-04T19:00:00Z"; do
-            set -- $x; curl -sS --max-time 200 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=$1&at=$2" > d.json
-            jq -c "{k: \"$1 $2\", r: .result, j: [.jobs[] | {id, title}]}" d.json || head -c 300 d.json; jq -c '.jobs[] | . + {image: (.enKind == "pick")}' d.json >> all.json || true; sleep 5
-          done
-          jq -s '[.[] | {id: (.id + "-s"), image, anim, voiceText, voiceName: "Fenrir", voiceLang: "en-GB", voiceStyle: "", caption, title}]' all.json > sample/jobs.json
-          jq -r '.[] | "== \(.id)\n\(.caption)"' sample/jobs.json
-          mkdir -p sample/out && node sample/render.mjs sample/jobs.json sample/out
+          A="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
+          curl -sS --max-time 280 "$A&clubphotos=lamine-yamal,erling-haaland,alexander-isak" | jq -c '.result.clubphotos.map'
+          curl -sS --max-time 200 "$A&remake=en-guess-20261104" | jq -c '.result.remake'
+          curl -sS --max-time 200 "$A&remake=en-duel-pl-20261104" | jq -c '.result.remake'
+          for i in 1 2 3 4 5 6 7 8; do curl -sS --max-time 290 "$A&clubphotos=6" | jq -c '.result.clubphotos | {found, stars}' || true; done
+          curl -sS --max-time 100 "$A&clubphotos=0" | jq -c '.result.clubphotos.map'
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          git add -A sample/out && git commit -m "sample output [skip ci]" && git push || true
+          echo done
