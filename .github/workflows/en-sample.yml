@@ -21,7 +21,9 @@ jobs:
           REELS_KEY: ${{ secrets.REELS_KEY }}
         run: |
           key="$REELS_KEY"; echo "::add-mask::$key"; sleep 150
-          for at in 2026-11-04T19:00:00Z 2026-11-07T19:00:00Z; do curl -sS --max-time 150 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=compare&at=$at" | jq -c '{r: .result.compare, j: [.jobs[] | {title, a: .anim.a.short, as: .anim.a.sub, b: .anim.b.short, bs: .anim.b.sub, pa: .anim.a.photo, pb: .anim.b.photo}]}'; done
+          curl -sS --max-time 150 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=compare&at=2026-11-04T19:00:00Z" | jq '[.jobs[] | {id: (.id + "-derby"), anim, voiceText, voiceName: "Fenrir", voiceLang: "en-GB", voiceStyle: "", caption, title}]' > sample/jobs.json
+          jq -r '.[] | .title, .voiceText, .caption' sample/jobs.json
+          mkdir -p sample/out && node sample/render.mjs sample/jobs.json sample/out
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          git add -A sample/out && git commit -m "look [skip ci]" && git push
+          git add -A sample/out && git commit -m "sample output [skip ci]" && git push
