@@ -31,7 +31,7 @@ body{background:#f4f6fa}
 <div id="hd"><div class="lines"></div></div><div class="logo">FB<i>LEGENDS</i></div><div id="dt"></div><div id="t1"></div><div id="t2"></div>
 <div id="list"></div><div id="motd">MATCH OF THE <i>DAY</i></div><div class="cta" id="cta"></div>
 <script src="lib.js"></script><script src="en-lib.js"></script><script>
-const D = window.DATA, M = (D.rows || []).slice(0, 9), n = M.length;
+const D = window.DATA, M = (D.rows || []).slice(0, 10), n = M.length;
 // Each competition's mark: its header band and its accent (not the full page).
 const TH = { pl: ['#2b0a3d', '#00e676'], laliga: ['#14213d', '#fca311'], seriea: ['#0a2a66', '#29d3ff'], bund: ['#1c1c1c', '#ff3b47'], l1: ['#0b1d3a', '#c6f432'],
   ucl: ['#0a1446', '#8ec5ff'], uel: ['#231507', '#ff8a1f'], cup: ['#073b2a', '#ffcc33'] }[D.theme] || ['#0a1446', '#ffd21f'];
@@ -39,6 +39,8 @@ document.documentElement.style.cssText = `--hd:${TH[0]};--ac:${TH[1]}`;
 document.body.classList.remove(...[...document.body.classList].filter((c) => c.startsWith('t-')));
 $('dt').innerHTML = (D.date || '') + (D.tz ? `<br>${D.tz}` : '');
 $('t1').textContent = D.h1 || 'TODAY IN THE';
+// A round's schedule lights «MATCH OF THE ROUND» (DATA.motd).
+if (D.motd) $('motd').innerHTML = D.motd;
 $('t2').innerHTML = D.h2html || D.h2 || '';
 $('wm').textContent = D.mark || D.h2 || '';
 // The rows fill the page between the header and the question, whatever the number of matches.
