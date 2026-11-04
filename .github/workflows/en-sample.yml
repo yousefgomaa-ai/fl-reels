@@ -23,12 +23,11 @@ jobs:
           key="$REELS_KEY"; echo "::add-mask::$key"; sleep 150
           q() { curl -sS --max-time 200 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=$1&at=$2"; }
           : > all.json
-          for x in "sched 2026-11-07T08:00:00Z" "preview 2026-11-04T15:00:00Z" "preview 2026-11-05T15:00:00Z" "five 2026-11-06T13:00:00Z" "uclpast 2026-11-05T13:00:00Z" "five 2026-11-06T13:05:00Z"; do
-            set -- $x; q $1 $2 > d.json; jq -c "{k: \"$1 $2\", r: .result, j: [.jobs[] | {id, title}]}" d.json || head -c 400 d.json; jq -c '.jobs[]' d.json >> all.json || true
-          done
-          jq -s '[group_by(.enKind)[] | .[0] | {id: (.id + "-s"), anim, voiceText, voiceName: "Fenrir", voiceLang: "en-GB", voiceStyle: "", caption, title}]' all.json > sample/jobs.json
-          jq -r '.[] | "== \(.id)\n\(.title)\n\(.caption)"' sample/jobs.json
-          mkdir -p sample/out && node sample/render.mjs sample/jobs.json sample/out
+          curl -sS --max-time 200 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=sched,preview&at=2026-11-04T15:00:00Z&list=1" | jq -c '{r: .result.sched, p: .result.preview, n: (.result.list|length)}'
+          curl -sS --max-time 200 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=sched&at=2026-11-07T08:00:00Z&list=1" | jq -c '{r: .result.sched, list: .result.list[0:8]}'
+          curl -sS --max-time 200 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=preview&at=2026-11-05T15:00:00Z" | jq -c '.result'
+          curl -sS --max-time 200 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none&at=2026-11-08T12:00:00Z&list=1" | jq -c '{list: .result.list[0:12]}'
+          for i in 1 2 3; do curl -sS --max-time 200 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=five&at=2026-11-06T13:00:00Z" | jq -c '.result'; sleep 65; done
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          git add -A sample/out && git commit -m "sample output [skip ci]" && git push
+          echo done-check
