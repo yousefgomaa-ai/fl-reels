@@ -1,0 +1,30 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends photo post «RATE THE MATCH» (owner, 2026-11-04: pictures too): the day's biggest full-time score on a
+   1080x1350 card, the scorers, and the question: rate it from 1 to 10 in the comments. */
+body{height:1350px}
+#cp{top:60px;right:44px;font:700 32px O;letter-spacing:4px;text-transform:uppercase;text-align:right;color:var(--ac,#46d7ff)}
+#ft{top:170px;left:0;right:0;text-align:center;font:400 72px/1 B;letter-spacing:8px;color:var(--ac,#ffd21f)}
+.tm{position:absolute;top:290px;width:440px;text-align:center}#ta{left:30px}#tb{right:30px}
+.tm img{width:300px;height:300px;object-fit:contain;filter:drop-shadow(0 18px 40px rgba(0,0,0,.6))}
+.tm div{font:400 66px/1 B;letter-spacing:2px;margin-top:18px}
+#sc{top:360px;left:50%;width:300px;margin-left:-150px;text-align:center;font:400 190px/1 B;letter-spacing:4px}
+#pn{top:560px;left:0;right:0;text-align:center;font:700 30px O;color:var(--ac,#ffd21f)}
+#gl{top:700px;left:60px;right:60px;display:flex;gap:30px;font:700 30px/1.5 O;color:rgba(255,255,255,.85)}#gl div{flex:1}#gl div+div{text-align:right}
+#rt{bottom:120px;left:60px;right:60px;display:flex;justify-content:space-between}
+#rt i{width:84px;height:84px;border-radius:18px;background:rgba(255,255,255,.1);border:3px solid rgba(255,255,255,.25);font:400 54px/80px B;font-style:normal;text-align:center}
+#rt i:nth-child(n+8){border-color:var(--ac,#ffd21f);color:var(--ac,#ffd21f)}
+#cta{position:absolute;left:0;right:0;bottom:0;height:100px;background:var(--ac,#ffd21f);color:#040a2e;text-align:center;font:400 60px/100px B;letter-spacing:2px}
+</style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div><div class="abs" id="cp"></div>
+<div class="abs" id="ft">FULL-TIME</div><div class="tm" id="ta"></div><div class="abs" id="sc"></div><div class="tm" id="tb"></div><div class="abs" id="pn"></div>
+<div class="abs" id="gl"><div id="ga"></div><div id="gb"></div></div><div class="abs" id="rt"></div><div id="cta"></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA;
+$('cp').textContent = D.league || '';
+const tm = (t) => `<img src="${t.logo || ''}" ${t.logo ? '' : 'style="visibility:hidden"'}><div>${t.name}</div>`;
+$('ta').innerHTML = tm(D.a); $('tb').innerHTML = tm(D.b);
+$('sc').textContent = `${D.hs}-${D.as}`; $('pn').textContent = D.pens || '';
+$('ga').innerHTML = (D.sa || []).map((g) => `⚽ ${g}`).join('<br>'); $('gb').innerHTML = (D.sb || []).map((g) => `${g} ⚽`).join('<br>');
+$('rt').innerHTML = Array.from({ length: 10 }, (_, i) => `<i>${i + 1}</i>`).join('');
+$('cta').textContent = D.cta || 'RATE THE MATCH FROM 1 TO 10 👇';
+window.TOTAL = 1; window.POSTER = 1; window.draw = () => {};
+</script></body></html>
