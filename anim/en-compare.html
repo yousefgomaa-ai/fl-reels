@@ -24,6 +24,8 @@ const D = window.DATA, K = ['g', 'a', 'ga'], L = ['GOALS', 'ASSISTS', 'G/A'];
 const val = (x, k) => (k === 'ga' ? x.g + x.a : x[k]);
 const half = (x) => `<div class="im"></div><div class="nm">${x.short || x.tag}<small>${x.sub || ''}</small></div>
   <div class="st">${K.map((k, i) => `${i ? '<hr>' : ''}<div data-k="${k}"><b>?</b><span>${L[i]}</span></div>`).join('')}</div>`;
+// Its own headline for a scorers' duel (owner, 2026-11-04: the league's first and second scorers).
+if (D.head) $('hk').innerHTML = D.head;
 $('ha').innerHTML = half(D.a); $('hb').innerHTML = half(D.b);
 const pic = (el, x) => { if (x.slug || x.photo) return starImg(el, x.slug, x.photo); if (x.logo) el.innerHTML = `<img class="crest" src="${x.logo}">`; };
 pic(document.querySelector('#ha .im'), D.a); pic(document.querySelector('#hb .im'), D.b);

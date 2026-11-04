@@ -1,0 +1,46 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends «3 DAYS TO GO» (owner, 2026-11-04: «ريل بالماتشات الكبيرة زي الديربي او الكلاسيكو ... بينزل قبله ب ٣ ايام»): a
+   countdown, the two crests sliding in face to face, each side's place and last five, the kick-off in UK and US time. */
+#cp{top:62px;right:44px;font:700 32px O;letter-spacing:4px;text-transform:uppercase;text-align:right;color:var(--ac,#46d7ff)}
+#cd{top:150px;left:0;right:0;text-align:center;font:400 300px/0.8 B;color:var(--ac,#ffd21f);text-shadow:0 10px 60px rgba(0,0,0,.6)}
+#cd small{display:block;font:400 92px/1 B;letter-spacing:6px;color:#fff}
+#ev{top:530px;left:30px;right:30px;text-align:center;font:400 130px/0.9 B;letter-spacing:3px;transform:skewX(-6deg);text-shadow:0 8px 40px rgba(0,0,0,.6)}
+.sd{position:absolute;top:760px;width:500px;text-align:center}#sa{left:20px}#sb{right:20px}
+.sd img{width:330px;height:330px;object-fit:contain;filter:drop-shadow(0 20px 40px rgba(0,0,0,.6))}
+.sd .n{font:400 68px/1 B;letter-spacing:2px;margin-top:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sd .ps{font:700 30px O;letter-spacing:2px;color:rgba(255,255,255,.8);margin-top:8px}
+.fm{display:flex;justify-content:center;gap:12px;margin-top:20px}.fm i{width:64px;height:64px;border-radius:14px;font:400 44px/64px B;font-style:normal;color:#040a2e}
+.fm .W{background:#22c55e}.fm .D{background:#cbd5e1}.fm .L{background:#ef4444;color:#fff}
+#vs{left:50%;top:880px;width:150px;height:150px;margin-left:-75px;border-radius:50%;background:var(--ac,#ffd21f);color:#040a2e;font:400 88px/154px B;text-align:center;z-index:5}
+#ko{top:1500px;left:60px;right:60px;text-align:center;padding:22px 0;border-radius:30px;background:rgba(4,10,46,.82);border:3px solid var(--ac,#ffd21f)}
+#ko b{display:block;font:400 72px/1 B;letter-spacing:3px}#ko span{font:700 34px O;letter-spacing:2px;color:rgba(255,255,255,.85)}
+#cta{bottom:70px}
+</style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div><div class="abs" id="cp"></div>
+<div class="abs" id="cd"></div><div class="abs" id="ev"></div>
+<div class="sd" id="sa"></div><div class="abs" id="vs">VS</div><div class="sd" id="sb"></div>
+<div class="abs" id="ko"></div><div class="cta" id="cta"></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA;
+$('cp').textContent = D.league || '';
+$('cd').innerHTML = `${D.days || 3}<small>${(D.days || 3) === 1 ? 'DAY TO GO' : 'DAYS TO GO'}</small>`;
+$('ev').innerHTML = D.event || `${D.a.name} <span class="y">v</span> ${D.b.name}`;
+const side = (x) => `<img src="${x.logo || ''}" ${x.logo ? '' : 'style="visibility:hidden"'}><div class="n">${x.name}</div>${x.pos ? `<div class="ps">${x.pos}</div>` : ''}<div class="fm">${(x.form || []).slice(0, 5).map((r) => `<i class="${r}">${r}</i>`).join('')}</div>`;
+$('sa').innerHTML = side(D.a); $('sb').innerHTML = side(D.b);
+$('ko').innerHTML = `<b>${D.when || ''}</b><span>${D.time || ''}</span>`;
+$('cta').textContent = D.cta || 'WHO WINS IT? 👇';
+const dots = [...document.querySelectorAll('.fm i')];
+window.TOTAL = 10;
+window.draw = (t) => {
+  const p = 1 + .06 * Math.sin(t * 5); $('cd').style.transform = `scale(${t < .5 ? 1.5 - back(t / .5) * .5 : p})`;
+  const a = ease((t - .6) / .7), b = ease((t - 1.0) / .7);
+  $('ev').style.opacity = a; $('ev').style.transform = `skewX(-6deg) translateY(${(1 - a) * 40}px)`;
+  $('sa').style.transform = `translateX(${(1 - b) * -560}px)`; $('sb').style.transform = `translateX(${(1 - b) * 560}px)`;
+  const v = back((t - 1.7) / .5); $('vs').style.transform = `scale(${t < 1.7 ? 0 : v})`;
+  dots.forEach((d, i) => { const k = ease((t - 2.2 - (i % 5) * .18) / .3); d.style.opacity = k; d.style.transform = `scale(${.6 + .4 * k})`; });
+  const k = ease((t - 3.6) / .5); $('ko').style.opacity = k; $('ko').style.transform = `translateY(${(1 - k) * 60}px)`;
+  const c = ease((t - 4.6) / .5); $('cta').style.opacity = c; $('cta').style.transform = `scale(${t > 4.6 ? 1.2 - .2 * back((t - 4.6) / .6) : 1})`;
+};
+window.POSTER = 5.5;
+progBar();
+draw(0);
+</script></body></html>

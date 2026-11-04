@@ -24,3 +24,14 @@ body{position:relative;width:1080px;height:1920px;overflow:clip;font-family:O,Ar
 .cut{position:absolute;object-fit:contain;object-position:50% 100%;filter:drop-shadow(0 20px 40px rgba(0,0,0,.55))}
 .glowln{filter:drop-shadow(0 0 3px #ffd21f) drop-shadow(0 0 18px rgba(255,210,31,.7))}
 .stamp{position:absolute;font:400 120px/1 B;letter-spacing:4px;color:#040a2e;background:#ffd21f;padding:10px 40px;border-radius:18px;transform:rotate(-6deg);box-shadow:0 10px 40px rgba(0,0,0,.6);z-index:30}
+/* Each competition its own colours (owner, 2026-11-04: «مش عايز الريلز كلها تنزل ستمبه واحده»): DATA.theme sets the
+   page's class (en-lib.js), which repaints the background and the accent. */
+body[class*="t-"] .y{color:var(--ac)}
+body.t-pl{--ac:#00ff85}body.t-pl .bg{background:radial-gradient(1200px 900px at 50% 30%,#6a1b9a 0%,#38003c 50%,#16001a 100%)}
+body.t-laliga{--ac:#ffb000}body.t-laliga .bg{background:radial-gradient(1200px 900px at 50% 30%,#d4202a 0%,#7a0d14 50%,#2a0508 100%)}
+body.t-seriea{--ac:#3ee0ff}body.t-seriea .bg{background:radial-gradient(1200px 900px at 50% 30%,#0f5bd8 0%,#08327a 50%,#03112e 100%)}
+body.t-bund{--ac:#ffffff}body.t-bund .bg{background:radial-gradient(1200px 900px at 50% 30%,#e30613 0%,#8a040b 50%,#2b0103 100%)}
+body.t-l1{--ac:#d9ff3f}body.t-l1 .bg{background:radial-gradient(1200px 900px at 50% 30%,#1c2a5a 0%,#0d1636 50%,#04070f 100%)}
+body.t-ucl{--ac:#9fd3ff}body.t-ucl .bg{background:radial-gradient(1200px 900px at 50% 30%,#1b3a8a 0%,#0a1846 50%,#020617 100%)}
+body.t-uel{--ac:#ff7a00}body.t-uel .bg{background:radial-gradient(1200px 900px at 50% 30%,#3a2a12 0%,#1a1206 50%,#050302 100%)}
+body.t-cup{--ac:#ffd21f}body.t-cup .bg{background:radial-gradient(1200px 900px at 50% 30%,#0f6b3a 0%,#06381d 50%,#021208 100%)}
