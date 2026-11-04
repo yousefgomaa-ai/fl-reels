@@ -1,0 +1,70 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends «UCL STANDINGS» after each league-phase matchday (owner, 2026-11-04: «جدول الترتيب ... مش صورة، ريل تفاعلي
+   مشوق ... مدته كويسة»): the top eight counted down to the leader, then the camera down through the play-off places and
+   the drop zone, a giant in danger lit, then back to the top eight and the question. */
+#cp{top:60px;right:44px;text-align:right;font:700 30px O;letter-spacing:6px;color:#46d7ff}
+#hl{top:150px;left:44px;right:44px;font:400 132px/0.9 B;letter-spacing:2px;transform:skewX(-6deg);text-shadow:0 6px 30px rgba(0,0,0,.55);z-index:5}
+#sub{top:400px;left:48px;font:700 40px O;letter-spacing:3px;color:#ffd21f;z-index:5}
+#vp{position:absolute;left:0;right:0;top:480px;bottom:150px;overflow:hidden}
+#tb{position:absolute;left:30px;right:30px;top:0;transform-origin:50% 0}
+.r{display:flex;align-items:center;height:76px;margin-bottom:6px;padding:0 20px;border-radius:16px;background:rgba(4,10,46,.86);border:2px solid rgba(70,215,255,.16);font:500 38px O;position:relative}
+.r .n{width:64px;font:400 46px B;color:#9fb6ff}.r img{width:50px;height:50px;object-fit:contain;margin-right:16px}.r .t{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700}
+.r .v{width:90px;text-align:center;color:#c9d6ff}.r .p{width:100px;text-align:center;font:400 54px B;color:#ffd21f}
+.r .mv{width:58px;text-align:center;font:700 26px O}.mv.u{color:#22e584}.mv.d{color:#ff3b5c}.mv.s{color:#6b7bb0}
+.r.z1{border-color:rgba(34,229,132,.55)}.r.z2{border-color:rgba(70,215,255,.45)}.r.z3{border-color:rgba(255,59,92,.5)}
+.r:before{content:'';position:absolute;left:0;top:10px;bottom:10px;width:7px;border-radius:4px;background:var(--z)}
+.r.z1{--z:#22e584}.r.z2{--z:#46d7ff}.r.z3{--z:#ff3b5c}
+.r.lead{background:linear-gradient(90deg,#b8860b,#0a1a5c 70%);border-color:#ffd21f;box-shadow:0 0 44px rgba(255,210,31,.45)}
+.r.warn{box-shadow:0 0 40px rgba(255,59,92,.6);border-color:#ff3b5c}
+.zl{height:56px;margin:4px 0 10px;border-radius:12px;display:flex;align-items:center;justify-content:center;font:400 40px B;letter-spacing:3px}
+.zl.a{background:#22e584;color:#03210f}.zl.b{background:#46d7ff;color:#04122e}.zl.c{background:#ff3b5c;color:#fff}
+.hd{display:flex;padding:0 20px;font:700 24px O;letter-spacing:2px;color:#46d7ff;height:40px;align-items:center}
+.hd .n{width:64px}.hd .t{flex:1;padding-left:66px}.hd .v{width:90px;text-align:center}.hd .p{width:100px;text-align:center}.hd .mv{width:58px}
+#pop{position:absolute;left:50%;top:405px;transform:translateX(-50%);white-space:nowrap;z-index:8;font:400 56px B;letter-spacing:2px;padding:6px 28px;border-radius:14px;opacity:0;background:#ff3b5c;color:#fff}
+#cta{bottom:44px;font-size:64px}
+</style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div>
+<div class="abs" id="cp">UEFA CHAMPIONS LEAGUE</div><div class="abs" id="hl"></div><div class="abs" id="sub"></div>
+<div id="vp"><div id="tb"></div></div><div id="pop"></div><div class="cta" id="cta"></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA, R = (D.rows || []).slice(0, 36), n = R.length;
+$('hl').innerHTML = `MATCHDAY ${D.md || ''}<br><span class="y">STANDINGS</span>`;
+$('sub').textContent = D.sub || "WHO'S IN THE TOP 8? 👀";
+const zone = (r) => (r.rank <= 8 ? 'z1' : r.rank <= 24 ? 'z2' : 'z3');
+const mv = (r) => (r.mv > 0 ? `<span class="mv u">▲${r.mv}</span>` : r.mv < 0 ? `<span class="mv d">▼${-r.mv}</span>` : `<span class="mv s">${r.mv === 0 ? '–' : ''}</span>`);
+const row = (r) => `<div class="r ${zone(r)}${r.rank === 1 ? ' lead' : ''}"><span class="n">${r.rank}</span>${r.logo ? `<img src="${r.logo}">` : '<span style="width:66px"></span>'}<span class="t">${r.name}</span>${mv(r)}<span class="v">${r.gd > 0 ? '+' : ''}${r.gd}</span><span class="p">${r.pts}</span></div>`;
+let html = '<div class="hd"><span class="n">#</span><span class="t">CLUB</span><span class="mv"></span><span class="v">GD</span><span class="p">PTS</span></div><div class="zl a">ROUND OF 16 ✅</div>';
+R.forEach((r) => { if (r.rank === 9) html += '<div class="zl b">KNOCKOUT PLAY-OFFS 🔁</div>'; if (r.rank === 25) html += '<div class="zl c">ELIMINATED ❌</div>'; html += row(r); });
+$('tb').innerHTML = html;
+$('cta').textContent = D.cta || 'WHO MAKES THE TOP 8? 👇';
+const rows = [...document.querySelectorAll('.r')], off = (i) => rows[i].offsetTop;
+// A giant in the drop zone (or the play-offs) lit on the way down.
+const wi = R.findIndex((r) => r.big && r.rank > 24), pi = wi >= 0 ? wi : R.findIndex((r) => r.big && r.rank > 8);
+if (pi >= 0) $('pop').textContent = R[pi].rank > 24 ? `${R[pi].name.toUpperCase()} IN THE DROP ZONE 😱` : `${R[pi].name.toUpperCase()} OUT OF THE TOP 8 😬`;
+// The beats: the top eight from 8th up to the leader (1.2-6.6 s), down to 9th-24th (7-11.5 s), down to 25th-36th
+// (12-16 s), the giant in danger, then back up to the top eight and the question.
+const VH = 1290, T8 = 1.2, P8 = .62, TD1 = 7, TD2 = 12, TALL = 17.2;
+window.TOTAL = 22;
+// Measured at each frame (at load the rows were not laid out yet: the camera stopped short).
+window.draw = (t) => {
+  const y1 = Math.max(0, off(Math.min(8, n - 1)) - 120), y2 = Math.max(0, Math.min(off(Math.min(24, n - 1)) - 120, $('tb').offsetHeight - VH));
+  rows.forEach((r, i) => {
+    let a = 1;
+    if (i < 8) { const s = T8 + (7 - i) * P8; a = ease((t - s) / .35); r.style.transform = `translateX(${(1 - a) * (i % 2 ? 140 : -140)}px)`; }
+    else if (i < 24) a = ease((t - TD1 - .3 - (i - 8) * .12) / .3);
+    else a = ease((t - TD2 - .3 - (i - 24) * .14) / .3);
+    r.style.opacity = a;
+    r.classList.toggle('warn', i === pi && t > TD2 + 2.2 && t < TALL);
+  });
+  const k1 = ease((t - TD1) / .9), k2 = ease((t - TD2) / .9), k3 = ease((t - TALL) / .8);
+  const y = y1 * k1 + (y2 - y1) * k2;
+  // The end: back up to the top eight, the race the question asks about.
+  $('tb').style.transform = `translateY(${-y * (1 - k3)}px)`;
+  $('hl').style.transform = `skewX(-6deg) translateX(${(1 - ease(t / .45)) * -50}px) scale(${1 - .25 * k1})`; $('hl').style.transformOrigin = '0 0';
+  $('sub').style.opacity = 1 - k1;
+  const pk = pi >= 0 ? ease((t - TD2 - 2.2) / .35) * (1 - ease((t - TALL + .3) / .3)) : 0; $('pop').style.opacity = pk;
+  const c = TALL + 1.2, kc = ease((t - c) / .5); $('cta').style.opacity = kc; $('cta').style.transform = `scale(${t > c ? 1.25 - .25 * back((t - c) / .6) : 1})`;
+};
+window.POSTER = Math.min(window.TOTAL - .3, TALL + 1.8);
+progBar();
+draw(0);
+</script></body></html>
