@@ -24,6 +24,8 @@ const D = window.DATA;
 $('cp').textContent = D.league || '';
 $('cd').innerHTML = `${D.days || 3}<small>${(D.days || 3) === 1 ? 'DAY TO GO' : 'DAYS TO GO'}</small>`;
 $('ev').innerHTML = D.event || `${D.a.name} <span class="y">v</span> ${D.b.name}`;
+// Two long names on one line (no derby name): the line shrinks until it fits.
+{ const e = $('ev'); let f = 130; while (e.scrollHeight > 130 && f > 60) { f -= 4; e.style.fontSize = f + 'px'; } }
 const side = (x) => `<img src="${x.logo || ''}" ${x.logo ? '' : 'style="visibility:hidden"'}><div class="n">${x.name}</div>${x.pos ? `<div class="ps">${x.pos}</div>` : ''}<div class="fm">${(x.form || []).slice(0, 5).map((r) => `<i class="${r}">${r}</i>`).join('')}</div>`;
 $('sa').innerHTML = side(D.a); $('sb').innerHTML = side(D.b);
 $('ko').innerHTML = `<b>${D.when || ''}</b><span>${D.time || ''}</span>`;

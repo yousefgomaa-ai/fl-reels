@@ -321,6 +321,27 @@ async function makeReel(job, dir) {
   if (size < 100000) throw new Error(`video too small (${size} bytes)`);
   return out;
 }
+// A photo post (FB Legends, owner 2026-11-04: «ممكن نضيف صور بردة»): the page at 1080x1350, taken once as a JPEG.
+export async function makeImage(job, dir) {
+  const d = job.anim || {};
+  const page0 = await readFile(new URL(`./anim/${d.kind}.html`, import.meta.url), 'utf8');
+  const html = new URL(`./anim/_${job.id.replace(/[^\w-]/g, '_')}.html`, import.meta.url);
+  await writeFile(html, page0.replace('</head>', `<script>window.DATA=${JSON.stringify(d).replace(/</g, '\\u003c')};</script></head>`));
+  const b = await chromium.launch();
+  try {
+    const p = await b.newPage({ viewport: { width: 1080, height: 1350 } });
+    const errs = []; p.on('pageerror', (e) => errs.push(e.message));
+    await p.goto(html.href);
+    await p.evaluate(() => document.fonts.ready);
+    await p.evaluate(() => Promise.all([...document.images].map((i) => (i.complete ? 0 : new Promise((r) => { i.onload = i.onerror = r; })))));
+    await p.waitForTimeout(500);
+    if (errs.length) throw new Error('page: ' + errs[0]);
+    await p.evaluate(() => window.draw && window.draw(typeof window.POSTER === 'number' ? window.POSTER : 0));
+    const out = join(dir, 'post.jpg');
+    await p.screenshot({ path: out, type: 'jpeg', quality: 92 });
+    return out;
+  } finally { await b.close(); await rm(html, { force: true }); }
+}
 async function main() {
   if (!KEY) { console.log('No REELS_KEY: nothing to do.'); return; }
   const res = await fetch(`${API}/v2/reels/jobs?key=${encodeURIComponent(KEY)}`, { signal: AbortSignal.timeout(30000) });
@@ -330,9 +351,9 @@ async function main() {
   for (const job of jobs) {
     const dir = await mkdtemp(join(tmpdir(), 'reel-'));
     try {
-      const out = await makeReel(job, dir);
+      const out = job.image ? await makeImage(job, dir) : await makeReel(job, dir);
       const up = await fetch(`${API}/v2/reels/upload?id=${encodeURIComponent(job.id)}&key=${encodeURIComponent(KEY)}`, {
-        method: 'POST', headers: { 'Content-Type': 'video/mp4' }, body: await readFile(out), signal: AbortSignal.timeout(120000) });
+        method: 'POST', headers: { 'Content-Type': job.image ? 'image/jpeg' : 'video/mp4' }, body: await readFile(out), signal: AbortSignal.timeout(120000) });
       console.log(`${job.id}: uploaded ${(await stat(out)).size} bytes -> ${up.status}`);
     } catch (e) {
       console.log(`${job.id}: failed: ${e.message}`);
