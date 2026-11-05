@@ -180,7 +180,9 @@ async function voiceBeats(job, d, dir) {
     const one = await animVoice({ ...job, voiceText: lines[i] }, dir, 60, `line${i}`).catch((e) => { console.log(`${job.id}: line ${i + 1} (${e.message})`); return null; });
     if (!one) { files.length = 0; break; }
     files.push(one);
-    await new Promise((r) => setTimeout(r, 2500)); // the voice answers 502 when called too fast
+    // the voice answers 502 when called too fast; a long narration can ask for more room (job.voiceGap, seconds: Gemini's
+    // per-minute share ran out on the eight lines of the Ronaldo farewell, 2026-11-05)
+    await new Promise((r) => setTimeout(r, Math.max(2.5, Number(job.voiceGap) || 0) * 1000));
   }
   let t = 0;
   const beats = mins.map((m, i) => { const len = Math.max(m, files[i] ? files[i].d + 0.55 : 0); const b = [t, len]; t += len; return b; });
