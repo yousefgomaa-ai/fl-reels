@@ -58,16 +58,16 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/ffbin
-          key: ffmpeg-static-btbn-n7.1-v1
+          key: ffmpeg-static-btbn-master-v2
 
       - name: Install ffmpeg
         if: steps.jobs.outputs.count != '0'
         run: |
           mkdir -p ~/ffbin
           if [ ! -x ~/ffbin/ffmpeg ]; then
-            u=https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-n7.1-latest-linux64-gpl-7.1.tar.xz
+            u=https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz
             if timeout 120 curl -fsSL "$u" -o /tmp/ff.tar.xz && tar -xJf /tmp/ff.tar.xz -C /tmp; then
-              cp /tmp/ffmpeg-n7.1-latest-linux64-gpl-7.1/bin/ffmpeg /tmp/ffmpeg-n7.1-latest-linux64-gpl-7.1/bin/ffprobe ~/ffbin/
+              cp /tmp/ffmpeg-master-latest-linux64-gpl/bin/ffmpeg /tmp/ffmpeg-master-latest-linux64-gpl/bin/ffprobe ~/ffbin/
             fi
           fi
           if [ -x ~/ffbin/ffmpeg ]; then echo "$HOME/ffbin" >> "$GITHUB_PATH"; ~/ffbin/ffmpeg -hide_banner -version | head -1; exit 0; fi
