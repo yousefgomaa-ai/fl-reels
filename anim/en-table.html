@@ -2,17 +2,17 @@
 /* FB Legends league table (owner, 2026-11-03), posted after the round ends: the headline and the top of the table up
    close, then down to the relegation fight, then the whole table and the question. */
 #hl{top:150px;left:44px;right:44px;font:400 112px/0.95 B;letter-spacing:2px;transform:skewX(-6deg);text-shadow:0 6px 30px rgba(0,0,0,.55);z-index:5}
-#lg{top:60px;right:44px;text-align:right;font:400 58px/1 B;letter-spacing:3px}#lg small{display:block;font:700 26px O;letter-spacing:8px;color:#46d7ff;margin-top:4px}
+#lg{top:60px;right:44px;text-align:right;font:400 58px/1 B;letter-spacing:3px}#lg small{display:block;font:700 26px O;letter-spacing:8px;color:var(--kc);margin-top:4px}
 #vp{position:absolute;left:0;right:0;top:300px;bottom:130px}
-#tb{position:absolute;left:30px;right:30px;top:20px;border-radius:26px;overflow:hidden;background:rgba(4,10,46,.86);border:2px solid rgba(70,215,255,.35);transform-origin:50% 0}
+#tb{position:absolute;left:30px;right:30px;top:20px;border-radius:26px;overflow:hidden;background:rgba(var(--bx),.86);border:2px solid rgba(var(--kl),.35);transform-origin:50% 0}
 .r{display:flex;align-items:center;height:68px;padding:0 22px;font:500 38px O;border-bottom:1px solid rgba(255,255,255,.08);position:relative}
-.r.h{height:58px;font:700 26px O;letter-spacing:2px;color:#46d7ff;background:rgba(10,26,92,.9)}
+.r.h{height:58px;font:700 26px O;letter-spacing:2px;color:var(--kc);background:rgba(10,26,92,.9)}
 .r .n{width:56px;font-weight:700}.r img{width:48px;height:48px;object-fit:contain;margin-right:16px}.r .t{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .r .v{width:66px;text-align:center}.r .p{width:90px;text-align:center;font:400 48px B;color:#ffd21f}
-.r.top{background:linear-gradient(90deg,#1d4ed8,#0a1a5c);font-weight:700}.r:before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:6px;border-radius:3px;background:var(--z,transparent)}
-.r.cl{--z:#46d7ff}.r.rl{--z:#ff3b5c}.r.rl .t{color:#ffd0d8}
+.r.top{background:linear-gradient(90deg,#1d4ed8,var(--b2));font-weight:700}.r:before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:6px;border-radius:3px;background:var(--z,transparent)}
+.r.cl{--z:var(--kc)}.r.rl{--z:#ff3b5c}.r.rl .t{color:#ffd0d8}
 .tag{position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;z-index:6;font:400 64px B;letter-spacing:2px;padding:4px 26px;border-radius:14px;opacity:0}
-#tTop{top:1760px;background:#46d7ff;color:#040a2e}#tRel{top:1760px;background:#ff3b5c;color:#fff}
+#tTop{top:1760px;background:var(--kc);color:var(--dk)}#tRel{top:1760px;background:#ff3b5c;color:#fff}
 #cta{bottom:44px;font-size:66px}
 </style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div>
 <div class="abs" id="lg"></div><div class="abs" id="hl"></div><div id="vp"><div id="tb"></div></div>
@@ -20,7 +20,7 @@
 <script src="lib.js"></script><script src="en-lib.js"></script><script>
 const D = window.DATA, R = (D.rows || []).slice(0, 20), TOPN = D.top || 4, REL = D.rel || 3;
 $('lg').innerHTML = `${D.league || ''}<small>STANDINGS</small>`; $('hl').innerHTML = D.headline || '';
-$('tb').innerHTML = `<div class="r h"><span class="n">#</span><span class="t">CLUB</span><span class="v">MP</span><span class="v">W</span><span class="v">D</span><span class="v">L</span><span class="p" style="font:700 26px O;color:#46d7ff">PTS</span></div>`
+$('tb').innerHTML = `<div class="r h"><span class="n">#</span><span class="t">CLUB</span><span class="v">MP</span><span class="v">W</span><span class="v">D</span><span class="v">L</span><span class="p" style="font:700 26px O;color:var(--kc)">PTS</span></div>`
   + R.map((r, i) => `<div class="r ${i === 0 ? 'top ' : ''}${i < TOPN ? 'cl' : i >= R.length - REL ? 'rl' : ''}"><span class="n">${r.rank}</span>${r.logo ? `<img src="${r.logo}">` : '<span style="width:64px"></span>'}<span class="t">${r.name}</span><span class="v">${r.p}</span><span class="v">${r.w}</span><span class="v">${r.d}</span><span class="v">${r.l}</span><span class="p">${r.pts}</span></div>`).join('');
 $('cta').textContent = D.cta || 'WHO WINS THE LEAGUE? 👇';
 const rows = [...document.querySelectorAll('.r:not(.h)')];

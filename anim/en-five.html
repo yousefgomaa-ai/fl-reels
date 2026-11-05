@@ -3,7 +3,7 @@
    league's top scorer on his own card, the fewest goals first, the cards dealt in, Europe's number one revealed last. */
 #hk{top:150px;width:100%;font:400 136px/0.88 B;letter-spacing:3px;transform:skewX(-8deg);text-shadow:0 8px 40px rgba(0,0,0,.6)}
 #cards{position:absolute;left:36px;right:36px;top:470px}
-.cd{position:relative;height:224px;margin-bottom:18px;border-radius:28px;background:rgba(4,10,46,.86);border:3px solid rgba(255,255,255,.14);overflow:hidden;opacity:0}
+.cd{position:relative;height:224px;margin-bottom:18px;border-radius:28px;background:rgba(var(--bx),.86);border:3px solid rgba(255,255,255,.14);overflow:hidden;opacity:0}
 .cd .lg{position:absolute;left:0;top:0;bottom:0;width:22px}
 .cd .tg{position:absolute;left:48px;top:22px;font:700 28px O;letter-spacing:4px}
 .cd .nm{position:absolute;left:48px;top:62px;right:300px;font:400 86px/1 B;letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -19,7 +19,7 @@
 const D = window.DATA, P = (D.players || []).slice(0, 5), n = P.length;
 const COL = { 'Premier League': '#00ff85', LaLiga: '#ffb000', 'Serie A': '#3ee0ff', Bundesliga: '#ff2d3a', 'Ligue 1': '#d9ff3f' };
 $('hk').innerHTML = `${D.h1 || "EUROPE'S TOP"}<br><span class="y">${D.h2 || 'SCORERS'}</span> 👟`;
-$('cards').innerHTML = P.map((p) => `<div class="cd"><div class="lg" style="background:${COL[p.league] || '#46d7ff'}"></div><div class="tg" style="color:${COL[p.league] || '#46d7ff'}">${String(p.league).toUpperCase()}</div><div class="nm">${p.name}</div><div class="tm">${p.logo ? `<img src="${p.logo}">` : ''}${p.team}</div><div class="g">0<small>GOALS</small></div></div>`).join('');
+$('cards').innerHTML = P.map((p) => `<div class="cd"><div class="lg" style="background:${COL[p.league] || 'var(--kc)'}"></div><div class="tg" style="color:${COL[p.league] || 'var(--kc)'}">${String(p.league).toUpperCase()}</div><div class="nm">${p.name}</div><div class="tm">${p.logo ? `<img src="${p.logo}">` : ''}${p.team}</div><div class="g">0<small>GOALS</small></div></div>`).join('');
 $('cta').textContent = D.cta || 'WHO ENDS AS EUROPE\'S BEST? 👇';
 const cards = [...document.querySelectorAll('.cd')], T0 = .5, PER = 1.0;
 window.TOTAL = Math.max(10, T0 + n * PER + 4);

@@ -6,6 +6,17 @@
 @font-face{font-family:O;font-weight:500;src:url(fonts/oswald-latin-ext-500-normal.woff2) format('woff2');unicode-range:U+0100-024F,U+1E00-1EFF}
 @font-face{font-family:O;font-weight:700;src:url(fonts/oswald-latin-700-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
 @font-face{font-family:O;font-weight:700;src:url(fonts/oswald-latin-ext-700-normal.woff2) format('woff2');unicode-range:U+0100-024F,U+1E00-1EFF}
+/* The cards' colours follow the theme: the navy and cyan by default (each league's look as before), the page's own
+   gold and black for a reel of no competition, deep red for the national teams. */
+:root{--bx:4,10,46;--kl:70,215,255;--kc:#46d7ff;--b2:#0a1a5c;--dk:#040a2e;--sm:#9fb6ff}
+body:not([class*="t-"]),body.t-fbl{--bx:22,17,8;--kl:255,210,31;--kc:#ffd21f;--b2:#2a2210;--dk:#0b0904;--sm:#d8c48a}
+body.t-nat{--bx:40,6,12;--kl:255,210,31;--kc:#ffd21f;--b2:#4a0a14;--dk:#140205;--sm:#f0b4bd}
+body.t-pl{--bx:34,0,38;--kl:0,255,133;--kc:#00ff85;--b2:#4a0052;--dk:#16001a;--sm:#e0a8ea}
+body.t-laliga{--bx:42,6,9;--kl:255,176,0;--kc:#ffb000;--b2:#5a0c12;--dk:#1a0305;--sm:#f3c0a0}
+body.t-bund{--bx:34,4,6;--kl:255,255,255;--kc:#ffffff;--b2:#5a0a10;--dk:#160102;--sm:#f0b8b8}
+body.t-l1{--bx:12,18,40;--kl:217,255,63;--kc:#d9ff3f;--b2:#1c2a5a;--dk:#04070f;--sm:#c8d6a0}
+body.t-uel{--bx:28,19,8;--kl:255,122,0;--kc:#ff7a00;--b2:#3a2a12;--dk:#0a0603;--sm:#f0c49a}
+body.t-cup{--bx:4,32,17;--kl:255,210,31;--kc:#ffd21f;--b2:#0f4a2a;--dk:#021208;--sm:#a8e0bf}
 *{box-sizing:border-box;margin:0;padding:0}html{overflow:clip}
 body{position:relative;width:1080px;height:1920px;overflow:clip;font-family:O,Arial,sans-serif;font-weight:500;color:#fff;background:#03082a}
 .bg{position:absolute;inset:0;background:radial-gradient(1200px 900px at 50% 30%,#13328f 0%,#0a1a5c 45%,#040a2e 100%)}
@@ -34,4 +45,11 @@ body.t-bund{--ac:#ffffff}body.t-bund .bg{background:radial-gradient(1200px 900px
 body.t-l1{--ac:#d9ff3f}body.t-l1 .bg{background:radial-gradient(1200px 900px at 50% 30%,#1c2a5a 0%,#0d1636 50%,#04070f 100%)}
 body.t-ucl{--ac:#9fd3ff}body.t-ucl .bg{background:radial-gradient(1200px 900px at 50% 30%,#1b3a8a 0%,#0a1846 50%,#020617 100%)}
 body.t-uel{--ac:#ff7a00}body.t-uel .bg{background:radial-gradient(1200px 900px at 50% 30%,#3a2a12 0%,#1a1206 50%,#050302 100%)}
+/* The blue look is the Champions League's alone (owner, 2026-11-05: «التصميم الازرق دا خليه فقط لدوري ابطال اوروبا»): a
+   reel of no competition (Messi v Ronaldo, a comparison, a quiz) wears the page's own black and gold, the national
+   teams their own deep red. */
+body:not([class*="t-"]),body.t-fbl{--ac:#ffd21f;background:#070604}
+body:not([class*="t-"]) .bg,body.t-fbl .bg{background:radial-gradient(1200px 900px at 50% 30%,#3a2f12 0%,#17130a 48%,#050403 100%)}
+body:not([class*="t-"]) .streak,body.t-fbl .streak{background:repeating-linear-gradient(115deg,rgba(255,255,255,0) 0 140px,rgba(255,210,31,.06) 140px 150px,rgba(255,255,255,0) 150px 330px)}
+body.t-nat{--ac:#ffd21f}body.t-nat .bg{background:radial-gradient(1200px 900px at 50% 30%,#7a1020 0%,#3d0710 50%,#120204 100%)}
 body.t-cup{--ac:#ffd21f}body.t-cup .bg{background:radial-gradient(1200px 900px at 50% 30%,#0f6b3a 0%,#06381d 50%,#021208 100%)}
