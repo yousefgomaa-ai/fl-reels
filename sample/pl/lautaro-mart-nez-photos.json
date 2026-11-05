@@ -49,14 +49,6 @@
  },
  {
   "n": "1-1",
-  "title": "File:Lautaro Martinez Argentina v Spain 19 July 2026-049.jpg",
-  "w": 5000,
-  "h": 3333,
-  "artist": "Bryan Berlin",
-  "license": "CC BY-SA 4.0"
- },
- {
-  "n": "1-2",
   "title": "File:Lautaro Martinez Argentina v Spain 19 July 2026-263.jpg",
   "w": 3333,
   "h": 5000,
@@ -64,15 +56,15 @@
   "license": "CC BY-SA 4.0"
  },
  {
-  "n": "1-3",
-  "title": "File:Lautaro Martinez Argentina v Egypt 7 July 2026-275.jpg",
+  "n": "1-2",
+  "title": "File:Lautaro Martinez Argentina v Spain 19 July 2026-049.jpg",
   "w": 5000,
   "h": 3333,
   "artist": "Bryan Berlin",
   "license": "CC BY-SA 4.0"
  },
  {
-  "n": "1-4",
+  "n": "1-3",
   "title": "File:Lautaro Martinez Argentina v Egypt 7 July 2026-041.jpg",
   "w": 3333,
   "h": 5000,
@@ -80,7 +72,23 @@
   "license": "CC BY-SA 4.0"
  },
  {
+  "n": "1-4",
+  "title": "File:Lautaro Martinez Argentina v Egypt 7 July 2026-261.jpg",
+  "w": 5000,
+  "h": 3333,
+  "artist": "Bryan Berlin",
+  "license": "CC BY-SA 4.0"
+ },
+ {
   "n": "1-5",
+  "title": "File:Lautaro Martinez Argentina v Egypt 7 July 2026-275.jpg",
+  "w": 5000,
+  "h": 3333,
+  "artist": "Bryan Berlin",
+  "license": "CC BY-SA 4.0"
+ },
+ {
+  "n": "1-6",
   "title": "File:Lautaro Martinez Argentina v Egypt 7 July 2026-258.jpg",
   "w": 3333,
   "h": 5000,
@@ -88,18 +96,10 @@
   "license": "CC BY-SA 4.0"
  },
  {
-  "n": "1-6",
+  "n": "1-7",
   "title": "File:Lautaro Martinez Argentina v Egypt 7 July 2026-306.jpg",
   "w": 5000,
   "h": 3333,
-  "artist": "Bryan Berlin",
-  "license": "CC BY-SA 4.0"
- },
- {
-  "n": "1-7",
-  "title": "File:Lautaro Martinez Argentina v Egypt 7 July 2026-040.jpg",
-  "w": 3333,
-  "h": 5000,
   "artist": "Bryan Berlin",
   "license": "CC BY-SA 4.0"
  },
