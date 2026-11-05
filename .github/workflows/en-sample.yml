@@ -23,8 +23,10 @@ jobs:
           key="$REELS_KEY"; echo "::add-mask::$key"; sleep 5
           B="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
           sleep 150; date -u
-          curl -sS --max-time 120 "$B&fpl=now" | jq -c '.result.fpl // .' | head -c 600; echo
-          for i in $(seq 1 16); do sleep 45; curl -sS --max-time 60 "$B&state=en-fpl-gw10" | jq -c '.result.state // .' | head -c 700; echo; done
+          mkdir -p look; curl -sS --max-time 120 -o look/fpl-gw10.mp4 "https://api.football-legend.com/reel.mp4?id=en-fpl-gw10"; ls -la look
+          curl -sS --max-time 60 "$B&schedule=en-fpl-gw10&postat=2026-11-06T13:00:00Z" | jq -c '.result.schedule // .' | head -c 400; echo
+          curl -sS --max-time 60 "$B&state=en-fpl-gw10" | jq -c '.result.state // .' | head -c 900; echo
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
+          git add look && git commit -qm "fpl reel to look at" && git push -q origin HEAD:claude/en-sample || true
           echo done
