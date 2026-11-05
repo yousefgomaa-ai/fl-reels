@@ -31,7 +31,10 @@ body{background:#f4f6fa}
 <div id="hd"><div class="lines"></div></div><div class="logo">FB<i>LEGENDS</i></div><div id="dt"></div><div id="t1"></div><div id="t2"></div>
 <div id="list"></div><div id="motd">MATCH OF THE <i>DAY</i></div><div class="cta" id="cta"></div>
 <script src="lib.js"></script><script src="en-lib.js"></script><script>
-const D = window.DATA, M = (D.rows || []).slice(0, 10), n = M.length;
+const D = window.DATA, M = (D.rows || []).slice(0, 18), N = M.length;
+// More than ten matches (a Europa League night has eighteen; owner, 2026-11-05: «مفهوش كل ماتشات اليوم»): two pages of
+// nine, the second sliding in after the first; the numbers run on.
+const P = N > 10 ? Math.ceil(N / 2) : N, PAGES = N > 10 ? 2 : 1, n = P;
 // Each competition's mark: its header band and its accent (not the full page).
 const TH = { pl: ['#2b0a3d', '#00e676'], laliga: ['#14213d', '#fca311'], seriea: ['#0a2a66', '#29d3ff'], bund: ['#1c1c1c', '#ff3b47'], l1: ['#0b1d3a', '#c6f432'],
   ucl: ['#0a1446', '#8ec5ff'], uel: ['#231507', '#ff8a1f'], cup: ['#073b2a', '#ffcc33'] }[D.theme] || ['#0a1446', '#ffd21f'];
@@ -48,19 +51,23 @@ const h = Math.max(100, Math.min(230, Math.floor((1920 - 470 - 250) / Math.max(n
 document.documentElement.style.setProperty('--h', h + 'px'); document.documentElement.style.setProperty('--c', Math.round(h * .5) + 'px');
 document.documentElement.style.setProperty('--f', (n > 7 ? 34 : n > 4 ? 38 : 40) + 'px'); document.documentElement.style.setProperty('--sf', (n > 7 ? 58 : n > 4 ? 66 : 78) + 'px');
 const ti = Math.max(0, M.findIndex((m) => m.top));
-$('list').innerHTML = M.map((m, i) => `<div class="m"><span class="no">${i + 1}</span><img src="${m.homeLogo || ''}" ${m.homeLogo ? '' : 'style="visibility:hidden"'}><span class="n">${m.home}</span><span class="k"><b>${m.time}</b><span>${m.tag || ''}</span></span><span class="n r">${m.away}</span><img src="${m.awayLogo || ''}" ${m.awayLogo ? '' : 'style="visibility:hidden"'}></div>`).join('');
+const rowHtml = (m, i) => `<div class="m"><span class="no">${i + 1}</span><img src="${m.homeLogo || ''}" ${m.homeLogo ? '' : 'style="visibility:hidden"'}><span class="n">${m.home}</span><span class="k"><b>${m.time}</b><span>${m.tag || ''}</span></span><span class="n r">${m.away}</span><img src="${m.awayLogo || ''}" ${m.awayLogo ? '' : 'style="visibility:hidden"'}></div>`;
+$('list').innerHTML = Array.from({ length: PAGES }, (_, p) => `<div class="pg" style="position:absolute;left:0;right:0;top:0">${M.slice(p * P, p * P + P).map((m, j) => rowHtml(m, p * P + j)).join('')}</div>`).join('');
 $('cta').innerHTML = `${D.cta || 'WHICH ONE ARE YOU WATCHING?'}<small>COMMENT THE NUMBER 👇</small>`;
 // A long name is shrunk to fit its half of the row, never cut («Nottingham Forest», «Manchester City»).
 document.querySelectorAll('.m .n').forEach((el) => { let f = parseFloat(getComputedStyle(el).fontSize); while (el.scrollWidth > el.clientWidth + 1 && f > 22) { f -= 1; el.style.fontSize = f + 'px'; } });
-const rows = [...document.querySelectorAll('.m')], T1 = .7, PER = .45, TB = T1 + n * PER + .3;
+const rows = [...document.querySelectorAll('.m')], pgs = [...document.querySelectorAll('.pg')], T1 = .7, PER = .45, PG = P * PER + 2.2, TP = (p) => T1 + p * PG, TB = TP(PAGES - 1) + P * PER + .3;
 window.TOTAL = Math.max(9, TB + 4.5);
 window.draw = (t) => {
   const a = ease(t / .5); $('t2').style.transform = `skewX(-6deg) translateX(${(1 - a) * -80}px)`; $('t2').style.opacity = a;
   $('wm').style.transform = `rotate(-90deg) translateX(${-40 * cl(t / window.TOTAL)}px)`;
-  rows.forEach((r, i) => { const s = T1 + i * PER, k = ease((t - s) / .4); r.style.opacity = k; r.style.transform = `translateY(${(1 - k) * 40}px) scale(${.96 + .04 * k})`;
+  // The first page slides out to the left as the second comes in.
+  pgs.forEach((g, p) => { const out = p < PAGES - 1 ? ease((t - TP(p + 1) + .45) / .45) : 0; g.style.transform = `translateX(${-out * 1100}px)`; g.style.opacity = 1 - out; });
+  rows.forEach((r, i) => { const p = Math.floor(i / P), s = TP(p) + (i % P) * PER, k = ease((t - s) / .4); r.style.opacity = k; r.style.transform = `translateY(${(1 - k) * 40}px) scale(${.96 + .04 * k})`;
     r.querySelector('.no').style.transform = `scale(${t > s + .2 ? 1 : .2 + .8 * ease((t - s) / .3)})`; });
-  const k = ease((t - TB) / .4), r = rows[ti];
-  if (r) { r.classList.toggle('top', t > TB); r.style.transform = `scale(${1 + .03 * k})`; $('motd').style.opacity = k; $('motd').style.top = (470 + ti * (h + 16) - 30) + 'px'; }
+  // The match of the day lit on its own page, at that page's end (on the last page: at the end of all).
+  const tp = Math.floor(ti / P), tb = tp === PAGES - 1 ? TB : TP(tp) + P * PER + .3, k = ease((t - tb) / .4) * (tp === PAGES - 1 ? 1 : 1 - ease((t - TP(tp + 1) + .6) / .3)), r = rows[ti];
+  if (r) { r.classList.toggle('top', k > .5); r.style.transform = `scale(${1 + .03 * k})`; $('motd').style.opacity = k; $('motd').style.top = (470 + (ti % P) * (h + 16) - 30) + 'px'; }
   const c = TB + 1.1, k2 = ease((t - c) / .5); $('cta').style.opacity = k2; $('cta').style.transform = `scale(${t > c ? 1.15 - .15 * back((t - c) / .6) : 1})`;
 };
 window.POSTER = Math.min(window.TOTAL - .3, TB + 1.9);
