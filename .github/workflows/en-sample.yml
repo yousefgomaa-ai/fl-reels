@@ -23,11 +23,11 @@ jobs:
           key="$REELS_KEY"; echo "::add-mask::$key"; sleep 5
           A="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
           sleep 5
-          date -u; sleep 160
-          curl -sS --max-time 120 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none&remake=en-rres-ucl-20261104" | jq -c '.result.remake'
-          sleep 200
-          curl -sS --max-time 60 "https://api.football-legend.com/v2/reels/status?key=$key" > st.json || true
-          jq -c '.reels[]? | select((.id // "") | test("^en-rres")) | {id, status, readyAt}' st.json
+          date -u; mkdir -p look; U='FootballLegendsBot/1.0 (https://football-legend.com/contact/)'
+          for f in RonaldoAl-Nassr23.jpg Cristiano_Ronaldo_in_2023.jpg Lionel_Messi_NYCFC_Miami_24_Sep_2025-050.jpg; do
+            curl -sSL -A "$U" -o "look/$f" "https://commons.wikimedia.org/wiki/Special:FilePath/$f?width=640"
+            curl -sS -A "$U" "https://commons.wikimedia.org/w/api.php?action=query&format=json&titles=File:$f&prop=imageinfo&iiprop=size|extmetadata" | jq -c '.query.pages[] | {t: .title, w: .imageinfo[0].width, h: .imageinfo[0].height, lic: .imageinfo[0].extmetadata.LicenseShortName.value, who: .imageinfo[0].extmetadata.Artist.value, d: .imageinfo[0].extmetadata.DateTimeOriginal.value}'
+          done
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          echo done
+          git add look && git commit -qm "look" && git push -q origin HEAD:claude/en-sample; echo done
