@@ -23,10 +23,11 @@ jobs:
           key="$REELS_KEY"; echo "::add-mask::$key"; sleep 5
           A="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
           sleep 5
-          date -u; sleep 150
-          curl -sS --max-time 120 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=board&list=1" > o.json || true
-          jq -r '.result.list[]? | select(contains("uefa.europa"))' o.json | awk '{print $2, $3, $4}' | sort | uniq -c
-          jq -c '.result.board' o.json
+          date -u
+          curl -sS --max-time 120 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none&list=1" > o.json || true
+          jq -r '.result.list[]?' o.json | awk '{print $2}' | sort | uniq -c
+          jq -r '.result.list[]? | select(test(" uefa.europa "))' o.json | head -20
+          jq -r '.result.list[]? | select(test(" uefa.europa.conf "))' o.json | head -20
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
           echo done
