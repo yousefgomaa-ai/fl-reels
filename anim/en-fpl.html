@@ -1,0 +1,91 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends «FANTASY PL BEFORE THE DEADLINE» (owner, 2026-11-05: «بوست فنتازي قبل الديد لاين بس مش نصايح خليها حقائق
+   نقاط المراكز ... بتصميم مختلف»): facts only, never a tip. The season's highest-scoring XI (the best legal formation by
+   points) built on a pitch line by line, each shirt in its club's colours (drawn here, no club badge), with its points,
+   price and next fixture; then the gameweek's facts one at a time, the shirt they are about lit; then the XI's total. */
+body{background:#04070d;--ac:#c6ff3d;--a2:#21e6c1}
+.bd{position:absolute;inset:0;background:radial-gradient(1200px 900px at 50% 35%,#0e2a2a 0%,#06101a 55%,#020408 100%)}
+#hk{position:absolute;top:520px;left:40px;right:40px;text-align:center}
+#hk .g{display:inline-block;font:400 64px B;letter-spacing:6px;color:#04070d;background:var(--ac);padding:6px 30px;border-radius:14px}
+#hk .a{margin-top:40px;font:400 132px/0.92 B;letter-spacing:2px}#hk .a i{font-style:normal;color:var(--ac)}
+#hk .b{margin-top:34px;font:700 38px O;letter-spacing:4px;color:#9fb3b3}
+#top{position:absolute;top:168px;left:40px;right:40px;display:flex;justify-content:space-between;align-items:flex-end}
+#top .t{font:400 92px/0.88 B;letter-spacing:2px}#top .t i{font-style:normal;color:var(--ac)}
+#top .r{text-align:right;font:700 26px O;letter-spacing:4px;color:#9fb3b3}#top .r b{display:block;font:400 60px/1 B;color:var(--ac);letter-spacing:2px}
+#pitch{position:absolute;top:360px;left:24px;right:24px;height:1150px;border-radius:30px;overflow:hidden;border:3px solid rgba(198,255,61,.35);
+  background:repeating-linear-gradient(180deg,#0f3b2c 0 115px,#0c3426 115px 230px)}
+#pitch svg.ln{position:absolute;inset:0;width:100%;height:100%}
+.pl{position:absolute;width:200px;margin-left:-100px;text-align:center;opacity:0}
+.pl svg{width:118px;height:118px;filter:drop-shadow(0 8px 10px rgba(0,0,0,.6))}
+.pl .n{margin-top:-6px;background:#f4f4f4;color:#0a0a0a;font:400 34px/1.15 B;letter-spacing:1px;border-radius:8px 8px 0 0;padding:2px 4px;white-space:nowrap;overflow:hidden}
+.pl .p{background:#06101a;color:var(--ac);font:400 32px/1.2 B;white-space:nowrap;letter-spacing:1px;border-radius:0 0 8px 8px}
+.pl .f{display:inline-block;margin-top:6px;font:700 20px O;letter-spacing:2px;color:#d8e6e6;background:rgba(0,0,0,.45);border-radius:20px;padding:2px 12px}
+.pl.sm{width:192px;margin-left:-96px}.pl.sm .n{font-size:30px}.pl.sm .p{font-size:25px}.pl.sm .f{font-size:17px;padding:2px 8px}
+.pl.hl .n{background:var(--ac)}.pl.hl svg{filter:drop-shadow(0 0 24px var(--ac))}
+.pl.dim{opacity:.35!important}
+#fact{position:absolute;left:24px;right:24px;top:1540px;height:190px}
+#fact .h{position:absolute;inset:0;background:#06101a;border:4px solid var(--ac);border-radius:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0}
+#fact .h b{font:700 28px O;letter-spacing:5px;color:var(--a2)}#fact .h span{font:400 76px/1 B;letter-spacing:2px;margin-top:6px;white-space:nowrap}#fact .h span i{font-style:normal;color:var(--ac)}
+#end{position:absolute;left:24px;right:24px;top:1540px;height:190px;display:flex;gap:20px;opacity:0}
+#end div{flex:1;background:var(--ac);color:#04070d;border-radius:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;font:700 26px O;letter-spacing:4px}
+#end div b{font:400 96px/1 B;letter-spacing:2px}
+#cta{bottom:60px;color:var(--ac);font-size:64px}
+.src{position:absolute;bottom:20px;left:0;right:0;text-align:center;font:700 20px O;letter-spacing:3px;color:#5f7373}
+</style></head><body><div class="bd"></div><div class="logo">FB<i>LEGENDS</i></div>
+<div id="hk"><div class="g"></div><div class="a"></div><div class="b"></div></div>
+<div id="top"><div class="t"></div><div class="r"></div></div>
+<div id="pitch"><svg class="ln" viewBox="0 0 1032 1150" preserveAspectRatio="none"><g fill="none" stroke="rgba(255,255,255,.22)" stroke-width="4">
+<rect x="20" y="20" width="992" height="1110" rx="10"/><line x1="20" y1="575" x2="1012" y2="575"/><circle cx="516" cy="575" r="110"/>
+<rect x="276" y="20" width="480" height="150"/><rect x="276" y="980" width="480" height="150"/><rect x="396" y="1070" width="240" height="60"/><rect x="396" y="20" width="240" height="60"/></g></svg></div>
+<div id="fact"></div><div id="end"></div><div class="cta" id="cta"></div><div class="src"></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA || {}, X = D.xi || [], F = D.facts || [];
+// A shirt in the club's colours: body, sleeves, optional stripes (no badge, nothing copied).
+const shirt = (k) => { const [a, s, st] = k || ['#888', '#666', ''];
+  const id = 'p' + Math.random().toString(36).slice(2, 7);
+  return `<svg viewBox="0 0 100 100"><defs><pattern id="${id}" width="20" height="100" patternUnits="userSpaceOnUse"><rect width="20" height="100" fill="${a}"/>${st ? `<rect x="10" width="10" height="100" fill="${st}"/>` : ''}</pattern></defs>
+  <path d="M30 8 L42 4 Q50 12 58 4 L70 8 L94 24 L84 44 L74 38 L74 96 L26 96 L26 38 L16 44 L6 24 Z" fill="url(#${id})" stroke="rgba(0,0,0,.35)" stroke-width="2"/>
+  <path d="M6 24 L16 44 L26 38 L26 22 L30 8 Z M94 24 L84 44 L74 38 L74 22 L70 8 Z" fill="${s}"/><path d="M42 4 Q50 14 58 4" fill="none" stroke="${s}" stroke-width="4"/></svg>`; };
+$('hk').querySelector('.g').textContent = `GW${D.gw} • DEADLINE ${D.deadline || ''}`;
+$('hk').querySelector('.a').innerHTML = D.hook || '';
+$('hk').querySelector('.b').textContent = D.sub || '';
+$('top').querySelector('.t').innerHTML = `THE SEASON'S<br><i>HIGHEST-SCORING XI</i>`;
+$('top').querySelector('.r').innerHTML = `FANTASY PL • GW${D.gw}<b>${D.form || ''}</b>`;
+$('cta').textContent = D.cta || 'HOW MANY OF THEM DO YOU OWN? 👇';
+document.querySelector('.src').textContent = D.source || '';
+// Lines from the top of the pitch: forwards, midfield, defence, goalkeeper.
+const lines = [4, 3, 2, 1].map((p) => X.map((x, i) => [x, i]).filter(([x]) => x.pos === p)), ys = [150, 420, 690, 950];
+const pitch = $('pitch');
+lines.forEach((L, li) => L.forEach(([x, i], j) => {
+  const el = document.createElement('div'); el.className = L.length > 4 ? 'pl sm' : 'pl'; el.id = 'x' + i;
+  el.style.left = ((j + 1) * 1032 / (L.length + 1)) + 'px'; el.style.top = (ys[li] - 70) + 'px';
+  el.innerHTML = `${shirt(x.kit)}<div class="n">${String(x.name).toUpperCase()}</div><div class="p"><span class="v">0</span> PTS • £${x.price.toFixed(1)}M</div><div class="f">NEXT: ${x.next}</div>`;
+  pitch.appendChild(el);
+}));
+$('fact').innerHTML = F.map((f) => `<div class="h"><b>${f.k}</b><span>${f.v}</span></div>`).join('');
+$('end').innerHTML = `<div><b>${D.pts}</b>POINTS</div><div><b>£${Number(D.cost).toFixed(1)}M</b>TOTAL PRICE</div>`;
+// The beats: the hook, the XI (the goalkeeper first, the forwards last), one per fact, the end.
+// With a voice the beats come timed to its lines (DATA.beats: [start, length]); else DATA.minBeats.
+const mins = D.minBeats || [3.2, 7, ...F.map(() => 2.1), 3.6], B = D.beats || (() => { let t = 0; return mins.map((m) => { const b = [t, m]; t += m; return b; }); })();
+const H = B[1][0], P = B[1][1], s2 = B[2] ? B[2][0] : H + P, s3 = B[2 + F.length] ? B[2 + F.length][0] : s2;
+const fs = F.map((f, k) => B[2 + k] || [s2 + k * 2.1, 2.1]);
+window.TOTAL = B[B.length - 1][0] + B[B.length - 1][1];
+const order = [...lines].reverse().flat().map(([, i]) => i), per = (P - 1.6) / Math.max(order.length, 1);
+window.draw = (t) => {
+  $('hk').style.opacity = t < H ? Math.min(ease(t / .3), 1 - ease((t - H + .35) / .35)) : 0;
+  $('hk').querySelector('.a').style.transform = `scale(${1.15 - .15 * ease(t / .6)})`;
+  const on = ease((t - H + .2) / .4); $('top').style.opacity = on; pitch.style.opacity = on;
+  order.forEach((i, k) => { const el = $('x' + i), u = t - H - .4 - k * per, x = X[i];
+    el.style.opacity = u < 0 ? 0 : ease(u / .3); el.style.transform = `translateY(${u < 0 ? -40 : -40 * (1 - back(u / .5))}px) scale(${u < 0 ? .6 : .6 + .4 * back(u / .5)})`;
+    el.querySelector('.v').textContent = u < 0 ? 0 : Math.round(x.pts * Math.min(1, u / .7)); });
+  const fi = fs.findIndex(([a, l]) => t >= a && t < a + l);
+  [...$('fact').children].forEach((h, k) => { const [a0, l] = fs[k], a = t - a0; h.style.opacity = k === fi ? Math.min(ease(a / .25), 1 - ease((a - l + .25) / .25)) : 0; h.style.transform = `scale(${k === fi ? 1.08 - .08 * ease(a / .35) : 1})`; });
+  document.querySelectorAll('.pl').forEach((el) => { el.classList.remove('hl'); el.classList.remove('dim'); });
+  if (fi >= 0 && (F[fi].hi || []).length) document.querySelectorAll('.pl').forEach((el) => el.classList.add(F[fi].hi.includes(Number(el.id.slice(1))) ? 'hl' : 'dim'));
+  $('end').style.opacity = ease((t - s3) / .4); $('end').style.transform = `scale(${t > s3 ? 1.1 - .1 * back((t - s3) / .5) : .9})`;
+  $('cta').style.opacity = ease((t - s3 - .8) / .4);
+};
+window.POSTER = s2 + .6;
+progBar();
+draw(0);
+</script></body></html>
