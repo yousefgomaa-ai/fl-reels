@@ -23,9 +23,12 @@ jobs:
           key="$REELS_KEY"; echo "::add-mask::$key"; sleep 5
           A="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
           sleep 5
-          date -u; sleep 160
-          curl -sS --max-time 200 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none&remake=en-pick-20261105" | jq -c '.result.remake'
-          curl -sS --max-time 60 "https://api.football-legend.com/v2/reels/jobs?key=$key" | jq -c '.jobs[]? | select(.id=="en-pick-20261105") | {a: .anim.a.short, as: .anim.a.sub, b: .anim.b.short, bs: .anim.b.sub, tag: .anim.tag, stats: .anim.stats}'
+          date -u; sleep 150
+          curl -sS --max-time 60 "https://api.football-legend.com/v2/reels/status?key=$key" > st.json || true
+          jq -r '.reels[]? | select((.id // "") | test("^en-")) | "\(.id) \(.status)"' st.json | tail -25
+          for id in $(jq -r '.reels[]? | select((.id // "") | test("^en-(rsched|sched)")) | .id' st.json | tail -6); do
+            echo "== $id"; curl -sS --max-time 60 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none&state=$id" | jq -c '.result.state'
+          done
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
           echo done
