@@ -13,7 +13,8 @@ body{height:1350px}
 /* The numbers side by side (owner, 2026-11-05: «نضيف فيها دقائق اللعب والاسستات المسهمات والاجوان وكل شيء»): the
    better of each row in gold; fewer minutes per goal or assist is the better one. */
 #tbl{position:absolute;left:0;right:0;top:720px;bottom:110px;background:var(--dk);z-index:5;padding:10px 26px 0}
-.rw{display:flex;align-items:center;height:68px;border-bottom:2px solid rgba(255,255,255,.08)}
+.tg{height:44px;display:flex;align-items:center;justify-content:center;font:700 24px O;letter-spacing:4px;color:#ffd21f;border-bottom:2px solid rgba(255,210,31,.35)}
+.rw{display:flex;align-items:center;height:62px;border-bottom:2px solid rgba(255,255,255,.08)}
 .rw b{width:200px;text-align:center;font:400 62px/1 B;letter-spacing:1px;color:#fff}.rw b.w{color:#ffd21f}
 .rw span{flex:1;text-align:center;font:700 26px O;letter-spacing:3px;color:rgba(255,255,255,.75)}
 #hk{position:absolute;top:0;left:0;right:0;height:150px;background:var(--dk);z-index:5}#hk div{position:absolute;right:40px;top:28px;font:400 96px/1 B;letter-spacing:2px;transform:skewX(-8deg)}
@@ -30,7 +31,7 @@ const D = window.DATA;
 if (D.head) document.querySelector('#hk div').innerHTML = D.head;
 const half = (x) => `<div class="im"></div><div class="fd"></div><div class="nm">${x.short}</div><div class="sb">${x.sub || ''}</div>`;
 $('ha').innerHTML = half(D.a); $('hb').innerHTML = half(D.b);
-$('tbl').innerHTML = (D.stats || [[D.a.label || 'GOALS', D.a.v, D.b.v, '']]).map(([l, x, y, w]) => `<div class="rw"><b class="${w === 'a' ? 'w' : ''}">${x}</b><span>${l}</span><b class="${w === 'b' ? 'w' : ''}">${y}</b></div>`).join('');
+$('tbl').innerHTML = (D.tag ? `<div class="tg">${D.tag}</div>` : '') + (D.stats || [[D.a.label || 'GOALS', D.a.v, D.b.v, '']]).map(([l, x, y, w]) => `<div class="rw"><b class="${w === 'a' ? 'w' : ''}">${x}</b><span>${l}</span><b class="${w === 'b' ? 'w' : ''}">${y}</b></div>`).join('');
 // A long name shrinks to its half.
 document.querySelectorAll('.nm').forEach((el) => { let f = 84; while (el.scrollWidth > el.clientWidth + 1 && f > 44) { f -= 4; el.style.fontSize = f + 'px'; } });
 const pic = (el, x) => { if (x.slug || x.photo) return starImg(el, x.slug, x.photo); if (x.logo) el.innerHTML = `<img class="crest" src="${x.logo}">`; };
