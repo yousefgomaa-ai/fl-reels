@@ -1,0 +1,75 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends «FULL-TIME BOARD» (owner, 2026-11-05: «كل واحد فيهم ينزله ريل نهائي بنتائج كل الفرق بعد انتهاء
+   الماتشات بشكل مختلف عن اي ريل سابق»): every result of the night on a split-flap board, like a station's departures:
+   the letters and the numbers flick through before they settle, row after row, then the night's headlines are stamped
+   on their rows (the biggest win, the most goals, the late drama), then the question. One spoken line a beat. */
+body{background:#050505}
+.bd{position:absolute;inset:0;background:radial-gradient(1100px 800px at 50% 20%,var(--g1),#060606 70%)}
+#top{position:absolute;top:178px;left:40px;right:40px;display:flex;align-items:flex-end;justify-content:space-between}
+#top .t{font:400 128px/0.86 B;letter-spacing:3px}#top .t i{font-style:normal;color:var(--ac)}
+#top .r{text-align:right;font:700 30px O;letter-spacing:4px;color:#cfcfcf}#top .r b{display:block;font:400 74px/1 B;color:var(--ac);letter-spacing:2px}
+#board{position:absolute;top:418px;left:24px;right:24px;bottom:282px;background:#0d0d0d;border-radius:22px;border:3px solid #1f1f1f;box-shadow:inset 0 0 60px rgba(0,0,0,.9);padding:18px 16px;overflow:hidden}
+.hd{display:flex;font:700 22px O;letter-spacing:4px;color:var(--ac);padding:0 8px 10px;border-bottom:2px solid #222;margin-bottom:8px}
+.hd span:first-child{flex:1}.hd span:nth-child(2){width:180px;text-align:center}.hd span:last-child{flex:1;text-align:right}
+.rw{display:flex;align-items:center;height:var(--rh);margin-bottom:var(--rg);gap:8px;position:relative}
+.rw img{width:var(--ci);height:var(--ci);object-fit:contain}
+.fl{display:flex;gap:3px;flex:1;overflow:hidden}.fl.r{justify-content:flex-end}
+.c{display:inline-flex;align-items:center;justify-content:center;width:var(--cw);height:var(--ch);background:linear-gradient(#232323 49%,#111 51%);border-radius:5px;font:400 var(--cf) B;color:#f5f5f5;box-shadow:0 2px 0 #000;position:relative}
+.c:after{content:'';position:absolute;left:0;right:0;top:50%;height:2px;background:#000;opacity:.8}
+.sc{width:180px;display:flex;justify-content:center;gap:6px}.sc .c{width:calc(var(--cw) * 1.5);height:calc(var(--ch) * 1.1);font-size:calc(var(--cf) * 1.15);color:var(--ac)}
+.sc .d{font:400 calc(var(--cf) * 1.1) B;color:#777;align-self:center}
+.rw.hl{background:rgba(255,255,255,.05);border-radius:10px;box-shadow:0 0 0 3px var(--ac)}
+.stpx{position:absolute;right:-6px;top:50%;transform:translateY(-50%) rotate(-4deg);background:var(--ac);color:#050505;font:400 30px B;letter-spacing:2px;padding:2px 14px;border-radius:8px;opacity:0;white-space:nowrap;z-index:3}
+#hk{position:absolute;top:760px;left:40px;right:40px;text-align:center}
+#hk .a{font:400 170px/0.86 B;letter-spacing:3px;transform:skewX(-6deg)}#hk .a i{font-style:normal;color:var(--ac)}
+#hk .b2{margin-top:40px;display:inline-flex;gap:26px}#hk .b2 div{background:#111;border:3px solid var(--ac);border-radius:22px;padding:14px 30px;font:700 30px O;letter-spacing:3px;color:#ddd}#hk .b2 b{display:block;font:400 110px/1 B;color:var(--ac)}
+#cta{bottom:40px;color:var(--ac);font-size:66px}
+#hl{position:absolute;left:24px;right:24px;bottom:150px;height:120px}
+#hl .h{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:18px;background:#111;border:4px solid var(--ac);border-radius:20px;font:400 52px B;letter-spacing:2px;opacity:0;white-space:nowrap}
+#hl .h b{background:var(--ac);color:#050505;padding:2px 14px;border-radius:10px;font-weight:400}
+.credit{bottom:14px;left:40px}
+body.t-uel{--ac:#ff7a00;--g1:#3a1d00}body.t-uecl{--ac:#00e05a;--g1:#00341a}body:not(.t-uel):not(.t-uecl){--ac:#ffd21f;--g1:#2a2410}
+</style></head><body><div class="bd"></div><div class="logo">FB<i>LEGENDS</i></div>
+<div id="top"><div class="t"></div><div class="r"></div></div>
+<div id="board"></div><div id="hl"></div><div id="hk"><div class="a"></div><div class="b2"></div></div><div class="cta" id="cta"></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA, M = (D.rows || []).slice(0, 18), n = M.length;
+const nm = (s, L) => String(s || '').toUpperCase().slice(0, L);
+// The row size by the number of results (eighteen on a Europa League night).
+const rh = n > 14 ? 57 : n > 10 ? 76 : 96, L = n > 14 ? 11 : 10;
+document.documentElement.style.cssText = `--rh:${rh}px;--rg:${n > 14 ? 5 : 10}px;--ci:${Math.round(rh * .6)}px;--cw:${n > 14 ? 30 : 38}px;--ch:${Math.round(rh * .86)}px;--cf:${n > 14 ? 40 : 50}px`;
+$('top').querySelector('.t').innerHTML = `${D.h1 || 'FULL-TIME'}<br><i>${D.h2 || 'BOARD'}</i>`;
+$('top').querySelector('.r').innerHTML = `${D.league || ''}<b>${D.goals != null ? D.goals + ' GOALS' : ''}</b>`;
+$('hk').querySelector('.a').innerHTML = D.hook || `ALL <i>${n}</i> RESULTS`;
+$('hk').querySelector('.b2').innerHTML = (D.teasers || []).slice(0, 2).map(([v, w]) => `<div><b>${v}</b>${w}</div>`).join('');
+$('cta').textContent = D.cta || 'WHICH RESULT SURPRISED YOU? 👇';
+const cells = (s, L, right) => [...(right ? nm(s, L).padStart(L, ' ') : nm(s, L).padEnd(L, ' '))].map((ch) => `<span class="c" data-ch="${ch === ' ' ? '' : ch}"></span>`).join('');
+$('board').innerHTML = `<div class="hd"><span>HOME</span><span>FT</span><span>AWAY</span></div>` + M.map((m, i) => `<div class="rw" id="r${i}">${m.homeLogo ? `<img src="${m.homeLogo}">` : ''}<span class="fl">${cells(m.home, L)}</span>`
+  + `<span class="sc"><span class="c" data-ch="${m.hs}"></span><span class="d">-</span><span class="c" data-ch="${m.as}"></span></span><span class="fl r">${cells(m.away, L, true)}</span>${m.awayLogo ? `<img src="${m.awayLogo}">` : ''}</div>`).join('');
+// The night's headlines, one after another under the board, each lighting its row.
+$('hl').innerHTML = M.map((m, i) => (m.stamp ? `<div class="h" data-i="${i}" data-o="${m.stampOrder || 0}"><b>${m.stamp}</b>${nm(m.home, 14)} ${m.hs}-${m.as} ${nm(m.away, 14)}</div>` : '')).join('');
+// The rows flip in one after another; each letter flicks through for a moment before it settles.
+const AZ = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', rows = [...document.querySelectorAll('.rw')];
+const mins = D.minBeats || [3.5, Math.max(8, n * .55 + 2), 6.5], B = D.beats || (() => { let t = 0; return mins.map((m) => { const b = [t, m]; t += m; return b; }); })();
+window.TOTAL = B[B.length - 1][0] + B[B.length - 1][1];
+const rnd = (i, k) => AZ[Math.abs(Math.floor(Math.sin(i * 12.9898 + k * 78.233) * 43758.5453)) % AZ.length];
+window.draw = (t) => {
+  const [s0, l0] = B[0], [s1, l1] = B[1], [s2] = B[2] || [B[1][0] + B[1][1]];
+  const hk = t < s1; $('hk').style.opacity = hk ? Math.min(ease((t - s0) / .3), 1 - ease((t - s1 + .35) / .35)) : 0;
+  if (hk) $('hk').querySelector('.a').style.transform = `skewX(-6deg) scale(${1.2 - .2 * ease(t / .5)})`;
+  $('board').style.opacity = ease((t - s1 + .2) / .35); $('top').style.opacity = ease((t - s1 + .2) / .35);
+  const per = Math.max(.3, (l1 - 1.5) / Math.max(n, 1));
+  rows.forEach((r, i) => {
+    const st = s1 + .3 + i * per, u = t - st; r.style.opacity = u < 0 ? .15 : 1;
+    r.querySelectorAll('.c').forEach((c, k) => { const fin = c.dataset.ch, done = u > .25 + k * .025; c.textContent = u < 0 ? '' : done ? fin : (fin ? rnd(i * 31 + k, Math.floor(t * 18)) : ''); });
+  });
+  // Each headline shows for its share of the last beat, its row lit meanwhile.
+  const hs = [...document.querySelectorAll('#hl .h')].sort((a, b) => a.dataset.o - b.dataset.o), l2 = (B[2] || [0, 6])[1], sh = Math.max(1.6, (l2 - 2.2) / Math.max(hs.length, 1));
+  rows.forEach((r) => r.classList.remove('hl'));
+  hs.forEach((h, j) => { const a = t - s2 - j * sh, on = a >= 0 && (a < sh || j === hs.length - 1); h.style.opacity = on ? ease(a / .3) : 0; h.style.transform = `scale(${on ? 1.08 - .08 * ease(a / .4) : 1})`; if (on) rows[Number(h.dataset.i)].classList.add('hl'); });
+  $('cta').style.opacity = ease((t - s2 - .6) / .4); $('cta').style.transform = `scale(${t > s2 + .6 ? 1.2 - .2 * back((t - s2 - .6) / .6) : 1})`;
+};
+window.POSTER = Math.min(window.TOTAL - .3, B[2][0] + 3);
+progBar();
+draw(0);
+</script></body></html>
