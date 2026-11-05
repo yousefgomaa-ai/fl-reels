@@ -6,8 +6,8 @@
 body{background:#050505}
 .bd{position:absolute;inset:0;background:radial-gradient(1100px 800px at 50% 20%,var(--g1),#060606 70%)}
 #top{position:absolute;top:178px;left:40px;right:40px;display:flex;align-items:flex-end;justify-content:space-between}
-#top .t{font:400 128px/0.86 B;letter-spacing:3px}#top .t i{font-style:normal;color:var(--ac)}
-#top .r{text-align:right;font:700 30px O;letter-spacing:4px;color:#cfcfcf}#top .r b{display:block;font:400 74px/1 B;color:var(--ac);letter-spacing:2px}
+#top .t{font:400 128px/0.86 B;white-space:nowrap;letter-spacing:3px}#top .t i{font-style:normal;color:var(--ac)}
+#top .r{text-align:right;white-space:nowrap;font:700 30px O;letter-spacing:4px;color:#cfcfcf}#top .r b{display:block;font:400 74px/1 B;color:var(--ac);letter-spacing:2px}
 #board{position:absolute;top:418px;left:24px;right:24px;bottom:282px;background:#0d0d0d;border-radius:22px;border:3px solid #1f1f1f;box-shadow:inset 0 0 60px rgba(0,0,0,.9);padding:18px 16px;overflow:hidden}
 .hd{display:flex;font:700 22px O;letter-spacing:4px;color:var(--ac);padding:0 8px 10px;border-bottom:2px solid #222;margin-bottom:8px}
 .hd span:first-child{flex:1}.hd span:nth-child(2){width:180px;text-align:center}.hd span:last-child{flex:1;text-align:right}
@@ -34,12 +34,19 @@ body.t-uel{--ac:#ff7a00;--g1:#3a1d00}body.t-uecl{--ac:#00e05a;--g1:#00341a}body:
 <div id="board"></div><div id="hl"></div><div id="hk"><div class="a"></div><div class="b2"></div></div><div class="cta" id="cta"></div>
 <script src="lib.js"></script><script src="en-lib.js"></script><script>
 const D = window.DATA, M = (D.rows || []).slice(0, 18), n = M.length;
-const nm = (s, L) => String(s || '').toUpperCase().slice(0, L);
+// A long name is cut at a word, not mid-word (owner, 2026-11-05: «SPARTA PRAH»): its first word when it says the club
+// (SPARTA, SPORTING), else its last (REAL SOCIEDAD → SOCIEDAD), else the letters that fit.
+const nm = (s, L) => { const u = String(s || '').toUpperCase().trim(); if (u.length <= L) return u; const w = u.split(/\s+/);
+  return w[0].length >= 5 && w[0].length <= L ? w[0] : w[w.length - 1].length <= L ? w[w.length - 1] : u.slice(0, L); };
 // The row size by the number of results (eighteen on a Europa League night).
 const rh = n > 14 ? 57 : n > 10 ? 76 : 96, L = n > 14 ? 11 : 10;
 document.documentElement.style.cssText = `--rh:${rh}px;--rg:${n > 14 ? 5 : 10}px;--ci:${Math.round(rh * .6)}px;--cw:${n > 14 ? 30 : 38}px;--ch:${Math.round(rh * .86)}px;--cf:${n > 14 ? 40 : 50}px`;
 $('top').querySelector('.t').innerHTML = `${D.h1 || 'FULL-TIME'}<br><i>${D.h2 || 'BOARD'}</i>`;
 $('top').querySelector('.r').innerHTML = `${D.league || ''}<b>${D.goals != null ? D.goals + ' GOALS' : ''}</b>`;
+// A long competition name (CONFERENCE LEAGUE) gets smaller until the title and the side label sit side by side.
+{ const t = $('top').querySelector('.t'), r = $('top').querySelector('.r'), W = $('top').clientWidth;
+  for (let f = 30; f > 18 && r.scrollWidth > W * .4; f -= 2) r.style.fontSize = f + 'px';
+  for (let f = 128; f > 70 && t.scrollWidth + r.scrollWidth + 30 > W; f -= 4) t.style.fontSize = f + 'px'; }
 $('hk').querySelector('.a').innerHTML = D.hook || `ALL <i>${n}</i> RESULTS`;
 $('hk').querySelector('.b2').innerHTML = (D.teasers || []).slice(0, 2).map(([v, w]) => `<div><b>${v}</b>${w}</div>`).join('');
 $('cta').textContent = D.cta || 'WHICH RESULT SURPRISED YOU? 👇';
