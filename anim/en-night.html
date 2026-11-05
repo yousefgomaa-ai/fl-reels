@@ -1,22 +1,22 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
 /* FB Legends «TONIGHT'S RESULTS» (owner, 2026-11-03: a Champions League night): every result of the night, row by row,
    the biggest win lit at the end, then the question. */
-#cp{top:60px;right:44px;text-align:right;font:700 30px O;letter-spacing:6px;color:#46d7ff}
+#cp{top:60px;right:44px;text-align:right;font:700 30px O;letter-spacing:6px;color:var(--kc)}
 #hl{top:175px;left:44px;right:44px;font:400 150px/0.88 B;letter-spacing:2px;transform:skewX(-6deg);text-shadow:0 6px 30px rgba(0,0,0,.55)}
 #list{position:absolute;left:30px;right:30px;top:440px}
-.m{display:flex;align-items:center;height:var(--h);margin-bottom:var(--g);border-radius:24px;background:rgba(4,10,46,.86);border:2px solid rgba(70,215,255,.3);padding:0 18px;opacity:0;position:relative}
+.m{display:flex;align-items:center;height:var(--h);margin-bottom:var(--g);border-radius:24px;background:rgba(var(--bx),.86);border:2px solid rgba(var(--kl),.3);padding:0 18px;opacity:0;position:relative}
 .m img{width:var(--c);height:var(--c);object-fit:contain}.m .n{flex:1;font:700 var(--f) O;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 14px}.m .n.r{text-align:right}
-.m .s{width:var(--sw);text-align:center;font:400 var(--sf) B;letter-spacing:3px;background:#0a1a5c;border-radius:16px;line-height:1.15}
+.m .s{width:var(--sw);text-align:center;font:400 var(--sf) B;letter-spacing:3px;background:var(--b2);border-radius:16px;line-height:1.15}
 .m .w{color:#ffd21f}.m small{position:absolute;bottom:4px;left:0;right:0;text-align:center;font:700 20px O;color:#ffd21f;letter-spacing:1px}
 .m.big{border-color:#ffd21f;box-shadow:0 0 40px rgba(255,210,31,.45)}
-#tag{position:absolute;right:40px;padding:4px 22px;border-radius:12px;background:#ffd21f;color:#040a2e;font:400 44px B;letter-spacing:2px;opacity:0;z-index:5}
+#tag{position:absolute;right:40px;padding:4px 22px;border-radius:12px;background:#ffd21f;color:var(--dk);font:400 44px B;letter-spacing:2px;opacity:0;z-index:5}
 #cta{bottom:48px;font-size:64px}
 .m .s.tm{font-size:calc(var(--sf) * .72);color:#ffd21f}
 #live{top:110px;right:44px;font:700 34px O;letter-spacing:4px;color:#fff;background:#e11d48;padding:4px 18px;border-radius:10px;display:none}
 /* Four rows or fewer: each side's crest above its name, the whole name on one or two lines. */
 body.few .m{padding:0 12px}body.few .m .sd{flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;min-width:0}
 body.few .m .sd .n{flex:none;white-space:normal;text-align:center;line-height:1.05;padding:0 6px;max-width:100%}
-.m .tg{position:absolute;top:6px;left:0;right:0;text-align:center;font:700 var(--tg) O;letter-spacing:2px;color:#46d7ff}
+.m .tg{position:absolute;top:6px;left:0;right:0;text-align:center;font:700 var(--tg) O;letter-spacing:2px;color:var(--kc)}
 </style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div>
 <div class="abs" id="cp"></div><div class="abs" id="hl"></div><div class="abs" id="live">● LIVE</div><div id="list"></div><div id="tag">BIGGEST WIN</div><div class="cta" id="cta"></div>
 <script src="lib.js"></script><script src="en-lib.js"></script><script>

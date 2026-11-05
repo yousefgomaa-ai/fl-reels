@@ -37,7 +37,7 @@ const D = window.DATA, M = (D.rows || []).slice(0, 18), N = M.length;
 const P = N > 10 ? Math.ceil(N / 2) : N, PAGES = N > 10 ? 2 : 1, n = P;
 // Each competition's mark: its header band and its accent (not the full page).
 const TH = { pl: ['#2b0a3d', '#00e676'], laliga: ['#14213d', '#fca311'], seriea: ['#0a2a66', '#29d3ff'], bund: ['#1c1c1c', '#ff3b47'], l1: ['#0b1d3a', '#c6f432'],
-  ucl: ['#0a1446', '#8ec5ff'], uel: ['#231507', '#ff8a1f'], cup: ['#073b2a', '#ffcc33'] }[D.theme] || ['#0a1446', '#ffd21f'];
+  ucl: ['#0a1446', '#8ec5ff'], uel: ['#231507', '#ff8a1f'], cup: ['#073b2a', '#ffcc33'], nat: ['#5a0c18', '#ffd21f'] }[D.theme] || ['#14110a', '#ffd21f'];
 document.documentElement.style.cssText = `--hd:${TH[0]};--ac:${TH[1]}`;
 document.body.classList.remove(...[...document.body.classList].filter((c) => c.startsWith('t-')));
 $('dt').innerHTML = (D.date || '') + (D.tz ? `<br>${D.tz}` : '');

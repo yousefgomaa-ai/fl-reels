@@ -23,7 +23,7 @@ function progBar() {
     window.draw = (t) => d0(Math.min(T0, t / S));
   }
   const b = document.createElement('div');
-  b.style.cssText = 'position:absolute;top:0;left:0;height:10px;width:0;background:linear-gradient(90deg,#46d7ff,#ffd21f);z-index:99;box-shadow:0 0 14px rgba(255,210,31,.7)';
+  b.style.cssText = 'position:absolute;top:0;left:0;height:10px;width:0;background:linear-gradient(90deg,var(--kc),#ffd21f);z-index:99;box-shadow:0 0 14px rgba(255,210,31,.7)';
   document.body.appendChild(b);
   // Keep them watching (owner, 2026-11-04: «خلي كل خطوة او حركة او معلومة تخلي المتفرج يكمل الريل للآخر»): a promise in the
   // first seconds of what waits at the end, and the whole frame drifting closer all along so nothing stands still.
