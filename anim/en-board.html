@@ -60,15 +60,20 @@ const AZ = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', rows = [...document.querySele
 const mins = D.minBeats || [3.5, Math.max(8, n * .55 + 2), 6.5], B = D.beats || (() => { let t = 0; return mins.map((m) => { const b = [t, m]; t += m; return b; }); })();
 window.TOTAL = B[B.length - 1][0] + B[B.length - 1][1];
 const rnd = (i, k) => AZ[Math.abs(Math.floor(Math.sin(i * 12.9898 + k * 78.233) * 43758.5453)) % AZ.length];
+const HID = (() => { const s2 = (B[2] || [B[1][0] + B[1][1]])[0], l2 = (B[2] || [0, 6])[1], o = M.map((m, i) => [m, i]).filter(([m]) => m.stamp).sort((a, b) => (a[0].stampOrder || 0) - (b[0].stampOrder || 0));
+  const sh = Math.max(1.6, (l2 - 2.2) / Math.max(o.length, 1)); return new Map(o.map(([, i], j) => [i, s2 + j * sh])); })();
 window.draw = (t) => {
   const [s0, l0] = B[0], [s1, l1] = B[1], [s2] = B[2] || [B[1][0] + B[1][1]];
   const hk = t < s1; $('hk').style.opacity = hk ? Math.min(ease((t - s0) / .3), 1 - ease((t - s1 + .35) / .35)) : 0;
   if (hk) $('hk').querySelector('.a').style.transform = `skewX(-6deg) scale(${1.2 - .2 * ease(t / .5)})`;
   $('board').style.opacity = ease((t - s1 + .2) / .35); $('top').style.opacity = ease((t - s1 + .2) / .35);
   const per = Math.max(.3, (l1 - 1.5) / Math.max(n, 1));
+  // The night's headline rows keep their score hidden («?-?») until their headline shows (owner, 2026-11-05: «هوك و مشوق»).
+  const hid = (i) => HID.has(i) && t < HID.get(i);
   rows.forEach((r, i) => {
     const st = s1 + .3 + i * per, u = t - st; r.style.opacity = u < 0 ? .15 : 1;
-    r.querySelectorAll('.c').forEach((c, k) => { const fin = c.dataset.ch, done = u > .25 + k * .025; c.textContent = u < 0 ? '' : done ? fin : (fin ? rnd(i * 31 + k, Math.floor(t * 18)) : ''); });
+    r.querySelectorAll('.c').forEach((c, k) => { const sc = c.parentNode.classList.contains('sc'), fin = sc && hid(i) ? '?' : c.dataset.ch, done = u > .25 + k * .025;
+      c.textContent = u < 0 ? '' : done ? fin : (fin ? rnd(i * 31 + k, Math.floor(t * 18)) : ''); });
   });
   // Each headline shows for its share of the last beat, its row lit meanwhile.
   const hs = [...document.querySelectorAll('#hl .h')].sort((a, b) => a.dataset.o - b.dataset.o), l2 = (B[2] || [0, 6])[1], sh = Math.max(1.6, (l2 - 2.2) / Math.max(hs.length, 1));
