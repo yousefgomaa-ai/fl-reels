@@ -7,6 +7,19 @@ import { spawn } from 'node:child_process';
 import { mkdtemp, writeFile, readFile, readdir, stat, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+// The runner's own Chrome when the workflow found one (PW_CHROME): no browser download or system libraries to install,
+// minutes saved before a live reel (owner, 2026-11-05: «السيرفر هو اللي ما يتأخرش في صنع الفيديو»); else Playwright's.
+async function launchBrowser(chromium) {
+  if (process.env.PW_CHROME) {
+    try { return await chromium.launch({ executablePath: process.env.PW_CHROME }); } catch (e) {
+      console.log('system Chrome failed, installing Playwright\'s:', String(e.message || e).slice(0, 160));
+      const { execSync } = await import('node:child_process');
+      try { execSync('npx playwright install --with-deps chromium', { stdio: 'inherit', timeout: 300000 }); } catch (e2) { console.log('playwright install failed'); }
+      delete process.env.PW_CHROME;
+    }
+  }
+  return chromium.launch();
+}
 
 const API = process.env.REELS_API || 'https://api.football-legend.com';
 const KEY = process.env.REELS_KEY || '';
@@ -229,7 +242,7 @@ async function makeAnim(job, dir) {
   await writeFile(html, page0.replace('</head>', `<script>window.DATA=${JSON.stringify(d).replace(/</g, '\\u003c')};</script></head>`));
   const frames = join(dir, 'af');
   await run('mkdir', ['-p', frames]);
-  const b = await chromium.launch();
+  const b = await launchBrowser(chromium);
   try {
     const p = await b.newPage({ viewport: { width: W, height: H } });
     const errs = []; p.on('pageerror', (e) => errs.push(e.message));
@@ -331,7 +344,7 @@ export async function makeImage(job, dir) {
   const html = new URL(`./anim/_${job.id.replace(/[^\w-]/g, '_')}.html`, import.meta.url);
   await writeFile(html, page0.replace('</head>', `<script>window.DATA=${JSON.stringify(d).replace(/</g, '\\u003c')};</script></head>`));
   const { chromium } = await import('playwright');
-  const b = await chromium.launch();
+  const b = await launchBrowser(chromium);
   try {
     const p = await b.newPage({ viewport: { width: 1080, height: 1350 } });
     const errs = []; p.on('pageerror', (e) => errs.push(e.message));
