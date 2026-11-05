@@ -50,10 +50,27 @@ jobs:
         with:
           node-version: 22
 
+      # A static ffmpeg kept in the Actions cache (owner, 2026-11-05: apt took nine minutes before a live reel); apt only
+      # when the cache and the download both fail.
+      - name: Restore ffmpeg
+        if: steps.jobs.outputs.count != '0'
+        id: ffc
+        uses: actions/cache@v4
+        with:
+          path: ~/ffbin
+          key: ffmpeg-static-btbn-n7.1-v1
+
       - name: Install ffmpeg
         if: steps.jobs.outputs.count != '0'
-        # apt sometimes hangs on a runner; a few tries with a time limit each.
         run: |
+          mkdir -p ~/ffbin
+          if [ ! -x ~/ffbin/ffmpeg ]; then
+            u=https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-n7.1-latest-linux64-gpl-7.1.tar.xz
+            if timeout 120 curl -fsSL "$u" -o /tmp/ff.tar.xz && tar -xJf /tmp/ff.tar.xz -C /tmp; then
+              cp /tmp/ffmpeg-n7.1-latest-linux64-gpl-7.1/bin/ffmpeg /tmp/ffmpeg-n7.1-latest-linux64-gpl-7.1/bin/ffprobe ~/ffbin/
+            fi
+          fi
+          if [ -x ~/ffbin/ffmpeg ]; then echo "$HOME/ffbin" >> "$GITHUB_PATH"; ~/ffbin/ffmpeg -hide_banner -version | head -1; exit 0; fi
           for i in 1 2 3; do
             timeout 240 sudo apt-get update -qq && timeout 240 sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null && exit 0
             echo "ffmpeg install try $i failed"; sleep 10
@@ -63,9 +80,11 @@ jobs:
       - name: Install Playwright (moving tables only)
         if: steps.jobs.outputs.count != '0' && steps.jobs.outputs.anim != '0'
         continue-on-error: true
+        # The runner's Chrome is used when it is there (seconds); Playwright's own browser and libraries otherwise.
         run: |
           npm i --no-save --no-audit --no-fund playwright@1.48.2
-          timeout 300 npx playwright install --with-deps chromium
+          c=$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || true)
+          if [ -n "$c" ]; then echo "PW_CHROME=$c" >> "$GITHUB_ENV"; echo "system Chrome: $c"; else timeout 300 npx playwright install --with-deps chromium; fi
 
       - name: Make and upload the reels
         if: steps.jobs.outputs.count != '0'
