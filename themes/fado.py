@@ -2,7 +2,7 @@
 # plucked strings (Karplus-Strong), the melody played as a tremolo, a soft bass guitar under it, a low bowed drone in
 # the second half; no noise at all in the mix (the owner heard a hiss), the attack burst filtered before it rings.
 # Synthesised from scratch, no samples, so no third-party rights. python3 fado.py out.wav [bpm]
-# Encode: ffmpeg -i out.wav -af loudnorm=I=-16:TP=-1.5:LRA=11 -c:a libmp3lame -b:a 160k fl-fado.mp3
+# Encode: ffmpeg -i out.wav -af lowpass=f=5000,loudnorm=I=-16:TP=-1.5:LRA=11 -c:a libmp3lame -b:a 160k fl-fado.mp3
 import numpy as np, wave, sys
 from scipy.signal import lfilter
 SR = 44100
@@ -17,7 +17,7 @@ def pluck(m, dur, bright=0.5, decay=0.996):
     for k in range(n):
         out[k] = b[i]; j = (i + 1) % p
         b[i] = decay * 0.5 * (b[i] + b[j]); i = j
-    out = lp(out, 0.6)
+    out = lp(lp(out, 0.4), 0.5)  # softer still: no bright pick on the attack (2026-11-05, the owner heard a hiss)
     t = np.arange(n) / SR
     return out * np.clip((dur - t) / 0.08, 0, 1)
 def bow(m, n):  # a low bowed drone: sines only, a slow swell
@@ -59,10 +59,10 @@ for b in range(bars):
             if m is None: continue
             held = k == len(mel) - 1 or mel[k + 1] is None if k + 1 < len(mel) else True
             dur = beat * (3 - k if held else 1)
-            reps = int(dur / 0.085)
+            reps = int(dur / 0.11)
             for r in range(reps):
                 g = 0.2 * (0.75 + 0.25 * np.sin(r * 0.7)) * (1 - 0.5 * r / max(1, reps))
-                put(L, pluck(m, 0.35, 0.55, 0.993), t0 + k * beat + r * 0.085, g * 0.9); put(R, pluck(m, 0.35, 0.55, 0.993), t0 + k * beat + r * 0.085 + 0.006, g)
+                put(L, pluck(m, 0.35, 0.3, 0.993), t0 + k * beat + r * 0.11, g * 0.8); put(R, pluck(m, 0.35, 0.3, 0.993), t0 + k * beat + r * 0.11 + 0.006, g * 0.9)
     # the drone under the middle
     if mid and b % 2 == 0:
         d = bow(c[0] - 12, at(bar * 2.2)); put(L, d, t0, 0.07); put(R, d, t0, 0.07)
