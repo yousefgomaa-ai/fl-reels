@@ -23,9 +23,13 @@ jobs:
           key="$REELS_KEY"; echo "::add-mask::$key"; sleep 5
           A="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
           sleep 5
-          date -u; sleep 160
-          curl -sS --max-time 200 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none&remake=en-pick-20261105" | jq -c '.result.remake'
-          curl -sS --max-time 60 "https://api.football-legend.com/v2/reels/jobs?key=$key" | jq -c '.jobs[]? | select(.id=="en-pick-20261105") | {a: .anim.a.short, as: .anim.a.sub, b: .anim.b.short, bs: .anim.b.sub, ap: .anim.a.photo, bp: .anim.b.photo, stats: .anim.stats}'
+          date -u; mkdir -p look; U='FootballLegendsBot/1.0 (https://football-legend.com/contact/)'
+          curl -sS --max-time 60 "https://api.football-legend.com/v2/reels/status?key=$key" | jq -c '.reels[]? | select((.id // "") | test("^en-(special|pick)")) | {id, status, readyAt}'
+          for c in Pedri Rodrygo Arda_Güler; do
+            curl -sS -A "$U" "https://commons.wikimedia.org/w/api.php?action=query&format=json&generator=categorymembers&gcmtitle=Category:$c&gcmtype=file&gcmlimit=40&gcmsort=timestamp&gcmdir=desc&prop=imageinfo&iiprop=url|size|extmetadata&iiurlwidth=400" > "look/$c.json"
+            jq -r '.query.pages[] | [.title, (.imageinfo[0].width|tostring), (.imageinfo[0].extmetadata.LicenseShortName.value // ""), ((.imageinfo[0].extmetadata.Artist.value // "") | gsub("<[^>]*>";"")), (.imageinfo[0].extmetadata.DateTimeOriginal.value // "" | .[0:10]), .imageinfo[0].thumburl] | @tsv' "look/$c.json" > "look/$c.tsv"
+            i=0; while IFS=$'\t' read -r t w l a d u; do i=$((i+1)); [ $i -gt 14 ] && break; curl -sSL -A "$U" -o "look/${c}_$i.jpg" "$u"; echo "$c $i | $t | $w | $l | $a | $d"; done < "look/$c.tsv"
+          done
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          echo done
+          git add look && git commit -qm "look" && git push -q origin HEAD:claude/en-sample; echo done
