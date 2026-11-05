@@ -83,7 +83,10 @@ const D = window.DATA, M = D.rows || [], n = M.length, q = (s, sel) => document.
 const crest = (u, w) => (u ? `<img src="${u}">` : `<i style="width:${w}px"></i>`);
 $('lg').textContent = D.league || '';
 // The order of the beats: the hook, each match, then the extras the server sent (star, numbers, table), then all.
-const SEQ = ['hook', ...M.map((_, i) => 'm' + i), ...(D.star ? ['star'] : []), ...(D.nums ? ['nums'] : []), ...(D.table?.length ? ['table'] : []), 'all'];
+// One match told on its own (DATA.single, a record night) has no counter, no dots and no list of all results (DATA.noAll).
+const SEQ = ['hook', ...M.map((_, i) => 'm' + i), ...(D.star ? ['star'] : []), ...(D.nums ? ['nums'] : []), ...(D.table?.length ? ['table'] : []), ...(D.noAll ? [] : ['all'])], LAST = SEQ[SEQ.length - 1];
+if (D.numsHead) q('nb', '.k').innerHTML = D.numsHead;
+if (D.single) ['#mt .k', '#dots', '#gs'].forEach((x) => { document.querySelector(x).style.display = 'none'; });
 q('hk', '.t').innerHTML = `${D.h1 || 'ROUND'}<br><span class="y">${D.h2 || ''}</span>`;
 // A long name (CHAMPIONS LEAGUE) took two lines and ran into the first number (owner's screenshot, 2026-11-04): the
 // title shrinks until it ends above the numbers.
@@ -166,7 +169,7 @@ window.draw = (t) => {
   if (seg === 'table') document.querySelectorAll('#tb .r').forEach((r, i, all) => { const a = ease((u - .3 - (all.length - 1 - i) * .35) / .3); r.style.opacity = a; r.style.transform = `translateX(${(1 - a) * (i % 2 ? 120 : -120)}px)`; });
   const isO = seg === 'all'; $('ou').style.opacity = isO ? ease(u / .35) : 0;
   if (isO) document.querySelectorAll('#ou .r').forEach((r, i) => { const a = ease((u - .1 - i * .06) / .3); r.style.opacity = a; r.style.transform = `translateX(${(1 - a) * (i % 2 ? 80 : -80)}px)`; });
-  $('cta').style.opacity = isO ? ease((u - .9) / .4) : 0;
+  $('cta').style.opacity = seg === LAST ? ease((u - (isO ? .9 : 3.2)) / .4) : 0;
 };
 window.POSTER = Math.min(2.6, B[0][1] - .2);
 progBar();
