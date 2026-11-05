@@ -24,7 +24,7 @@ jobs:
           A="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
           sleep 5
           date -u; sleep 170
-          for sp in como verdict; do curl -sS --max-time 120 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none&special=$sp" | jq -c '.result.special'; done
+          for sp in verdict; do curl -sS --max-time 120 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none&special=$sp" | jq -c '.result.special'; done
           sleep 420
           curl -sS --max-time 60 "https://api.football-legend.com/v2/reels/status?key=$key" > st.json || true
           jq -c '.reels[]? | select((.id // "") | test("^en-special")) | {id, status, readyAt, error}' st.json
