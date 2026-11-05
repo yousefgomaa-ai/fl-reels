@@ -1,0 +1,1493 @@
+{
+ "id": 690230,
+ "name": "Lautaro Martínez",
+ "birthDate": {
+  "utcTime": "1997-08-22T00:00:00.000Z",
+  "timezone": "UTC"
+ },
+ "primaryTeam": {
+  "teamId": 8636,
+  "teamName": "Inter",
+  "onLoan": false,
+  "teamColors": {
+   "color": "#010E80",
+   "colorAlternate": "#0039d0",
+   "colorAway": "#000000",
+   "colorAwayAlternate": "#FFFFFF"
+  }
+ },
+ "careerHistory": {
+  "showFootnote": false,
+  "careerItems": {
+   "senior": {
+    "teamEntries": [
+     {
+      "participantId": 690230,
+      "teamId": 8636,
+      "team": "Inter",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2018-07-04T00:00:00",
+      "endDate": null,
+      "active": true,
+      "role": null,
+      "appearances": "383",
+      "goals": "181",
+      "assists": "40",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 690230,
+      "teamId": 10080,
+      "team": "Racing Club",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2015-01-01T00:00:00",
+      "endDate": "2018-07-04T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "62",
+      "goals": "27",
+      "assists": "5",
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2026/2027",
+      "appearances": "7",
+      "goals": "6",
+      "assists": "1",
+      "rating": {
+       "rating": "7.89"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 55,
+        "leagueName": "Serie A",
+        "seasonName": "2026/2027",
+        "tournamentId": 36072,
+        "goals": "4",
+        "assists": "0",
+        "appearances": "5",
+        "rating": {
+         "rating": "7.66"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2026/2027",
+        "tournamentId": 47760,
+        "goals": "2",
+        "assists": "1",
+        "appearances": "2",
+        "rating": {
+         "rating": "8.49"
+        }
+       }
+      ],
+      "teamId": 8636,
+      "team": "Inter",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2025/2026",
+      "appearances": "45",
+      "goals": "24",
+      "assists": "6",
+      "rating": {
+       "rating": "7.39"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 55,
+        "leagueName": "Serie A",
+        "seasonName": "2025/2026",
+        "tournamentId": 27044,
+        "goals": "17",
+        "assists": "6",
+        "appearances": "30",
+        "rating": {
+         "rating": "7.47"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 141,
+        "leagueName": "Coppa Italia",
+        "seasonName": "2025/2026",
+        "tournamentId": 27177,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "6.62"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 222,
+        "leagueName": "Supercoppa",
+        "seasonName": "2025/2026",
+        "tournamentId": 51610,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2025/2026",
+        "tournamentId": 28184,
+        "goals": "4",
+        "assists": "0",
+        "appearances": "8",
+        "rating": {
+         "rating": "7.32"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 78,
+        "leagueName": "FIFA Club World Cup",
+        "seasonName": "2025",
+        "tournamentId": 24449,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.63"
+        }
+       }
+      ],
+      "teamId": 8636,
+      "team": "Inter",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024/2025",
+      "appearances": "49",
+      "goals": "22",
+      "assists": "3",
+      "rating": {
+       "rating": "7.17"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 55,
+        "leagueName": "Serie A",
+        "seasonName": "2024/2025",
+        "tournamentId": 23819,
+        "goals": "12",
+        "assists": "3",
+        "appearances": "31",
+        "rating": {
+         "rating": "7.23"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 141,
+        "leagueName": "Coppa Italia",
+        "seasonName": "2024/2025",
+        "tournamentId": 23825,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "6.28"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 222,
+        "leagueName": "Supercoppa",
+        "seasonName": "2024/2025",
+        "tournamentId": 28037,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "6.27"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2024/2025",
+        "tournamentId": 24110,
+        "goals": "9",
+        "assists": "0",
+        "appearances": "14",
+        "rating": {
+         "rating": "7.32"
+        }
+       }
+      ],
+      "teamId": 8636,
+      "team": "Inter",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023/2024",
+      "appearances": "44",
+      "goals": "27",
+      "assists": "3",
+      "rating": {
+       "rating": "7.56"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 55,
+        "leagueName": "Serie A",
+        "seasonName": "2023/2024",
+        "tournamentId": 20956,
+        "goals": "24",
+        "assists": "3",
+        "appearances": "33",
+        "rating": {
+         "rating": "7.72"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 141,
+        "leagueName": "Coppa Italia",
+        "seasonName": "2023/2024",
+        "tournamentId": 21553,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "6.60"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 222,
+        "leagueName": "Supercoppa",
+        "seasonName": "2023/2024",
+        "tournamentId": 24248,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "7.80"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2023/2024",
+        "tournamentId": 20961,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "8",
+        "rating": {
+         "rating": "6.96"
+        }
+       }
+      ],
+      "teamId": 8636,
+      "team": "Inter",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2022/2023",
+      "appearances": "57",
+      "goals": "28",
+      "assists": "10",
+      "rating": {
+       "rating": "7.35"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 55,
+        "leagueName": "Serie A",
+        "seasonName": "2022/2023",
+        "tournamentId": 17866,
+        "goals": "21",
+        "assists": "6",
+        "appearances": "38",
+        "rating": {
+         "rating": "7.35"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 141,
+        "leagueName": "Coppa Italia",
+        "seasonName": "2022/2023",
+        "tournamentId": 17968,
+        "goals": "3",
+        "assists": "1",
+        "appearances": "5",
+        "rating": {
+         "rating": "7.78"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 222,
+        "leagueName": "Supercoppa",
+        "seasonName": "2022/2023",
+        "tournamentId": 20746,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "7.93"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2022/2023",
+        "tournamentId": 17697,
+        "goals": "3",
+        "assists": "3",
+        "appearances": "13",
+        "rating": {
+         "rating": "7.14"
+        }
+       }
+      ],
+      "teamId": 8636,
+      "team": "Inter",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2021/2022",
+      "appearances": "49",
+      "goals": "25",
+      "assists": "3",
+      "rating": {
+       "rating": "7.33"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 55,
+        "leagueName": "Serie A",
+        "seasonName": "2021/2022",
+        "tournamentId": 16621,
+        "goals": "21",
+        "assists": "3",
+        "appearances": "35",
+        "rating": {
+         "rating": "7.41"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 141,
+        "leagueName": "Coppa Italia",
+        "seasonName": "2021/2022",
+        "tournamentId": 16633,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "5",
+        "rating": {
+         "rating": "7.44"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 222,
+        "leagueName": "Supercoppa",
+        "seasonName": "2021/2022",
+        "tournamentId": 17913,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "7.78"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2021/2022",
+        "tournamentId": 16407,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "8",
+        "rating": {
+         "rating": "6.90"
+        }
+       }
+      ],
+      "teamId": 8636,
+      "team": "Inter",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2020/2021",
+      "appearances": "48",
+      "goals": "19",
+      "assists": "7",
+      "rating": {
+       "rating": "7.15"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 55,
+        "leagueName": "Serie A",
+        "seasonName": "2020/2021",
+        "tournamentId": 15604,
+        "goals": "17",
+        "assists": "6",
+        "appearances": "38",
+        "rating": {
+         "rating": "7.23"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 141,
+        "leagueName": "Coppa Italia",
+        "seasonName": "2020/2021",
+        "tournamentId": 15629,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": "6.64"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2020/2021",
+        "tournamentId": 15237,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "6",
+        "rating": {
+         "rating": "6.99"
+        }
+       }
+      ],
+      "teamId": 8636,
+      "team": "Inter",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019/2020",
+      "appearances": "49",
+      "goals": "21",
+      "assists": "5",
+      "rating": {
+       "rating": "6.90"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 55,
+        "leagueName": "Serie A",
+        "seasonName": "2019/2020",
+        "tournamentId": 14290,
+        "goals": "14",
+        "assists": "3",
+        "appearances": "35",
+        "rating": {
+         "rating": "6.86"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 141,
+        "leagueName": "Coppa Italia",
+        "seasonName": "2019/2020",
+        "tournamentId": 14287,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "3",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2019/2020",
+        "tournamentId": 14006,
+        "goals": "5",
+        "assists": "0",
+        "appearances": "6",
+        "rating": {
+         "rating": "7.08"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 73,
+        "leagueName": "Europa League",
+        "seasonName": "2019/2020",
+        "tournamentId": 14007,
+        "goals": "2",
+        "assists": "1",
+        "appearances": "5",
+        "rating": {
+         "rating": "7.03"
+        }
+       }
+      ],
+      "teamId": 8636,
+      "team": "Inter",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2018/2019",
+      "appearances": "35",
+      "goals": "9",
+      "assists": "2",
+      "rating": {
+       "rating": "6.46"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 55,
+        "leagueName": "Serie A",
+        "seasonName": "2018/2019",
+        "tournamentId": 13037,
+        "goals": "6",
+        "assists": "2",
+        "appearances": "27",
+        "rating": {
+         "rating": "6.52"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 141,
+        "leagueName": "Coppa Italia",
+        "seasonName": "2018/2019",
+        "tournamentId": 12997,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2018/2019",
+        "tournamentId": 12764,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": "5.51"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 73,
+        "leagueName": "Europa League",
+        "seasonName": "2018/2019",
+        "tournamentId": 12765,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": "6.95"
+        }
+       }
+      ],
+      "teamId": 8636,
+      "team": "Inter",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2018",
+      "appearances": "7",
+      "goals": "5",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 45,
+        "leagueName": "Copa Libertadores",
+        "seasonName": "2018",
+        "tournamentId": 12373,
+        "goals": "5",
+        "assists": "0",
+        "appearances": "6",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 9305,
+        "leagueName": "Copa Argentina",
+        "seasonName": "2018",
+        "tournamentId": 12551,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 10080,
+      "team": "Racing Club",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2017/2018",
+      "appearances": "21",
+      "goals": "13",
+      "assists": "4",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 112,
+        "leagueName": "Liga Profesional",
+        "seasonName": "2017/2018",
+        "tournamentId": 11810,
+        "goals": "13",
+        "assists": "4",
+        "appearances": "21",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 10080,
+      "team": "Racing Club",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2017",
+      "appearances": "5",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 299,
+        "leagueName": "Copa Sudamericana",
+        "seasonName": "2017",
+        "tournamentId": 11230,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "5",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 10080,
+      "team": "Racing Club",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2016/2017",
+      "appearances": "23",
+      "goals": "9",
+      "assists": "1",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 112,
+        "leagueName": "Liga Profesional",
+        "seasonName": "2016/2017",
+        "tournamentId": 10734,
+        "goals": "9",
+        "assists": "1",
+        "appearances": "23",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 10080,
+      "team": "Racing Club",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2016",
+      "appearances": "5",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 112,
+        "leagueName": "Liga Profesional",
+        "seasonName": "2016",
+        "tournamentId": 10110,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 9305,
+        "leagueName": "Copa Argentina",
+        "seasonName": "2016",
+        "tournamentId": 10289,
+        "goals": "0",
+        "assists": "undefined",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 10080,
+      "team": "Racing Club",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2015",
+      "appearances": "1",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 112,
+        "leagueName": "Liga Profesional",
+        "seasonName": "2015",
+        "tournamentId": 9151,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 10080,
+      "team": "Racing Club",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   },
+   "national team": {
+    "teamEntries": [
+     {
+      "participantId": 690230,
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2018-03-01T00:00:00",
+      "endDate": "2026-10-08T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "87",
+      "goals": "42",
+      "assists": "13",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 690230,
+      "teamId": 5860,
+      "team": "Argentina U20",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2017-01-01T00:00:00",
+      "endDate": "2017-12-31T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "11",
+      "goals": "7",
+      "assists": "1",
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2026",
+      "appearances": "12",
+      "goals": "6",
+      "assists": "4",
+      "rating": {
+       "rating": "7.33"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 77,
+        "leagueName": "World Cup",
+        "seasonName": "2026",
+        "tournamentId": 24254,
+        "goals": "3",
+        "assists": "1",
+        "appearances": "7",
+        "rating": {
+         "rating": "7.03"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2026",
+        "tournamentId": 29822,
+        "goals": "3",
+        "assists": "3",
+        "appearances": "5",
+        "rating": {
+         "rating": "7.76"
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2025",
+      "appearances": "3",
+      "goals": "3",
+      "assists": "2",
+      "rating": {
+       "rating": "8.52"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2025",
+        "tournamentId": 24481,
+        "goals": "3",
+        "assists": "2",
+        "appearances": "3",
+        "rating": {
+         "rating": "8.52"
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024",
+      "appearances": "10",
+      "goals": "8",
+      "assists": "1",
+      "rating": {
+       "rating": "7.29"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 44,
+        "leagueName": "Copa America",
+        "seasonName": "2024",
+        "tournamentId": 22518,
+        "goals": "5",
+        "assists": "0",
+        "appearances": "6",
+        "rating": {
+         "rating": "7.05"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2024",
+        "tournamentId": 22275,
+        "goals": "3",
+        "assists": "1",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.66"
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023/2025",
+      "appearances": "14",
+      "goals": "4",
+      "assists": "1",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueName": "CONMEBOL World Cup Qualifiers",
+        "seasonName": "2023/2025",
+        "tournamentId": -1,
+        "goals": "4",
+        "assists": "1",
+        "appearances": "14",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023",
+      "appearances": "2",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": "6.70"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2023",
+        "tournamentId": 18498,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "6.70"
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2022",
+      "appearances": "9",
+      "goals": "2",
+      "assists": "2",
+      "rating": {
+       "rating": "6.60"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 77,
+        "leagueName": "World Cup",
+        "seasonName": "2022",
+        "tournamentId": 15338,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "6",
+        "rating": {
+         "rating": "6.32"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2022",
+        "tournamentId": 17169,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "2",
+        "rating": {
+         "rating": "7.44"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueName": "CONMEBOL/UEFA Finalissima",
+        "seasonName": "2022",
+        "tournamentId": -1,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2021",
+      "appearances": "6",
+      "goals": "3",
+      "assists": "0",
+      "rating": {
+       "rating": "7.09"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 44,
+        "leagueName": "Copa America",
+        "seasonName": "2021",
+        "tournamentId": 15148,
+        "goals": "3",
+        "assists": "0",
+        "appearances": "6",
+        "rating": {
+         "rating": "7.09"
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2020/2022",
+      "appearances": "14",
+      "goals": "7",
+      "assists": "3",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueName": "CONMEBOL World Cup Qualifiers",
+        "seasonName": "2020/2022",
+        "tournamentId": -1,
+        "goals": "7",
+        "assists": "3",
+        "appearances": "14",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019",
+      "appearances": "13",
+      "goals": "8",
+      "assists": "0",
+      "rating": {
+       "rating": "7.18"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 44,
+        "leagueName": "Copa America",
+        "seasonName": "2019",
+        "tournamentId": 13572,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.18"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2019",
+        "tournamentId": 13365,
+        "goals": "6",
+        "assists": "0",
+        "appearances": "9",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2018",
+      "appearances": "4",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2018",
+        "tournamentId": 11352,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 6706,
+      "team": "Argentina",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2017",
+      "appearances": "11",
+      "goals": "7",
+      "assists": "1",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 9848,
+        "leagueName": "CONMEBOL U20 Championship",
+        "seasonName": "2017",
+        "tournamentId": -1,
+        "goals": "5",
+        "assists": "1",
+        "appearances": "9",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueName": "FIFA U20 World Cup",
+        "seasonName": "2017",
+        "tournamentId": -1,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 5860,
+      "team": "Argentina U20",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   }
+  },
+  "fullCareer": true
+ },
+ "trophies": {
+  "playerTrophies": [
+   {
+    "ccode": "ITA",
+    "teamId": 8636,
+    "teamName": "Inter",
+    "tournaments": [
+     {
+      "ccode": "ITA",
+      "leagueId": 55,
+      "leagueName": "Serie A",
+      "seasonsWon": [
+       "2025/2026",
+       "2023/2024",
+       "2020/2021"
+      ],
+      "seasonsRunnerUp": [
+       "2024/2025",
+       "2021/2022",
+       "2019/2020"
+      ]
+     },
+     {
+      "ccode": "ITA",
+      "leagueId": 222,
+      "leagueName": "Supercoppa",
+      "seasonsWon": [
+       "2023/2024",
+       "2022/2023",
+       "2021/2022"
+      ],
+      "seasonsRunnerUp": [
+       "2024/2025"
+      ]
+     },
+     {
+      "ccode": "ITA",
+      "leagueId": 141,
+      "leagueName": "Coppa Italia",
+      "seasonsWon": [
+       "2025/2026",
+       "2022/2023",
+       "2021/2022"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   },
+   {
+    "ccode": "INT",
+    "teamId": 6706,
+    "teamName": "Argentina",
+    "tournaments": [
+     {
+      "ccode": "INT",
+      "leagueId": 44,
+      "leagueName": "Copa America",
+      "seasonsWon": [
+       "2024 USA",
+       "2021 Brazil"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 77,
+      "leagueName": "World Cup",
+      "seasonsWon": [
+       "2022 Qatar"
+      ],
+      "seasonsRunnerUp": [
+       "2026 Canada/Mexico/USA"
+      ]
+     },
+     {
+      "ccode": "INT",
+      "leagueId": -1,
+      "leagueName": "CONMEBOL/UEFA Finalissima",
+      "seasonsWon": [
+       "2022"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   }
+  ],
+  "coachTrophies": []
+ },
+ "playerInformation": [
+  {
+   "value": {
+    "numberValue": 174,
+    "key": null,
+    "fallback": "174 cm"
+   },
+   "title": "Height",
+   "translationKey": "height_sentencecase"
+  },
+  {
+   "value": {
+    "numberValue": 10,
+    "options": {},
+    "key": null,
+    "fallback": 10
+   },
+   "title": "Shirt",
+   "translationKey": "shirt"
+  },
+  {
+   "value": {
+    "numberValue": 29,
+    "options": {
+     "style": "unit",
+     "unit": "year",
+     "unitDisplay": "long"
+    },
+    "key": null,
+    "fallback": "29"
+   },
+   "title": "Age",
+   "translationKey": "age_sentencecase"
+  },
+  {
+   "value": {
+    "key": "right",
+    "fallback": "Right"
+   },
+   "title": "Preferred foot",
+   "translationKey": "preferred_foot"
+  },
+  {
+   "value": {
+    "key": null,
+    "fallback": "Argentina"
+   },
+   "title": "Country",
+   "translationKey": "country_sentencecase",
+   "icon": {
+    "type": "country",
+    "id": "ARG"
+   },
+   "countryCode": "ARG",
+   "nationalTeamId": 6706
+  },
+  {
+   "value": {
+    "numberValue": 70665230,
+    "key": null,
+    "fallback": "€70.7m"
+   },
+   "title": "Market value",
+   "translationKey": "transfer_value"
+  },
+  {
+   "value": {
+    "dateValue": "2029-06-30",
+    "key": null,
+    "fallback": {
+     "utcTime": "2029-06-30T00:00:00.000Z",
+     "timezone": "UTC"
+    }
+   },
+   "title": "Contract end",
+   "translationKey": "contract_end"
+  }
+ ],
+ "mainLeague": {
+  "leagueId": 55,
+  "leagueName": "Serie A",
+  "season": "2026/2027",
+  "stats": [
+   {
+    "title": "Goals",
+    "localizedTitleId": "goals",
+    "value": 4
+   },
+   {
+    "title": "Assists",
+    "localizedTitleId": "assists",
+    "value": 0
+   },
+   {
+    "title": "Started",
+    "localizedTitleId": "started",
+    "value": 4
+   },
+   {
+    "title": "Matches",
+    "localizedTitleId": "matches_uppercase",
+    "value": 5
+   },
+   {
+    "title": "Minutes played",
+    "localizedTitleId": "minutes_played",
+    "value": 352
+   },
+   {
+    "title": "Rating",
+    "localizedTitleId": "rating",
+    "value": 7.66
+   },
+   {
+    "title": "Yellow cards",
+    "localizedTitleId": "yellow_cards",
+    "value": 2
+   },
+   {
+    "title": "Red cards",
+    "localizedTitleId": "red_cards",
+    "value": 0
+   }
+  ]
+ }
+}

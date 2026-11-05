@@ -1,0 +1,1629 @@
+{
+ "id": 1061249,
+ "name": "Vítinha",
+ "birthDate": {
+  "utcTime": "2000-02-13T00:00:00.000Z",
+  "timezone": "UTC"
+ },
+ "primaryTeam": {
+  "teamId": 9847,
+  "teamName": "Paris Saint-Germain",
+  "onLoan": false,
+  "teamColors": {
+   "color": "#273F6D",
+   "colorAlternate": "#245593",
+   "colorAway": "#e30613",
+   "colorAwayAlternate": "#ffffff"
+  }
+ },
+ "careerHistory": {
+  "showFootnote": false,
+  "careerItems": {
+   "senior": {
+    "teamEntries": [
+     {
+      "participantId": 1061249,
+      "teamId": 9847,
+      "team": "Paris Saint-Germain",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2022-07-01T00:00:00",
+      "endDate": null,
+      "active": true,
+      "role": null,
+      "appearances": "217",
+      "goals": "29",
+      "assists": "25",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 1061249,
+      "teamId": 9773,
+      "team": "FC Porto",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": {
+       "text": "back from loan",
+       "localizationKey": "transfer_type_back_from_loan"
+      },
+      "startDate": "2021-07-01T00:00:00",
+      "endDate": "2022-06-30T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "47",
+      "goals": "4",
+      "assists": "3",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 1061249,
+      "teamId": 8602,
+      "team": "Wolverhampton Wanderers",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": {
+       "text": "on loan",
+       "localizationKey": "on_loan"
+      },
+      "startDate": "2020-09-09T00:00:00",
+      "endDate": "2021-06-30T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "22",
+      "goals": "1",
+      "assists": "1",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 1061249,
+      "teamId": 9773,
+      "team": "FC Porto",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2020-01-13T00:00:00",
+      "endDate": "2020-09-09T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "12",
+      "goals": "0",
+      "assists": "1",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 1061249,
+      "teamId": 338304,
+      "team": "FC Porto B",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2019-07-01T00:00:00",
+      "endDate": "2020-01-09T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "14",
+      "goals": "8",
+      "assists": "0",
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2026/2027",
+      "appearances": "14",
+      "goals": "3",
+      "assists": "2",
+      "rating": {
+       "rating": "7.81"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 53,
+        "leagueName": "Ligue 1",
+        "seasonName": "2026/2027",
+        "tournamentId": 37298,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "8",
+        "rating": {
+         "rating": "7.65"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 207,
+        "leagueName": "Trophée des champions",
+        "seasonName": "2026/2027",
+        "tournamentId": -1,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2026/2027",
+        "tournamentId": 47760,
+        "goals": "2",
+        "assists": "1",
+        "appearances": "4",
+        "rating": {
+         "rating": "8.14"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 74,
+        "leagueName": "UEFA Super Cup",
+        "seasonName": "2026/2027",
+        "tournamentId": -1,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 9847,
+      "team": "Paris Saint-Germain",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2025/2026",
+      "appearances": "57",
+      "goals": "8",
+      "assists": "11",
+      "rating": {
+       "rating": "7.60"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 53,
+        "leagueName": "Ligue 1",
+        "seasonName": "2025/2026",
+        "tournamentId": 27212,
+        "goals": "1",
+        "assists": "7",
+        "appearances": "29",
+        "rating": {
+         "rating": "7.55"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 207,
+        "leagueName": "Trophée des champions",
+        "seasonName": "2025/2026",
+        "tournamentId": 35819,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "1",
+        "rating": {
+         "rating": "7.28"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 134,
+        "leagueName": "Coupe de France",
+        "seasonName": "2025/2026",
+        "tournamentId": 28916,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "7.62"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2025/2026",
+        "tournamentId": 28184,
+        "goals": "6",
+        "assists": "1",
+        "appearances": "17",
+        "rating": {
+         "rating": "7.75"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 74,
+        "leagueName": "UEFA Super Cup",
+        "seasonName": "2025/2026",
+        "tournamentId": 34901,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "1",
+        "rating": {
+         "rating": "7.06"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 10703,
+        "leagueName": "FIFA Intercontinental Cup",
+        "seasonName": "2025",
+        "tournamentId": 28320,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "7.70"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 78,
+        "leagueName": "FIFA Club World Cup",
+        "seasonName": "2025",
+        "tournamentId": 24449,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "7",
+        "rating": {
+         "rating": "7.64"
+        }
+       }
+      ],
+      "teamId": 9847,
+      "team": "Paris Saint-Germain",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024/2025",
+      "appearances": "52",
+      "goals": "7",
+      "assists": "3",
+      "rating": {
+       "rating": "7.52"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 53,
+        "leagueName": "Ligue 1",
+        "seasonName": "2024/2025",
+        "tournamentId": 23724,
+        "goals": "5",
+        "assists": "1",
+        "appearances": "29",
+        "rating": {
+         "rating": "7.53"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 207,
+        "leagueName": "Trophée des champions",
+        "seasonName": "2024/2025",
+        "tournamentId": 28515,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "7.78"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 134,
+        "leagueName": "Coupe de France",
+        "seasonName": "2024/2025",
+        "tournamentId": 24294,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "5",
+        "rating": {
+         "rating": "7.25"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2024/2025",
+        "tournamentId": 24110,
+        "goals": "2",
+        "assists": "2",
+        "appearances": "17",
+        "rating": {
+         "rating": "7.59"
+        }
+       }
+      ],
+      "teamId": 9847,
+      "team": "Paris Saint-Germain",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023/2024",
+      "appearances": "46",
+      "goals": "9",
+      "assists": "5",
+      "rating": {
+       "rating": "7.58"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 53,
+        "leagueName": "Ligue 1",
+        "seasonName": "2023/2024",
+        "tournamentId": 20868,
+        "goals": "7",
+        "assists": "4",
+        "appearances": "28",
+        "rating": {
+         "rating": "7.61"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 207,
+        "leagueName": "Trophée des champions",
+        "seasonName": "2023/2024",
+        "tournamentId": 23589,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "7.72"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 134,
+        "leagueName": "Coupe de France",
+        "seasonName": "2023/2024",
+        "tournamentId": 22192,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "5",
+        "rating": {
+         "rating": "7.52"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2023/2024",
+        "tournamentId": 20961,
+        "goals": "2",
+        "assists": "1",
+        "appearances": "12",
+        "rating": {
+         "rating": "7.54"
+        }
+       }
+      ],
+      "teamId": 9847,
+      "team": "Paris Saint-Germain",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2022/2023",
+      "appearances": "48",
+      "goals": "2",
+      "assists": "4",
+      "rating": {
+       "rating": "7.12"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 53,
+        "leagueName": "Ligue 1",
+        "seasonName": "2022/2023",
+        "tournamentId": 17810,
+        "goals": "2",
+        "assists": "3",
+        "appearances": "36",
+        "rating": {
+         "rating": "7.10"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 207,
+        "leagueName": "Trophée des champions",
+        "seasonName": "2022/2023",
+        "tournamentId": 20724,
+        "goals": "0",
+        "assists": "undefined",
+        "appearances": "1",
+        "rating": {
+         "rating": "7.07"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 134,
+        "leagueName": "Coupe de France",
+        "seasonName": "2022/2023",
+        "tournamentId": 18310,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "3",
+        "rating": {
+         "rating": "7.47"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2022/2023",
+        "tournamentId": 17697,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "8",
+        "rating": {
+         "rating": "7.09"
+        }
+       }
+      ],
+      "teamId": 9847,
+      "team": "Paris Saint-Germain",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2021/2022",
+      "appearances": "47",
+      "goals": "4",
+      "assists": "3",
+      "rating": {
+       "rating": "7.46"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 61,
+        "leagueName": "Liga Portugal",
+        "seasonName": "2021/2022",
+        "tournamentId": 16582,
+        "goals": "2",
+        "assists": "3",
+        "appearances": "30",
+        "rating": {
+         "rating": "7.68"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 186,
+        "leagueName": "Taça de Portugal",
+        "seasonName": "2021/2022",
+        "tournamentId": 16878,
+        "goals": "2",
+        "assists": "0",
+        "appearances": "7",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 42,
+        "leagueName": "Champions League",
+        "seasonName": "2021/2022",
+        "tournamentId": 16407,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "6",
+        "rating": {
+         "rating": "6.52"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 73,
+        "leagueName": "Europa League",
+        "seasonName": "2021/2022",
+        "tournamentId": 16640,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.29"
+        }
+       }
+      ],
+      "teamId": 9773,
+      "team": "FC Porto",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": {
+       "text": "back from loan",
+       "localizationKey": "transfer_type_back_from_loan"
+      }
+     },
+     {
+      "seasonName": "2020/2021",
+      "appearances": "22",
+      "goals": "1",
+      "assists": "1",
+      "rating": {
+       "rating": "6.47"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 47,
+        "leagueName": "Premier League",
+        "seasonName": "2020/2021",
+        "tournamentId": 15382,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "19",
+        "rating": {
+         "rating": "6.44"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 132,
+        "leagueName": "FA Cup",
+        "seasonName": "2020/2021",
+        "tournamentId": 15661,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": "6.78"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 133,
+        "leagueName": "EFL Cup",
+        "seasonName": "2020/2021",
+        "tournamentId": 15532,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8602,
+      "team": "Wolverhampton Wanderers",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": {
+       "text": "on loan",
+       "localizationKey": "on_loan"
+      }
+     },
+     {
+      "seasonName": "2019/2020",
+      "appearances": "12",
+      "goals": "0",
+      "assists": "1",
+      "rating": {
+       "rating": "6.28"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 61,
+        "leagueName": "Liga Portugal",
+        "seasonName": "2019/2020",
+        "tournamentId": 14196,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "8",
+        "rating": {
+         "rating": "6.28"
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 187,
+        "leagueName": "League Cup",
+        "seasonName": "2019/2020",
+        "tournamentId": 14199,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueId": 186,
+        "leagueName": "Taça de Portugal",
+        "seasonName": "2019/2020",
+        "tournamentId": 14604,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "3",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 9773,
+      "team": "FC Porto",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019/2020",
+      "appearances": "14",
+      "goals": "8",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 185,
+        "leagueName": "Liga Portugal 2",
+        "seasonName": "2019/2020",
+        "tournamentId": 14198,
+        "goals": "8",
+        "assists": "undefined",
+        "appearances": "14",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 338304,
+      "team": "FC Porto B",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   },
+   "youth": {
+    "teamEntries": [
+     {
+      "participantId": 1061249,
+      "teamId": 357217,
+      "team": "Wolverhampton Wanderers U23",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2020-10-25T00:00:00",
+      "endDate": "2021-06-30T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "1",
+      "goals": "0",
+      "assists": "0",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 1061249,
+      "teamId": -1,
+      "team": "FC Porto Under 23",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2019-09-01T00:00:00",
+      "endDate": "2020-09-09T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "3",
+      "goals": "1",
+      "assists": "0",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 1061249,
+      "teamId": 607850,
+      "team": "FC Porto U19",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2017-07-01T00:00:00",
+      "endDate": "2020-09-09T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "12",
+      "goals": "1",
+      "assists": "1",
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2020/2021",
+      "appearances": "1",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10176,
+        "leagueName": "Premier League 2 Div 2",
+        "seasonName": "2020/2021",
+        "tournamentId": 15634,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 357217,
+      "team": "Wolverhampton Wanderers U23",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019/2020",
+      "appearances": "3",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueName": "Premier League International Cup",
+        "seasonName": "2019/2020",
+        "tournamentId": -1,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": -1,
+      "team": "FC Porto Under 23",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019/2020",
+      "appearances": "2",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 9741,
+        "leagueName": "UEFA Youth League",
+        "seasonName": "2019/2020",
+        "tournamentId": 14446,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "2",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 607850,
+      "team": "FC Porto U19",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2018/2019",
+      "appearances": "9",
+      "goals": "0",
+      "assists": "1",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 9741,
+        "leagueName": "UEFA Youth League",
+        "seasonName": "2018/2019",
+        "tournamentId": 13140,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "9",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 607850,
+      "team": "FC Porto U19",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2017/2018",
+      "appearances": "1",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 9741,
+        "leagueName": "UEFA Youth League",
+        "seasonName": "2017/2018",
+        "tournamentId": 12103,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 607850,
+      "team": "FC Porto U19",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   },
+   "national team": {
+    "teamEntries": [
+     {
+      "participantId": 1061249,
+      "teamId": 8361,
+      "team": "Portugal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2022-03-20T00:00:00",
+      "endDate": null,
+      "active": true,
+      "role": null,
+      "appearances": "47",
+      "goals": "1",
+      "assists": "4",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 1061249,
+      "teamId": 8557,
+      "team": "Portugal U21",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2019-09-04T00:00:00",
+      "endDate": "2022-02-28T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "21",
+      "goals": "1",
+      "assists": "1",
+      "hasUncertainData": false
+     },
+     {
+      "participantId": 1061249,
+      "teamId": 7738,
+      "team": "Portugal U19",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null,
+      "startDate": "2019-03-12T00:00:00",
+      "endDate": "2021-11-30T00:00:00",
+      "active": false,
+      "role": null,
+      "appearances": "10",
+      "goals": "3",
+      "assists": "1",
+      "hasUncertainData": false
+     }
+    ],
+    "seasonEntries": [
+     {
+      "seasonName": "2026/2027",
+      "appearances": "4",
+      "goals": "1",
+      "assists": "0",
+      "rating": {
+       "rating": "7.51"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 9806,
+        "leagueName": "UEFA Nations League A",
+        "seasonName": "2026/2027",
+        "tournamentId": 31436,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.51"
+        }
+       }
+      ],
+      "teamId": 8361,
+      "team": "Portugal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2026",
+      "appearances": "8",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": "7.07"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 77,
+        "leagueName": "World Cup",
+        "seasonName": "2026",
+        "tournamentId": 24254,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "5",
+        "rating": {
+         "rating": "7.10"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2026",
+        "tournamentId": 29822,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": "7.03"
+        }
+       }
+      ],
+      "teamId": 8361,
+      "team": "Portugal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2025/2026",
+      "appearances": "6",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": "7.43"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10195,
+        "leagueName": "World Cup Qualification UEFA",
+        "seasonName": "2025/2026",
+        "tournamentId": 24488,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "6",
+        "rating": {
+         "rating": "7.43"
+        }
+       }
+      ],
+      "teamId": 8361,
+      "team": "Portugal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024/2026",
+      "appearances": "8",
+      "goals": "0",
+      "assists": "3",
+      "rating": {
+       "rating": "7.56"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 9806,
+        "leagueName": "UEFA Nations League A",
+        "seasonName": "2024/2026",
+        "tournamentId": 22886,
+        "goals": "0",
+        "assists": "3",
+        "appearances": "8",
+        "rating": {
+         "rating": "7.56"
+        }
+       }
+      ],
+      "teamId": 8361,
+      "team": "Portugal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2024",
+      "appearances": "7",
+      "goals": "0",
+      "assists": "1",
+      "rating": {
+       "rating": "7.64"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 50,
+        "leagueName": "EURO",
+        "seasonName": "2024",
+        "tournamentId": 18307,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": "7.76"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2024",
+        "tournamentId": 22275,
+        "goals": "0",
+        "assists": "1",
+        "appearances": "3",
+        "rating": {
+         "rating": "7.48"
+        }
+       }
+      ],
+      "teamId": 8361,
+      "team": "Portugal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2023/2024",
+      "appearances": "6",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10607,
+        "leagueName": "EURO Qualification",
+        "seasonName": "2023/2024",
+        "tournamentId": -1,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "6",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8361,
+      "team": "Portugal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2022/2024",
+      "appearances": "3",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": "6.20"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 9806,
+        "leagueName": "UEFA Nations League A",
+        "seasonName": "2022/2024",
+        "tournamentId": 17161,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": "6.20"
+        }
+       }
+      ],
+      "teamId": 8361,
+      "team": "Portugal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2022",
+      "appearances": "4",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": "6.66"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 77,
+        "leagueName": "World Cup",
+        "seasonName": "2022",
+        "tournamentId": 15338,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "3",
+        "rating": {
+         "rating": "6.58"
+        }
+       },
+       {
+        "isFriendly": true,
+        "leagueId": 114,
+        "leagueName": "Friendlies",
+        "seasonName": "2022",
+        "tournamentId": 17169,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "6.93"
+        }
+       }
+      ],
+      "teamId": 8361,
+      "team": "Portugal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2021/2022",
+      "appearances": "1",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 10195,
+        "leagueName": "World Cup Qualification UEFA",
+        "seasonName": "2021/2022",
+        "tournamentId": 17272,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8361,
+      "team": "Portugal",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2021/2022",
+      "appearances": "5",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueName": "UEFA U21 Championship Qualificat",
+        "seasonName": "2021/2022",
+        "tournamentId": -1,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "5",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8557,
+      "team": "Portugal U21",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019/2021",
+      "appearances": "16",
+      "goals": "1",
+      "assists": "1",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 288,
+        "leagueName": "EURO U21",
+        "seasonName": "2019/2021",
+        "tournamentId": 15894,
+        "goals": "1",
+        "assists": "1",
+        "appearances": "16",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 8557,
+      "team": "Portugal U21",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
+     {
+      "seasonName": "2019",
+      "appearances": "10",
+      "goals": "3",
+      "assists": "1",
+      "rating": {
+       "rating": null
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 287,
+        "leagueName": "UEFA U19 Championship",
+        "seasonName": "2019",
+        "tournamentId": 13944,
+        "goals": "2",
+        "assists": "1",
+        "appearances": "6",
+        "rating": {
+         "rating": null
+        }
+       },
+       {
+        "isFriendly": false,
+        "leagueName": "Tournoi Maurice Revello",
+        "seasonName": "2019",
+        "tournamentId": -1,
+        "goals": "1",
+        "assists": "0",
+        "appearances": "4",
+        "rating": {
+         "rating": null
+        }
+       }
+      ],
+      "teamId": 7738,
+      "team": "Portugal U19",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     }
+    ]
+   }
+  },
+  "fullCareer": true
+ },
+ "trophies": {
+  "playerTrophies": [
+   {
+    "ccode": "INT",
+    "teamId": 8361,
+    "teamName": "Portugal",
+    "tournaments": [
+     {
+      "ccode": "INT",
+      "leagueId": 9806,
+      "leagueName": "UEFA Nations League A",
+      "seasonsWon": [
+       "2024/2025"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   },
+   {
+    "ccode": "FRA",
+    "teamId": 9847,
+    "teamName": "Paris Saint-Germain",
+    "tournaments": [
+     {
+      "ccode": "FRA",
+      "leagueId": 207,
+      "leagueName": "Trophée des Champions",
+      "seasonsWon": [
+       "2025/2026",
+       "2024/2025",
+       "2023/2024",
+       "2022/2023"
+      ],
+      "seasonsRunnerUp": [
+       "2026/2027"
+      ]
+     },
+     {
+      "ccode": "FRA",
+      "leagueId": 134,
+      "leagueName": "Coupe de France",
+      "seasonsWon": [
+       "2024/2025",
+       "2023/2024"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 42,
+      "leagueName": "Champions League",
+      "seasonsWon": [
+       "2025/2026",
+       "2024/2025"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 74,
+      "leagueName": "UEFA Super Cup",
+      "seasonsWon": [
+       "2026/2027",
+       "2025/2026"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 10703,
+      "leagueName": "FIFA Intercontinental Cup",
+      "seasonsWon": [
+       "2025"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "FRA",
+      "leagueId": 53,
+      "leagueName": "Ligue 1",
+      "seasonsWon": [
+       "2025/2026",
+       "2024/2025",
+       "2023/2024",
+       "2022/2023"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   },
+   {
+    "ccode": "POR",
+    "teamId": 9773,
+    "teamName": "FC Porto",
+    "tournaments": [
+     {
+      "ccode": "POR",
+      "leagueId": 186,
+      "leagueName": "Taça de Portugal",
+      "seasonsWon": [
+       "2021/2022",
+       "2019/2020"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "POR",
+      "leagueId": 61,
+      "leagueName": "Liga Portugal",
+      "seasonsWon": [
+       "2021/2022",
+       "2019/2020"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   },
+   {
+    "ccode": "POR",
+    "teamId": 607850,
+    "teamName": "FC Porto U19",
+    "tournaments": [
+     {
+      "ccode": "POR",
+      "leagueId": -1,
+      "leagueName": "Júniores U19",
+      "seasonsWon": [
+       "2018/2019"
+      ],
+      "seasonsRunnerUp": []
+     },
+     {
+      "ccode": "INT",
+      "leagueId": 9741,
+      "leagueName": "UEFA Youth League",
+      "seasonsWon": [
+       "2018/2019"
+      ],
+      "seasonsRunnerUp": []
+     }
+    ]
+   }
+  ],
+  "coachTrophies": []
+ },
+ "playerInformation": [
+  {
+   "value": {
+    "numberValue": 172,
+    "key": null,
+    "fallback": "172 cm"
+   },
+   "title": "Height",
+   "translationKey": "height_sentencecase"
+  },
+  {
+   "value": {
+    "numberValue": 17,
+    "options": {},
+    "key": null,
+    "fallback": 17
+   },
+   "title": "Shirt",
+   "translationKey": "shirt"
+  },
+  {
+   "value": {
+    "numberValue": 26,
+    "options": {
+     "style": "unit",
+     "unit": "year",
+     "unitDisplay": "long"
+    },
+    "key": null,
+    "fallback": "26"
+   },
+   "title": "Age",
+   "translationKey": "age_sentencecase"
+  },
+  {
+   "value": {
+    "key": "right",
+    "fallback": "Right"
+   },
+   "title": "Preferred foot",
+   "translationKey": "preferred_foot"
+  },
+  {
+   "value": {
+    "key": null,
+    "fallback": "Portugal"
+   },
+   "title": "Country",
+   "translationKey": "country_sentencecase",
+   "icon": {
+    "type": "country",
+    "id": "POR"
+   },
+   "countryCode": "POR",
+   "nationalTeamId": 8361
+  },
+  {
+   "value": {
+    "numberValue": 99135761,
+    "key": null,
+    "fallback": "€99.1m"
+   },
+   "title": "Market value",
+   "translationKey": "transfer_value"
+  },
+  {
+   "value": {
+    "dateValue": "2029-06-30",
+    "key": null,
+    "fallback": {
+     "utcTime": "2029-06-30T00:00:00.000Z",
+     "timezone": "UTC"
+    }
+   },
+   "title": "Contract end",
+   "translationKey": "contract_end"
+  }
+ ],
+ "mainLeague": {
+  "leagueId": 53,
+  "leagueName": "Ligue 1",
+  "season": "2026/2027",
+  "stats": [
+   {
+    "title": "Goals",
+    "localizedTitleId": "goals",
+    "value": 1
+   },
+   {
+    "title": "Assists",
+    "localizedTitleId": "assists",
+    "value": 1
+   },
+   {
+    "title": "Started",
+    "localizedTitleId": "started",
+    "value": 6
+   },
+   {
+    "title": "Matches",
+    "localizedTitleId": "matches_uppercase",
+    "value": 8
+   },
+   {
+    "title": "Minutes played",
+    "localizedTitleId": "minutes_played",
+    "value": 586
+   },
+   {
+    "title": "Rating",
+    "localizedTitleId": "rating",
+    "value": 7.65
+   },
+   {
+    "title": "Yellow cards",
+    "localizedTitleId": "yellow_cards",
+    "value": 2
+   },
+   {
+    "title": "Red cards",
+    "localizedTitleId": "red_cards",
+    "value": 0
+   }
+  ]
+ }
+}
