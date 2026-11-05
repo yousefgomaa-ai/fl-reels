@@ -24,11 +24,9 @@ jobs:
           A="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
           sleep 5
           date -u; sleep 150
-          curl -sS --max-time 60 "https://api.football-legend.com/v2/reels/status?key=$key" > st.json || true
-          jq -r '.reels[]? | select((.id // "") | test("^en-")) | "\(.id) \(.status)"' st.json | tail -25
-          for id in $(jq -r '.reels[]? | select((.id // "") | test("^en-(rsched|sched)")) | .id' st.json | tail -6); do
-            echo "== $id"; curl -sS --max-time 60 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none&state=$id" | jq -c '.result.state'
-          done
+          curl -sS --max-time 120 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=board&list=1" > o.json || true
+          jq -r '.result.list[]? | select(contains("uefa.europa"))' o.json | awk '{print $2, $3, $4}' | sort | uniq -c
+          jq -c '.result.board' o.json
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
           echo done
