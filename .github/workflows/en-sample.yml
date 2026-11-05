@@ -25,7 +25,7 @@ jobs:
           sleep 5
           date -u; sleep 160
           curl -sS --max-time 200 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none&remake=en-pick-20261105" | jq -c '.result.remake'
-          curl -sS --max-time 60 "https://api.football-legend.com/v2/reels/jobs?key=$key" | jq -c '.jobs[]? | select(.id=="en-pick-20261105") | {id, status, a: .anim.a.short, b: .anim.b.short, stats: .anim.stats, cap: .captions.facebook}' | head -3
+          curl -sS --max-time 60 "https://api.football-legend.com/v2/reels/jobs?key=$key" | jq -c '.jobs[]? | select(.id=="en-pick-20261105") | {a: .anim.a.short, as: .anim.a.sub, b: .anim.b.short, bs: .anim.b.sub, ap: .anim.a.photo, bp: .anim.b.photo, stats: .anim.stats}'
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
           echo done
