@@ -1,0 +1,111 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends «23 YEARS. ONE SHIRT.» (owner, 2026-11-05: Cristiano Ronaldo leaves the Portugal team; «فيديو عاطفي اكثر
+   من انه ارقام ... يخليه يكرر الفيديو ... المنتخب بس»): his years in the red shirt, one chapter a spoken line, calm.
+   Commons photos only, credited in the frame; the years without a free photo are a drawn shirt with its number. It
+   opens and closes on the same black frame and the same words, so a reel that loops does not seem to end. */
+body{background:#000}
+#st{position:absolute;inset:0;overflow:hidden}
+.ph{position:absolute;inset:0;opacity:0;overflow:hidden}
+.ph img{position:absolute;inset:-6%;width:112%;height:112%;object-fit:cover;filter:saturate(.8) contrast(1.06) brightness(.82)}
+.ph .tn{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0) 52%,rgba(20,0,0,.92) 82%,#000 100%),radial-gradient(1200px 1400px at 50% 40%,rgba(0,0,0,0) 40%,rgba(0,0,0,.65) 100%)}
+.ph .cr{position:absolute;right:30px;bottom:24px;font:500 18px O;color:rgba(255,255,255,.55);letter-spacing:1px}
+.shirt{position:absolute;left:50%;top:300px;width:760px;margin-left:-380px;opacity:0;filter:drop-shadow(0 40px 80px rgba(200,16,46,.35))}
+.gold{position:absolute;inset:0;opacity:0;background:radial-gradient(900px 900px at 50% 38%,#3a2a05 0%,#120c02 55%,#000 100%)}
+.gold .t{position:absolute;top:470px;left:0;right:0;text-align:center;font:400 300px/0.85 B;letter-spacing:6px;background:linear-gradient(180deg,#fff3c4,#e8b931 45%,#8a6208);-webkit-background-clip:text;color:transparent}
+.dust{position:absolute;width:6px;height:6px;border-radius:50%;background:#f7d774;box-shadow:0 0 12px #f7d774}
+#yr{position:absolute;top:150px;left:0;right:0;text-align:center;font:400 120px/1 B;letter-spacing:10px;color:transparent;-webkit-text-stroke:2px rgba(255,255,255,.55);opacity:0;z-index:5}
+#tx{position:absolute;left:60px;right:60px;bottom:330px;z-index:6}
+#tx .k{font:700 30px O;letter-spacing:7px;color:#e0283f;opacity:0}
+#tx .h{margin-top:10px;font:400 120px/0.9 B;letter-spacing:2px;opacity:0}
+#tx .s{margin-top:18px;font:500 36px/1.3 O;color:#d8d8d8;opacity:0}
+#hk{position:absolute;inset:0;z-index:8;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+#hk div{font:400 190px/0.9 B;letter-spacing:6px;opacity:0}#hk div i{font-style:normal;color:#e0283f}
+#hk p{margin-top:40px;font:700 30px O;letter-spacing:8px;color:#9a9a9a;opacity:0}
+#tl{position:absolute;left:60px;right:60px;bottom:210px;height:40px;z-index:6;opacity:0}
+#tl .ln{position:absolute;left:0;right:0;top:19px;height:2px;background:rgba(255,255,255,.18)}
+#tl .fl{position:absolute;left:0;top:19px;height:2px;background:#e0283f;box-shadow:0 0 12px #e0283f}
+#tl .d{position:absolute;top:13px;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:#333;border:2px solid #555}
+#tl .d.on{background:#e0283f;border-color:#ff6b7d;box-shadow:0 0 14px #e0283f}
+#tl .y{position:absolute;top:44px;margin-left:-40px;width:80px;text-align:center;font:700 18px O;letter-spacing:2px;color:#777}
+#q{position:absolute;left:50%;top:1000px;transform:translateX(-50%);white-space:nowrap;background:rgba(0,0,0,.6);border:2px solid #e0283f;border-radius:40px;padding:12px 34px;font:700 34px O;letter-spacing:3px;opacity:0;z-index:9}
+#end{position:absolute;inset:0;z-index:8;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;opacity:0}
+#end .n{font:400 150px/0.95 B;letter-spacing:4px}#end .n i{font-style:normal;color:#e0283f}
+#end .o{margin-top:60px;font:400 120px/0.9 B;letter-spacing:4px;color:#e0283f;opacity:0}
+#end .c{margin-top:70px;font:700 40px O;letter-spacing:3px;color:#fff;opacity:0}
+#bl{position:absolute;inset:0;background:#000;z-index:30;pointer-events:none}
+.logo{z-index:31}
+</style></head><body><div id="st"></div><div id="yr"></div><div id="tx"><div class="k"></div><div class="h"></div><div class="s"></div></div>
+<div id="tl"><div class="ln"></div><div class="fl"></div></div><div id="q"></div>
+<div id="hk"><div></div><p></p></div><div id="end"><div class="n"></div><div class="o"></div><div class="c"></div></div><div id="bl"></div><div class="logo">FB<i>LEGENDS</i></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA || {}, C = D.chapters || [], st = $('st');
+// The shirt, drawn (Portugal's red, green collar, the number on the chest), for the years with no free photo.
+const shirt = (num, gold) => `<svg class="shirt" viewBox="0 0 100 100"><defs><linearGradient id="g${num}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4102c"/><stop offset="1" stop-color="#7c0616"/></linearGradient></defs>
+  <path d="M30 8 L42 4 Q50 12 58 4 L70 8 L94 24 L84 44 L74 38 L74 96 L26 96 L26 38 L16 44 L6 24 Z" fill="url(#g${num})"/>
+  <path d="M6 24 L16 44 L26 38 L26 22 L30 8 Z M94 24 L84 44 L74 38 L74 22 L70 8 Z" fill="#a50c22"/><path d="M42 4 Q50 14 58 4" fill="none" stroke="#0b6b2e" stroke-width="3.2"/>
+  <text x="50" y="68" text-anchor="middle" font-family="B" font-size="34" fill="${gold ? '#f2c94c' : '#f6e7b5'}">${num}</text></svg>`;
+C.forEach((c, i) => {
+  if (c.kind === 'photo') (c.photos || []).forEach((p, j) => { const d = document.createElement('div'); d.className = 'ph'; d.id = `p${i}_${j}`; d.innerHTML = `<img src="${p.src}"><div class="tn"></div><div class="cr">📷 ${p.credit}</div>`; st.appendChild(d); });
+  if (c.kind === 'shirt') { const d = document.createElement('div'); d.id = `s${i}`; d.style.cssText = 'position:absolute;inset:0;opacity:0;background:radial-gradient(900px 1000px at 50% 35%,#2a0006 0%,#080001 60%,#000 100%)'; d.innerHTML = shirt(c.num || 7); st.appendChild(d); }
+  if (c.kind === 'gold') { const d = document.createElement('div'); d.className = 'gold'; d.id = `g${i}`; d.innerHTML = `<div class="t">${c.big || ''}</div>` + Array.from({ length: 40 }, (_, k) => `<div class="dust" data-k="${k}"></div>`).join(''); st.appendChild(d); }
+});
+// The timeline under the text: a dot for each chapter's year, lit as the story reaches it.
+const Y = C.map((c) => c.year), y0 = Y[0] || 2003, y1 = Y[Y.length - 1] || 2026;
+const xp = (y) => ((y - y0) / Math.max(1, y1 - y0)) * 100;
+$('tl').innerHTML += C.map((c, i) => `<div class="d" id="d${i}" style="left:${xp(c.year)}%"></div>${c.tl ? `<div class="y" style="left:${xp(c.year)}%">${c.year}</div>` : ''}`).join('');
+$('hk').querySelector('div').innerHTML = D.hook || '23 YEARS.<br><i>ONE SHIRT.</i>';
+$('hk').querySelector('p').textContent = D.hookSub || 'CRISTIANO RONALDO • PORTUGAL';
+$('end').querySelector('.n').innerHTML = D.endNums || '';
+$('end').querySelector('.o').textContent = D.endWord || 'OBRIGADO, CAPITÃO.';
+$('end').querySelector('.c').textContent = D.cta || 'WHICH MOMENT WILL YOU NEVER FORGET? 👇';
+$('q').textContent = D.q || '';
+// Beats: the hook, one per chapter, the end (timed to the voice when there is one: DATA.beats).
+const mins = D.minBeats || [4, ...C.map(() => 6), 9];
+const B = D.beats || (() => { let t = 0; return mins.map((m) => { const b = [t, m]; t += m; return b; }); })();
+window.TOTAL = B[B.length - 1][0] + B[B.length - 1][1];
+const fade = (t, a, l, fi = .8, fo = .8) => Math.min(ease((t - a) / fi), 1 - ease((t - a - l + fo) / fo));
+window.draw = (t) => {
+  const [h0, hl] = B[0], [e0, el] = B[B.length - 1];
+  // the black at both ends (the loop), the hook's two lines one after the other
+  $('bl').style.opacity = t < .6 ? 1 - t / .6 : t > TOTAL - 1 ? (t - TOTAL + 1) : 0;
+  const hd = $('hk').querySelector('div'), hp = $('hk').querySelector('p');
+  hd.style.opacity = fade(t, h0 + .3, hl - .1, 1, .7); hd.style.transform = `scale(${1.08 - .08 * ease((t - h0) / hl)})`; hp.style.opacity = fade(t, h0 + 1.4, hl - 1.2, .8, .6);
+  let cur = -1;
+  C.forEach((c, i) => {
+    const [a, l] = B[i + 1], on = t >= a - .9 && t < a + l + .9, f = on ? fade(t, a - .5, l + 1, 1, 1) : 0, u = Math.max(0, Math.min(1, (t - a + .5) / (l + 1)));
+    if (t >= a && t < a + l) cur = i;
+    if (c.kind === 'photo') { const n = (c.photos || []).length, seg = (l + 1) / Math.max(1, n);
+      c.photos.forEach((p, j) => { const el = $(`p${i}_${j}`), s = a - .5 + j * seg, g = on ? Math.min(f, n > 1 ? fade(t, s, seg + .6, j ? .9 : 1, j < n - 1 ? .9 : 1) : 1) : 0;
+        el.style.opacity = g; const v = Math.max(0, Math.min(1, (t - s) / (seg + .6))), dir = (i + j) % 2 ? 1 : -1;
+        el.querySelector('img').style.transform = `scale(${1.02 + .09 * v}) translate(${dir * 1.6 * v}%, ${-1.2 * v}%)`; }); }
+    if (c.kind === 'shirt') { const el = $(`s${i}`); el.style.opacity = f; el.querySelector('.shirt').style.opacity = ease((t - a + .2) / 1.2);
+      el.querySelector('.shirt').style.transform = `translateY(${30 - 30 * ease((t - a) / 2)}px) scale(${.96 + .06 * u})`; }
+    if (c.kind === 'gold') { const el = $(`g${i}`); el.style.opacity = f; el.querySelector('.t').style.transform = `scale(${.92 + .1 * ease((t - a) / 1.6)})`;
+      el.querySelectorAll('.dust').forEach((d) => { const k = +d.dataset.k, r = (Math.sin(k * 91.7) + 1) / 2, x = (Math.sin(k * 12.9898) * 43758.5453 % 1 + 1) % 1, sp = .5 + r;
+        const yy = (1 - ((t - a) * .08 * sp + r) % 1) * 1920; d.style.left = (x * 1080) + 'px'; d.style.top = yy + 'px'; d.style.opacity = .25 + .6 * r; }); }
+  });
+  // the year: counts up to each chapter's year as it starts
+  const ch = cur >= 0 ? C[cur] : null, prev = cur > 0 ? C[cur - 1].year : (ch ? ch.year : y0);
+  if (ch) { const [a] = B[cur + 1], k = ease((t - a) / 1.2); $('yr').textContent = ch.yearTxt || Math.round(prev + (ch.year - prev) * k); }
+  $('yr').style.opacity = ch ? Math.min(1, ease((t - B[1][0]) / .8)) * (t < e0 - .3 ? 1 : 0) : 0;
+  // the words of the chapter, one line after the other
+  const tx = $('tx');
+  if (ch) { const [a, l] = B[cur + 1]; tx.querySelector('.k').textContent = ch.kicker || ''; tx.querySelector('.h').innerHTML = ch.title || ''; tx.querySelector('.s').innerHTML = ch.sub || '';
+    tx.querySelector('.k').style.opacity = fade(t, a + .2, l - .1, .5, .5); tx.querySelector('.h').style.opacity = fade(t, a + .5, l - .4, .6, .5);
+    tx.querySelector('.h').style.transform = `translateY(${24 - 24 * ease((t - a - .5) / .7)}px)`; tx.querySelector('.s').style.opacity = fade(t, a + 1.3, l - 1.2, .7, .5); }
+  else ['.k', '.h', '.s'].forEach((s) => (tx.querySelector(s).style.opacity = 0));
+  $('tl').style.opacity = ch ? 1 : 0;
+  const fy = ch ? prev + (ch.year - prev) * ease((t - B[cur + 1][0]) / 1.2) : y0;
+  $('tl').querySelector('.fl').style.width = xp(fy) + '%';
+  C.forEach((c, i) => $('d' + i).classList.toggle('on', c.year <= fy + .01));
+  // a question in the middle (DATA.qAt: the chapter it shows on)
+  const qa = D.qAt != null ? B[D.qAt + 1] : null; $('q').style.opacity = qa ? fade(t, qa[0] + 1.6, qa[1] - 1.2, .5, .5) : 0;
+  // the end: the two numbers, the thanks, the question, then back to black
+  const en = $('end'); en.style.opacity = fade(t, e0, el - .2, .9, 1.2);
+  en.querySelector('.o').style.opacity = ease((t - e0 - 2.2) / .9); en.querySelector('.c').style.opacity = ease((t - e0 - 4) / .7);
+  en.querySelector('.n').style.transform = `scale(${1.06 - .06 * ease((t - e0) / 1.5)})`;
+};
+window.POSTER = B[1 + Math.max(0, C.length - 2)][0] + 2.5;
+progBar();
+draw(0);
+</script></body></html>
