@@ -178,7 +178,7 @@ async function voiceBeats(job, d, dir) {
   const files = [];
   for (let i = 0; i < lines.length; i++) {
     const one = await animVoice({ ...job, voiceText: lines[i] }, dir, 60, `line${i}`).catch((e) => { console.log(`${job.id}: line ${i + 1} (${e.message})`); return null; });
-    if (!one) { files.length = 0; break; }
+    if (!one) { console.log(`${job.id}: line ${i + 1} of ${lines.length} could not be read, no narration`); files.length = 0; break; }
     files.push(one);
     // the voice answers 502 when called too fast; a long narration can ask for more room (job.voiceGap, seconds: Gemini's
     // per-minute share ran out on the eight lines of the Ronaldo farewell, 2026-11-05)
@@ -199,8 +199,12 @@ async function animVoice(job, dir, total, name = '') {
   const text = String(job.voiceText || '').trim();
   if (!text) return null;
   const q = new URLSearchParams({ key: KEY, text, voice: job.voiceName || 'Fenrir', ...(job.voiceStyle ? { style: job.voiceStyle } : {}), ...(job.voiceLang ? { lang: job.voiceLang } : {}) });
-  for (let t = 0; t < 3; t++) {
+  // A long narration (job.voiceGap) waits out Gemini's share instead of giving up (2026-11-06: the Ronaldo farewell went out
+  // with its first line only): six tries, 45 s apart, each failure logged.
+  const tries = job.voiceGap ? 6 : 3, wait = job.voiceGap ? 45000 : 20000;
+  for (let t = 0; t < tries; t++) {
     const res = await fetch(`${API}/v2/reels/voice?${q}`, { signal: AbortSignal.timeout(120000) }).catch(() => null);
+    if (!res?.ok) console.log(`${job.id}: voice ${name || 'line'} try ${t + 1}: ${res ? res.status + ' ' + (await res.clone().text().catch(() => '')).slice(0, 90) : 'no answer'}`);
     const b = res?.ok ? Buffer.from(await res.arrayBuffer()) : null;
     if (b && b.length > 2000 && b.toString('latin1', 0, 4) === 'RIFF') {
       const raw = join(dir, `${name || 'said'}-raw.wav`), f = join(dir, `${name || 'said'}.wav`);
@@ -212,7 +216,7 @@ async function animVoice(job, dir, total, name = '') {
       if (d > 0.5 && d < total - 0.6) return name ? { path: f, d } : f;
       throw new Error(`line of ${d.toFixed(1)} s for a ${total} s reel`);
     }
-    await new Promise((r) => setTimeout(r, 20000)); // the voice answers 502 when called too fast
+    await new Promise((r) => setTimeout(r, wait)); // the voice answers 502 when called too fast
   }
   return null;
 }
@@ -264,6 +268,9 @@ async function makeAnim(job, dir) {
     const out = join(dir, 'reel.mp4');
     // A spoken line over the start (FB Legends, owner 2026-11-03: «صوت حماسي رايق يليق بالأوروبيين», voice Fenrir):
     // the music goes under it; a line that cannot be read leaves the reel with music only.
+    // A narrated reel that must be told whole (job.voiceGap) is not made with its first line alone: it fails and is tried
+    // again on a later run, when the voice's share is back.
+    if (!story && job.voiceGap && Array.isArray(job.voiceLines)) throw new Error('the narration could not be read whole');
     const said = story || await animVoice(job, dir, total).catch((e) => { console.log(`${job.id}: voice skipped (${e.message})`); return null; });
     // job.duck (owner, 2026-11-06: «الصوت و المزيكا ... لايقين على بعض»): the music dips under each spoken line and comes
     // back up in the pauses (a sidechain compressor keyed by the voice), so it can sit louder without covering the words.
