@@ -273,6 +273,7 @@ async function makeAnim(job, dir) {
     // its level under the voice (job.musicVol), else a random one of music/ at 0.2.
     const own = /^[\w.-]+\.mp3$/.test(job.music || '') ? join(THEMES_DIR.pathname, job.music) : null;
     const track = own && await stat(own).then(() => true, () => false) ? own : await music(), mv = Number(job.musicVol) > 0 ? Number(job.musicVol) : 0.2;
+    console.log(`${job.id}: music ${track.split('/').pop()}${said ? `, voice${job.duck ? ' ducked' : ''}${job.voiceClean ? ' cleaned' : ''}` : ', no voice'}`);
     const mix = said
       ? `[1:a]volume=${mv},afade=t=in:d=0.5,afade=t=out:st=${total - 1.5}:d=1.5[m];[2:a]aresample=44100,${job.voiceClean ? 'afftdn=nf=-28,lowpass=f=7500,' : ''}adelay=${story ? 0 : 300}:all=1,apad[v];${job.duck ? '[v]asplit=2[v1][v2];[m][v1]sidechaincompress=threshold=0.02:ratio=8:attack=40:release=700[md];[md][v2]' : '[m][v]'}amix=inputs=2:duration=first:normalize=0[a]`
       : `[1:a]volume=0.5,afade=t=in:d=0.5,afade=t=out:st=${total - 1.5}:d=1.5[a]`;
