@@ -1,4 +1,4 @@
-# One-off live check (FB Legends, 2026-11-03; run 2026-11-06 fields). Lives on claude/en-sample only; never merged.
+# One-off live check (FB Legends, 2026-11-03; run 2026-11-06 patient voice). Lives on claude/en-sample only; never merged.
 name: EN sample
 on:
   push:
