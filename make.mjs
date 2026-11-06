@@ -265,6 +265,8 @@ async function makeAnim(job, dir) {
     // A spoken line over the start (FB Legends, owner 2026-11-03: «صوت حماسي رايق يليق بالأوروبيين», voice Fenrir):
     // the music goes under it; a line that cannot be read leaves the reel with music only.
     const said = story || await animVoice(job, dir, total).catch((e) => { console.log(`${job.id}: voice skipped (${e.message})`); return null; });
+    // job.duck (owner, 2026-11-06: «الصوت و المزيكا ... لايقين على بعض»): the music dips under each spoken line and comes
+    // back up in the pauses (a sidechain compressor keyed by the voice), so it can sit louder without covering the words.
     // job.voiceClean (owner, 2026-11-05: «في وش في الصوت»): the voice's hiss taken out (a noise filter, then nothing above
     // 7.5 kHz) before it is laid over the music.
     // A reel's own track (job.music from themes/, e.g. the farewell piano; owner 2026-11-05: «موسيقى غير المعتادة») and
@@ -272,7 +274,7 @@ async function makeAnim(job, dir) {
     const own = /^[\w.-]+\.mp3$/.test(job.music || '') ? join(THEMES_DIR.pathname, job.music) : null;
     const track = own && await stat(own).then(() => true, () => false) ? own : await music(), mv = Number(job.musicVol) > 0 ? Number(job.musicVol) : 0.2;
     const mix = said
-      ? `[1:a]volume=${mv},afade=t=in:d=0.5,afade=t=out:st=${total - 1.5}:d=1.5[m];[2:a]aresample=44100,${job.voiceClean ? 'afftdn=nf=-28,lowpass=f=7500,' : ''}adelay=${story ? 0 : 300}:all=1,apad[v];[m][v]amix=inputs=2:duration=first:normalize=0[a]`
+      ? `[1:a]volume=${mv},afade=t=in:d=0.5,afade=t=out:st=${total - 1.5}:d=1.5[m];[2:a]aresample=44100,${job.voiceClean ? 'afftdn=nf=-28,lowpass=f=7500,' : ''}adelay=${story ? 0 : 300}:all=1,apad[v];${job.duck ? '[v]asplit=2[v1][v2];[m][v1]sidechaincompress=threshold=0.02:ratio=8:attack=40:release=700[md];[md][v2]' : '[m][v]'}amix=inputs=2:duration=first:normalize=0[a]`
       : `[1:a]volume=0.5,afade=t=in:d=0.5,afade=t=out:st=${total - 1.5}:d=1.5[a]`;
     await run(FF, ['-y', '-framerate', String(fps), '-i', join(frames, '%05d.jpg'), '-stream_loop', '-1', '-i', track, ...(said ? ['-i', said] : []),
       '-filter_complex', mix, '-map', '0:v', '-map', '[a]',
