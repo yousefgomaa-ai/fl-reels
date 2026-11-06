@@ -15,9 +15,9 @@ jobs:
           REELS_KEY: ${{ secrets.REELS_KEY }}
         run: |
           key="$REELS_KEY"; echo "::add-mask::$key"
-          mkdir -p look
-          curl -sS --max-time 120 -o look/cr7.mp4 "https://api.football-legend.com/reel.mp4?id=en-special-cr7-1&v=$(date +%s)"; ls -la look/cr7.mp4
+          B="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
+          for id in en-fpl-gw10 en-special-cr7-1; do curl -sS --max-time 60 "$B&state=$id" | jq -c '.result.state // .' | head -c 700; echo; done
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          git add look && git commit -qm "cr7 reel to look at" && git push -q origin HEAD:claude/en-sample || true
+          true
           echo done
