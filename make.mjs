@@ -196,6 +196,8 @@ async function voiceBeats(job, d, dir) {
   const beats = mins.map((m, i) => { const len = Math.max(m, files[i] ? files[i].d + 0.55 : 0); const b = [t, len]; t += len; return b; });
   d.beats = beats;
   if (!files.length) return null;
+  // Each line's time in the video, told to the server for Facebook's closed captions (owner, 2026-11-10)
+  job.cues = files.map((f, i) => [beats[i][0] + 0.25, beats[i][0] + 0.25 + f.d]);
   const out = join(dir, 'story.wav'), parts = [], inputs = [];
   files.forEach((f, i) => { inputs.push('-i', f.path); parts.push(`[${i}:a]aresample=44100,adelay=${Math.round((beats[i][0] + 0.25) * 1000)}:all=1[c${i}]`); });
   await run(FF, ['-y', ...inputs, '-filter_complex', `${parts.join(';')};${files.map((_, i) => `[c${i}]`).join('')}amix=inputs=${files.length}:duration=longest:normalize=0[o]`, '-map', '[o]', out]);
@@ -288,6 +290,8 @@ async function makeAnim(job, dir) {
     // 7.5 kHz) before it is laid over the music.
     // A reel's own track (job.music from themes/, e.g. the farewell piano; owner 2026-11-05: «موسيقى غير المعتادة») and
     // its level under the voice (job.musicVol), else a random one of music/ at 0.2.
+    if (said && !story) job.cues = [[0.3, 0.3 + await probeSeconds(said)]]; // the one line's time, for the captions
+    if (!said) delete job.cues;
     job.voiced = !!said; // told to the server: a reel without its voice carries no AI label (owner, 2026-11-10)
     let track = await trackFor(job);
     const mv = Number(job.musicVol) > 0 ? Number(job.musicVol) : 0.2;
@@ -415,7 +419,7 @@ async function main() {
     const dir = await mkdtemp(join(tmpdir(), 'reel-'));
     try {
       const out = job.image ? await makeImage(job, dir) : await makeReel(job, dir);
-      const up = await fetch(`${API}/v2/reels/upload?id=${encodeURIComponent(job.id)}&key=${encodeURIComponent(KEY)}${typeof job.voiced === 'boolean' ? `&voiced=${job.voiced ? 1 : 0}` : ''}`, {
+      const up = await fetch(`${API}/v2/reels/upload?id=${encodeURIComponent(job.id)}&key=${encodeURIComponent(KEY)}${typeof job.voiced === 'boolean' ? `&voiced=${job.voiced ? 1 : 0}` : ''}${Array.isArray(job.cues) && job.cues.length ? `&cues=${job.cues.map(([x, y]) => `${x.toFixed(2)}-${y.toFixed(2)}`).join(',')}` : ''}`, {
         method: 'POST', headers: { 'Content-Type': job.image ? 'image/jpeg' : 'video/mp4' }, body: await readFile(out), signal: AbortSignal.timeout(120000) });
       console.log(`${job.id}: uploaded ${(await stat(out)).size} bytes -> ${up.status}`);
       // a refused upload counts as a failed try (2026-11-10: a 40 MB reel was refused and made again every run, its voice each time)
