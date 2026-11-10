@@ -289,7 +289,16 @@ async function makeAnim(job, dir) {
     // A reel's own track (job.music from themes/, e.g. the farewell piano; owner 2026-11-05: «موسيقى غير المعتادة») and
     // its level under the voice (job.musicVol), else a random one of music/ at 0.2.
     job.voiced = !!said; // told to the server: a reel without its voice carries no AI label (owner, 2026-11-10)
-    const track = await trackFor(job), mv = Number(job.musicVol) > 0 ? Number(job.musicVol) : 0.2;
+    let track = await trackFor(job);
+    const mv = Number(job.musicVol) > 0 ? Number(job.musicVol) : 0.2;
+    // A reel longer than its track (2026-11-10: the Manchester reel, 83 s over a 54 s track, went silent for a second where the
+    // track faded out and started again): the track joined to itself with a crossfade, so the music never stops.
+    const td = await probeSeconds(track);
+    if (td > 5 && total > td - 3) {
+      const long = join(dir, 'music-long.wav');
+      await run(FF, ['-y', '-i', track, '-i', track, '-i', track, '-filter_complex', '[0:a][1:a]acrossfade=d=4[x];[x][2:a]acrossfade=d=4[o]', '-map', '[o]', long]);
+      track = long;
+    }
     console.log(`${job.id}: music ${track.split('/').pop()}${said ? `, voice${job.duck ? ' ducked' : ''}${job.voiceClean ? ' cleaned' : ''}` : ', no voice'}`);
     const mix = said
       ? `[1:a]volume=${mv},afade=t=in:d=0.5,afade=t=out:st=${total - 1.5}:d=1.5[m];[2:a]aresample=44100,${job.voiceClean ? 'afftdn=nf=-28,lowpass=f=7500,' : ''}adelay=${story ? 0 : 300}:all=1,apad[v];${job.duck ? '[v]asplit=2[v1][v2];[m][v1]sidechaincompress=threshold=0.02:ratio=8:attack=40:release=700[md];[md][v2]' : '[m][v]'}amix=inputs=2:duration=first:normalize=0[a]`
