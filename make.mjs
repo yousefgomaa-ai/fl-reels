@@ -219,8 +219,10 @@ async function animVoice(job, dir, total, name = '') {
       await writeFile(raw, b);
       // Silence trimmed at both ends; a line far longer than its words (the style read out with it, 2026-11-03) is not used.
       await run(FF, ['-y', '-i', raw, '-af', 'silenceremove=start_periods=1:start_threshold=-45dB,areverse,silenceremove=start_periods=1:start_threshold=-45dB,areverse', f]);
-      const d = await probeSeconds(f), words = text.split(/\s+/).length;
-      if (d > words * 0.6 + 1.5) throw new Error(`line of ${d.toFixed(1)} s for ${words} words: more than the line was read`);
+      // A pause written in the line («Messi... four.») is read as one: each is given time (2026-11-10: the verdict's round
+      // two, 15 words in 11.3 s, was taken for the style read out); a line still too long is read again, not given up at once.
+      const d = await probeSeconds(f), words = text.split(/\s+/).length, pauses = (text.match(/\.\.\.|…/g) || []).length;
+      if (d > words * 0.6 + 1.5 + pauses * 0.9) { console.log(`${job.id}: voice ${name || 'line'} try ${t + 1}: ${d.toFixed(1)} s for ${words} words, read again`); await new Promise((r) => setTimeout(r, 8000)); continue; }
       if (d > 0.5 && d < total - 0.6) return name ? { path: f, d } : f;
       throw new Error(`line of ${d.toFixed(1)} s for a ${total} s reel`);
     }
