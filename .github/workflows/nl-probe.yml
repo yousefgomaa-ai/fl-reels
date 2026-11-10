@@ -14,7 +14,7 @@ jobs:
           key="$REELS_KEY"; echo "::add-mask::$key"
           for h in 07 09 11 13 15 17 19 21; do
             echo "== $h:30 UTC"
-            curl -sS --max-time 240 "https://api.football-legend.com/v2/fben/dry?key=$key&at=2026-11-11T$h:30:00Z" | jq -r '.result.dry[]? | "\(.kind) | \(.id) | \(.title)"' | sort -u
+            curl -sS --max-time 240 "https://api.football-legend.com/v2/fben/dry?key=$key&at=2026-11-11T$h:30:00Z" | jq -r '.jobs[]? | "\(.kind) | \(.id) | \(.title)"' | sort -u
           done
           echo "== queued now"
           curl -sS --max-time 60 "https://api.football-legend.com/v2/reels/jobs?key=$key" | jq -r '.jobs[]? | "\(.id) | \(.status // "")"'
