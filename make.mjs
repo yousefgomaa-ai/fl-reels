@@ -343,6 +343,36 @@ async function stillCover(job, dir) {
   await run(FF, ['-y', '-i', join(dir, 'cover-full.png'), '-q:v', '3', out]);
   return out;
 }
+// A cover alone for a reel already posted (owner, 2026-11-10: the English page's older reels): its page drawn at its
+// cover moment, its pictures put in as data like makeAnim does, no frames recorded and no voice asked.
+async function coverOnly(job, dir) {
+  if (!job.anim) return stillCover(job, dir);
+  const { chromium } = await import('playwright');
+  const d = JSON.parse(JSON.stringify(job.anim)), pics = [];
+  const walk = (o) => { if (!o || typeof o !== 'object') return; for (const [k, v] of Object.entries(o)) { if (typeof v === 'string' && /^(logo|homeLogo|awayLogo|photo|hl|al)$/.test(k) && /^https?:/.test(v)) pics.push([o, k]); else walk(v); } };
+  walk(d);
+  const cache = new Map();
+  for (const [o, k] of pics) {
+    if (!cache.has(o[k])) { try { const res = await fetch(o[k], { headers: { 'User-Agent': 'FootballLegendsReels/1.0 (https://football-legend.com)' }, signal: AbortSignal.timeout(20000) }); const buf = Buffer.from(await res.arrayBuffer()); cache.set(o[k], res.ok && buf.length > 200 ? `data:${res.headers.get('content-type') || 'image/png'};base64,${buf.toString('base64')}` : ''); } catch { cache.set(o[k], ''); } }
+    o[k] = cache.get(o[k]);
+  }
+  const page0 = await readFile(new URL(`./anim/${d.kind}.html`, import.meta.url), 'utf8');
+  const html = new URL(`./anim/_cv_${job.id.replace(/[^\w-]/g, '_')}.html`, import.meta.url);
+  await writeFile(html, page0.replace('</head>', `<script>window.DATA=${JSON.stringify(d).replace(/</g, '\\u003c')};</script></head>`));
+  const b = await launchBrowser(chromium);
+  try {
+    const p = await b.newPage({ viewport: { width: W, height: H } });
+    await p.goto(html.href);
+    await p.evaluate(() => document.fonts.ready);
+    await p.evaluate(() => Promise.all([...document.images].map((i) => (i.complete ? 0 : new Promise((r) => { i.onload = i.onerror = r; })))));
+    await p.waitForTimeout(500);
+    const ct = await p.evaluate(() => (typeof window.COVER === 'number' ? window.COVER : typeof window.POSTER === 'number' ? window.POSTER : window.TOTAL * 0.6));
+    await p.evaluate((t) => { window.draw(t); document.querySelectorAll('body > div').forEach((el) => { if (/z-index: ?9[89]/.test(el.getAttribute('style') || '')) el.style.display = 'none'; }); }, ct);
+    const out = join(dir, 'cover.jpg');
+    await p.screenshot({ path: out, type: 'jpeg', quality: 90 });
+    return out;
+  } finally { await b.close(); await rm(html, { force: true }); }
+}
 async function makeReel(job, dir) {
   // Any kind with its page in anim/ is drawn by it (2026-11-04: «en-rate» had its page but was missing from a hand-kept
   // list, so it went to the still cards with none and ffmpeg failed three times).
@@ -460,4 +490,4 @@ async function main() {
   }
 }
 if (process.argv[1] && import.meta.url.endsWith(process.argv[1].split('/').pop())) main().catch((e) => { console.error(e); process.exit(1); });
-export { makeAnim };
+export { makeAnim, coverOnly };
