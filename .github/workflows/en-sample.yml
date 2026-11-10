@@ -1,4 +1,4 @@
-# One-off live check (FB Legends, 2026-11-03; run 2026-11-10: the Manchester facts from ESPN). Lives on claude/en-sample only; never merged.
+# One-off live check (FB Legends, 2026-11-03; run 2026-11-10: stadium photos for the Manchester reel). Lives on claude/en-sample only; never merged.
 name: EN sample
 on:
   push:
@@ -10,8 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      - uses: actions/checkout@v4
       - run: |
-          E=https://site.api.espn.com/apis
-          curl -sS "$E/v2/sports/soccer/eng.1/standings" | jq -r '.children[0].standings.entries[] | [(.stats[]|select(.name=="rank").value), .team.displayName, (.stats[]|select(.name=="gamesPlayed").value), (.stats[]|select(.name=="wins").value), (.stats[]|select(.name=="ties").value), (.stats[]|select(.name=="losses").value), (.stats[]|select(.name=="pointsFor").value), (.stats[]|select(.name=="pointsAgainst").value), (.stats[]|select(.name=="points").value), (.note.description // "")] | @tsv'
-          for t in 360 382; do echo "== team $t"; curl -sS "$E/site/v2/sports/soccer/eng.1/teams/$t/schedule?season=2026" | jq -r '.events[] | select(.competitions[0].status.type.completed) | [.date[0:10], .competitions[0].competitors[0].team.displayName, (.competitions[0].competitors[0].score.displayValue // .competitions[0].competitors[0].score), .competitions[0].competitors[1].team.displayName, (.competitions[0].competitors[1].score.displayValue // .competitions[0].competitors[1].score)] | @tsv'; done
-          for t in 360 382; do echo "== all comps $t"; curl -sS "$E/site/v2/sports/soccer/all/teams/$t/schedule?season=2026" | jq -r '.events[]? | select(.competitions[0].status.type.completed) | [.date[0:10], .league.abbreviation // .season.slug // "", .competitions[0].competitors[0].team.displayName, (.competitions[0].competitors[0].score.displayValue // ""), .competitions[0].competitors[1].team.displayName, (.competitions[0].competitors[1].score.displayValue // "")] | @tsv' | tail -12; done
+          mkdir -p look; UA='FootballLegendsReels/1.0 (https://football-legend.com)'
+          i=0
+          for q in "Old Trafford stadium" "Old Trafford exterior" "Etihad Stadium Manchester" "City of Manchester Stadium exterior"; do
+            curl -sS -A "$UA" "https://commons.wikimedia.org/w/api.php?action=query&format=json&generator=search&gsrnamespace=6&gsrlimit=6&gsrsearch=$(jq -rn --arg q "$q" '$q|@uri')&prop=imageinfo&iiprop=url|extmetadata|size&iiurlwidth=500" \
+            | jq -r '.query.pages[]? | [.title, .imageinfo[0].thumburl, (.imageinfo[0].extmetadata.LicenseShortName.value // ""), (.imageinfo[0].extmetadata.Artist.value // "" | gsub("<[^>]*>";"")), .imageinfo[0].width, .imageinfo[0].height] | @tsv' > /tmp/r.tsv
+            while IFS=$'\t' read -r t u l a w h; do i=$((i+1)); echo "$i	$t	$l	$a	${w}x$h" >> look/list.tsv; curl -sS -A "$UA" -o "look/$i.jpg" "$u"; sleep 1; done < /tmp/r.tsv
+          done
+          cat look/list.tsv
+      - run: |
+          git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
+          git add look && git commit -qm "stadiums to look at" && git push -q origin HEAD:claude/en-sample || true
