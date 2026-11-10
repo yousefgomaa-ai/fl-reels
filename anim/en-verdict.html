@@ -28,6 +28,7 @@
 #fn .a{font:400 96px/1 B;letter-spacing:2px}#fn .b2{margin-top:26px;font:400 140px/0.9 B;letter-spacing:3px;color:#ffd21f;transform:skewX(-6deg)}
 #fn .c2{margin-top:34px;font:700 40px O;letter-spacing:4px;color:#c9d6ff}
 .credit{bottom:18px}
+#ol{position:absolute;top:670px;left:50%;transform:translateX(-50%);white-space:nowrap;background:#e0283f;color:#fff;font:400 54px B;letter-spacing:3px;padding:8px 30px;border-radius:14px;opacity:0;z-index:8}
 #jy{position:absolute;top:1060px;left:40px;right:40px;opacity:0}
 #jy .h{text-align:center;font:400 96px/1 B;letter-spacing:3px;transform:skewX(-6deg)}#jy .h i{font-style:normal;color:#ffd21f}
 #jy .r{display:flex;align-items:center;gap:18px;margin-top:14px;background:rgba(var(--bx),.92);border:3px solid rgba(var(--kl),.35);border-radius:20px;padding:10px 22px;opacity:0}
@@ -43,6 +44,7 @@
 <div id="rd"><div id="rk"></div><div id="ct"></div><div id="cs"></div>
   <div class="vb" id="vl"><b></b><small></small></div><div class="vb" id="vr"><b></b><small></small></div><div id="pt"></div></div>
 <div id="jy"><div class="h"></div><div class="rows"></div></div>
+<div id="ol"></div>
 <div id="fn"><div class="a"></div><div class="b2"></div><div class="c2"></div></div>
 <div class="credit" id="cl"></div><div class="credit" id="cr"></div>
 <script src="lib.js"></script><script src="en-lib.js"></script><script>
@@ -69,7 +71,7 @@ window.TOTAL = B[B.length - 1][0] + B[B.length - 1][1];
 const score = (k) => R.slice(0, k).reduce((s, r) => [s[0] + (r.win === 'a' ? 1 : 0), s[1] + (r.win === 'b' ? 1 : 0)], [0, 0]);
 let cur = -1;
 const setRound = (i) => {
-  const r = R[i]; $('rk').textContent = `ROUND ${i + 1} OF ${n}`; $('ct').innerHTML = r.title; $('cs').textContent = r.sub || '';
+  const r = R[i]; $('rk').textContent = i === n - 1 ? 'THE DECIDING ROUND 🔥' : `ROUND ${i + 1} OF ${n}`; $('ct').innerHTML = r.title; $('cs').textContent = r.sub || '';
   $('vl').querySelector('b').textContent = '?'; $('vr').querySelector('b').textContent = '?';
   $('vl').querySelector('small').textContent = ''; $('vr').querySelector('small').textContent = '';
   $('pt').textContent = r.win === 'a' ? `POINT ${A.name} ✅` : r.win === 'b' ? `POINT ${Bp.name} ✅` : 'NO POINT';
@@ -101,10 +103,15 @@ window.draw = (t) => {
     $('vl').classList.toggle('win', u >= rp && r.win === 'a'); $('vr').classList.toggle('win', u >= rp && r.win === 'b');
     $('pt').style.opacity = ease((u - rp) / .25); $('pt').style.transform = `translateX(-50%) scale(${u >= rp ? 1.15 - .15 * back((u - rp) / .5) : .8})`;
     if (u >= rp) sc = score(i + 1);
+    // An open loop on some rounds (owner, 2026-11-10, his five-stage plan: «فتح الحلقات»): a promise of what is still to come.
+    const tz = (D.teases || {})[i + 1]; $('ol').textContent = tz || ''; $('ol').style.opacity = tz ? Math.min(ease((u - .2) / .25), 1 - ease((u - ra + .2) / .25)) : 0;
+    // The point's winner pushed in a little (a change of frame every round).
+    const zw = u >= rp ? ease((u - rp) / .5) : 0; $('il').style.transform = `scale(${1 + (r.win === 'a' ? .07 * zw : 0)})`; $('ir').style.transform = `scale(${1 + (r.win === 'b' ? .07 * zw : 0)})`;
     $('ct').style.transform = `skewX(-6deg) translateY(${(1 - ease(u / .35)) * 30}px)`;
     // The loser's photo dims a little once the point is given.
     $('pl').style.filter = u >= rp && r.win === 'b' ? 'brightness(.6)' : 'none'; $('pr').style.filter = u >= rp && r.win === 'a' ? 'brightness(.6)' : 'none';
   } else if (!isJ) { $('pl').style.filter = $('pr').style.filter = 'none'; }
+  if (!isR) { $('ol').style.opacity = 0; $('il').style.transform = $('ir').style.transform = 'none'; }
   $('sl').textContent = sc[0]; $('sr').textContent = sc[1];
   $('sb').style.opacity = isH ? ease((u - 1.2) / .3) : isJ ? 0 : 1;
   $('fn').style.opacity = isE ? ease(u / .35) : 0;
