@@ -1,0 +1,20 @@
+# One-off look (2026-11-10): the Nations League matches of November. Lives on claude/nl-probe only; never merged.
+name: NL probe
+on:
+  push:
+    branches: [claude/nl-probe]
+permissions:
+  contents: write
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          mkdir -p look; E=https://site.api.espn.com/apis
+          curl -sS --max-time 60 "$E/site/v2/sports/soccer/uefa.nations/scoreboard?dates=20261101-20261130&limit=300" > look/nl.json
+          curl -sS --max-time 60 "$E/v2/sports/soccer/uefa.nations/standings" > look/nlt.json
+          ls -la look
+          git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
+          git add look && git commit -qm "nl to look at" && git push -q origin HEAD:claude/nl-probe || true
