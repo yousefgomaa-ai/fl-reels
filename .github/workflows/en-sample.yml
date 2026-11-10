@@ -1,4 +1,4 @@
-# One-off live check (FB Legends, 2026-11-03; run 2026-11-10: stadium photos for the Manchester reel). Lives on claude/en-sample only; never merged.
+# One-off live check (FB Legends, 2026-11-03; run 2026-11-10: queue and fetch the Manchester reel). Lives on claude/en-sample only; never merged.
 name: EN sample
 on:
   push:
@@ -8,18 +8,19 @@ permissions:
 jobs:
   sample:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 50
     steps:
       - uses: actions/checkout@v4
-      - run: |
-          mkdir -p look; UA='FootballLegendsReels/1.0 (https://football-legend.com)'
-          i=0
-          for q in "Old Trafford stadium" "Old Trafford exterior" "Etihad Stadium Manchester" "City of Manchester Stadium exterior"; do
-            curl -sS -A "$UA" "https://commons.wikimedia.org/w/api.php?action=query&format=json&generator=search&gsrnamespace=6&gsrlimit=6&gsrsearch=$(jq -rn --arg q "$q" '$q|@uri')&prop=imageinfo&iiprop=url|extmetadata|size&iiurlwidth=500" \
-            | jq -r '.query.pages[]? | [.title, .imageinfo[0].thumburl, (.imageinfo[0].extmetadata.LicenseShortName.value // ""), (.imageinfo[0].extmetadata.Artist.value // "" | gsub("<[^>]*>";"")), .imageinfo[0].width, .imageinfo[0].height] | @tsv' > /tmp/r.tsv
-            while IFS=$'\t' read -r t u l a w h; do i=$((i+1)); echo "$i	$t	$l	$a	${w}x$h" >> look/list.tsv; curl -sS -A "$UA" -o "look/$i.jpg" "$u"; sleep 1; done < /tmp/r.tsv
-          done
-          cat look/list.tsv
+      - env:
+          REELS_KEY: ${{ secrets.REELS_KEY }}
+        run: |
+          key="$REELS_KEY"; echo "::add-mask::$key"
+          B="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
+          sleep 240; date -u
+          curl -sS --max-time 120 "$B&special=manchester" | jq -c '.result.special // .' | head -c 400; echo
+          mkdir -p look
+          for i in $(seq 1 70); do sleep 30; s=$(curl -sS --max-time 60 "$B&state=en-special-manchester-1" | jq -r '.result.state.job.status // "?"'); echo "$i $s"; [ "$s" = ready ] && break; done
+          [ "$s" = ready ] && curl -sS --max-time 120 -o look/manchester.mp4 "https://api.football-legend.com/reel.mp4?id=en-special-manchester-1&v=$(date +%s)"; ls -la look
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          git add look && git commit -qm "stadiums to look at" && git push -q origin HEAD:claude/en-sample || true
+          git add look && git commit -qm "manchester to look at" && git push -q origin HEAD:claude/en-sample || true
