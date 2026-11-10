@@ -1,0 +1,12 @@
+{"d": "20261112", "id": "401877770", "slug": "col.1", "date": "2026-11-12T20:00Z", "status": {"state": "post", "detail": "Postponed", "clock": "0'"}, "goals": {"home": 0, "away": 0}, "home": "Águilas Doradas"}
+{"d": "20261112", "id": "401877917", "slug": "col.1", "date": "2026-11-12T20:00Z", "status": {"state": "post", "detail": "Postponed", "clock": "0'"}, "goals": {"home": 0, "away": 0}, "home": "Atlético Bucaramanga"}
+{"d": "20261112", "id": "401878029", "slug": "col.1", "date": "2026-11-12T20:00Z", "status": {"state": "post", "detail": "Postponed", "clock": "0'"}, "goals": {"home": 0, "away": 0}, "home": "Atlético Nacional"}
+{"d": "20261112", "id": "401878043", "slug": "col.1", "date": "2026-11-12T20:00Z", "status": {"state": "post", "detail": "Postponed", "clock": "0'"}, "goals": {"home": 0, "away": 0}, "home": "Cúcuta Deportivo"}
+{"d": "20261112", "id": "401877893", "slug": "col.1", "date": "2026-11-12T20:00Z", "status": {"state": "post", "detail": "Postponed", "clock": "0'"}, "goals": {"home": 0, "away": 0}, "home": "Deportivo Cali"}
+{"d": "20261112", "id": "401878034", "slug": "col.1", "date": "2026-11-12T20:00Z", "status": {"state": "post", "detail": "Postponed", "clock": "0'"}, "goals": {"home": 0, "away": 0}, "home": "Deportivo Pasto"}
+{"d": "20261112", "id": "401877919", "slug": "col.1", "date": "2026-11-12T20:00Z", "status": {"state": "post", "detail": "Postponed", "clock": "0'"}, "goals": {"home": 0, "away": 0}, "home": "Deportivo Pereira"}
+{"d": "20261112", "id": "401877838", "slug": "col.1", "date": "2026-11-12T20:00Z", "status": {"state": "post", "detail": "Postponed", "clock": "0'"}, "goals": {"home": 0, "away": 0}, "home": "Internacional de Bogotá"}
+{"d": "20261112", "id": "401877890", "slug": "col.1", "date": "2026-11-12T20:00Z", "status": {"state": "post", "detail": "Postponed", "clock": "0'"}, "goals": {"home": 0, "away": 0}, "home": "Llaneros FC"}
+{"d": "20261112", "id": "401878024", "slug": "col.1", "date": "2026-11-12T20:00Z", "status": {"state": "post", "detail": "Postponed", "clock": "0'"}, "goals": {"home": 0, "away": 0}, "home": "Millonarios"}
+20261112: 34 events, keys ['state', 'partial', 'stale', 'lastSuccessfulUpdate', 'leagueStates', 'updated', 'events']
+20261113: 34 events, keys ['state', 'partial', 'stale', 'lastSuccessfulUpdate', 'leagueStates', 'updated', 'events']
