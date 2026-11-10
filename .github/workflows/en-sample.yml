@@ -15,10 +15,8 @@ jobs:
           REELS_KEY: ${{ secrets.REELS_KEY }}
         run: |
           key="$REELS_KEY"; echo "::add-mask::$key"
-          B="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
-          T=$(date -u -d tomorrow +%Y-%m-%dT15:00:00Z); D2=$(date -u -d "+2 day" +%Y-%m-%dT15:00:00Z)
-          for at in $T $D2; do curl -sS --max-time 120 "$B&upcoming=1&at=$at" | jq -c '.result.upcoming' | head -c 1500; echo; done
-          curl -sS --max-time 120 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=round" | jq -c '{r:.result.round, j:[.jobs[]? | {id, n:(.anim.rows // .anim.matches // [] | length), title}]}' | head -c 1500; echo
+          sleep 150
+          for at in 2026-11-11T19:00:00Z 2026-11-12T19:00:00Z 2026-11-13T19:00:00Z; do curl -sS --max-time 120 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=nateve&at=$at" | jq -c '{at:"'$at'", r:.result.nateve, j:[.jobs[]? | {id, title, n:(.anim.rows|length), rows:[.anim.rows[] | "\(.time) \(.home) v \(.away)"]}]}' | head -c 2500; echo; done
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
           true
