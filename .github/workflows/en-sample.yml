@@ -1,4 +1,4 @@
-# One-off live check (FB Legends, 2026-11-03; run 2026-11-10 checked numbers). Lives on claude/en-sample only; never merged.
+# One-off live check (FB Legends, 2026-11-03; run 2026-11-10: the Manchester facts from ESPN). Lives on claude/en-sample only; never merged.
 name: EN sample
 on:
   push:
@@ -8,16 +8,10 @@ permissions:
 jobs:
   sample:
     runs-on: ubuntu-latest
-    timeout-minutes: 50
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - env:
-          REELS_KEY: ${{ secrets.REELS_KEY }}
-        run: |
-          key="$REELS_KEY"; echo "::add-mask::$key"
-          sleep 150
-          for at in 2026-11-11T19:00:00Z 2026-11-12T19:00:00Z 2026-11-13T19:00:00Z; do curl -sS --max-time 120 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=nateve&at=$at" | jq -c '{at:"'$at'", r:.result.nateve, j:[.jobs[]? | {id, title, n:(.anim.rows|length), rows:[.anim.rows[] | "\(.time) \(.home) v \(.away)"]}]}' | head -c 2500; echo; done
       - run: |
-          git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          true
-          echo done
+          E=https://site.api.espn.com/apis
+          curl -sS "$E/v2/sports/soccer/eng.1/standings" | jq -r '.children[0].standings.entries[] | [(.stats[]|select(.name=="rank").value), .team.displayName, (.stats[]|select(.name=="gamesPlayed").value), (.stats[]|select(.name=="wins").value), (.stats[]|select(.name=="ties").value), (.stats[]|select(.name=="losses").value), (.stats[]|select(.name=="pointsFor").value), (.stats[]|select(.name=="pointsAgainst").value), (.stats[]|select(.name=="points").value), (.note.description // "")] | @tsv'
+          for t in 360 382; do echo "== team $t"; curl -sS "$E/site/v2/sports/soccer/eng.1/teams/$t/schedule?season=2026" | jq -r '.events[] | select(.competitions[0].status.type.completed) | [.date[0:10], .competitions[0].competitors[0].team.displayName, (.competitions[0].competitors[0].score.displayValue // .competitions[0].competitors[0].score), .competitions[0].competitors[1].team.displayName, (.competitions[0].competitors[1].score.displayValue // .competitions[0].competitors[1].score)] | @tsv'; done
+          for t in 360 382; do echo "== all comps $t"; curl -sS "$E/site/v2/sports/soccer/all/teams/$t/schedule?season=2026" | jq -r '.events[]? | select(.competitions[0].status.type.completed) | [.date[0:10], .league.abbreviation // .season.slug // "", .competitions[0].competitors[0].team.displayName, (.competitions[0].competitors[0].score.displayValue // ""), .competitions[0].competitors[1].team.displayName, (.competitions[0].competitors[1].score.displayValue // "")] | @tsv' | tail -12; done
