@@ -10,14 +10,21 @@
 #hi{background:#16a34a}#lo{background:#dc2626}
 #cdn{top:1640px;width:100%;font:400 120px/1 B}
 #cta{bottom:50px}
+/* each player's photo in his club's shirt (owner, 2026-11-10: «ينزلو بصورهم»), the crest as a badge on it */
+.cd .pw{position:relative;width:250px;height:250px;flex:none}.cd .pw .ring{position:absolute;inset:0;border-radius:50%;overflow:hidden;background:#111;box-shadow:0 0 0 6px #ffd21f}
+.cd .pw .ring img{width:100%;height:100%;object-fit:cover;object-position:50% 12%}.cd .pw .bd{position:absolute;right:-8px;bottom:-8px;width:90px;height:90px;object-fit:contain;filter:drop-shadow(0 4px 10px rgba(0,0,0,.6))}
+.credit.h{left:20px}#cra{top:478px}#crb{top:958px}.cd .pw~.tx .nm{font-size:76px}.cd .pw~.v{width:200px;font-size:190px}
 </style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div>
 <div class="abs c" id="hk">HIGHER OR <span class="y">LOWER?</span></div><div class="abs c" id="q"></div>
 <div class="cd" id="a"></div><div class="cd" id="b"></div><div class="abs" id="bt"><div class="bt" id="hi">⬆ HIGHER</div><div class="bt" id="lo">⬇ LOWER</div></div><div class="abs c" id="cdn"></div><div class="cta" id="cta"></div>
 <script src="lib.js"></script><script src="en-lib.js"></script><script>
 const D = window.DATA, A = D.a, B = D.b, up = B.v > A.v, same = B.v === A.v;
 $('q').textContent = D.q || '';
-const card = (x, hide) => `${x.logo ? `<img src="${x.logo}">` : ''}<div class="tx"><div class="nm">${x.name}</div><div class="tm">${x.sub || ''}</div></div><div class="v">${hide ? '?' : x.v}</div>`;
+const card = (x, hide) => `${x.photo || x.slug ? `<div class="pw"><div class="ring"></div>${x.logo ? `<img class="bd" src="${x.logo}">` : ''}</div>` : x.logo ? `<img src="${x.logo}">` : ''}<div class="tx"><div class="nm">${x.name}</div><div class="tm">${x.sub || ''}</div></div><div class="v">${hide ? '?' : x.v}</div>`;
 $('a').innerHTML = card(A); $('b').innerHTML = card(B, true);
+for (const [id, x] of [['a', A], ['b', B]]) { const r = document.querySelector(`#${id} .ring`); if (r) starImg(r, x.slug, x.photo, 'ph'); }
+const cr = (x) => (x.credit && (x.slug || x.photo) ? `Photo: ${x.credit} / Wikimedia Commons${x.slug ? ', background removed' : ''}` : '');
+document.body.insertAdjacentHTML('beforeend', `<div class="credit h" id="cra">${cr(A)}</div><div class="credit h" id="crb">${cr(B)}</div>`);
 const R = 5.2; window.TOTAL = R + 4;
 window.draw = (t) => {
   $('b').style.boxShadow = `0 0 ${30 + 25 * Math.abs(Math.sin(t * 3))}px rgba(255,210,31,.45)`;
