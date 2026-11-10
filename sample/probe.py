@@ -1,13 +1,17 @@
-# One-off (2026-11-05): career videos, large-v3 on Lautaro's new reading and Vitinha's.
-import os, subprocess
-import numpy as np
-from faster_whisper import WhisperModel
+# One-off (2026-11-10): the status the site's API gives Thursday's Colombian league matches (shown as finished 0:0).
+import json, urllib.request
+UA = {'User-Agent': 'Mozilla/5.0 (FootballLegends/1.0; football-legend.com)'}
+import os
 os.makedirs('sample/pl', exist_ok=True)
-m = WhisperModel('large-v3', device='cpu', compute_type='int8')
-with open('sample/pl/career-large2.txt', 'w') as f:
-    for p in ['lautaro', 'vitinha']:
-        vm = f'sample/career/{p}/voice.mp3'
-        if not os.path.exists(vm): f.write(f'{p}: no voice\n'); continue
-        pcm = np.frombuffer(subprocess.run(['ffmpeg', '-loglevel', 'error', '-i', vm, '-f', 'f32le', '-ac', '1', '-ar', '16000', '-'], capture_output=True, check=True).stdout, np.float32)
-        for s in m.transcribe(pcm, language='ar')[0]: f.write(f'{p} {s.start:.2f} {s.text.strip()}\n')
-print(open('sample/pl/career-large2.txt').read())
+out = []
+for d in ['20261112', '20261113']:
+    try:
+        r = json.loads(urllib.request.urlopen(urllib.request.Request(f'https://api.football-legend.com/matches?date={d}', headers=UA), timeout=40).read())
+    except Exception as e:
+        out.append(f'{d} failed {e}'); continue
+    ev = r.get('events') or r.get('matches') or r if isinstance(r, list) else (r.get('events') or r.get('matches') or [])
+    for m in ev:
+        if 'col' not in str(m.get('leagueSlug', '')) and 'colomb' not in json.dumps(m.get('league', ''), ensure_ascii=False).lower(): continue
+        out.append(json.dumps({'d': d, 'id': m.get('id') or m.get('fixture', {}).get('id'), 'slug': m.get('leagueSlug'), 'date': m.get('fixture', {}).get('date'), 'status': m.get('fixture', {}).get('status'), 'goals': m.get('goals'), 'home': m.get('teams', {}).get('home', {}).get('name')}, ensure_ascii=False))
+    out.append(f'{d}: {len(ev)} events, keys {list(r.keys())[:8] if isinstance(r, dict) else "list"}')
+open('sample/pl/col-status.txt', 'w').write('\n'.join(out)); print('\n'.join(out))
