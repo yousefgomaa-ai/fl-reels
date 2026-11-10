@@ -1,0 +1,17 @@
+# One-off (2026-11-10): search-first captions for three queued specials, no remake. Lives on claude/cap-probe only; never merged.
+name: Cap probe
+on:
+  push:
+    branches: [claude/cap-probe]
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - env:
+          REELS_KEY: ${{ secrets.REELS_KEY }}
+        run: |
+          key="$REELS_KEY"; echo "::add-mask::$key"
+          B="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
+          sleep 420
+          for n in united city nations; do curl -sS --max-time 120 "$B&special=$n&captiononly=1" | jq -c '.result.special // .' | head -c 300; echo; done
