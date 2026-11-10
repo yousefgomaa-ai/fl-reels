@@ -1,0 +1,109 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends «THE MONTH IN THE CHAMPIONS LEAGUE» (owner, 2026-11-10: every Champions League game left in the month, a new
+   look, interactive, made again each month): a night sky of stars and a turning starball; each night a stamp of its date
+   and a grid of crest tiles lettered A, B, C... flipping in; the biggest game held back and crashed together at the end
+   (the two crests flying into each other); then four games to vote for «GAME OF THE MONTH», comment the letter. */
+body{background:#020617}
+#sky{position:absolute;inset:0;background:radial-gradient(1100px 900px at 50% 35%,#0b2a6e 0%,#061642 45%,#020617 100%)}
+.st{position:absolute;width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 12px #9cc8ff}
+#ball{position:absolute;left:50%;top:960px;width:1500px;height:1500px;margin:-750px 0 0 -750px;opacity:.12}
+#hd{position:absolute;top:60px;right:44px;text-align:right;font:700 30px O;letter-spacing:6px;color:#9cc8ff;z-index:20}#hd b{display:block;font:400 54px/1 B;letter-spacing:3px;color:#fff}
+/* hook */
+#hk{position:absolute;top:360px;left:40px;right:40px;text-align:center;opacity:0}
+#hk .a{font:400 230px/0.86 B;letter-spacing:4px}#hk .a i{font-style:normal;color:#4dd2ff;text-shadow:0 0 50px rgba(77,210,255,.6)}
+#hk .b{margin-top:30px;font:700 42px O;letter-spacing:7px;color:#c9dcff}
+#hk .c{margin:46px auto 0;display:inline-block;background:#fff;color:#020617;font:400 62px B;letter-spacing:3px;padding:10px 36px;border-radius:60px}
+/* a night */
+#nt{position:absolute;top:230px;left:40px;right:40px;opacity:0}
+#nt .d{text-align:center}#nt .d b{display:block;font:700 34px O;letter-spacing:10px;color:#4dd2ff}#nt .d i{display:block;font:400 130px/1 B;letter-spacing:4px;font-style:normal}
+#nt .n{text-align:center;font:700 30px O;letter-spacing:6px;color:#c9dcff;margin-top:8px}
+#gr{display:grid;gap:18px;margin-top:40px;perspective:1600px}
+.tl{position:relative;border-radius:26px;background:linear-gradient(160deg,rgba(255,255,255,.12),rgba(255,255,255,.03));border:3px solid rgba(156,200,255,.35);overflow:hidden;opacity:0;transform-origin:50% 0}
+.tl:before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 49.4%,rgba(156,200,255,.35) 49.5%,rgba(156,200,255,.35) 50.5%,transparent 50.6%)}
+.tl img{position:absolute;object-fit:contain;filter:drop-shadow(0 6px 14px rgba(0,0,0,.6))}
+.tl .h{left:8%;top:8%}.tl .w{right:8%;bottom:34%}
+.tl .lt{position:absolute;top:10px;right:12px;width:58px;height:58px;border-radius:50%;background:#fff;color:#020617;font:400 44px/58px B;text-align:center}
+.tl .nm{position:absolute;left:0;right:0;bottom:0;padding:8px 8px;background:rgba(2,6,23,.78);text-align:center;font:400 34px/1.02 B;letter-spacing:1px}
+.tl .nm div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tl .nm span{display:block;color:#4dd2ff;font-size:.7em;line-height:1}
+.tl.big{border-color:#ffd21f;box-shadow:0 0 40px rgba(255,210,31,.45)}.tl.big .lt{background:#ffd21f}
+.tl .sh{position:absolute;top:0;bottom:0;width:40%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg)}
+/* the biggest game */
+#bg{position:absolute;top:300px;left:0;right:0;height:1200px;opacity:0}
+#bg .k{text-align:center;font:700 40px O;letter-spacing:10px;color:#ffd21f}
+#bg img{position:absolute;top:330px;width:400px;height:400px;object-fit:contain;filter:drop-shadow(0 20px 40px rgba(0,0,0,.6))}
+#b1{left:90px}#b2{right:90px}
+#bg .vs{position:absolute;top:440px;left:0;right:0;text-align:center;font:400 170px B;color:#4dd2ff;text-shadow:0 0 60px rgba(77,210,255,.8)}
+#bg .m{position:absolute;top:780px;left:30px;right:30px;text-align:center;font:400 96px/0.95 B;letter-spacing:2px}
+#bg .dt{position:absolute;top:1100px;left:0;right:0;text-align:center}#bg .dt span{display:inline-block;background:#ffd21f;color:#020617;font:400 64px B;letter-spacing:3px;padding:8px 34px;border-radius:14px}
+#fl{position:absolute;inset:0;background:#fff;opacity:0;z-index:40;pointer-events:none}
+/* the vote */
+#vt{position:absolute;top:300px;left:40px;right:40px;opacity:0}
+#vt .a{text-align:center;font:400 130px/0.92 B;letter-spacing:3px}#vt .a i{font-style:normal;color:#ffd21f}
+#vg{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:50px}
+#vg div{position:relative;height:330px;border-radius:30px;background:rgba(255,255,255,.08);border:4px solid rgba(156,200,255,.5)}
+#vg img{position:absolute;top:44px;width:150px;height:150px;object-fit:contain}#vg .x{left:40px}#vg .y{right:40px}
+#vg b{position:absolute;left:50%;top:84px;margin-left:-45px;width:90px;height:90px;border-radius:50%;background:#ffd21f;color:#020617;font:400 70px/90px B;text-align:center}
+#vg small{position:absolute;left:0;right:0;bottom:24px;text-align:center;font:400 46px/1 B;letter-spacing:1px}
+#vt .c{text-align:center;margin-top:54px}#vt .c span{display:inline-block;background:#fff;color:#020617;font:400 78px B;letter-spacing:3px;padding:10px 40px;border-radius:60px}
+#vt .d{text-align:center;margin-top:26px;font:700 36px O;letter-spacing:5px;color:#c9dcff}
+</style></head><body><div id="sky"></div><svg id="ball" viewBox="-100 -100 200 200"></svg>
+<div class="logo">FB<i>LEGENDS</i></div><div id="hd"></div>
+<div id="hk"><div class="a"></div><div class="b"></div><div class="c"></div></div>
+<div id="nt"><div class="d"><b></b><i></i></div><div class="n"></div><div id="gr"></div></div>
+<div id="bg"><div class="k">THE BIGGEST GAME OF THE MONTH</div><img id="b1"><img id="b2"><div class="vs">VS</div><div class="m"></div><div class="dt"><span></span></div></div>
+<div id="vt"><div class="a"></div><div id="vg"></div><div class="c"><span></span></div><div class="d"></div></div>
+<div id="fl"></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA, N = D.nights || [], BIG = D.big || {}, V = D.vote || [], total = N.reduce((s, n) => s + n.m.length, 0);
+$('hd').innerHTML = `UEFA CHAMPIONS LEAGUE<b>${D.month || ''}</b>`;
+$('hk').querySelector('.a').innerHTML = D.hook || `${total} GAMES.<br><i>${N.length} NIGHT${N.length > 1 ? 'S' : ''}.</i>`;
+$('hk').querySelector('.b').textContent = D.hookSub || `THE CHAMPIONS LEAGUE IN ${D.month || ''}`;
+$('hk').querySelector('.c').textContent = D.hookCta || 'THE BIGGEST ONE IS LAST 👀';
+// the starball: a ring of stars drawn once, turned all along
+$('ball').innerHTML = '<circle r="96" fill="none" stroke="#9cc8ff" stroke-width="1.2"/>' + Array.from({ length: 8 }, (_, i) => { const a = i * Math.PI / 4, x = 60 * Math.cos(a), y = 60 * Math.sin(a);
+  const p = Array.from({ length: 10 }, (_, k) => { const r = k % 2 ? 9 : 22, b = -Math.PI / 2 + k * Math.PI / 5; return `${(x + r * Math.cos(b)).toFixed(1)},${(y + r * Math.sin(b)).toFixed(1)}`; }).join(' ');
+  return `<polygon points="${p}" fill="none" stroke="#9cc8ff" stroke-width="1.5"/>`; }).join('') + '<polygon points="0,-30 9,-9 30,-9 13,5 19,26 0,13 -19,26 -13,5 -30,-9 -9,-9" fill="none" stroke="#9cc8ff" stroke-width="1.5"/>';
+const stars = Array.from({ length: 70 }, (_, i) => { const s = document.createElement('div'); s.className = 'st'; s.style.left = ((i * 137) % 1080) + 'px'; s.style.top = ((i * 263) % 1920) + 'px'; $('sky').appendChild(s); return s; });
+$('b1').src = BIG.hl || ''; $('b2').src = BIG.al || ''; $('bg').querySelector('.m').innerHTML = `${BIG.h || ''}<br><span style="color:#4dd2ff;font-size:70px">v</span><br>${BIG.a || ''}`;
+$('bg').querySelector('.dt span').textContent = BIG.date || '';
+$('vt').querySelector('.a').innerHTML = D.voteHead || 'GAME OF THE <i>MONTH?</i>';
+$('vg').innerHTML = V.map((v) => `<div><img class="x" src="${v.hl}"><b>${v.l}</b><img class="y" src="${v.al}"><small>${v.h} v ${v.a}</small></div>`).join('');
+$('vt').querySelector('.c span').textContent = D.cta || 'COMMENT THE LETTER 👇';
+$('vt').querySelector('.d').textContent = D.ctaSub || 'OR ANY OTHER GAME YOU LIKE';
+const mins = D.minBeats || [5, ...N.map((n) => 3 + n.m.length * .55), 6.5, 6.5];
+const B = D.beats || (() => { let t = 0; return mins.map((m) => { const b = [t, m]; t += m; return b; }); })();
+window.TOTAL = B[B.length - 1][0] + B[B.length - 1][1];
+let cur = -1;
+const setNight = (k) => { const n = N[k], c = n.m.length > 9 ? 3 : n.m.length > 4 ? 3 : 2, rows = Math.ceil(n.m.length / c), th = Math.min(400, Math.floor((1380 - (rows - 1) * 18) / rows)), cr = Math.round(th * .38);
+  $('nt').querySelector('.d b').textContent = n.dow; $('nt').querySelector('.d i').textContent = n.date; $('nt').querySelector('.n').textContent = `${n.m.length} GAME${n.m.length > 1 ? 'S' : ''}`;
+  $('gr').style.gridTemplateColumns = `repeat(${c},1fr)`;
+  $('gr').innerHTML = n.m.map((m) => `<div class="tl${m.big ? ' big' : ''}" style="height:${th}px"><img class="h" src="${m.hl}" style="width:${cr}px;height:${cr}px"><img class="w" src="${m.al}" style="width:${cr}px;height:${cr}px"><div class="lt">${m.l}</div><div class="nm" style="font-size:${Math.max(24, Math.round(th * .085))}px"><div>${m.hs}</div><span>v</span><div>${m.as}</div></div><div class="sh"></div></div>`).join(''); };
+window.draw = (t) => {
+  const bi = B.findIndex(([s0, l0]) => t >= s0 && t < s0 + l0), k = bi < 0 ? B.length - 1 : bi, [s0, l] = B[k], u = t - s0;
+  const nn = N.length, isH = k === 0, isN = k >= 1 && k <= nn, isB = k === nn + 1, isV = k === nn + 2;
+  const fin = () => Math.min(ease(u / .3), 1 - ease((u - l + .3) / .3));
+  $('ball').style.transform = `rotate(${t * 8}deg) scale(${1 + .05 * Math.sin(t / 3)})`;
+  stars.forEach((s, i) => { s.style.opacity = .3 + .7 * Math.abs(Math.sin(t * 1.3 + i)); });
+  $('hk').style.opacity = isH ? fin() : 0;
+  if (isH) { $('hk').querySelector('.a').style.transform = `scale(${1.3 - .3 * ease(u / .6)})`; $('hk').querySelector('.c').style.opacity = ease((u - 1.8) / .4); $('hk').querySelector('.c').style.transform = `scale(${1 + .04 * Math.sin(u * 6)})`; }
+  $('nt').style.opacity = isN ? fin() : 0;
+  if (isN) { if (cur !== k) { setNight(k - 1); cur = k; }
+    $('nt').querySelector('.d i').style.transform = `scale(${1.4 - .4 * ease(u / .5)})`;
+    const ts = [...$('gr').children], per = Math.min(.5, (l - 2.2) / Math.max(1, ts.length));
+    ts.forEach((el, i) => { const a = (u - .7 - i * per) / .45; el.style.opacity = ease(a); el.style.transform = `rotateX(${(1 - ease(a)) * -90}deg)`;
+      el.querySelector('.sh').style.left = (((u - .7 - i * per) * 60) % 260 - 60) + '%';
+      el.querySelectorAll('img').forEach((im, j) => { im.style.transform = `translate(${Math.sin(u * 1.5 + i + j) * 4}px,${Math.cos(u * 1.3 + i) * 4}px)`; }); }); }
+  $('bg').style.opacity = isB ? fin() : 0;
+  if (isB) { const c = ease((u - .5) / .9); $('b1').style.transform = `translateX(${(1 - c) * -700}px) rotate(${(1 - c) * -40}deg)`; $('b2').style.transform = `translateX(${(1 - c) * 700}px) rotate(${(1 - c) * 40}deg)`;
+    const hit = u - 1.4; $('fl').style.opacity = hit > 0 && hit < .35 ? .8 * (1 - hit / .35) : 0; $('bg').style.transform = hit > 0 && hit < .4 ? `translate(${Math.sin(hit * 80) * 12}px,0)` : 'none';
+    $('bg').querySelector('.vs').style.opacity = ease(hit / .3); $('bg').querySelector('.vs').style.transform = `scale(${hit > 0 ? 1.6 - .6 * ease(hit / .4) + .04 * Math.sin(u * 5) : 0})`;
+    $('bg').querySelector('.m').style.opacity = ease((u - 2) / .4); $('bg').querySelector('.dt').style.opacity = ease((u - 2.6) / .4); }
+  else $('fl').style.opacity = 0;
+  $('vt').style.opacity = isV ? ease(u / .35) : 0;
+  if (isV) { [...$('vg').children].forEach((el, i) => { const a = (u - .4 - i * .25) / .35; el.style.opacity = ease(a); el.style.transform = `scale(${a < 1 ? .6 + .4 * back(a) : 1 + .03 * Math.sin(u * 4 + i)})`; });
+    $('vt').querySelector('.c span').style.transform = `scale(${1 + .05 * Math.sin(u * 5)})`; }
+};
+window.POSTER = Math.min(2.4, B[0][1] - .2);
+progBar();
+draw(0);
+</script></body></html>
