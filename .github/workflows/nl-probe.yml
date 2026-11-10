@@ -17,8 +17,8 @@ jobs:
           key="$REELS_KEY"; echo "::add-mask::$key"
           B="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
           sleep 300; rm -rf look; mkdir -p look
-          curl -sS --max-time 120 "$B&special=nations" | jq -c '.result.special // .' | head -c 400; echo
-          for i in $(seq 1 120); do s=$(curl -sS --max-time 60 "$B&state=en-special-nations-1" | jq -r '.result.state.job.status // "?"'); echo "$i $s"; [ "$s" = ready ] || [ "$s" = failed ] && break; sleep 30; done
+          curl -sS --max-time 120 "$B&special=nations&novoice=1" | jq -c '.result.special // .' | head -c 400; echo
+          for i in $(seq 1 80); do s=$(curl -sS --max-time 60 "$B&state=en-special-nations-1" | jq -r '.result.state.job.status // "?"'); echo "$i $s"; [ "$s" = ready ] || [ "$s" = failed ] && break; sleep 30; done
           curl -sS --max-time 60 "$B&state=en-special-nations-1" | jq -c '.result.state.job | {status,voiced,cues,error,bytes}' | head -c 600; echo
           [ "$s" = ready ] && curl -sS --max-time 120 -o look/nations.mp4 "https://api.football-legend.com/reel.mp4?id=en-special-nations-1&v=$(date +%s)"
           ls -la look
