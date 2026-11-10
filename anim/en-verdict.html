@@ -27,7 +27,14 @@
 #fn{position:absolute;top:1080px;left:40px;right:40px;text-align:center}
 #fn .a{font:400 96px/1 B;letter-spacing:2px}#fn .b2{margin-top:26px;font:400 140px/0.9 B;letter-spacing:3px;color:#ffd21f;transform:skewX(-6deg)}
 #fn .c2{margin-top:34px;font:700 40px O;letter-spacing:4px;color:#c9d6ff}
-.credit{bottom:18px}#cl{left:24px}#cr{right:24px;text-align:right}
+.credit{bottom:18px}
+#jy{position:absolute;top:1060px;left:40px;right:40px;opacity:0}
+#jy .h{text-align:center;font:400 96px/1 B;letter-spacing:3px;transform:skewX(-6deg)}#jy .h i{font-style:normal;color:#ffd21f}
+#jy .r{display:flex;align-items:center;gap:18px;margin-top:14px;background:rgba(var(--bx),.92);border:3px solid rgba(var(--kl),.35);border-radius:20px;padding:10px 22px;opacity:0}
+#jy .r.nat{border-color:#ffd21f;background:rgba(60,45,0,.85)}
+#jy .r .c{flex:1;font:400 52px/1 B;letter-spacing:2px;white-space:nowrap;overflow:hidden}#jy .r .c small{display:block;font:700 22px O;letter-spacing:3px;color:var(--sm);margin-top:4px}
+#jy .r .n{text-align:center;width:150px;font:400 64px/1 B}#jy .r .n small{display:block;font:700 18px O;letter-spacing:3px;color:var(--sm)}
+#jy .r .g b{color:#ffd21f}#cl{left:24px}#cr{right:24px;text-align:right}
 </style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div>
 <div id="ph"><div class="pp" id="pl"><img id="il"></div><div class="pp" id="pr"><img id="ir"></div></div>
 <div class="nm" id="nl"></div><div class="nm" id="nr"></div>
@@ -35,6 +42,7 @@
 <div id="hk"><div class="a"></div><div class="b2"></div><div class="c2"></div></div>
 <div id="rd"><div id="rk"></div><div id="ct"></div><div id="cs"></div>
   <div class="vb" id="vl"><b></b><small></small></div><div class="vb" id="vr"><b></b><small></small></div><div id="pt"></div></div>
+<div id="jy"><div class="h"></div><div class="rows"></div></div>
 <div id="fn"><div class="a"></div><div class="b2"></div><div class="c2"></div></div>
 <div class="credit" id="cl"></div><div class="credit" id="cr"></div>
 <script src="lib.js"></script><script src="en-lib.js"></script><script>
@@ -48,7 +56,15 @@ $('fn').querySelector('.a').innerHTML = D.endA || "THE NUMBERS CAN'T SPLIT THEM"
 $('fn').querySelector('.b2').innerHTML = D.endB || 'THE DECIDER IS YOU 👇';
 $('fn').querySelector('.c2').textContent = D.endC || 'COMMENT MESSI OR RONALDO';
 // The beats: the hook, each round, the end (DATA.beats from the voice, else these minimums).
-const mins = D.minBeats || [4.5, ...R.map(() => 6.5), 6], B = D.beats || (() => { let t = 0; return mins.map((m) => { const b = [t, m]; t += m; return b; }); })();
+// Each player's journey before the rounds (owner, 2026-11-10: «يوضح مسيرة كل لاعب مع الفرق و مساهمتهم و المنتخبات»): club by
+// club, the years, games and goals, the national team last; one beat each, after the hook.
+const P = D.paths || [], np = P.length;
+const fmt = (v) => Number(v).toLocaleString('en-GB');
+const setPath = (j) => { const p = P[j], who = p.who === 'b' ? Bp : A;
+  $('jy').querySelector('.h').innerHTML = `${who.name}'S <i>JOURNEY</i>`;
+  $('jy').querySelector('.rows').innerHTML = p.rows.map((r) => `<div class="r${r.nat ? ' nat' : ''}"><div class="c">${r.club}<small>${r.years}</small></div><div class="n"><span data-v="${r.apps}">0</span><small>GAMES</small></div><div class="n g"><b data-v="${r.goals}">0</b><small>GOALS</small></div></div>`).join(''); };
+let curP = -1;
+const mins = D.minBeats || [4.5, ...P.map(() => 9), ...R.map(() => 6.5), 6], B = D.beats || (() => { let t = 0; return mins.map((m) => { const b = [t, m]; t += m; return b; }); })();
 window.TOTAL = B[B.length - 1][0] + B[B.length - 1][1];
 const score = (k) => R.slice(0, k).reduce((s, r) => [s[0] + (r.win === 'a' ? 1 : 0), s[1] + (r.win === 'b' ? 1 : 0)], [0, 0]);
 let cur = -1;
@@ -60,7 +76,16 @@ const setRound = (i) => {
 };
 window.draw = (t) => {
   const bi = B.findIndex(([s, l]) => t >= s && t < s + l), k = bi < 0 ? B.length - 1 : bi, [s, l] = B[k], u = t - s;
-  const isH = k === 0, isE = k === B.length - 1, isR = !isH && !isE, i = k - 1;
+  const isH = k === 0, isE = k === B.length - 1, isJ = !isH && !isE && k <= np, isR = !isH && !isE && !isJ, i = k - 1 - np;
+  $('jy').style.opacity = isJ ? Math.min(ease(u / .3), 1 - ease((u - l + .3) / .3)) : 0;
+  if (isJ) {
+    const j = k - 1; if (curP !== j) { setPath(j); curP = j; }
+    const rows = [...$('jy').querySelectorAll('.r')], per = Math.min(1.1, (l - 2.5) / Math.max(rows.length, 1));
+    rows.forEach((el, q) => { const a = u - .6 - q * per; el.style.opacity = ease(a / .3); el.style.transform = `translateX(${(1 - ease(a / .4)) * (P[j].who === 'b' ? 80 : -80)}px)`;
+      el.querySelectorAll('[data-v]').forEach((x) => { x.textContent = fmt(Math.round(Number(x.dataset.v) * Math.min(1, Math.max(0, a / .8)))); }); });
+    // the other player's photo dims while this one's journey is told
+    $('pl').style.filter = P[j].who === 'b' ? 'brightness(.45)' : 'none'; $('pr').style.filter = P[j].who === 'b' ? 'none' : 'brightness(.45)';
+  }
   // The photos come in from the sides on the hook and stay; the end brings them back full, like the start (the loop).
   const pin = ease(Math.min(1, t / .5)); $('pl').style.transform = `translateX(${(1 - pin) * -560}px)`; $('pr').style.transform = `translateX(${(1 - pin) * 560}px)`;
   $('hk').style.opacity = isH ? Math.min(ease(u / .3), 1 - ease((u - l + .3) / .3)) : 0;
@@ -79,9 +104,9 @@ window.draw = (t) => {
     $('ct').style.transform = `skewX(-6deg) translateY(${(1 - ease(u / .35)) * 30}px)`;
     // The loser's photo dims a little once the point is given.
     $('pl').style.filter = u >= rp && r.win === 'b' ? 'brightness(.6)' : 'none'; $('pr').style.filter = u >= rp && r.win === 'a' ? 'brightness(.6)' : 'none';
-  } else { $('pl').style.filter = $('pr').style.filter = 'none'; }
+  } else if (!isJ) { $('pl').style.filter = $('pr').style.filter = 'none'; }
   $('sl').textContent = sc[0]; $('sr').textContent = sc[1];
-  $('sb').style.opacity = isH ? ease((u - 1.2) / .3) : 1;
+  $('sb').style.opacity = isH ? ease((u - 1.2) / .3) : isJ ? 0 : 1;
   $('fn').style.opacity = isE ? ease(u / .35) : 0;
   if (isE) { $('fn').querySelector('.b2').style.transform = `skewX(-6deg) scale(${1 + .05 * Math.sin(u * 5)})`; $('sb').style.transform = `translateX(-50%) scale(${1.15 + .05 * Math.sin(u * 4)})`; }
   else $('sb').style.transform = 'translateX(-50%)';
