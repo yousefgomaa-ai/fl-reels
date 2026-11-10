@@ -19,7 +19,8 @@
 <div class="tag" id="tTop">TITLE RACE</div><div class="tag" id="tRel">RELEGATION FIGHT 😬</div><div class="cta" id="cta"></div>
 <script src="lib.js"></script><script src="en-lib.js"></script><script>
 const D = window.DATA, R = (D.rows || []).slice(0, 20), TOPN = D.top || 4, REL = D.rel || 3;
-$('lg').innerHTML = `${D.league || ''}<small>STANDINGS</small>`; $('hl').innerHTML = D.headline || '';
+$('lg').innerHTML = `${D.league || ''}<small>${D.sub || 'STANDINGS'}</small>`; if (D.topTag) $('tTop').textContent = D.topTag; if (D.relTag) $('tRel').textContent = D.relTag; // «FORM TABLE» (owner, 2026-11-11) uses this page
+ $('hl').innerHTML = D.headline || '';
 $('tb').innerHTML = `<div class="r h"><span class="n">#</span><span class="t">CLUB</span><span class="v">MP</span><span class="v">W</span><span class="v">D</span><span class="v">L</span><span class="p" style="font:700 26px O;color:var(--kc)">PTS</span></div>`
   + R.map((r, i) => `<div class="r ${i === 0 ? 'top ' : ''}${i < TOPN ? 'cl' : i >= R.length - REL ? 'rl' : ''}"><span class="n">${r.rank}</span>${r.logo ? `<img src="${r.logo}">` : '<span style="width:64px"></span>'}<span class="t">${r.name}</span><span class="v">${r.p}</span><span class="v">${r.w}</span><span class="v">${r.d}</span><span class="v">${r.l}</span><span class="p">${r.pts}</span></div>`).join('');
 $('cta').textContent = D.cta || 'WHO WINS THE LEAGUE? 👇';
