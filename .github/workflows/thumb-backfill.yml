@@ -41,5 +41,5 @@ jobs:
           }
           JS
           cp /tmp/tb.mjs ./tb.mjs && node tb.mjs
-          sleep 900
+          sleep 1500
           curl -sS "https://api.football-legend.com/v2/fben/thumbq?key=$REELS_KEY" | jq -c '{done,queued}'
