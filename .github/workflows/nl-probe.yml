@@ -1,4 +1,4 @@
-# One-off live check (2026-11-10): queue and fetch the Nations League tickets reel. Lives on claude/nl-probe only; never merged.
+# One-off look (2026-11-10): the Champions League games left in November. Lives on claude/nl-probe only; never merged.
 name: NL probe
 on:
   push:
@@ -8,19 +8,12 @@ permissions:
 jobs:
   p:
     runs-on: ubuntu-latest
-    timeout-minutes: 80
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - env:
-          REELS_KEY: ${{ secrets.REELS_KEY }}
-        run: |
-          key="$REELS_KEY"; echo "::add-mask::$key"
-          B="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
-          sleep 300; rm -rf look; mkdir -p look
-          curl -sS --max-time 120 "$B&special=nations&novoice=1" | jq -c '.result.special // .' | head -c 400; echo
-          for i in $(seq 1 80); do s=$(curl -sS --max-time 60 "$B&state=en-special-nations-1" | jq -r '.result.state.job.status // "?"'); echo "$i $s"; [ "$s" = ready ] || [ "$s" = failed ] && break; sleep 30; done
-          curl -sS --max-time 60 "$B&state=en-special-nations-1" | jq -c '.result.state.job | {status,voiced,cues,error,bytes}' | head -c 600; echo
-          [ "$s" = ready ] && curl -sS --max-time 120 -o look/nations.mp4 "https://api.football-legend.com/reel.mp4?id=en-special-nations-1&v=$(date +%s)"
+      - run: |
+          rm -rf look; mkdir -p look; E=https://site.api.espn.com/apis
+          for d in $(seq 11 30); do curl -sS --compressed --max-time 60 "$E/site/v2/sports/soccer/uefa.champions/scoreboard?dates=202611$d&limit=100" > look/u$d.json; done
           ls -la look
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          git add -A look && git commit -qm "nations to look at" && git push -q origin HEAD:claude/nl-probe || true
+          git add -A look && git commit -qm "ucl to look at" && git push -q origin HEAD:claude/nl-probe || true
