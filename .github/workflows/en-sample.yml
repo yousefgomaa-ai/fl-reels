@@ -15,7 +15,9 @@ jobs:
           from faster_whisper import WhisperModel
           m = WhisperModel('medium.en', device='cpu', compute_type='int8')
           for n in ('united', 'city'):
-              segs, _ = m.transcribe(f'look/{n}.mp4', language='en')
+              import subprocess, numpy as np
+              raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', f'look/{n}.mp4', '-ac', '1', '-ar', '16000', '-f', 's16le', '-'], capture_output=True).stdout
+              segs, _ = m.transcribe(np.frombuffer(raw, np.int16).astype(np.float32) / 32768, language='en')
               print('==', n)
               for s in segs: print(f'{s.start:5.1f}-{s.end:5.1f} {s.text}')
           PY
