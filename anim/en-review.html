@@ -146,7 +146,7 @@ window.draw = (t) => {
     $('h').style.transform = `translateX(${(1 - ease(u / .4)) * -120}px)`; $('a').style.transform = `translateX(${(1 - ease(u / .4)) * 120}px)`;
     // The score hidden for the first part of its beat: the suspense, then the reveal.
     const rv = Math.min(1.6, l * .34), big = m.tag === 'ROUND';
-    $('box').innerHTML = u < rv ? '?<span style="color:var(--kc)">-</span>?' : `<span class="${m.hs > m.as ? 'w' : ''}">${m.hs}</span><span style="color:var(--kc)">-</span><span class="${m.as > m.hs ? 'w' : ''}">${m.as}</span>`;
+    $('box').innerHTML = /* (owner, 2026-11-10: «بلاش شغل علامة استفهام ... فين البروفشنال»: nothing hidden behind «?») */ `<span class="${m.hs > m.as ? 'w' : ''}">${m.hs}</span><span style="color:var(--kc)">-</span><span class="${m.as > m.hs ? 'w' : ''}">${m.as}</span>`;
     $('box').style.transform = `scale(${u < rv ? 1 + .03 * Math.sin(u * 9) : 1.18 - .18 * back((u - rv) / .45)})`;
     $('box').style.borderColor = u >= rv && big ? '#ffd21f' : 'var(--kc)'; $('box').style.boxShadow = u >= rv ? `0 0 ${big ? 70 : 40}px rgba(${big ? '255,210,31' : '70,215,255'},.55)` : 'none';
     const gs = [...document.querySelectorAll('#tl .g')]; $('tl').style.opacity = ease((u - rv) / .3);

@@ -69,7 +69,7 @@ window.draw = (t) => {
   $('board').style.opacity = ease((t - s1 + .2) / .35); $('top').style.opacity = ease((t - s1 + .2) / .35);
   const per = Math.max(.3, (l1 - 1.5) / Math.max(n, 1));
   // The night's headline rows keep their score hidden («?-?») until their headline shows (owner, 2026-11-05: «هوك و مشوق»).
-  const hid = (i) => HID.has(i) && t < HID.get(i);
+  const hid = () => false; // (owner, 2026-11-10: «بلاش شغل علامة استفهام ... فين البروفشنال»: nothing hidden behind «?»)
   rows.forEach((r, i) => {
     const st = s1 + .3 + i * per, u = t - st; r.style.opacity = u < 0 ? .15 : 1;
     r.querySelectorAll('.c').forEach((c, k) => { const sc = c.parentNode.classList.contains('sc'), fin = sc && hid(i) ? '?' : c.dataset.ch, done = u > .25 + k * .025;

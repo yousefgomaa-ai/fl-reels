@@ -31,7 +31,7 @@ function progBar() {
     'en-compare': 'THE VERDICT IS AT THE END 👀', 'en-boot': "WHO'S NUMBER ONE? WATCH TO THE END 👀", 'en-five': "EUROPE'S No.1 COMES LAST 👀",
     'en-history': "THIS SEASON'S LEADER AT THE END 👀", 'en-preview': 'FORM AND KICK-OFF COMING UP 👀', 'en-guess': 'THE ANSWER IS AT THE END 👀',
     'en-hilo': 'THE ANSWER IS AT THE END 👀', 'en-predict': 'MAKE YOUR PICK BEFORE THE END 👀', 'en-streak': 'WAIT FOR THE NUMBER 👀',
-    'en-result': 'THE KEY NUMBERS ARE COMING 👀', 'en-table': "WAIT FOR WHO'S TOP 👀", 'en-weekend': 'THE BIGGEST WIN IS LAST 👀', 'en-board': 'THE HIDDEN SCORES COME LAST 👀' };
+    'en-result': 'THE KEY NUMBERS ARE COMING 👀', 'en-table': "WAIT FOR WHO'S TOP 👀", 'en-weekend': 'THE BIGGEST WIN IS LAST 👀' };
   const tz = D0.tease === '' ? '' : D0.tease || TEASE[D0.kind] || '';
   let te = null;
   if (tz) {

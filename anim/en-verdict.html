@@ -72,7 +72,7 @@ const score = (k) => R.slice(0, k).reduce((s, r) => [s[0] + (r.win === 'a' ? 1 :
 let cur = -1;
 const setRound = (i) => {
   const r = R[i]; $('rk').textContent = i === n - 1 ? 'THE DECIDING ROUND 🔥' : `ROUND ${i + 1} OF ${n}`; $('ct').innerHTML = r.title; $('cs').textContent = r.sub || '';
-  $('vl').querySelector('b').textContent = '?'; $('vr').querySelector('b').textContent = '?';
+  $('vl').querySelector('b').textContent = ''; $('vr').querySelector('b').textContent = ''; // (owner, 2026-11-10: «بلاش شغل علامة استفهام ... فين البروفشنال»: nothing hidden behind «?»)
   $('vl').querySelector('small').textContent = ''; $('vr').querySelector('small').textContent = '';
   $('pt').textContent = r.win === 'a' ? `POINT ${A.name} ✅` : r.win === 'b' ? `POINT ${Bp.name} ✅` : 'NO POINT';
 };
@@ -97,8 +97,8 @@ window.draw = (t) => {
   if (isR) {
     if (cur !== i) { setRound(i); cur = i; }
     const r = R[i], ra = l * .36, rb = l * .56, rp = l * .74;
-    const show = (id, at, v, sm) => { const box = $(id), on = u >= at; box.querySelector('b').textContent = on ? v : '?'; box.querySelector('small').textContent = on ? (sm || '') : '';
-      box.style.transform = `scale(${on ? 1.12 - .12 * back((u - at) / .45) : 1 + .02 * Math.sin(u * 8)})`; };
+    const show = (id, at, v, sm) => { const box = $(id), on = u >= at; box.querySelector('b').textContent = on ? (/^[\d,]+$/.test(String(v)) ? Number(String(v).replace(/,/g, '') * Math.min(1, (u - at) / .6)).toLocaleString('en-GB', { maximumFractionDigits: 0 }) : v) : ''; box.querySelector('small').textContent = on ? (sm || '') : '';
+      box.style.transform = `scale(${on ? 1.12 - .12 * back((u - at) / .45) : 1})`; };
     show('vl', ra, r.av, r.as); show('vr', rb, r.bv, r.bs);
     $('vl').classList.toggle('win', u >= rp && r.win === 'a'); $('vr').classList.toggle('win', u >= rp && r.win === 'b');
     $('pt').style.opacity = ease((u - rp) / .25); $('pt').style.transform = `translateX(-50%) scale(${u >= rp ? 1.15 - .15 * back((u - rp) / .5) : .8})`;
