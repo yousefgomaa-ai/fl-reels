@@ -1,4 +1,4 @@
-# One-off live check (2026-11-10): the captions queue and its errors. Lives on claude/nl-probe only; never merged.
+# One-off look (2026-11-10): what the English page's planners would make on Wednesday 11 November. Lives on claude/nl-probe only; never merged.
 name: NL probe
 on:
   push:
@@ -12,5 +12,9 @@ jobs:
           REELS_KEY: ${{ secrets.REELS_KEY }}
         run: |
           key="$REELS_KEY"; echo "::add-mask::$key"
-          sleep 300
-          curl -sS --max-time 120 "https://api.football-legend.com/v2/fben/ccq?key=$key&check=1" | jq -c '.check[]'
+          for h in 07 09 11 13 15 17 19 21; do
+            echo "== $h:30 UTC"
+            curl -sS --max-time 240 "https://api.football-legend.com/v2/fben/dry?key=$key&at=2026-11-11T$h:30:00Z" | jq -r '.result.dry[]? | "\(.kind) | \(.id) | \(.title)"' | sort -u
+          done
+          echo "== queued now"
+          curl -sS --max-time 60 "https://api.football-legend.com/v2/reels/jobs?key=$key" | jq -r '.jobs[]? | "\(.id) | \(.status // "")"'
