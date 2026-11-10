@@ -16,12 +16,10 @@ jobs:
         run: |
           key="$REELS_KEY"; echo "::add-mask::$key"
           B="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
-          sleep 150; date -u
-          curl -sS --max-time 120 "$B&special=verdict" | jq -c '.result.special // .' | head -c 400; echo
-          mkdir -p look
-          for i in $(seq 1 40); do sleep 30; s=$(curl -sS --max-time 60 "$B&state=en-special-verdict-1" | jq -r '.result.state.job.status // "?"'); echo "$i $s"; [ "$s" = ready ] && break; done
-          [ "$s" = ready ] && curl -sS --max-time 120 -o look/verdict.mp4 "https://api.football-legend.com/reel.mp4?id=en-special-verdict-1&v=$(date +%s)"; ls -la look
+          T=$(date -u -d tomorrow +%Y-%m-%dT15:00:00Z); D2=$(date -u -d "+2 day" +%Y-%m-%dT15:00:00Z)
+          for at in $T $D2; do curl -sS --max-time 120 "$B&upcoming=1&at=$at" | jq -c '.result.upcoming' | head -c 1500; echo; done
+          curl -sS --max-time 120 "https://api.football-legend.com/v2/fben/dry?key=$key&kinds=round" | jq -c '{r:.result.round, j:[.jobs[]? | {id, n:(.anim.rows // .anim.matches // [] | length), title}]}' | head -c 1500; echo
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          git add look && git commit -qm "verdict to look at" && git push -q origin HEAD:claude/en-sample || true
+          true
           echo done
