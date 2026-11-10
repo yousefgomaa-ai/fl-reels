@@ -12,5 +12,5 @@ jobs:
           REELS_KEY: ${{ secrets.REELS_KEY }}
         run: |
           key="$REELS_KEY"; echo "::add-mask::$key"
-          sleep 840
-          curl -sS --max-time 120 "https://api.football-legend.com/v2/fben/ccq?key=$key&n=2" | jq -c '{done,queued,noSrc,queue,doneList,items:[.items[]|{id,vid}]}'
+          sleep 5
+          curl -sS --max-time 120 "https://api.football-legend.com/v2/fben/ccq?key=$key&n=2" | jq -c '.queue[0:2]'
