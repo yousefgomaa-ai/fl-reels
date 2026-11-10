@@ -1,27 +1,16 @@
-# One-off live check (2026-11-10): queue and fetch the month's Champions League reel. Lives on claude/nl-probe only; never merged.
+# One-off live check (2026-11-10): the captions queue and its errors. Lives on claude/nl-probe only; never merged.
 name: NL probe
 on:
   push:
     branches: [claude/nl-probe]
-permissions:
-  contents: write
 jobs:
   p:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
       - env:
           REELS_KEY: ${{ secrets.REELS_KEY }}
         run: |
           key="$REELS_KEY"; echo "::add-mask::$key"
-          B="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
-          sleep 300; rm -rf look; mkdir -p look
-          curl -sS --max-time 180 "$B&special=uclmonth&novoice=1" | jq -c '.result.special // .' | head -c 400; echo
-          id="en-uclmonth-202611"
-          curl -sS --max-time 60 "$B&state=$id" | jq -c '.result.state.job | {status,music,title}' | head -c 600; echo
-          for i in $(seq 1 80); do s=$(curl -sS --max-time 60 "$B&state=$id" | jq -r '.result.state.job.status // "?"'); echo "$i $s"; [ "$s" = ready ] || [ "$s" = failed ] && break; sleep 30; done
-          [ "$s" = ready ] && curl -sS --max-time 120 -o look/uclmonth.mp4 "https://api.football-legend.com/reel.mp4?id=$id&v=$(date +%s)"
-          ls -la look
-          git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          git add -A look && git commit -qm "uclmonth to look at" && git push -q origin HEAD:claude/nl-probe || true
+          sleep 840
+          curl -sS --max-time 120 "https://api.football-legend.com/v2/fben/ccq?key=$key&n=2" | jq -c '{done,queued,noSrc,queue,doneList,items:[.items[]|{id,vid}]}'
