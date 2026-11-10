@@ -1,31 +1,21 @@
-# One-off live check (FB Legends; run 2026-11-10: queue and fetch the United and City reels). Lives on claude/en-sample only; never merged.
+# One-off live check (2026-11-10): whisper over the United and City reels' voice. Lives on claude/en-sample only; never merged.
 name: EN sample
 on:
   push:
     branches: [claude/en-sample]
-permissions:
-  contents: write
 jobs:
   sample:
     runs-on: ubuntu-latest
-    timeout-minutes: 80
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-      - env:
-          REELS_KEY: ${{ secrets.REELS_KEY }}
-        run: |
-          key="$REELS_KEY"; echo "::add-mask::$key"
-          B="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
-          sleep 300; date -u; mkdir -p look
-          for n in united city; do
-            curl -sS --max-time 120 "$B&special=$n" | jq -c '.result.special // .' | head -c 400; echo
-          done
-          for n in united city; do
-            for i in $(seq 1 70); do s=$(curl -sS --max-time 60 "$B&state=en-special-$n-1" | jq -r '.result.state.job.status // "?"'); echo "$n $i $s"; [ "$s" = ready ] || [ "$s" = failed ] && break; sleep 30; done
-            curl -sS --max-time 60 "$B&state=en-special-$n-1" | jq -c '.result.state.job | {status,voiced,cues,error,bytes}' | head -c 600; echo
-            [ "$s" = ready ] && curl -sS --max-time 120 -o look/$n.mp4 "https://api.football-legend.com/reel.mp4?id=en-special-$n-1&v=$(date +%s)"
-          done
-          ls -la look
       - run: |
-          git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          git add -A look && git commit -qm "united and city to look at" && git push -q origin HEAD:claude/en-sample || true
+          sudo apt-get -qq install -y ffmpeg >/dev/null; pip -q install faster-whisper
+          python3 - <<'PY'
+          from faster_whisper import WhisperModel
+          m = WhisperModel('medium.en', device='cpu', compute_type='int8')
+          for n in ('united', 'city'):
+              segs, _ = m.transcribe(f'look/{n}.mp4', language='en')
+              print('==', n)
+              for s in segs: print(f'{s.start:5.1f}-{s.end:5.1f} {s.text}')
+          PY
