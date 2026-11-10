@@ -40,7 +40,7 @@ window.draw = (t) => {
   K.forEach((k, i) => {
     const s = T0 + i * STEP, a = ease((t - s) / .6), va = val(D.a, k), vb = val(D.b, k), on = t >= s;
     [[A[i], va, vb], [B[i], vb, va]].forEach(([c, v, o]) => {
-      const b = c.querySelector('b'); b.textContent = on ? cnt(v, a) : '?';
+      const b = c.querySelector('b'); b.textContent = on ? cnt(v, a) : ''; // (owner, 2026-11-10: «بلاش شغل علامة استفهام ... فين البروفشنال»: nothing hidden behind «?»)
       const won = t > s + .7 && v > o, lost = t > s + .7 && v < o;
       b.style.color = won ? '#ffd21f' : '#fff'; b.style.textShadow = won ? `0 0 ${30 + 15 * Math.sin(t * 6)}px rgba(255,210,31,.8)` : 'none';
       c.style.opacity = lost ? .45 : 1; c.style.transform = `scale(${won ? 1.08 : 1})`;
