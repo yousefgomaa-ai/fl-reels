@@ -12,9 +12,9 @@ jobs:
           REELS_KEY: ${{ secrets.REELS_KEY }}
         run: |
           key="$REELS_KEY"; echo "::add-mask::$key"
-          sleep 300; for h in 11 15 17 19; do
+          sleep 300; for h in 17; do
             echo "== $h:30 UTC"
-            curl -sS --max-time 240 "https://api.football-legend.com/v2/fben/dry?key=$key&at=2026-11-11T$h:30:00Z" | jq -r '.jobs[]? | "\(.kind) | \(.id) | \(.title)"' | sort -u
+            curl -sS --max-time 240 "https://api.football-legend.com/v2/fben/dry?key=$key&at=2026-11-11T$h:30:00Z&kinds=compare,hilo" | jq -c '.result, (.jobs[]? | {kind, title, a: .anim.a.sub, b: .anim.b.sub, pa: (.anim.a.photo // .anim.a.slug), pb: (.anim.b.photo // .anim.b.slug)})'
           done
           echo "== queued now"
           curl -sS --max-time 60 "https://api.football-legend.com/v2/reels/jobs?key=$key" | jq -r '.jobs[]? | "\(.id) | \(.status // "")"'
