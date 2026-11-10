@@ -1,0 +1,41 @@
+# One-off (owner, 2026-11-10: «ممكن تضيف الترجمه للفيديوهات القديمة»): closed captions for FB Legends reels already posted.
+# Each video is heard with whisper; a video with no speech is marked «none». Lives on claude/cc-backfill only; never merged.
+name: CC backfill
+on:
+  push:
+    branches: [claude/cc-backfill]
+jobs:
+  cc:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - run: sudo apt-get -qq install -y ffmpeg >/dev/null; pip -q install faster-whisper requests
+      - env:
+          REELS_KEY: ${{ secrets.REELS_KEY }}
+        run: |
+          echo "::add-mask::$REELS_KEY"
+          python3 - <<'PY'
+          import os, subprocess, requests, numpy as np
+          from faster_whisper import WhisperModel
+          K = os.environ['REELS_KEY']; A = 'https://api.football-legend.com/v2/fben'
+          m = WhisperModel('medium.en', device='cpu', compute_type='int8')
+          def ts(t):
+              ms = int(round(t * 1000)); return f'{ms//3600000:02}:{ms//60000%60:02}:{ms//1000%60:02},{ms%1000:03}'
+          seen = set()
+          for batch in range(12):
+              r = requests.get(f'{A}/ccq', params={'key': K, 'n': 10}, timeout=120).json()
+              items = [x for x in r.get('items', []) if x['vid'] not in seen]
+              print('batch', batch, 'done before', r.get('done'), 'queued', r.get('queued'), 'items', len(items), flush=True)
+              if not items: break
+              for it in items:
+                  seen.add(it['vid'])
+                  raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', it['src'], '-ac', '1', '-ar', '16000', '-f', 's16le', '-'], capture_output=True).stdout
+                  if len(raw) < 32000: print(it['id'], 'no audio'); continue
+                  segs, _ = m.transcribe(np.frombuffer(raw, np.int16).astype(np.float32) / 32768, language='en', vad_filter=True)
+                  segs = [s for s in segs if s.no_speech_prob < 0.5 and s.avg_logprob > -1.0 and len(s.text.split()) >= 2]
+                  if not segs:
+                      requests.post(f'{A}/cc', params={'key': K, 'id': it['id'], 'vid': it['vid']}, data='none', timeout=60); print(it['id'], 'none'); continue
+                  srt = '\n'.join(f'{i+1}\n{ts(s.start)} --> {ts(s.end)}\n{s.text.strip()}\n' for i, s in enumerate(segs))
+                  q = requests.post(f'{A}/cc', params={'key': K, 'id': it['id'], 'vid': it['vid']}, data=srt.encode(), timeout=60)
+                  print(it['id'], q.status_code, '|', ' / '.join(s.text.strip() for s in segs)[:160], flush=True)
+          PY
