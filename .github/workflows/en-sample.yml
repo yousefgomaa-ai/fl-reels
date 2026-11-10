@@ -16,8 +16,12 @@ jobs:
         run: |
           key="$REELS_KEY"; echo "::add-mask::$key"
           B="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
-          for id in en-special-verdict-1 en-special-cr7-1; do curl -sS --max-time 60 "$B&state=$id" | jq -c '.result.state // .' | head -c 700; echo; done
+          sleep 150; date -u
+          curl -sS --max-time 120 "$B&special=verdict" | jq -c '.result.special // .' | head -c 400; echo
+          mkdir -p look
+          for i in $(seq 1 40); do sleep 30; s=$(curl -sS --max-time 60 "$B&state=en-special-verdict-1" | jq -r '.result.state.job.status // "?"'); echo "$i $s"; [ "$s" = ready ] && break; done
+          [ "$s" = ready ] && curl -sS --max-time 120 -o look/verdict.mp4 "https://api.football-legend.com/reel.mp4?id=en-special-verdict-1&v=$(date +%s)"; ls -la look
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          true
+          git add look && git commit -qm "verdict to look at" && git push -q origin HEAD:claude/en-sample || true
           echo done
