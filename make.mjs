@@ -298,6 +298,15 @@ async function makeAnim(job, dir) {
       '-filter_complex', mix, '-map', '0:v', '-map', '[a]',
       '-c:v', 'libx264', '-crf', '22', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '128k', '-t', String(total), '-movflags', '+faststart', out]);
     if ((await stat(out)).size < 100000) throw new Error('video too small');
+    // The server takes up to 24 MB (2026-11-10: the Manchester reel, two grounds from the air over 80 s, came to 40 MB and
+    // was refused): a bigger one is made again at the bitrate that fits, the sound kept as it is.
+    const MAXB = 22 * 1024 * 1024, size = (await stat(out)).size;
+    if (size > MAXB) {
+      const kb = Math.max(600, Math.floor((MAXB * 8) / 1024 / total * 0.92) - 140), small = join(dir, 'reel-fit.mp4');
+      await run(FF, ['-y', '-i', out, '-c:v', 'libx264', '-b:v', `${kb}k`, '-maxrate', `${kb}k`, '-bufsize', `${kb * 2}k`, '-pix_fmt', 'yuv420p', '-c:a', 'copy', '-movflags', '+faststart', small]);
+      console.log(`${job.id}: ${(size / 1048576).toFixed(1)} MB, made again at ${kb} kb/s: ${((await stat(small)).size / 1048576).toFixed(1)} MB`);
+      return small;
+    }
     return out;
   } finally { await b.close(); await rm(html, { force: true }); }
 }
@@ -400,6 +409,8 @@ async function main() {
       const up = await fetch(`${API}/v2/reels/upload?id=${encodeURIComponent(job.id)}&key=${encodeURIComponent(KEY)}${typeof job.voiced === 'boolean' ? `&voiced=${job.voiced ? 1 : 0}` : ''}`, {
         method: 'POST', headers: { 'Content-Type': job.image ? 'image/jpeg' : 'video/mp4' }, body: await readFile(out), signal: AbortSignal.timeout(120000) });
       console.log(`${job.id}: uploaded ${(await stat(out)).size} bytes -> ${up.status}`);
+      // a refused upload counts as a failed try (2026-11-10: a 40 MB reel was refused and made again every run, its voice each time)
+      if (!up.ok) throw new Error(`upload refused: ${up.status} ${(await up.text().catch(() => '')).slice(0, 120)}`);
     } catch (e) {
       console.log(`${job.id}: failed: ${e.message}`);
       await fetch(`${API}/v2/reels/upload?id=${encodeURIComponent(job.id)}&key=${encodeURIComponent(KEY)}&failed=1`, { method: 'POST', body: String(e.message).slice(0, 300) }).catch(() => {});
