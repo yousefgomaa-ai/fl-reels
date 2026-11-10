@@ -1,0 +1,45 @@
+# One-off (owner, 2026-11-10: «ينفع نضيفها علي الريلز اللي علي صفحة الانجليزي»): covers for the English page's reels
+# already posted, each drawn from its own page. Lives on claude/thumb-backfill only; never merged.
+name: Thumb backfill
+on:
+  push:
+    branches: [claude/thumb-backfill]
+jobs:
+  t:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: |
+          sudo apt-get -qq install -y ffmpeg >/dev/null
+          npm i --no-save --no-audit --no-fund playwright@1.48.2
+          c=$(command -v google-chrome || command -v google-chrome-stable || true); echo "PW_CHROME=$c" >> "$GITHUB_ENV"
+      - env:
+          REELS_KEY: ${{ secrets.REELS_KEY }}
+        run: |
+          echo "::add-mask::$REELS_KEY"
+          sleep 240
+          cat > /tmp/tb.mjs <<'JS'
+          import { coverOnly } from './make.mjs';
+          import { mkdtemp, readFile, rm } from 'node:fs/promises';
+          import { tmpdir } from 'node:os'; import { join } from 'node:path';
+          const K = process.env.REELS_KEY, A = 'https://api.football-legend.com';
+          const r = await (await fetch(`${A}/v2/fben/thumbq?key=${K}`)).json();
+          console.log('items', r.items?.length, 'done', r.done, 'queued', r.queued);
+          for (const it of r.items || []) {
+            const dir = await mkdtemp(join(tmpdir(), 'cv-'));
+            try {
+              const cv = await coverOnly(it.job, dir);
+              if (!cv) { console.log(it.id, 'no cover'); continue; }
+              const u = await fetch(`${A}/v2/reels/upload?id=${encodeURIComponent(it.id)}&key=${K}&cover=1`, { method: 'POST', headers: { 'Content-Type': 'image/jpeg' }, body: await readFile(cv) });
+              const q = u.ok ? await fetch(`${A}/v2/fben/thumbq?key=${K}&id=${encodeURIComponent(it.id)}&vid=${it.vid}`, { method: 'POST' }) : null;
+              console.log(it.id, 'cover', u.status, 'queued', q?.status);
+            } catch (e) { console.log(it.id, 'failed', e.message); } finally { await rm(dir, { recursive: true, force: true }); }
+          }
+          JS
+          cp /tmp/tb.mjs ./tb.mjs && node tb.mjs
+          sleep 900
+          curl -sS "https://api.football-legend.com/v2/fben/thumbq?key=$REELS_KEY" | jq -c '{done,queued}'
