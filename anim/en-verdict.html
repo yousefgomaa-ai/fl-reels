@@ -49,7 +49,9 @@
 <div class="credit" id="cl"></div><div class="credit" id="cr"></div>
 <script src="lib.js"></script><script src="en-lib.js"></script><script>
 const D = window.DATA, A = D.a || {}, Bp = D.b || {}, R = D.rounds || [], n = R.length;
-$('il').src = A.photo || ''; $('ir').src = Bp.photo || ''; $('nl').textContent = A.name || ''; $('nr').textContent = Bp.name || '';
+$('il').src = A.photo || ''; $('ir').src = Bp.photo || '';
+// a ground from the air is centred (A.pos; the Manchester reel, 2026-11-10), a player's face kept at the top
+if (A.pos) $('il').style.objectPosition = A.pos; if (Bp.pos) $('ir').style.objectPosition = Bp.pos; $('nl').textContent = A.name || ''; $('nr').textContent = Bp.name || '';
 $('cl').textContent = A.credit ? '📷 ' + A.credit : ''; $('cr').textContent = Bp.credit ? '📷 ' + Bp.credit : '';
 $('hk').querySelector('.a').innerHTML = D.hook || 'THIS SETTLES IT.<br><span class="y">FOREVER.</span>';
 $('hk').querySelector('.b2').textContent = D.hookSub || `${n} ROUNDS • CLUB AND COUNTRY`;
@@ -71,10 +73,12 @@ window.TOTAL = B[B.length - 1][0] + B[B.length - 1][1];
 const score = (k) => R.slice(0, k).reduce((s, r) => [s[0] + (r.win === 'a' ? 1 : 0), s[1] + (r.win === 'b' ? 1 : 0)], [0, 0]);
 let cur = -1;
 const setRound = (i) => {
-  const r = R[i]; $('rk').textContent = i === n - 1 ? 'THE DECIDING ROUND 🔥' : `ROUND ${i + 1} OF ${n}`; $('ct').innerHTML = r.title; $('cs').textContent = r.sub || '';
+  const r = R[i]; $('rk').textContent = i === n - 1 ? (D.lastLabel || 'THE DECIDING ROUND 🔥') : `ROUND ${i + 1} OF ${n}`; $('ct').innerHTML = r.title; $('cs').textContent = r.sub || '';
   $('vl').querySelector('b').textContent = ''; $('vr').querySelector('b').textContent = ''; // (owner, 2026-11-10: «بلاش شغل علامة استفهام ... فين البروفشنال»: nothing hidden behind «?»)
   $('vl').querySelector('small').textContent = ''; $('vr').querySelector('small').textContent = '';
-  $('pt').textContent = r.win === 'a' ? `POINT ${A.name} ✅` : r.win === 'b' ? `POINT ${Bp.name} ✅` : 'NO POINT';
+  // the point's words (D.ptFmt, e.g. «MORE TROUBLE: {n} 😬» for the Manchester reel, 2026-11-10)
+  const ptl = (nm) => (D.ptFmt ? D.ptFmt.replace('{n}', nm) : `POINT ${nm} ✅`);
+  $('pt').textContent = r.win === 'a' ? ptl(A.name) : r.win === 'b' ? ptl(Bp.name) : 'NO POINT';
 };
 window.draw = (t) => {
   const bi = B.findIndex(([s, l]) => t >= s && t < s + l), k = bi < 0 ? B.length - 1 : bi, [s, l] = B[k], u = t - s;
