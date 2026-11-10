@@ -16,7 +16,7 @@ jobs:
         run: |
           key="$REELS_KEY"; echo "::add-mask::$key"
           B="https://api.football-legend.com/v2/fben/dry?key=$key&kinds=none"
-          for id in en-fpl-gw10 en-special-cr7-1; do curl -sS --max-time 60 "$B&state=$id" | jq -c '.result.state // .' | head -c 700; echo; done
+          for id in en-special-verdict-1 en-special-cr7-1; do curl -sS --max-time 60 "$B&state=$id" | jq -c '.result.state // .' | head -c 700; echo; done
       - run: |
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
           true
