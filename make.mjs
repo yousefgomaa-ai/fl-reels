@@ -323,6 +323,38 @@ async function makeAnim(job, dir) {
     return out;
   } finally { await b.close(); await rm(html, { force: true }); }
 }
+// The reel's cover (owner, 2026-11-10: «كل ريل يتعمل يتعمله صورة مصغرة احترافية»): anim/cover.html over the reel's own
+// first frame, its first two crests or photos, the headline from its title (English) or first caption line (Arabic),
+// cut at the first colon into a big line and a yellow one. A JPEG sent with &cover=1.
+async function makeCover(job, video, dir) {
+  const { chromium } = await import('playwright');
+  const fr = join(dir, 'cover-bg.jpg');
+  await run(FF, ['-y', '-ss', '0.05', '-i', video, '-frames:v', '1', '-vf', 'scale=540:-1', fr]);
+  const bg = `data:image/jpeg;base64,${(await readFile(fr)).toString('base64')}`;
+  const en = String(job.id).startsWith('en-') || (job.only || []).includes('fben');
+  const clean = (x) => String(x || '').replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu, '').replace(/#\S+/g, '').replace(/\s+/g, ' ').trim();
+  const line = clean(en ? job.title || '' : '') || clean(String(job.captions?.facebook || job.captions?.instagram || '').split('\n').find((l) => clean(l)) || '');
+  const ci = line.search(/[:：|]/), title = (ci > 3 ? line.slice(0, ci) : line).slice(0, 80).trim(), sub = ci > 3 ? line.slice(ci + 1).trim().slice(0, 90) : '';
+  const imgs = [], seen = new Set();
+  const walk = (o) => { if (!o || typeof o !== 'object' || imgs.length >= 2) return; for (const [k, v] of Object.entries(o)) { if (imgs.length >= 2) return;
+    if (typeof v === 'string' && /^https?:/.test(v) && /^(logo|homeLogo|awayLogo|hl|al|photo)$/.test(k) && !seen.has(v)) { seen.add(v); imgs.push({ src: v, photo: k === 'photo' }); } else if (typeof v === 'object') walk(v); } };
+  walk(job.anim);
+  for (const x of imgs) { try { const r = await fetch(x.src, { headers: { 'User-Agent': 'FootballLegendsReels/1.0 (https://football-legend.com)' }, signal: AbortSignal.timeout(20000) }); const b = Buffer.from(await r.arrayBuffer()); x.src = r.ok && b.length > 200 ? `data:${r.headers.get('content-type') || 'image/png'};base64,${b.toString('base64')}` : ''; } catch { x.src = ''; } }
+  const data = { lang: en ? 'en' : 'ar', bg, title, sub, imgs: imgs.filter((x) => x.src), theme: job.anim?.theme || '' };
+  const page0 = await readFile(new URL('./anim/cover.html', import.meta.url), 'utf8');
+  const html = new URL(`./anim/_cover_${job.id.replace(/[^\w-]/g, '_')}.html`, import.meta.url);
+  await writeFile(html, page0.replace('</head>', `<script>window.DATA=${JSON.stringify(data).replace(/</g, '\\u003c')};</script></head>`));
+  const b = await launchBrowser(chromium);
+  try {
+    const p = await b.newPage({ viewport: { width: W, height: H } });
+    await p.goto(html.href);
+    await p.waitForFunction(() => window.READY === true, null, { timeout: 15000 }).catch(() => {});
+    await p.evaluate(() => Promise.all([...document.images].map((i) => (i.complete ? 0 : new Promise((r) => { i.onload = i.onerror = r; })))));
+    const out = join(dir, 'cover.jpg');
+    await p.screenshot({ path: out, type: 'jpeg', quality: 88 });
+    return out;
+  } finally { await b.close(); await rm(html, { force: true }); }
+}
 async function makeReel(job, dir) {
   // Any kind with its page in anim/ is drawn by it (2026-11-04: «en-rate» had its page but was missing from a hand-kept
   // list, so it went to the still cards with none and ffmpeg failed three times).
@@ -424,6 +456,14 @@ async function main() {
       console.log(`${job.id}: uploaded ${(await stat(out)).size} bytes -> ${up.status}`);
       // a refused upload counts as a failed try (2026-11-10: a 40 MB reel was refused and made again every run, its voice each time)
       if (!up.ok) throw new Error(`upload refused: ${up.status} ${(await up.text().catch(() => '')).slice(0, 120)}`);
+      // its cover, after the video (a cover that fails leaves the reel as it is)
+      if (!job.image) {
+        try {
+          const cv = await makeCover(job, out, dir);
+          const cu = await fetch(`${API}/v2/reels/upload?id=${encodeURIComponent(job.id)}&key=${encodeURIComponent(KEY)}&cover=1`, { method: 'POST', headers: { 'Content-Type': 'image/jpeg' }, body: await readFile(cv), signal: AbortSignal.timeout(60000) });
+          console.log(`${job.id}: cover -> ${cu.status}`);
+        } catch (e) { console.log(`${job.id}: cover skipped (${e.message})`); }
+      }
     } catch (e) {
       console.log(`${job.id}: failed: ${e.message}`);
       await fetch(`${API}/v2/reels/upload?id=${encodeURIComponent(job.id)}&key=${encodeURIComponent(KEY)}&failed=1`, { method: 'POST', body: String(e.message).slice(0, 300) }).catch(() => {});
