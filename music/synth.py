@@ -39,6 +39,9 @@ def pluck(m, n):  # marimba/steel-ish hook
     t = np.arange(n) / SR; f = midi(m)
     x = np.sin(2 * np.pi * f * t) + 0.5 * np.sin(2 * np.pi * 4 * f * t) * np.exp(-t * 40) + 0.25 * np.sin(2 * np.pi * 2 * f * t) * np.exp(-t * 12)
     return x * env(n, 0.001, 0.18)
+def bell(m, n):  # a soft FM bell for the lead (2026-11-10: more than one sound across the tracks)
+    t = np.arange(n) / SR; f = midi(m)
+    return np.sin(2 * np.pi * f * t + 1.8 * np.exp(-t * 5) * np.sin(2 * np.pi * 3.5 * f * t)) * env(n, 0.002, 0.45)
 def sub(m, n):
     t = np.arange(n) / SR
     return np.tanh(1.3 * np.sin(2 * np.pi * midi(m) * t)) * env(n, 0.004, 0.5, 0.6, 0.03)
@@ -50,7 +53,9 @@ def reverb(x, wet=0.25):
         out = lfilter(np.r_[-0.5, np.zeros(d - 1), 1], np.r_[1, np.zeros(d - 1), -0.5], out)
     return x + wet * lp(out, 0.4) / 4
 
-def track(bpm, chords, bass, hook, seed, swing=0.08, bars=24):
+# groove: 'house' (four on the floor), 'half' (a half-time hip-hop beat: kick on 1 and 3-and, snare on 3), 'drive'
+# (four on the floor with a pumping 8th-note bass); lead: the hook's sound (pluck, bell or keys).
+def track(bpm, chords, bass, hook, seed, swing=0.08, bars=24, groove='house', lead='pluck'):
     global rng; rng = np.random.default_rng(seed)
     beat = 60 / bpm; bar = 4 * beat; N = int(bars * bar * SR) + 3 * SR
     drums = np.zeros(N); music = np.zeros((N, 2)); duck = np.ones(N)
@@ -66,14 +71,16 @@ def track(bpm, chords, bass, hook, seed, swing=0.08, bars=24):
         # drums: four on the floor from bar 1 (soft in the break), clap on 2 and 4, swung 16th hats, offbeat open hat
         for q in range(4):
             tq = t0 + q * beat
-            if not intro and not brk:
-                put(drums, kick(at(0.35)), tq, 0.95)
-                k = at(tq); L = at(0.22); duck[k:k + L] = np.minimum(duck[k:k + L], 0.45 + 0.55 * np.linspace(0, 1, L) ** 0.6)
-            if q in (1, 3) and not intro: put(drums, clap(at(0.35)), tq, 0.5 if brk else 0.62)
+            kq = [0, 2.5] if groove == 'half' else [0]
+            if not intro and not brk and (groove != 'half' or q in (0, 2)):
+                for kk in kq if groove == 'half' and q == 0 else [0]:
+                    put(drums, kick(at(0.35)), tq + kk * beat, 0.95)
+                    k = at(tq + kk * beat); L = at(0.22); duck[k:k + L] = np.minimum(duck[k:k + L], 0.45 + 0.55 * np.linspace(0, 1, L) ** 0.6)
+            if (q == 2 if groove == 'half' else q in (1, 3)) and not intro: put(drums, clap(at(0.35)), tq, 0.5 if brk else 0.7)
             for s in range(4):
                 sw = swing * beat if s % 2 else 0
                 if drop or s == 2: put(drums, hat(at(0.06)), tq + s * beat / 4 + sw, 0.75 if s == 2 else 0.4)
-            if drop: put(drums, shaker(at(0.08)), tq + beat / 2, 0.8)
+            if drop and groove != 'half': put(drums, shaker(at(0.08)), tq + beat / 2, 0.8)
         # keys: chord stabs on a syncopated rhythm (1, 1&-a, 2&, 3&, 4)
         stabs = [0, 0.75, 1.5, 2.5, 3.5] if not intro else [0]
         for s in stabs:
@@ -84,14 +91,16 @@ def track(bpm, chords, bass, hook, seed, swing=0.08, bars=24):
         # sub bass, tropical rhythm
         if not intro:
             root = bass[b % len(bass)]
-            for s, d in ((0, 0.7), (0.75, 0.5), (1.5, 0.45), (2.5, 0.7), (3.25, 0.5)) if drop else ((0, 1.8), (2, 1.8)):
+            pat = tuple((k / 2, 0.42) for k in range(8)) if groove == 'drive' else ((0, 1.4), (2.5, 1.2)) if groove == 'half' else ((0, 0.7), (0.75, 0.5), (1.5, 0.45), (2.5, 0.7), (3.25, 0.5))
+            for s, d in pat if drop else ((0, 1.8), (2, 1.8)):
                 put(music, sub(root, at(d * beat)), t0 + s * beat, 0.5)
         # hook: the pluck melody over the drops (one bar of 8ths, per chord)
         if drop and b >= 2:
             line = hook[b % len(hook)]
             for s, m in enumerate(line):
                 if m is None: continue
-                put(music, pluck(m, at(beat * 0.6)), t0 + s * beat / 2 + (swing * beat / 2 if s % 2 else 0), 0.2, 0.3 if s % 2 else -0.3)
+                snd = bell if lead == 'bell' else (lambda m, n: keys(m, n) * 0.8) if lead == 'keys' else pluck
+                put(music, snd(m, at(beat * 0.6)), t0 + s * beat / 2 + (swing * beat / 2 if s % 2 else 0), 0.2, 0.3 if s % 2 else -0.3)
         if b == 15:  # rising noise into the second drop
             L = at(bar); x = hp(rng.standard_normal(L), 0.3) * np.linspace(0, 1, L) ** 2.5
             put(drums, x, t0, 0.25)
@@ -111,16 +120,42 @@ def save(name, mix):
         w.writeframes((mix * 32767).astype('<i2').tobytes())
 
 d = sys.argv[1]
+only = sys.argv[2:]  # names to make (e.g. fl-night): only those
+mk = lambda *a, **k: (lambda: track(*a, **k))  # made only when asked for
+def save(name, make, _save=save):
+    if not only or any(name.endswith('/' + o + '.wav') for o in only): _save(name, make())
 _ = None
 # 1 "Golden hour", C major, 112 BPM: F - G - Em - Am (IV V iii vi), uplifting.
-save(f'{d}/fl-golden.wav', track(112,
+save(f'{d}/fl-golden.wav', mk(112,
   [[65, 69, 72, 76], [67, 71, 74, 77], [64, 67, 71, 74], [69, 72, 76, 79]], [41, 43, 40, 45],
   [[84, _, 81, 79, 81, _, 76, _], [79, _, 81, 83, 86, _, 83, _], [83, _, 79, 76, 79, _, 74, 76], [76, _, 79, 81, 84, 81, 79, _]], seed=11))
 # 2 "Warm-up", D major, 116 BPM: Bm - G - D - A (vi IV I V).
-save(f'{d}/fl-warmup.wav', track(116,
+save(f'{d}/fl-warmup.wav', mk(116,
   [[59, 62, 66, 69], [55, 59, 62, 66], [62, 66, 69, 73], [57, 61, 64, 69]], [35, 31, 38, 33],
   [[78, _, 74, 78, 81, _, 78, 74], [79, _, 78, 74, 71, _, 74, _], [74, 78, 81, _, 85, _, 81, 78], [76, _, 73, 76, 81, _, _, 76]], seed=12, swing=0.1))
 # 3 "Easy win", Eb major, 104 BPM, smoother: Ebmaj7 - Dm7 - Cm7 - Bb6.
-save(f'{d}/fl-easywin.wav', track(104,
+save(f'{d}/fl-easywin.wav', mk(104,
   [[63, 67, 70, 74], [62, 65, 69, 72], [60, 63, 67, 70], [58, 62, 65, 67]], [39, 38, 36, 34],
   [[82, _, 79, _, 75, 77, 79, _], [81, _, 77, 74, _, 72, 74, _], [79, _, 75, 72, 75, _, 79, 82], [77, _, 74, _, 70, 72, 74, _]], seed=13, swing=0.12))
+# More tracks (owner, 2026-11-10: «موسيقه الفيديو مختلفة»): three were heard again and again. Each has its own key,
+# tempo, groove and lead, and the server hands them out in turn.
+# 4 "Night match", A minor, 92 BPM half-time: Am - F - C - G, bell lead.
+save(f'{d}/fl-night.wav', mk(92,
+  [[57, 60, 64, 67], [53, 57, 60, 64], [60, 64, 67, 71], [55, 59, 62, 65]], [33, 29, 36, 31],
+  [[76, _, 72, _, 69, 72, 76, _], [77, _, 76, 72, _, 69, 72, _], [79, _, 76, 72, 76, _, 79, 81], [79, _, 74, _, 71, 74, 79, _]], seed=21, swing=0.14, groove='half', lead='bell'))
+# 5 "Kick-off", E major, 124 BPM drive: E - B - C#m - A, pluck lead.
+save(f'{d}/fl-kickoff.wav', mk(124,
+  [[64, 68, 71, 75], [59, 63, 66, 71], [61, 64, 68, 71], [57, 61, 64, 69]], [40, 35, 37, 33],
+  [[83, _, 80, 83, 87, _, 83, _], [83, _, 82, 78, 75, _, 78, _], [80, 83, 85, _, 88, _, 85, 83], [81, _, 76, 81, 85, _, _, 81]], seed=22, swing=0.04, groove='drive'))
+# 6 "Derby day", G minor, 98 BPM half-time: Gm - Eb - Bb - F, keys lead.
+save(f'{d}/fl-derby.wav', mk(98,
+  [[55, 58, 62, 65], [51, 55, 58, 62], [58, 62, 65, 69], [53, 57, 60, 65]], [31, 39, 34, 29],
+  [[74, _, 70, 74, 77, _, 74, _], [75, _, 74, 70, 67, _, 70, _], [77, _, 74, 70, 74, _, 77, 79], [77, _, 72, _, 69, 72, 77, _]], seed=23, swing=0.1, groove='half', lead='keys'))
+# 7 "Matchday", F major, 120 BPM house: Dm - Bb - F - C, bell lead.
+save(f'{d}/fl-matchday.wav', mk(120,
+  [[62, 65, 69, 72], [58, 62, 65, 69], [65, 69, 72, 76], [60, 64, 67, 72]], [38, 34, 41, 36],
+  [[81, _, 77, 81, 84, _, 81, 77], [82, _, 81, 77, 74, _, 77, _], [77, 81, 84, _, 88, _, 84, 81], [79, _, 76, 79, 84, _, _, 79]], seed=24, swing=0.06, lead='bell'))
+# 8 "Comeback", B minor, 128 BPM drive: Bm - G - A - F#m, keys lead.
+save(f'{d}/fl-comeback.wav', mk(128,
+  [[59, 62, 66, 69], [55, 59, 62, 67], [57, 61, 64, 69], [54, 57, 61, 66]], [35, 31, 33, 30],
+  [[78, _, 74, 78, 81, _, 78, _], [79, _, 78, 74, 71, _, 74, _], [76, 81, 85, _, 81, _, 76, 73], [73, _, 78, 81, 78, _, _, 73]], seed=25, swing=0.03, groove='drive', lead='keys'))

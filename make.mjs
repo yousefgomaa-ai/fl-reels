@@ -42,6 +42,14 @@ async function music() {
     return files.length ? join(MUSIC_DIR.pathname, files[Math.floor(Math.random() * files.length)]) : null;
   } catch { return null; }
 }
+// The reel's track (owner, 2026-11-10: «موسيقه الفيديو مختلفة»): the one the server handed it (job.music: its own from
+// themes/, or the next of music/ in turn), else a random one of music/.
+async function trackFor(job) {
+  if (/^[\w.-]+\.mp3$/.test(job.music || '')) {
+    for (const d of [THEMES_DIR, MUSIC_DIR]) { const f = join(d.pathname, job.music); if (await stat(f).then(() => true, () => false)) return f; }
+  }
+  return music();
+}
 const BAND = (H - CARD_H) / 2;
 // The still 1080x1920 background of one card: its own top and bottom edges stretched to fill the frame above and
 // below it, so the video reads as one tall card. A blurred copy of the card there looked like a letterbox: Meta flags
@@ -278,8 +286,8 @@ async function makeAnim(job, dir) {
     // 7.5 kHz) before it is laid over the music.
     // A reel's own track (job.music from themes/, e.g. the farewell piano; owner 2026-11-05: «موسيقى غير المعتادة») and
     // its level under the voice (job.musicVol), else a random one of music/ at 0.2.
-    const own = /^[\w.-]+\.mp3$/.test(job.music || '') ? join(THEMES_DIR.pathname, job.music) : null;
-    const track = own && await stat(own).then(() => true, () => false) ? own : await music(), mv = Number(job.musicVol) > 0 ? Number(job.musicVol) : 0.2;
+    job.voiced = !!said; // told to the server: a reel without its voice carries no AI label (owner, 2026-11-10)
+    const track = await trackFor(job), mv = Number(job.musicVol) > 0 ? Number(job.musicVol) : 0.2;
     console.log(`${job.id}: music ${track.split('/').pop()}${said ? `, voice${job.duck ? ' ducked' : ''}${job.voiceClean ? ' cleaned' : ''}` : ', no voice'}`);
     const mix = said
       ? `[1:a]volume=${mv},afade=t=in:d=0.5,afade=t=out:st=${total - 1.5}:d=1.5[m];[2:a]aresample=44100,${job.voiceClean ? 'afftdn=nf=-28,lowpass=f=7500,' : ''}adelay=${story ? 0 : 300}:all=1,apad[v];${job.duck ? '[v]asplit=2[v1][v2];[m][v1]sidechaincompress=threshold=0.02:ratio=8:attack=40:release=700[md];[md][v2]' : '[m][v]'}amix=inputs=2:duration=first:normalize=0[a]`
@@ -324,8 +332,7 @@ async function makeReel(job, dir) {
   }
   if (job.mode === 'fade') {
     const out = join(dir, 'reel.mp4');
-    const theme = /^[\w.-]+\.mp3$/.test(job.music || '') ? join(THEMES_DIR.pathname, job.music) : null;
-    await run(FF, fadeArgs(files, job.seconds, out, theme && await stat(theme).then(() => true, () => false) ? theme : await music()));
+    await run(FF, fadeArgs(files, job.seconds, out, await trackFor(job)));
     if ((await stat(out)).size < 100000) throw new Error('video too small');
     return out;
   }
@@ -350,7 +357,8 @@ async function makeReel(job, dir) {
   const out = join(dir, 'reel.mp4'), secs = [...job.seconds];
   const narr = await narration(job, dir, secs).catch((e) => { console.log(`${job.id}: narration skipped (${e.message})`); return null; });
   if (!narr) secs.splice(0, secs.length, ...job.seconds);
-  await run(FF, reelArgs(files, secs, out, await music(), hook, bgs, !!job.endCard, narr));
+  if (Array.isArray(job.voice) && job.voice.some(Boolean)) job.voiced = !!narr;
+  await run(FF, reelArgs(files, secs, out, await trackFor(job), hook, bgs, !!job.endCard, narr));
   const size = (await stat(out)).size;
   if (size < 100000) throw new Error(`video too small (${size} bytes)`);
   return out;
@@ -387,7 +395,7 @@ async function main() {
     const dir = await mkdtemp(join(tmpdir(), 'reel-'));
     try {
       const out = job.image ? await makeImage(job, dir) : await makeReel(job, dir);
-      const up = await fetch(`${API}/v2/reels/upload?id=${encodeURIComponent(job.id)}&key=${encodeURIComponent(KEY)}`, {
+      const up = await fetch(`${API}/v2/reels/upload?id=${encodeURIComponent(job.id)}&key=${encodeURIComponent(KEY)}${typeof job.voiced === 'boolean' ? `&voiced=${job.voiced ? 1 : 0}` : ''}`, {
         method: 'POST', headers: { 'Content-Type': job.image ? 'image/jpeg' : 'video/mp4' }, body: await readFile(out), signal: AbortSignal.timeout(120000) });
       console.log(`${job.id}: uploaded ${(await stat(out)).size} bytes -> ${up.status}`);
     } catch (e) {
