@@ -12,9 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          mkdir -p look; E=https://site.api.espn.com/apis
-          curl -sS --max-time 60 "$E/site/v2/sports/soccer/uefa.nations/scoreboard?dates=20261101-20261130&limit=300" > look/nl.json
-          curl -sS --max-time 60 "$E/v2/sports/soccer/uefa.nations/standings" > look/nlt.json
+          rm -rf look; mkdir -p look; E=https://site.api.espn.com/apis
+          for d in 12 13 14 15 16 17 18 19 20; do curl -sS --compressed --max-time 60 "$E/site/v2/sports/soccer/uefa.nations/scoreboard?dates=202611$d&limit=100" > look/d$d.json; done
           ls -la look
           git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          git add look && git commit -qm "nl to look at" && git push -q origin HEAD:claude/nl-probe || true
+          git add -A look && git commit -qm "nl to look at" && git push -q origin HEAD:claude/nl-probe || true
