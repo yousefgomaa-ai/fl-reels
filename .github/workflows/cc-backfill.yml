@@ -7,7 +7,7 @@ on:
 jobs:
   cc:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 150
     steps:
       - run: sudo apt-get -qq install -y ffmpeg >/dev/null; pip -q install faster-whisper requests
       - env:
@@ -26,7 +26,7 @@ jobs:
           redo = int(time.time() * 1000)  # every caption sent before now is sent again with the reel's own words
           seen = set()
           for batch in range(12):
-              r = requests.get(f'{A}/ccq', params={'key': K, 'n': 10, 'redo': redo}, timeout=120).json()
+              r = requests.get(f'{A}/ccq', params={'key': K, 'n': 10}, timeout=120).json()
               items = [x for x in r.get('items', []) if x['vid'] not in seen]
               print('batch', batch, 'done before', r.get('done'), 'queued', r.get('queued'), 'items', len(items), flush=True)
               if not items: break
@@ -41,4 +41,8 @@ jobs:
                   srt = '\n'.join(f'{i+1}\n{ts(s.start)} --> {ts(s.end)}\n{s.text.strip()}\n' for i, s in enumerate(segs))
                   q = requests.post(f'{A}/cc', params={'key': K, 'id': it['id'], 'vid': it['vid']}, data=srt.encode(), timeout=60)
                   print(it['id'], q.status_code, q.text[:80], flush=True)
+          time.sleep(900)  # the server sends the files on its own ticks
+          r = requests.get(f'{A}/ccq', params={'key': K, 'n': 1}, timeout=120).json()
+          print('after: done', r.get('done'), 'queued', r.get('queued'), [ (x['id'], x['tries'], x['err'][:60]) for x in r.get('queue', []) ][:12])
+          print('last done', r.get('doneList'))
           PY
