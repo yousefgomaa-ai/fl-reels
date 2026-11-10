@@ -1,0 +1,123 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends «PICK YOUR TICKET» (owner, 2026-11-10: every Nations League game of the month, «بتصميم مختلف تماما ... بشكل
+   تفاعلي», dates only): every game a numbered paper match ticket, a red ink stamp slammed for each day, League A games on
+   gold tickets, one golden ticket kept face down and turned over at the end, then «comment the number of your ticket». */
+body{background:#07091a}
+.bg2{position:absolute;inset:0;background:radial-gradient(900px 700px at 50% 15%,#1d2a6e 0%,#0b1033 55%,#05060f 100%)}
+.spot{position:absolute;top:-300px;width:900px;height:2600px;background:linear-gradient(rgba(255,240,200,.16),rgba(255,240,200,0) 70%);clip-path:polygon(45% 0,55% 0,100% 100%,0 100%);transform-origin:50% 0;mix-blend-mode:screen}
+#s1{left:-300px}#s2{right:-300px}
+#hd{position:absolute;top:60px;right:44px;text-align:right;font:700 30px O;letter-spacing:6px;color:#ffd21f;z-index:20}
+#hd b{display:block;font:400 54px/1 B;letter-spacing:3px;color:#fff}
+/* the day's stamp */
+#st{position:absolute;top:200px;left:50%;width:520px;height:230px;margin-left:-260px;border:12px double #e0283f;border-radius:30px;color:#e0283f;text-align:center;opacity:0;
+  background:rgba(224,40,63,.06);box-shadow:inset 0 0 40px rgba(224,40,63,.25)}
+#st b{display:block;font:400 76px/1 B;letter-spacing:12px;margin-top:22px}#st i{display:block;font:400 110px/1 B;letter-spacing:6px;font-style:normal}
+#cnt{position:absolute;top:450px;left:0;right:0;text-align:center;font:700 30px O;letter-spacing:6px;color:#c9d6ff;opacity:0}
+/* tickets */
+#tk{position:absolute;top:510px;left:40px;right:40px}
+.t{position:relative;height:112px;margin-bottom:14px;display:flex;align-items:center;border-radius:16px;background:#f3ecdc;color:#1a1530;opacity:0;
+  -webkit-mask:radial-gradient(circle 16px at 170px 0,#0000 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 16px at 170px 100%,#0000 98%,#000) bottom/100% 51% no-repeat;
+  box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.t .no{width:170px;text-align:center;font:400 74px/1 B;letter-spacing:2px;border-right:5px dashed rgba(26,21,48,.35);height:100%;display:flex;align-items:center;justify-content:center}
+.t .no small{font:700 20px O;letter-spacing:2px;margin-right:6px;opacity:.6}
+.t .mt{flex:1;display:flex;align-items:center;justify-content:center;gap:16px;font:400 54px/1 B;letter-spacing:1.5px;white-space:nowrap;overflow:hidden;padding:0 14px}
+.t .mt img{width:58px;height:58px;object-fit:cover;border-radius:50%;box-shadow:0 0 0 3px rgba(26,21,48,.25)}
+.t .mt span{opacity:.55;font-size:36px}
+.t .lg{position:absolute;right:16px;top:8px;font:700 18px O;letter-spacing:3px;opacity:.55}
+.t.g{background:linear-gradient(100deg,#b8860b,#ffd21f 30%,#fff2a8 50%,#ffd21f 70%,#b8860b);background-size:300% 100%}
+.t.h{background:#14183a;color:#ffd21f;border:4px solid #ffd21f}.t.h .no{border-color:rgba(255,210,31,.4)}
+.t.h .mt{font-size:58px;letter-spacing:4px}
+/* the hook */
+#hk{position:absolute;top:330px;left:0;right:0;text-align:center;opacity:0}
+#hk .n{font:400 520px/0.85 B;color:#ffd21f;text-shadow:0 0 80px rgba(255,210,31,.4)}
+#hk .a{font:400 110px/1 B;letter-spacing:4px}#hk .b{margin-top:24px;font:700 42px O;letter-spacing:6px;color:#c9d6ff}
+#hk .c{margin:44px auto 0;display:inline-block;background:#ffd21f;color:#07091a;font:400 64px B;letter-spacing:3px;padding:10px 36px;border-radius:16px}
+#fan{position:absolute;top:1420px;left:50%;width:0;height:0}
+#fan div{position:absolute;left:-260px;top:0;width:520px;height:150px;border-radius:16px;background:#f3ecdc;transform-origin:50% 600px;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+#fan div:nth-child(odd){background:linear-gradient(100deg,#b8860b,#ffd21f 50%,#b8860b)}
+/* the golden ticket */
+#rv{position:absolute;top:360px;left:50%;width:900px;height:1050px;margin-left:-450px;perspective:2400px;opacity:0}
+#gt{position:absolute;inset:0;transform-style:preserve-3d}
+#gt>div{position:absolute;inset:0;border-radius:40px;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 30px 90px rgba(255,210,31,.35)}
+#gb{background:repeating-linear-gradient(45deg,#14183a 0 40px,#1b2150 40px 80px);border:10px solid #ffd21f;color:#ffd21f;font:400 260px B}
+#gf{transform:rotateY(180deg);background:linear-gradient(115deg,#b8860b,#ffd21f 30%,#fff2a8 50%,#ffd21f 70%,#b8860b);background-size:300% 100%;color:#1a1530;border:10px solid #fff2a8}
+#gf .k{font:700 40px O;letter-spacing:10px}#gf .fl{display:flex;gap:60px;margin:40px 0}#gf .fl img{width:230px;height:230px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 8px #1a1530}
+#gf .m{font:400 150px/0.9 B;letter-spacing:3px;text-align:center}#gf .d{margin-top:26px;font:400 70px B;letter-spacing:4px;color:#8a1020}#gf .s{margin-top:16px;font:700 38px O;letter-spacing:3px}
+#gf .no2{position:absolute;top:30px;left:40px;font:400 80px B}
+.cf{position:absolute;width:18px;height:30px;border-radius:4px;opacity:0;z-index:30}
+/* the end */
+#en{position:absolute;top:420px;left:40px;right:40px;text-align:center;opacity:0}
+#en .a{font:400 150px/0.92 B;letter-spacing:3px;transform:skewX(-6deg)}#en .a i{font-style:normal;color:#ffd21f}
+#en .b{margin:60px auto 0;display:inline-block;background:#ffd21f;color:#07091a;font:400 84px B;letter-spacing:3px;padding:12px 40px;border-radius:18px}
+#en .c{margin-top:40px;font:700 40px O;letter-spacing:5px;color:#c9d6ff}
+#rain{position:absolute;inset:0;overflow:hidden;opacity:0}#rain span{position:absolute;font:400 90px B;color:rgba(255,210,31,.22)}
+</style></head><body><div class="bg2"></div><div class="spot" id="s1"></div><div class="spot" id="s2"></div><div id="rain"></div>
+<div class="logo">FB<i>LEGENDS</i></div><div id="hd">UEFA NATIONS LEAGUE<b>NOVEMBER</b></div>
+<div id="hk"><div class="n">0</div><div class="a">GAMES • 6 NIGHTS</div><div class="b">YOU ONLY GET ONE TICKET</div><div class="c">THE GOLDEN TICKET IS LAST 🎟️</div></div>
+<div id="fan"></div>
+<div id="st"><b></b><i></i></div><div id="cnt"></div><div id="tk"></div>
+<div id="rv"><div id="gt"><div id="gb">?</div><div id="gf"><div class="no2"></div><div class="k">THE GOLDEN TICKET</div><div class="fl"><img id="g1"><img id="g2"></div><div class="m"></div><div class="d"></div><div class="s"></div></div></div></div>
+<div id="en"><div class="a"></div><div class="b"></div><div class="c"></div></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA, DAYS = D.days || [], RV = D.reveal || {}, total = DAYS.reduce((n, d) => n + d.m.length, 0);
+$('fan').innerHTML = Array.from({ length: 7 }, () => '<div></div>').join('');
+$('g1').src = RV.hl || ''; $('g2').src = RV.al || '';
+$('gf').querySelector('.m').innerHTML = `${RV.h || ''}<br><span style="font-size:90px">v</span><br>${RV.a || ''}`; $('gf').querySelector('.d').textContent = RV.date || '';
+$('gf').querySelector('.s').textContent = RV.sub || ''; $('gf').querySelector('.no2').textContent = RV.n ? '#' + String(RV.n).padStart(2, '0') : '';
+$('en').querySelector('.a').innerHTML = D.endA || 'WHICH TICKET<br>ARE YOU <i>TAKING?</i>'; $('en').querySelector('.b').textContent = D.endB || 'COMMENT THE NUMBER 👇';
+$('en').querySelector('.c').textContent = D.endC || 'ONE GAME ONLY. CHOOSE WISELY.';
+$('rain').innerHTML = Array.from({ length: 26 }, (_, i) => `<span style="left:${(i * 41) % 1000}px">#${String(1 + (i * 7) % total).padStart(2, '0')}</span>`).join('');
+const conf = Array.from({ length: 40 }, (_, i) => { const c = document.createElement('div'); c.className = 'cf'; c.style.background = ['#ffd21f', '#fff', '#e0283f', '#46d7ff'][i % 4]; document.body.appendChild(c); return c; });
+// the beats: hook, each day, the golden ticket, the end
+const mins = D.minBeats || [5, ...DAYS.map((d) => 3 + d.m.length * .45), 6, 5.5];
+const B = D.beats || (() => { let t = 0; return mins.map((m) => { const b = [t, m]; t += m; return b; }); })();
+window.TOTAL = B[B.length - 1][0] + B[B.length - 1][1];
+const nd = DAYS.length;
+let cur = -1;
+const setDay = (k) => { const d = DAYS[k];
+  $('st').querySelector('b').textContent = d.dow; $('st').querySelector('i').textContent = d.date;
+  $('cnt').textContent = `${d.m.length} GAMES`;
+  $('tk').innerHTML = d.m.map((m) => m.hide
+    ? `<div class="t h"><div class="no"><small>NO.</small>${String(m.n).padStart(2, '0')}</div><div class="mt">🔒 HIDDEN UNTIL THE END</div></div>`
+    : `<div class="t${m.g ? ' g' : ''}"><div class="no"><small>NO.</small>${String(m.n).padStart(2, '0')}</div><div class="mt"><img src="${m.hl}">${m.h}<span>v</span>${m.a}<img src="${m.al}"></div><div class="lg">${m.g ? 'LEAGUE A' : ''}</div></div>`).join('');
+  // the tickets fill the page down to the bottom: taller and bigger letters on a day with fewer games
+  const sz = Math.min(150, Math.floor(1290 / d.m.length) - 14); $('tk').querySelectorAll('.t').forEach((t) => { t.style.height = sz + 'px'; const mt = t.querySelector('.mt'); mt.style.fontSize = Math.round(sz * .47) + 'px';
+    mt.querySelectorAll('img').forEach((im) => { im.style.width = im.style.height = Math.round(sz * .52) + 'px'; }); t.querySelector('.no').style.fontSize = Math.round(sz * .62) + 'px'; }); };
+window.draw = (t) => {
+  const bi = B.findIndex(([s0, l0]) => t >= s0 && t < s0 + l0), k = bi < 0 ? B.length - 1 : bi, [s0, l] = B[k], u = t - s0;
+  const isH = k === 0, isD = k >= 1 && k <= nd, isR = k === nd + 1, isE = k === nd + 2;
+  const fin = (x) => Math.min(ease(u / .3), x ? 1 : 1 - ease((u - l + .3) / .3));
+  // the spotlights sweep all along
+  $('s1').style.transform = `rotate(${-18 + 14 * Math.sin(t * .7)}deg)`; $('s2').style.transform = `rotate(${18 + 14 * Math.sin(t * .7 + 2)}deg)`;
+  $('hk').style.opacity = isH ? fin() : 0;
+  if (isH) { $('hk').querySelector('.n').textContent = Math.round(total * ease(u / 1.4)); $('hk').querySelector('.n').style.transform = `scale(${1.25 - .25 * ease(u / .6)})`;
+    $('hk').querySelector('.c').style.opacity = ease((u - 2) / .4); $('hk').querySelector('.c').style.transform = `scale(${1 + .04 * Math.sin(u * 6)})`; }
+  $('fan').style.opacity = isH ? fin() : 0;
+  if (isH) [...$('fan').children].forEach((c, i) => { c.style.transform = `rotate(${(i - 3) * 9 * ease((u - .5) / .8)}deg)`; });
+  for (const id of ['st', 'cnt', 'tk']) $(id).style.opacity = isD ? fin() : 0;
+  if (isD) {
+    if (cur !== k) { setDay(k - 1); cur = k; }
+    // the stamp slams down, the paper shakes
+    const sa = (u - .15) / .35; $('st').style.transform = `rotate(${-8 + 4 * ease(sa)}deg) scale(${sa < 1 ? 2.2 - 1.2 * ease(sa) : 1})`; $('st').style.opacity = cl(sa * 3) * fin();
+    const sh = u > .5 && u < .75 ? Math.sin(u * 90) * 8 : 0; $('tk').style.transform = `translateY(${sh}px)`;
+    $('cnt').style.opacity = ease((u - .6) / .3) * fin();
+    const ts = [...$('tk').querySelectorAll('.t')], per = Math.min(.42, (l - 2.2) / Math.max(1, ts.length));
+    ts.forEach((el, i) => { const a = (u - .8 - i * per) / .4; el.style.opacity = ease(a); el.style.transform = `translateX(${(1 - ease(a)) * (i % 2 ? 1100 : -1100)}px) rotate(${(1 - ease(a)) * (i % 2 ? 8 : -8)}deg)`;
+      if (el.classList.contains('g')) el.style.backgroundPosition = `${(u * 40 + i * 30) % 300}% 0`;
+      if (el.classList.contains('h')) el.style.boxShadow = `0 0 ${30 + 25 * Math.sin(u * 5)}px rgba(255,210,31,.6)`; });
+  }
+  $('rv').style.opacity = isR ? ease(u / .3) * (1 - ease((u - l + .3) / .3)) : 0;
+  if (isR) { const f = ease((u - 1.2) / 1.2); $('gt').style.transform = `rotateY(${180 * f}deg) scale(${.9 + .1 * ease(u / .6) + (f >= 1 ? .02 * Math.sin(u * 4) : 0)})`;
+    $('gf').style.backgroundPosition = `${(u * 50) % 300}% 0`;
+    conf.forEach((c, i) => { const a = u - 2.3 - (i % 10) * .05; c.style.opacity = a > 0 && a < 3 ? 1 : 0;
+      c.style.left = (540 + Math.cos(i * 2.4) * (120 + 520 * ease(a / 1.2))) + 'px'; c.style.top = (900 + Math.sin(i * 2.4) * 300 * ease(a / 1.2) + 500 * Math.max(0, a - .6) * Math.max(0, a - .6) / 3) + 'px';
+      c.style.transform = `rotate(${a * 400 + i * 40}deg)`; }); }
+  else conf.forEach((c) => { c.style.opacity = 0; });
+  $('en').style.opacity = isE ? ease(u / .35) : 0; $('rain').style.opacity = isE ? ease(u / .5) : 0;
+  if (isE) { $('en').querySelector('.b').style.transform = `scale(${1 + .05 * Math.sin(u * 5)})`;
+    [...$('rain').children].forEach((s, i) => { s.style.top = (((u * (120 + (i % 5) * 40) + i * 170) % 2100) - 150) + 'px'; }); }
+};
+window.POSTER = Math.min(2.4, B[0][1] - .2);
+progBar();
+draw(0);
+</script></body></html>
