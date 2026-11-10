@@ -1,0 +1,95 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends: one club's story in steps (owner, 2026-11-10: «MAN UNITED: HOW DID IT GET THIS BAD?» and «CAN CITY STILL WIN
+   THE LEAGUE?»): the ground from the air always drifting, then step by step a number counted up, the last results one by
+   one, the table around the club, the games to come, and a question with two answers to comment. One beat a spoken line
+   (DATA.beats from the voice, else DATA.minBeats). */
+#ph{position:absolute;left:0;right:0;top:0;height:800px;overflow:hidden}
+#ph img{position:absolute;inset:-40px;width:calc(100% + 80px);height:calc(100% + 80px);object-fit:cover}
+#ph:after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(var(--bx),.15) 40%,rgba(var(--bx),1))}
+#cr{position:absolute;top:620px;left:50%;width:170px;height:170px;margin-left:-85px;object-fit:contain;z-index:5;filter:drop-shadow(0 10px 30px rgba(0,0,0,.6))}
+#stp{position:absolute;top:58px;right:44px;z-index:20;font:400 50px B;letter-spacing:3px;background:rgba(var(--bx),.85);border:3px solid var(--kc);border-radius:14px;padding:4px 20px}
+.pane{position:absolute;left:44px;right:44px;top:850px;bottom:120px;opacity:0}
+.kk{text-align:center;font:700 36px O;letter-spacing:7px;color:var(--kc)}
+.hh{text-align:center;font:400 120px/0.95 B;letter-spacing:2px;transform:skewX(-6deg);margin-top:12px}
+.hh i{font-style:normal;color:#ffd21f}
+#hk .hh{font-size:170px;margin-top:60px}#hk .sub{margin-top:34px;text-align:center;font:700 40px O;letter-spacing:5px;color:#c9d6ff}
+.pill{display:inline-block;background:#ffd21f;color:var(--dk);font:400 62px B;letter-spacing:3px;padding:8px 34px;border-radius:16px}
+.pw{text-align:center;margin-top:44px}
+#fa .big{text-align:center;font:400 500px/0.9 B;color:#ffd21f;margin-top:10px;text-shadow:0 0 60px rgba(255,210,31,.45)}
+#fa .sub{text-align:center;font:700 50px/1.3 O;letter-spacing:2px;margin-top:10px}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:40px}
+.ch{width:310px;height:200px;border-radius:22px;background:rgba(var(--bx),.92);border:5px solid #888;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0}
+.ch b{font:400 96px/1 B;letter-spacing:2px}.ch small{font:700 28px O;letter-spacing:2px;color:var(--sm);margin-top:4px}
+.ch.W{border-color:#16a34a}.ch.W b{color:#4ade80}.ch.D{border-color:#a3a3a3}.ch.L{border-color:#e0283f}.ch.L b{color:#ff6b7d}
+#fo .tot{text-align:center;margin-top:50px;font:400 100px B;letter-spacing:3px;color:#ffd21f;opacity:0}
+.rows{margin-top:40px;display:flex;flex-direction:column;gap:16px}
+.rw{display:flex;align-items:center;gap:20px;height:108px;padding:0 30px;border-radius:18px;background:rgba(var(--bx),.9);border:3px solid rgba(var(--kl),.25);font:500 44px O;opacity:0}
+.rw .p{width:80px;font:400 66px B;color:var(--sm)}.rw .t{flex:1;font:400 68px B;letter-spacing:2px}.rw .x{font:700 32px O;color:var(--sm);width:140px;text-align:right}.rw .v{width:120px;text-align:right;font:400 78px B}
+.rw.me{background:#ffd21f;color:var(--dk);border-color:#ffd21f}.rw.me .p,.rw.me .x{color:var(--dk)}
+.ln{height:0;border-top:6px dashed #e0283f;position:relative;margin:4px 0;opacity:0}.ln span{position:absolute;right:0;top:6px;font:700 28px O;letter-spacing:3px;color:#ff6b7d}
+#nx .rw{height:130px}#nx .rw .p{width:0}#nx .rw .t{font-size:70px}#nx .rw .x{width:240px;font:400 60px B;color:#ffd21f}#nx .rw.me .x{color:var(--dk)}
+.tag{display:inline-block;margin-left:14px;background:#e0283f;color:#fff;font:400 34px B;letter-spacing:2px;padding:2px 14px;border-radius:10px;vertical-align:middle}
+#en .hh{font-size:150px;margin-top:40px}
+.opts{display:flex;justify-content:center;gap:40px;margin-top:90px}
+.opts div{min-width:360px;text-align:center;font:400 140px B;letter-spacing:4px;padding:14px 30px;border-radius:26px;border:6px solid #ffd21f;background:rgba(var(--bx),.92)}
+.opts div:last-child{border-color:var(--kc)}
+#en .c3{text-align:center;margin-top:50px;font:700 42px O;letter-spacing:4px;color:#c9d6ff}
+.credit{bottom:18px;left:24px}
+</style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div>
+<div id="ph"><img id="im"></div><img id="cr"><div id="stp"></div>
+<div class="pane" id="hk"><div class="hh"></div><div class="sub"></div><div class="pw"><span class="pill"></span></div></div>
+<div class="pane" id="fa"><div class="kk"></div><div class="big">0</div><div class="sub"></div></div>
+<div class="pane" id="fo"><div class="kk"></div><div class="hh"></div><div class="chips"></div><div class="tot"></div></div>
+<div class="pane" id="tb"><div class="kk"></div><div class="hh"></div><div class="rows"></div></div>
+<div class="pane" id="nx"><div class="kk"></div><div class="hh"></div><div class="rows"></div></div>
+<div class="pane" id="en"><div class="kk"></div><div class="hh"></div><div class="opts"><div></div><div></div></div><div class="c3"></div></div>
+<div class="credit" id="cd"></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA, S = D.steps || [];
+$('im').src = D.photo || ''; if (D.pos) $('im').style.objectPosition = D.pos;
+if (D.logo) $('cr').src = D.logo; else $('cr').remove();
+$('cd').textContent = D.credit ? '📷 ' + D.credit : '';
+const mins = D.minBeats || S.map((s) => ({ hook: 5, fact: 6, form: 9, table: 9, next: 8, end: 6 }[s.t] || 6));
+const B = D.beats || (() => { let t = 0; return mins.map((m) => { const b = [t, m]; t += m; return b; }); })();
+window.TOTAL = B[B.length - 1][0] + B[B.length - 1][1];
+const nSteps = S.filter((s) => s.t !== 'hook' && s.t !== 'end').length;
+const P = { hook: 'hk', fact: 'fa', form: 'fo', table: 'tb', next: 'nx', end: 'en' };
+const q = (id, sel) => $(id).querySelector(sel);
+let cur = -1;
+const set = (k) => {
+  const s = S[k], id = P[s.t];
+  if (s.t === 'hook') { q(id, '.hh').innerHTML = s.h; q(id, '.sub').textContent = s.sub || ''; q(id, '.pill').textContent = s.cta || ''; }
+  if (s.t === 'fact') { q(id, '.kk').textContent = s.k; q(id, '.sub').innerHTML = s.sub || ''; }
+  if (s.t === 'form') { q(id, '.kk').textContent = s.k; q(id, '.hh').innerHTML = s.h || '';
+    q(id, '.chips').innerHTML = s.games.map((g) => `<div class="ch ${g.r}"><b>${g.r} ${g.s}</b><small>${g.vs}</small></div>`).join(''); q(id, '.tot').innerHTML = s.tot || ''; }
+  if (s.t === 'table' || s.t === 'next') { q(id, '.kk').textContent = s.k; q(id, '.hh').innerHTML = s.h || '';
+    q(id, '.rows').innerHTML = s.rows.map((r) => (r.line ? `<div class="ln"><span>${r.line}</span></div>` : `<div class="rw${r.me ? ' me' : ''}"><div class="p">${r.p}</div><div class="t">${r.t}${r.tag ? `<span class="tag">${r.tag}</span>` : ''}</div><div class="x">${r.x || ''}</div><div class="v">${r.v ?? ''}</div></div>`)).join(''); }
+  if (s.t === 'end') { q(id, '.kk').textContent = s.k || 'YOU DECIDE'; q(id, '.hh').innerHTML = s.h; const o = $(id).querySelectorAll('.opts div'); o[0].textContent = s.a || 'YES'; o[1].textContent = s.b || 'NO'; q(id, '.c3').textContent = s.c || 'COMMENT BELOW 👇'; }
+};
+window.draw = (t) => {
+  const bi = B.findIndex(([s0, l0]) => t >= s0 && t < s0 + l0), k = bi < 0 ? B.length - 1 : bi, [s0, l] = B[k], u = t - s0, s = S[k];
+  if (cur !== k) { set(k); cur = k; }
+  // the ground never stands still: a slow push and pan all along
+  $('im').style.transform = `scale(${1.04 + .1 * (t / window.TOTAL)}) translateX(${-30 + 60 * Math.sin(t / 7)}px)`;
+  if ($('cr')) $('cr').style.transform = `scale(${1 + .04 * Math.sin(t * 2)})`;
+  for (const id of Object.values(P)) if (id !== P[s.t]) $(id).style.opacity = 0;
+  const pane = $(P[s.t]), fin = s.t === 'end' ? ease(u / .35) : Math.min(ease(u / .3), 1 - ease((u - l + .3) / .3));
+  pane.style.opacity = fin; pane.style.transform = `translateY(${(1 - ease(u / .4)) * 40}px)`;
+  const si = S.slice(0, k + 1).filter((x) => x.t !== 'hook' && x.t !== 'end').length;
+  $('stp').textContent = s.t === 'hook' || s.t === 'end' ? '' : `${si} / ${nSteps}`; $('stp').style.opacity = $('stp').textContent ? 1 : 0;
+  if (s.t === 'hook') q('hk', '.hh').style.transform = `skewX(-6deg) scale(${1.2 - .2 * ease(u / .5)})`;
+  if (s.t === 'fact') { const v = String(s.v), num = /^\d+$/.test(v), a = Math.min(1, Math.max(0, (u - .4) / 1.2));
+    q('fa', '.big').textContent = num ? Math.round(Number(v) * ease(a)) + (s.suf || '') : v;
+    q('fa', '.big').style.transform = `scale(${u < 1.6 ? .85 + .15 * back((u - .4) / .6) : 1 + .03 * Math.sin((u - 1.6) * 4)})`;
+    q('fa', '.sub').style.opacity = ease((u - 1.6) / .4); }
+  if (s.t === 'form') { const ch = [...pane.querySelectorAll('.ch')], per = Math.min(.7, (l - 3) / Math.max(1, ch.length));
+    ch.forEach((c, i) => { const a = (u - .8 - i * per) / .35; c.style.opacity = ease(a); c.style.transform = `scale(${a < 1 ? .7 + .3 * back(a) : 1})`; });
+    const ta = (u - .8 - ch.length * per - .2) / .4; q('fo', '.tot').style.opacity = ease(ta); q('fo', '.tot').style.transform = `scale(${1 + .04 * Math.sin(u * 5)})`; }
+  if (s.t === 'table' || s.t === 'next') { const rs = [...pane.querySelectorAll('.rw,.ln')], per = Math.min(.45, (l - 2.5) / Math.max(1, rs.length));
+    rs.forEach((r, i) => { const a = (u - .7 - i * per) / .35; r.style.opacity = ease(a); r.style.transform = `translateX(${(1 - ease(a)) * (i % 2 ? 90 : -90)}px)${r.classList.contains('me') && a > 1 ? ` scale(${1 + .025 * Math.sin(u * 5)})` : ''}`; }); }
+  if (s.t === 'end') { const o = pane.querySelectorAll('.opts div'); o.forEach((x, i) => { x.style.transform = `scale(${1 + .07 * Math.max(0, Math.sin(u * 3.2 + i * Math.PI))})`; }); }
+};
+window.POSTER = Math.min(2.2, B[0][1] - .2);
+progBar();
+draw(0);
+</script></body></html>
