@@ -10,7 +10,7 @@ jobs:
     steps:
       - run: |
           A=https://api.football-legend.com
-          for d in 20261111 20261113 20261115 20261117; do
+          sleep 240; for d in 20261111 20261113 20261115 20261117; do
             echo "== $d"
             curl -sS --max-time 60 "$A/matches?date=$d" | jq -c '[.. | objects | select(has("fixture") and has("teams")) | select(.leagueSlug=="caf.nations_qual") | {id, d:.fixture.date, h:.teams.home.name, a:.teams.away.name}] | (length), (map(select(.h|test("Egypt|Malawi"))))'
           done
