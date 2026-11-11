@@ -1,4 +1,4 @@
-# One-off (owner, 2026-11-11): queue the «LEAGUE A: WHO'S THROUGH?» special once the API is deployed.
+# One-off (owner, 2026-11-11; again with Austria's group): queue the «LEAGUE A: WHO'S THROUGH?» special once the API is deployed.
 # Lives on claude/nla-probe only; never merged.
 name: NLA probe
 on:
@@ -14,5 +14,6 @@ jobs:
         run: |
           echo "::add-mask::$REELS_KEY"
           A=https://api.football-legend.com
+          sleep 60
           R=$(curl -sS --max-time 120 -w ' HTTP=%{http_code} T=%{time_total}' "$A/v2/fben/dry?key=$REELS_KEY&special=nlgroups&kinds=none" 2>&1 || true)
           echo "$R" | head -c 1500; echo
