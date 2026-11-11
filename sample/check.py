@@ -38,9 +38,12 @@ espn = {}
 for lg in leagues:
     try:
         L, evs = [], []
-        for rng in ('20261101-20261115', '20261116-20261130', '20261201-20261210'):
-            try: evs += get(f'https://site.api.espn.com/apis/site/v2/sports/soccer/{lg}/scoreboard?dates={rng}&limit=400').get('events', [])
-            except Exception as e: print('ERR espn', lg, rng, e)
+        ids = set()
+        for dd in [f'202611{x:02d}' for x in range(9, 31)] + [f'202612{x:02d}' for x in range(1, 8)]:
+            try:
+                for e in get(f'https://site.api.espn.com/apis/site/v2/sports/soccer/{lg}/scoreboard?dates={dd}&limit=100').get('events', []):
+                    if e['id'] not in ids: ids.add(e['id']); evs.append(e)
+            except Exception as e: print('ERR espn', lg, dd, e)
         for e in evs:
             c = e['competitions'][0]['competitors']
             h = [x for x in c if x['homeAway'] == 'home'][0]['team']['displayName']; a = [x for x in c if x['homeAway'] == 'away'][0]['team']['displayName']
