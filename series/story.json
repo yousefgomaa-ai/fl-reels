@@ -1,0 +1,36 @@
+{
+  "title": "THE LAST TEXT",
+  "genre": "mystery thriller",
+  "voice": "en-US-AndrewNeural",
+  "style": "cinematic film still, moody dark thriller, dramatic low-key lighting, teal and amber color grade, 35mm photo, shallow depth of field, realistic, highly detailed",
+  "characters": {
+    "emma": "a 32-year-old woman with shoulder-length auburn hair, pale skin, green eyes, wearing a grey knit cardigan",
+    "mark": "a tall 42-year-old man with a short dark beard, short dark hair, sharp jaw, wearing a black wool coat"
+  },
+  "outline": [
+    "EP1 The Text: at 3:07 a.m. Emma gets a text from her husband Daniel, dead one year: 'Don't trust Mark.' The doorbell rings: it is Mark, holding a key she never gave him.",
+    "EP2 The Guest: Mark says he was 'worried'. He keeps asking about Daniel's laptop. A new text: 'Check the garage.' In the garage sits a car she has never seen, keys in the ignition.",
+    "EP3 The Car: the car belongs to Claire Hale, a woman missing for a year. The GPS shows one last trip: a cabin by Black Lake. Mark is standing in the garage doorway.",
+    "EP4 The Cabin: Emma drives to the lake. Inside: Daniel's jacket and a cup of coffee, still warm. Someone is living here.",
+    "EP5 The Woman: Claire is alive and hiding. Her first words: 'Daniel didn't die. He ran.'",
+    "EP6 The Lie: Daniel's life insurance, Mark's debts, a deal gone wrong. A text: 'They're coming. Run.'",
+    "EP7 The Woods: headlights at the cabin. A night chase through the forest. Emma falls into a freshly dug grave.",
+    "EP8 The Grave: the grave is empty and waiting. The texts, she learns, were sent from inside her own house.",
+    "EP9 The Attic: Daniel's old phone hidden in the attic, sending timed messages. Behind her, someone breathes.",
+    "EP10 The Truth: Daniel is alive, Mark is arrested. Then one last text arrives, from a number no one knows: 'It's not over.'"
+  ],
+  "episode": 1,
+  "episodeTitle": "The Text",
+  "scenes": [
+    {"say": "At three oh seven in the morning, Emma's phone lit up.", "img": "a dark bedroom at night, {emma} asleep in bed, a smartphone glowing bright on the nightstand lighting her face", "seed": 701},
+    {"say": "One new message. From Daniel.", "phone": {"from": "Daniel", "msgs": [["in", "..."]], "time": "3:07 AM"}, "img": "close-up of a glowing smartphone on a wooden nightstand in a dark bedroom", "seed": 702},
+    {"say": "Her husband. Who had been dead for exactly one year.", "img": "a rainy cemetery at dusk, {emma} in a black coat holding a black umbrella standing alone in front of a gravestone", "seed": 703},
+    {"say": "The message was only three words.", "phone": {"from": "Daniel", "msgs": [["in", "Don't trust Mark."]], "time": "3:07 AM"}, "img": "close-up of a glowing smartphone on a wooden nightstand in a dark bedroom", "seed": 702},
+    {"say": "Mark. Daniel's older brother. The man who carried his coffin. The man who called her every Sunday since the funeral.", "img": "{mark} at a funeral in the rain, carrying a coffin with other men, serious face, looking toward the camera", "seed": 705},
+    {"say": "Her hands shaking, Emma typed back. Who is this?", "phone": {"from": "Daniel", "msgs": [["in", "Don't trust Mark."], ["out", "Who is this?"]], "time": "3:08 AM"}, "img": "close-up of a glowing smartphone on a wooden nightstand in a dark bedroom", "seed": 702},
+    {"say": "Three dots appeared. Then they vanished.", "phone": {"from": "Daniel", "msgs": [["in", "Don't trust Mark."], ["out", "Who is this?"], ["in", "•••"]], "time": "3:08 AM"}, "img": "close-up of a glowing smartphone on a wooden nightstand in a dark bedroom", "seed": 702},
+    {"say": "And then, the doorbell rang.", "img": "a dark house hallway at night seen from the stairs, the front door at the end, a thin line of light under the door", "seed": 708},
+    {"say": "Through the peephole, she saw him. Mark. Smiling. Holding a key she had never given him.", "img": "fisheye peephole view of a front porch at night, {mark} standing under a porch light, smiling, holding up a single house key", "seed": 709},
+    {"say": "Who sent that message? Tell me in the comments. Part two drops in one hour.", "end": true, "img": "{emma} in a dark hallway at night, back pressed against the front door, terrified face lit by her phone screen", "seed": 710}
+  ]
+}
