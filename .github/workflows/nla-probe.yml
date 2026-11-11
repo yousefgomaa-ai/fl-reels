@@ -1,4 +1,4 @@
-# One-off check (owner, 2026-11-11): Nations League A tables, results and fixtures from ESPN for the analysis reel.
+# One-off (owner, 2026-11-11): queue the «LEAGUE A: WHO'S THROUGH?» special once the API is deployed.
 # Lives on claude/nla-probe only; never merged.
 name: NLA probe
 on:
@@ -7,7 +7,17 @@ on:
 jobs:
   p:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - run: python3 sample/nla.py
+      - env:
+          REELS_KEY: ${{ secrets.REELS_KEY }}
+        run: |
+          echo "::add-mask::$REELS_KEY"
+          A=https://api.football-legend.com
+          sleep 240
+          for i in 1 2 3 4 5 6; do
+            R=$(curl -sS --max-time 90 "$A/v2/fben/dry?key=$REELS_KEY&special=nlgroups&kinds=none" | jq -c '.special')
+            echo "try $i: $R"
+            echo "$R" | grep -q 'en-special-nlgroups-1' && break
+            sleep 60
+          done
