@@ -377,7 +377,9 @@ async function makeReel(job, dir) {
   // Any kind with its page in anim/ is drawn by it (2026-11-04: «en-rate» had its page but was missing from a hand-kept
   // list, so it went to the still cards with none and ffmpeg failed three times).
   const kind = String(job.anim?.kind || '');
-  if (/^[a-z][a-z-]*$/.test(kind) && await stat(new URL(`./anim/${kind}.html`, import.meta.url)).then(() => true, () => false)) {
+  // A kind may carry a digit (2026-11-11: «en-top5» did not pass a letters-only test, went to the still cards with none
+  // and ffmpeg failed three times).
+  if (/^[a-z][a-z0-9-]*$/.test(kind) && await stat(new URL(`./anim/${kind}.html`, import.meta.url)).then(() => true, () => false)) {
     try { return await makeAnim(job, dir); } catch (e) { console.log(`${job.id}: moving ${job.anim.kind} failed (${e.message}), the still cards instead`); }
   }
   // A video made elsewhere (the app ad, owner 2026-10-24): taken as it is, only checked to be an MP4.
