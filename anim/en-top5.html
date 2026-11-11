@@ -1,0 +1,54 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends «TOP 5 SCORERS» (owner, 2026-11-11: «الخمسة الهدافين ... صورة اللاعب و عدد الاهداف و شعار النادي ... و الاسيستات و
+   مساهمات التهديفية ... لكل دوري او بطوله تصميم مختلف»): a competition's five top scorers, a card each with his photo (his
+   club's crest when the page has no club-shirt photo of him), his club, goals, assists, goals + assists and games. Shown
+   from fifth to first, number one last and in gold. The competition's own colours and its name down the side tell the
+   leagues apart (body.t-*). */
+#lg{top:54px;right:44px;text-align:right;font:400 60px/1 B;letter-spacing:3px;max-width:640px}#lg small{display:block;font:700 26px O;letter-spacing:8px;color:var(--kc);margin-top:4px}
+#ti{top:168px;left:44px;font:400 132px/0.9 B;letter-spacing:3px;transform:skewX(-7deg);transform-origin:0 50%;text-shadow:0 8px 34px rgba(0,0,0,.6)}#ti span{color:var(--kc)}
+#side{position:absolute;right:-6px;top:330px;height:1370px;writing-mode:vertical-rl;font:400 150px/1 B;letter-spacing:10px;color:rgba(var(--kl),.09);white-space:nowrap;overflow:hidden;text-align:center;z-index:1}
+#cards{position:absolute;left:30px;right:30px;top:326px;z-index:2}
+.c5{position:relative;display:flex;align-items:center;height:262px;margin-bottom:12px;border-radius:26px;background:linear-gradient(100deg,rgba(var(--bx),.94),rgba(var(--bx),.74));border:2px solid rgba(var(--kl),.34);overflow:hidden;will-change:transform}
+.c5:before{content:'';position:absolute;left:0;top:0;bottom:0;width:10px;background:var(--kc)}
+.c5.one{border:4px solid #ffd21f;box-shadow:0 0 44px rgba(255,210,31,.45);background:linear-gradient(100deg,rgba(60,44,4,.96),rgba(var(--bx),.82))}.c5.one:before{background:#ffd21f}
+.rk{width:112px;text-align:center;font:400 128px/1 B;color:rgba(255,255,255,.9);padding-left:10px}.c5.one .rk{color:#ffd21f}
+.pb{position:relative;width:196px;height:238px;border-radius:18px;overflow:hidden;background:radial-gradient(circle at 50% 35%,rgba(var(--kl),.34),rgba(0,0,0,.5));flex:none}
+.pb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 12%}.pb img.cut{object-fit:contain;object-position:50% 100%}.pb img.cr{object-fit:contain;padding:34px}
+.pb small{position:absolute;left:0;right:0;bottom:0;padding:14px 6px 4px;font:500 12px/1.15 O;color:#fff;background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.82));text-align:center}
+.tx{flex:1;min-width:0;padding:0 8px 0 22px}.nm{font:400 66px/1 B;letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cl{display:flex;align-items:center;gap:10px;margin-top:6px;font:500 30px O;color:var(--sm);white-space:nowrap;overflow:hidden}.cl img{width:40px;height:40px;object-fit:contain}
+.st{display:flex;gap:10px;margin-top:14px}.st div{min-width:118px;padding:6px 10px 8px;border-radius:14px;background:rgba(0,0,0,.42);border:1px solid rgba(var(--kl),.3);text-align:center}
+.st b{display:block;font:400 54px/1 B;color:#fff}.st span{display:block;font:700 18px O;letter-spacing:3px;color:var(--kc)}.st .ga b{color:#ffd21f}
+.gl{width:178px;flex:none;text-align:center}.gl b{display:block;font:400 168px/0.9 B;color:var(--kc)}.c5.one .gl b{color:#ffd21f}.gl span{font:700 26px O;letter-spacing:6px}
+#cta{bottom:40px;font-size:64px}
+</style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div>
+<div class="abs" id="lg"></div><div class="abs" id="ti">TOP 5 <span>SCORERS</span></div><div id="side"></div>
+<div id="cards"></div><div class="cta" id="cta"></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA, P = (D.players || []).slice(0, 5);
+$('lg').innerHTML = `${D.league || ''}<small>${D.sub || 'THIS SEASON'}</small>`; $('side').textContent = `${D.league || ''} • ${D.league || ''}`;
+$('cards').innerHTML = P.map((p, i) => `<div class="c5 ${i === 0 ? 'one' : ''}"><div class="rk">${p.rank || i + 1}</div><div class="pb" id="pb${i}"></div>`
+  + `<div class="tx"><div class="nm">${p.short || p.name}</div><div class="cl">${p.logo ? `<img src="${p.logo}">` : ''}<span>${p.team || ''}</span></div>`
+  + `<div class="st"><div><b>${p.a}</b><span>ASSISTS</span></div><div class="ga"><b>${p.g + p.a}</b><span>G + A</span></div><div><b>${p.n}</b><span>GAMES</span></div></div></div>`
+  + `<div class="gl"><b id="g${i}">${p.g}</b><span>GOALS</span></div></div>`).join('');
+// his photo in the club's shirt, credited on it; none: the club's crest
+P.forEach((p, i) => { const el = $('pb' + i), crest = () => { if (p.logo) { const im = new Image(); im.className = 'cr'; im.src = p.logo; el.appendChild(im); } };
+  if (!p.slug && !p.photo) return crest();
+  starImg(el, p.slug, p.photo, 'cut').then((im) => { if (!im) return crest(); if (p.credit) { const s = document.createElement('small'); s.textContent = `Photo: ${p.credit} / Wikimedia Commons${im.className === 'cut' ? ', background removed' : ''}`; el.appendChild(s); } }); });
+$('cta').textContent = D.cta || 'WHO WINS THE GOLDEN BOOT? 👇';
+const cards = [...document.querySelectorAll('.c5')], n = cards.length;
+window.TOTAL = 10.5;
+// fifth first, number one last (5.1 s), each card sliding in from its own side with its goals counting up
+window.draw = (t) => {
+  cards.forEach((c, i) => { const t0 = .5 + (n - 1 - i) * 1.15, a = ease((t - t0) / .5), k = ease((t - t0 - .1) / .7), one = i === 0 ? back((t - t0) / .7) : 1;
+    c.style.opacity = a; c.style.transform = `translateX(${(1 - a) * (i % 2 ? -140 : 140)}px) scale(${i === 0 ? .9 + .1 * one : 1})`;
+    $('g' + i).textContent = Math.round(P[i].g * k); });
+  $('ti').style.transform = `skewX(-7deg) translateX(${(1 - ease(t / .45)) * -60}px)`;
+  $('side').style.transform = `translateY(${-30 * Math.min(1, t / window.TOTAL)}px)`;
+  const k = ease((t - 7.4) / .5); $('cta').style.opacity = k; $('cta').style.transform = `scale(${t > 7.4 ? 1.25 - .25 * back((t - 7.4) / .6) : 1})`;
+};
+// The cover: all five with the question
+window.POSTER = 8.6;
+progBar();
+draw(0);
+</script></body></html>
