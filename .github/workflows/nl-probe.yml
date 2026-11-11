@@ -14,4 +14,4 @@ jobs:
         run: |
           echo "::add-mask::$REELS_KEY"
           A=https://api.football-legend.com
-          sleep 1; for i in 1 2 3 4; do echo "== job state $i"; curl -sS "$A/v2/fben/dry?key=$REELS_KEY&state=en-nateve-uefanations-20261112&kinds=none" | jq -c ".state"; sleep 150; done
+          echo "== job state"; curl -sS "$A/v2/fben/dry?key=$REELS_KEY&state=en-nateve-uefanations-20261112&kinds=none" | jq -c "del(.jobs)"
