@@ -311,8 +311,12 @@ async function makeAnim(job, dir) {
       track = long;
     }
     console.log(`${job.id}: music ${job.music || track.split('/').pop()}${said ? `, voice${job.duck ? ' ducked' : ''}${job.voiceClean ? ' cleaned' : ''}` : ', no voice'}`);
+    // job.voiceClean, measured (owner, 2026-11-11: «الوش اللي في الصوت مراحش»): the voice's gaps were already near silent
+    // (-66 dB raw); the hiss was the tracks' white-noise hats and shakers, there all along (-37 dB above 6 kHz). So the music
+    // goes through a steep low-pass at 3.8 kHz (the tune stays, the «tss» goes) and the voice through a stronger filter and
+    // a gate (-90 dB between words).
     const mix = said
-      ? `[1:a]volume=${mv},afade=t=in:d=0.5,afade=t=out:st=${total - 1.5}:d=1.5[m];[2:a]aresample=44100,${job.voiceClean ? 'afftdn=nf=-28,lowpass=f=7500,' : ''}adelay=${story ? 0 : 300}:all=1,apad[v];${job.duck ? '[v]asplit=2[v1][v2];[m][v1]sidechaincompress=threshold=0.02:ratio=8:attack=40:release=700[md];[md][v2]' : '[m][v]'}amix=inputs=2:duration=first:normalize=0[a]`
+      ? `[1:a]${job.voiceClean ? 'lowpass=f=3800,lowpass=f=3800,' : ''}volume=${mv},afade=t=in:d=0.5,afade=t=out:st=${total - 1.5}:d=1.5[m];[2:a]aresample=44100,${job.voiceClean ? 'highpass=f=70,afftdn=nr=30:nf=-50:tn=1,lowpass=f=7500,agate=threshold=0.02:ratio=9:attack=5:release=180,' : ''}adelay=${story ? 0 : 300}:all=1,apad[v];${job.duck ? '[v]asplit=2[v1][v2];[m][v1]sidechaincompress=threshold=0.02:ratio=8:attack=40:release=700[md];[md][v2]' : '[m][v]'}amix=inputs=2:duration=first:normalize=0[a]`
       : `[1:a]volume=0.5,afade=t=in:d=0.5,afade=t=out:st=${total - 1.5}:d=1.5[a]`;
     await run(FF, ['-y', '-framerate', String(fps), '-i', join(frames, '%05d.jpg'), '-stream_loop', '-1', '-i', track, ...(said ? ['-i', said] : []),
       '-filter_complex', mix, '-map', '0:v', '-map', '[a]',
