@@ -21,6 +21,11 @@ function progBar() {
     window.TOTAL = T0 * S + 2.5;
     if (typeof window.POSTER === 'number') window.POSTER = window.POSTER * S;
     window.draw = (t) => d0(Math.min(T0, t / S));
+  } else {
+    // a story timed to its voice keeps its pace, and gets the same held last frame for the end card below
+    const d0 = window.draw;
+    window.TOTAL = T0 + 2.5;
+    window.draw = (t) => d0(Math.min(T0, t));
   }
   const b = document.createElement('div');
   b.style.cssText = 'position:absolute;top:0;left:0;height:10px;width:0;background:linear-gradient(90deg,var(--kc),#ffd21f);z-index:99;box-shadow:0 0 14px rgba(255,210,31,.7)';
@@ -39,11 +44,26 @@ function progBar() {
     te.style.cssText = "position:absolute;left:50%;" + ({ 'en-compare': 'top:560px;', 'en-guess': 'top:200px;', 'en-hilo': 'top:200px;' }[D0.kind] || 'bottom:150px;') + "transform:translateX(-50%);white-space:nowrap;padding:12px 34px;border-radius:40px;background:#ffd21f;color:#040a2e;font:400 54px B,Arial;letter-spacing:2px;z-index:98;box-shadow:0 10px 30px rgba(0,0,0,.45);opacity:0";
     document.body.appendChild(te);
   }
+  // The end card (owner, 2026-11-11: «حاجة فيها تابعنا و تفاعل معانا»): over the held last frame, the page's own question
+  // (or a call to comment) and a FOLLOW button, rising from the bottom where the question sits; z-index 98 so the cover leaves it out.
+  const ce = document.getElementById('cta'), ask = () => '💬 ' + ((ce && ce.textContent.trim()) || 'TELL US IN THE COMMENTS').replace(/\s*👇\s*$/, '') + ' 👇';
+  const oc = document.createElement('div');
+  oc.style.cssText = 'position:absolute;left:40px;right:40px;bottom:40px;padding:30px 30px 34px;border-radius:34px;background:rgba(var(--bx),.94);border:5px solid var(--kc);box-shadow:0 -10px 60px rgba(0,0,0,.6);text-align:center;z-index:98;opacity:0';
+  oc.innerHTML = '<div style="font:400 64px/1.05 B,Arial;letter-spacing:2px;color:#fff;margin-bottom:22px"></div>'
+    + '<div style="display:inline-block;padding:14px 50px;border-radius:60px;background:#ffd21f;color:#040a2e;font:400 70px/1 B,Arial;letter-spacing:3px">➕ FOLLOW FB LEGENDS</div>'
+    + '<div style="margin-top:16px;font:500 34px O,Arial;color:rgba(255,255,255,.85)">Daily results, numbers and quizzes ⚽</div>';
+  document.body.appendChild(oc);
+  const fq = oc.children[0], fb = oc.children[1]; // the question is read when the card shows: some pages write it late
   document.body.style.transformOrigin = '50% 40%';
   const d = window.draw;
   window.draw = (t) => {
     d(t); b.style.width = (100 * Math.min(1, t / window.TOTAL)) + '%';
     document.body.style.transform = `scale(${1 + .035 * Math.min(1, t / window.TOTAL)})`;
+    const e = Math.min(1, Math.max(0, (t - (window.TOTAL - 2.4)) / .35));
+    if (e > 0 && !fq.textContent) fq.textContent = ask();
+    oc.style.opacity = e; oc.style.transform = `translateY(${(1 - e) * 120}px)`;
+    if (ce) ce.style.visibility = e > .5 ? 'hidden' : '';
+    fb.style.transform = `scale(${1 + .05 * Math.max(0, Math.sin((t - window.TOTAL + 2.4) * 7)) * e})`;
     if (te) { const a = Math.min(1, Math.max(0, (t - .3) / .3)) * (1 - Math.min(1, Math.max(0, (t - 3.6) / .4))); te.style.opacity = a; te.style.transform = `translateX(-50%) scale(${.9 + .1 * a + .02 * Math.sin(t * 6)})`; }
   };
 }
