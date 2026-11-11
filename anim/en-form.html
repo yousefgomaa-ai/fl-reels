@@ -38,7 +38,7 @@ $('tb').innerHTML = R.map((r, i) => `<div class="r ${i < TOPN ? 'hot' : i >= R.l
   + `<span class="fm">${(r.form || []).slice(-5).map((x) => `<i class="${x}">${x}</i>`).join('')}</span><span class="p">${r.pts}</span></div>`).join('');
 const end = 384 + R.length * (H + G);
 $('heat').style.top = '384px'; $('heat').style.height = (end - 384 - G) + 'px';
-$('key').style.top = (end + 4) + 'px'; $('key').innerHTML = '<span>NEWEST GAME ON THE RIGHT</span><span><b>PTS</b> FROM 15</span>';
+$('key').style.top = (end + 4) + 'px'; $('key').innerHTML = `<span>NEWEST GAME ON THE RIGHT</span><span><b>PTS</b> FROM ${D.of || 15}</span>`;
 $('cta').textContent = D.cta || 'WHO IS THE FORM TEAM? 👇';
 const rows = [...document.querySelectorAll('.r')], marks = rows.map((r) => [...r.querySelectorAll('.fm i')]);
 window.TOTAL = 10;
