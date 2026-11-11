@@ -1,20 +1,18 @@
-# One-off look (2026-11-10): what the English page's planners would make on Wednesday 11 November. Lives on claude/nl-probe only; never merged.
+# One-off check (owner, 2026-11-11: «تاكد من الماتشات كلها لحد اخر الشهر»): our day lists against ESPN. Lives on claude/nl-probe only; never merged.
 name: NL probe
 on:
   push:
     branches: [claude/nl-probe]
+permissions:
+  contents: write
 jobs:
   p:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - env:
-          REELS_KEY: ${{ secrets.REELS_KEY }}
-        run: |
-          key="$REELS_KEY"; echo "::add-mask::$key"
-          sleep 300; for h in 17; do
-            echo "== $h:30 UTC"
-            curl -sS --max-time 240 "https://api.football-legend.com/v2/fben/dry?key=$key&at=2026-11-11T$h:30:00Z&kinds=compare,hilo" | jq -c '.result, (.jobs[]? | {kind, title, a: .anim.a.sub, b: .anim.b.sub, pa: (.anim.a.photo // .anim.a.slug), pb: (.anim.b.photo // .anim.b.slug)})'
-          done
-          echo "== queued now"
-          curl -sS --max-time 60 "https://api.football-legend.com/v2/reels/jobs?key=$key" | jq -r '.jobs[]? | "\(.id) | \(.status // "")"'
+      - uses: actions/checkout@v4
+      - run: |
+          rm -rf look; mkdir -p look
+          python3 sample/check.py | tee look/report.txt
+          git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
+          git add -A look && git commit -qm "fixtures check to look at" && git push -q origin HEAD:claude/nl-probe || true
