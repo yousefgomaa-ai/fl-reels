@@ -1,0 +1,201 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends: the Nations League's League A, group by group (owner, 2026-11-11: «ريل تحليلي ... عن المباريات اللي اتلعبت
+   والمباريات القادمة ... جدول بيوضح الحاجات دي كلها ... ايقونة تابعنا جوه الفيديو واضغط لايك بتصميم مختلف»): a hook of the
+   sixteen flags, then each group on one page (the table with its zones and form, every result so far, the games to come and
+   the one thing at stake), the biggest game last as a 1 / X / 2 question. A like-and-follow badge sits in the top corner
+   all along (a thumb pressed, a + turning into a tick) and grows into its own end card. One beat a spoken line (DATA.beats
+   from the voice, else DATA.minBeats). */
+.hdr{position:absolute;top:175px;left:44px;right:44px;opacity:0}
+.hdr .k{font:700 34px O;letter-spacing:7px;color:var(--kc)}
+.hdr .g{font:400 150px/0.9 B;letter-spacing:3px;transform:skewX(-6deg);transform-origin:0 100%}
+.hdr .g i{font-style:normal;color:#ffd21f}
+.hdr .n{position:absolute;right:0;bottom:12px;font:400 50px B;letter-spacing:3px;background:rgba(var(--bx),.85);border:3px solid var(--kc);border-radius:14px;padding:2px 20px}
+.tb{position:absolute;top:385px;left:36px;right:36px;opacity:0}
+.th,.tr{display:grid;grid-template-columns:62px 74px 1fr 50px 50px 50px 50px 92px 112px;align-items:center;column-gap:6px}
+.th{height:52px;padding:0 18px 0 12px;font:700 26px O;letter-spacing:2px;color:var(--sm)}.th div{text-align:center}.th div:nth-child(3){text-align:left}
+.tr{height:100px;margin-top:9px;padding:0 18px 0 12px;border-radius:18px;background:rgba(var(--bx),.92);border:3px solid rgba(var(--kl),.18);position:relative;overflow:hidden;opacity:0}
+.tr:before{content:'';position:absolute;left:0;top:0;bottom:0;width:12px;background:var(--z)}
+.tr.q{--z:#22c55e}.tr.p{--z:#f59e0b}.tr.r{--z:#ef4444}
+.tr .ps{font:400 58px B;text-align:center;color:var(--sm)}
+.tr img{width:60px;height:60px;object-fit:contain;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
+.tr .t{font:400 54px B;letter-spacing:2px;white-space:nowrap;overflow:hidden}
+.tr .s{font:500 38px O;text-align:center}
+.tr .pt{font:400 70px B;text-align:center;color:#ffd21f}
+.fm{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+.fm div{display:flex;gap:5px}.fm span{width:24px;height:24px;border-radius:6px;font:700 17px/24px O;text-align:center;color:#fff}
+.fm .W{background:#16a34a}.fm .D{background:#737373}.fm .L{background:#dc2626}
+.zn{display:flex;justify-content:center;gap:26px;margin-top:14px;font:700 24px O;letter-spacing:2px;color:#e5e7eb}
+.zn b{display:inline-block;width:20px;height:20px;border-radius:5px;vertical-align:-3px;margin-right:8px}
+.sec{position:absolute;left:36px;right:36px;opacity:0}
+.st{font:700 30px O;letter-spacing:6px;color:var(--kc);margin-bottom:10px;display:flex;align-items:center;gap:14px}
+.st:after{content:'';flex:1;height:3px;background:linear-gradient(90deg,rgba(var(--kl),.6),rgba(var(--kl),0))}
+#rs{top:935px}
+.rg{display:grid;grid-template-columns:1fr 1fr;gap:9px 14px}
+.rc{height:58px;border-radius:14px;background:rgba(0,0,0,.35);border:2px solid rgba(255,255,255,.12);display:grid;grid-template-columns:44px 1fr 120px 1fr 44px;align-items:center;column-gap:6px;padding:0 12px;opacity:0}
+.rc img{width:40px;height:40px;object-fit:contain}
+.rc .c{font:400 40px B;letter-spacing:1px}.rc .c:nth-child(4){text-align:right}
+.rc .sc{text-align:center;font:400 46px B;color:#fff;background:rgba(var(--kl),.16);border-radius:10px}
+.rc.big{border-color:#ffd21f}.rc.big .sc{background:#ffd21f;color:var(--dk)}
+#fx{top:1272px}
+.fr{height:64px;margin-top:11px;border-radius:14px;background:rgba(var(--bx),.92);border:3px solid rgba(var(--kl),.2);display:grid;grid-template-columns:190px 50px 1fr 50px 130px;align-items:center;column-gap:10px;padding:0 16px;opacity:0;position:relative}
+.fr .d{font:700 26px O;letter-spacing:1px;color:var(--sm);line-height:1.1}
+.fr img{width:42px;height:42px;object-fit:contain}
+.fr .m{font:400 42px B;letter-spacing:1px;text-align:center;white-space:nowrap}.fr .m s{text-decoration:none;color:var(--kc);margin:0 10px}
+.fr .h{font:400 40px B;text-align:right;color:#ffd21f}
+.fr.hot{border-color:#ffd21f;background:linear-gradient(90deg,rgba(255,210,31,.22),rgba(var(--bx),.92))}
+.fr .tg{position:absolute;top:-14px;right:150px;background:#e0283f;color:#fff;font:400 28px B;letter-spacing:2px;padding:1px 12px;border-radius:8px}
+.key{position:absolute;left:36px;right:36px;top:1640px;min-height:96px;border-radius:20px;background:#ffd21f;color:var(--dk);font:400 50px/1 B;letter-spacing:1.5px;display:flex;align-items:center;gap:18px;padding:14px 26px;opacity:0;box-shadow:0 12px 40px rgba(0,0,0,.5)}
+.key b{flex:none;font:700 26px O;letter-spacing:3px;background:var(--dk);color:#ffd21f;border-radius:10px;padding:8px 12px}
+/* hook */
+#hk{position:absolute;inset:0;opacity:0}
+#hk .fl{position:absolute;left:60px;right:60px;top:300px;display:grid;grid-template-columns:repeat(4,1fr);gap:26px 20px;justify-items:center}
+#hk .fl div{width:200px;height:150px;border-radius:20px;background:rgba(var(--bx),.85);border:3px solid rgba(var(--kl),.3);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0}
+#hk .fl img{width:86px;height:86px;object-fit:contain}#hk .fl span{font:400 34px B;letter-spacing:2px;margin-top:4px}
+#hk .hh{position:absolute;left:30px;right:30px;top:1020px;text-align:center;font:400 150px/0.92 B;letter-spacing:2px;transform:skewX(-6deg)}
+#hk .hh i{font-style:normal;color:#ffd21f}
+#hk .sb{position:absolute;left:0;right:0;top:1340px;text-align:center;font:700 44px O;letter-spacing:5px;color:#fff}
+#hk .pl{position:absolute;left:50%;top:1450px;transform:translateX(-50%);white-space:nowrap;background:#ffd21f;color:var(--dk);font:400 64px B;letter-spacing:3px;padding:10px 40px;border-radius:18px}
+/* the end: the biggest game as a question */
+#en{position:absolute;inset:0;opacity:0}
+#en .k{position:absolute;top:200px;left:0;right:0;text-align:center;font:700 38px O;letter-spacing:7px;color:var(--kc)}
+#en .vs{position:absolute;top:270px;left:40px;right:40px;display:grid;grid-template-columns:1fr 160px 1fr;align-items:center}
+#en .vs .tm{text-align:center}#en .vs img{width:250px;height:250px;object-fit:contain;filter:drop-shadow(0 16px 40px rgba(0,0,0,.6))}
+#en .vs .tm div{font:400 96px B;letter-spacing:3px;margin-top:6px}
+#en .vs .v{font:400 130px B;color:#ffd21f;text-align:center}
+#en .wh{position:absolute;top:720px;left:0;right:0;text-align:center;font:400 120px B;letter-spacing:3px;transform:skewX(-6deg)}
+#en .sub{position:absolute;top:860px;left:0;right:0;text-align:center;font:700 34px O;letter-spacing:4px;color:var(--sm)}
+#en .op{position:absolute;top:940px;left:50px;right:50px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
+#en .op div{height:200px;border-radius:26px;border:6px solid #ffd21f;background:rgba(var(--bx),.92);display:flex;flex-direction:column;align-items:center;justify-content:center}
+#en .op b{font:400 120px/1 B;color:#ffd21f}#en .op span{font:400 42px B;letter-spacing:2px}
+#en .c3{position:absolute;top:1170px;left:0;right:0;text-align:center;font:400 70px B;letter-spacing:3px;color:#fff}
+/* like and follow: its own look (owner, 2026-11-11: «ايقونة تابعنا جوه الفيديو واضغط لايك بتصميم مختلف»): a glass capsule
+   in the corner all along (the page's mark, a thumb that gets pressed, a + that turns into a tick), then the same pair
+   large at the end */
+#lf{position:absolute;top:40px;right:36px;z-index:40;display:flex;align-items:center;gap:14px;padding:10px 12px 10px 10px;border-radius:70px;background:linear-gradient(135deg,rgba(255,255,255,.22),rgba(255,255,255,.06));border:2px solid rgba(255,255,255,.35);box-shadow:0 10px 30px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.4);backdrop-filter:blur(8px)}
+.av{width:84px;height:84px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe066,#ffb800 60%,#b57d00);display:flex;align-items:center;justify-content:center;font:400 44px/1 B;color:var(--dk);text-align:center;position:relative;border:3px solid #fff}
+.av i{position:absolute;right:-6px;bottom:-6px;width:38px;height:38px;border-radius:50%;background:#1877f2;color:#fff;font:700 30px/34px O;font-style:normal;border:3px solid #fff}
+.th2{width:84px;height:84px;border-radius:50%;background:#1877f2;display:flex;align-items:center;justify-content:center;position:relative;box-shadow:0 0 0 0 rgba(24,119,242,.6)}
+.th2 svg{width:46px;height:46px}
+.fol{font:400 40px/1 B;letter-spacing:2px;color:#fff;padding:0 10px 0 2px;white-space:nowrap}
+.fol small{display:block;font:700 18px O;letter-spacing:3px;color:rgba(255,255,255,.75);margin-top:4px}
+.tap{position:absolute;font-size:56px;pointer-events:none;filter:drop-shadow(0 6px 10px rgba(0,0,0,.5));opacity:0}
+.pop{position:absolute;width:16px;height:16px;border-radius:50%;opacity:0}
+#lfe{position:absolute;left:50px;right:50px;top:1300px;z-index:40;height:250px;border-radius:40px;background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.05));border:3px solid rgba(255,255,255,.35);box-shadow:0 20px 60px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.45);display:flex;align-items:center;justify-content:space-around;opacity:0}
+#lfe .bt{display:flex;flex-direction:column;align-items:center;gap:10px;position:relative}
+#lfe .ci{width:150px;height:150px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative}
+#lfe .ci svg{width:84px;height:84px}
+#lfe .lk .ci{background:#1877f2}#lfe .fw .ci{background:radial-gradient(circle at 35% 30%,#ffe066,#ffb800 60%,#b57d00);border:5px solid #fff;font:400 74px/1 B;color:var(--dk);text-align:center}
+#lfe .fw .ci i{position:absolute;right:-8px;bottom:-8px;width:62px;height:62px;border-radius:50%;background:#1877f2;color:#fff;font:700 48px/56px O;font-style:normal;border:4px solid #fff;text-align:center}
+#lfe .lb{font:400 48px B;letter-spacing:3px}
+#lfe .rg2{position:absolute;left:50%;top:75px;width:150px;height:150px;margin:-75px 0 0 -75px;border-radius:50%;border:6px solid #1877f2;opacity:0}
+.credit{bottom:16px;left:24px}
+</style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div>
+<div id="hk"><div class="fl"></div><div class="hh"></div><div class="sb"></div><div class="pl"></div></div>
+<div class="hdr"><div class="k"></div><div class="g"></div><div class="n"></div></div>
+<div class="tb"><div class="th"><div>#</div><div></div><div>TEAM</div><div>P</div><div>W</div><div>D</div><div>L</div><div>GD</div><div>PTS</div></div><div id="rows"></div>
+<div class="zn"><span><b style="background:#22c55e"></b>QUARTER-FINALS</span><span><b style="background:#f59e0b"></b>RELEGATION PLAY-OFF</span><span><b style="background:#ef4444"></b>RELEGATED</span></div></div>
+<div class="sec" id="rs"><div class="st">RESULTS SO FAR</div><div class="rg"></div></div>
+<div class="sec" id="fx"><div class="st">STILL TO PLAY • UK TIME</div><div class="fl2"></div></div>
+<div class="key"><b>KEY</b><span></span></div>
+<div id="en"><div class="k"></div><div class="vs"><div class="tm"><img id="eh"><div></div></div><div class="v">V</div><div class="tm"><img id="ea"><div></div></div></div>
+<div class="wh"></div><div class="sub"></div><div class="op"><div><b>1</b><span></span></div><div><b>X</b><span>DRAW</span></div><div><b>2</b><span></span></div></div><div class="c3" id="cta"></div></div>
+<div id="lf"><div class="av">FB<i>+</i></div><div class="th2"><svg viewBox="0 0 24 24"><path fill="#fff" d="M2 21h4V9H2v12zm20-11c0-1.1-.9-2-2-2h-6.3l1-4.6v-.3c0-.4-.2-.8-.4-1.1L13.2 1 6.6 7.6C6.2 8 6 8.5 6 9v10c0 1.1.9 2 2 2h9c.8 0 1.5-.5 1.8-1.2l3-7.1c.1-.2.2-.5.2-.7v-2z"/></svg></div><div class="fol">LIKE &amp; FOLLOW<small>FB LEGENDS</small></div></div>
+<div id="lfe"><div class="bt lk"><div class="rg2"></div><div class="ci"><svg viewBox="0 0 24 24"><path fill="#fff" d="M2 21h4V9H2v12zm20-11c0-1.1-.9-2-2-2h-6.3l1-4.6v-.3c0-.4-.2-.8-.4-1.1L13.2 1 6.6 7.6C6.2 8 6 8.5 6 9v10c0 1.1.9 2 2 2h9c.8 0 1.5-.5 1.8-1.2l3-7.1c.1-.2.2-.5.2-.7v-2z"/></svg></div><div class="lb">TAP LIKE</div></div>
+<div class="bt fw"><div class="ci">FB<i>+</i></div><div class="lb">FOLLOW FB LEGENDS</div></div></div>
+<div class="credit" id="cd"></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA, G = D.groups || [], F = D.flags || {};
+const fl = (c) => (F[c] && F[c].logo) || '';
+const nm = (c) => (F[c] && F[c].n) || c;
+$('cd').textContent = D.credit || '';
+const mins = D.minBeats || [6, ...G.map(() => 9.5), 8];
+const B = D.beats || (() => { let t = 0; return mins.map((m) => { const b = [t, m]; t += m; return b; }); })();
+window.TOTAL = B[B.length - 1][0] + B[B.length - 1][1];
+const q = (s, el) => (el || document).querySelector(s);
+// the hook: the sixteen flags
+q('#hk .fl').innerHTML = (D.hook.flags || []).map((c) => `<div><img src="${fl(c)}"><span>${c}</span></div>`).join('');
+q('#hk .hh').innerHTML = D.hook.h; q('#hk .sb').textContent = D.hook.sub; q('#hk .pl').textContent = D.hook.pill;
+const E = D.end;
+$('eh').src = fl(E.h); $('ea').src = fl(E.a);
+q('#en .k').textContent = E.k; q('#en .vs .tm:first-child div').textContent = nm(E.h); q('#en .vs .tm:last-child div').textContent = nm(E.a);
+q('#en .wh').textContent = E.q; q('#en .sub').textContent = E.sub;
+const ops = document.querySelectorAll('#en .op span'); ops[0].textContent = nm(E.h); ops[2].textContent = nm(E.a);
+$('cta').textContent = E.c;
+let cur = -1;
+const set = (k) => {
+  const g = G[k - 1]; if (!g) return;
+  q('.hdr .k').textContent = g.k; q('.hdr .g').innerHTML = g.g; q('.hdr .n').textContent = `${k} / ${G.length}`;
+  $('rows').innerHTML = g.rows.map((r, i) => `<div class="tr ${r.z}"><div class="ps">${i + 1}</div><img src="${fl(r.c)}"><div class="t">${nm(r.c)}</div><div class="s">${r.p}</div><div class="s">${r.w}</div><div class="s">${r.d}</div><div class="s">${r.l}</div><div class="s">${r.gd}</div><div class="pt" data-v="${r.pts}">0</div></div>`).join('');
+  // the form, oldest first, two lines of two under the points would crowd: shown as the row's tint instead (W/D/L chips below the name)
+  $('rows').querySelectorAll('.t').forEach((t, i) => { const f = g.rows[i].f || ''; t.innerHTML = `${nm(g.rows[i].c)}<div class="fm" style="flex-direction:row;justify-content:flex-start;margin-top:2px"><div>${[...f].map((x) => `<span class="${x}">${x}</span>`).join('')}</div></div>`; t.style.lineHeight = '0.95'; });
+  q('#rs .rg').innerHTML = g.res.map((r) => `<div class="rc${r.big ? ' big' : ''}"><img src="${fl(r[0])}"><div class="c">${r[0]}</div><div class="sc">${r[1]}-${r[2]}</div><div class="c">${r[3]}</div><img src="${fl(r[3])}"></div>`).join('');
+  q('#fx .fl2').innerHTML = g.fx.map((r) => `<div class="fr${r.tag ? ' hot' : ''}"><div class="d">${r.d}</div><img src="${fl(r.h)}"><div class="m">${nm(r.h)}<s>v</s>${nm(r.a)}</div><img src="${fl(r.a)}"><div class="h">${r.t}</div>${r.tag ? `<div class="tg">${r.tag}</div>` : ''}</div>`).join('');
+  q('.key span').textContent = g.key;
+};
+const lf = $('lf'), th = q('.th2', lf), av = q('.av i', lf);
+// a finger and a burst for the corner badge
+const tap = document.createElement('div'); tap.className = 'tap'; tap.textContent = '👆'; document.body.appendChild(tap);
+const pops = Array.from({ length: 10 }, (_, i) => { const p = document.createElement('div'); p.className = 'pop'; p.style.background = i % 2 ? '#1877f2' : '#ffd21f'; p.style.zIndex = 41; document.body.appendChild(p); return p; });
+const press = (t0, u, x, y) => { // a press at u = 0 on the point (x, y): the finger comes in, presses, the burst
+  const a = (u + .6) / .6; tap.style.opacity = u > -.6 && u < .9 ? 1 : 0;
+  tap.style.left = (x - 10 + (1 - ease(Math.min(1, a))) * 60) + 'px'; tap.style.top = (y + 10 + (1 - ease(Math.min(1, a))) * 80 + (u > -.08 && u < .12 ? 12 : 0)) + 'px';
+  pops.forEach((p, i) => { const b = u / .6, ang = i / pops.length * Math.PI * 2; p.style.opacity = b > 0 && b < 1 ? 1 - b : 0;
+    p.style.left = (x + 30 + Math.cos(ang) * 90 * ease(Math.min(1, Math.max(0, b)))) + 'px'; p.style.top = (y + 30 + Math.sin(ang) * 90 * ease(Math.min(1, Math.max(0, b)))) + 'px'; });
+};
+window.draw = (t) => {
+  const bi = B.findIndex(([s0, l0]) => t >= s0 && t < s0 + l0), k = bi < 0 ? B.length - 1 : bi, [s0, l] = B[k], u = t - s0;
+  const last = B.length - 1;
+  if (cur !== k) { set(k); cur = k; }
+  // the hook
+  const hk = $('hk');
+  if (k === 0) { hk.style.opacity = Math.min(1, 1 - ease((u - l + .3) / .3));
+    hk.querySelectorAll('.fl div').forEach((d, i) => { const a = (u - .1 - i * .07) / .3; d.style.opacity = ease(a); d.style.transform = `rotateY(${(1 - ease(a)) * 90}deg) scale(${1 + .03 * Math.sin(u * 3 + i)})`; });
+    q('#hk .hh').style.transform = `skewX(-6deg) scale(${1.25 - .25 * ease((u - .8) / .5)})`; q('#hk .hh').style.opacity = ease((u - .8) / .3);
+    q('#hk .sb').style.opacity = ease((u - 1.6) / .4); const pa = ease((u - 2.2) / .4); q('#hk .pl').style.opacity = pa; q('#hk .pl').style.transform = `translateX(-50%) scale(${(.8 + .2 * pa) * (1 + .04 * Math.sin(u * 6))})`;
+  } else hk.style.opacity = 0;
+  // a group
+  const grp = k > 0 && k < last, out = grp ? 1 - ease((u - l + .3) / .3) : 0;
+  q('.hdr').style.opacity = grp ? Math.min(ease(u / .3), out) : 0;
+  q('.hdr .g').style.transform = `skewX(-6deg) scale(${grp ? 1.15 - .15 * ease(u / .45) : 1})`;
+  q('.tb').style.opacity = grp ? out : 0;
+  if (grp) {
+    $('rows').querySelectorAll('.tr').forEach((r, i) => { const a = (u - .35 - i * .22) / .35; r.style.opacity = ease(a); r.style.transform = `translateX(${(1 - ease(a)) * (i % 2 ? 120 : -120)}px)`;
+      const p = r.querySelector('.pt'); p.textContent = Math.round(Number(p.dataset.v) * ease((u - .5 - i * .22) / .7)); });
+    const rs = $('rs'), rc = rs.querySelectorAll('.rc'); rs.style.opacity = Math.min(ease((u - 1.6) / .3), out);
+    rc.forEach((c, i) => { const a = (u - 1.7 - i * .14) / .3; c.style.opacity = ease(a); c.style.transform = `scale(${a < 1 ? .6 + .4 * back(a) : 1 + (c.classList.contains('big') ? .03 * Math.sin(u * 5) : 0)})`; });
+    const fx = $('fx'), fr = fx.querySelectorAll('.fr'), f0 = 1.8 + rc.length * .14 + .3; fx.style.opacity = Math.min(ease((u - f0) / .3), out);
+    fr.forEach((c, i) => { const a = (u - f0 - .1 - i * .22) / .35; c.style.opacity = ease(a); c.style.transform = `translateY(${(1 - ease(a)) * 40}px)${c.classList.contains('hot') && a > 1 ? ` scale(${1 + .02 * Math.sin(u * 5)})` : ''}`; });
+    const ky = q('.key'), ka = (u - f0 - .3 - fr.length * .22 - .2) / .4; ky.style.opacity = Math.min(ease(ka), out); ky.style.transform = `scale(${ka < 1 ? .8 + .2 * back(ka) : 1 + .015 * Math.sin(u * 4)})`;
+  } else { $('rs').style.opacity = 0; $('fx').style.opacity = 0; q('.key').style.opacity = 0; }
+  // the end
+  const en = $('en');
+  if (k === last) { en.style.opacity = ease(u / .35);
+    document.querySelectorAll('#en .vs .tm').forEach((m, i) => { const a = (u - .2) / .5; m.style.transform = `translateX(${(1 - ease(a)) * (i ? 300 : -300)}px)`; m.style.opacity = ease(a); });
+    q('#en .vs .v').style.transform = `scale(${1 + .12 * Math.max(0, Math.sin(u * 4))})`;
+    q('#en .wh').style.opacity = ease((u - .8) / .3); q('#en .wh').style.transform = `skewX(-6deg) scale(${1.2 - .2 * ease((u - .8) / .4)})`;
+    document.querySelectorAll('#en .op div').forEach((o, i) => { const a = (u - 1.2 - i * .2) / .3; o.style.opacity = ease(a); o.style.transform = `scale(${a < 1 ? .6 + .4 * back(a) : 1 + .05 * Math.max(0, Math.sin(u * 3.2 + i * 2.1))})`; });
+    q('#en .c3').style.opacity = ease((u - 2) / .3);
+  } else en.style.opacity = 0;
+  // like and follow: the corner badge breathes, its thumb is pressed once a group (2.6 s in), the + becomes a tick after
+  // the first press; at the end it moves into the big card
+  const endA = k === last ? ease((u - 2.4) / .5) : 0;
+  lf.style.opacity = 1 - endA; lf.style.transform = `scale(${1 + .03 * Math.sin(t * 2.4)})`;
+  const pu = grp ? u - 2.6 : -9;
+  th.style.transform = `scale(${pu > -.05 && pu < .25 ? .82 : 1 + .06 * Math.max(0, Math.sin(t * 3))})`;
+  th.style.boxShadow = pu > 0 && pu < .7 ? `0 0 0 ${pu * 40}px rgba(24,119,242,${.6 * (1 - pu / .7)})` : 'none';
+  av.textContent = t > B[1][0] + 3 ? '✓' : '+'; av.style.background = av.textContent === '✓' ? '#16a34a' : '#1877f2';
+  const lfe = $('lfe');
+  lfe.style.opacity = endA; lfe.style.transform = `translateY(${(1 - endA) * 120}px)`;
+  const eu = k === last ? u - 3.4 : -9, lk = q('.lk .ci', lfe), rg = q('.rg2', lfe), fi = q('.fw .ci i', lfe);
+  lk.style.transform = `scale(${eu > -.05 && eu < .25 ? .85 : 1 + .05 * Math.max(0, Math.sin(t * 3))})`;
+  rg.style.opacity = eu > 0 && eu < .8 ? 1 - eu / .8 : 0; rg.style.transform = `scale(${1 + Math.max(0, eu) * .9})`;
+  fi.textContent = eu > 1.4 ? '✓' : '+'; fi.style.background = eu > 1.4 ? '#16a34a' : '#1877f2';
+  q('.fw .ci', lfe).style.transform = `scale(${eu > 1.25 && eu < 1.5 ? .88 : 1 + .04 * Math.max(0, Math.sin(t * 3 + 1))})`;
+  // the finger: on the corner thumb during a group, on the big buttons at the end
+  if (grp) press(0, pu, 726, 60); else if (k === last) { const lr = lk.getBoundingClientRect(), fr2 = q('.fw .ci', lfe).getBoundingClientRect(); if (eu < 1) press(0, eu, lr.left + 50, lr.top + 40); else press(0, eu - 1.4, fr2.left + 50, fr2.top + 40); } else press(0, -9, 0, 0);
+};
+window.POSTER = Math.min(2.8, B[0][1] - .2);
+window.COVER = B[1][0] + 7;
+progBar();
+draw(0);
+</script></body></html>
