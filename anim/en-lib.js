@@ -64,7 +64,8 @@ function progBar() {
   window.draw = (t) => {
     d(t); b.style.width = (100 * Math.min(1, t / window.TOTAL)) + '%';
     document.body.style.transform = `scale(${1 + .035 * Math.min(1, t / window.TOTAL)})`;
-    const e = Math.min(1, Math.max(0, (t - (window.TOTAL - 2.4)) / .35));
+    // a page with its own end card (DATA.ownEnd: the Nations League groups' like-and-follow, owner 2026-11-11) keeps it
+    const e = D0.ownEnd ? 0 : Math.min(1, Math.max(0, (t - (window.TOTAL - 2.4)) / .35));
     if (e > 0 && !fq.textContent) fq.textContent = ask();
     pg.style.transform = e ? `scale(${1 - .17 * e})` : '';
     oc.style.opacity = e; oc.style.transform = `translateY(${(1 - e) * 120}px)`;
