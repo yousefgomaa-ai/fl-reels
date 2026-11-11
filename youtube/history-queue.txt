@@ -1,6 +1,5 @@
 # «تاريخ نادٍ أو منتخب مع بطولة»: one a week (owner, 2026-10-30), the first line next; a done one moves to history-done.txt.
 # Rules: no women's football, nothing about Israel, no Algeria. Verify every date, score and record on the web.
-ليفربول | كأس أوروبا ودوري الأبطال
 منتخب مصر | كأس الأمم الأفريقية
 برشلونة | دوري أبطال أوروبا
 الهلال | دوري أبطال آسيا
