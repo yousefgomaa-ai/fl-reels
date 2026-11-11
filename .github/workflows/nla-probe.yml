@@ -1,5 +1,5 @@
-# One-off (owner, 2026-11-11; again with Austria's group): queue the «LEAGUE A: WHO'S THROUGH?» special once the API is deployed.
-# Lives on claude/nla-probe only; never merged.
+# One-off (owner, 2026-11-11: «الوش اللي في الصوت مراحش»): where the hiss is (the voice or the music) and which filter
+# takes it out, measured. Lives on claude/nla-probe only; never merged.
 name: NLA probe
 on:
   push:
@@ -9,11 +9,26 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - run: sudo apt-get install -y -qq ffmpeg >/dev/null 2>&1; ffmpeg -version | head -1
       - env:
           REELS_KEY: ${{ secrets.REELS_KEY }}
         run: |
           echo "::add-mask::$REELS_KEY"
           A=https://api.football-legend.com
-          sleep 330
-          R=$(curl -sS --max-time 120 -w ' HTTP=%{http_code} T=%{time_total}' "$A/v2/fben/dry?key=$REELS_KEY&special=nlgroups&kinds=none" 2>&1 || true)
-          echo "$R" | head -c 1500; echo
+          T="Group A one. France top on ten points, Italy seven, Belgium six... and Türkiye still on zero."
+          curl -sS --max-time 120 -G "$A/v2/reels/voice" --data-urlencode "key=$REELS_KEY" --data-urlencode "text=$T" --data-urlencode "voice=Fenrir" --data-urlencode "lang=en-GB" -o v.wav
+          file v.wav; ffprobe -v error -show_entries stream=sample_rate,channels,bits_per_sample -of csv=p=0 v.wav
+          m() { # overall level, the quietest 10% of 50 ms windows (the floor between words), the share above 6 kHz
+            L=$(ffmpeg -hide_banner -i "$1" -af "$2volumedetect" -f null - 2>&1 | grep -o 'mean_volume: [-0-9.]* dB')
+            F=$(ffmpeg -hide_banner -i "$1" -af "$2asetnsamples=n=1200,astats=metadata=1:reset=1,ametadata=print:key=lavfi.astats.Overall.RMS_level" -f null - 2>&1 | grep -o 'RMS_level=[-0-9.inf]*' | cut -d= -f2 | grep -v inf | sort -n | awk '{a[NR]=$1} END{print "floor10%=" a[int(NR*0.1)+1] " dB  windows=" NR}')
+            H=$(ffmpeg -hide_banner -i "$1" -af "$2highpass=f=6000,highpass=f=6000,volumedetect" -f null - 2>&1 | grep -o 'mean_volume: [-0-9.]* dB')
+            echo "$3 | $L | $F | above6k $H"
+          }
+          m v.wav "" "RAW voice"
+          m v.wav "afftdn=nf=-28,lowpass=f=7500," "NOW (afftdn -28 + lp7500)"
+          m v.wav "highpass=f=70,afftdn=nr=30:nf=-50:tn=1,lowpass=f=6500," "B afftdn nr30 nf-50 tn"
+          m v.wav "highpass=f=70,afftdn=nr=30:nf=-50:tn=1,lowpass=f=6500,agate=threshold=0.02:ratio=9:attack=5:release=180," "C B + gate"
+          m v.wav "highpass=f=70,anlmdn=s=7:p=0.002:r=0.006,lowpass=f=6500,agate=threshold=0.02:ratio=9:attack=5:release=180," "D nlmeans + gate"
+          for f in music/*.mp3; do m "$f" "atrim=0:40," "MUSIC $(basename $f)"; done
