@@ -1,18 +1,16 @@
-# One-off check (owner, 2026-11-11: «تاكد من الماتشات كلها لحد اخر الشهر»): our day lists against ESPN. Lives on claude/fixture-probe only; never merged.
+# One-off check (2026-11-11): Egypt v Malawi after the dates fix. Lives on claude/fixture-probe only; never merged.
 name: Fixture probe
 on:
   push:
     branches: [claude/fixture-probe]
-permissions:
-  contents: write
 jobs:
   p:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
       - run: |
-          rm -rf look; mkdir -p look
-          python3 sample/check.py > look/report.txt 2>&1 || true
-          git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          git add -A look && git commit -qm "fixtures report" && git push -q origin HEAD:claude/fixture-probe || true
+          A=https://api.football-legend.com
+          for d in 20261111 20261113 20261115 20261117; do
+            echo "== $d"
+            curl -sS --max-time 60 "$A/matches?date=$d" | jq -c '[.. | objects | select(has("fixture") and has("teams")) | select(.leagueSlug=="caf.nations_qual") | {id, d:.fixture.date, h:.teams.home.name, a:.teams.away.name}] | (length), (map(select(.h|test("Egypt|Malawi"))))'
+          done
