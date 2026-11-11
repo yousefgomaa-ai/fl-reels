@@ -1,0 +1,13 @@
+# One-off check (owner, 2026-11-11): Nations League A tables, results and fixtures from ESPN for the analysis reel.
+# Lives on claude/nla-probe only; never merged.
+name: NLA probe
+on:
+  push:
+    branches: [claude/nla-probe]
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 sample/nla.py
