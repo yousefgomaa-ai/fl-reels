@@ -54,6 +54,11 @@ function progBar() {
     + '<div style="margin-top:16px;font:500 34px O,Arial;color:rgba(255,255,255,.85)">Daily results, numbers and quizzes ⚽</div>';
   document.body.appendChild(oc);
   const fq = oc.children[0], fb = oc.children[1]; // the question is read when the card shows: some pages write it late
+  // The page draws back to make room for the card (owner, 2026-11-11: «وفي الجداول شكلها هيبقي ازاي»: the card hid the
+  // relegation rows): everything but the background goes in one layer that shrinks towards the top as the card rises.
+  const pg = document.createElement('div'); pg.style.cssText = 'position:absolute;inset:0;transform-origin:50% 0';
+  [...document.body.children].forEach((el) => { if (el !== b && el !== oc && el !== te && el.tagName !== 'SCRIPT' && !/^(bg|bg2|bd|streak)$/.test(el.className)) pg.appendChild(el); });
+  document.body.insertBefore(pg, oc);
   document.body.style.transformOrigin = '50% 40%';
   const d = window.draw;
   window.draw = (t) => {
@@ -61,6 +66,7 @@ function progBar() {
     document.body.style.transform = `scale(${1 + .035 * Math.min(1, t / window.TOTAL)})`;
     const e = Math.min(1, Math.max(0, (t - (window.TOTAL - 2.4)) / .35));
     if (e > 0 && !fq.textContent) fq.textContent = ask();
+    pg.style.transform = e ? `scale(${1 - .17 * e})` : '';
     oc.style.opacity = e; oc.style.transform = `translateY(${(1 - e) * 120}px)`;
     if (ce) ce.style.visibility = e > .5 ? 'hidden' : '';
     fb.style.transform = `scale(${1 + .05 * Math.max(0, Math.sin((t - window.TOTAL + 2.4) * 7)) * e})`;
