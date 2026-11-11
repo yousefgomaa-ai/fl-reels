@@ -1,0 +1,61 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends «FORM TABLE» (owner, 2026-11-11: «بالظبط كدا بس غير التصميم»): a league's last five games, a look of its own
+   apart from the standings page: black with heat above and ice below, every side a card, five W/D/L tiles (the newest on
+   the right), the hottest three on fire and the coldest three frozen. Rows slide in, the tiles land one by one, the
+   light goes to the top three, then the bottom three, then the question. */
+body{background:#06060a}
+.bg{background:radial-gradient(1100px 620px at 50% -6%,rgba(255,106,0,.55),rgba(255,106,0,0) 70%),radial-gradient(1100px 620px at 50% 106%,rgba(40,150,255,.5),rgba(40,150,255,0) 70%),#06060a}
+.streak{background:repeating-linear-gradient(115deg,rgba(255,255,255,0) 0 160px,rgba(255,255,255,.035) 160px 168px,rgba(255,255,255,0) 168px 360px)}
+#lg{top:56px;right:44px;text-align:right;font:400 58px/1 B;letter-spacing:3px}#lg small{display:block;font:700 26px O;letter-spacing:8px;color:#ff8a1f;margin-top:4px}
+#ti{top:158px;left:44px;font:400 150px/0.9 B;letter-spacing:3px;transform:skewX(-7deg);transform-origin:0 50%;text-shadow:0 8px 34px rgba(0,0,0,.6)}#ti span{color:#ff8a1f}
+#hl{top:300px;left:48px;right:300px;font:700 44px/1.1 O;letter-spacing:1px;white-space:nowrap}
+.tag{position:absolute;top:296px;right:44px;white-space:nowrap;z-index:6;font:400 54px B;letter-spacing:2px;padding:4px 24px;border-radius:14px;opacity:0}
+#tTop{background:#ff7a00;color:#160800}#tRel{background:#2f9bff;color:#02101f}
+#heat{position:absolute;left:26px;width:12px;border-radius:6px;background:linear-gradient(#ff7a00,#ffb000 16%,#4b5563 34%,#4b5563 66%,#7cc4ff 84%,#2f9bff)}
+#tb{position:absolute;left:54px;right:30px;top:384px}
+.r{display:flex;align-items:center;margin-bottom:var(--g);height:var(--h);padding:0 16px 0 10px;border-radius:14px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.07);font:500 36px O;will-change:transform}
+.r.hot{background:linear-gradient(90deg,rgba(255,122,0,.62),rgba(255,122,0,.12));border-color:rgba(255,160,60,.6)}
+.r.cold{background:linear-gradient(90deg,rgba(47,155,255,.5),rgba(47,155,255,.1));border-color:rgba(124,196,255,.55)}
+.r .n{width:62px;text-align:center;font:400 46px B;color:#fff}.r.hot .n{color:#ffd21f}.r.cold .n{color:#bfe3ff}
+.r img,.r .ni{width:46px;height:46px;object-fit:contain;margin-right:14px}.r .t{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.r .fm{display:flex;gap:6px;margin-right:16px}.r .fm i{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;font:700 27px O;font-style:normal;color:#fff;background:#525a66}
+.r .fm i.W{background:#12b24a}.r .fm i.L{background:#e11d48}.r .fm i:last-child{box-shadow:0 0 0 2px rgba(255,255,255,.85)}
+.r .p{width:84px;text-align:center;font:400 48px B;color:#ffd21f;background:rgba(0,0,0,.45);border-radius:10px;line-height:var(--ph)}
+#key{position:absolute;left:54px;right:30px;font:700 22px O;letter-spacing:3px;color:#aab2c0;display:flex;justify-content:flex-end;gap:16px}#key b{font-weight:700;color:#fff}
+#cta{bottom:40px;font-size:66px}
+</style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div>
+<div class="abs" id="lg"></div><div class="abs" id="ti">FORM <span>TABLE</span></div><div class="abs" id="hl"></div>
+<div class="tag" id="tTop">ON FIRE 🔥</div><div class="tag" id="tRel">ICE COLD 🥶</div>
+<div id="heat"></div><div id="tb"></div><div id="key"></div><div class="cta" id="cta"></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA, R = (D.rows || []).slice(0, 20), TOPN = D.top || 3, REL = D.rel || 3;
+// 1300px for the rows: twenty at 58 + 7, eighteen a little taller
+const G = 7, H = Math.min(70, Math.floor(1300 / Math.max(R.length, 1)) - G);
+document.body.style.setProperty('--g', G + 'px'); document.body.style.setProperty('--h', H + 'px'); document.body.style.setProperty('--ph', Math.min(48, H - 8) + 'px');
+$('lg').innerHTML = `${D.league || ''}<small>${D.sub || 'LAST 5 GAMES'}</small>`; $('hl').innerHTML = D.headline || '';
+if (D.topTag) $('tTop').textContent = D.topTag; if (D.relTag) $('tRel').textContent = D.relTag;
+$('tb').innerHTML = R.map((r, i) => `<div class="r ${i < TOPN ? 'hot' : i >= R.length - REL ? 'cold' : ''}"><span class="n">${r.rank}</span>${r.logo ? `<img src="${r.logo}">` : '<span class="ni"></span>'}<span class="t">${r.name}</span>`
+  + `<span class="fm">${(r.form || []).slice(-5).map((x) => `<i class="${x}">${x}</i>`).join('')}</span><span class="p">${r.pts}</span></div>`).join('');
+const end = 384 + R.length * (H + G);
+$('heat').style.top = '384px'; $('heat').style.height = (end - 384 - G) + 'px';
+$('key').style.top = (end + 4) + 'px'; $('key').innerHTML = '<span>NEWEST GAME ON THE RIGHT</span><span><b>PTS</b> FROM 15</span>';
+$('cta').textContent = D.cta || 'WHO IS THE FORM TEAM? 👇';
+const rows = [...document.querySelectorAll('.r')], marks = rows.map((r) => [...r.querySelectorAll('.fm i')]);
+window.TOTAL = 10;
+window.draw = (t) => {
+  const f1 = ease((t - 1.7) / .4) * (1 - ease((t - 3.8) / .4)), f2 = ease((t - 4.3) / .4) * (1 - ease((t - 6.6) / .4));
+  rows.forEach((r, i) => {
+    const a = ease((t - .1 - i * .045) / .4), top = i < TOPN, rel = i >= R.length - REL, dim = f1 * (top ? 0 : .72) + f2 * (rel ? 0 : .72), lit = (top ? f1 : 0) + (rel ? f2 : 0);
+    r.style.opacity = a * (1 - dim); r.style.transform = `translateX(${(1 - a) * 90}px) scale(${1 + .025 * lit})`; r.style.filter = `brightness(${1 + .25 * lit})`;
+    marks[i].forEach((c, j) => { c.style.transform = `scale(${back((t - .45 - i * .045 - j * .09) / .3)})`; });
+  });
+  $('tTop').style.opacity = f1; $('tRel').style.opacity = f2;
+  $('ti').style.transform = `skewX(-7deg) translateX(${(1 - ease(t / .45)) * -60}px)`; $('hl').style.opacity = ease((t - .3) / .4);
+  $('heat').style.transform = `scaleY(${ease((t - .1) / 1.1)})`; $('heat').style.transformOrigin = '50% 0'; $('key').style.opacity = ease((t - 4) / .4); // after the opening promise has left its place
+  const k = ease((t - 7) / .5); $('cta').style.opacity = k; $('cta').style.transform = `scale(${t > 7 ? 1.25 - .25 * back((t - 7) / .6) : 1})`;
+};
+// The cover: the whole table with the question
+window.POSTER = 7.8;
+progBar();
+draw(0);
+</script></body></html>
