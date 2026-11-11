@@ -1,0 +1,1036 @@
+our matches 11-30 Nov: 765
+ERR espn alg.1 20261109 HTTP Error 400: Bad Request
+ERR espn alg.1 20261110 HTTP Error 400: Bad Request
+ERR espn alg.1 20261111 HTTP Error 400: Bad Request
+ERR espn alg.1 20261112 HTTP Error 400: Bad Request
+ERR espn alg.1 20261113 HTTP Error 400: Bad Request
+ERR espn alg.1 20261114 HTTP Error 400: Bad Request
+ERR espn alg.1 20261115 HTTP Error 400: Bad Request
+ERR espn alg.1 20261116 HTTP Error 400: Bad Request
+ERR espn alg.1 20261117 HTTP Error 400: Bad Request
+ERR espn alg.1 20261118 HTTP Error 400: Bad Request
+ERR espn alg.1 20261119 HTTP Error 400: Bad Request
+ERR espn alg.1 20261120 HTTP Error 400: Bad Request
+ERR espn alg.1 20261121 HTTP Error 400: Bad Request
+ERR espn alg.1 20261122 HTTP Error 400: Bad Request
+ERR espn alg.1 20261123 HTTP Error 400: Bad Request
+ERR espn alg.1 20261124 HTTP Error 400: Bad Request
+ERR espn alg.1 20261125 HTTP Error 400: Bad Request
+ERR espn alg.1 20261126 HTTP Error 400: Bad Request
+ERR espn alg.1 20261127 HTTP Error 400: Bad Request
+ERR espn alg.1 20261128 HTTP Error 400: Bad Request
+ERR espn alg.1 20261129 HTTP Error 400: Bad Request
+ERR espn alg.1 20261130 HTTP Error 400: Bad Request
+ERR espn alg.1 20261201 HTTP Error 400: Bad Request
+ERR espn alg.1 20261202 HTTP Error 400: Bad Request
+ERR espn alg.1 20261203 HTTP Error 400: Bad Request
+ERR espn alg.1 20261204 HTTP Error 400: Bad Request
+ERR espn alg.1 20261205 HTTP Error 400: Bad Request
+ERR espn alg.1 20261206 HTTP Error 400: Bad Request
+ERR espn alg.1 20261207 HTTP Error 400: Bad Request
+ERR espn egy.1 20261109 HTTP Error 400: Bad Request
+ERR espn egy.1 20261110 HTTP Error 400: Bad Request
+ERR espn egy.1 20261111 HTTP Error 400: Bad Request
+ERR espn egy.1 20261112 HTTP Error 400: Bad Request
+ERR espn egy.1 20261113 HTTP Error 400: Bad Request
+ERR espn egy.1 20261114 HTTP Error 400: Bad Request
+ERR espn egy.1 20261115 HTTP Error 400: Bad Request
+ERR espn egy.1 20261116 HTTP Error 400: Bad Request
+ERR espn egy.1 20261117 HTTP Error 400: Bad Request
+ERR espn egy.1 20261118 HTTP Error 400: Bad Request
+ERR espn egy.1 20261119 HTTP Error 400: Bad Request
+ERR espn egy.1 20261120 HTTP Error 400: Bad Request
+ERR espn egy.1 20261121 HTTP Error 400: Bad Request
+ERR espn egy.1 20261122 HTTP Error 400: Bad Request
+ERR espn egy.1 20261123 HTTP Error 400: Bad Request
+ERR espn egy.1 20261124 HTTP Error 400: Bad Request
+ERR espn egy.1 20261125 HTTP Error 400: Bad Request
+ERR espn egy.1 20261126 HTTP Error 400: Bad Request
+ERR espn egy.1 20261127 HTTP Error 400: Bad Request
+ERR espn egy.1 20261128 HTTP Error 400: Bad Request
+ERR espn egy.1 20261129 HTTP Error 400: Bad Request
+ERR espn egy.1 20261130 HTTP Error 400: Bad Request
+ERR espn egy.1 20261201 HTTP Error 400: Bad Request
+ERR espn egy.1 20261202 HTTP Error 400: Bad Request
+ERR espn egy.1 20261203 HTTP Error 400: Bad Request
+ERR espn egy.1 20261204 HTTP Error 400: Bad Request
+ERR espn egy.1 20261205 HTTP Error 400: Bad Request
+ERR espn egy.1 20261206 HTTP Error 400: Bad Request
+ERR espn egy.1 20261207 HTTP Error 400: Bad Request
+ERR espn fifa.friendly 20261116 <urlopen error [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1081)>
+ERR espn kor.1 20261109 HTTP Error 400: Bad Request
+ERR espn kor.1 20261110 HTTP Error 400: Bad Request
+ERR espn kor.1 20261111 HTTP Error 400: Bad Request
+ERR espn kor.1 20261112 HTTP Error 400: Bad Request
+ERR espn kor.1 20261113 HTTP Error 400: Bad Request
+ERR espn kor.1 20261114 HTTP Error 400: Bad Request
+ERR espn kor.1 20261115 HTTP Error 400: Bad Request
+ERR espn kor.1 20261116 HTTP Error 400: Bad Request
+ERR espn kor.1 20261117 HTTP Error 400: Bad Request
+ERR espn kor.1 20261118 HTTP Error 400: Bad Request
+ERR espn kor.1 20261119 HTTP Error 400: Bad Request
+ERR espn kor.1 20261120 HTTP Error 400: Bad Request
+ERR espn kor.1 20261121 HTTP Error 400: Bad Request
+ERR espn kor.1 20261122 HTTP Error 400: Bad Request
+ERR espn kor.1 20261123 HTTP Error 400: Bad Request
+ERR espn kor.1 20261124 HTTP Error 400: Bad Request
+ERR espn kor.1 20261125 HTTP Error 400: Bad Request
+ERR espn kor.1 20261126 HTTP Error 400: Bad Request
+ERR espn kor.1 20261127 HTTP Error 400: Bad Request
+ERR espn kor.1 20261128 HTTP Error 400: Bad Request
+ERR espn kor.1 20261129 HTTP Error 400: Bad Request
+ERR espn kor.1 20261130 HTTP Error 400: Bad Request
+ERR espn kor.1 20261201 HTTP Error 400: Bad Request
+ERR espn kor.1 20261202 HTTP Error 400: Bad Request
+ERR espn kor.1 20261203 HTTP Error 400: Bad Request
+ERR espn kor.1 20261204 HTTP Error 400: Bad Request
+ERR espn kor.1 20261205 HTTP Error 400: Bad Request
+ERR espn kor.1 20261206 HTTP Error 400: Bad Request
+ERR espn kor.1 20261207 HTTP Error 400: Bad Request
+ERR espn qat.1 20261109 HTTP Error 400: Bad Request
+ERR espn qat.1 20261110 HTTP Error 400: Bad Request
+ERR espn qat.1 20261111 HTTP Error 400: Bad Request
+ERR espn qat.1 20261112 HTTP Error 400: Bad Request
+ERR espn qat.1 20261113 HTTP Error 400: Bad Request
+ERR espn qat.1 20261114 HTTP Error 400: Bad Request
+ERR espn qat.1 20261115 HTTP Error 400: Bad Request
+ERR espn qat.1 20261116 HTTP Error 400: Bad Request
+ERR espn qat.1 20261117 HTTP Error 400: Bad Request
+ERR espn qat.1 20261118 HTTP Error 400: Bad Request
+ERR espn qat.1 20261119 HTTP Error 400: Bad Request
+ERR espn qat.1 20261120 HTTP Error 400: Bad Request
+ERR espn qat.1 20261121 HTTP Error 400: Bad Request
+ERR espn qat.1 20261122 HTTP Error 400: Bad Request
+ERR espn qat.1 20261123 HTTP Error 400: Bad Request
+ERR espn qat.1 20261124 HTTP Error 400: Bad Request
+ERR espn qat.1 20261125 HTTP Error 400: Bad Request
+ERR espn qat.1 20261126 HTTP Error 400: Bad Request
+ERR espn qat.1 20261127 HTTP Error 400: Bad Request
+ERR espn qat.1 20261128 HTTP Error 400: Bad Request
+ERR espn qat.1 20261129 HTTP Error 400: Bad Request
+ERR espn qat.1 20261130 HTTP Error 400: Bad Request
+ERR espn qat.1 20261201 HTTP Error 400: Bad Request
+ERR espn qat.1 20261202 HTTP Error 400: Bad Request
+ERR espn qat.1 20261203 HTTP Error 400: Bad Request
+ERR espn qat.1 20261204 HTTP Error 400: Bad Request
+ERR espn qat.1 20261205 HTTP Error 400: Bad Request
+ERR espn qat.1 20261206 HTTP Error 400: Bad Request
+ERR espn qat.1 20261207 HTTP Error 400: Bad Request
+ERR espn tun.1 20261109 HTTP Error 400: Bad Request
+ERR espn tun.1 20261110 HTTP Error 400: Bad Request
+ERR espn tun.1 20261111 HTTP Error 400: Bad Request
+ERR espn tun.1 20261112 HTTP Error 400: Bad Request
+ERR espn tun.1 20261113 HTTP Error 400: Bad Request
+ERR espn tun.1 20261114 HTTP Error 400: Bad Request
+ERR espn tun.1 20261115 HTTP Error 400: Bad Request
+ERR espn tun.1 20261116 HTTP Error 400: Bad Request
+ERR espn tun.1 20261117 HTTP Error 400: Bad Request
+ERR espn tun.1 20261118 HTTP Error 400: Bad Request
+ERR espn tun.1 20261119 HTTP Error 400: Bad Request
+ERR espn tun.1 20261120 HTTP Error 400: Bad Request
+ERR espn tun.1 20261121 HTTP Error 400: Bad Request
+ERR espn tun.1 20261122 HTTP Error 400: Bad Request
+ERR espn tun.1 20261123 HTTP Error 400: Bad Request
+ERR espn tun.1 20261124 HTTP Error 400: Bad Request
+ERR espn tun.1 20261125 HTTP Error 400: Bad Request
+ERR espn tun.1 20261126 HTTP Error 400: Bad Request
+ERR espn tun.1 20261127 HTTP Error 400: Bad Request
+ERR espn tun.1 20261128 HTTP Error 400: Bad Request
+ERR espn tun.1 20261129 HTTP Error 400: Bad Request
+ERR espn tun.1 20261130 HTTP Error 400: Bad Request
+ERR espn tun.1 20261201 HTTP Error 400: Bad Request
+ERR espn tun.1 20261202 HTTP Error 400: Bad Request
+ERR espn tun.1 20261203 HTTP Error 400: Bad Request
+ERR espn tun.1 20261204 HTTP Error 400: Bad Request
+ERR espn tun.1 20261205 HTTP Error 400: Bad Request
+ERR espn tun.1 20261206 HTTP Error 400: Bad Request
+ERR espn tun.1 20261207 HTTP Error 400: Bad Request
+ERR espn uae.1 20261109 HTTP Error 400: Bad Request
+ERR espn uae.1 20261110 HTTP Error 400: Bad Request
+ERR espn uae.1 20261111 HTTP Error 400: Bad Request
+ERR espn uae.1 20261112 HTTP Error 400: Bad Request
+ERR espn uae.1 20261113 HTTP Error 400: Bad Request
+ERR espn uae.1 20261114 HTTP Error 400: Bad Request
+ERR espn uae.1 20261115 HTTP Error 400: Bad Request
+ERR espn uae.1 20261116 HTTP Error 400: Bad Request
+ERR espn uae.1 20261117 HTTP Error 400: Bad Request
+ERR espn uae.1 20261118 HTTP Error 400: Bad Request
+ERR espn uae.1 20261119 HTTP Error 400: Bad Request
+ERR espn uae.1 20261120 HTTP Error 400: Bad Request
+ERR espn uae.1 20261121 HTTP Error 400: Bad Request
+ERR espn uae.1 20261122 HTTP Error 400: Bad Request
+ERR espn uae.1 20261123 HTTP Error 400: Bad Request
+ERR espn uae.1 20261124 HTTP Error 400: Bad Request
+ERR espn uae.1 20261125 HTTP Error 400: Bad Request
+ERR espn uae.1 20261126 HTTP Error 400: Bad Request
+ERR espn uae.1 20261127 HTTP Error 400: Bad Request
+ERR espn uae.1 20261128 HTTP Error 400: Bad Request
+ERR espn uae.1 20261129 HTTP Error 400: Bad Request
+ERR espn uae.1 20261130 HTTP Error 400: Bad Request
+ERR espn uae.1 20261201 HTTP Error 400: Bad Request
+ERR espn uae.1 20261202 HTTP Error 400: Bad Request
+ERR espn uae.1 20261203 HTTP Error 400: Bad Request
+ERR espn uae.1 20261204 HTTP Error 400: Bad Request
+ERR espn uae.1 20261205 HTTP Error 400: Bad Request
+ERR espn uae.1 20261206 HTTP Error 400: Bad Request
+ERR espn uae.1 20261207 HTTP Error 400: Bad Request
+
+== DATE/TIME DIFFERENT FROM ESPN (ours -> espn): 95
+  caf.nations_qual   fm-6040203     ours 2026-11-11T17:00  espn 2026-11-13T16:00  (+47.0h)  Gabon v Lesotho  [espn: Gabon v Lesotho STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040204     ours 2026-11-11T17:00  espn 2026-11-13T20:00  (+51.0h)  Morocco v Niger  [espn: Morocco v Niger STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040217     ours 2026-11-11T17:00  espn 2026-11-13T19:00  (+50.0h)  Egypt v Malawi  [espn: Egypt v Malawi STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040239     ours 2026-11-11T17:00  espn 2026-11-12T15:00  (+22.0h)  Ghana v Somalia  [espn: Ghana v Somalia STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040240     ours 2026-11-11T17:00  espn 2026-11-12T19:00  (+26.0h)  Ivory Coast v Gambia  [espn: Ivory Coast v Gambia STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040251     ours 2026-11-11T17:00  espn 2026-11-12T17:00  (+24.0h)  Guinea v Eritrea  [espn: Guinea v Eritrea STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040252     ours 2026-11-11T17:00  espn 2026-11-13T16:00  (+47.0h)  South Africa v Kenya  [espn: South Africa v Kenya STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040263     ours 2026-11-11T17:00  espn 2026-11-12T16:00  (+23.0h)  DR Congo v Sierra Leone  [espn: Congo DR v Sierra Leone STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040264     ours 2026-11-11T17:00  espn 2026-11-12T16:00  (+23.0h)  Equatorial Guinea v Zimbabwe  [espn: Equatorial Guinea v Zimbabwe STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040278     ours 2026-11-11T17:00  espn 2026-11-13T16:00  (+47.0h)  Burkina Faso v Mauritania  [espn: Burkina Faso v Mauritania STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040336     ours 2026-11-11T17:00  espn 2026-11-12T19:00  (+26.0h)  Cameroon v Namibia  [espn: Cameroon v Namibia STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040337     ours 2026-11-11T17:00  espn 2026-11-13T13:00  (+44.0h)  Comoros v Congo  [espn: Comoros v Congo STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040348     ours 2026-11-11T17:00  espn 2026-11-13T16:00  (+47.0h)  Tunisia v Libya  [espn: Tunisia v Libya STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040349     ours 2026-11-11T17:00  espn 2026-11-14T16:00  (+71.0h)  Uganda v Botswana  [espn: Uganda v Botswana STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040361     ours 2026-11-11T17:00  espn 2026-11-13T13:00  (+44.0h)  Zambia v Burundi  [espn: Zambia v Burundi STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040400     ours 2026-11-11T17:00  espn 2026-11-13T13:00  (+44.0h)  Mozambique v Ethiopia  [espn: Mozambique v Ethiopia STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040401     ours 2026-11-11T17:00  espn 2026-11-12T19:00  (+26.0h)  Senegal v Sudan  [espn: Senegal v Sudan STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040376     ours 2026-11-11T17:00  espn 2026-11-13T16:00  (+47.0h)  Cape Verde v Liberia  [espn: Cape Verde v Liberia STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040377     ours 2026-11-11T17:00  espn 2026-11-13T19:00  (+50.0h)  Mali v Rwanda  [espn: Mali v Rwanda STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040388     ours 2026-11-11T17:00  espn 2026-11-12T16:00  (+23.0h)  Madagascar v Guinea-Bissau  [espn: Madagascar v Guinea-Bissau STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040389     ours 2026-11-11T17:00  espn 2026-11-13T16:00  (+47.0h)  Nigeria v Tanzania  [espn: Nigeria v Tanzania STATUS_SCHEDULED]
+  caf.nations_qual   tsdb-2475972   ours 2026-11-11T17:00  espn 2026-11-14T19:00  (+74.0h)  Algeria v Togo  [espn: Algeria v Togo STATUS_SCHEDULED]
+  caf.nations_qual   tsdb-2475973   ours 2026-11-11T17:00  espn 2026-11-14T19:00  (+74.0h)  Angola v South Sudan  [espn: Angola v South Sudan STATUS_SCHEDULED]
+  caf.nations_qual   tsdb-2475974   ours 2026-11-11T17:00  espn 2026-11-12T19:00  (+26.0h)  Benin v Central African Republic  [espn: Benin v Central African Republic STATUS_SCHEDULED]
+  fifa.friendly      401930878      ours 2026-11-13T20:00  espn 2026-11-14T01:00  (+5.0h)  Peru v Bolivia  [espn: Peru v Bolivia STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040205     ours 2026-11-15T17:00  espn 2026-11-17T13:00  (+44.0h)  Lesotho v Gabon  [espn: Lesotho v Gabon STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040206     ours 2026-11-15T17:00  espn 2026-11-17T20:00  (+51.0h)  Niger v Morocco  [espn: Niger v Morocco STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040218     ours 2026-11-15T17:00  espn 2026-11-17T13:00  (+44.0h)  Malawi v Egypt  [espn: Malawi v Egypt STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040219     ours 2026-11-15T17:00  espn 2026-11-17T13:00  (+44.0h)  South Sudan v Angola  [espn: South Sudan v Angola STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040241     ours 2026-11-15T17:00  espn 2026-11-17T16:00  (+47.0h)  Gambia v Ivory Coast  [espn: Gambia v Ivory Coast STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040242     ours 2026-11-15T17:00  espn 2026-11-16T15:00  (+22.0h)  Somalia v Ghana  [espn: Somalia v Ghana STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040253     ours 2026-11-15T17:00  espn 2026-11-16T17:00  (+24.0h)  Eritrea v Guinea  [espn: Eritrea v Guinea STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040254     ours 2026-11-15T17:00  espn 2026-11-17T16:00  (+47.0h)  Kenya v South Africa  [espn: Kenya v South Africa STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040265     ours 2026-11-15T17:00  espn 2026-11-17T16:00  (+47.0h)  Sierra Leone v DR Congo  [espn: Sierra Leone v Congo DR STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040266     ours 2026-11-15T17:00  espn 2026-11-16T13:00  (+20.0h)  Zimbabwe v Equatorial Guinea  [espn: Zimbabwe v Equatorial Guinea STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040279     ours 2026-11-15T17:00  espn 2026-11-16T16:00  (+23.0h)  Central African Republic v Benin  [espn: Central African Republic v Benin STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040280     ours 2026-11-15T17:00  espn 2026-11-17T19:00  (+50.0h)  Mauritania v Burkina Faso  [espn: Mauritania v Burkina Faso STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040338     ours 2026-11-15T17:00  espn 2026-11-17T19:00  (+50.0h)  Congo v Comoros  [espn: Congo v Comoros STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040339     ours 2026-11-15T17:00  espn 2026-11-16T13:00  (+20.0h)  Namibia v Cameroon  [espn: Namibia v Cameroon STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040350     ours 2026-11-15T17:00  espn 2026-11-17T19:00  (+50.0h)  Botswana v Uganda  [espn: Botswana v Uganda STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040351     ours 2026-11-15T17:00  espn 2026-11-17T16:00  (+47.0h)  Libya v Tunisia  [espn: Libya v Tunisia STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040362     ours 2026-11-15T17:00  espn 2026-11-17T13:00  (+44.0h)  Burundi v Zambia  [espn: Burundi v Zambia STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040363     ours 2026-11-15T17:00  espn 2026-11-17T16:00  (+47.0h)  Togo v Algeria  [espn: Togo v Algeria STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040402     ours 2026-11-15T17:00  espn 2026-11-17T13:00  (+44.0h)  Ethiopia v Mozambique  [espn: Ethiopia v Mozambique STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040403     ours 2026-11-15T17:00  espn 2026-11-16T13:00  (+20.0h)  Sudan v Senegal  [espn: Sudan v Senegal STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040378     ours 2026-11-15T17:00  espn 2026-11-17T19:00  (+50.0h)  Liberia v Cape Verde  [espn: Liberia v Cape Verde STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040379     ours 2026-11-15T17:00  espn 2026-11-17T19:00  (+50.0h)  Rwanda v Mali  [espn: Rwanda v Mali STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040390     ours 2026-11-15T17:00  espn 2026-11-17T16:00  (+47.0h)  Guinea-Bissau v Madagascar  [espn: Guinea-Bissau v Madagascar STATUS_SCHEDULED]
+  caf.nations_qual   fm-6040391     ours 2026-11-15T17:00  espn 2026-11-17T13:00  (+44.0h)  Tanzania v Nigeria  [espn: Tanzania v Nigeria STATUS_SCHEDULED]
+  ksa.1              fm-1000021477  ours 2026-11-20T00:00  espn 2026-11-20T17:30  (+17.5h)  Al Ahli v Al-Faisaly  [espn: Al Ahli v Al Nassr STATUS_SCHEDULED]
+  ksa.1              fm-1000021478  ours 2026-11-20T00:00  espn 2026-11-20T17:30  (+17.5h)  Al-Fayha v Al Fateh FC  [espn: Al Ahli v Al Nassr STATUS_SCHEDULED]
+  ksa.1              fm-1000021479  ours 2026-11-20T00:00  espn 2026-11-20T17:30  (+17.5h)  Al Hilal v Al Diriyah  [espn: Al Ahli v Al Nassr STATUS_SCHEDULED]
+  ksa.1              fm-1000021480  ours 2026-11-20T00:00  espn 2026-11-20T17:30  (+17.5h)  Al Khaleej v Al Ittihad  [espn: Al Ahli v Al Nassr STATUS_SCHEDULED]
+  ksa.1              fm-1000021481  ours 2026-11-20T00:00  espn 2026-11-20T17:30  (+17.5h)  Al Nassr FC v Al Qadsiah  [espn: Al Ahli v Al Nassr STATUS_SCHEDULED]
+  ksa.1              fm-1000021482  ours 2026-11-20T00:00  espn 2026-11-20T17:30  (+17.5h)  Al Riyadh v Al Hazem  [espn: Al Ahli v Al Nassr STATUS_SCHEDULED]
+  ksa.1              fm-1000021483  ours 2026-11-20T00:00  espn 2026-11-20T17:30  (+17.5h)  Al Shabab v Al-Ettifaq  [espn: Al Ahli v Al Nassr STATUS_SCHEDULED]
+  ksa.1              fm-1000021484  ours 2026-11-20T00:00  espn 2026-12-03T14:45  (+326.8h)  Al-Taawoun v Abha  [espn: Al Taawoun v Abha STATUS_SCHEDULED]
+  ksa.1              fm-1000021485  ours 2026-11-20T00:00  espn 2026-12-04T12:40  (+348.7h)  Neom SC v Al Kholood  [espn: Neom SC v Al Kholood STATUS_SCHEDULED]
+  ksa.1              tsdb-2573418   ours 2026-11-20T17:00  espn 2026-11-20T17:30  (+0.5h)  Al-Khaleej v Al-Ittihad  [espn: Al Ahli v Al Nassr STATUS_SCHEDULED]
+  ksa.1              tsdb-2573419   ours 2026-11-20T17:00  espn 2026-11-20T17:30  (+0.5h)  Al-Ahli v Al-Faisaly  [espn: Al Ahli v Al Nassr STATUS_SCHEDULED]
+  ksa.1              tsdb-2573420   ours 2026-11-20T17:00  espn 2026-11-20T17:30  (+0.5h)  Al-Hilal v Al-Diriyah  [espn: Al Ahli v Al Nassr STATUS_SCHEDULED]
+  afc.champions      fm-6054501     ours 2026-11-25T16:00  espn 2026-11-24T18:15  (-21.8h)  Al-Faisaly v Al-Rayyan  [espn: Al Nassr v Al Sadd STATUS_SCHEDULED]
+  afc.champions      fm-6054502     ours 2026-11-25T18:15  espn 2026-11-24T18:15  (-24.0h)  Al-Taawoun v Al-Nahda  [espn: Al Nassr v Al Sadd STATUS_SCHEDULED]
+  ksa.1              fm-1000021486  ours 2026-11-26T00:00  espn 2026-11-26T15:05  (+15.1h)  Abha v Al Riyadh  [espn: Abha v Al Shabab STATUS_SCHEDULED]
+  ksa.1              fm-1000021487  ours 2026-11-26T00:00  espn 2026-11-26T14:25  (+14.4h)  Al-Ettifaq v Al Hazem  [espn: Al Fateh v Al Riyadh STATUS_SCHEDULED]
+  ksa.1              fm-1000021488  ours 2026-11-26T00:00  espn 2026-11-26T14:25  (+14.4h)  Al Ittihad v Al Ahli  [espn: Al Fateh v Al Riyadh STATUS_SCHEDULED]
+  ksa.1              fm-1000021489  ours 2026-11-26T00:00  espn 2026-11-26T14:25  (+14.4h)  Al Kholood v Al Hilal  [espn: Al Fateh v Al Riyadh STATUS_SCHEDULED]
+  ksa.1              fm-1000021490  ours 2026-11-26T00:00  espn 2026-11-26T14:25  (+14.4h)  Al-Faisaly v Al Khaleej  [espn: Al Fateh v Al Riyadh STATUS_SCHEDULED]
+  ksa.1              fm-1000021491  ours 2026-11-26T00:00  espn 2026-11-26T14:25  (+14.4h)  Al Nassr FC v Al Shabab  [espn: Al Fateh v Al Riyadh STATUS_SCHEDULED]
+  ksa.1              fm-1000021492  ours 2026-11-26T00:00  espn 2026-11-26T14:25  (+14.4h)  Al Qadsiah v Al Fateh FC  [espn: Al Fateh v Al Riyadh STATUS_SCHEDULED]
+  ksa.1              fm-1000021493  ours 2026-11-26T00:00  espn 2026-11-26T14:25  (+14.4h)  Al Diriyah v Al-Fayha  [espn: Al Fateh v Al Riyadh STATUS_SCHEDULED]
+  ksa.1              fm-1000021494  ours 2026-11-26T00:00  espn 2026-12-04T12:40  (+204.7h)  Neom SC v Al-Taawoun  [espn: Neom SC v Al Kholood STATUS_SCHEDULED]
+  ksa.1              tsdb-2573427   ours 2026-11-26T17:00  espn 2026-11-26T17:30  (+0.5h)  Al-Faisaly v Al-Khaleej  [espn: Al Faisaly v Al Diriyah STATUS_SCHEDULED]
+  ksa.1              tsdb-2573428   ours 2026-11-26T17:00  espn 2026-11-26T17:30  (+0.5h)  Al-Qadsiah v Al-Fateh  [espn: Al Faisaly v Al Diriyah STATUS_SCHEDULED]
+  ksa.1              tsdb-2573429   ours 2026-11-26T17:00  espn 2026-11-26T17:30  (+0.5h)  Al-Ettifaq v Al-Hazem  [espn: Al Faisaly v Al Diriyah STATUS_SCHEDULED]
+  caf.confed         fm-1000022864  ours 2026-11-27T00:00  espn 2026-11-27T20:00  (+20.0h)  Al Ahly SC v Primeiro de Agosto  [espn: Al Ahly v CD Primeiro de Agosto STATUS_SCHEDULED]
+  caf.confed         fm-1000022865  ours 2026-11-27T00:00  espn 2026-11-27T20:00  (+20.0h)  Raja Casablanca v ASKO Kara  [espn: Raja Casablanca v ASKO Kara STATUS_SCHEDULED]
+  caf.confed         fm-1000022877  ours 2026-11-27T00:00  espn 2026-11-27T20:00  (+20.0h)  Azam FC v Al Ahli Tripoli  [espn: Azam FC v Al Ahli Tripoli STATUS_SCHEDULED]
+  caf.confed         fm-1000022876  ours 2026-11-27T00:00  espn 2026-11-27T20:00  (+20.0h)  FAR Rabat v Durban City  [espn: AS FAR v Durban City STATUS_SCHEDULED]
+  caf.confed         fm-1000022888  ours 2026-11-27T00:00  espn 2026-11-27T20:00  (+20.0h)  Maniema Union v Singida Black Stars  [espn: AS Maniema Union v Singida Black Stars STATUS_SCHEDULED]
+  caf.confed         fm-1000022895  ours 2026-11-27T00:00  espn 2026-11-27T20:00  (+20.0h)  CS Sfaxien v Black Bulls Maputo  [espn: Club Sportif Sfaxien v Associação Black Bulls STATUS_SCHEDULED]
+  caf.confed         fm-1000022894  ours 2026-11-27T00:00  espn 2026-11-27T20:00  (+20.0h)  USM Alger v AS Réal Bamako  [espn: USM Alger v Réal Bamako STATUS_SCHEDULED]
+  rsa.1              tsdb-2545660   ours 2026-11-27T17:30  espn 2026-11-24T17:30  (-72.0h)  Durban City v Polokwane City  [espn: Durban City v Polokwane City FC STATUS_SCHEDULED]
+  caf.champions      fm-6530889     ours 2026-11-28T16:00  espn 2026-11-27T20:00  (-20.0h)  Espérance v Wiliete Benguela  [espn: Esperance Sportive de Tunis v Wiliete SC STATUS_SCHEDULED]
+  caf.champions      fm-6530890     ours 2026-11-28T16:00  espn 2026-11-27T20:00  (-20.0h)  Petro Atlético v FC Nouadhibou  [espn: Petro de Luanda v FC Nouadhibou STATUS_SCHEDULED]
+  caf.champions      fm-6530901     ours 2026-11-28T16:00  espn 2026-11-27T20:00  (-20.0h)  Young Africans v MC Alger  [espn: Young Africans v MC Alger STATUS_SCHEDULED]
+  caf.champions      fm-6530902     ours 2026-11-28T16:00  espn 2026-11-27T20:00  (-20.0h)  Zamalek SC v Club Africain  [espn: Zamalek v Club Africain STATUS_SCHEDULED]
+  caf.champions      fm-6530913     ours 2026-11-28T16:00  espn 2026-11-27T20:00  (-20.0h)  RS Berkane v Colombe  [espn: RSB Berkane v Colombe Sportiv Du Dja Et Lobo STATUS_SCHEDULED]
+  caf.champions      fm-6530914     ours 2026-11-28T16:00  espn 2026-11-27T20:00  (-20.0h)  Simba SC v Orlando Pirates  [espn: Simba SC v Orlando Pirates STATUS_SCHEDULED]
+  caf.champions      fm-6530925     ours 2026-11-28T16:00  espn 2026-11-27T20:00  (-20.0h)  Al Hilal Omdurman v Horoya AC  [espn: Al Hilal Omdurman v Horoya STATUS_SCHEDULED]
+  caf.champions      fm-6530926     ours 2026-11-28T16:00  espn 2026-11-27T20:00  (-20.0h)  Pyramids FC v MAS Fès  [espn: Pyramids FC v Maghreb As De Fès STATUS_SCHEDULED]
+  caf.confed         tsdb-2624983   ours 2026-11-28T16:00  espn 2026-11-27T20:00  (-20.0h)  USM Alger v Réal Bamako  [espn: USM Alger v Réal Bamako STATUS_SCHEDULED]
+  caf.confed         tsdb-2624984   ours 2026-11-28T16:00  espn 2026-11-27T20:00  (-20.0h)  FAR Rabat v Durban City  [espn: AS FAR v Durban City STATUS_SCHEDULED]
+  caf.confed         tsdb-2624985   ours 2026-11-28T16:00  espn 2026-11-27T20:00  (-20.0h)  Raja Casablanca v ASC Kara  [espn: Raja Casablanca v ASKO Kara STATUS_SCHEDULED]
+  gre.1              fm-5943305     ours 2026-11-28T19:00  espn 2026-11-28T15:00  (-4.0h)  Iraklis v Panetolikos  [espn: Iraklis v Panetolikos STATUS_SCHEDULED]
+
+== NOT FOUND IN ESPN (league covered by ESPN): 41
+  fifa.friendly      tsdb-2627363   2026-11-11T00:30  St Maarten v Anguilla
+  bra.1              fd-555085      2026-11-14T21:30  Mirassol FC v CA Mineiro
+  fifa.friendly      401914292      2026-11-16T18:00  Andorra v Azerbaijan
+  bra.1              fd-555083      2026-11-18T23:30  CR Flamengo v CA Paranaense
+  ger.1              fd-565859      2026-11-20T19:30  FC Bayern München v 1. FC Köln
+  bel.1              fm-5811812     2026-11-21T15:00  Sporting Charleroi v St.Truiden
+  fra.1              fd-559627      2026-11-21T19:45  RC Strasbourg Alsace v Stade Brestois 29
+  fra.1              fd-559624      2026-11-21T19:45  Lille OSC v Olympique Lyonnais
+  tur.1              fm-5904811     2026-11-22T10:30  Erzurumspor FK v Göztepe
+  tur.1              fm-5904804     2026-11-22T13:00  Kasımpaşa v Alanyaspor
+  ger.1              fd-565863      2026-11-22T16:30  SV Werder Bremen v Hamburger SV
+  bra.1              fd-555090      2026-11-22T19:00  CA Paranaense v Clube do Remo
+  mex.1              fm-1000014650  2026-11-22T23:07  Chivas v Cruz Azul
+  afc.champions      fm-6054516     2026-11-24T13:45  East Bengal FC v Al-Hussein SC
+  afc.champions      fm-6054696     2026-11-25T07:45  Melbourne Victory v Viettel
+  afc.champions      fm-1000021395  2026-11-25T12:15  Persib Bandung v FC Seoul
+  afc.champions      fm-6054380     2026-11-25T13:45  Nasaf Qarshi v Al Khalidiyah
+  afc.champions      fm-6054381     2026-11-25T16:00  Kuwait SC v Al-Wahda
+  afc.champions      fm-6054598     2026-11-25T16:00  Al-Jazira v Gol Gohar
+  afc.champions      fm-6054599     2026-11-25T16:00  Muharraq v Arkadag
+  bra.1              fd-555091      2026-11-25T23:00  CA Mineiro v SC Corinthians Paulista
+  afc.champions      fm-6054840     2026-11-26T10:00  Tampines Rovers FC v Shanghai Shenhua
+  afc.champions      fm-6054852     2026-11-26T10:00  Gangwon FC v Kitchee
+  afc.champions      fm-6054853     2026-11-26T10:00  Kuching City v Phnom Penh
+  afc.champions      fm-6054841     2026-11-26T12:15  Svay Rieng v Machida Zelvia
+  afc.champions      fm-6054758     2026-11-26T12:15  BG Pathum United v Lion City Sailors FC
+  afc.champions      fm-6054759     2026-11-26T12:15  Tai Po v Adelaide United
+  uefa.europa        fm-6112261     2026-11-26T20:00  Lyon v Lillestrøm
+  uefa.europa        fm-6112367     2026-11-26T20:00  NEC Nijmegen v Rennes
+  uefa.europa.conf   fm-6112411     2026-11-26T20:00  Gent v FK Crvena Zvezda
+  uefa.europa.conf   fm-6112524     2026-11-26T20:00  Hajduk Split v St.Truiden
+  caf.confed         fm-1000022908  2026-11-27T00:00  TBC v Red Arrows
+  tur.1              fm-5904815     2026-11-27T17:00  Rizespor v Kasımpaşa
+  fra.1              fd-559616      2026-11-27T19:45  Stade Brestois 29 v Paris FC
+  ger.1              fd-565874      2026-11-28T14:30  Hamburger SV v FC Bayern München
+  ger.1              fd-565866      2026-11-28T14:30  1. FC Köln v SV 07 Elversberg
+  bel.1              fm-5811825     2026-11-29T12:30  St.Truiden v Genk
+  tur.1              fm-5904818     2026-11-29T16:00  Fenerbahçe v Erzurumspor FK
+  fra.1              fd-559615      2026-11-29T19:45  Olympique Lyonnais v AS Monaco FC
+  bra.1              fd-555107      2026-11-29T21:30  Mirassol FC v CA Paranaense
+  bra.1              fd-555100      2026-11-29T22:30  CA Mineiro v CR Vasco da Gama
+
+== LEAGUE NOT ON ESPN (cannot cross-check): 131
+   {'nga.1': 34, 'alg.1': 31, 'qat.1': 21, 'uae.1': 7, 'tun.1': 16, 'kor.1': 12, 'egy.1': 10}
+  nga.1              fm-6103137     2026-11-11T15:00  Enugu Rangers v Bendel Insurance
+  alg.1              fm-5989816     2026-11-13T17:00  JS Saoura v USM Khenchela
+  nga.1              fm-6103178     2026-11-13T17:00  Shooting Stars v Bendel Insurance
+  nga.1              fm-6103170     2026-11-14T15:00  Doma United v Barau
+  nga.1              fm-6103171     2026-11-15T15:00  Enyimba v Ikorodu City
+  nga.1              fm-6103172     2026-11-15T15:00  Inter Lagos v Abia Warriors
+  nga.1              fm-6103173     2026-11-15T15:00  Kano Pillars v Ranchers Bees
+  nga.1              fm-6103174     2026-11-15T15:00  Katsina United v Nasarawa United
+  nga.1              fm-6103175     2026-11-15T15:00  Kwara United v Rivers United FC
+  nga.1              fm-6103176     2026-11-15T15:00  Niger Tornadoes v Enugu Rangers
+  nga.1              fm-6103177     2026-11-15T15:00  Plateau United v Kun Khalifat
+  nga.1              fm-6103179     2026-11-15T15:00  Warri Wolves FC v Sporting Lagos
+  nga.1              fm-6103148     2026-11-18T15:00  Ranchers Bees v Doma United
+  nga.1              fm-6103160     2026-11-18T15:00  Sporting Lagos v Rivers United FC
+  alg.1              fm-5989883     2026-11-18T16:45  CR Temouchent v JS El Biar
+  alg.1              fm-5989879     2026-11-18T16:45  CS Constantine v ES Ben Aknoun
+  uae.1              fm-1000022240  2026-11-19T12:45  Al-Wasl v Hatta
+  qat.1              fm-5952302     2026-11-19T13:00  Al-Ahli v Al-Shamal
+  uae.1              fm-1000022241  2026-11-19T15:25  Al-Ain v Al-Dhafra
+  qat.1              fm-5952304     2026-11-19T15:30  Al-Gharafa v Al-Arabi
+  alg.1              fm-5989878     2026-11-19T16:45  MB Rouissat v CR Bélouizdad
+  alg.1              fm-5989882     2026-11-19T16:45  MC Alger v Olympique Akbou
+  alg.1              fm-5989881     2026-11-19T19:00  JS Kabylie v USM Alger
+  uae.1              fm-1000022242  2026-11-20T12:45  Kalba FC v Sharjah Cultural Club
+  qat.1              fm-5952305     2026-11-20T13:00  Al-Sadd v Lusail SC
+  qat.1              fm-5952297     2026-11-20T13:00  Al-Gharafa v Al-Duhail SC
+  qat.1              fm-5952298     2026-11-20T13:00  Al-Shamal v Al-Sailiya
+  uae.1              fm-1000022243  2026-11-20T15:25  Shabab Al-Ahli Dubai FC v Ajman
+  qat.1              fm-5952307     2026-11-20T15:30  Al-Duhail SC v Qatar SC
+  qat.1              fm-5952296     2026-11-20T15:30  Al-Rayyan v Al-Sadd
+  alg.1              fm-5989884     2026-11-20T16:00  ASO Chlef v USM Khenchela
+  alg.1              fm-5989885     2026-11-20T16:00  ES Sétif v US Biskra
+  qat.1              tsdb-2546131   2026-11-20T16:00  Al-Shahaniya v Al-Wakrah
+  nga.1              fm-6103186     2026-11-20T17:00  Ranchers Bees v Plateau United
+  alg.1              fm-5989880     2026-11-20T19:00  MC Oran v JS Saoura
+  kor.1              fm-6503838     2026-11-21T05:00  Jeonbuk Hyundai Motors FC v FC Seoul
+  kor.1              fm-6503954     2026-11-21T05:00  Pohang Steelers v FC Anyang
+  kor.1              fm-6503839     2026-11-21T07:30  Gangwon FC v Daejeon Hana Citizen
+  kor.1              fm-6503840     2026-11-21T07:30  Incheon United v Ulsan HD FC
+  uae.1              fm-1000022244  2026-11-21T12:45  Baniyas v Al-Nasr SC
+  uae.1              fm-1000022245  2026-11-21T12:45  Khorfakkan v Al-Jazira
+  qat.1              fm-5952303     2026-11-21T13:00  Al-Wakrah v Al-Sailiya
+  qat.1              fm-5952299     2026-11-21T13:00  Al-Arabi v Al-Ahli
+  nga.1              fm-6103180     2026-11-21T15:00  Ikorodu City v Kano Pillars
+  nga.1              fm-6103188     2026-11-21T15:00  Rivers United FC v Niger Tornadoes
+  uae.1              fm-1000022246  2026-11-21T15:25  United FC v Al-Wahda
+  qat.1              fm-5952306     2026-11-21T15:30  Al-Shahaniya v Al-Rayyan
+  qat.1              fm-5952300     2026-11-21T15:30  Lusail SC v Qatar SC
+  qat.1              fm-5952301     2026-11-21T15:30  Al-Shahaniya v Al-Wakrah
+  alg.1              fm-5989899     2026-11-21T16:00  ASO Chlef v Olympique Akbou
+  alg.1              fm-5989898     2026-11-21T16:00  CR Temouchent v USM Alger
+  alg.1              fm-5989900     2026-11-21T16:00  ES Sétif v JS El Biar
+  alg.1              fm-5989896     2026-11-21T16:00  JS Kabylie v ES Ben Aknoun
+  alg.1              fm-5989894     2026-11-21T16:00  MB Rouissat v CS Constantine
+  alg.1              fm-5989897     2026-11-21T16:00  MC Alger v JS Saoura
+  alg.1              fm-5989895     2026-11-21T16:00  MC Oran v CR Bélouizdad
+  alg.1              fm-5989901     2026-11-21T16:00  US Biskra v USM Khenchela
+  tun.1              fm-6050550     2026-11-21T16:30  Club Africain v Espérance
+  tun.1              fm-6050553     2026-11-21T16:30  CS Hammam-Lif v Etoile Métlaoui
+  tun.1              fm-6050551     2026-11-21T16:30  CS Sfaxien v JS Omrane
+  tun.1              fm-6050552     2026-11-21T16:30  ES Hamam Sousse v PS Sakiet Eddaïer
+  tun.1              fm-6050555     2026-11-21T16:30  Olympique de Béja v Avenir de La Marsa
+  tun.1              fm-6050556     2026-11-21T16:30  Stade Tunisien v CA Bizertin
+  tun.1              fm-6050554     2026-11-21T16:30  US Monastir v Etoile du Sahel
+  tun.1              fm-6050557     2026-11-21T16:30  Zarzis v Ben Guerdane
+  kor.1              fm-6503955     2026-11-22T05:00  Gimcheon Sangmu v Jeju SK
+  kor.1              fm-6503956     2026-11-22T05:00  Gwangju FC v Bucheon FC 1995
+  nga.1              fm-6103181     2026-11-22T15:00  Abia Warriors v Enyimba
+  nga.1              fm-6103182     2026-11-22T15:00  Barau v Inter Lagos
+  nga.1              fm-6103183     2026-11-22T15:00  Bendel Insurance v Doma United
+  nga.1              fm-6103187     2026-11-22T15:00  Enugu Rangers v Shooting Stars
+  nga.1              fm-6103184     2026-11-22T15:00  Kun Khalifat v Katsina United
+  nga.1              fm-6103185     2026-11-22T15:00  Nasarawa United v Warri Wolves FC
+  nga.1              fm-6103189     2026-11-22T15:00  Sporting Lagos v Kwara United
+  egy.1              fm-5996762     2026-11-23T15:00  El Gouna FC v Zamalek SC
+  alg.1              fm-5989848     2026-11-23T16:45  CR Bélouizdad v Olympique Akbou
+  alg.1              fm-5989847     2026-11-23T16:45  ES Ben Aknoun v USM Alger
+  egy.1              fm-5996763     2026-11-23T18:00  Al Ahly SC v Pyramids FC
+  alg.1              fm-5989821     2026-11-23T18:00  JS Kabylie v MC Alger
+  egy.1              fm-5996764     2026-11-24T15:00  Smouha SC v National Bank
+  egy.1              fm-5996765     2026-11-24T15:00  ZED FC v Abo Qir Semad
+  egy.1              fm-5996766     2026-11-24T18:00  Al Masry SC v Asyut Petroleum
+  egy.1              fm-5996767     2026-11-24T18:00  Wadi Degla FC v Al Ittihad Alexandria
+  egy.1              fm-5996768     2026-11-25T15:00  Al Mokawloon Al Arab v Olympic El Qanah FC
+  egy.1              fm-5996769     2026-11-25T15:00  Tala'ea El Gaish v Modern Sport FC
+  nga.1              fm-6103140     2026-11-25T15:00  Sporting Lagos v Enugu Rangers
+  egy.1              fm-5996770     2026-11-25T18:00  Al Sharkeyah-ENPPI v Ceramica Cleopatra
+  egy.1              fm-5996771     2026-11-25T18:00  Ghazl Al Mahalla v Petrojet-Suez
+  qat.1              fm-5952310     2026-11-27T13:00  Al-Sailiya v Al-Gharafa
+  qat.1              fm-5952313     2026-11-27T15:30  Lusail SC v Al-Arabi
+  qat.1              tsdb-2546137   2026-11-27T16:00  Al-Shahaniya v Al-Rayyan
+  qat.1              tsdb-2546138   2026-11-27T16:00  Al-Sadd v Lusail
+  nga.1              fm-6103198     2026-11-27T17:00  Shooting Stars v Rivers United FC
+  kor.1              fm-6503841     2026-11-28T05:00  FC Seoul v Daejeon Hana Citizen
+  kor.1              fm-6503957     2026-11-28T05:00  FC Anyang v Jeju SK
+  kor.1              fm-6503958     2026-11-28T07:30  Bucheon FC 1995 v Gimcheon Sangmu
+  kor.1              fm-6503959     2026-11-28T07:30  Pohang Steelers v Gwangju FC
+  qat.1              fm-5952308     2026-11-28T13:00  Al-Wakrah v Al-Sadd
+  nga.1              fm-6103190     2026-11-28T15:00  Doma United v Enugu Rangers
+  nga.1              fm-6103197     2026-11-28T15:00  Plateau United v Ikorodu City
+  qat.1              fm-5952311     2026-11-28T15:30  Al-Ahli v Al-Duhail SC
+  alg.1              fm-5989908     2026-11-28T16:00  CR Bélouizdad v JS Kabylie
+  alg.1              fm-5989909     2026-11-28T16:00  CS Constantine v MC Oran
+  alg.1              fm-5989907     2026-11-28T16:00  ES Ben Aknoun v MC Alger
+  alg.1              fm-5989903     2026-11-28T16:00  JS El Biar v US Biskra
+  alg.1              fm-5989906     2026-11-28T16:00  JS Saoura v CR Temouchent
+  alg.1              fm-5989904     2026-11-28T16:00  Olympique Akbou v ES Sétif
+  alg.1              fm-5989905     2026-11-28T16:00  USM Alger v ASO Chlef
+  alg.1              fm-5989902     2026-11-28T16:00  USM Khenchela v MB Rouissat
+  tun.1              fm-6050558     2026-11-28T16:30  Avenir de La Marsa v CS Sfaxien
+  tun.1              fm-6050559     2026-11-28T16:30  CA Bizertin v Zarzis
+  tun.1              fm-6050562     2026-11-28T16:30  CS Hammam-Lif v Olympique de Béja
+  tun.1              fm-6050560     2026-11-28T16:30  Espérance v ES Hamam Sousse
+  tun.1              fm-6050561     2026-11-28T16:30  Etoile du Sahel v Club Africain
+  tun.1              fm-6050564     2026-11-28T16:30  Etoile Métlaoui v Ben Guerdane
+  tun.1              fm-6050563     2026-11-28T16:30  JS Omrane v US Monastir
+  tun.1              fm-6050565     2026-11-28T16:30  PS Sakiet Eddaïer v Stade Tunisien
+  kor.1              fm-6503842     2026-11-29T05:00  Ulsan HD FC v Jeonbuk Hyundai Motors FC
+  kor.1              fm-6503843     2026-11-29T07:30  Incheon United v Gangwon FC
+  qat.1              fm-5952309     2026-11-29T13:00  Al-Shamal v Al-Rayyan
+  nga.1              fm-6103191     2026-11-29T15:00  Enyimba v Barau
+  nga.1              fm-6103192     2026-11-29T15:00  Inter Lagos v Bendel Insurance
+  nga.1              fm-6103193     2026-11-29T15:00  Kano Pillars v Abia Warriors
+  nga.1              fm-6103194     2026-11-29T15:00  Katsina United v Ranchers Bees
+  nga.1              fm-6103195     2026-11-29T15:00  Nasarawa United v Sporting Lagos
+  nga.1              fm-6103196     2026-11-29T15:00  Niger Tornadoes v Kwara United
+  nga.1              fm-6103199     2026-11-29T15:00  Warri Wolves FC v Kun Khalifat
+  qat.1              fm-5952312     2026-11-29T15:30  Qatar SC v Al-Shahaniya
+  alg.1              fm-5989888     2026-11-30T13:00  JS El Biar v ASO Chlef
+  alg.1              fm-5989886     2026-11-30T13:00  US Biskra v MB Rouissat
+  alg.1              fm-5989887     2026-11-30T13:00  USM Khenchela v ES Sétif
+
+== SAME PAIR LISTED TWICE IN OUR DATA:
+  caf.nations_qual tsdb-2475972 2026-11-11T17:00 | fm-6040360 2026-11-14T19:00  Algeria v Togo
+  caf.nations_qual tsdb-2475972 2026-11-11T17:00 | fm-6040363 2026-11-15T17:00  Algeria v Togo
+  caf.nations_qual tsdb-2475973 2026-11-11T17:00 | fm-6040216 2026-11-14T19:00  Angola v South Sudan
+  caf.nations_qual tsdb-2475973 2026-11-11T17:00 | fm-6040219 2026-11-15T17:00  Angola v South Sudan
+  caf.nations_qual tsdb-2475974 2026-11-11T17:00 | fm-6040277 2026-11-12T19:00  Benin v Central African Republic
+  caf.nations_qual tsdb-2475974 2026-11-11T17:00 | fm-6040279 2026-11-15T17:00  Benin v Central African Republic
+  caf.nations_qual fm-6040203 2026-11-11T17:00 | fm-6040205 2026-11-15T17:00  Gabon v Lesotho
+  caf.nations_qual fm-6040204 2026-11-11T17:00 | fm-6040206 2026-11-15T17:00  Morocco v Niger
+  caf.nations_qual fm-6040217 2026-11-11T17:00 | fm-6040218 2026-11-15T17:00  Egypt v Malawi
+  caf.nations_qual fm-6040239 2026-11-11T17:00 | fm-6040242 2026-11-15T17:00  Ghana v Somalia
+  caf.nations_qual fm-6040239 2026-11-11T17:00 | 401927177 2026-11-16T15:00  Ghana v Somalia
+  caf.nations_qual fm-6040240 2026-11-11T17:00 | fm-6040241 2026-11-15T17:00  Ivory Coast v Gambia
+  caf.nations_qual fm-6040251 2026-11-11T17:00 | fm-6040253 2026-11-15T17:00  Guinea v Eritrea
+  caf.nations_qual fm-6040252 2026-11-11T17:00 | fm-6040254 2026-11-15T17:00  South Africa v Kenya
+  caf.nations_qual fm-6040263 2026-11-11T17:00 | fm-6040265 2026-11-15T17:00  DR Congo v Sierra Leone
+  caf.nations_qual fm-6040264 2026-11-11T17:00 | fm-6040266 2026-11-15T17:00  Equatorial Guinea v Zimbabwe
+  caf.nations_qual fm-6040278 2026-11-11T17:00 | tsdb-2475975 2026-11-13T16:00  Burkina Faso v Mauritania
+  caf.nations_qual fm-6040278 2026-11-11T17:00 | fm-6040280 2026-11-15T17:00  Burkina Faso v Mauritania
+  caf.nations_qual fm-6040336 2026-11-11T17:00 | fm-6040339 2026-11-15T17:00  Cameroon v Namibia
+  caf.nations_qual fm-6040337 2026-11-11T17:00 | tsdb-2475978 2026-11-13T13:00  Comoros v Congo
+  caf.nations_qual fm-6040337 2026-11-11T17:00 | fm-6040338 2026-11-15T17:00  Comoros v Congo
+  caf.nations_qual fm-6040348 2026-11-11T17:00 | fm-6040351 2026-11-15T17:00  Tunisia v Libya
+  caf.nations_qual fm-6040349 2026-11-11T17:00 | fm-6040350 2026-11-15T17:00  Uganda v Botswana
+  caf.nations_qual fm-6040361 2026-11-11T17:00 | fm-6040362 2026-11-15T17:00  Zambia v Burundi
+  caf.nations_qual fm-6040400 2026-11-11T17:00 | fm-6040402 2026-11-15T17:00  Mozambique v Ethiopia
+  caf.nations_qual fm-6040401 2026-11-11T17:00 | fm-6040403 2026-11-15T17:00  Senegal v Sudan
+  caf.nations_qual fm-6040376 2026-11-11T17:00 | tsdb-2475977 2026-11-13T16:00  Cape Verde v Liberia
+  caf.nations_qual fm-6040376 2026-11-11T17:00 | fm-6040378 2026-11-15T17:00  Cape Verde v Liberia
+  caf.nations_qual fm-6040377 2026-11-11T17:00 | fm-6040379 2026-11-15T17:00  Mali v Rwanda
+  caf.nations_qual fm-6040388 2026-11-11T17:00 | fm-6040390 2026-11-15T17:00  Madagascar v Guinea-Bissau
+  caf.nations_qual fm-6040389 2026-11-11T17:00 | fm-6040391 2026-11-15T17:00  Nigeria v Tanzania
+  caf.nations_qual fm-6040277 2026-11-12T19:00 | fm-6040279 2026-11-15T17:00  Benin v Central African Republic
+  alg.1 fm-5989816 2026-11-13T17:00 | fm-5989881 2026-11-19T19:00  JS Saoura v USM Khenchela
+  caf.nations_qual tsdb-2475975 2026-11-13T16:00 | fm-6040280 2026-11-15T17:00  Burkina Faso v Mauritania
+  caf.nations_qual tsdb-2475977 2026-11-13T16:00 | fm-6040378 2026-11-15T17:00  Cape Verde v Liberia
+  caf.nations_qual tsdb-2475978 2026-11-13T13:00 | fm-6040338 2026-11-15T17:00  Comoros v Congo
+  caf.nations_qual fm-6040216 2026-11-14T19:00 | fm-6040219 2026-11-15T17:00  Angola v South Sudan
+  caf.nations_qual fm-6040360 2026-11-14T19:00 | fm-6040363 2026-11-15T17:00  Algeria v Togo
+  fifa.friendly 401933864 2026-11-14T05:30 | 401933879 2026-11-17T05:30  Tahiti v Cook Islands
+  caf.nations_qual fm-6040242 2026-11-15T17:00 | 401927177 2026-11-16T15:00  Somalia v Ghana
+  alg.1 fm-5989883 2026-11-18T16:45 | fm-5989908 2026-11-28T16:00  CR Temouchent v JS El Biar
+  alg.1 fm-5989883 2026-11-18T16:45 | fm-5989906 2026-11-28T16:00  CR Temouchent v JS El Biar
+  alg.1 fm-5989881 2026-11-19T19:00 | fm-5989897 2026-11-21T16:00  JS Kabylie v USM Alger
+  alg.1 fm-5989881 2026-11-19T19:00 | fm-5989821 2026-11-23T18:00  JS Kabylie v USM Alger
+  qat.1 fm-5952302 2026-11-19T13:00 | fm-5952304 2026-11-19T15:30  Al-Ahli v Al-Shamal
+  qat.1 fm-5952302 2026-11-19T13:00 | fm-5952297 2026-11-20T13:00  Al-Ahli v Al-Shamal
+  qat.1 fm-5952302 2026-11-19T13:00 | fm-5952298 2026-11-20T13:00  Al-Ahli v Al-Shamal
+  qat.1 fm-5952302 2026-11-19T13:00 | fm-5952296 2026-11-20T15:30  Al-Ahli v Al-Shamal
+  qat.1 fm-5952302 2026-11-19T13:00 | tsdb-2546131 2026-11-20T16:00  Al-Ahli v Al-Shamal
+  qat.1 fm-5952302 2026-11-19T13:00 | fm-5952303 2026-11-21T13:00  Al-Ahli v Al-Shamal
+  qat.1 fm-5952302 2026-11-19T13:00 | fm-5952306 2026-11-21T15:30  Al-Ahli v Al-Shamal
+  qat.1 fm-5952302 2026-11-19T13:00 | fm-5952299 2026-11-21T13:00  Al-Ahli v Al-Shamal
+  qat.1 fm-5952302 2026-11-19T13:00 | fm-5952301 2026-11-21T15:30  Al-Ahli v Al-Shamal
+  qat.1 fm-5952302 2026-11-19T13:00 | fm-5952310 2026-11-27T13:00  Al-Ahli v Al-Shamal
+  qat.1 fm-5952302 2026-11-19T13:00 | tsdb-2546137 2026-11-27T16:00  Al-Ahli v Al-Shamal
+  qat.1 fm-5952302 2026-11-19T13:00 | fm-5952308 2026-11-28T13:00  Al-Ahli v Al-Shamal
+  qat.1 fm-5952302 2026-11-19T13:00 | fm-5952311 2026-11-28T15:30  Al-Ahli v Al-Shamal
+  qat.1 fm-5952302 2026-11-19T13:00 | fm-5952309 2026-11-29T13:00  Al-Ahli v Al-Shamal
+  qat.1 fm-5952304 2026-11-19T15:30 | fm-5952297 2026-11-20T13:00  Al-Gharafa v Al-Arabi
+  qat.1 fm-5952304 2026-11-19T15:30 | fm-5952298 2026-11-20T13:00  Al-Gharafa v Al-Arabi
+  qat.1 fm-5952304 2026-11-19T15:30 | fm-5952296 2026-11-20T15:30  Al-Gharafa v Al-Arabi
+  qat.1 fm-5952304 2026-11-19T15:30 | tsdb-2546131 2026-11-20T16:00  Al-Gharafa v Al-Arabi
+  qat.1 fm-5952304 2026-11-19T15:30 | fm-5952303 2026-11-21T13:00  Al-Gharafa v Al-Arabi
+  qat.1 fm-5952304 2026-11-19T15:30 | fm-5952306 2026-11-21T15:30  Al-Gharafa v Al-Arabi
+  qat.1 fm-5952304 2026-11-19T15:30 | fm-5952299 2026-11-21T13:00  Al-Gharafa v Al-Arabi
+  qat.1 fm-5952304 2026-11-19T15:30 | fm-5952301 2026-11-21T15:30  Al-Gharafa v Al-Arabi
+  qat.1 fm-5952304 2026-11-19T15:30 | fm-5952310 2026-11-27T13:00  Al-Gharafa v Al-Arabi
+  qat.1 fm-5952304 2026-11-19T15:30 | tsdb-2546137 2026-11-27T16:00  Al-Gharafa v Al-Arabi
+  qat.1 fm-5952304 2026-11-19T15:30 | fm-5952308 2026-11-28T13:00  Al-Gharafa v Al-Arabi
+  qat.1 fm-5952304 2026-11-19T15:30 | fm-5952311 2026-11-28T15:30  Al-Gharafa v Al-Arabi
+  qat.1 fm-5952304 2026-11-19T15:30 | fm-5952309 2026-11-29T13:00  Al-Gharafa v Al-Arabi
+  alg.1 fm-5989884 2026-11-20T16:00 | fm-5989905 2026-11-28T16:00  ASO Chlef v USM Khenchela
+  alg.1 fm-5989880 2026-11-20T19:00 | fm-5989897 2026-11-21T16:00  MC Oran v JS Saoura
+  alg.1 fm-5989880 2026-11-20T19:00 | fm-5989821 2026-11-23T18:00  MC Oran v JS Saoura
+  ksa.1 fm-5970153 2026-11-20T17:30 | tsdb-2573418 2026-11-20T17:00  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | tsdb-2573419 2026-11-20T17:00  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | tsdb-2573420 2026-11-20T17:00  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | fm-1000021477 2026-11-20T00:00  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | fm-1000021478 2026-11-20T00:00  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | fm-1000021479 2026-11-20T00:00  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | fm-1000021480 2026-11-20T00:00  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | fm-1000021481 2026-11-20T00:00  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | fm-1000021482 2026-11-20T00:00  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | fm-1000021483 2026-11-20T00:00  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | fm-1000021471 2026-11-26T14:25  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | fm-1000021475 2026-11-26T17:30  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | fm-1000021487 2026-11-26T00:00  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | fm-1000021488 2026-11-26T00:00  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | fm-1000021489 2026-11-26T00:00  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | fm-1000021490 2026-11-26T00:00  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | fm-1000021491 2026-11-26T00:00  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | fm-1000021492 2026-11-26T00:00  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | fm-1000021493 2026-11-26T00:00  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | tsdb-2573427 2026-11-26T17:00  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | tsdb-2573428 2026-11-26T17:00  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | tsdb-2573429 2026-11-26T17:00  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | fm-1000021474 2026-11-27T12:15  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | fm-1000021476 2026-11-27T14:20  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | fm-1000021472 2026-11-28T12:15  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | fm-1000021470 2026-11-28T14:20  Al Ahli v Al Nassr FC
+  ksa.1 fm-5970153 2026-11-20T17:30 | fm-1000021468 2026-11-28T17:30  Al Ahli v Al Nassr FC
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | tsdb-2573419 2026-11-20T17:00  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | tsdb-2573420 2026-11-20T17:00  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | fm-1000021477 2026-11-20T00:00  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | fm-1000021478 2026-11-20T00:00  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | fm-1000021479 2026-11-20T00:00  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | fm-1000021480 2026-11-20T00:00  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | fm-1000021481 2026-11-20T00:00  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | fm-1000021482 2026-11-20T00:00  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | fm-1000021483 2026-11-20T00:00  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | fm-1000021471 2026-11-26T14:25  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | fm-1000021475 2026-11-26T17:30  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | fm-1000021487 2026-11-26T00:00  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | fm-1000021488 2026-11-26T00:00  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | fm-1000021489 2026-11-26T00:00  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | fm-1000021490 2026-11-26T00:00  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | fm-1000021491 2026-11-26T00:00  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | fm-1000021492 2026-11-26T00:00  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | fm-1000021493 2026-11-26T00:00  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | tsdb-2573427 2026-11-26T17:00  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | tsdb-2573428 2026-11-26T17:00  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | tsdb-2573429 2026-11-26T17:00  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | fm-1000021474 2026-11-27T12:15  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | fm-1000021476 2026-11-27T14:20  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | fm-1000021472 2026-11-28T12:15  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | fm-1000021470 2026-11-28T14:20  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573418 2026-11-20T17:00 | fm-1000021468 2026-11-28T17:30  Al-Khaleej v Al-Ittihad
+  ksa.1 tsdb-2573419 2026-11-20T17:00 | tsdb-2573420 2026-11-20T17:00  Al-Ahli v Al-Faisaly
+  ksa.1 tsdb-2573419 2026-11-20T17:00 | fm-1000021477 2026-11-20T00:00  Al-Ahli v Al-Faisaly
+  ksa.1 tsdb-2573419 2026-11-20T17:00 | fm-1000021478 2026-11-20T00:00  Al-Ahli v Al-Faisaly
+  ksa.1 tsdb-2573419 2026-11-20T17:00 | fm-1000021479 2026-11-20T00:00  Al-Ahli v Al-Faisaly
+  ksa.1 tsdb-2573419 2026-11-20T17:00 | fm-1000021480 2026-11-20T00:00  Al-Ahli v Al-Faisaly
+  ksa.1 tsdb-2573419 2026-11-20T17:00 | fm-1000021481 2026-11-20T00:00  Al-Ahli v Al-Faisaly
+  ksa.1 tsdb-2573419 2026-11-20T17:00 | fm-1000021482 2026-11-20T00:00  Al-Ahli v Al-Faisaly
+  ksa.1 tsdb-2573419 2026-11-20T17:00 | fm-1000021483 2026-11-20T00:00  Al-Ahli v Al-Faisaly
+  ksa.1 tsdb-2573419 2026-11-20T17:00 | fm-1000021471 2026-11-26T14:25  Al-Ahli v Al-Faisaly
+  ksa.1 tsdb-2573419 2026-11-20T17:00 | fm-1000021475 2026-11-26T17:30  Al-Ahli v Al-Faisaly
+  ksa.1 tsdb-2573419 2026-11-20T17:00 | fm-1000021487 2026-11-26T00:00  Al-Ahli v Al-Faisaly
+  ksa.1 tsdb-2573419 2026-11-20T17:00 | fm-1000021488 2026-11-26T00:00  Al-Ahli v Al-Faisaly
+  ksa.1 tsdb-2573419 2026-11-20T17:00 | fm-1000021489 2026-11-26T00:00  Al-Ahli v Al-Faisaly
+  ksa.1 tsdb-2573419 2026-11-20T17:00 | fm-1000021490 2026-11-26T00:00  Al-Ahli v Al-Faisaly
+  ksa.1 tsdb-2573419 2026-11-20T17:00 | fm-1000021491 2026-11-26T00:00  Al-Ahli v Al-Faisaly
+  ksa.1 tsdb-2573419 2026-11-20T17:00 | fm-1000021492 2026-11-26T00:00  Al-Ahli v Al-Faisaly
+  ksa.1 tsdb-2573419 2026-11-20T17:00 | fm-1000021493 2026-11-26T00:00  Al-Ahli v Al-Faisaly
+  ksa.1 tsdb-2573419 2026-11-20T17:00 | tsdb-2573427 2026-11-26T17:00  Al-Ahli v Al-Faisaly
+  ksa.1 tsdb-2573419 2026-11-20T17:00 | tsdb-2573428 2026-11-26T17:00  Al-Ahli v Al-Faisaly
+  ksa.1 tsdb-2573419 2026-11-20T17:00 | tsdb-2573429 2026-11-26T17:00  Al-Ahli v Al-Faisaly
+  ksa.1 tsdb-2573419 2026-11-20T17:00 | fm-1000021474 2026-11-27T12:15  Al-Ahli v Al-Faisaly
+  ksa.1 tsdb-2573419 2026-11-20T17:00 | fm-1000021476 2026-11-27T14:20  Al-Ahli v Al-Faisaly
+  ksa.1 tsdb-2573419 2026-11-20T17:00 | fm-1000021472 2026-11-28T12:15  Al-Ahli v Al-Faisaly
+  ksa.1 tsdb-2573419 2026-11-20T17:00 | fm-1000021470 2026-11-28T14:20  Al-Ahli v Al-Faisaly
+  ksa.1 tsdb-2573419 2026-11-20T17:00 | fm-1000021468 2026-11-28T17:30  Al-Ahli v Al-Faisaly
+  ksa.1 tsdb-2573420 2026-11-20T17:00 | fm-1000021477 2026-11-20T00:00  Al-Hilal v Al-Diriyah
+  ksa.1 tsdb-2573420 2026-11-20T17:00 | fm-1000021478 2026-11-20T00:00  Al-Hilal v Al-Diriyah
+  ksa.1 tsdb-2573420 2026-11-20T17:00 | fm-1000021479 2026-11-20T00:00  Al-Hilal v Al-Diriyah
+  ksa.1 tsdb-2573420 2026-11-20T17:00 | fm-1000021480 2026-11-20T00:00  Al-Hilal v Al-Diriyah
+  ksa.1 tsdb-2573420 2026-11-20T17:00 | fm-1000021481 2026-11-20T00:00  Al-Hilal v Al-Diriyah
+  ksa.1 tsdb-2573420 2026-11-20T17:00 | fm-1000021482 2026-11-20T00:00  Al-Hilal v Al-Diriyah
+  ksa.1 tsdb-2573420 2026-11-20T17:00 | fm-1000021483 2026-11-20T00:00  Al-Hilal v Al-Diriyah
+  ksa.1 tsdb-2573420 2026-11-20T17:00 | fm-1000021471 2026-11-26T14:25  Al-Hilal v Al-Diriyah
+  ksa.1 tsdb-2573420 2026-11-20T17:00 | fm-1000021475 2026-11-26T17:30  Al-Hilal v Al-Diriyah
+  ksa.1 tsdb-2573420 2026-11-20T17:00 | fm-1000021487 2026-11-26T00:00  Al-Hilal v Al-Diriyah
+  ksa.1 tsdb-2573420 2026-11-20T17:00 | fm-1000021488 2026-11-26T00:00  Al-Hilal v Al-Diriyah
+  ksa.1 tsdb-2573420 2026-11-20T17:00 | fm-1000021489 2026-11-26T00:00  Al-Hilal v Al-Diriyah
+  ksa.1 tsdb-2573420 2026-11-20T17:00 | fm-1000021490 2026-11-26T00:00  Al-Hilal v Al-Diriyah
+  ksa.1 tsdb-2573420 2026-11-20T17:00 | fm-1000021491 2026-11-26T00:00  Al-Hilal v Al-Diriyah
+  ksa.1 tsdb-2573420 2026-11-20T17:00 | fm-1000021492 2026-11-26T00:00  Al-Hilal v Al-Diriyah
+  ksa.1 tsdb-2573420 2026-11-20T17:00 | fm-1000021493 2026-11-26T00:00  Al-Hilal v Al-Diriyah
+  ksa.1 tsdb-2573420 2026-11-20T17:00 | tsdb-2573427 2026-11-26T17:00  Al-Hilal v Al-Diriyah
+  ksa.1 tsdb-2573420 2026-11-20T17:00 | tsdb-2573428 2026-11-26T17:00  Al-Hilal v Al-Diriyah
+  ksa.1 tsdb-2573420 2026-11-20T17:00 | tsdb-2573429 2026-11-26T17:00  Al-Hilal v Al-Diriyah
+  ksa.1 tsdb-2573420 2026-11-20T17:00 | fm-1000021474 2026-11-27T12:15  Al-Hilal v Al-Diriyah
+  ksa.1 tsdb-2573420 2026-11-20T17:00 | fm-1000021476 2026-11-27T14:20  Al-Hilal v Al-Diriyah
+  ksa.1 tsdb-2573420 2026-11-20T17:00 | fm-1000021472 2026-11-28T12:15  Al-Hilal v Al-Diriyah
+  ksa.1 tsdb-2573420 2026-11-20T17:00 | fm-1000021470 2026-11-28T14:20  Al-Hilal v Al-Diriyah
+  ksa.1 tsdb-2573420 2026-11-20T17:00 | fm-1000021468 2026-11-28T17:30  Al-Hilal v Al-Diriyah
+  ksa.1 fm-1000021477 2026-11-20T00:00 | fm-1000021478 2026-11-20T00:00  Al Ahli v Al-Faisaly
+  ksa.1 fm-1000021477 2026-11-20T00:00 | fm-1000021479 2026-11-20T00:00  Al Ahli v Al-Faisaly
+  ksa.1 fm-1000021477 2026-11-20T00:00 | fm-1000021480 2026-11-20T00:00  Al Ahli v Al-Faisaly
+  ksa.1 fm-1000021477 2026-11-20T00:00 | fm-1000021481 2026-11-20T00:00  Al Ahli v Al-Faisaly
+  ksa.1 fm-1000021477 2026-11-20T00:00 | fm-1000021482 2026-11-20T00:00  Al Ahli v Al-Faisaly
+  ksa.1 fm-1000021477 2026-11-20T00:00 | fm-1000021483 2026-11-20T00:00  Al Ahli v Al-Faisaly
+  ksa.1 fm-1000021477 2026-11-20T00:00 | fm-1000021471 2026-11-26T14:25  Al Ahli v Al-Faisaly
+  ksa.1 fm-1000021477 2026-11-20T00:00 | fm-1000021475 2026-11-26T17:30  Al Ahli v Al-Faisaly
+  ksa.1 fm-1000021477 2026-11-20T00:00 | fm-1000021487 2026-11-26T00:00  Al Ahli v Al-Faisaly
+  ksa.1 fm-1000021477 2026-11-20T00:00 | fm-1000021488 2026-11-26T00:00  Al Ahli v Al-Faisaly
+  ksa.1 fm-1000021477 2026-11-20T00:00 | fm-1000021489 2026-11-26T00:00  Al Ahli v Al-Faisaly
+  ksa.1 fm-1000021477 2026-11-20T00:00 | fm-1000021490 2026-11-26T00:00  Al Ahli v Al-Faisaly
+  ksa.1 fm-1000021477 2026-11-20T00:00 | fm-1000021491 2026-11-26T00:00  Al Ahli v Al-Faisaly
+  ksa.1 fm-1000021477 2026-11-20T00:00 | fm-1000021492 2026-11-26T00:00  Al Ahli v Al-Faisaly
+  ksa.1 fm-1000021477 2026-11-20T00:00 | fm-1000021493 2026-11-26T00:00  Al Ahli v Al-Faisaly
+  ksa.1 fm-1000021477 2026-11-20T00:00 | tsdb-2573427 2026-11-26T17:00  Al Ahli v Al-Faisaly
+  ksa.1 fm-1000021477 2026-11-20T00:00 | tsdb-2573428 2026-11-26T17:00  Al Ahli v Al-Faisaly
+  ksa.1 fm-1000021477 2026-11-20T00:00 | tsdb-2573429 2026-11-26T17:00  Al Ahli v Al-Faisaly
+  ksa.1 fm-1000021477 2026-11-20T00:00 | fm-1000021474 2026-11-27T12:15  Al Ahli v Al-Faisaly
+  ksa.1 fm-1000021477 2026-11-20T00:00 | fm-1000021476 2026-11-27T14:20  Al Ahli v Al-Faisaly
+  ksa.1 fm-1000021477 2026-11-20T00:00 | fm-1000021472 2026-11-28T12:15  Al Ahli v Al-Faisaly
+  ksa.1 fm-1000021477 2026-11-20T00:00 | fm-1000021470 2026-11-28T14:20  Al Ahli v Al-Faisaly
+  ksa.1 fm-1000021477 2026-11-20T00:00 | fm-1000021468 2026-11-28T17:30  Al Ahli v Al-Faisaly
+  ksa.1 fm-1000021478 2026-11-20T00:00 | fm-1000021479 2026-11-20T00:00  Al-Fayha v Al Fateh FC
+  ksa.1 fm-1000021478 2026-11-20T00:00 | fm-1000021480 2026-11-20T00:00  Al-Fayha v Al Fateh FC
+  ksa.1 fm-1000021478 2026-11-20T00:00 | fm-1000021481 2026-11-20T00:00  Al-Fayha v Al Fateh FC
+  ksa.1 fm-1000021478 2026-11-20T00:00 | fm-1000021482 2026-11-20T00:00  Al-Fayha v Al Fateh FC
+  ksa.1 fm-1000021478 2026-11-20T00:00 | fm-1000021483 2026-11-20T00:00  Al-Fayha v Al Fateh FC
+  ksa.1 fm-1000021478 2026-11-20T00:00 | fm-1000021471 2026-11-26T14:25  Al-Fayha v Al Fateh FC
+  ksa.1 fm-1000021478 2026-11-20T00:00 | fm-1000021475 2026-11-26T17:30  Al-Fayha v Al Fateh FC
+  ksa.1 fm-1000021478 2026-11-20T00:00 | fm-1000021487 2026-11-26T00:00  Al-Fayha v Al Fateh FC
+  ksa.1 fm-1000021478 2026-11-20T00:00 | fm-1000021488 2026-11-26T00:00  Al-Fayha v Al Fateh FC
+  ksa.1 fm-1000021478 2026-11-20T00:00 | fm-1000021489 2026-11-26T00:00  Al-Fayha v Al Fateh FC
+  ksa.1 fm-1000021478 2026-11-20T00:00 | fm-1000021490 2026-11-26T00:00  Al-Fayha v Al Fateh FC
+  ksa.1 fm-1000021478 2026-11-20T00:00 | fm-1000021491 2026-11-26T00:00  Al-Fayha v Al Fateh FC
+  ksa.1 fm-1000021478 2026-11-20T00:00 | fm-1000021492 2026-11-26T00:00  Al-Fayha v Al Fateh FC
+  ksa.1 fm-1000021478 2026-11-20T00:00 | fm-1000021493 2026-11-26T00:00  Al-Fayha v Al Fateh FC
+  ksa.1 fm-1000021478 2026-11-20T00:00 | tsdb-2573427 2026-11-26T17:00  Al-Fayha v Al Fateh FC
+  ksa.1 fm-1000021478 2026-11-20T00:00 | tsdb-2573428 2026-11-26T17:00  Al-Fayha v Al Fateh FC
+  ksa.1 fm-1000021478 2026-11-20T00:00 | tsdb-2573429 2026-11-26T17:00  Al-Fayha v Al Fateh FC
+  ksa.1 fm-1000021478 2026-11-20T00:00 | fm-1000021474 2026-11-27T12:15  Al-Fayha v Al Fateh FC
+  ksa.1 fm-1000021478 2026-11-20T00:00 | fm-1000021476 2026-11-27T14:20  Al-Fayha v Al Fateh FC
+  ksa.1 fm-1000021478 2026-11-20T00:00 | fm-1000021472 2026-11-28T12:15  Al-Fayha v Al Fateh FC
+  ksa.1 fm-1000021478 2026-11-20T00:00 | fm-1000021470 2026-11-28T14:20  Al-Fayha v Al Fateh FC
+  ksa.1 fm-1000021478 2026-11-20T00:00 | fm-1000021468 2026-11-28T17:30  Al-Fayha v Al Fateh FC
+  ksa.1 fm-1000021479 2026-11-20T00:00 | fm-1000021480 2026-11-20T00:00  Al Hilal v Al Diriyah
+  ksa.1 fm-1000021479 2026-11-20T00:00 | fm-1000021481 2026-11-20T00:00  Al Hilal v Al Diriyah
+  ksa.1 fm-1000021479 2026-11-20T00:00 | fm-1000021482 2026-11-20T00:00  Al Hilal v Al Diriyah
+  ksa.1 fm-1000021479 2026-11-20T00:00 | fm-1000021483 2026-11-20T00:00  Al Hilal v Al Diriyah
+  ksa.1 fm-1000021479 2026-11-20T00:00 | fm-1000021471 2026-11-26T14:25  Al Hilal v Al Diriyah
+  ksa.1 fm-1000021479 2026-11-20T00:00 | fm-1000021475 2026-11-26T17:30  Al Hilal v Al Diriyah
+  ksa.1 fm-1000021479 2026-11-20T00:00 | fm-1000021487 2026-11-26T00:00  Al Hilal v Al Diriyah
+  ksa.1 fm-1000021479 2026-11-20T00:00 | fm-1000021488 2026-11-26T00:00  Al Hilal v Al Diriyah
+  ksa.1 fm-1000021479 2026-11-20T00:00 | fm-1000021489 2026-11-26T00:00  Al Hilal v Al Diriyah
+  ksa.1 fm-1000021479 2026-11-20T00:00 | fm-1000021490 2026-11-26T00:00  Al Hilal v Al Diriyah
+  ksa.1 fm-1000021479 2026-11-20T00:00 | fm-1000021491 2026-11-26T00:00  Al Hilal v Al Diriyah
+  ksa.1 fm-1000021479 2026-11-20T00:00 | fm-1000021492 2026-11-26T00:00  Al Hilal v Al Diriyah
+  ksa.1 fm-1000021479 2026-11-20T00:00 | fm-1000021493 2026-11-26T00:00  Al Hilal v Al Diriyah
+  ksa.1 fm-1000021479 2026-11-20T00:00 | tsdb-2573427 2026-11-26T17:00  Al Hilal v Al Diriyah
+  ksa.1 fm-1000021479 2026-11-20T00:00 | tsdb-2573428 2026-11-26T17:00  Al Hilal v Al Diriyah
+  ksa.1 fm-1000021479 2026-11-20T00:00 | tsdb-2573429 2026-11-26T17:00  Al Hilal v Al Diriyah
+  ksa.1 fm-1000021479 2026-11-20T00:00 | fm-1000021474 2026-11-27T12:15  Al Hilal v Al Diriyah
+  ksa.1 fm-1000021479 2026-11-20T00:00 | fm-1000021476 2026-11-27T14:20  Al Hilal v Al Diriyah
+  ksa.1 fm-1000021479 2026-11-20T00:00 | fm-1000021472 2026-11-28T12:15  Al Hilal v Al Diriyah
+  ksa.1 fm-1000021479 2026-11-20T00:00 | fm-1000021470 2026-11-28T14:20  Al Hilal v Al Diriyah
+  ksa.1 fm-1000021479 2026-11-20T00:00 | fm-1000021468 2026-11-28T17:30  Al Hilal v Al Diriyah
+  ksa.1 fm-1000021480 2026-11-20T00:00 | fm-1000021481 2026-11-20T00:00  Al Khaleej v Al Ittihad
+  ksa.1 fm-1000021480 2026-11-20T00:00 | fm-1000021482 2026-11-20T00:00  Al Khaleej v Al Ittihad
+  ksa.1 fm-1000021480 2026-11-20T00:00 | fm-1000021483 2026-11-20T00:00  Al Khaleej v Al Ittihad
+  ksa.1 fm-1000021480 2026-11-20T00:00 | fm-1000021471 2026-11-26T14:25  Al Khaleej v Al Ittihad
+  ksa.1 fm-1000021480 2026-11-20T00:00 | fm-1000021475 2026-11-26T17:30  Al Khaleej v Al Ittihad
+  ksa.1 fm-1000021480 2026-11-20T00:00 | fm-1000021487 2026-11-26T00:00  Al Khaleej v Al Ittihad
+  ksa.1 fm-1000021480 2026-11-20T00:00 | fm-1000021488 2026-11-26T00:00  Al Khaleej v Al Ittihad
+  ksa.1 fm-1000021480 2026-11-20T00:00 | fm-1000021489 2026-11-26T00:00  Al Khaleej v Al Ittihad
+  ksa.1 fm-1000021480 2026-11-20T00:00 | fm-1000021490 2026-11-26T00:00  Al Khaleej v Al Ittihad
+  ksa.1 fm-1000021480 2026-11-20T00:00 | fm-1000021491 2026-11-26T00:00  Al Khaleej v Al Ittihad
+  ksa.1 fm-1000021480 2026-11-20T00:00 | fm-1000021492 2026-11-26T00:00  Al Khaleej v Al Ittihad
+  ksa.1 fm-1000021480 2026-11-20T00:00 | fm-1000021493 2026-11-26T00:00  Al Khaleej v Al Ittihad
+  ksa.1 fm-1000021480 2026-11-20T00:00 | tsdb-2573427 2026-11-26T17:00  Al Khaleej v Al Ittihad
+  ksa.1 fm-1000021480 2026-11-20T00:00 | tsdb-2573428 2026-11-26T17:00  Al Khaleej v Al Ittihad
+  ksa.1 fm-1000021480 2026-11-20T00:00 | tsdb-2573429 2026-11-26T17:00  Al Khaleej v Al Ittihad
+  ksa.1 fm-1000021480 2026-11-20T00:00 | fm-1000021474 2026-11-27T12:15  Al Khaleej v Al Ittihad
+  ksa.1 fm-1000021480 2026-11-20T00:00 | fm-1000021476 2026-11-27T14:20  Al Khaleej v Al Ittihad
+  ksa.1 fm-1000021480 2026-11-20T00:00 | fm-1000021472 2026-11-28T12:15  Al Khaleej v Al Ittihad
+  ksa.1 fm-1000021480 2026-11-20T00:00 | fm-1000021470 2026-11-28T14:20  Al Khaleej v Al Ittihad
+  ksa.1 fm-1000021480 2026-11-20T00:00 | fm-1000021468 2026-11-28T17:30  Al Khaleej v Al Ittihad
+  ksa.1 fm-1000021481 2026-11-20T00:00 | fm-1000021482 2026-11-20T00:00  Al Nassr FC v Al Qadsiah
+  ksa.1 fm-1000021481 2026-11-20T00:00 | fm-1000021483 2026-11-20T00:00  Al Nassr FC v Al Qadsiah
+  ksa.1 fm-1000021481 2026-11-20T00:00 | fm-1000021471 2026-11-26T14:25  Al Nassr FC v Al Qadsiah
+  ksa.1 fm-1000021481 2026-11-20T00:00 | fm-1000021475 2026-11-26T17:30  Al Nassr FC v Al Qadsiah
+  ksa.1 fm-1000021481 2026-11-20T00:00 | fm-1000021487 2026-11-26T00:00  Al Nassr FC v Al Qadsiah
+  ksa.1 fm-1000021481 2026-11-20T00:00 | fm-1000021488 2026-11-26T00:00  Al Nassr FC v Al Qadsiah
+  ksa.1 fm-1000021481 2026-11-20T00:00 | fm-1000021489 2026-11-26T00:00  Al Nassr FC v Al Qadsiah
+  ksa.1 fm-1000021481 2026-11-20T00:00 | fm-1000021490 2026-11-26T00:00  Al Nassr FC v Al Qadsiah
+  ksa.1 fm-1000021481 2026-11-20T00:00 | fm-1000021491 2026-11-26T00:00  Al Nassr FC v Al Qadsiah
+  ksa.1 fm-1000021481 2026-11-20T00:00 | fm-1000021492 2026-11-26T00:00  Al Nassr FC v Al Qadsiah
+  ksa.1 fm-1000021481 2026-11-20T00:00 | fm-1000021493 2026-11-26T00:00  Al Nassr FC v Al Qadsiah
+  ksa.1 fm-1000021481 2026-11-20T00:00 | tsdb-2573427 2026-11-26T17:00  Al Nassr FC v Al Qadsiah
+  ksa.1 fm-1000021481 2026-11-20T00:00 | tsdb-2573428 2026-11-26T17:00  Al Nassr FC v Al Qadsiah
+  ksa.1 fm-1000021481 2026-11-20T00:00 | tsdb-2573429 2026-11-26T17:00  Al Nassr FC v Al Qadsiah
+  ksa.1 fm-1000021481 2026-11-20T00:00 | fm-1000021474 2026-11-27T12:15  Al Nassr FC v Al Qadsiah
+  ksa.1 fm-1000021481 2026-11-20T00:00 | fm-1000021476 2026-11-27T14:20  Al Nassr FC v Al Qadsiah
+  ksa.1 fm-1000021481 2026-11-20T00:00 | fm-1000021472 2026-11-28T12:15  Al Nassr FC v Al Qadsiah
+  ksa.1 fm-1000021481 2026-11-20T00:00 | fm-1000021470 2026-11-28T14:20  Al Nassr FC v Al Qadsiah
+  ksa.1 fm-1000021481 2026-11-20T00:00 | fm-1000021468 2026-11-28T17:30  Al Nassr FC v Al Qadsiah
+  ksa.1 fm-1000021482 2026-11-20T00:00 | fm-1000021483 2026-11-20T00:00  Al Riyadh v Al Hazem
+  ksa.1 fm-1000021482 2026-11-20T00:00 | fm-1000021471 2026-11-26T14:25  Al Riyadh v Al Hazem
+  ksa.1 fm-1000021482 2026-11-20T00:00 | fm-1000021475 2026-11-26T17:30  Al Riyadh v Al Hazem
+  ksa.1 fm-1000021482 2026-11-20T00:00 | fm-1000021487 2026-11-26T00:00  Al Riyadh v Al Hazem
+  ksa.1 fm-1000021482 2026-11-20T00:00 | fm-1000021488 2026-11-26T00:00  Al Riyadh v Al Hazem
+  ksa.1 fm-1000021482 2026-11-20T00:00 | fm-1000021489 2026-11-26T00:00  Al Riyadh v Al Hazem
+  ksa.1 fm-1000021482 2026-11-20T00:00 | fm-1000021490 2026-11-26T00:00  Al Riyadh v Al Hazem
+  ksa.1 fm-1000021482 2026-11-20T00:00 | fm-1000021491 2026-11-26T00:00  Al Riyadh v Al Hazem
+  ksa.1 fm-1000021482 2026-11-20T00:00 | fm-1000021492 2026-11-26T00:00  Al Riyadh v Al Hazem
+  ksa.1 fm-1000021482 2026-11-20T00:00 | fm-1000021493 2026-11-26T00:00  Al Riyadh v Al Hazem
+  ksa.1 fm-1000021482 2026-11-20T00:00 | tsdb-2573427 2026-11-26T17:00  Al Riyadh v Al Hazem
+  ksa.1 fm-1000021482 2026-11-20T00:00 | tsdb-2573428 2026-11-26T17:00  Al Riyadh v Al Hazem
+  ksa.1 fm-1000021482 2026-11-20T00:00 | tsdb-2573429 2026-11-26T17:00  Al Riyadh v Al Hazem
+  ksa.1 fm-1000021482 2026-11-20T00:00 | fm-1000021474 2026-11-27T12:15  Al Riyadh v Al Hazem
+  ksa.1 fm-1000021482 2026-11-20T00:00 | fm-1000021476 2026-11-27T14:20  Al Riyadh v Al Hazem
+  ksa.1 fm-1000021482 2026-11-20T00:00 | fm-1000021472 2026-11-28T12:15  Al Riyadh v Al Hazem
+  ksa.1 fm-1000021482 2026-11-20T00:00 | fm-1000021470 2026-11-28T14:20  Al Riyadh v Al Hazem
+  ksa.1 fm-1000021482 2026-11-20T00:00 | fm-1000021468 2026-11-28T17:30  Al Riyadh v Al Hazem
+  ksa.1 fm-1000021483 2026-11-20T00:00 | fm-1000021471 2026-11-26T14:25  Al Shabab v Al-Ettifaq
+  ksa.1 fm-1000021483 2026-11-20T00:00 | fm-1000021475 2026-11-26T17:30  Al Shabab v Al-Ettifaq
+  ksa.1 fm-1000021483 2026-11-20T00:00 | fm-1000021487 2026-11-26T00:00  Al Shabab v Al-Ettifaq
+  ksa.1 fm-1000021483 2026-11-20T00:00 | fm-1000021488 2026-11-26T00:00  Al Shabab v Al-Ettifaq
+  ksa.1 fm-1000021483 2026-11-20T00:00 | fm-1000021489 2026-11-26T00:00  Al Shabab v Al-Ettifaq
+  ksa.1 fm-1000021483 2026-11-20T00:00 | fm-1000021490 2026-11-26T00:00  Al Shabab v Al-Ettifaq
+  ksa.1 fm-1000021483 2026-11-20T00:00 | fm-1000021491 2026-11-26T00:00  Al Shabab v Al-Ettifaq
+  ksa.1 fm-1000021483 2026-11-20T00:00 | fm-1000021492 2026-11-26T00:00  Al Shabab v Al-Ettifaq
+  ksa.1 fm-1000021483 2026-11-20T00:00 | fm-1000021493 2026-11-26T00:00  Al Shabab v Al-Ettifaq
+  ksa.1 fm-1000021483 2026-11-20T00:00 | tsdb-2573427 2026-11-26T17:00  Al Shabab v Al-Ettifaq
+  ksa.1 fm-1000021483 2026-11-20T00:00 | tsdb-2573428 2026-11-26T17:00  Al Shabab v Al-Ettifaq
+  ksa.1 fm-1000021483 2026-11-20T00:00 | tsdb-2573429 2026-11-26T17:00  Al Shabab v Al-Ettifaq
+  ksa.1 fm-1000021483 2026-11-20T00:00 | fm-1000021474 2026-11-27T12:15  Al Shabab v Al-Ettifaq
+  ksa.1 fm-1000021483 2026-11-20T00:00 | fm-1000021476 2026-11-27T14:20  Al Shabab v Al-Ettifaq
+  ksa.1 fm-1000021483 2026-11-20T00:00 | fm-1000021472 2026-11-28T12:15  Al Shabab v Al-Ettifaq
+  ksa.1 fm-1000021483 2026-11-20T00:00 | fm-1000021470 2026-11-28T14:20  Al Shabab v Al-Ettifaq
+  ksa.1 fm-1000021483 2026-11-20T00:00 | fm-1000021468 2026-11-28T17:30  Al Shabab v Al-Ettifaq
+  ksa.1 fm-1000021484 2026-11-20T00:00 | fm-1000021469 2026-11-26T15:05  Al-Taawoun v Abha
+  ksa.1 fm-1000021484 2026-11-20T00:00 | fm-1000021486 2026-11-26T00:00  Al-Taawoun v Abha
+  ksa.1 fm-1000021485 2026-11-20T00:00 | fm-1000021494 2026-11-26T00:00  Neom SC v Al Kholood
+  ksa.1 fm-1000021485 2026-11-20T00:00 | fm-1000021473 2026-11-27T17:30  Neom SC v Al Kholood
+  qat.1 fm-5952305 2026-11-20T13:00 | fm-5952313 2026-11-27T15:30  Al-Sadd v Lusail SC
+  qat.1 fm-5952305 2026-11-20T13:00 | tsdb-2546138 2026-11-27T16:00  Al-Sadd v Lusail SC
+  qat.1 fm-5952307 2026-11-20T15:30 | fm-5952312 2026-11-29T15:30  Al-Duhail SC v Qatar SC
+  qat.1 fm-5952297 2026-11-20T13:00 | fm-5952298 2026-11-20T13:00  Al-Gharafa v Al-Duhail SC
+  qat.1 fm-5952297 2026-11-20T13:00 | fm-5952296 2026-11-20T15:30  Al-Gharafa v Al-Duhail SC
+  qat.1 fm-5952297 2026-11-20T13:00 | tsdb-2546131 2026-11-20T16:00  Al-Gharafa v Al-Duhail SC
+  qat.1 fm-5952297 2026-11-20T13:00 | fm-5952303 2026-11-21T13:00  Al-Gharafa v Al-Duhail SC
+  qat.1 fm-5952297 2026-11-20T13:00 | fm-5952306 2026-11-21T15:30  Al-Gharafa v Al-Duhail SC
+  qat.1 fm-5952297 2026-11-20T13:00 | fm-5952299 2026-11-21T13:00  Al-Gharafa v Al-Duhail SC
+  qat.1 fm-5952297 2026-11-20T13:00 | fm-5952301 2026-11-21T15:30  Al-Gharafa v Al-Duhail SC
+  qat.1 fm-5952297 2026-11-20T13:00 | fm-5952310 2026-11-27T13:00  Al-Gharafa v Al-Duhail SC
+  qat.1 fm-5952297 2026-11-20T13:00 | tsdb-2546137 2026-11-27T16:00  Al-Gharafa v Al-Duhail SC
+  qat.1 fm-5952297 2026-11-20T13:00 | fm-5952308 2026-11-28T13:00  Al-Gharafa v Al-Duhail SC
+  qat.1 fm-5952297 2026-11-20T13:00 | fm-5952311 2026-11-28T15:30  Al-Gharafa v Al-Duhail SC
+  qat.1 fm-5952297 2026-11-20T13:00 | fm-5952309 2026-11-29T13:00  Al-Gharafa v Al-Duhail SC
+  qat.1 fm-5952298 2026-11-20T13:00 | fm-5952296 2026-11-20T15:30  Al-Shamal v Al-Sailiya
+  qat.1 fm-5952298 2026-11-20T13:00 | tsdb-2546131 2026-11-20T16:00  Al-Shamal v Al-Sailiya
+  qat.1 fm-5952298 2026-11-20T13:00 | fm-5952303 2026-11-21T13:00  Al-Shamal v Al-Sailiya
+  qat.1 fm-5952298 2026-11-20T13:00 | fm-5952306 2026-11-21T15:30  Al-Shamal v Al-Sailiya
+  qat.1 fm-5952298 2026-11-20T13:00 | fm-5952299 2026-11-21T13:00  Al-Shamal v Al-Sailiya
+  qat.1 fm-5952298 2026-11-20T13:00 | fm-5952301 2026-11-21T15:30  Al-Shamal v Al-Sailiya
+  qat.1 fm-5952298 2026-11-20T13:00 | fm-5952310 2026-11-27T13:00  Al-Shamal v Al-Sailiya
+  qat.1 fm-5952298 2026-11-20T13:00 | tsdb-2546137 2026-11-27T16:00  Al-Shamal v Al-Sailiya
+  qat.1 fm-5952298 2026-11-20T13:00 | fm-5952308 2026-11-28T13:00  Al-Shamal v Al-Sailiya
+  qat.1 fm-5952298 2026-11-20T13:00 | fm-5952311 2026-11-28T15:30  Al-Shamal v Al-Sailiya
+  qat.1 fm-5952298 2026-11-20T13:00 | fm-5952309 2026-11-29T13:00  Al-Shamal v Al-Sailiya
+  qat.1 fm-5952296 2026-11-20T15:30 | tsdb-2546131 2026-11-20T16:00  Al-Rayyan v Al-Sadd
+  qat.1 fm-5952296 2026-11-20T15:30 | fm-5952303 2026-11-21T13:00  Al-Rayyan v Al-Sadd
+  qat.1 fm-5952296 2026-11-20T15:30 | fm-5952306 2026-11-21T15:30  Al-Rayyan v Al-Sadd
+  qat.1 fm-5952296 2026-11-20T15:30 | fm-5952299 2026-11-21T13:00  Al-Rayyan v Al-Sadd
+  qat.1 fm-5952296 2026-11-20T15:30 | fm-5952301 2026-11-21T15:30  Al-Rayyan v Al-Sadd
+  qat.1 fm-5952296 2026-11-20T15:30 | fm-5952310 2026-11-27T13:00  Al-Rayyan v Al-Sadd
+  qat.1 fm-5952296 2026-11-20T15:30 | tsdb-2546137 2026-11-27T16:00  Al-Rayyan v Al-Sadd
+  qat.1 fm-5952296 2026-11-20T15:30 | fm-5952308 2026-11-28T13:00  Al-Rayyan v Al-Sadd
+  qat.1 fm-5952296 2026-11-20T15:30 | fm-5952311 2026-11-28T15:30  Al-Rayyan v Al-Sadd
+  qat.1 fm-5952296 2026-11-20T15:30 | fm-5952309 2026-11-29T13:00  Al-Rayyan v Al-Sadd
+  qat.1 tsdb-2546131 2026-11-20T16:00 | fm-5952303 2026-11-21T13:00  Al-Shahaniya v Al-Wakrah
+  qat.1 tsdb-2546131 2026-11-20T16:00 | fm-5952306 2026-11-21T15:30  Al-Shahaniya v Al-Wakrah
+  qat.1 tsdb-2546131 2026-11-20T16:00 | fm-5952299 2026-11-21T13:00  Al-Shahaniya v Al-Wakrah
+  qat.1 tsdb-2546131 2026-11-20T16:00 | fm-5952301 2026-11-21T15:30  Al-Shahaniya v Al-Wakrah
+  qat.1 tsdb-2546131 2026-11-20T16:00 | fm-5952310 2026-11-27T13:00  Al-Shahaniya v Al-Wakrah
+  qat.1 tsdb-2546131 2026-11-20T16:00 | tsdb-2546137 2026-11-27T16:00  Al-Shahaniya v Al-Wakrah
+  qat.1 tsdb-2546131 2026-11-20T16:00 | fm-5952308 2026-11-28T13:00  Al-Shahaniya v Al-Wakrah
+  qat.1 tsdb-2546131 2026-11-20T16:00 | fm-5952311 2026-11-28T15:30  Al-Shahaniya v Al-Wakrah
+  qat.1 tsdb-2546131 2026-11-20T16:00 | fm-5952309 2026-11-29T13:00  Al-Shahaniya v Al-Wakrah
+  esp.1 fd-564756 2026-11-21T17:30 | fd-564764 2026-11-29T20:00  Sevilla FC v Real Betis Balompié
+  bel.1 fm-5811815 2026-11-21T19:45 | fm-5811819 2026-11-28T17:15  KV Mechelen v Club Brugge
+  sco.1 fm-5793979 2026-11-21T15:00 | fm-5793966 2026-11-24T19:45  Hibernian v Dundee United
+  alg.1 fm-5989900 2026-11-21T16:00 | fm-5989896 2026-11-21T16:00  ES Sétif v JS El Biar
+  alg.1 fm-5989897 2026-11-21T16:00 | fm-5989821 2026-11-23T18:00  MC Alger v JS Saoura
+  qat.1 fm-5952303 2026-11-21T13:00 | fm-5952306 2026-11-21T15:30  Al-Wakrah v Al-Sailiya
+  qat.1 fm-5952303 2026-11-21T13:00 | fm-5952299 2026-11-21T13:00  Al-Wakrah v Al-Sailiya
+  qat.1 fm-5952303 2026-11-21T13:00 | fm-5952301 2026-11-21T15:30  Al-Wakrah v Al-Sailiya
+  qat.1 fm-5952303 2026-11-21T13:00 | fm-5952310 2026-11-27T13:00  Al-Wakrah v Al-Sailiya
+  qat.1 fm-5952303 2026-11-21T13:00 | tsdb-2546137 2026-11-27T16:00  Al-Wakrah v Al-Sailiya
+  qat.1 fm-5952303 2026-11-21T13:00 | fm-5952308 2026-11-28T13:00  Al-Wakrah v Al-Sailiya
+  qat.1 fm-5952303 2026-11-21T13:00 | fm-5952311 2026-11-28T15:30  Al-Wakrah v Al-Sailiya
+  qat.1 fm-5952303 2026-11-21T13:00 | fm-5952309 2026-11-29T13:00  Al-Wakrah v Al-Sailiya
+  qat.1 fm-5952306 2026-11-21T15:30 | fm-5952299 2026-11-21T13:00  Al-Shahaniya v Al-Rayyan
+  qat.1 fm-5952306 2026-11-21T15:30 | fm-5952301 2026-11-21T15:30  Al-Shahaniya v Al-Rayyan
+  qat.1 fm-5952306 2026-11-21T15:30 | fm-5952310 2026-11-27T13:00  Al-Shahaniya v Al-Rayyan
+  qat.1 fm-5952306 2026-11-21T15:30 | tsdb-2546137 2026-11-27T16:00  Al-Shahaniya v Al-Rayyan
+  qat.1 fm-5952306 2026-11-21T15:30 | fm-5952308 2026-11-28T13:00  Al-Shahaniya v Al-Rayyan
+  qat.1 fm-5952306 2026-11-21T15:30 | fm-5952311 2026-11-28T15:30  Al-Shahaniya v Al-Rayyan
+  qat.1 fm-5952306 2026-11-21T15:30 | fm-5952309 2026-11-29T13:00  Al-Shahaniya v Al-Rayyan
+  qat.1 fm-5952299 2026-11-21T13:00 | fm-5952301 2026-11-21T15:30  Al-Arabi v Al-Ahli
+  qat.1 fm-5952299 2026-11-21T13:00 | fm-5952310 2026-11-27T13:00  Al-Arabi v Al-Ahli
+  qat.1 fm-5952299 2026-11-21T13:00 | tsdb-2546137 2026-11-27T16:00  Al-Arabi v Al-Ahli
+  qat.1 fm-5952299 2026-11-21T13:00 | fm-5952308 2026-11-28T13:00  Al-Arabi v Al-Ahli
+  qat.1 fm-5952299 2026-11-21T13:00 | fm-5952311 2026-11-28T15:30  Al-Arabi v Al-Ahli
+  qat.1 fm-5952299 2026-11-21T13:00 | fm-5952309 2026-11-29T13:00  Al-Arabi v Al-Ahli
+  qat.1 fm-5952301 2026-11-21T15:30 | fm-5952310 2026-11-27T13:00  Al-Shahaniya v Al-Wakrah
+  qat.1 fm-5952301 2026-11-21T15:30 | tsdb-2546137 2026-11-27T16:00  Al-Shahaniya v Al-Wakrah
+  qat.1 fm-5952301 2026-11-21T15:30 | fm-5952308 2026-11-28T13:00  Al-Shahaniya v Al-Wakrah
+  qat.1 fm-5952301 2026-11-21T15:30 | fm-5952311 2026-11-28T15:30  Al-Shahaniya v Al-Wakrah
+  qat.1 fm-5952301 2026-11-21T15:30 | fm-5952309 2026-11-29T13:00  Al-Shahaniya v Al-Wakrah
+  usa.1 401933733 2026-11-21T19:00 | 401933723 2026-11-28T21:30  New England Revolution v Philadelphia Union
+  usa.1 401933732 2026-11-21T21:00 | 401933721 2026-11-29T03:30  FC Dallas v Portland Timbers
+  usa.1 401933739 2026-11-21T23:00 | 401933727 2026-11-28T01:00  Inter Miami CF v Columbus Crew
+  mex.1 401877049 2026-11-22T01:00 | fm-1000014648 2026-11-22T01:00  Pumas UNAM v Monterrey
+  mex.1 401877048 2026-11-22T03:00 | fm-1000014649 2026-11-22T03:00  Tigres UANL v América
+  rus.1 fm-5847233 2026-11-22T13:30 | fm-5847244 2026-11-29T16:45  Dynamo Makhachkala v Spartak Moscow
+  usa.1 401933731 2026-11-22T21:00 | 401933722 2026-11-28T23:30  Nashville SC v TBD Away
+  usa.1 401933730 2026-11-22T23:30 | 401933737 2026-11-28T17:30  Chicago Fire FC v Charlotte FC
+  usa.1 401933729 2026-11-23T01:30 | 401933725 2026-11-28T03:00  Vancouver Whitecaps v TBD Away
+  alg.1 fm-5989847 2026-11-23T16:45 | fm-5989907 2026-11-28T16:00  ES Ben Aknoun v USM Alger
+  alg.1 fm-5989847 2026-11-23T16:45 | fm-5989887 2026-11-30T13:00  ES Ben Aknoun v USM Alger
+  afc.champions fm-6050098 2026-11-23T16:00 | fm-6050101 2026-11-23T18:15  Al-Shamal v Al Ahli
+  afc.champions fm-6050098 2026-11-23T16:00 | fm-6050102 2026-11-24T16:00  Al-Shamal v Al Ahli
+  afc.champions fm-6050098 2026-11-23T16:00 | fm-6050103 2026-11-24T18:15  Al-Shamal v Al Ahli
+  afc.champions fm-6050098 2026-11-23T16:00 | fm-6054517 2026-11-24T16:00  Al-Shamal v Al Ahli
+  afc.champions fm-6050098 2026-11-23T16:00 | fm-6054501 2026-11-25T16:00  Al-Shamal v Al Ahli
+  afc.champions fm-6050098 2026-11-23T16:00 | fm-6054502 2026-11-25T18:15  Al-Shamal v Al Ahli
+  afc.champions fm-6050101 2026-11-23T18:15 | fm-6050102 2026-11-24T16:00  Al Quwa Al Jawiya v Al-Gharafa
+  afc.champions fm-6050101 2026-11-23T18:15 | fm-6050103 2026-11-24T18:15  Al Quwa Al Jawiya v Al-Gharafa
+  afc.champions fm-6050101 2026-11-23T18:15 | fm-6054517 2026-11-24T16:00  Al Quwa Al Jawiya v Al-Gharafa
+  afc.champions fm-6050101 2026-11-23T18:15 | fm-6054501 2026-11-25T16:00  Al Quwa Al Jawiya v Al-Gharafa
+  afc.champions fm-6050101 2026-11-23T18:15 | fm-6054502 2026-11-25T18:15  Al Quwa Al Jawiya v Al-Gharafa
+  usa.1 401933728 2026-11-24T01:00 | 401933726 2026-11-29T01:30  St. Louis CITY SC v LAFC
+  rsa.1 fm-5955125 2026-11-24T17:30 | tsdb-2545660 2026-11-27T17:30  Durban City v Polokwane City
+  afc.champions fm-6050102 2026-11-24T16:00 | fm-6050103 2026-11-24T18:15  Shabab Al-Ahli Dubai FC v Al Qadsiah
+  afc.champions fm-6050102 2026-11-24T16:00 | fm-6054517 2026-11-24T16:00  Shabab Al-Ahli Dubai FC v Al Qadsiah
+  afc.champions fm-6050102 2026-11-24T16:00 | fm-6054501 2026-11-25T16:00  Shabab Al-Ahli Dubai FC v Al Qadsiah
+  afc.champions fm-6050102 2026-11-24T16:00 | fm-6054502 2026-11-25T18:15  Shabab Al-Ahli Dubai FC v Al Qadsiah
+  afc.champions fm-6050103 2026-11-24T18:15 | fm-6054517 2026-11-24T16:00  Al Nassr FC v Al-Sadd
+  afc.champions fm-6050103 2026-11-24T18:15 | fm-6054501 2026-11-25T16:00  Al Nassr FC v Al-Sadd
+  afc.champions fm-6050103 2026-11-24T18:15 | fm-6054502 2026-11-25T18:15  Al Nassr FC v Al-Sadd
+  afc.champions fm-6054517 2026-11-24T16:00 | fm-6054501 2026-11-25T16:00  Al-Seeb v Al Shorta
+  afc.champions fm-6054517 2026-11-24T16:00 | fm-6054502 2026-11-25T18:15  Al-Seeb v Al Shorta
+  usa.1 401933738 2026-11-25T03:00 | 401933724 2026-11-28T19:30  San Jose Earthquakes v Houston Dynamo FC
+  afc.champions fm-6054501 2026-11-25T16:00 | fm-6054502 2026-11-25T18:15  Al-Faisaly v Al-Rayyan
+  ksa.1 fm-1000021471 2026-11-26T14:25 | fm-1000021475 2026-11-26T17:30  Al Fateh FC v Al Riyadh
+  ksa.1 fm-1000021471 2026-11-26T14:25 | fm-1000021487 2026-11-26T00:00  Al Fateh FC v Al Riyadh
+  ksa.1 fm-1000021471 2026-11-26T14:25 | fm-1000021488 2026-11-26T00:00  Al Fateh FC v Al Riyadh
+  ksa.1 fm-1000021471 2026-11-26T14:25 | fm-1000021489 2026-11-26T00:00  Al Fateh FC v Al Riyadh
+  ksa.1 fm-1000021471 2026-11-26T14:25 | fm-1000021490 2026-11-26T00:00  Al Fateh FC v Al Riyadh
+  ksa.1 fm-1000021471 2026-11-26T14:25 | fm-1000021491 2026-11-26T00:00  Al Fateh FC v Al Riyadh
+  ksa.1 fm-1000021471 2026-11-26T14:25 | fm-1000021492 2026-11-26T00:00  Al Fateh FC v Al Riyadh
+  ksa.1 fm-1000021471 2026-11-26T14:25 | fm-1000021493 2026-11-26T00:00  Al Fateh FC v Al Riyadh
+  ksa.1 fm-1000021471 2026-11-26T14:25 | tsdb-2573427 2026-11-26T17:00  Al Fateh FC v Al Riyadh
+  ksa.1 fm-1000021471 2026-11-26T14:25 | tsdb-2573428 2026-11-26T17:00  Al Fateh FC v Al Riyadh
+  ksa.1 fm-1000021471 2026-11-26T14:25 | tsdb-2573429 2026-11-26T17:00  Al Fateh FC v Al Riyadh
+  ksa.1 fm-1000021471 2026-11-26T14:25 | fm-1000021474 2026-11-27T12:15  Al Fateh FC v Al Riyadh
+  ksa.1 fm-1000021471 2026-11-26T14:25 | fm-1000021476 2026-11-27T14:20  Al Fateh FC v Al Riyadh
+  ksa.1 fm-1000021471 2026-11-26T14:25 | fm-1000021472 2026-11-28T12:15  Al Fateh FC v Al Riyadh
+  ksa.1 fm-1000021471 2026-11-26T14:25 | fm-1000021470 2026-11-28T14:20  Al Fateh FC v Al Riyadh
+  ksa.1 fm-1000021471 2026-11-26T14:25 | fm-1000021468 2026-11-28T17:30  Al Fateh FC v Al Riyadh
+  ksa.1 fm-1000021469 2026-11-26T15:05 | fm-1000021486 2026-11-26T00:00  Abha v Al Shabab
+  ksa.1 fm-1000021475 2026-11-26T17:30 | fm-1000021487 2026-11-26T00:00  Al-Faisaly v Al Diriyah
+  ksa.1 fm-1000021475 2026-11-26T17:30 | fm-1000021488 2026-11-26T00:00  Al-Faisaly v Al Diriyah
+  ksa.1 fm-1000021475 2026-11-26T17:30 | fm-1000021489 2026-11-26T00:00  Al-Faisaly v Al Diriyah
+  ksa.1 fm-1000021475 2026-11-26T17:30 | fm-1000021490 2026-11-26T00:00  Al-Faisaly v Al Diriyah
+  ksa.1 fm-1000021475 2026-11-26T17:30 | fm-1000021491 2026-11-26T00:00  Al-Faisaly v Al Diriyah
+  ksa.1 fm-1000021475 2026-11-26T17:30 | fm-1000021492 2026-11-26T00:00  Al-Faisaly v Al Diriyah
+  ksa.1 fm-1000021475 2026-11-26T17:30 | fm-1000021493 2026-11-26T00:00  Al-Faisaly v Al Diriyah
+  ksa.1 fm-1000021475 2026-11-26T17:30 | tsdb-2573427 2026-11-26T17:00  Al-Faisaly v Al Diriyah
+  ksa.1 fm-1000021475 2026-11-26T17:30 | tsdb-2573428 2026-11-26T17:00  Al-Faisaly v Al Diriyah
+  ksa.1 fm-1000021475 2026-11-26T17:30 | tsdb-2573429 2026-11-26T17:00  Al-Faisaly v Al Diriyah
+  ksa.1 fm-1000021475 2026-11-26T17:30 | fm-1000021474 2026-11-27T12:15  Al-Faisaly v Al Diriyah
+  ksa.1 fm-1000021475 2026-11-26T17:30 | fm-1000021476 2026-11-27T14:20  Al-Faisaly v Al Diriyah
+  ksa.1 fm-1000021475 2026-11-26T17:30 | fm-1000021472 2026-11-28T12:15  Al-Faisaly v Al Diriyah
+  ksa.1 fm-1000021475 2026-11-26T17:30 | fm-1000021470 2026-11-28T14:20  Al-Faisaly v Al Diriyah
+  ksa.1 fm-1000021475 2026-11-26T17:30 | fm-1000021468 2026-11-28T17:30  Al-Faisaly v Al Diriyah
+  ksa.1 fm-1000021487 2026-11-26T00:00 | fm-1000021488 2026-11-26T00:00  Al-Ettifaq v Al Hazem
+  ksa.1 fm-1000021487 2026-11-26T00:00 | fm-1000021489 2026-11-26T00:00  Al-Ettifaq v Al Hazem
+  ksa.1 fm-1000021487 2026-11-26T00:00 | fm-1000021490 2026-11-26T00:00  Al-Ettifaq v Al Hazem
+  ksa.1 fm-1000021487 2026-11-26T00:00 | fm-1000021491 2026-11-26T00:00  Al-Ettifaq v Al Hazem
+  ksa.1 fm-1000021487 2026-11-26T00:00 | fm-1000021492 2026-11-26T00:00  Al-Ettifaq v Al Hazem
+  ksa.1 fm-1000021487 2026-11-26T00:00 | fm-1000021493 2026-11-26T00:00  Al-Ettifaq v Al Hazem
+  ksa.1 fm-1000021487 2026-11-26T00:00 | tsdb-2573427 2026-11-26T17:00  Al-Ettifaq v Al Hazem
+  ksa.1 fm-1000021487 2026-11-26T00:00 | tsdb-2573428 2026-11-26T17:00  Al-Ettifaq v Al Hazem
+  ksa.1 fm-1000021487 2026-11-26T00:00 | tsdb-2573429 2026-11-26T17:00  Al-Ettifaq v Al Hazem
+  ksa.1 fm-1000021487 2026-11-26T00:00 | fm-1000021474 2026-11-27T12:15  Al-Ettifaq v Al Hazem
+  ksa.1 fm-1000021487 2026-11-26T00:00 | fm-1000021476 2026-11-27T14:20  Al-Ettifaq v Al Hazem
+  ksa.1 fm-1000021487 2026-11-26T00:00 | fm-1000021472 2026-11-28T12:15  Al-Ettifaq v Al Hazem
+  ksa.1 fm-1000021487 2026-11-26T00:00 | fm-1000021470 2026-11-28T14:20  Al-Ettifaq v Al Hazem
+  ksa.1 fm-1000021487 2026-11-26T00:00 | fm-1000021468 2026-11-28T17:30  Al-Ettifaq v Al Hazem
+  ksa.1 fm-1000021488 2026-11-26T00:00 | fm-1000021489 2026-11-26T00:00  Al Ittihad v Al Ahli
+  ksa.1 fm-1000021488 2026-11-26T00:00 | fm-1000021490 2026-11-26T00:00  Al Ittihad v Al Ahli
+  ksa.1 fm-1000021488 2026-11-26T00:00 | fm-1000021491 2026-11-26T00:00  Al Ittihad v Al Ahli
+  ksa.1 fm-1000021488 2026-11-26T00:00 | fm-1000021492 2026-11-26T00:00  Al Ittihad v Al Ahli
+  ksa.1 fm-1000021488 2026-11-26T00:00 | fm-1000021493 2026-11-26T00:00  Al Ittihad v Al Ahli
+  ksa.1 fm-1000021488 2026-11-26T00:00 | tsdb-2573427 2026-11-26T17:00  Al Ittihad v Al Ahli
+  ksa.1 fm-1000021488 2026-11-26T00:00 | tsdb-2573428 2026-11-26T17:00  Al Ittihad v Al Ahli
+  ksa.1 fm-1000021488 2026-11-26T00:00 | tsdb-2573429 2026-11-26T17:00  Al Ittihad v Al Ahli
+  ksa.1 fm-1000021488 2026-11-26T00:00 | fm-1000021474 2026-11-27T12:15  Al Ittihad v Al Ahli
+  ksa.1 fm-1000021488 2026-11-26T00:00 | fm-1000021476 2026-11-27T14:20  Al Ittihad v Al Ahli
+  ksa.1 fm-1000021488 2026-11-26T00:00 | fm-1000021472 2026-11-28T12:15  Al Ittihad v Al Ahli
+  ksa.1 fm-1000021488 2026-11-26T00:00 | fm-1000021470 2026-11-28T14:20  Al Ittihad v Al Ahli
+  ksa.1 fm-1000021488 2026-11-26T00:00 | fm-1000021468 2026-11-28T17:30  Al Ittihad v Al Ahli
+  ksa.1 fm-1000021489 2026-11-26T00:00 | fm-1000021490 2026-11-26T00:00  Al Kholood v Al Hilal
+  ksa.1 fm-1000021489 2026-11-26T00:00 | fm-1000021491 2026-11-26T00:00  Al Kholood v Al Hilal
+  ksa.1 fm-1000021489 2026-11-26T00:00 | fm-1000021492 2026-11-26T00:00  Al Kholood v Al Hilal
+  ksa.1 fm-1000021489 2026-11-26T00:00 | fm-1000021493 2026-11-26T00:00  Al Kholood v Al Hilal
+  ksa.1 fm-1000021489 2026-11-26T00:00 | tsdb-2573427 2026-11-26T17:00  Al Kholood v Al Hilal
+  ksa.1 fm-1000021489 2026-11-26T00:00 | tsdb-2573428 2026-11-26T17:00  Al Kholood v Al Hilal
+  ksa.1 fm-1000021489 2026-11-26T00:00 | tsdb-2573429 2026-11-26T17:00  Al Kholood v Al Hilal
+  ksa.1 fm-1000021489 2026-11-26T00:00 | fm-1000021474 2026-11-27T12:15  Al Kholood v Al Hilal
+  ksa.1 fm-1000021489 2026-11-26T00:00 | fm-1000021476 2026-11-27T14:20  Al Kholood v Al Hilal
+  ksa.1 fm-1000021489 2026-11-26T00:00 | fm-1000021472 2026-11-28T12:15  Al Kholood v Al Hilal
+  ksa.1 fm-1000021489 2026-11-26T00:00 | fm-1000021470 2026-11-28T14:20  Al Kholood v Al Hilal
+  ksa.1 fm-1000021489 2026-11-26T00:00 | fm-1000021468 2026-11-28T17:30  Al Kholood v Al Hilal
+  ksa.1 fm-1000021490 2026-11-26T00:00 | fm-1000021491 2026-11-26T00:00  Al-Faisaly v Al Khaleej
+  ksa.1 fm-1000021490 2026-11-26T00:00 | fm-1000021492 2026-11-26T00:00  Al-Faisaly v Al Khaleej
+  ksa.1 fm-1000021490 2026-11-26T00:00 | fm-1000021493 2026-11-26T00:00  Al-Faisaly v Al Khaleej
+  ksa.1 fm-1000021490 2026-11-26T00:00 | tsdb-2573427 2026-11-26T17:00  Al-Faisaly v Al Khaleej
+  ksa.1 fm-1000021490 2026-11-26T00:00 | tsdb-2573428 2026-11-26T17:00  Al-Faisaly v Al Khaleej
+  ksa.1 fm-1000021490 2026-11-26T00:00 | tsdb-2573429 2026-11-26T17:00  Al-Faisaly v Al Khaleej
+  ksa.1 fm-1000021490 2026-11-26T00:00 | fm-1000021474 2026-11-27T12:15  Al-Faisaly v Al Khaleej
+  ksa.1 fm-1000021490 2026-11-26T00:00 | fm-1000021476 2026-11-27T14:20  Al-Faisaly v Al Khaleej
+  ksa.1 fm-1000021490 2026-11-26T00:00 | fm-1000021472 2026-11-28T12:15  Al-Faisaly v Al Khaleej
+  ksa.1 fm-1000021490 2026-11-26T00:00 | fm-1000021470 2026-11-28T14:20  Al-Faisaly v Al Khaleej
+  ksa.1 fm-1000021490 2026-11-26T00:00 | fm-1000021468 2026-11-28T17:30  Al-Faisaly v Al Khaleej
+  ksa.1 fm-1000021491 2026-11-26T00:00 | fm-1000021492 2026-11-26T00:00  Al Nassr FC v Al Shabab
+  ksa.1 fm-1000021491 2026-11-26T00:00 | fm-1000021493 2026-11-26T00:00  Al Nassr FC v Al Shabab
+  ksa.1 fm-1000021491 2026-11-26T00:00 | tsdb-2573427 2026-11-26T17:00  Al Nassr FC v Al Shabab
+  ksa.1 fm-1000021491 2026-11-26T00:00 | tsdb-2573428 2026-11-26T17:00  Al Nassr FC v Al Shabab
+  ksa.1 fm-1000021491 2026-11-26T00:00 | tsdb-2573429 2026-11-26T17:00  Al Nassr FC v Al Shabab
+  ksa.1 fm-1000021491 2026-11-26T00:00 | fm-1000021474 2026-11-27T12:15  Al Nassr FC v Al Shabab
+  ksa.1 fm-1000021491 2026-11-26T00:00 | fm-1000021476 2026-11-27T14:20  Al Nassr FC v Al Shabab
+  ksa.1 fm-1000021491 2026-11-26T00:00 | fm-1000021472 2026-11-28T12:15  Al Nassr FC v Al Shabab
+  ksa.1 fm-1000021491 2026-11-26T00:00 | fm-1000021470 2026-11-28T14:20  Al Nassr FC v Al Shabab
+  ksa.1 fm-1000021491 2026-11-26T00:00 | fm-1000021468 2026-11-28T17:30  Al Nassr FC v Al Shabab
+  ksa.1 fm-1000021492 2026-11-26T00:00 | fm-1000021493 2026-11-26T00:00  Al Qadsiah v Al Fateh FC
+  ksa.1 fm-1000021492 2026-11-26T00:00 | tsdb-2573427 2026-11-26T17:00  Al Qadsiah v Al Fateh FC
+  ksa.1 fm-1000021492 2026-11-26T00:00 | tsdb-2573428 2026-11-26T17:00  Al Qadsiah v Al Fateh FC
+  ksa.1 fm-1000021492 2026-11-26T00:00 | tsdb-2573429 2026-11-26T17:00  Al Qadsiah v Al Fateh FC
+  ksa.1 fm-1000021492 2026-11-26T00:00 | fm-1000021474 2026-11-27T12:15  Al Qadsiah v Al Fateh FC
+  ksa.1 fm-1000021492 2026-11-26T00:00 | fm-1000021476 2026-11-27T14:20  Al Qadsiah v Al Fateh FC
+  ksa.1 fm-1000021492 2026-11-26T00:00 | fm-1000021472 2026-11-28T12:15  Al Qadsiah v Al Fateh FC
+  ksa.1 fm-1000021492 2026-11-26T00:00 | fm-1000021470 2026-11-28T14:20  Al Qadsiah v Al Fateh FC
+  ksa.1 fm-1000021492 2026-11-26T00:00 | fm-1000021468 2026-11-28T17:30  Al Qadsiah v Al Fateh FC
+  ksa.1 fm-1000021493 2026-11-26T00:00 | tsdb-2573427 2026-11-26T17:00  Al Diriyah v Al-Fayha
+  ksa.1 fm-1000021493 2026-11-26T00:00 | tsdb-2573428 2026-11-26T17:00  Al Diriyah v Al-Fayha
+  ksa.1 fm-1000021493 2026-11-26T00:00 | tsdb-2573429 2026-11-26T17:00  Al Diriyah v Al-Fayha
+  ksa.1 fm-1000021493 2026-11-26T00:00 | fm-1000021474 2026-11-27T12:15  Al Diriyah v Al-Fayha
+  ksa.1 fm-1000021493 2026-11-26T00:00 | fm-1000021476 2026-11-27T14:20  Al Diriyah v Al-Fayha
+  ksa.1 fm-1000021493 2026-11-26T00:00 | fm-1000021472 2026-11-28T12:15  Al Diriyah v Al-Fayha
+  ksa.1 fm-1000021493 2026-11-26T00:00 | fm-1000021470 2026-11-28T14:20  Al Diriyah v Al-Fayha
+  ksa.1 fm-1000021493 2026-11-26T00:00 | fm-1000021468 2026-11-28T17:30  Al Diriyah v Al-Fayha
+  ksa.1 fm-1000021494 2026-11-26T00:00 | fm-1000021473 2026-11-27T17:30  Neom SC v Al-Taawoun
+  ksa.1 tsdb-2573427 2026-11-26T17:00 | tsdb-2573428 2026-11-26T17:00  Al-Faisaly v Al-Khaleej
+  ksa.1 tsdb-2573427 2026-11-26T17:00 | tsdb-2573429 2026-11-26T17:00  Al-Faisaly v Al-Khaleej
+  ksa.1 tsdb-2573427 2026-11-26T17:00 | fm-1000021474 2026-11-27T12:15  Al-Faisaly v Al-Khaleej
+  ksa.1 tsdb-2573427 2026-11-26T17:00 | fm-1000021476 2026-11-27T14:20  Al-Faisaly v Al-Khaleej
+  ksa.1 tsdb-2573427 2026-11-26T17:00 | fm-1000021472 2026-11-28T12:15  Al-Faisaly v Al-Khaleej
+  ksa.1 tsdb-2573427 2026-11-26T17:00 | fm-1000021470 2026-11-28T14:20  Al-Faisaly v Al-Khaleej
+  ksa.1 tsdb-2573427 2026-11-26T17:00 | fm-1000021468 2026-11-28T17:30  Al-Faisaly v Al-Khaleej
+  ksa.1 tsdb-2573428 2026-11-26T17:00 | tsdb-2573429 2026-11-26T17:00  Al-Qadsiah v Al-Fateh
+  ksa.1 tsdb-2573428 2026-11-26T17:00 | fm-1000021474 2026-11-27T12:15  Al-Qadsiah v Al-Fateh
+  ksa.1 tsdb-2573428 2026-11-26T17:00 | fm-1000021476 2026-11-27T14:20  Al-Qadsiah v Al-Fateh
+  ksa.1 tsdb-2573428 2026-11-26T17:00 | fm-1000021472 2026-11-28T12:15  Al-Qadsiah v Al-Fateh
+  ksa.1 tsdb-2573428 2026-11-26T17:00 | fm-1000021470 2026-11-28T14:20  Al-Qadsiah v Al-Fateh
+  ksa.1 tsdb-2573428 2026-11-26T17:00 | fm-1000021468 2026-11-28T17:30  Al-Qadsiah v Al-Fateh
+  ksa.1 tsdb-2573429 2026-11-26T17:00 | fm-1000021474 2026-11-27T12:15  Al-Ettifaq v Al-Hazem
+  ksa.1 tsdb-2573429 2026-11-26T17:00 | fm-1000021476 2026-11-27T14:20  Al-Ettifaq v Al-Hazem
+  ksa.1 tsdb-2573429 2026-11-26T17:00 | fm-1000021472 2026-11-28T12:15  Al-Ettifaq v Al-Hazem
+  ksa.1 tsdb-2573429 2026-11-26T17:00 | fm-1000021470 2026-11-28T14:20  Al-Ettifaq v Al-Hazem
+  ksa.1 tsdb-2573429 2026-11-26T17:00 | fm-1000021468 2026-11-28T17:30  Al-Ettifaq v Al-Hazem
+  caf.confed fm-1000022865 2026-11-27T00:00 | tsdb-2624985 2026-11-28T16:00  Raja Casablanca v ASKO Kara
+  caf.confed fm-1000022876 2026-11-27T00:00 | tsdb-2624984 2026-11-28T16:00  FAR Rabat v Durban City
+  caf.confed fm-1000022894 2026-11-27T00:00 | tsdb-2624983 2026-11-28T16:00  USM Alger v AS Réal Bamako
+  ksa.1 fm-1000021474 2026-11-27T12:15 | fm-1000021476 2026-11-27T14:20  Al Kholood v Al Khaleej
+  ksa.1 fm-1000021474 2026-11-27T12:15 | fm-1000021472 2026-11-28T12:15  Al Kholood v Al Khaleej
+  ksa.1 fm-1000021474 2026-11-27T12:15 | fm-1000021470 2026-11-28T14:20  Al Kholood v Al Khaleej
+  ksa.1 fm-1000021474 2026-11-27T12:15 | fm-1000021468 2026-11-28T17:30  Al Kholood v Al Khaleej
+  ksa.1 fm-1000021476 2026-11-27T14:20 | fm-1000021472 2026-11-28T12:15  Al Qadsiah v Al-Fayha
+  ksa.1 fm-1000021476 2026-11-27T14:20 | fm-1000021470 2026-11-28T14:20  Al Qadsiah v Al-Fayha
+  ksa.1 fm-1000021476 2026-11-27T14:20 | fm-1000021468 2026-11-28T17:30  Al Qadsiah v Al-Fayha
+  qat.1 fm-5952310 2026-11-27T13:00 | tsdb-2546137 2026-11-27T16:00  Al-Sailiya v Al-Gharafa
+  qat.1 fm-5952310 2026-11-27T13:00 | fm-5952308 2026-11-28T13:00  Al-Sailiya v Al-Gharafa
+  qat.1 fm-5952310 2026-11-27T13:00 | fm-5952311 2026-11-28T15:30  Al-Sailiya v Al-Gharafa
+  qat.1 fm-5952310 2026-11-27T13:00 | fm-5952309 2026-11-29T13:00  Al-Sailiya v Al-Gharafa
+  qat.1 fm-5952313 2026-11-27T15:30 | tsdb-2546138 2026-11-27T16:00  Lusail SC v Al-Arabi
+  qat.1 tsdb-2546137 2026-11-27T16:00 | fm-5952308 2026-11-28T13:00  Al-Shahaniya v Al-Rayyan
+  qat.1 tsdb-2546137 2026-11-27T16:00 | fm-5952311 2026-11-28T15:30  Al-Shahaniya v Al-Rayyan
+  qat.1 tsdb-2546137 2026-11-27T16:00 | fm-5952309 2026-11-29T13:00  Al-Shahaniya v Al-Rayyan
+  alg.1 fm-5989908 2026-11-28T16:00 | fm-5989906 2026-11-28T16:00  CR Bélouizdad v JS Kabylie
+  ksa.1 fm-1000021472 2026-11-28T12:15 | fm-1000021470 2026-11-28T14:20  Al Hazem v Al Nassr FC
+  ksa.1 fm-1000021472 2026-11-28T12:15 | fm-1000021468 2026-11-28T17:30  Al Hazem v Al Nassr FC
+  ksa.1 fm-1000021470 2026-11-28T14:20 | fm-1000021468 2026-11-28T17:30  Al-Ettifaq v Al Hilal
+  qat.1 fm-5952308 2026-11-28T13:00 | fm-5952311 2026-11-28T15:30  Al-Wakrah v Al-Sadd
+  qat.1 fm-5952308 2026-11-28T13:00 | fm-5952309 2026-11-29T13:00  Al-Wakrah v Al-Sadd
+  qat.1 fm-5952311 2026-11-28T15:30 | fm-5952309 2026-11-29T13:00  Al-Ahli v Al-Duhail SC
