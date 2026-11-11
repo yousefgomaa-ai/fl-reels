@@ -2,10 +2,10 @@
 /* FB Legends: the Nations League's League A, group by group (owner, 2026-11-11: «ريل تحليلي ... عن المباريات اللي اتلعبت
    والمباريات القادمة ... جدول بيوضح الحاجات دي كلها ... ايقونة تابعنا جوه الفيديو واضغط لايك بتصميم مختلف»): a hook of the
    sixteen flags, then each group on one page (the table with its zones and form, every result so far, the games to come and
-   the one thing at stake), the biggest game last as a 1 / X / 2 question. A like-and-follow badge sits in the top corner
-   all along (a thumb pressed, a + turning into a tick) and grows into its own end card. One beat a spoken line (DATA.beats
+   the one thing at stake), the biggest game last as a 1 / X / 2 question. A like-and-follow badge sits under the top corner
+   the whole reel, end included (owner, 2026-11-11: «عايزها تظهر طول الفيديو») (a thumb pressed, a + turning into a tick) and grows into its own end card. One beat a spoken line (DATA.beats
    from the voice, else DATA.minBeats). */
-.hdr{position:absolute;top:175px;left:44px;right:44px;opacity:0}
+.hdr{position:absolute;top:180px;left:44px;right:44px;opacity:0}
 .hdr .k{font:700 34px O;letter-spacing:7px;color:var(--kc)}
 .hdr .g{font:400 150px/0.9 B;letter-spacing:3px;transform:skewX(-6deg);transform-origin:0 100%}
 .hdr .g i{font-style:normal;color:#ffd21f}
@@ -15,7 +15,7 @@
 .th{height:52px;padding:0 18px 0 12px;font:700 26px O;letter-spacing:2px;color:var(--sm)}.th div{text-align:center}.th div:nth-child(3){text-align:left}
 .tr{height:100px;margin-top:9px;padding:0 18px 0 12px;border-radius:18px;background:rgba(var(--bx),.92);border:3px solid rgba(var(--kl),.18);position:relative;overflow:hidden;opacity:0}
 .tr:before{content:'';position:absolute;left:0;top:0;bottom:0;width:12px;background:var(--z)}
-.tr.q{--z:#22c55e}.tr.p{--z:#f59e0b}.tr.r{--z:#ef4444}
+.tr.q{--z:#22c55e}.tr.b{--z:#3b82f6}.tr.p{--z:#f59e0b}.tr.r{--z:#ef4444}
 .tr .ps{font:400 58px B;text-align:center;color:var(--sm)}
 .tr img{width:60px;height:60px;object-fit:contain;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
 .tr .t{font:400 54px B;letter-spacing:2px;white-space:nowrap;overflow:hidden}
@@ -57,21 +57,21 @@
 #hk .pl{position:absolute;left:50%;top:1450px;transform:translateX(-50%);white-space:nowrap;background:#ffd21f;color:var(--dk);font:400 64px B;letter-spacing:3px;padding:10px 40px;border-radius:18px}
 /* the end: the biggest game as a question */
 #en{position:absolute;inset:0;opacity:0}
-#en .k{position:absolute;top:200px;left:0;right:0;text-align:center;font:700 38px O;letter-spacing:7px;color:var(--kc)}
-#en .vs{position:absolute;top:270px;left:40px;right:40px;display:grid;grid-template-columns:1fr 160px 1fr;align-items:center}
+#en .k{position:absolute;top:290px;left:0;right:0;text-align:center;font:700 38px O;letter-spacing:7px;color:var(--kc)}
+#en .vs{position:absolute;top:350px;left:40px;right:40px;display:grid;grid-template-columns:1fr 160px 1fr;align-items:center}
 #en .vs .tm{text-align:center}#en .vs img{width:250px;height:250px;object-fit:contain;filter:drop-shadow(0 16px 40px rgba(0,0,0,.6))}
 #en .vs .tm div{font:400 96px B;letter-spacing:3px;margin-top:6px}
 #en .vs .v{font:400 130px B;color:#ffd21f;text-align:center}
-#en .wh{position:absolute;top:720px;left:0;right:0;text-align:center;font:400 120px B;letter-spacing:3px;transform:skewX(-6deg)}
-#en .sub{position:absolute;top:860px;left:0;right:0;text-align:center;font:700 34px O;letter-spacing:4px;color:var(--sm)}
-#en .op{position:absolute;top:940px;left:50px;right:50px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
+#en .wh{position:absolute;top:790px;left:0;right:0;text-align:center;font:400 120px B;letter-spacing:3px;transform:skewX(-6deg)}
+#en .sub{position:absolute;top:928px;left:0;right:0;text-align:center;font:700 34px O;letter-spacing:4px;color:var(--sm)}
+#en .op{position:absolute;top:1000px;left:50px;right:50px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
 #en .op div{height:200px;border-radius:26px;border:6px solid #ffd21f;background:rgba(var(--bx),.92);display:flex;flex-direction:column;align-items:center;justify-content:center}
 #en .op b{font:400 120px/1 B;color:#ffd21f}#en .op span{font:400 42px B;letter-spacing:2px}
-#en .c3{position:absolute;top:1170px;left:0;right:0;text-align:center;font:400 70px B;letter-spacing:3px;color:#fff}
+#en .c3{position:absolute;top:1222px;left:0;right:0;text-align:center;font:400 70px B;letter-spacing:3px;color:#fff}
 /* like and follow: its own look (owner, 2026-11-11: «ايقونة تابعنا جوه الفيديو واضغط لايك بتصميم مختلف»): a glass capsule
    in the corner all along (the page's mark, a thumb that gets pressed, a + that turns into a tick), then the same pair
    large at the end */
-#lf{position:absolute;top:40px;right:36px;z-index:40;display:flex;align-items:center;gap:14px;padding:10px 12px 10px 10px;border-radius:70px;background:linear-gradient(135deg,rgba(255,255,255,.22),rgba(255,255,255,.06));border:2px solid rgba(255,255,255,.35);box-shadow:0 10px 30px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.4);backdrop-filter:blur(8px)}
+#lf{position:absolute;top:150px;right:36px;z-index:40;display:flex;align-items:center;gap:14px;padding:10px 12px 10px 10px;border-radius:70px;background:linear-gradient(135deg,rgba(255,255,255,.22),rgba(255,255,255,.06));border:2px solid rgba(255,255,255,.35);box-shadow:0 10px 30px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.4);backdrop-filter:blur(8px)}
 .av{width:84px;height:84px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe066,#ffb800 60%,#b57d00);display:flex;align-items:center;justify-content:center;font:400 44px/1 B;color:var(--dk);text-align:center;position:relative;border:3px solid #fff}
 .av i{position:absolute;right:-6px;bottom:-6px;width:38px;height:38px;border-radius:50%;background:#1877f2;color:#fff;font:700 30px/34px O;font-style:normal;border:3px solid #fff}
 .th2{width:84px;height:84px;border-radius:50%;background:#1877f2;display:flex;align-items:center;justify-content:center;position:relative;box-shadow:0 0 0 0 rgba(24,119,242,.6)}
@@ -80,7 +80,7 @@
 .fol small{display:block;font:700 18px O;letter-spacing:3px;color:rgba(255,255,255,.75);margin-top:4px}
 .tap{position:absolute;font-size:56px;pointer-events:none;filter:drop-shadow(0 6px 10px rgba(0,0,0,.5));opacity:0}
 .pop{position:absolute;width:16px;height:16px;border-radius:50%;opacity:0}
-#lfe{position:absolute;left:50px;right:50px;top:1300px;z-index:40;height:250px;border-radius:40px;background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.05));border:3px solid rgba(255,255,255,.35);box-shadow:0 20px 60px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.45);display:flex;align-items:center;justify-content:space-around;opacity:0}
+#lfe{position:absolute;left:50px;right:50px;top:1330px;z-index:40;height:250px;border-radius:40px;background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.05));border:3px solid rgba(255,255,255,.35);box-shadow:0 20px 60px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.45);display:flex;align-items:center;justify-content:space-around;opacity:0}
 #lfe .bt{display:flex;flex-direction:column;align-items:center;gap:10px;position:relative}
 #lfe .ci{width:150px;height:150px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative}
 #lfe .ci svg{width:84px;height:84px}
@@ -93,7 +93,7 @@
 <div id="hk"><div class="fl"></div><div class="hh"></div><div class="sb"></div><div class="pl"></div></div>
 <div class="hdr"><div class="k"></div><div class="g"></div><div class="n"></div></div>
 <div class="tb"><div class="th"><div>#</div><div></div><div>TEAM</div><div>P</div><div>W</div><div>D</div><div>L</div><div>GD</div><div>PTS</div></div><div id="rows"></div>
-<div class="zn"><span><b style="background:#22c55e"></b>QUARTER-FINALS</span><span><b style="background:#f59e0b"></b>RELEGATION PLAY-OFF</span><span><b style="background:#ef4444"></b>RELEGATED</span></div></div>
+<div class="zn"></div></div>
 <div class="sec" id="rs"><div class="st">RESULTS SO FAR</div><div class="rg"></div></div>
 <div class="sec" id="fx"><div class="st">STILL TO PLAY • UK TIME</div><div class="fl2"></div></div>
 <div class="key"><b>KEY</b><span></span></div>
@@ -131,6 +131,7 @@ const set = (k) => {
   q('#rs .rg').innerHTML = g.res.map((r) => `<div class="rc${r.big ? ' big' : ''}"><img src="${fl(r[0])}"><div class="c">${r[0]}</div><div class="sc">${r[1]}-${r[2]}</div><div class="c">${r[3]}</div><img src="${fl(r[3])}"></div>`).join('');
   q('#fx .fl2').innerHTML = g.fx.map((r) => `<div class="fr${r.tag ? ' hot' : ''}"><div class="d">${r.d}</div><img src="${fl(r.h)}"><div class="m">${nm(r.h)}<s>v</s>${nm(r.a)}</div><img src="${fl(r.a)}"><div class="h">${r.t}</div>${r.tag ? `<div class="tg">${r.tag}</div>` : ''}</div>`).join('');
   q('.key span').textContent = g.key;
+  q('.zn').innerHTML = (g.zones || [['#22c55e', 'QUARTER-FINALS'], ['#f59e0b', 'RELEGATION PLAY-OFF'], ['#ef4444', 'RELEGATED']]).map(([c, x]) => `<span><b style="background:${c}"></b>${x}</span>`).join('');
 };
 const lf = $('lf'), th = q('.th2', lf), av = q('.av i', lf);
 // a finger and a burst for the corner badge
@@ -179,7 +180,7 @@ window.draw = (t) => {
   // like and follow: the corner badge breathes, its thumb is pressed once a group (2.6 s in), the + becomes a tick after
   // the first press; at the end it moves into the big card
   const endA = k === last ? ease((u - 2.4) / .5) : 0;
-  lf.style.opacity = 1 - endA; lf.style.transform = `scale(${1 + .03 * Math.sin(t * 2.4)})`;
+  lf.style.opacity = 1; lf.style.transform = `scale(${1 + .03 * Math.sin(t * 2.4)})`;
   const pu = grp ? u - 2.6 : -9;
   th.style.transform = `scale(${pu > -.05 && pu < .25 ? .82 : 1 + .06 * Math.max(0, Math.sin(t * 3))})`;
   th.style.boxShadow = pu > 0 && pu < .7 ? `0 0 0 ${pu * 40}px rgba(24,119,242,${.6 * (1 - pu / .7)})` : 'none';
@@ -192,7 +193,7 @@ window.draw = (t) => {
   fi.textContent = eu > 1.4 ? '✓' : '+'; fi.style.background = eu > 1.4 ? '#16a34a' : '#1877f2';
   q('.fw .ci', lfe).style.transform = `scale(${eu > 1.25 && eu < 1.5 ? .88 : 1 + .04 * Math.max(0, Math.sin(t * 3 + 1))})`;
   // the finger: on the corner thumb during a group, on the big buttons at the end
-  if (grp) press(0, pu, 726, 60); else if (k === last) { const lr = lk.getBoundingClientRect(), fr2 = q('.fw .ci', lfe).getBoundingClientRect(); if (eu < 1) press(0, eu, lr.left + 50, lr.top + 40); else press(0, eu - 1.4, fr2.left + 50, fr2.top + 40); } else press(0, -9, 0, 0);
+  if (grp) press(0, pu, 726, 170); else if (k === last) { const lr = lk.getBoundingClientRect(), fr2 = q('.fw .ci', lfe).getBoundingClientRect(); if (eu < 1) press(0, eu, lr.left + 50, lr.top + 40); else press(0, eu - 1.4, fr2.left + 50, fr2.top + 40); } else press(0, -9, 0, 0);
 };
 window.POSTER = Math.min(2.8, B[0][1] - .2);
 window.COVER = B[1][0] + 7;
