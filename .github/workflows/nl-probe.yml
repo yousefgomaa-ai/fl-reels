@@ -1,18 +1,20 @@
-# One-off check (owner, 2026-11-11: «تاكد من الماتشات كلها لحد اخر الشهر»): our day lists against ESPN. Lives on claude/nl-probe only; never merged.
+# One-off check (owner, 2026-11-11: «بعد ما يتعمل تاكد من المواعيد اللي في الجدول»): the Nations League eve schedule's
+# times against ESPN's own list. Lives on claude/nl-probe only; never merged.
 name: NL probe
 on:
   push:
     branches: [claude/nl-probe]
-permissions:
-  contents: write
 jobs:
   p:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - run: |
-          rm -rf look; mkdir -p look
-          python3 sample/check.py | tee look/report.txt
-          git config user.name "fl-reels sample" && git config user.email "actions@users.noreply.github.com"
-          git add -A look && git commit -qm "fixtures check to look at" && git push -q origin HEAD:claude/nl-probe || true
+      - env:
+          REELS_KEY: ${{ secrets.REELS_KEY }}
+        run: |
+          echo "::add-mask::$REELS_KEY"
+          A=https://api.football-legend.com
+          echo "== job state"; curl -sS "$A/v2/fben/dry?key=$REELS_KEY&state=en-nateve-uefanations-20261112&kinds=none" | jq -c '.state'
+          echo "== our schedule (dry run)"; curl -sS "$A/v2/fben/dry?key=$REELS_KEY&kinds=nateve" | jq -r '.jobs[]? | .id, .caption'
+          echo "== ESPN 12 Nov (UTC = UK time in November)"
+          curl -sS "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/scoreboard?dates=20261112" | jq -r '.events[] | "\(.date)  \(.name)"' | sort
