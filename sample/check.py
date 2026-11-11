@@ -37,14 +37,16 @@ leagues = sorted({m['lg'] for m in ours if m['lg']})
 espn = {}
 for lg in leagues:
     try:
-        j = get(f'https://site.api.espn.com/apis/site/v2/sports/soccer/{lg}/scoreboard?dates=20261101-20261210&limit=1000')
-        L = []
-        for e in j.get('events', []):
+        L, evs = [], []
+        for rng in ('20261101-20261115', '20261116-20261130', '20261201-20261210'):
+            try: evs += get(f'https://site.api.espn.com/apis/site/v2/sports/soccer/{lg}/scoreboard?dates={rng}&limit=400').get('events', [])
+            except Exception as e: print('ERR espn', lg, rng, e)
+        for e in evs:
             c = e['competitions'][0]['competitors']
             h = [x for x in c if x['homeAway'] == 'home'][0]['team']['displayName']; a = [x for x in c if x['homeAway'] == 'away'][0]['team']['displayName']
             L.append({'date': e['date'], 'h': h, 'a': a, 'st': e.get('status', {}).get('type', {}).get('name', '')})
         espn[lg] = L
-    except Exception as e: espn[lg] = None
+    except Exception as e: print('ERR espn', lg, e); espn[lg] = None
 def p(t): return datetime.datetime.fromisoformat(t.replace('Z', '+00:00'))
 bad, missing_espn, nocover = [], [], []
 for m in ours:
