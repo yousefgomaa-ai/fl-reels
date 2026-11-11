@@ -14,10 +14,5 @@ jobs:
         run: |
           echo "::add-mask::$REELS_KEY"
           A=https://api.football-legend.com
-          sleep 240
-          for i in 1 2 3 4 5 6; do
-            R=$(curl -sS --max-time 90 "$A/v2/fben/dry?key=$REELS_KEY&special=nlgroups&kinds=none" | jq -c '.special')
-            echo "try $i: $R"
-            echo "$R" | grep -q 'en-special-nlgroups-1' && break
-            sleep 60
-          done
+          R=$(curl -sS --max-time 120 -w ' HTTP=%{http_code} T=%{time_total}' "$A/v2/fben/dry?key=$REELS_KEY&special=nlgroups&kinds=none" 2>&1 || true)
+          echo "$R" | head -c 1500; echo
