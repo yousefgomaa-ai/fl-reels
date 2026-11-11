@@ -14,6 +14,6 @@ jobs:
         run: |
           echo "::add-mask::$REELS_KEY"
           A=https://api.football-legend.com
-          sleep 60
+          sleep 330
           R=$(curl -sS --max-time 120 -w ' HTTP=%{http_code} T=%{time_total}' "$A/v2/fben/dry?key=$REELS_KEY&special=nlgroups&kinds=none" 2>&1 || true)
           echo "$R" | head -c 1500; echo
