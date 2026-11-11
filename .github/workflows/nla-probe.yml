@@ -1,4 +1,4 @@
-# One-off (owner, 2026-11-11): queue the nlgroups special again once the API is deployed (logo, 19 sides, hiss fix).
+# One-off (owner, 2026-11-11: «شيل الصوت»): queue the nlgroups special, music only, once the API is deployed.
 # Lives on claude/nla-probe only; never merged.
 name: NLA probe
 on:
@@ -15,5 +15,5 @@ jobs:
           echo "::add-mask::$REELS_KEY"
           A=https://api.football-legend.com
           sleep 330
-          R=$(curl -sS --max-time 120 -w ' HTTP=%{http_code}' "$A/v2/fben/dry?key=$REELS_KEY&special=nlgroups&kinds=none" 2>&1 || true)
+          R=$(curl -sS --max-time 120 -w ' HTTP=%{http_code}' "$A/v2/fben/dry?key=$REELS_KEY&special=nlgroups&novoice=1&kinds=none" 2>&1 || true)
           echo "$R" | head -c 600; echo
