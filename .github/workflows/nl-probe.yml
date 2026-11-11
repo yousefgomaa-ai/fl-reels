@@ -14,7 +14,4 @@ jobs:
         run: |
           echo "::add-mask::$REELS_KEY"
           A=https://api.football-legend.com
-          echo "== job state"; curl -sS "$A/v2/fben/dry?key=$REELS_KEY&state=en-nateve-uefanations-20261112&kinds=none" | jq -c '.state'
-          echo "== our schedule (dry run)"; curl -sS "$A/v2/fben/dry?key=$REELS_KEY&kinds=nateve" | jq -r '.jobs[]? | .id, .caption'
-          echo "== ESPN 12 Nov (UTC = UK time in November)"
-          curl -sS "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/scoreboard?dates=20261112" | jq -r '.events[] | "\(.date)  \(.name)"' | sort
+          sleep 1; for i in 1 2 3 4; do echo "== job state $i"; curl -sS "$A/v2/fben/dry?key=$REELS_KEY&state=en-nateve-uefanations-20261112&kinds=none" | jq -c ".state"; sleep 150; done
