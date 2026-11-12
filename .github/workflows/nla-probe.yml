@@ -1,4 +1,4 @@
-# One-off (owner, 2026-11-12: no half-time or full-time reel for the first Nations League games): why, and the fix checked. Never merged.
+# One-off (owner, 2026-11-12: no half-time or full-time reel for the first Nations League games): why, the evening games' reels. Never merged.
 name: NLA probe
 on:
   push:
@@ -14,5 +14,5 @@ jobs:
           echo "::add-mask::$REELS_KEY"
           A=https://api.football-legend.com
           D="$A/v2/fben/dry?key=$REELS_KEY"
-          sleep 360
-          for id in en-ft-uefanations-20261112-1700; do echo "== state $id"; curl -sS --max-time 90 "$D&kinds=none&state=$id" | jq -c '.result.state'; done
+          for id in en-ht-uefanations-20261112-1950 en-ft-uefanations-20261112-1950 en-ht-uefanations-20261112-1940 en-ft-uefanations-20261112-1940 en-ft-uefanations-20261112-1700; do echo "== state $id"; curl -sS --max-time 90 "$D&kinds=none&state=$id" | jq -c '.result.state'; done
+          echo "== dry live now"; curl -sS --max-time 120 "$D&kinds=live" | jq -c '{r:.result, jobs:[.jobs[]?|{id,title}]}' | head -c 2500; echo
