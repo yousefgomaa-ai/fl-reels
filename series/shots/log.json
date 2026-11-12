@@ -1,0 +1,18 @@
+{
+ "gpus": [
+  "Tesla T4",
+  "Tesla T4"
+ ],
+ "lora": true,
+ "load_seconds": 245,
+ "mark": {
+  "gpu": 1,
+  "seconds": 467
+ },
+ "emma": {
+  "gpu": 0,
+  "seconds": 479
+ },
+ "wall_seconds_both": 481,
+ "total_seconds": 726
+}
