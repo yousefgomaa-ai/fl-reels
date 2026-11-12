@@ -125,6 +125,23 @@ def caption_pngs(i, text, total):
     return out
 
 
+def tts(text, mp3):
+    # Edge TTS first; GitHub's runners are sometimes refused, then Piper (open source, runs on the runner itself).
+    for args in (['--rate=-6%', '--pitch=-4Hz'], [], []):
+        r = subprocess.run(['edge-tts', '--voice', S['voice'], *args, '--text', text, '--write-media', mp3], capture_output=True, text=True)
+        if r.returncode == 0 and os.path.exists(mp3) and os.path.getsize(mp3) > 2000:
+            print('voice: edge')
+            return
+        print('edge-tts failed', r.stderr[-200:])
+        time.sleep(4)
+    wav = mp3[:-4] + '.wav'
+    r = subprocess.run(['piper', '-m', os.path.join(D, 'piper', 'voice.onnx'), '--length_scale', '1.08', '-f', wav], input=text, capture_output=True, text=True)
+    if r.returncode:
+        print(r.stderr[-1500:]); raise SystemExit('piper failed')
+    run(['ffmpeg', '-y', '-i', wav, '-ar', '44100', '-b:a', '160k', mp3])
+    print('voice: piper')
+
+
 def badge():
     p = os.path.join(OUT, 'badge.png')
     im = Image.new('RGBA', (W, 140), (0, 0, 0, 0))
@@ -144,7 +161,7 @@ def main():
         img = fetch_img(i, sc)
         time.sleep(3)
         mp3 = os.path.join(OUT, f'say{i:02d}.mp3')
-        run(['edge-tts', '--voice', S['voice'], '--rate=-6%', '--pitch=-4Hz', '--text', sc['say'], '--write-media', mp3])
+        tts(sc['say'], mp3)
         total = dur(mp3) + 0.55
         frame = img
         if sc.get('phone'):
