@@ -5,12 +5,14 @@ def sh(c):
     r = subprocess.run(c, shell=True, capture_output=True, text=True); print(c[:120], r.returncode, r.stdout[-400:], r.stderr[-1500:], flush=True); return r
 log = {}
 t0 = time.time()
-sh("curl -LsSf https://astral.sh/uv/install.sh | sh")
-UV = os.path.expanduser("~/.local/bin/uv")
+sh("pip install -q uv")
+import sys
+UV = sys.executable + " -m uv"
 sh(f"{UV} venv /tmp/ls -p 3.10")
 sh("git clone -q --depth 1 https://github.com/bytedance/LatentSync /tmp/LatentSync")
 r = sh(f"cd /tmp/LatentSync && {UV} pip install -p /tmp/ls/bin/python -r requirements.txt huggingface_hub edge-tts")
 log["install_rc"] = r.returncode; log["install_err"] = r.stderr[-1200:]
+sh("/tmp/ls/bin/python -c \"import torch;print(torch.__version__, torch.cuda.is_available())\"")
 sh("cd /tmp/LatentSync && /tmp/ls/bin/huggingface-cli download ByteDance/LatentSync-1.5 --local-dir checkpoints --exclude '*.git*' || /tmp/ls/bin/hf download ByteDance/LatentSync-1.5 --local-dir checkpoints")
 sh("ls -la /tmp/LatentSync/checkpoints /tmp/LatentSync/checkpoints/whisper /tmp/LatentSync/configs/unet")
 log["setup_seconds"] = round(time.time() - t0)
