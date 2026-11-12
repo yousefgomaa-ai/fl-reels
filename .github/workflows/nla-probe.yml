@@ -7,7 +7,7 @@ on:
 jobs:
   p:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     steps:
       - env:
           REELS_KEY: ${{ secrets.REELS_KEY }}
@@ -15,9 +15,9 @@ jobs:
           echo "::add-mask::$REELS_KEY"
           A=https://api.football-legend.com
           echo "== STATUS"; curl -sS --max-time 90 "$A/v2/reels/status?key=$REELS_KEY" | python3 -c 'import json,sys; d=json.load(sys.stdin); [print(j["id"],j["status"],"fb:",(j.get("fb") or {}).get("done"),"appr:",(j.get("approval") or {}).get("state"),j.get("error") or "") for j in d.get("jobs",d if isinstance(d,list) else [])]' || true
-          for H in 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23; do
+          for H in 10 12 18 20 22; do
             echo "== AT ${H}:30Z"
-            curl -sS --max-time 150 "$A/v2/fben/dry?key=$REELS_KEY&at=2026-11-12T${H}:30:00Z&list=1" | python3 -c '
+            curl -sS --max-time 290 "$A/v2/fben/dry?key=$REELS_KEY&at=2026-11-12T${H}:30:00Z&list=1" | python3 -c '
           import json,sys
           d=json.load(sys.stdin); o=d.get("result",{})
           print("made:",[k for k,v in o.items() if v=="made"], "errors:",{k:v for k,v in o.items() if isinstance(v,str) and v.startswith("error")})
