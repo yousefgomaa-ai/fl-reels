@@ -1,0 +1,66 @@
+{
+ "gpus": [
+  "Tesla T4",
+  "Tesla T4"
+ ],
+ "shots": {
+  "s05": {
+   "gpu": 0,
+   "seconds": 505
+  },
+  "s06": {
+   "gpu": 1,
+   "seconds": 513
+  },
+  "s08": {
+   "gpu": 0,
+   "seconds": 503
+  },
+  "s10": {
+   "gpu": 1,
+   "seconds": 536
+  },
+  "s11": {
+   "gpu": 0,
+   "seconds": 503
+  },
+  "s14": {
+   "gpu": 1,
+   "seconds": 540
+  },
+  "s15": {
+   "gpu": 0,
+   "seconds": 499
+  },
+  "s17": {
+   "gpu": 1,
+   "seconds": 538
+  },
+  "s18": {
+   "gpu": 0,
+   "seconds": 499
+  },
+  "s19": {
+   "gpu": 1,
+   "seconds": 537
+  },
+  "s20": {
+   "gpu": 0,
+   "seconds": 496
+  },
+  "s21": {
+   "gpu": 1,
+   "seconds": 537
+  },
+  "s22": {
+   "gpu": 0,
+   "seconds": 493
+  },
+  "s24": {
+   "gpu": 1,
+   "seconds": 537
+  }
+ },
+ "load_seconds": 253,
+ "total_seconds": 3992
+}
