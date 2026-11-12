@@ -1,5 +1,5 @@
 # Bigger free model test (owner, 2026-11-12: Veo-like look without paying): Wan 2.2 TI2V 5B on Kaggle's T4.
-# A) FastWan2.2 (few-step distilled, 704x1280), B) plain Wan 2.2 5B at 480x832, 20 steps. Same prompts as episode 1.
+# A) FastWan2.2 (few-step distilled; 704x1280 ran out of the T4's memory, so 480x832), B) plain Wan 2.2 5B at 480x832, 20 steps. Same prompts as episode 1.
 import subprocess, time, json, os, traceback
 subprocess.run("pip uninstall -y -q torchao; pip install -q -U diffusers transformers accelerate sentencepiece imageio imageio-ffmpeg ftfy peft", shell=True)
 os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
@@ -31,7 +31,7 @@ def make(mid, tag, shots, h, w, frames, steps, cfg, fps):
         json.dump(log, open("log.json", "w"), indent=1)
         print(log, flush=True)
     del pipe; torch.cuda.empty_cache()
-for args in (("FastVideo/FastWan2.2-TI2V-5B-FullAttn-Diffusers", "fast", [("emma", EMMA), ("mark", MARK)], 1280, 704, 121, 4, 1.0, 24),
+for args in (("FastVideo/FastWan2.2-TI2V-5B-FullAttn-Diffusers", "fast", [("emma", EMMA), ("mark", MARK)], 832, 480, 81, 4, 1.0, 16),
              ("Wan-AI/Wan2.2-TI2V-5B-Diffusers", "base", [("emma", EMMA)], 832, 480, 81, 20, 5.0, 16)):
     try:
         make(*args)
