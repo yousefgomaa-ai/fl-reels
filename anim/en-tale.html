@@ -1,0 +1,123 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends: a true story told in chapters (owner, 2026-11-12: «محتوى كريتف و جديد ... ريلز مدته متوسط دقيقتين»; the first
+   one Leicester City 2015-16): one Commons photo a chapter, always drifting and cross-fading into the next, a date, a
+   headline, a number counted up; the deciding night told goal by goal on a scoreboard; a question with two answers at the
+   end. One beat a spoken line (DATA.beats from the voice, else DATA.minBeats). */
+#ph{position:absolute;left:0;right:0;top:0;height:1180px;overflow:hidden;z-index:0}
+#ph img{position:absolute;inset:-60px;width:calc(100% + 120px);height:calc(100% + 120px);object-fit:cover;opacity:0}
+#ph img.card{inset:auto;left:230px;top:150px;width:620px;height:700px;border-radius:30px;border:6px solid #ffd21f;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+#ph img.blur{filter:blur(28px) brightness(.6)}
+#ph:after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(var(--bx),.05) 35%,rgba(var(--bx),.75) 75%,rgba(var(--bx),1))}
+#chp{position:absolute;top:58px;right:44px;z-index:20;font:400 46px B;letter-spacing:3px;background:rgba(var(--bx),.85);border:3px solid var(--kc);border-radius:14px;padding:4px 20px}
+#dots{position:absolute;top:140px;right:44px;z-index:20;display:flex;gap:8px}
+#dots i{width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.25)}#dots i.on{background:#ffd21f}
+.pane{position:absolute;left:44px;right:44px;top:930px;bottom:110px;opacity:0}
+.dt{display:inline-block;font:700 38px O;letter-spacing:6px;color:var(--dk);background:var(--kc);padding:6px 22px;border-radius:10px}
+.hh{font:400 116px/0.95 B;letter-spacing:2px;transform-origin:0 50%;margin-top:22px;text-shadow:0 6px 30px rgba(0,0,0,.6)}
+.hh i{font-style:normal;color:#ffd21f}
+.big{font:400 330px/0.88 B;color:#ffd21f;margin-top:26px;text-shadow:0 0 60px rgba(255,210,31,.4);transform-origin:0 50%}
+.sub{font:700 44px/1.3 O;letter-spacing:2px;margin-top:16px;color:#e6ecff}
+.pill{position:absolute;left:50%;bottom:150px;transform:translateX(-50%);white-space:nowrap;padding:12px 34px;border-radius:40px;background:#ffd21f;color:#040a2e;font:400 52px B,Arial;letter-spacing:2px;z-index:30;box-shadow:0 10px 30px rgba(0,0,0,.45);opacity:0}
+/* the night: a scoreboard */
+#sb{position:absolute;left:44px;right:44px;top:930px;bottom:110px;opacity:0}
+#sb .board{margin-top:26px;display:flex;align-items:center;justify-content:space-between;background:rgba(var(--bx),.92);border:5px solid var(--kc);border-radius:28px;padding:30px 34px}
+#sb .tm{width:300px;text-align:center;font:400 84px/1 B;letter-spacing:2px}
+#sb .sc{font:400 230px/1 B;color:#ffd21f;letter-spacing:6px}
+#sb .min{margin-top:18px;text-align:center;font:400 70px B;letter-spacing:4px;color:var(--kc)}
+#sb .gl{margin-top:20px;display:flex;flex-direction:column;gap:12px}
+#sb .g{font:700 46px O;letter-spacing:2px;opacity:0}#sb .g b{font:400 56px B;color:#ffd21f;margin-right:16px}
+.flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:40;pointer-events:none}
+/* the numbers */
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:26px}
+.tl{background:rgba(var(--bx),.92);border:4px solid rgba(var(--kl),.5);border-radius:24px;padding:18px 26px;opacity:0}
+.tl b{display:block;font:400 120px/1 B;color:#ffd21f}.tl small{font:700 34px O;letter-spacing:3px;color:var(--sm)}
+/* the end */
+.opts{display:flex;gap:28px;margin-top:40px}
+.opts div{flex:1;text-align:center;padding:22px 16px;border-radius:26px;border:6px solid #ffd21f;background:rgba(var(--bx),.92)}
+.opts div:last-child{border-color:var(--kc)}
+.opts b{display:block;font:400 130px/1 B;color:#ffd21f}.opts div:last-child b{color:var(--kc)}
+.opts span{display:block;font:400 62px/1.05 B;letter-spacing:2px;margin-top:8px}.opts small{display:block;font:700 30px O;letter-spacing:2px;color:var(--sm);margin-top:8px}
+#cta{text-align:center;margin-top:40px;font:700 42px O;letter-spacing:4px;color:#c9d6ff}
+.credit{bottom:18px;left:24px}
+</style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div>
+<div id="ph"></div><div id="chp"></div><div id="dots"></div>
+<div class="pane" id="ch"><div class="dt"></div><div class="hh"></div><div class="big"></div><div class="sub"></div></div>
+<div id="sb"><div class="dt"></div><div class="board"><div class="tm" id="sh"></div><div class="sc">0-0</div><div class="tm" id="sa"></div></div><div class="min"></div><div class="gl"></div></div>
+<div class="pane" id="nu"><div class="dt"></div><div class="hh"></div><div class="tiles"></div><div class="sub"></div></div>
+<div class="pane" id="en"><div class="dt"></div><div class="hh"></div><div class="opts"><div><b>A</b><span></span><small></small></div><div><b>B</b><span></span><small></small></div></div><div id="cta"></div></div>
+<div class="pill" id="pl"></div><div class="flash" id="fl"></div>
+<div class="credit" id="cd"></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA, S = D.beats0 || D.steps || [], PH = D.photos || [];
+// every photo once, stacked; a beat names its photo by index
+// a small photo (p.card: too few pixels to fill the frame) sits in a framed card over a blurred copy of itself
+PH.forEach((p, i) => { const mk = (id, cls) => { const im = document.createElement('img'); im.id = id; if (cls) im.className = cls; im.src = p.photo || ''; if (p.pos) im.style.objectPosition = p.pos; $('ph').appendChild(im); return im; };
+  if (p.card) { mk('pb' + i, 'blur'); mk('p' + i, 'card'); } else mk('p' + i); });
+const mins = D.minBeats || S.map(() => 8);
+const B = D.beats || (() => { let t = 0; return mins.map((m) => { const b = [t, m]; t += m; return b; }); })();
+window.TOTAL = B[B.length - 1][0] + B[B.length - 1][1];
+const nCh = S.filter((s) => s.n).length;
+$('dots').innerHTML = Array.from({ length: nCh }, () => '<i></i>').join('');
+const q = (id, sel) => $(id).querySelector(sel);
+const P = { ch: 'ch', hook: 'ch', score: 'sb', nums: 'nu', end: 'en' };
+let cur = -1;
+const set = (k) => {
+  const s = S[k], id = P[s.t];
+  if (s.t === 'ch' || s.t === 'hook') { q(id, '.dt').textContent = s.d || ''; q(id, '.dt').style.display = s.d ? '' : 'none'; q(id, '.hh').innerHTML = s.h || ''; q(id, '.big').textContent = ''; q(id, '.big').style.display = s.big ? '' : 'none'; q(id, '.sub').innerHTML = s.sub || ''; }
+  if (s.t === 'score') { q(id, '.dt').textContent = s.d || ''; $('sh').textContent = s.home; $('sa').textContent = s.away;
+    q(id, '.gl').innerHTML = (s.goals || []).map((g) => `<div class="g"><b>${g.m}'</b>${g.who}</div>`).join(''); }
+  if (s.t === 'nums') { q(id, '.dt').textContent = s.d || ''; q(id, '.hh').innerHTML = s.h || ''; q(id, '.sub').innerHTML = s.sub || '';
+    q(id, '.tiles').innerHTML = s.tiles.map((x) => `<div class="tl"><b data-v="${x.v}">0</b><small>${x.k}</small></div>`).join(''); }
+  if (s.t === 'end') { q(id, '.dt').textContent = s.d || 'YOU DECIDE'; q(id, '.hh').innerHTML = s.h; const o = $(id).querySelectorAll('.opts div');
+    o[0].querySelector('span').textContent = s.a; o[0].querySelector('small').textContent = s.as || ''; o[1].querySelector('span').textContent = s.b; o[1].querySelector('small').textContent = s.bs || ''; $('cta').textContent = s.c || 'COMMENT A OR B 👇'; }
+  $('pl').textContent = s.pill || '';
+};
+const c01 = (x) => Math.min(1, Math.max(0, x));
+window.draw = (t) => {
+  const bi = B.findIndex(([s0, l0]) => t >= s0 && t < s0 + l0), k = bi < 0 ? B.length - 1 : bi, [s0, l] = B[k], u = t - s0, s = S[k];
+  if (cur !== k) { set(k); cur = k; }
+  // the photo of this beat fades in over the one before; every photo always drifts (push in, slow pan)
+  const pk = s.p ?? 0, pp = k > 0 ? (S[k - 1].p ?? 0) : pk;
+  PH.forEach((ph, i) => { const im = $('p' + i), bl = $('pb' + i); const op = i === pk ? (pk === pp ? 1 : ease(u / .7)) : i === pp ? 1 : 0;
+    im.style.opacity = op; im.style.zIndex = i === pk ? 2 : 1;
+    if (bl) { bl.style.opacity = op; bl.style.zIndex = i === pk ? 2 : 1; bl.style.transform = `scale(${1.1 + .05 * c01(u / l)})`; }
+    if (op && ph.card) im.style.transform = `rotate(${-2 + 4 * c01(u / l)}deg) scale(${.96 + .08 * c01(u / l)})`;
+    else if (op) im.style.transform = `scale(${1.05 + .08 * c01(u / l)}) translateX(${(k % 2 ? 1 : -1) * (36 - 72 * c01(u / l))}px) translateY(${-20 * c01(u / l)}px)`; });
+  $('cd').textContent = PH[pk] && PH[pk].credit ? '📷 ' + PH[pk].credit : '';
+  for (const id of new Set(Object.values(P))) if (id !== P[s.t]) $(id).style.opacity = 0;
+  const pane = $(P[s.t]), fin = s.t === 'end' ? ease(u / .35) : Math.min(ease(u / .3), 1 - ease((u - l + .3) / .3));
+  pane.style.opacity = fin; pane.style.transform = `translateY(${(1 - ease(u / .4)) * 50}px)`;
+  // chapter counter and dots
+  const ci = S.slice(0, k + 1).filter((x) => x.n).length;
+  $('chp').textContent = s.n ? `CHAPTER ${ci}` : ''; $('chp').style.opacity = s.n ? 1 : 0; $('dots').style.opacity = s.n ? 1 : 0;
+  [...$('dots').children].forEach((d, i) => d.classList.toggle('on', i < ci));
+  if (s.t === 'ch' || s.t === 'hook') {
+    const hh = q('ch', '.hh'); hh.style.transform = `scale(${1.15 - .15 * ease(u / .5)})`;
+    if (s.big) { const a = c01((u - .5) / 1.4), bg = q('ch', '.big'), v = String(s.big), m = v.match(/^([^\d]*)([\d.]+)(.*)$/);
+      bg.textContent = m ? m[1] + (m[2].includes('.') ? (Number(m[2]) * ease(a)).toFixed(1) : Math.round(Number(m[2]) * ease(a))) + m[3] : v;
+      bg.style.transform = `scale(${u < 1.9 ? .8 + .2 * back(c01((u - .5) / .7)) : 1 + .025 * Math.sin((u - 1.9) * 4)})`; bg.style.opacity = ease((u - .4) / .3); }
+    q('ch', '.sub').style.opacity = ease((u - (s.big ? 1.8 : .8)) / .4);
+  }
+  if (s.t === 'score') {
+    const gs = s.goals || [], f = u / l; let sc = s.start || '0-0', last = null;
+    [...pane.querySelectorAll('.g')].forEach((g, i) => { const at = gs[i].at * l, a = (u - at) / .35; g.style.opacity = ease(a); g.style.transform = `translateX(${(1 - ease(a)) * -60}px)`; if (u >= at) { sc = gs[i].s; last = i; } });
+    q('sb', '.sc').textContent = sc;
+    const ga = last != null ? u - gs[last].at * l : 9;
+    q('sb', '.sc').style.transform = `scale(${ga < .6 ? 1.35 - .35 * ease(ga / .6) : 1})`;
+    $('fl').style.opacity = ga < .25 && s.flash ? .55 * (1 - ga / .25) : 0;
+    const mi = s.mins || []; let mt = ''; for (const [at, txt] of mi) if (u >= at * l) mt = txt; q('sb', '.min').textContent = mt;
+    q('sb', '.min').style.transform = `scale(${1 + .04 * Math.sin(u * 6)})`;
+  } else $('fl').style.opacity = 0;
+  if (s.t === 'nums') { const tl = [...pane.querySelectorAll('.tl')], per = Math.min(.8, (l - 3) / Math.max(1, tl.length));
+    tl.forEach((x, i) => { const a = (u - .7 - i * per) / .35; x.style.opacity = ease(a); x.style.transform = `scale(${a < 1 ? .7 + .3 * back(c01(a)) : 1})`;
+      const b = x.querySelector('b'), v = Number(b.dataset.v); b.textContent = Math.round(v * ease(c01((u - .7 - i * per) / .9))); });
+    q('nu', '.sub').style.opacity = ease((u - .9 - tl.length * per) / .4); }
+  if (s.t === 'end') { const o = pane.querySelectorAll('.opts div'); o.forEach((x, i) => { x.style.transform = `scale(${1 + .06 * Math.max(0, Math.sin(u * 3.2 + i * Math.PI))})`; }); }
+  // a promise half-way through a chapter (keep watching), shown for three seconds
+  const pa = s.pill ? c01((u - 1) / .3) * (1 - c01((u - 4.2) / .4)) : 0;
+  $('pl').style.opacity = pa; $('pl').style.transform = `translateX(-50%) scale(${.9 + .1 * pa + .02 * Math.sin(t * 6)})`;
+};
+window.POSTER = Math.min(2.6, B[0][1] - .2);
+progBar();
+draw(0);
+</script></body></html>
