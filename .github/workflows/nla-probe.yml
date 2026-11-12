@@ -1,4 +1,4 @@
-# One-off (owner, 2026-11-12: no half-time or full-time reel for the first Nations League games): why. Never merged.
+# One-off (owner, 2026-11-12: no half-time or full-time reel for the first Nations League games): why, and the fix checked. Never merged.
 name: NLA probe
 on:
   push:
@@ -14,8 +14,5 @@ jobs:
           echo "::add-mask::$REELS_KEY"
           A=https://api.football-legend.com
           D="$A/v2/fben/dry?key=$REELS_KEY"
-          for id in en-ht-uefanations-20261112-1700 en-ft-uefanations-20261112-1700; do echo "== state $id"; curl -sS --max-time 90 "$D&kinds=none&state=$id" | jq -c '.result.state // .state // .'; done
-          echo "== dry live now"; curl -sS --max-time 120 "$D&kinds=live&list=1" | jq -c '{r:.result, jobs:[.jobs[]?|{id,title}], list:[.list[]?|select(.leagueSlug=="uefa.nations")|{id,d:.fixture.date,h:.teams.home.name,a:.teams.away.name,st:.fixture.status,g:.goals}]}' | head -c 4000; echo
-          echo "== dry live at 17:50Z"; curl -sS --max-time 120 "$D&kinds=live&at=2026-11-12T17:50:00Z" | jq -c '{r:.result, jobs:[.jobs[]?|{id,title}]}' | head -c 1500; echo
-          echo "== dry live at 19:10Z"; curl -sS --max-time 120 "$D&kinds=live&at=2026-11-12T19:10:00Z" | jq -c '{r:.result, jobs:[.jobs[]?|{id,title}]}' | head -c 1500; echo
-          echo "== errors"; curl -sS --max-time 60 "$A/v2/errors?key=$REELS_KEY" | grep -o '"[^"]*fben[^"]*"[^}]\{0,300\}' | head -20
+          sleep 360
+          for id in en-ft-uefanations-20261112-1700; do echo "== state $id"; curl -sS --max-time 90 "$D&kinds=none&state=$id" | jq -c '.result.state'; done
