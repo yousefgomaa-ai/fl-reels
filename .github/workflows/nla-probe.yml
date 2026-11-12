@@ -19,9 +19,9 @@ jobs:
             echo "== AT ${H}:30Z"
             curl -sS --max-time 150 "$A/v2/fben/dry?key=$REELS_KEY&at=2026-11-12T${H}:30:00Z&list=1" | python3 -c '
           import json,sys
-          d=json.load(sys.stdin); o=d.get("out",d)
+          d=json.load(sys.stdin); o=d.get("result",{})
           print("made:",[k for k,v in o.items() if v=="made"], "errors:",{k:v for k,v in o.items() if isinstance(v,str) and v.startswith("error")})
           if "list" in o and o["list"]: print("matches:",len(o["list"])); [print("  ",x) for x in o["list"][:40]]
-          for j in d.get("dry",[]): print("  JOB",j.get("kind"),j.get("id"),"|",j.get("title"))
+          for j in d.get("jobs",[]): print("  JOB",j.get("kind"),j.get("id"),"|",j.get("title"))
           ' || echo fail
           done
