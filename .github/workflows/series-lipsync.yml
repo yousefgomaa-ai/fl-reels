@@ -15,9 +15,19 @@ jobs:
       KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
     steps:
       - uses: actions/checkout@v4
-      - run: pip install -q "kaggle>=1.8"
+      - run: pip install -q "kaggle>=1.8" edge-tts && sudo apt-get install -y -qq ffmpeg >/dev/null
+      - name: Voices
+        run: |
+          mkdir -p series/lipsync/voice && cd series/lipsync/voice
+          edge-tts --voice en-GB-RyanNeural --rate=-6% --text "Emma? I saw your light. Open up. It's just me." --write-media s20.mp3
+          edge-tts --voice en-US-AriaNeural --rate=-4% --text "I never gave you a key." --write-media s21.mp3
+          for s in s20 s21; do ffmpeg -v error -y -i $s.mp3 -ar 16000 -ac 1 $s.wav; done; rm -f *.mp3; ls -la
+          cd ../../.. && git config user.name "series-sample" && git config user.email "actions@users.noreply.github.com"
+          git add series/lipsync/voice && git commit -m "Series sample: lip-sync voices [skip ci]" && git pull -q --rebase origin claude/series-sample && git push
+          echo "VOICE_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
       - run: |
           cd series/lipsync
+          sed -i "s/VOICE_SHA/$VOICE_SHA/" run.py
           cat > kernel-metadata.json <<J
           {"id": "$KAGGLE_USERNAME/series-lipsync", "title": "series-lipsync", "code_file": "run.py",
            "language": "python", "kernel_type": "script", "is_private": true,

@@ -22,7 +22,8 @@ TESTS = [("s20", "en-GB-RyanNeural", "-6%", "Emma? I saw your light. Open up. It
 cfg = "configs/unet/stage2.yaml"
 for sid, voice, rate, text in TESTS:
     sh(f"curl -sSfL -o /tmp/{sid}.mp4 {RAW}{sid}.mp4")
-    sh(f"/tmp/ls/bin/edge-tts --voice {voice} --rate={rate} --text \"{text}\" --write-media /tmp/{sid}.mp3 && ffmpeg -v error -y -i /tmp/{sid}.mp3 -ar 16000 -ac 1 /tmp/{sid}.wav")
+    # The voices are made on GitHub (edge-tts fails from Kaggle) and pinned to that commit.
+    sh(f"curl -sSfL -o /tmp/{sid}.wav https://raw.githubusercontent.com/yousefgomaa-ai/fl-reels/VOICE_SHA/series/lipsync/voice/{sid}.wav")
     t = time.time()
     r = sh(f"cd /tmp/LatentSync && /tmp/ls/bin/python -m scripts.inference --unet_config_path {cfg} --inference_ckpt_path checkpoints/latentsync_unet.pt "
            f"--inference_steps 20 --guidance_scale 1.5 --video_path /tmp/{sid}.mp4 --audio_path /tmp/{sid}.wav --video_out_path /kaggle/working/lip_{sid}.mp4")
