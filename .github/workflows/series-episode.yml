@@ -1,0 +1,45 @@
+# An episode of the AI series sample (owner, 2026-11-12): shots on Kaggle's free T4s, then voices, score and edit here.
+# Lives on claude/series-sample only; never merge. Shots already in series/ep1/shots are not made again.
+name: Series episode
+on:
+  push:
+    branches: [claude/series-sample]
+    paths: [series/ep1.json, series/assemble.py, series/kaggle/run.py, .github/workflows/series-episode.yml]
+permissions:
+  contents: write
+jobs:
+  episode:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    env:
+      KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+      KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fonts-dejavu-core >/dev/null
+      - run: pip install -q "kaggle>=1.8" edge-tts pillow numpy scipy
+      - name: Shots on Kaggle
+        run: |
+          if [ "$(ls series/ep1/shots/*.mp4 2>/dev/null | wc -l)" -ge "$(python3 -c "import json;print(sum(1 for s in json.load(open('series/ep1.json'))['shots'] if s.get('v')))")" ]; then echo "shots already made"; exit 0; fi
+          cd series/kaggle
+          cat > kernel-metadata.json <<J
+          {"id": "$KAGGLE_USERNAME/series-shot-test", "title": "series-shot-test", "code_file": "run.py",
+           "language": "python", "kernel_type": "script", "is_private": true,
+           "enable_gpu": true, "enable_internet": true}
+          J
+          kaggle kernels push -p .
+          sleep 120
+          for i in $(seq 1 200); do
+            s=$(kaggle kernels status "$KAGGLE_USERNAME/series-shot-test" 2>&1 | tail -1); echo "$(date -u +%H:%M) $s"
+            case "$s" in *COMPLETE*|*ERROR*|*CANCEL*) break;; esac
+            sleep 60
+          done
+          mkdir -p ../ep1/shots && kaggle kernels output "$KAGGLE_USERNAME/series-shot-test" -p ../ep1/shots
+          rm -f ../ep1/shots/*.log; cat ../ep1/shots/log.json
+          cd ../.. && git config user.name "series-sample" && git config user.email "actions@users.noreply.github.com"
+          git add series/ep1/shots && git commit -m "Series sample: episode 1 shots [skip ci]" && git push
+      - run: python3 series/assemble.py 1
+      - run: |
+          git config user.name "series-sample" && git config user.email "actions@users.noreply.github.com"
+          git pull -q --rebase origin claude/series-sample || true
+          git add series/ep1/episode1.mp4 && git commit -m "Series sample: episode 1 full [skip ci]" && git push

@@ -1,0 +1,42 @@
+{
+  "series": "THE LAST TEXT",
+  "episode": 1,
+  "cast": {
+    "narrator": "en-US-ChristopherNeural",
+    "emma": "en-US-AriaNeural",
+    "mark": "en-GB-RyanNeural",
+    "operator": "en-US-MichelleNeural"
+  },
+  "looks": {
+    "emma": "a 32-year-old woman with long straight auburn hair, pale skin with light freckles and green eyes, wearing a grey knit cardigan over a black top",
+    "mark": "a tall 42-year-old man with short black hair and a short trimmed black beard, sharp jaw, wearing a long black wool overcoat"
+  },
+  "style": "Cinematic thriller film shot, night, dark moody low-key lighting, deep shadows, realistic, 35mm film",
+  "shots": [
+    {"id": "s01", "reuse": "s22", "lines": [["narrator", "Tonight, a dead man will try to save her life."]], "mood": "drone", "sfx": [["key", 0.8]]},
+    {"id": "s02", "phone": {"from": "Daniel", "time": "3:24 AM", "msgs": [["in", "RUN."]]}, "dur": 1.8, "mood": "hit", "sfx": [["buzz", 0.0]]},
+    {"id": "s03", "title": "THE LAST TEXT", "dur": 3.0, "mood": "braam"},
+    {"id": "s04", "card": "ONE HOUR EARLIER", "dur": 2.0, "mood": "silence"},
+    {"id": "s05", "v": "A dark bedroom at night. {emma} is asleep in bed. On the nightstand a smartphone suddenly lights up and glows brightly, lighting the room. Static camera.", "lines": [["narrator", "Three oh seven a.m."]], "mood": "piano", "sfx": [["buzz", 0.5]]},
+    {"id": "s06", "v": "Close-up of {emma} lying in bed in a dark bedroom, she wakes up, slowly reaches for her glowing phone, the screen light on her sleepy face. Slow push-in.", "dur": 3.5, "mood": "piano"},
+    {"id": "s07", "phone": {"from": "Daniel", "time": "3:07 AM", "msgs": [["in", "Don't trust Mark."]]}, "lines": [["narrator", "One new message. From her husband, Daniel. Who died exactly one year ago."]], "mood": "piano"},
+    {"id": "s08", "v": "{emma} sits up in bed in a dark bedroom staring at her phone in horror, her hand covering her mouth, trembling, the phone light on her face. Slow push-in.", "lines": [["emma", "No... No. This isn't possible."]], "mood": "piano"},
+    {"id": "s09", "call": "Daniel", "lines": [["operator", "The number you have dialed is no longer in service."]], "mood": "drone"},
+    {"id": "s10", "v": "Flashback. A funeral in heavy rain at a grey cemetery. {mark} and other men in black carry a wooden coffin slowly, his face grim. Slow tracking shot.", "flashback": true, "lines": [["narrator", "Mark. Daniel's older brother. The man who carried his coffin."]], "mood": "sad"},
+    {"id": "s11", "v": "Flashback. At a rainy cemetery under a black umbrella, {mark} hugs {emma} who is crying, he looks over her shoulder with a cold unreadable face. Slow push-in.", "flashback": true, "lines": [["mark", "I'm here now, Emma. Whatever you need. Always."]], "mood": "sad"},
+    {"id": "s12", "phone": {"from": "Daniel", "time": "3:09 AM", "msgs": [["in", "Don't trust Mark."], ["out", "Who is this?"]]}, "lines": [["emma", "Who is this?"]], "mood": "drone"},
+    {"id": "s13", "phone": {"from": "Daniel", "time": "3:10 AM", "msgs": [["in", "Don't trust Mark."], ["out", "Who is this?"], ["in", "Check his laptop. Before he does."]]}, "dur": 3.6, "mood": "pulse", "sfx": [["buzz", 0.3]]},
+    {"id": "s14", "v": "{emma} walks slowly down a dark wooden staircase at night holding her phone flashlight, looking around nervously. Camera follows her.", "dur": 4.0, "mood": "pulse"},
+    {"id": "s15", "v": "In a dark home office at night {emma} sits at a desk and opens a laptop, the bright screen lighting her tense face. Slow push-in.", "lines": [["emma", "His password... still our wedding date."]], "mood": "pulse"},
+    {"id": "s16", "laptop": ["Photos", "Taxes 2025", "Wedding", "MARK"], "lines": [["narrator", "One folder. One name."]], "mood": "pulse"},
+    {"id": "s17", "v": "In a dark home office {emma} looks up startled as the lights suddenly go out, the room drops into darkness, only the laptop glow on her frightened face.", "dur": 3.0, "mood": "silence", "sfx": [["power", 0.0]]},
+    {"id": "s18", "v": "A dark house hallway at night seen from the far end, the front door at the end of the hall, a thin line of warm light under the door. Very slow push-in. No people.", "lines": [["narrator", "Three twenty-one a.m. The doorbell rang."]], "mood": "silence", "sfx": [["bell", 0.2]]},
+    {"id": "s19", "v": "{emma} creeps slowly along a dark hallway toward the front door holding her phone light, terrified, breathing fast. Camera follows behind her.", "dur": 4.2, "mood": "dread", "sfx": [["bell", 1.2]]},
+    {"id": "s20", "v": "Night, a front porch under a single dim porch light. {mark} stands at the door, slowly raises a house key and smiles a cold, menacing smile at the camera. Slow push-in.", "lines": [["mark", "Emma? I saw your light. Open up. It's just me."]], "mood": "dread"},
+    {"id": "s21", "v": "Extreme close-up of {emma} with her back against the inside of the front door in the dark, eyes wide with fear, whispering, her phone light on her face.", "lines": [["emma", "I never gave you a key."]], "mood": "dread"},
+    {"id": "s22", "v": "Extreme close-up of a door lock at night, a metal key slides into the keyhole from outside and slowly turns, the door handle starts to move. Dark, moody.", "dur": 3.2, "mood": "riser", "sfx": [["key", 0.6]]},
+    {"id": "s23", "phone": {"from": "Daniel", "time": "3:24 AM", "msgs": [["in", "Don't trust Mark."], ["out", "Who is this?"], ["in", "Check his laptop. Before he does."], ["in", "RUN."]]}, "dur": 2.0, "mood": "hit", "sfx": [["buzz", 0.0]]},
+    {"id": "s24", "v": "Inside a dark hallway, the front door slowly creaks open, warm light spills in and a tall dark silhouette of a man stands in the doorway, {emma} backs away into the darkness.", "dur": 4.5, "mood": "dread"},
+    {"id": "s25", "end": ["WOULD YOU OPEN THE DOOR?", "COMMENT YES OR NO", "PART 2 IN 1 HOUR"], "lines": [["narrator", "Would you open the door? Comment yes, or no. Part two drops in one hour."]], "mood": "drone"}
+  ]
+}
