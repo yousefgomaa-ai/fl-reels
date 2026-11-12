@@ -12,9 +12,18 @@ def get(url, tries=5):
 LG = {'eng.1': 'Premier League', 'esp.1': 'LaLiga', 'ger.1': 'Bundesliga', 'ita.1': 'Serie A', 'fra.1': 'Ligue 1'}
 def events(lg, y):
     ev = []
+    import datetime as dt
     for a, b in [(f'{y}0701', f'{y}0930'), (f'{y}1001', f'{y}1130'), (f'{y}1201', f'{y + 1}0131')]:
-        d = get(f'https://site.api.espn.com/apis/site/v2/sports/soccer/{lg}/scoreboard?dates={a}-{b}&limit=1000')
-        for e in d.get('events', []):
+        try: L = get(f'https://site.api.espn.com/apis/site/v2/sports/soccer/{lg}/scoreboard?dates={a}-{b}', tries=2).get('events', [])
+        except Exception: L = None
+        if not L or len(L) < 20:  # a range refused (HTTP 400) or cut short: day by day
+            L, d0, d1 = [], dt.date(int(a[:4]), int(a[4:6]), int(a[6:])), dt.date(int(b[:4]), int(b[4:6]), int(b[6:]))
+            while d0 <= d1:
+                if d0 <= dt.date.today():
+                    try: L += get(f'https://site.api.espn.com/apis/site/v2/sports/soccer/{lg}/scoreboard?dates={d0:%Y%m%d}').get('events', [])
+                    except Exception as e: print('day fail', lg, d0, e, file=sys.stderr)
+                d0 += dt.timedelta(days=1)
+        for e in L:
             c = e['competitions'][0]
             if not c['status']['type'].get('completed'): continue
             t = {x['homeAway']: x['team'] for x in c['competitors']}
@@ -61,12 +70,18 @@ def run(lg):
 # The two active all-time scorers (Wikipedia: Salah 193 PL as of 25 Oct 2026; Mbappé 74 UCL as of 4 Nov 2026).
 def check():
     for lg, a, b, who in [('eng.1', '20261024', '20261112', 'Salah'), ('uefa.champions', '20261020', '20261112', 'Mbapp')]:
-        d = get(f'https://site.api.espn.com/apis/site/v2/sports/soccer/{lg}/scoreboard?dates={a}-{b}&limit=500')
-        for e in d.get('events', []):
+        import datetime as dt
+        L, d0 = [], dt.date(int(a[:4]), int(a[4:6]), int(a[6:]))
+        while d0 <= dt.date(int(b[:4]), int(b[4:6]), int(b[6:])):
+            try: L += get(f'https://site.api.espn.com/apis/site/v2/sports/soccer/{lg}/scoreboard?dates={d0:%Y%m%d}').get('events', [])
+            except Exception: pass
+            d0 += dt.timedelta(days=1)
+        for e in L:
             if not any(x in e['name'] for x in ['Liverpool', 'Real Madrid']): continue
             ks = keyev(lg, e['id'])
             print('CHECK', lg, e['date'], e['name'], e['competitions'][0]['status']['type']['name'], [k['ps'] for k in ks if any(who in (p or '') for p in k['ps'])], flush=True)
-check()
+try: check()
+except Exception as e: print('CHECK failed', e)
 with cf.ThreadPoolExecutor(5) as ex:
     for r in ex.map(run, list(LG)):
         print('RESULT ' + json.dumps(r, ensure_ascii=False), flush=True)
