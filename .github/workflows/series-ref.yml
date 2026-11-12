@@ -1,0 +1,29 @@
+# One-off (owner, 2026-11-12): frames from the first minute of a reference AI series the owner sent, to study it.
+# Only small frame sheets are kept, never the video itself. Never merge.
+name: Series reference
+on:
+  push:
+    branches: [claude/series-sample]
+    paths: [.github/workflows/series-ref.yml]
+permissions:
+  contents: write
+jobs:
+  ref:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q -U yt-dlp pillow && sudo apt-get install -y -qq ffmpeg >/dev/null
+      - run: |
+          mkdir -p /tmp/r series/ref
+          yt-dlp -q --no-warnings -f "best[height<=720]/best" -o /tmp/r/v.%(ext)s "https://www.facebook.com/share/v/19oqx6ggYo/" || yt-dlp -v -o /tmp/r/v.%(ext)s "https://www.facebook.com/share/v/19oqx6ggYo/" 2>&1 | tail -30
+          yt-dlp -q --skip-download --print "%(title)s | %(uploader)s | %(duration)s s | %(width)sx%(height)s" "https://www.facebook.com/share/v/19oqx6ggYo/" > series/ref/info.txt || true
+          f=$(ls /tmp/r/v.* | head -1); ffprobe -v error -show_entries stream=codec_type,width,height,r_frame_rate -of csv=p=0 "$f" >> series/ref/info.txt
+          ffmpeg -v error -i "$f" -t 60 -vf "fps=1,scale=240:-1,tile=6x2" -q:v 4 series/ref/sheet%02d.jpg
+          ffmpeg -v error -ss 3 -i "$f" -t 8 -vf "fps=4,scale=320:-1,tile=8x1" -q:v 3 series/ref/talk_a.jpg
+          ffmpeg -v error -ss 20 -i "$f" -t 8 -vf "fps=4,scale=320:-1,tile=8x1" -q:v 3 series/ref/talk_b.jpg
+          ffmpeg -v error -i "$f" -t 60 -af "astats=metadata=1:reset=0,ebur128" -f null - 2>&1 | tail -12 >> series/ref/info.txt
+          ffmpeg -v error -i "$f" -t 60 -filter:v "select='gt(scene,0.3)',showinfo" -f null - 2>&1 | grep -c pts_time >> series/ref/info.txt || true
+          cat series/ref/info.txt; ls -la series/ref
+          git config user.name "series-sample" && git config user.email "actions@users.noreply.github.com"
+          git add series/ref && git commit -m "Series sample: reference frames [skip ci]" && git pull -q --rebase origin claude/series-sample && git push
