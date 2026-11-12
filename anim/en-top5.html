@@ -21,15 +21,21 @@
 .st b{display:block;font:400 54px/1 B;color:#fff}.st span{display:block;font:700 18px O;letter-spacing:3px;color:var(--kc)}.st .ga b{color:#ffd21f}
 .gl{width:178px;flex:none;text-align:center}.gl b{display:block;font:400 168px/0.9 B;color:var(--kc)}.c5.one .gl b{color:#ffd21f}.gl span{font:700 26px O;letter-spacing:6px}
 #cta{bottom:40px;font-size:64px}
+/* all-time: three-figure goals (Messi 474) need a wider column */
+body.at .gl{width:250px}body.at .gl b{font-size:134px}body.at .nm{font-size:60px}
 </style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div>
 <div class="abs" id="lg"></div><div class="abs" id="ti">TOP 5 <span>SCORERS</span></div><div id="side"></div>
 <div id="cards"></div><div class="cta" id="cta"></div>
 <script src="lib.js"></script><script src="en-lib.js"></script><script>
 const D = window.DATA, P = (D.players || []).slice(0, 5);
-$('lg').innerHTML = `${D.league || ''}<small>${D.sub || 'THIS SEASON'}</small>`; $('side').textContent = `${D.league || ''} • ${D.league || ''}`;
+if (D.alltime) document.body.classList.add('at');
+$('lg').innerHTML = `${D.league || ''}<small>${D.sub || 'THIS SEASON'}</small>`; if (D.head) $('ti').innerHTML = D.head; $('side').textContent = `${D.league || ''} • ${D.league || ''}`;
 $('cards').innerHTML = P.map((p, i) => `<div class="c5 ${i === 0 ? 'one' : ''}"><div class="rk">${p.rank || i + 1}</div><div class="pb" id="pb${i}"></div>`
   + `<div class="tx"><div class="nm">${p.short || p.name}</div><div class="cl">${p.logo ? `<img src="${p.logo}">` : ''}<span>${p.team || ''}</span></div>`
-  + `<div class="st"><div><b>${p.a}</b><span>ASSISTS</span></div><div class="ga"><b>${p.g + p.a}</b><span>G + A</span></div><div><b>${p.n}</b><span>GAMES</span></div></div></div>`
+  + (D.alltime
+    // all-time mode (owner, 2026-11-12: «الخمس الهدافين في تاريخ الدوريات»): no assists were counted before the 1990s, so games and goals per game
+    ? `<div class="st"><div><b>${p.n}</b><span>GAMES</span></div><div class="ga"><b>${(p.g / p.n).toFixed(2)}</b><span>PER GAME</span></div></div></div>`
+    : `<div class="st"><div><b>${p.a}</b><span>ASSISTS</span></div><div class="ga"><b>${p.g + p.a}</b><span>G + A</span></div><div><b>${p.n}</b><span>GAMES</span></div></div></div>`)
   + `<div class="gl"><b id="g${i}">${p.g}</b><span>GOALS</span></div></div>`).join('');
 // his photo in the club's shirt, credited on it; none: the club's crest
 P.forEach((p, i) => { const el = $('pb' + i), crest = () => { if (p.logo) { const im = new Image(); im.className = 'cr'; im.src = p.logo; el.appendChild(im); } };

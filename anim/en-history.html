@@ -9,8 +9,11 @@
 .it .yr{width:150px;font:400 52px/1 B;letter-spacing:1px;text-align:center}.it .yr small{display:block;font:700 22px O;color:rgba(255,255,255,.6)}
 .it .dt{position:absolute;left:138px;width:32px;height:32px;border-radius:50%;background:var(--dk);border:6px solid var(--ac,#ffd21f)}
 .it .bx{margin-left:46px;flex:1;display:flex;align-items:center;padding:16px 24px;border-radius:24px;background:rgba(var(--bx),.86);border:2px solid rgba(255,255,255,.14)}
-.it .bx div{flex:1}.it .nm{font:400 58px/1 B;letter-spacing:1px}.it .cl{font:700 26px O;color:rgba(255,255,255,.75);margin-top:6px}
+.it .bx>div:first-child{flex:1;min-width:0}.it .g{flex:none;min-width:120px;text-align:right}.it .nm{font:400 58px/1 B;letter-spacing:1px}.it .cl{font:700 26px O;color:rgba(255,255,255,.75);margin-top:6px}
 .it .g{font:400 110px/1 B;color:var(--ac,#ffd21f);margin-left:16px}
+/* the season's top assister under its top scorer (owner, 2026-11-12: «بالهدافين و الاسيستات») */
+.it .as{margin-top:8px;font:700 26px O;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.it .as i{font-style:normal;letter-spacing:3px;color:var(--ac,#ffd21f);margin-right:8px}.it .as b{color:var(--ac,#ffd21f)}
+.it.has .nm{font-size:50px}.it .bx{min-height:0}
 .it.now .bx{border-color:var(--ac,#ffd21f);box-shadow:0 0 40px rgba(255,210,31,.35)}
 #cta{bottom:56px}
 </style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div><div class="abs" id="cp"></div>
@@ -20,7 +23,7 @@ const D = window.DATA, R = (D.rows || []).slice(0, 6), n = R.length, H = n > 5 ?
 document.documentElement.style.setProperty('--h', H + 'px');
 $('cp').textContent = D.league || '';
 $('hk').innerHTML = `${D.h1 || 'TOP SCORERS'}<br><span class="y">${D.h2 || 'THE LAST 5 SEASONS'}</span>`;
-$('tl').insertAdjacentHTML('beforeend', R.map((r) => `<div class="it${r.now ? ' now' : ''}"><div class="yr">${r.season}${r.sub ? `<small>${r.sub}</small>` : ''}</div><span class="dt"></span><div class="bx"><div><div class="nm">${r.name}</div><div class="cl">${r.club}</div></div><div class="g">${r.g}</div></div></div>`).join(''));
+$('tl').insertAdjacentHTML('beforeend', R.map((r) => `<div class="it${r.now ? ' now' : ''}${r.ast ? ' has' : ''}"><div class="yr">${r.season}${r.sub ? `<small>${r.sub}</small>` : ''}</div><span class="dt"></span><div class="bx"><div><div class="nm">${r.name}</div><div class="cl">${r.club}</div>${r.ast ? `<div class="as"><i>ASSISTS</i> ${r.ast.name} <b>${r.ast.a}</b></div>` : ''}</div><div class="g">${r.g}</div></div></div>`).join(''));
 $('cta').textContent = D.cta || 'WHO TAKES IT THIS SEASON? 👇';
 const its = [...document.querySelectorAll('.it')], T0 = .5, PER = 1.05;
 window.TOTAL = Math.max(10, T0 + n * PER + 3.5);
