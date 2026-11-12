@@ -1,0 +1,36 @@
+# Wan 2.2 test on Kaggle (owner, 2026-11-12). Lives on claude/series-sample only; never merge.
+name: Series Wan22 test
+on:
+  push:
+    branches: [claude/series-sample]
+    paths: [series/wan22/run.py, .github/workflows/series-wan22.yml]
+permissions:
+  contents: write
+jobs:
+  lipsync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    env:
+      KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+      KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q "kaggle>=1.8"
+      - run: |
+          cd series/wan22
+          cat > kernel-metadata.json <<J
+          {"id": "$KAGGLE_USERNAME/series-wan22", "title": "series-wan22", "code_file": "run.py",
+           "language": "python", "kernel_type": "script", "is_private": true,
+           "enable_gpu": true, "enable_internet": true}
+          J
+          kaggle kernels push -p .
+          sleep 90
+          for i in $(seq 1 180); do
+            s=$(kaggle kernels status "$KAGGLE_USERNAME/series-wan22" 2>&1 | tail -1); echo "$(date -u +%H:%M) $s"
+            case "$s" in *COMPLETE*|*ERROR*|*CANCEL*) break;; esac
+            sleep 60
+          done
+          mkdir -p out && kaggle kernels output "$KAGGLE_USERNAME/series-wan22" -p out || true
+          cat out/log.json || true; tail -c 6000 out/*.log || true; rm -f out/*.log
+          cd ../.. && git config user.name "series-sample" && git config user.email "actions@users.noreply.github.com"
+          git add series/wan22/out && git commit -m "Series sample: wan22 shots [skip ci]" && git pull -q --rebase origin claude/series-sample && git push || true
