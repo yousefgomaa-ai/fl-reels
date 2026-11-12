@@ -4,6 +4,7 @@ name: NLA probe
 on:
   push:
     branches: [claude/nla-probe]
+    paths: [sample/pace.py]
 jobs:
   p:
     runs-on: ubuntu-latest

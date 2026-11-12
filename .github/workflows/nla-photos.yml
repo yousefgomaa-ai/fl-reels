@@ -1,0 +1,18 @@
+# One-off (owner, 2026-11-12): Commons photo candidates for the all-time top scorers. claude/nla-probe only; never merged.
+name: NLA photos
+on:
+  push:
+    branches: [claude/nla-probe]
+    paths: [sample/photos.py, sample/players.json]
+permissions:
+  contents: write
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q pillow && python3 sample/photos.py
+      - run: |
+          git config user.name probe; git config user.email probe@users.noreply.github.com
+          git add sample/sheets && git commit -qm "probe: photo sheets" && git pull -q --rebase && git push -q
