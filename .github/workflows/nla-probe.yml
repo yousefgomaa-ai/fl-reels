@@ -1,4 +1,4 @@
-# One-off (owner, 2026-11-12: «صوت الوش اللي بيجي في اخر الكلام»): the end of each voice line, measured. Never merged.
+# One-off (owner, 2026-11-12: «صوت الوش اللي بيجي في اخر الكلام»): the end of each voice line, measured (again after the fix). Never merged.
 name: NLA probe
 on:
   push:
@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - run: sudo apt-get install -y -qq ffmpeg >/dev/null 2>&1; ffmpeg -version | head -1
+      - run: sleep 330; sudo apt-get install -y -qq ffmpeg >/dev/null 2>&1; ffmpeg -version | head -1
       - env:
           REELS_KEY: ${{ secrets.REELS_KEY }}
         run: |
