@@ -21,16 +21,76 @@
 .st b{display:block;font:400 54px/1 B;color:#fff}.st span{display:block;font:700 18px O;letter-spacing:3px;color:var(--kc)}.st .ga b{color:#ffd21f}
 .gl{width:178px;flex:none;text-align:center}.gl b{display:block;font:400 168px/0.9 B;color:var(--kc)}.c5.one .gl b{color:#ffd21f}.gl span{font:700 26px O;letter-spacing:6px}
 #cta{bottom:40px;font-size:64px}
+/* all-time: three-figure goals (Messi 474) need a wider column */
+body.at .gl{width:250px}body.at .gl b{font-size:134px}body.at .nm{font-size:54px;letter-spacing:0}
+
+/* The competition's own look (owner, 2026-11-12: «كل دوري او بطولة له تصميم مختلف»): DATA.lay, the same eight as en-live
+   (FBEN_LAY: Premier League tv, LaLiga cards, Serie A split, Bundesliga led, Ligue 1 neon, Champions League rows). rows: the cards above. */
+/* tv: a broadcast graphic, white slanted bars, the title on a band */
+body.L-tv #ti{left:0;right:0;top:170px;padding:14px 44px 6px;background:var(--kc);color:var(--dk);text-shadow:none;font-size:118px}body.L-tv #ti span{color:var(--dk);opacity:.65}
+body.L-tv .c5{background:#fff;color:#0b0b14;border:0;border-radius:0;clip-path:polygon(4% 0,100% 0,96% 100%,0 100%)}body.L-tv .c5:before{width:26px;left:14px;transform:skewX(-8deg)}
+body.L-tv .c5.one{background:#fff;box-shadow:none;border:0}body.L-tv .rk{color:#0b0b14;padding-left:46px}body.L-tv .c5.one .rk{color:var(--kc)}
+body.L-tv .cl{color:#444}body.L-tv .st div{background:#0b0b14;border:0}body.L-tv .gl{background:var(--dk);align-self:stretch;display:flex;flex-direction:column;justify-content:center;padding-right:30px}body.L-tv .gl b,body.L-tv .c5.one .gl b{color:#fff}body.L-tv .gl span{color:var(--kc)}
+/* cards: number one across the top, the four below as tall cards in two columns */
+body.L-cards #ti{text-align:center;left:0;right:0;transform:none}body.L-cards #lg{display:none}
+body.L-cards #cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+body.L-cards .c5{margin:0;border-radius:30px;background:linear-gradient(180deg,rgba(var(--kl),.28),rgba(var(--bx),.94) 45%);border:3px solid rgba(var(--kl),.55)}
+body.L-cards .c5:not(.one){flex-direction:column;height:520px;padding:16px 10px 10px;text-align:center}body.L-cards .c5:before{display:none}
+body.L-cards .c5:not(.one) .rk{position:absolute;left:14px;top:8px;width:auto;font-size:96px;z-index:3;text-shadow:0 4px 18px rgba(0,0,0,.7)}
+body.L-cards .c5:not(.one) .pb{width:280px;height:200px}body.L-cards .c5:not(.one) .tx{padding:12px 6px 0;width:100%}
+body.L-cards .c5:not(.one) .nm{font-size:50px;white-space:normal;line-height:1}body.L-cards .c5:not(.one) .cl{justify-content:center;font-size:26px}
+body.L-cards .c5:not(.one) .st{justify-content:center}body.L-cards .c5:not(.one) .gl{width:auto;display:flex;align-items:baseline;gap:12px;margin-top:8px}body.L-cards .c5:not(.one) .gl b{font-size:96px}body.L-cards .c5:not(.one) .st{margin-top:8px}
+body.L-cards .c5.one{grid-column:1/3;height:280px}
+/* split: each card cut in two, the photo on the competition's colour, a white disc for the goals */
+body.L-split #ti{transform:skewX(6deg)}
+body.L-split .c5{background:linear-gradient(105deg,rgba(var(--kl),.45) 0 32%,rgba(255,255,255,.1) 32% 34%,rgba(var(--bx),.94) 34%);border-radius:16px;border:0}body.L-split .c5:before{display:none}
+body.L-split .c5.one{background:linear-gradient(105deg,#ffd21f 0 32%,rgba(255,255,255,.1) 32% 34%,rgba(60,44,4,.96) 34%)}body.L-split .c5.one .rk{color:var(--dk)}
+body.L-split .pb{border-radius:50%;width:210px;height:210px;border:6px solid #fff}body.L-split .gl{width:200px}
+body.L-split .gl b{background:#fff;color:var(--dk) !important;border-radius:50%;width:180px;height:180px;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:96px}body.L-split .gl span{display:block;margin-top:6px}
+/* led: a stadium scoreboard, dots behind amber figures */
+body.L-led .bg{background:#050505 !important}body.L-led .streak{background:radial-gradient(circle,rgba(255,176,0,.10) 2px,transparent 2.6px) 0 0/14px 14px !important;mix-blend-mode:normal;inset:0}
+body.L-led #ti{color:#ffb000;text-shadow:0 0 18px rgba(255,176,0,.7);transform:none}body.L-led #ti span{color:#fff}body.L-led #lg{color:#ffb000}body.L-led #side{display:none}
+body.L-led .c5,body.L-led .c5.one{background:#0d0d0d;border:3px solid #2a2a2a;border-radius:8px;box-shadow:none}body.L-led .c5:before{background:#ffb000;width:6px}body.L-led .c5.one{border-color:#ffb000}
+body.L-led .rk,body.L-led .gl b,body.L-led .c5.one .gl b,body.L-led .c5.one .rk{color:#ffb000;text-shadow:0 0 16px rgba(255,176,0,.8)}
+body.L-led .nm{color:#ffe7a8;letter-spacing:3px}body.L-led .cl{color:#a88a4a}body.L-led .st div{background:#000;border-color:#2a2a2a}body.L-led .st span,body.L-led .gl span{color:#ffb000}body.L-led .pb{border-radius:4px;filter:sepia(.25)}
+/* neon: outlines that glow */
+body.L-neon .bg{filter:brightness(.45)}body.L-neon #ti{color:transparent;-webkit-text-stroke:3px #fff;text-shadow:0 0 22px var(--kc)}body.L-neon #ti span{-webkit-text-stroke:3px var(--kc);color:transparent}
+body.L-neon .c5{background:rgba(0,0,0,.4);border:3px solid var(--kc);border-radius:70px;box-shadow:0 0 18px rgba(var(--kl),.55),inset 0 0 18px rgba(var(--kl),.25)}body.L-neon .c5:before{display:none}
+body.L-neon .c5.one{border-color:#ffd21f;background:rgba(0,0,0,.45);box-shadow:0 0 30px rgba(255,210,31,.6),inset 0 0 22px rgba(255,210,31,.25)}
+body.L-neon .pb{border-radius:50%;width:220px;height:220px;border:3px solid var(--kc);box-shadow:0 0 16px var(--kc)}
+body.L-neon .gl b{color:transparent !important;-webkit-text-stroke:4px var(--kc);text-shadow:0 0 18px var(--kc)}body.L-neon .c5.one .gl b{-webkit-text-stroke-color:#ffd21f;text-shadow:0 0 18px #ffd21f}
+body.L-neon .st div{background:transparent;border:2px solid rgba(var(--kl),.7);border-radius:30px}
+/* ticket: each a match ticket, the goals on its stub */
+body.L-ticket #ti{transform:rotate(-3deg)}
+body.L-ticket .c5,body.L-ticket .c5.one{background:#f6eedb;color:#1d1608;border:0;border-radius:12px;box-shadow:none;-webkit-mask:radial-gradient(circle at calc(100% - 190px) 0,transparent 16px,#000 17px) top/100% 51% no-repeat,radial-gradient(circle at calc(100% - 190px) 100%,transparent 16px,#000 17px) bottom/100% 51% no-repeat}
+body.L-ticket .c5:before{background:#c2410c}body.L-ticket .c5.one{background:#ffe9a8}body.L-ticket .rk,body.L-ticket .c5.one .rk{color:#1d1608}body.L-ticket .cl{color:#6b5a32}
+body.L-ticket .st div{background:rgba(0,0,0,.08);border-color:#b9a982}body.L-ticket .st b{color:#1d1608}body.L-ticket .st span{color:#9a6a12}body.L-ticket .st .ga b{color:#c2410c}
+body.L-ticket .gl{border-left:4px dashed #b9a982;align-self:stretch;display:flex;flex-direction:column;justify-content:center}body.L-ticket .gl b,body.L-ticket .c5.one .gl b{color:#c2410c}body.L-ticket .gl span{color:#1d1608}
+/* paper: a newspaper page, black on cream */
+body.L-paper{background:#efe9da !important}body.L-paper .bg,body.L-paper .streak,body.L-paper #side{display:none}body.L-paper .logo{color:#111}body.L-paper .logo i{color:#b91c1c}
+body.L-paper #ti{color:#111;text-shadow:none;transform:none;border-top:6px solid #111;border-bottom:2px solid #111;left:30px;right:30px}body.L-paper #ti span{color:#b91c1c}body.L-paper #lg{color:#111}body.L-paper #lg small{color:#7c2d12}
+body.L-paper .c5,body.L-paper .c5.one{background:transparent;color:#111;border:0;border-bottom:2px solid rgba(0,0,0,.35);border-radius:0;box-shadow:none}body.L-paper .c5:before{display:none}body.L-paper .c5.one{background:rgba(185,28,28,.08)}
+body.L-paper .rk,body.L-paper .c5.one .rk{color:#111}body.L-paper .cl{color:#555}body.L-paper .pb{filter:grayscale(1) contrast(1.1);border-radius:4px}
+body.L-paper .st div{background:transparent;border:1px solid #111}body.L-paper .st b{color:#111}body.L-paper .st span{color:#7c2d12}body.L-paper .st .ga b{color:#b91c1c}
+body.L-paper .gl b,body.L-paper .c5.one .gl b{color:#b91c1c}body.L-paper .gl span{color:#111}body.L-paper #cta{color:#b91c1c;text-shadow:none}
 </style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div>
 <div class="abs" id="lg"></div><div class="abs" id="ti">TOP 5 <span>SCORERS</span></div><div id="side"></div>
 <div id="cards"></div><div class="cta" id="cta"></div>
 <script src="lib.js"></script><script src="en-lib.js"></script><script>
 const D = window.DATA, P = (D.players || []).slice(0, 5);
-$('lg').innerHTML = `${D.league || ''}<small>${D.sub || 'THIS SEASON'}</small>`; $('side').textContent = `${D.league || ''} • ${D.league || ''}`;
+if (D.alltime) document.body.classList.add('at');
+document.body.classList.add('L-' + (/^(rows|tv|cards|led|split|neon|ticket|paper)$/.test(D.lay) ? D.lay : 'rows'));
+$('lg').innerHTML = `${D.league || ''}<small>${D.sub || 'THIS SEASON'}</small>`; if (D.head) $('ti').innerHTML = D.head; $('side').textContent = `${D.league || ''} • ${D.league || ''}`;
 $('cards').innerHTML = P.map((p, i) => `<div class="c5 ${i === 0 ? 'one' : ''}"><div class="rk">${p.rank || i + 1}</div><div class="pb" id="pb${i}"></div>`
   + `<div class="tx"><div class="nm">${p.short || p.name}</div><div class="cl">${p.logo ? `<img src="${p.logo}">` : ''}<span>${p.team || ''}</span></div>`
-  + `<div class="st"><div><b>${p.a}</b><span>ASSISTS</span></div><div class="ga"><b>${p.g + p.a}</b><span>G + A</span></div><div><b>${p.n}</b><span>GAMES</span></div></div></div>`
+  + (D.alltime
+    // all-time mode (owner, 2026-11-12: «الخمس الهدافين في تاريخ الدوريات»): no assists were counted before the 1990s, so games and goals per game
+    ? `<div class="st"><div><b>${p.n}</b><span>GAMES</span></div><div class="ga"><b>${(p.g / p.n).toFixed(2)}</b><span>PER GAME</span></div></div></div>`
+    : `<div class="st"><div><b>${p.a}</b><span>ASSISTS</span></div><div class="ga"><b>${p.g + p.a}</b><span>G + A</span></div><div><b>${p.n}</b><span>GAMES</span></div></div></div>`)
   + `<div class="gl"><b id="g${i}">${p.g}</b><span>GOALS</span></div></div>`).join('');
+// a long name shrinks until it fits (Lewandowski, Burgsmüller), never cut with «…»
+let fitted = false; const fit = () => { document.querySelectorAll('.nm').forEach((el) => { let f = parseFloat(getComputedStyle(el).fontSize); while (el.scrollWidth > el.clientWidth + 1 && f > 34) { f -= 2; el.style.fontSize = f + 'px'; } }); };
+document.fonts.ready.then(() => { fit(); fitted = true; });
 // his photo in the club's shirt, credited on it; none: the club's crest
 P.forEach((p, i) => { const el = $('pb' + i), crest = () => { if (p.logo) { const im = new Image(); im.className = 'cr'; im.src = p.logo; el.appendChild(im); } };
   if (!p.slug && !p.photo) return crest();
@@ -40,6 +100,7 @@ const cards = [...document.querySelectorAll('.c5')], n = cards.length;
 window.TOTAL = 10.5;
 // fifth first, number one last (5.1 s), each card sliding in from its own side with its goals counting up
 window.draw = (t) => {
+  if (!fitted) { fit(); fitted = true; }
   cards.forEach((c, i) => { const t0 = .5 + (n - 1 - i) * 1.15, a = ease((t - t0) / .5), k = ease((t - t0 - .1) / .7), one = i === 0 ? back((t - t0) / .7) : 1;
     c.style.opacity = a; c.style.transform = `translateX(${(1 - a) * (i % 2 ? -140 : 140)}px) scale(${i === 0 ? .9 + .1 * one : 1})`;
     $('g' + i).textContent = Math.round(P[i].g * k); });

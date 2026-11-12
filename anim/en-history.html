@@ -9,18 +9,57 @@
 .it .yr{width:150px;font:400 52px/1 B;letter-spacing:1px;text-align:center}.it .yr small{display:block;font:700 22px O;color:rgba(255,255,255,.6)}
 .it .dt{position:absolute;left:138px;width:32px;height:32px;border-radius:50%;background:var(--dk);border:6px solid var(--ac,#ffd21f)}
 .it .bx{margin-left:46px;flex:1;display:flex;align-items:center;padding:16px 24px;border-radius:24px;background:rgba(var(--bx),.86);border:2px solid rgba(255,255,255,.14)}
-.it .bx div{flex:1}.it .nm{font:400 58px/1 B;letter-spacing:1px}.it .cl{font:700 26px O;color:rgba(255,255,255,.75);margin-top:6px}
+.it .bx>div:first-child{flex:1;min-width:0}.it .g{flex:none;min-width:120px;text-align:right}.it .nm{font:400 58px/1 B;letter-spacing:1px}.it .cl{font:700 26px O;color:rgba(255,255,255,.75);margin-top:6px}
 .it .g{font:400 110px/1 B;color:var(--ac,#ffd21f);margin-left:16px}
+/* the season's top assister under its top scorer (owner, 2026-11-12: «بالهدافين و الاسيستات») */
+.it .as{margin-top:8px;font:700 26px O;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.it .as i{font-style:normal;letter-spacing:3px;color:var(--ac,#ffd21f);margin-right:8px}.it .as b{color:var(--ac,#ffd21f)}
+.it.has .nm{font-size:50px}.it .bx{min-height:0}
 .it.now .bx{border-color:var(--ac,#ffd21f);box-shadow:0 0 40px rgba(255,210,31,.35)}
 #cta{bottom:56px}
+
+/* The competition's own look (owner, 2026-11-12: «كل دوري او بطولة له تصميم مختلف»): DATA.lay, the same eight as en-live
+   (FBEN_LAY). rows: the timeline above. */
+/* tv: white slanted bars on a broadcast band */
+body.L-tv #hk{left:0;right:0;padding:16px 0 10px;background:var(--ac,var(--kc));color:var(--dk);text-shadow:none;transform:skewY(-3deg)}body.L-tv #hk .y{color:var(--dk);opacity:.7}
+body.L-tv .it .bx{background:#fff;color:#0b0b14;border:0;border-radius:0;clip-path:polygon(3% 0,100% 0,97% 100%,0 100%);padding-left:40px}body.L-tv .it .cl{color:#444}body.L-tv .it .as{color:#0b0b14}
+body.L-tv .it .g{background:var(--dk);color:#fff;align-self:stretch;display:flex;align-items:center;justify-content:center;margin:-16px -24px -16px 16px;padding:0 40px 0 24px}body.L-tv .it.now .bx{box-shadow:none;border:0;background:#fff8d6}
+/* cards: no line; each season a card, the year as a tab on its top */
+body.L-cards #ln,body.L-cards .it .dt{display:none}body.L-cards .it .yr{position:absolute;left:30px;top:-6px;width:auto;z-index:2;background:var(--ac,var(--kc));color:var(--dk);border-radius:12px;padding:2px 14px;font-size:34px}body.L-cards .it .yr small{display:inline;margin-left:8px;color:var(--dk)}
+body.L-cards .it .bx{margin-left:0;padding-top:38px;border-radius:28px;background:linear-gradient(180deg,rgba(var(--kl),.26),rgba(var(--bx),.92) 45%);border:3px solid rgba(var(--kl),.5)}
+/* split: the year on the competition's colour, a white disc for the goals */
+body.L-split #ln,body.L-split .it .dt{display:none}body.L-split #hk{text-align:right;transform:skewX(6deg)}
+body.L-split .it .yr{align-self:stretch;display:flex;flex-direction:column;justify-content:center;background:var(--ac,var(--kc));color:var(--dk);border-radius:16px 0 0 16px}body.L-split .it .yr small{color:var(--dk)}
+body.L-split .it .bx{margin-left:0;border-radius:0 16px 16px 0;border:0}body.L-split .it .g{background:#fff;color:var(--dk);border-radius:50%;width:130px;height:130px;min-width:0;display:flex;align-items:center;justify-content:center;font-size:84px}
+/* led: a stadium scoreboard */
+body.L-led .bg{background:#050505 !important}body.L-led .streak{background:radial-gradient(circle,rgba(255,176,0,.10) 2px,transparent 2.6px) 0 0/14px 14px !important;mix-blend-mode:normal;inset:0}
+body.L-led #hk{color:#ffb000;text-shadow:0 0 18px rgba(255,176,0,.7);transform:none}body.L-led #hk .y{color:#fff}body.L-led #cp{color:#ffb000}
+body.L-led #ln{background:#ffb000;box-shadow:0 0 16px #ffb000}body.L-led .it .dt{border-color:#ffb000;background:#000}body.L-led .it .yr{color:#ffb000}
+body.L-led .it .bx{background:#0d0d0d;border:3px solid #2a2a2a;border-radius:8px}body.L-led .it .nm{color:#ffe7a8;letter-spacing:3px}body.L-led .it .cl{color:#a88a4a}
+body.L-led .it .g,body.L-led .it .as b,body.L-led .it .as i{color:#ffb000;text-shadow:0 0 16px rgba(255,176,0,.8)}body.L-led .it.now .bx{border-color:#ffb000;box-shadow:0 0 30px rgba(255,176,0,.3)}
+/* neon: glowing outlines */
+body.L-neon .bg{filter:brightness(.45)}body.L-neon #hk{color:transparent;-webkit-text-stroke:3px #fff;text-shadow:0 0 22px var(--kc)}body.L-neon #hk .y{-webkit-text-stroke:3px var(--ac,var(--kc));color:transparent}
+body.L-neon .it .bx{background:rgba(0,0,0,.4);border:3px solid var(--ac,var(--kc));border-radius:70px;box-shadow:0 0 18px rgba(var(--kl),.5),inset 0 0 16px rgba(var(--kl),.2)}
+body.L-neon .it .g{color:transparent;-webkit-text-stroke:3px var(--ac,var(--kc));text-shadow:0 0 18px var(--ac,var(--kc))}body.L-neon .it.now .bx{border-color:#fff;box-shadow:0 0 34px var(--ac,var(--kc))}
+/* ticket: each season a ticket, the goals on its stub */
+body.L-ticket #hk{transform:rotate(-3deg)}
+body.L-ticket .it .bx{background:#f6eedb;color:#1d1608;border:0;border-radius:12px;-webkit-mask:radial-gradient(circle at calc(100% - 150px) 0,transparent 15px,#000 16px) top/100% 51% no-repeat,radial-gradient(circle at calc(100% - 150px) 100%,transparent 15px,#000 16px) bottom/100% 51% no-repeat}
+body.L-ticket .it .cl{color:#6b5a32}body.L-ticket .it .as{color:#1d1608}body.L-ticket .it .as i,body.L-ticket .it .as b{color:#c2410c}
+body.L-ticket .it .g{color:#c2410c;border-left:4px dashed #b9a982;padding-left:20px;align-self:stretch;display:flex;align-items:center}body.L-ticket .it.now .bx{background:#ffe9a8;box-shadow:none}
+/* paper: a newspaper table, black on cream */
+body.L-paper{background:#efe9da !important}body.L-paper .bg,body.L-paper .streak{display:none}body.L-paper .logo{color:#111}body.L-paper .logo i{color:#b91c1c}
+body.L-paper #hk{color:#111;text-shadow:none;transform:none;border-top:6px solid #111;border-bottom:2px solid #111}body.L-paper #hk .y{color:#b91c1c}body.L-paper #cp{color:#7c2d12}
+body.L-paper #ln{background:#111;box-shadow:none;width:4px}body.L-paper .it .dt{background:#efe9da;border-color:#111}body.L-paper .it .yr{color:#111}body.L-paper .it .yr small{color:#7c2d12}
+body.L-paper .it .bx{background:transparent;color:#111;border:0;border-bottom:2px solid rgba(0,0,0,.35);border-radius:0}body.L-paper .it .cl{color:#555}body.L-paper .it .as{color:#111}body.L-paper .it .as i,body.L-paper .it .as b,body.L-paper .it .g{color:#b91c1c}
+body.L-paper .it.now .bx{background:rgba(185,28,28,.08);box-shadow:none}body.L-paper #cta{color:#b91c1c;text-shadow:none}
 </style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div><div class="abs" id="cp"></div>
 <div class="abs c" id="hk"></div><div id="tl"><div id="ln"></div></div><div class="cta" id="cta"></div>
 <script src="lib.js"></script><script src="en-lib.js"></script><script>
 const D = window.DATA, R = (D.rows || []).slice(0, 6), n = R.length, H = n > 5 ? 200 : 230;
 document.documentElement.style.setProperty('--h', H + 'px');
+document.body.classList.add('L-' + (/^(rows|tv|cards|led|split|neon|ticket|paper)$/.test(D.lay) ? D.lay : 'rows'));
 $('cp').textContent = D.league || '';
 $('hk').innerHTML = `${D.h1 || 'TOP SCORERS'}<br><span class="y">${D.h2 || 'THE LAST 5 SEASONS'}</span>`;
-$('tl').insertAdjacentHTML('beforeend', R.map((r) => `<div class="it${r.now ? ' now' : ''}"><div class="yr">${r.season}${r.sub ? `<small>${r.sub}</small>` : ''}</div><span class="dt"></span><div class="bx"><div><div class="nm">${r.name}</div><div class="cl">${r.club}</div></div><div class="g">${r.g}</div></div></div>`).join(''));
+$('tl').insertAdjacentHTML('beforeend', R.map((r) => `<div class="it${r.now ? ' now' : ''}${r.ast ? ' has' : ''}"><div class="yr">${r.season}${r.sub ? `<small>${r.sub}</small>` : ''}</div><span class="dt"></span><div class="bx"><div><div class="nm">${r.name}</div><div class="cl">${r.club}</div>${r.ast ? `<div class="as"><i>ASSISTS</i> ${r.ast.name} <b>${r.ast.a}</b></div>` : ''}</div><div class="g">${r.g}</div></div></div>`).join(''));
 $('cta').textContent = D.cta || 'WHO TAKES IT THIS SEASON? 👇';
 const its = [...document.querySelectorAll('.it')], T0 = .5, PER = 1.05;
 window.TOTAL = Math.max(10, T0 + n * PER + 3.5);
