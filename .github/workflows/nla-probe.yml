@@ -1,4 +1,4 @@
-# One-off (owner, 2026-11-12: no half-time or full-time reel for the first Nations League games): why, the evening games' reels. Never merged.
+# One-off (owner, 2026-11-12: «صوت الوش اللي بيجي في اخر الكلام»): the end of each voice line, measured. Never merged.
 name: NLA probe
 on:
   push:
@@ -6,13 +6,23 @@ on:
 jobs:
   p:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
+      - run: sudo apt-get install -y -qq ffmpeg >/dev/null 2>&1; ffmpeg -version | head -1
       - env:
           REELS_KEY: ${{ secrets.REELS_KEY }}
         run: |
           echo "::add-mask::$REELS_KEY"
           A=https://api.football-legend.com
-          D="$A/v2/fben/dry?key=$REELS_KEY"
-          for id in en-ht-uefanations-20261112-1950 en-ft-uefanations-20261112-1950 en-ht-uefanations-20261112-1940 en-ft-uefanations-20261112-1940 en-ft-uefanations-20261112-1700; do echo "== state $id"; curl -sS --max-time 90 "$D&kinds=none&state=$id" | jq -c '.result.state'; done
-          echo "== dry live now"; curl -sS --max-time 120 "$D&kinds=live" | jq -c '{r:.result, jobs:[.jobs[]?|{id,title}]}' | head -c 2500; echo
+          i=0
+          for T in "Full time in the Nations League! Belgium beat Türkiye, two one." "Half-time in the Nations League, and France lead Italy, one nil." "Spain against England, in Madrid. Who wins this one?"; do
+            i=$((i+1)); curl -sS --max-time 120 -G "$A/v2/reels/voice" --data-urlencode "key=$REELS_KEY" --data-urlencode "text=$T" --data-urlencode "voice=Fenrir" --data-urlencode "lang=en-GB" -o r$i.wav
+            # the same trim make.mjs does
+            ffmpeg -hide_banner -loglevel error -y -i r$i.wav -af "silenceremove=start_periods=1:start_threshold=-45dB,areverse,silenceremove=start_periods=1:start_threshold=-45dB,areverse" t$i.wav
+            D=$(ffprobe -v error -show_entries format=duration -of csv=p=0 t$i.wav); echo "== line $i: raw $(ffprobe -v error -show_entries format=duration -of csv=p=0 r$i.wav)s, trimmed ${D}s"
+            # the last 1.2 s in 50 ms windows: level and the share above 4 kHz (a breath or hiss is mostly high)
+            S=$(python3 -c "print(max(0,$D-1.2))")
+            paste <(ffmpeg -hide_banner -i t$i.wav -af "atrim=start=$S,asetnsamples=n=1200,astats=metadata=1:reset=1,ametadata=print:key=lavfi.astats.Overall.RMS_level" -f null - 2>&1 | grep -o 'RMS_level=[-0-9.inf]*' | cut -d= -f2) \
+                  <(ffmpeg -hide_banner -i t$i.wav -af "atrim=start=$S,highpass=f=4000,highpass=f=4000,asetnsamples=n=1200,astats=metadata=1:reset=1,ametadata=print:key=lavfi.astats.Overall.RMS_level" -f null - 2>&1 | grep -o 'RMS_level=[-0-9.inf]*' | cut -d= -f2) \
+              | awk -v s=$S '{printf "  t=%.2f  all=%6.1f  hi=%6.1f\n", s+(NR-1)*0.05, $1, $2}'
+          done
