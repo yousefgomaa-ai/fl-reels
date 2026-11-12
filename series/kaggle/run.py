@@ -1,5 +1,6 @@
 # One-off test (owner, 2026-11-12): can Kaggle's free GPU make real moving shots? Times LTX-Video and Wan 2.1 1.3B.
 import subprocess, time, json, os, traceback
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 subprocess.run("pip install -q -U diffusers transformers accelerate sentencepiece imageio imageio-ffmpeg ftfy", shell=True)
 import torch
 from diffusers.utils import export_to_video, load_image
@@ -12,10 +13,16 @@ PROMPT = ("Cinematic thriller shot. A young woman with auburn hair in a grey car
           "her phone screen lighting her face. Subtle handheld camera, moody low-key lighting, realistic.")
 NEG = "worst quality, blurry, jittery, distorted, deformed face, extra fingers, text, watermark"
 
-def ltx():
+def eff(pipe):
+    try:
+        pipe.transformer.set_attention_backend("_native_efficient"); log.setdefault("attn", "_native_efficient")
+    except Exception as e:
+        log["attn_error"] = str(e)[:300]
+
+def ltx(dt=torch.bfloat16):
     from diffusers import LTXImageToVideoPipeline
-    pipe = LTXImageToVideoPipeline.from_pretrained("Lightricks/LTX-Video", torch_dtype=torch.bfloat16)
-    pipe.enable_model_cpu_offload(); pipe.vae.enable_tiling()
+    pipe = LTXImageToVideoPipeline.from_pretrained("Lightricks/LTX-Video", torch_dtype=dt)
+    eff(pipe); pipe.enable_model_cpu_offload(); pipe.vae.enable_tiling()
     img = load_image(IMG).resize((512, 896))
     t = time.time()
     v = pipe(image=img, prompt=PROMPT, negative_prompt=NEG, width=512, height=896, num_frames=121,
@@ -23,12 +30,12 @@ def ltx():
     log["ltx_seconds"] = round(time.time() - t)
     export_to_video(v, "ltx.mp4", fps=24)
 
-def wan():
+def wan(dt=torch.bfloat16):
     from diffusers import AutoencoderKLWan, WanPipeline
     mid = "Wan-AI/Wan2.1-T2V-1.3B-Diffusers"
     vae = AutoencoderKLWan.from_pretrained(mid, subfolder="vae", torch_dtype=torch.float32)
-    pipe = WanPipeline.from_pretrained(mid, vae=vae, torch_dtype=torch.bfloat16)
-    pipe.enable_model_cpu_offload()
+    pipe = WanPipeline.from_pretrained(mid, vae=vae, torch_dtype=dt)
+    eff(pipe); pipe.enable_model_cpu_offload()
     t = time.time()
     v = pipe(prompt=PROMPT, negative_prompt=NEG, height=832, width=480, num_frames=81, guidance_scale=5.0,
              num_inference_steps=30, generator=torch.Generator().manual_seed(7)).frames[0]
@@ -36,10 +43,12 @@ def wan():
     export_to_video(v, "wan.mp4", fps=16)
 
 for name, fn in (("ltx", ltx), ("wan", wan)):
-    try:
-        fn()
-    except Exception as e:
-        log[name + "_error"] = traceback.format_exc()[-1500:]
+    for dt in (torch.bfloat16, torch.float16):
+        try:
+            fn(dt); log[name + "_dtype"] = str(dt); break
+        except Exception as e:
+            log[name + "_error_" + str(dt)[-4:]] = traceback.format_exc()[-800:]
+            torch.cuda.empty_cache()
     print(json.dumps(log), flush=True)
     torch.cuda.empty_cache()
 json.dump(log, open("log.json", "w"), indent=1)
