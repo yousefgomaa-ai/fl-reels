@@ -22,6 +22,16 @@ jobs:
         run: |
           if [ "$(ls series/ep1/shots/*.mp4 2>/dev/null | wc -l)" -ge "$(python3 -c "import json;print(sum(1 for s in json.load(open('series/ep1.json'))['shots'] if s.get('v')))")" ]; then echo "shots already made"; exit 0; fi
           cd series/kaggle
+          # Shots already on Kaggle from the last run are fetched, not made again (2026-11-12: a rejected push lost them).
+          mkdir -p ../ep1/shots && kaggle kernels output "$KAGGLE_USERNAME/series-shot-test" -p ../ep1/shots || true
+          need=$(python3 -c "import json;print(' '.join(s['id'] for s in json.load(open('../ep1.json'))['shots'] if s.get('v')))")
+          miss=0; for s in $need; do [ -f ../ep1/shots/$s.mp4 ] || miss=1; done
+          if [ $miss = 0 ]; then
+            rm -f ../ep1/shots/*.log
+            cd ../.. && git config user.name "series-sample" && git config user.email "actions@users.noreply.github.com"
+            git add series/ep1/shots && git commit -m "Series sample: episode 1 shots [skip ci]" && git pull -q --rebase origin claude/series-sample && git push
+            exit 0
+          fi
           cat > kernel-metadata.json <<J
           {"id": "$KAGGLE_USERNAME/series-shot-test", "title": "series-shot-test", "code_file": "run.py",
            "language": "python", "kernel_type": "script", "is_private": true,
@@ -37,7 +47,7 @@ jobs:
           mkdir -p ../ep1/shots && kaggle kernels output "$KAGGLE_USERNAME/series-shot-test" -p ../ep1/shots
           rm -f ../ep1/shots/*.log; cat ../ep1/shots/log.json
           cd ../.. && git config user.name "series-sample" && git config user.email "actions@users.noreply.github.com"
-          git add series/ep1/shots && git commit -m "Series sample: episode 1 shots [skip ci]" && git push
+          git add series/ep1/shots && git commit -m "Series sample: episode 1 shots [skip ci]" && git pull -q --rebase origin claude/series-sample && git push
       - run: python3 series/assemble.py 1
       - run: |
           git config user.name "series-sample" && git config user.email "actions@users.noreply.github.com"
