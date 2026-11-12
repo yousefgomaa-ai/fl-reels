@@ -1,0 +1,9 @@
+{
+ "gpu": "Tesla T4",
+ "bf16": true,
+ "attn": "_native_efficient",
+ "ltx_error_at16": "^^\n        dtype if t.is_floating_point() or t.is_complex() else None,\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        non_blocking,\n        ^^^^^^^^^^^^^\n    )\n    ^\ntorch.OutOfMemoryError: CUDA out of memory. Tried to allocate 80.00 MiB. GPU 0 has a total capacity of 14.56 GiB of which 56.81 MiB is free. Including non-PyTorch memory, this process has 14.50 GiB memory in use. Of the allocated memory 14.37 GiB is allocated by PyTorch, and 11.40 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)\n",
+ "wan_error_at16": "^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.13/dist-packages/diffusers/models/transformers/transformer_wan.py\", line 143, in __call__\n    hidden_states = dispatch_attention_fn(\n        query,\n    ...<7 lines>...\n        parallel_config=(self._parallel_config if encoder_hidden_states is None else None),\n    )\n  File \"/usr/local/lib/python3.13/dist-packages/diffusers/models/attention_dispatch.py\", line 450, in dispatch_attention_fn\n    return backend_fn(**kwargs)\n  File \"/usr/local/lib/python3.13/dist-packages/diffusers/models/attention_dispatch.py\", line 3863, in _native_efficient_attention\n    out = torch.nn.functional.scaled_dot_product_attention(\n        query=query,\n    ...<6 lines>...\n        enable_gqa=enable_gqa,\n    )\nRuntimeError: No available kernel. Aborting execution.\n",
+ "wan_seconds": 2330,
+ "wan_dtype": "torch.float16"
+}
