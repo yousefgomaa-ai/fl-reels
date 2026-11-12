@@ -1,59 +1,73 @@
 # One-off probe (owner, 2026-11-12): each big-five league's top scorers and assisters after the same number of rounds,
-# this season and the five before, from Understat's match rosters. Prints JSON; never merged.
-import json, re, sys, time, collections, urllib.request, concurrent.futures as cf
-H = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124 Safari/537.36', 'X-Requested-With': 'XMLHttpRequest'}
-def get(url, tries=4):
+# this season and the five before, from ESPN (scoreboard + each match's key events). Prints JSON; never merged.
+import json, sys, time, collections, urllib.request, concurrent.futures as cf
+H = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) Chrome/124 Safari/537.36'}
+def get(url, tries=5):
     for i in range(tries):
         try:
-            with urllib.request.urlopen(urllib.request.Request(url, headers=H), timeout=40) as r: return r.read().decode('utf-8', 'replace')
+            with urllib.request.urlopen(urllib.request.Request(url, headers=H), timeout=60) as r: return json.loads(r.read())
         except Exception as e:
-            err = e; time.sleep(2 + 3 * i)
+            err = e; time.sleep(2 + 4 * i)
     raise err
-def unq(s): return json.loads(s.encode('utf-8').decode('unicode_escape'))
-def league(lg, season):
-    try:
-        d = json.loads(get(f'https://understat.com/getLeagueData/{lg}/{season}'))
-        return d['dates']
-    except Exception:
-        h = get(f'https://understat.com/league/{lg}/{season}')
-        return unq(re.search(r"datesData\s*=\s*JSON\.parse\('(.*?)'\)", h).group(1))
-def rosters(mid):
-    try:
-        return json.loads(get(f'https://understat.com/getMatchData/{mid}'))['rosters']
-    except Exception:
-        h = get(f'https://understat.com/match/{mid}')
-        return unq(re.search(r"rostersData\s*=\s*JSON\.parse\('(.*?)'\)", h).group(1))
-def firstN(dates):
-    done = sorted([m for m in dates if m.get('isResult')], key=lambda m: m['datetime'])
-    order = collections.defaultdict(list)
-    for m in done:
-        order[m['h']['id']].append(m['id']); order[m['a']['id']].append(m['id'])
-    return done, order
-def run(lg):
-    out = {'league': lg, 'seasons': {}}
-    cur = league(lg, 2026)
-    done, order = firstN(cur)
-    games = collections.Counter(len(v) for v in order.values())
-    N = games.most_common(1)[0][0]
-    out['N'] = N; out['games'] = dict(games)
-    for season in [2026, 2025, 2024, 2023, 2022, 2021]:
-        dates = cur if season == 2026 else league(lg, season)
-        done, order = firstN(dates)
-        keep = {t: set(v[:N]) for t, v in order.items()}
-        ms = [m for m in done if m['id'] in keep[m['h']['id']] or m['id'] in keep[m['a']['id']]]
-        g, a, team, apps = collections.Counter(), collections.Counter(), {}, collections.Counter()
-        for m in ms:
-            r = rosters(m['id']); time.sleep(.15)
-            for side in ('h', 'a'):
-                tid = m[side]['id']
-                if m['id'] not in keep[tid]: continue
-                for p in r[side].values():
-                    k = p['player']; team[k] = m[side]['title']
-                    g[k] += int(p['goals']); a[k] += int(p['assists']); apps[k] += 1
-        top = lambda c: [{'name': k, 'team': team[k], 'n': v, 'games': apps[k]} for k, v in c.most_common(6)]
-        out['seasons'][season] = {'matches': len(ms), 'cut': max([m['datetime'] for m in ms] or ['']), 'goals': top(g), 'assists': top(a)}
-        print(lg, season, len(ms), file=sys.stderr, flush=True)
+LG = {'eng.1': 'Premier League', 'esp.1': 'LaLiga', 'ger.1': 'Bundesliga', 'ita.1': 'Serie A', 'fra.1': 'Ligue 1'}
+def events(lg, y):
+    ev = []
+    for a, b in [(f'{y}0701', f'{y}0930'), (f'{y}1001', f'{y}1130'), (f'{y}1201', f'{y + 1}0131')]:
+        d = get(f'https://site.api.espn.com/apis/site/v2/sports/soccer/{lg}/scoreboard?dates={a}-{b}&limit=1000')
+        for e in d.get('events', []):
+            c = e['competitions'][0]
+            if not c['status']['type'].get('completed'): continue
+            t = {x['homeAway']: x['team'] for x in c['competitors']}
+            ev.append({'id': e['id'], 'date': e['date'], 'h': t['home']['id'], 'a': t['away']['id'], 'hn': t['home']['displayName'], 'an': t['away']['displayName']})
+    return sorted({e['id']: e for e in ev}.values(), key=lambda e: e['date'])
+SAMPLE = []
+def keyev(lg, eid):
+    d = get(f'https://site.web.api.espn.com/apis/site/v2/sports/soccer/{lg}/summary?event={eid}')
+    out = []
+    for k in d.get('keyEvents', []) or []:
+        if not k.get('scoringPlay'): continue
+        txt = (k.get('type') or {}).get('text', '')
+        ps = [p.get('athlete', {}).get('displayName') for p in k.get('participants', []) or []]
+        tid = (k.get('team') or {}).get('id')
+        if not SAMPLE: SAMPLE.append({'type': txt, 'ps': ps, 'text': k.get('text', '')[:160]})
+        out.append({'type': txt, 'own': 'own' in txt.lower(), 'ps': ps, 'team': tid, 'text': k.get('text', '')})
     return out
+def run(lg):
+    cur = events(lg, 2026)
+    order = collections.defaultdict(list)
+    for e in cur: order[e['h']].append(e['id']); order[e['a']].append(e['id'])
+    games = collections.Counter(len(v) for v in order.values()); N = games.most_common(1)[0][0]
+    out = {'league': LG[lg], 'N': N, 'games': dict(games), 'seasons': {}}
+    for y in [2026, 2025, 2024, 2023, 2022, 2021]:
+        ev = cur if y == 2026 else events(lg, y)
+        order = collections.defaultdict(list)
+        for e in ev: order[e['h']].append(e['id']); order[e['a']].append(e['id'])
+        keep = {t: set(v[:N]) for t, v in order.items()}
+        ms = [e for e in ev if e['id'] in keep[e['h']] or e['id'] in keep[e['a']]]
+        g, a, team, extra = collections.Counter(), collections.Counter(), {}, []
+        def one(e): return e, keyev(lg, e['id'])
+        with cf.ThreadPoolExecutor(6) as ex:
+            for e, ks in ex.map(one, ms):
+                for k in ks:
+                    side = 'h' if k['team'] == e['h'] else 'a' if k['team'] == e['a'] else None
+                    if side is None or e['id'] not in keep[e[side]] or k['own'] or not k['ps']: continue
+                    tn = e['hn'] if side == 'h' else e['an']
+                    g[k['ps'][0]] += 1; team[k['ps'][0]] = tn
+                    if len(k['ps']) > 1 and k['ps'][1]: a[k['ps'][1]] += 1; team.setdefault(k['ps'][1], tn)
+        top = lambda c: [{'name': n, 'team': team.get(n, ''), 'n': v} for n, v in c.most_common(8)]
+        out['seasons'][y] = {'matches': len(ms), 'teams': len(order), 'last': ms[-1]['date'] if ms else '', 'goals': top(g), 'assists': top(a)}
+        print(lg, y, len(ms), file=sys.stderr, flush=True)
+    return out
+# The two active all-time scorers (Wikipedia: Salah 193 PL as of 25 Oct 2026; Mbappé 74 UCL as of 4 Nov 2026).
+def check():
+    for lg, a, b, who in [('eng.1', '20261024', '20261112', 'Salah'), ('uefa.champions', '20261020', '20261112', 'Mbapp')]:
+        d = get(f'https://site.api.espn.com/apis/site/v2/sports/soccer/{lg}/scoreboard?dates={a}-{b}&limit=500')
+        for e in d.get('events', []):
+            if not any(x in e['name'] for x in ['Liverpool', 'Real Madrid']): continue
+            ks = keyev(lg, e['id'])
+            print('CHECK', lg, e['date'], e['name'], e['competitions'][0]['status']['type']['name'], [k['ps'] for k in ks if any(who in (p or '') for p in k['ps'])], flush=True)
+check()
 with cf.ThreadPoolExecutor(5) as ex:
-    for r in ex.map(lambda l: (lambda: run(l))() if True else None, ['EPL', 'La_liga', 'Bundesliga', 'Serie_A', 'Ligue_1']):
+    for r in ex.map(run, list(LG)):
         print('RESULT ' + json.dumps(r, ensure_ascii=False), flush=True)
+print('SAMPLE', SAMPLE)
