@@ -1,5 +1,5 @@
-# One-off (owner, 2026-11-12: «اي الريلز اللي هتنزل على صفحة فيس الانجليزي انهاردة»): dry runs of the English planners
-# through today, plus the latest reel jobs. Lives on claude/nla-probe only; never merged.
+# One-off (owner, 2026-11-12: «احصائيه للدوريات الخمس ... بنفس الجولات ٥ مواسم سابقة بالهدافين و الاسيستات»):
+# Understat's rosters for the same number of rounds, this season and the five before. Lives on claude/nla-probe only; never merged.
 name: NLA probe
 on:
   push:
@@ -7,21 +7,7 @@ on:
 jobs:
   p:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     steps:
-      - env:
-          REELS_KEY: ${{ secrets.REELS_KEY }}
-        run: |
-          echo "::add-mask::$REELS_KEY"
-          A=https://api.football-legend.com
-          echo "== STATUS"; curl -sS --max-time 90 "$A/v2/reels/status?key=$REELS_KEY" | python3 -c 'import json,sys; d=json.load(sys.stdin); [print(j["id"],j["status"],"fb:",(j.get("fb") or {}).get("done"),"appr:",(j.get("approval") or {}).get("state"),j.get("error") or "") for j in d.get("jobs",d if isinstance(d,list) else [])]' || true
-          for H in 10 12 18 20 22; do
-            echo "== AT ${H}:30Z"
-            curl -sS --max-time 290 "$A/v2/fben/dry?key=$REELS_KEY&at=2026-11-12T${H}:30:00Z&list=1" | python3 -c '
-          import json,sys
-          d=json.load(sys.stdin); o=d.get("result",{})
-          print("made:",[k for k,v in o.items() if v=="made"], "errors:",{k:v for k,v in o.items() if isinstance(v,str) and v.startswith("error")})
-          if "list" in o and o["list"]: print("matches:",len(o["list"])); [print("  ",x) for x in o["list"][:40]]
-          for j in d.get("jobs",[]): print("  JOB",j.get("kind"),j.get("id"),"|",j.get("title"))
-          ' || echo fail
-          done
+      - uses: actions/checkout@v4
+      - run: python3 sample/pace.py
