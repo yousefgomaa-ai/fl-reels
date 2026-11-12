@@ -4,13 +4,13 @@
  "setup_seconds": 128,
  "s20": {
   "rc": 0,
-  "seconds": 676,
+  "seconds": 594,
   "err": ""
  },
  "s21": {
   "rc": 0,
-  "seconds": 255,
+  "seconds": 226,
   "err": ""
  },
- "total_seconds": 1060
+ "total_seconds": 957
 }
