@@ -1,0 +1,14 @@
+{
+ "gpus": [
+  "Tesla T4",
+  "Tesla T4"
+ ],
+ "fast_load": 198,
+ "fast_emma_sample_seconds": 29,
+ "fast_mark_sample_seconds": 26,
+ "fast_emma_decode_seconds": 406,
+ "fast_mark_decode_seconds": 407,
+ "base_load": 218,
+ "base_emma_sample_seconds": 303,
+ "base_emma_decode_seconds": 406
+}
