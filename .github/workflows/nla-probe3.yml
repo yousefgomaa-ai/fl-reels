@@ -1,4 +1,4 @@
-# One-off (owner, 2026-11-13: a live results stream): the shape of today's live list. Never merged.
+# One-off (owner, 2026-11-13): Egypt's next game and the Nations League days, for the live board. Never merged.
 name: NLA probe 3
 on:
   push:
@@ -7,20 +7,15 @@ on:
 jobs:
   p:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - run: |
-          curl -sS --max-time 60 "https://api.football-legend.com/matches?date=$(date -u +%Y%m%d)" -o m.json
-          python3 - <<'PY'
-          import json
-          d=json.load(open('m.json'))
-          print(type(d).__name__, list(d.keys())[:20] if isinstance(d,dict) else len(d))
-          def walk(o,depth=0):
-            if isinstance(o,dict):
-              for k,v in o.items():
-                if isinstance(v,(dict,list)): print('  '*depth+k+':',type(v).__name__, len(v)); 
-                if depth<1: walk(v,depth+1)
-          walk(d)
-          s=json.dumps(d)
-          i=s.find('uefa.nations'); print(s[max(0,i-200):i+2500])
-          PY
+          for d in 20261113 20261114 20261115 20261116 20261117 20261118 20261119; do
+            curl -sS --max-time 60 "https://api.football-legend.com/matches?date=$d" -o m.json || continue
+            python3 -c "
+          import json;d=json.load(open('m.json'))
+          for e in d.get('events',[]):
+            h,a=e['teams']['home']['name'],e['teams']['away']['name']
+            if 'Egypt' in (h,a) or e.get('leagueSlug')=='uefa.nations': print('$d',e.get('leagueSlug'),e['fixture']['date'],h,'v',a,e['fixture']['status'].get('state'))
+          "
+          done
