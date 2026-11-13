@@ -1,4 +1,5 @@
-# One-off (owner, 2026-11-13): why the managers specials are not queued. Never merged.
+# One-off (owner, 2026-11-13: Facebook «Unable to fetch video file from URL» on the Premier League managers reel): the
+# video link as Facebook sees it. Never merged.
 name: NLA probe 3
 on:
   push:
@@ -7,10 +8,16 @@ on:
 jobs:
   p:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - env:
           REELS_KEY: ${{ secrets.REELS_KEY }}
         run: |
           echo "::add-mask::$REELS_KEY"
-          curl -sS --max-time 120 -G "https://api.football-legend.com/v2/fben/dry" --data-urlencode "key=$REELS_KEY" --data-urlencode "special=coaches-laliga" | python3 -c "import json,sys;d=json.load(sys.stdin);r=d.get('result') or {};print(json.dumps(r.get('special')));print(list(r.keys()))"
+          for id in en-special-coaches-pl-1 en-special-coaches-laliga-1 en-special-leicester-1; do
+            for m in HEAD GET; do
+              curl -sS -o /dev/null -X $m -A "facebookexternalhit/1.1" -w "$id $m %{http_code} %{size_download}B %{time_total}s type=%{content_type}\n" "https://api.football-legend.com/reel.mp4?id=$id" || echo "$id $m failed"
+            done
+          done
+          curl -sS -D - -o /dev/null -A "facebookexternalhit/1.1" "https://api.football-legend.com/reel.mp4?id=en-special-coaches-pl-1" | head -20
+          curl -sS --max-time 60 "https://api.football-legend.com/v2/reels/jobs?key=$REELS_KEY" | head -c 400; echo
