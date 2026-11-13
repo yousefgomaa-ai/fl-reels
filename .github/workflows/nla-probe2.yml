@@ -1,0 +1,17 @@
+# One-off (owner, 2026-11-13): what the reels queue holds now. Never merged.
+name: NLA probe 2
+on:
+  push:
+    branches: [claude/nla-probe]
+    paths: [.github/workflows/nla-probe2.yml]
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - env:
+          REELS_KEY: ${{ secrets.REELS_KEY }}
+        run: |
+          echo "::add-mask::$REELS_KEY"
+          curl -sS --max-time 60 "https://api.football-legend.com/v2/reels/jobs?key=$REELS_KEY" | python3 -c "import json,sys;d=json.load(sys.stdin);[print(j.get('id'),j.get('status'),j.get('anim',{}).get('kind')) for j in d.get('jobs',[])];print({k:v for k,v in d.items() if k!='jobs'})"
+          curl -sS --max-time 60 "https://api.football-legend.com/v2/errors?key=$REELS_KEY" | python3 -c "import sys;t=sys.stdin.read();import re;print(t[:300]);[print(l[:300]) for l in re.findall(r'[^\n]*fben[^\n]*',t)[:15]]"

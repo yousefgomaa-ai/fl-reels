@@ -3,6 +3,7 @@ name: NLA probe
 on:
   push:
     branches: [claude/nla-probe]
+    paths: [.github/workflows/nla-probe.yml]
 jobs:
   p:
     runs-on: ubuntu-latest
