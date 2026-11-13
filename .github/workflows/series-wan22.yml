@@ -33,4 +33,4 @@ jobs:
           mkdir -p out && kaggle kernels output "$KAGGLE_USERNAME/series-wan22" -p out || true
           cat out/log.json || true; tail -c 6000 out/*.log || true; rm -f out/*.log
           cd ../.. && git config user.name "series-sample" && git config user.email "actions@users.noreply.github.com"
-          git add series/wan22/out && git commit -m "Series sample: wan22 shots [skip ci]" && git pull -q --rebase origin claude/series-sample && git push || true
+          ls -la out; git add series/wan22/out && git commit -m "Series sample: wan22 shots [skip ci]" && git pull -q --rebase origin claude/series-sample && git push || true
