@@ -1,0 +1,102 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><style>
+/* FB Legends live results stream (owner, 2026-11-13: «لايف ... النتائج بس ... زي ما موجود علي الموقع في قسم المباشر»):
+   720 x 1280, drawn in a real browser and streamed as it is. Nothing ever stands still (Facebook holds back a live that
+   looks like a still picture): the background drifts, the clock and the minutes tick, one match after another takes the
+   spotlight, the ticker scrolls, a goal takes the whole screen. The runner calls window.update(list) every 20 s. */
+@font-face{font-family:B;src:url(../anim/fonts/bebas-neue-latin-400-normal.woff2)}@font-face{font-family:O;font-weight:500;src:url(../anim/fonts/oswald-latin-500-normal.woff2)}@font-face{font-family:O;font-weight:700;src:url(../anim/fonts/oswald-latin-700-normal.woff2)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:720px;height:1280px;overflow:hidden;background:#05070f;color:#fff;font-family:O,Arial,sans-serif}
+#bg{position:absolute;inset:-200px;background:radial-gradient(600px 500px at 30% 20%,rgba(255,40,70,.28),transparent 70%),radial-gradient(600px 600px at 75% 70%,rgba(40,120,255,.28),transparent 70%),#05070f;animation:drift 18s ease-in-out infinite alternate}
+@keyframes drift{from{transform:translate(0,0) rotate(0)}to{transform:translate(120px,-90px) rotate(8deg)}}
+#lines{position:absolute;inset:-300px;background:repeating-linear-gradient(115deg,transparent 0 90px,rgba(255,255,255,.035) 90px 96px);animation:slide 9s linear infinite}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(196px)}}
+#top{position:absolute;left:24px;right:24px;top:22px;display:flex;align-items:center;justify-content:space-between}
+.logo{font:400 44px/0.82 B;letter-spacing:1px;transform:skewX(-8deg)}.logo i{display:block;font-style:normal;color:#ffd21f}
+#live{display:flex;align-items:center;gap:10px;background:#e0283f;padding:6px 16px 4px;border-radius:10px;font:400 34px B;letter-spacing:3px}
+#live b{width:14px;height:14px;border-radius:50%;background:#fff;animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.2;transform:scale(.6)}}
+#clock{font:400 34px B;letter-spacing:2px;color:#c9d6ff;text-align:right}#clock small{display:block;font:600 14px O;letter-spacing:3px;color:#8fa0d0}
+#comp{position:absolute;left:24px;right:24px;top:110px;text-align:center;font:400 40px B;letter-spacing:4px;color:#ffd21f}
+#spot{position:absolute;left:24px;right:24px;top:165px;height:330px;border-radius:26px;background:linear-gradient(160deg,rgba(255,255,255,.12),rgba(255,255,255,.03));border:3px solid rgba(255,210,31,.8);box-shadow:0 0 40px rgba(255,210,31,.25);overflow:hidden}
+#spot .tg{position:absolute;left:0;right:0;top:14px;text-align:center;font:600 18px O;letter-spacing:5px;color:#ffd21f}
+#spot .row{position:absolute;left:0;right:0;top:56px;display:flex;align-items:center;justify-content:space-around}
+#spot .t{width:210px;text-align:center}#spot .t img{width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 6px 14px rgba(0,0,0,.5))}
+#spot .t div{font:400 34px/1 B;letter-spacing:1px;margin-top:10px}
+#spot .sc{font:400 120px/1 B;letter-spacing:4px}
+#spot .mn{position:absolute;left:0;right:0;bottom:22px;text-align:center}
+#spot .mn span{display:inline-block;background:#16a34a;padding:4px 18px 2px;border-radius:10px;font:400 32px B;letter-spacing:2px}
+#spot .mn span.ft{background:#334155}#spot .mn span.pre{background:#1d4ed8}
+#spot .bar{position:absolute;left:0;bottom:0;height:6px;background:#ffd21f}
+#list{position:absolute;left:24px;right:24px;top:520px;display:flex;flex-direction:column;gap:10px}
+.m{display:flex;align-items:center;height:76px;padding:0 16px;border-radius:16px;background:rgba(255,255,255,.07);border:2px solid rgba(255,255,255,.1);transition:background .6s}
+.m.on{border-color:rgba(255,210,31,.9);background:rgba(255,210,31,.12)}.m.goal{animation:flashm 1s 6}
+@keyframes flashm{50%{background:rgba(34,197,94,.45)}}
+.m img{width:40px;height:40px;object-fit:contain}.m .n{flex:1;font:400 30px/1 B;letter-spacing:1px;padding:0 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.m .n.a{text-align:right}
+.m .s{width:96px;text-align:center;font:400 42px B;letter-spacing:2px;color:#ffd21f}
+.m .k{width:70px;text-align:center;font:400 24px B;letter-spacing:1px}.m .k.in{color:#4ade80}.m .k.in i{font-style:normal;animation:pulse 1s infinite}.m .k.post{color:#94a3b8}.m .k.pre{color:#93c5fd}
+#ask{position:absolute;left:24px;right:24px;bottom:108px;padding:14px 18px;border-radius:18px;background:#ffd21f;color:#05070f;text-align:center;font:400 38px/1.05 B;letter-spacing:1px;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:scale(1.03)}}
+#tick{position:absolute;left:0;right:0;bottom:30px;height:56px;background:#e0283f;overflow:hidden;white-space:nowrap}
+#tick div{display:inline-block;padding-left:100%;font:400 36px/56px B;letter-spacing:2px;animation:tick 40s linear infinite}
+@keyframes tick{to{transform:translateX(-100%)}}
+#gl{position:absolute;inset:0;display:none;align-items:center;justify-content:center;flex-direction:column;background:radial-gradient(circle,rgba(34,197,94,.95),rgba(5,7,15,.97) 70%);z-index:50}
+#gl.on{display:flex;animation:gin .5s}
+@keyframes gin{from{transform:scale(1.3);opacity:0}}
+#gl h1{font:400 220px/0.9 B;letter-spacing:8px;animation:bob .5s infinite}#gl img{width:170px;height:170px;object-fit:contain;margin:20px 0}
+#gl p{font:400 54px/1.1 B;letter-spacing:2px;text-align:center;padding:0 20px}#gl p i{font-style:normal;color:#ffd21f}
+img[src=""]{visibility:hidden}
+#empty{position:absolute;left:24px;right:24px;top:600px;text-align:center;font:400 46px B;color:#94a3b8;display:none}
+</style></head><body><div id="bg"></div><div id="lines"></div>
+<div id="top"><div class="logo">FB<i>LEGENDS</i></div><div id="live"><b></b>LIVE</div><div id="clock"></div></div>
+<div id="comp"></div><div id="spot"><div class="tg"></div><div class="row"><div class="t" id="sh"><img><div></div></div><div class="sc"></div><div class="t" id="sa"><img><div></div></div></div><div class="mn"><span></span></div><div class="bar"></div></div>
+<div id="list"></div><div id="empty">WAITING FOR KICK-OFF</div>
+<div id="ask">💬 PREDICT THE FINAL SCORES IN THE COMMENTS</div>
+<div id="tick"><div>LIVE SCORES UPDATE EVERY 30 SECONDS • TAP FOLLOW FOR EVERY RESULT • SHARE WITH A FRIEND WATCHING THE GAME • FB LEGENDS LIVE •</div></div>
+<div id="gl"><h1>GOAL!</h1><img><p></p></div>
+<script>
+const $ = (id) => document.getElementById(id);
+let M = [], spotI = 0, spotAt = 0, goalQ = [], goalUntil = 0, last = {};
+const up = (s) => String(s || '').toUpperCase();
+const kick = (e) => new Date(e.fixture.date).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/London' });
+const minute = (e) => { const st = e.fixture.status || {}; if (st.state === 'in') return /half/i.test(st.detail || '') || st.detail === 'HT' ? 'HT' : (st.clock || st.detail || 'LIVE'); if (st.state === 'post') return 'FT'; return kick(e); };
+window.update = (list, title) => {
+  if (title) $('comp').textContent = up(title);
+  const nx = (list || []).slice().sort((a, b) => Date.parse(a.fixture.date) - Date.parse(b.fixture.date) || String(a.teams.home.name).localeCompare(b.teams.home.name));
+  for (const e of nx) { const k = e.id, g = [e.goals?.home ?? 0, e.goals?.away ?? 0], p = last[k];
+    if (p && (g[0] > p[0] || g[1] > p[1])) goalQ.push({ e, side: g[0] > p[0] ? 'home' : 'away', g }); last[k] = g; }
+  M = nx; draw();
+};
+function draw() {
+  $('empty').style.display = M.length ? 'none' : 'block';
+  $('list').innerHTML = M.slice(0, 7).map((e, i) => `<div class="m${i === spotI % Math.max(1, M.length) ? ' on' : ''}${e._goal ? ' goal' : ''}" id="m${i}"><img src="${e.teams.home.logo || ''}" onerror="this.style.visibility='hidden'"><div class="n">${up(e.teams.home.name)}</div><div class="s">${e.fixture.status?.state === 'pre' ? 'v' : `${e.goals?.home ?? 0}-${e.goals?.away ?? 0}`}</div><div class="n a">${up(e.teams.away.name)}</div><img src="${e.teams.away.logo || ''}" onerror="this.style.visibility='hidden'"><div class="k ${e.fixture.status?.state || 'pre'}">${e.fixture.status?.state === 'in' ? `<i>●</i> ` : ''}${minute(e)}</div></div>`).join('');
+  spot();
+}
+function spot() {
+  if (!M.length) { $('spot').style.opacity = 0; return; } $('spot').style.opacity = 1;
+  const e = M[spotI % M.length], st = e.fixture.status?.state || 'pre';
+  $('spot').querySelector('.tg').textContent = st === 'in' ? 'LIVE NOW' : st === 'post' ? 'FULL-TIME' : 'COMING UP';
+  $('sh').querySelector('img').src = e.teams.home.logo || ''; $('sh').querySelector('div').textContent = up(e.teams.home.name);
+  $('sa').querySelector('img').src = e.teams.away.logo || ''; $('sa').querySelector('div').textContent = up(e.teams.away.name);
+  $('spot').querySelector('.sc').textContent = st === 'pre' ? 'VS' : `${e.goals?.home ?? 0} - ${e.goals?.away ?? 0}`;
+  const s = $('spot').querySelector('.mn span'); s.textContent = st === 'pre' ? `KICK-OFF ${kick(e)} UK` : minute(e); s.className = st === 'post' ? 'ft' : st === 'pre' ? 'pre' : '';
+}
+function frame(t) {
+  const now = Date.now();
+  $('clock').innerHTML = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Europe/London' }) + '<small>UK TIME</small>';
+  // one match after another in the spotlight, eight seconds each, a bar filling under it
+  if (now - spotAt > 8000) { spotAt = now; spotI++; draw(); const sp = $('spot'); sp.animate([{ transform: 'translateX(40px)', opacity: .2 }, { transform: 'none', opacity: 1 }], { duration: 500, easing: 'ease-out' }); }
+  $('spot').querySelector('.bar').style.width = Math.min(100, (now - spotAt) / 80) + '%';
+  $('spot').querySelector('.sc').style.transform = `scale(${1 + .03 * Math.sin(t / 300)})`;
+  // a goal takes the screen for six seconds
+  if (now > goalUntil) {
+    $('gl').classList.remove('on');
+    const g = goalQ.shift();
+    if (g) { goalUntil = now + 6000; const e = g.e, tm = e.teams[g.side];
+      $('gl').querySelector('img').src = tm.logo || ''; $('gl').querySelector('p').innerHTML = `${up(tm.name)}<br><i>${up(e.teams.home.name)} ${g.g[0]}-${g.g[1]} ${up(e.teams.away.name)}</i>`;
+      $('gl').classList.add('on'); e._goal = 1; spotI = M.indexOf(e); spotAt = now; draw(); setTimeout(() => { e._goal = 0; }, 6000); }
+  }
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+window.update([], 'UEFA NATIONS LEAGUE');
+</script></body></html>

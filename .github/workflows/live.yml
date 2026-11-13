@@ -1,0 +1,29 @@
+# FB Legends live results stream (owner, 2026-11-13): run by hand (a test: publish 0) or by the server on match nights.
+name: Live
+on:
+  workflow_dispatch:
+    inputs:
+      publish: { description: '1 = public live, 0 = unpublished test', default: '0' }
+      max_min: { description: 'longest run, minutes', default: '150' }
+      slug: { description: 'competition', default: 'uefa.nations' }
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq xvfb ffmpeg >/dev/null
+      - run: |
+          npm i --no-save --no-audit --no-fund playwright@1.48.2
+          c=$(command -v google-chrome || command -v google-chrome-stable || true); echo "PW_CHROME=$c" >> "$GITHUB_ENV"
+      - env:
+          REELS_KEY: ${{ secrets.REELS_KEY }}
+          LIVE_PUBLISH: ${{ inputs.publish }}
+          LIVE_MAX_MIN: ${{ inputs.max_min }}
+          LIVE_SLUG: ${{ inputs.slug }}
+        run: |
+          echo "::add-mask::$REELS_KEY"
+          Xvfb :99 -screen 0 720x1280x24 -nolisten tcp & sleep 2
+          DISPLAY=:99 node live/run.mjs
