@@ -1,0 +1,169 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends: a league's five managers with the most league titles, counted down 5 to 1 (owner, 2026-11-13: «افضل ٥
+   مدربين حققو بطولات و القاب ... كل مدرب بصورتة ... كل دورية له تصميم مختلف ... هوك في اول ٣ ثواني و تشويق»).
+   The hook shows number one blurred, with his number and no name; one manager a beat, his photo always moving, his
+   titles counted up, club by club with the seasons; number one held back behind a countdown, then the whole five
+   for a vote. Five looks (DATA.lay): tv (a broadcast lower third), cards (a trading card), split (a diagonal), led
+   (a stadium scoreboard), neon (tubes on black). One beat a spoken line (DATA.beats from the voice, else minBeats). */
+.scr{position:absolute;inset:0;opacity:0}
+/* the hook */
+#hk .bl{position:absolute;inset:-80px;width:calc(100% + 160px);height:calc(100% + 160px);object-fit:cover;filter:blur(38px) brightness(.55) saturate(1.2)}
+#hk .sil{position:absolute;left:50%;top:330px;width:600px;height:760px;margin-left:-300px;border-radius:40px;overflow:hidden;border:6px solid #ffd21f;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+#hk .sil img{width:100%;height:100%;object-fit:cover;filter:blur(26px) brightness(.35)}
+#hk .q{position:absolute;left:0;right:0;top:330px;height:760px;display:flex;align-items:center;justify-content:center;font:400 520px/1 B;color:#ffd21f;text-shadow:0 0 60px rgba(0,0,0,.8)}
+#hk .n{position:absolute;left:0;right:0;top:1130px;text-align:center;font:400 300px/0.85 B;color:#fff;text-shadow:0 0 50px rgba(var(--kl),.6)}
+#hk .t{position:absolute;left:40px;right:40px;top:1390px;text-align:center;font:400 88px/1 B;letter-spacing:2px}
+#hk .t i{font-style:normal;color:#ffd21f}
+#hk .s{position:absolute;left:40px;right:40px;top:1600px;text-align:center;font:700 40px O;letter-spacing:5px;color:var(--kc)}
+/* the rules */
+#ru .lg{position:absolute;left:0;right:0;top:300px;text-align:center}#ru .lg img{width:260px;height:260px;object-fit:contain;filter:drop-shadow(0 10px 30px rgba(0,0,0,.5))}
+#ru .h{position:absolute;left:40px;right:40px;top:580px;text-align:center;font:400 124px/0.95 B;letter-spacing:2px}#ru .h i{font-style:normal;color:#ffd21f}
+#ru .row{position:absolute;left:60px;right:60px;top:1110px;display:flex;justify-content:space-between}
+#ru .row div{width:170px;height:170px;border-radius:50%;border:5px solid var(--kc);display:flex;align-items:center;justify-content:center;font:400 120px B;opacity:0}
+#ru .row div:last-child{border-color:#ffd21f;color:#ffd21f}
+#ru .ti{position:absolute;left:60px;right:60px;top:1470px;text-align:center;font:700 30px/1.3 O;letter-spacing:3px;color:var(--sm);opacity:0}
+#ru .c{position:absolute;left:40px;right:40px;top:1340px;text-align:center;font:400 72px/1.05 B;letter-spacing:2px;color:#ffd21f}
+/* a manager: the photo, the rank, and one column of text (name, titles, a fact, club by club) placed by the look */
+#mg .ph{position:absolute;overflow:hidden}#mg .ph img{position:absolute;inset:-50px;width:calc(100% + 100px);height:calc(100% + 100px);object-fit:cover}
+#mg .rk{position:absolute;font:400 200px/0.9 B;z-index:3}
+#mg .tx{position:absolute;display:flex;flex-direction:column;gap:14px;z-index:2}
+#mg .nm{font:400 104px/0.92 B;letter-spacing:2px}
+#mg .tt{display:flex;align-items:center;gap:20px}#mg .tt b{font:400 240px/0.82 B;color:#ffd21f}#mg .tt span{font:700 38px/1.1 O;letter-spacing:4px}
+#mg .cl{display:flex;flex-direction:column;gap:10px}
+#mg .c1{opacity:0;padding:10px 22px;border-radius:16px;background:rgba(0,0,0,.45);border-left:8px solid var(--kc)}
+#mg .c1 b{display:block;font:400 54px/1 B;letter-spacing:2px}#mg .c1 b em{font-style:normal;color:#ffd21f;margin-left:12px}
+#mg .c1 small{display:block;font:700 30px/1.25 O;letter-spacing:1px;color:var(--sm);margin-top:4px}
+#mg .fx{font:700 36px/1.2 O;letter-spacing:3px;color:var(--kc);opacity:0}
+#mg .cr{position:absolute;font:500 19px O,Arial;color:rgba(255,255,255,.75);z-index:3}
+/* the countdown before number one */
+#cd .bl{position:absolute;inset:-80px;width:calc(100% + 160px);height:calc(100% + 160px);object-fit:cover;filter:blur(40px) brightness(.4)}
+#cd .h{position:absolute;left:0;right:0;top:420px;text-align:center;font:400 130px/1 B;letter-spacing:4px}
+#cd .k{position:absolute;left:0;right:0;top:640px;text-align:center;font:400 620px/1 B;color:#ffd21f;text-shadow:0 0 80px rgba(255,210,31,.5)}
+#cd .s{position:absolute;left:40px;right:40px;top:1360px;text-align:center;font:700 44px O;letter-spacing:5px;color:var(--kc)}
+.flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:60;pointer-events:none}
+/* the vote */
+#en .h{position:absolute;left:40px;right:40px;top:230px;text-align:center;font:400 120px/0.95 B;letter-spacing:2px}#en .h i{font-style:normal;color:#ffd21f}
+#en .gr{position:absolute;left:40px;right:40px;top:520px;display:grid;grid-template-columns:1fr 1fr;gap:22px}
+#en .f{position:relative;height:330px;border-radius:24px;overflow:hidden;border:4px solid rgba(var(--kl),.6);opacity:0}
+#en .f:first-child{grid-column:1 / 3;height:400px;border-color:#ffd21f}
+#en .f img{width:100%;height:100%;object-fit:cover}
+#en .f div{position:absolute;left:0;right:0;bottom:0;padding:50px 18px 12px;background:linear-gradient(transparent,rgba(0,0,0,.92));font:400 54px/1 B;letter-spacing:2px}
+#en .f div b{color:#ffd21f;margin-right:12px}#en .f div em{font-style:normal;float:right;color:#ffd21f}
+#cta{position:absolute;left:40px;right:40px;top:1640px;text-align:center;font:700 44px O;letter-spacing:4px;color:#c9d6ff}
+.credit{bottom:18px;left:24px}
+
+/* ===== the five looks ===== */
+/* tv: a broadcast package, the photo full height, a lower third */
+body.L-tv #mg .ph{left:0;right:0;top:0;height:1300px}body.L-tv #mg .ph:after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,0) 50%,rgba(var(--bx),.97))}
+body.L-tv #mg .rk{left:44px;top:170px;background:var(--kc);color:var(--dk);padding:16px 26px 6px;border-radius:6px;font-size:150px}
+body.L-tv #mg .tx{left:44px;right:44px;top:1000px}body.L-tv #mg .nm{align-self:flex-start;background:#fff;color:var(--dk);padding:14px 26px 4px;border-left:14px solid var(--kc)}
+body.L-tv #mg .cr{right:24px;top:965px}
+/* cards: a trading card with a foil edge */
+body.L-cards #mg .ph{left:130px;right:130px;top:140px;height:870px;border-radius:36px;border:10px solid transparent;background:linear-gradient(var(--dk),var(--dk)) padding-box,linear-gradient(120deg,#ffd21f,#fff7c2,var(--kc),#ffd21f) border-box;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+body.L-cards #mg .rk{left:80px;top:110px;width:210px;height:210px;border-radius:50%;background:#ffd21f;color:var(--dk);display:flex;align-items:center;justify-content:center;font-size:130px;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+body.L-cards #mg .tx{left:50px;right:50px;top:1040px;align-items:center;text-align:center}body.L-cards #mg .c1{border-left:0;border-top:6px solid var(--kc)}
+body.L-cards #mg .cr{right:140px;top:1018px}
+/* split: a diagonal, the photo on the left, the rank huge behind the text */
+body.L-split #mg .ph{left:0;top:0;width:760px;height:1920px;clip-path:polygon(0 0,100% 0,58% 100%,0 100%)}
+body.L-split #mg .ph:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0) 40%,rgba(var(--bx),.6))}
+body.L-split #mg .rk{right:20px;top:100px;font-size:460px;color:rgba(var(--kl),.28);line-height:.8;z-index:1}
+body.L-split #mg .tx{left:380px;right:44px;top:700px;align-items:flex-end;text-align:right}body.L-split #mg .tt{flex-direction:row-reverse}
+body.L-split #mg .c1{border-left:0;border-right:8px solid var(--kc);background:rgba(var(--bx),.85)}
+body.L-split #mg .cr{left:24px;bottom:18px}
+/* led: a stadium scoreboard, amber dots, scanlines over the photo */
+body.L-led .bg{background:#050505 radial-gradient(circle,#1c1c1c 1.6px,transparent 2px) 0 0/12px 12px !important}body.L-led .streak{display:none}
+body.L-led #mg .ph{left:60px;right:60px;top:160px;height:850px;border:8px solid #222;border-radius:12px;box-shadow:0 0 0 4px #000,0 0 40px rgba(255,176,0,.25)}
+body.L-led #mg .ph:after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0 2px,transparent 2px 5px)}
+body.L-led #mg .rk{right:70px;top:190px;color:#ffb000;text-shadow:0 0 18px rgba(255,176,0,.9);font-size:150px;background:rgba(0,0,0,.75);padding:10px 20px 0;border-radius:8px}
+body.L-led #mg .tx{left:60px;right:60px;top:1045px}body.L-led #mg .nm{color:#ffb000;text-shadow:0 0 16px rgba(255,176,0,.7)}
+body.L-led #mg .tt b{color:#ff3b30;text-shadow:0 0 22px rgba(255,59,48,.8)}body.L-led #mg .fx{color:#ffb000}
+body.L-led #mg .c1{background:#0b0b0b;border-left:8px solid #ffb000}body.L-led #mg .c1 b{color:#ffb000}
+body.L-led #mg .cr{right:70px;top:1020px}
+/* neon: tubes on black */
+body.L-neon .bg{background:radial-gradient(1000px 800px at 50% 30%,#16163a,#05050c) !important}body.L-neon .streak{display:none}
+body.L-neon #mg .ph{left:170px;right:170px;top:150px;height:860px;border-radius:50%/42%;border:6px solid var(--kc);box-shadow:0 0 30px rgba(var(--kl),.8),inset 0 0 30px rgba(var(--kl),.5)}
+body.L-neon #mg .rk{left:50px;top:120px;color:transparent;-webkit-text-stroke:5px #ff3df5;text-shadow:0 0 30px rgba(255,61,245,.8);font-size:240px}
+body.L-neon #mg .tx{left:50px;right:50px;top:1040px;align-items:center;text-align:center}body.L-neon #mg .nm{color:#fff;text-shadow:0 0 12px var(--kc),0 0 34px var(--kc)}
+body.L-neon #mg .tt b{color:#fff;text-shadow:0 0 14px #ff3df5,0 0 40px #ff3df5}
+body.L-neon #mg .c1{background:transparent;border:3px solid var(--kc);border-radius:60px;box-shadow:0 0 14px rgba(var(--kl),.6)}
+body.L-neon #mg .cr{right:180px;top:1015px}
+#ru .c{font-size:60px}
+</style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div>
+<div class="scr" id="hk"><img class="bl"><div class="sil"><img></div><div class="q">?</div><div class="n"></div><div class="t"></div><div class="s"></div></div>
+<div class="scr" id="ru"><div class="lg"><img></div><div class="h"></div><div class="row"><div>5</div><div>4</div><div>3</div><div>2</div><div>1</div></div><div class="c"></div><div class="ti"></div></div>
+<div class="scr" id="mg"><div class="ph"><img></div><div class="rk"></div><div class="tx"><div class="nm"></div><div class="tt"><b>0</b><span></span></div><div class="fx"></div><div class="cl"></div></div><div class="cr"></div></div>
+<div class="scr" id="cd"><img class="bl"><div class="h">NUMBER ONE</div><div class="k">3</div><div class="s"></div></div>
+<div class="scr" id="en"><div class="h"></div><div class="gr"></div><div id="cta"></div></div>
+<div class="flash" id="fl"></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA, C = D.coaches || []; // C[0] is number one
+document.body.classList.add('L-' + (/^(tv|cards|split|led|neon)$/.test(D.lay) ? D.lay : 'tv'));
+const one = C[0] || {};
+// the beats: hook, rules, numbers five to two, the countdown, number one, the vote
+const S = [{ t: 'hk' }, { t: 'ru' }, ...C.slice(1).reverse().map((c) => ({ t: 'mg', c })), { t: 'cd' }, { t: 'mg', c: one, top: 1 }, { t: 'en' }];
+const mins = D.minBeats || S.map((s) => ({ hk: 3.2, ru: 4.5, mg: 8, cd: 3, en: 6 }[s.t]));
+const B = D.beats || (() => { let t = 0; return mins.map((m) => { const b = [t, m]; t += m; return b; }); })();
+window.TOTAL = B[B.length - 1][0] + B[B.length - 1][1];
+const q = (id, sel) => $(id).querySelector(sel), c01 = (x) => Math.min(1, Math.max(0, x));
+// fixed parts
+q('hk', '.bl').src = one.photo || ''; q('hk', '.sil img').src = one.photo || '';
+q('hk', '.n').textContent = one.titles; q('hk', '.t').innerHTML = D.hook || ''; q('hk', '.s').textContent = D.hookSub || '';
+if (D.logo) q('ru', '.lg img').src = D.logo; else q('ru', '.lg').remove();
+q('ru', '.h').innerHTML = D.title || ''; q('ru', '.c').textContent = D.rule || 'COMMENT YOUR NUMBER 1 BEFORE THE END'; q('ru', '.ti').textContent = D.tie || '';
+q('cd', '.bl').src = one.photo || ''; q('cd', '.s').textContent = D.cdSub || '';
+q('en', '.h').innerHTML = D.endH || "WHO'S THE <i>GREATEST?</i>"; $('cta').textContent = D.cta || 'COMMENT 1 TO 5 👇';
+q('en', '.gr').innerHTML = C.map((c, i) => `<div class="f"><img src="${c.photo || ''}" style="object-position:${c.pos || '50% 20%'}"><div><b>${i + 1}</b>${c.short || c.name}<em>${c.titles}</em></div></div>`).join('');
+let cur = -1;
+const setMg = (s) => {
+  const c = s.c; q('mg', '.ph img').src = c.photo || ''; q('mg', '.ph img').style.objectPosition = c.pos || '50% 20%';
+  q('mg', '.rk').textContent = s.top ? '#1' : '#' + (C.indexOf(c) + 1); q('mg', '.nm').innerHTML = c.name;
+  q('mg', '.tt span').innerHTML = (D.unit || 'LEAGUE<br>TITLES'); q('mg', '.fx').textContent = c.fact || '';
+  q('mg', '.cl').innerHTML = (c.clubs || []).map((x) => `<div class="c1"><b>${x.club}<em>×${x.n}</em></b><small>${x.years}</small></div>`).join('');
+  q('mg', '.cr').textContent = c.credit ? '📷 ' + c.credit : '';
+};
+window.draw = (t) => {
+  const bi = B.findIndex(([s0, l0]) => t >= s0 && t < s0 + l0), k = bi < 0 ? B.length - 1 : bi, [s0, l] = B[k], u = t - s0, s = S[k];
+  if (cur !== k) { if (s.t === 'mg') setMg(s); cur = k; }
+  for (const id of ['hk', 'ru', 'mg', 'cd', 'en']) if (id !== s.t) $(id).style.opacity = 0;
+  const sc = $(s.t), last = k === S.length - 1;
+  sc.style.opacity = last ? ease(u / .35) : Math.min(ease(u / .25), 1 - ease((u - l + .25) / .25));
+  let fl = 0;
+  if (s.t === 'hk') {
+    q('hk', '.sil').style.transform = `scale(${1.08 - .08 * ease(u / .6)}) rotate(${Math.sin(u * 1.6) * 1.2}deg)`;
+    q('hk', '.bl').style.transform = `scale(${1 + .06 * u / l})`;
+    q('hk', '.q').style.transform = `scale(${1 + .06 * Math.sin(u * 5)})`;
+    q('hk', '.n').style.transform = `scale(${u < .5 ? 2 - ease(u / .5) : 1 + .03 * Math.sin(u * 6)})`; q('hk', '.n').style.opacity = ease(u / .2);
+    q('hk', '.t').style.opacity = ease((u - .35) / .3); q('hk', '.s').style.opacity = ease((u - .9) / .3);
+  }
+  if (s.t === 'ru') {
+    q('ru', '.h').style.transform = `scale(${1.15 - .15 * ease(u / .4)})`;
+    [...q('ru', '.row').children].forEach((d, i) => { const a = (u - .5 - i * .25) / .25; d.style.opacity = ease(a); d.style.transform = `translateY(${(1 - ease(a)) * 60}px) scale(${i === 4 ? 1 + .08 * Math.max(0, Math.sin(u * 5)) : 1})`; });
+    q('ru', '.c').style.opacity = ease((u - 1.9) / .3); q('ru', '.ti').style.opacity = ease((u - 2.4) / .3);
+  }
+  if (s.t === 'mg') {
+    const c = s.c, im = q('mg', '.ph img');
+    im.style.transform = `scale(${1.04 + .1 * c01(u / l)}) translate(${(k % 2 ? 1 : -1) * (30 - 60 * c01(u / l))}px,${-24 * c01(u / l)}px)`;
+    q('mg', '.ph').style.transform = `translateX(${(1 - ease(u / .45)) * (k % 2 ? 120 : -120)}px)`;
+    const rk = q('mg', '.rk'); rk.style.transform = `scale(${u < .5 ? 1.8 - .8 * back(u / .5) : 1})`; rk.style.opacity = ease(u / .2);
+    const nm = q('mg', '.nm'); nm.style.transformOrigin = '0 50%'; nm.style.opacity = ease((u - .3) / .3); nm.style.transform = `translateY(${(1 - ease((u - .3) / .4)) * 40}px)`;
+    const a = c01((u - .7) / 1.3), tb = q('mg', '.tt b'); tb.textContent = Math.round(c.titles * ease(a));
+    q('mg', '.tt').style.opacity = ease((u - .6) / .3); tb.style.transform = `scale(${a >= 1 ? 1 + .04 * Math.sin((u - 2) * 5) : 1})`;
+    const cs = [...q('mg', '.cl').children], per = Math.min(.9, (l - 3.4) / Math.max(1, cs.length));
+    cs.forEach((x, i) => { const b = (u - 2 - i * per) / .35; x.style.opacity = ease(b); x.style.transform = `translateX(${(1 - ease(b)) * 80}px)`; });
+    q('mg', '.fx').style.opacity = ease((u - 1.7) / .4);
+    if (s.top) fl = u < .3 ? .7 * (1 - u / .3) : 0;
+  }
+  if (s.t === 'cd') {
+    const n = Math.max(1, 3 - Math.floor(u / (l / 3))), f = (u % (l / 3)) / (l / 3), kk = q('cd', '.k');
+    kk.textContent = n; kk.style.transform = `scale(${1.5 - .5 * ease(f / .4)})`; kk.style.opacity = 1 - .7 * c01((f - .7) / .3);
+    q('cd', '.bl').style.filter = `blur(${40 - 22 * u / l}px) brightness(${.35 + .15 * u / l})`;
+  }
+  if (s.t === 'en') {
+    [...q('en', '.gr').children].forEach((x, i) => { const a = (u - .3 - i * .22) / .3; x.style.opacity = ease(a); x.style.transform = `scale(${a < 1 ? .8 + .2 * back(c01(a)) : 1 + (i === 0 ? .02 * Math.sin(u * 4) : 0)})`; });
+  }
+  $('fl').style.opacity = fl;
+};
+window.POSTER = Math.min(2.2, B[0][1] - .2);
+progBar();
+draw(0);
+</script></body></html>
