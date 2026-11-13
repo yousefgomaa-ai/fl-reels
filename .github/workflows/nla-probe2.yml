@@ -1,5 +1,5 @@
-# One-off (owner, 2026-11-13): the Premier League managers reel again, after the other four (its first call came before the
-# API was deployed). Never merged.
+# One-off (owner, 2026-11-13): the approved Premier League managers reel, dropped when Facebook could not fetch it, put
+# back (it is uploaded as a file now). Never merged.
 name: NLA probe 2
 on:
   push:
@@ -8,12 +8,12 @@ on:
 jobs:
   p:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 15
     steps:
       - env:
           REELS_KEY: ${{ secrets.REELS_KEY }}
+        shell: bash
         run: |
           echo "::add-mask::$REELS_KEY"
-          curl -sS --max-time 60 -G "https://api.football-legend.com/v2/fben/dry" --data-urlencode "key=$REELS_KEY" --data-urlencode "special=coaches-zz" | python3 -c "import json,sys;d=json.load(sys.stdin);print('check', json.dumps((d.get('result') or {}).get('special')))"
-          sleep 4000
-          curl -sS --max-time 120 -G "https://api.football-legend.com/v2/fben/dry" --data-urlencode "key=$REELS_KEY" --data-urlencode "special=coaches-pl" | python3 -c "import json,sys;d=json.load(sys.stdin);print('pl', json.dumps((d.get('result') or {}).get('special')))"
+          curl -sS --max-time 400 -G "https://api.football-legend.com/v2/fben/dry" --data-urlencode "key=$REELS_KEY" --data-urlencode "kinds=none" --data-urlencode "repost=en-special-coaches-pl-1" -o r.json || echo "no answer"
+          python3 -c "import json;d=json.load(open('r.json'));print(json.dumps((d.get('result') or {}).get('repost')))" || head -c 300 r.json
