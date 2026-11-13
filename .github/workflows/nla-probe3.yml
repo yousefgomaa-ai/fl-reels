@@ -1,5 +1,4 @@
-# One-off (owner, 2026-11-13: Facebook «Unable to fetch video file from URL» on the Premier League managers reel): the
-# video link as Facebook sees it. Never merged.
+# One-off (owner, 2026-11-13: a live results stream): the shape of today's live list. Never merged.
 name: NLA probe 3
 on:
   push:
@@ -8,16 +7,20 @@ on:
 jobs:
   p:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
-      - env:
-          REELS_KEY: ${{ secrets.REELS_KEY }}
-        run: |
-          echo "::add-mask::$REELS_KEY"
-          for id in en-special-coaches-pl-1 en-special-coaches-laliga-1 en-special-leicester-1; do
-            for m in HEAD GET; do
-              curl -sS -o /dev/null -X $m -A "facebookexternalhit/1.1" -w "$id $m %{http_code} %{size_download}B %{time_total}s type=%{content_type}\n" "https://api.football-legend.com/reel.mp4?id=$id" || echo "$id $m failed"
-            done
-          done
-          curl -sS -D - -o /dev/null -A "facebookexternalhit/1.1" "https://api.football-legend.com/reel.mp4?id=en-special-coaches-pl-1" | head -20
-          curl -sS --max-time 60 "https://api.football-legend.com/v2/reels/jobs?key=$REELS_KEY" | head -c 400; echo
+      - run: |
+          curl -sS --max-time 60 "https://api.football-legend.com/matches?date=$(date -u +%Y%m%d)" -o m.json
+          python3 - <<'PY'
+          import json
+          d=json.load(open('m.json'))
+          print(type(d).__name__, list(d.keys())[:20] if isinstance(d,dict) else len(d))
+          def walk(o,depth=0):
+            if isinstance(o,dict):
+              for k,v in o.items():
+                if isinstance(v,(dict,list)): print('  '*depth+k+':',type(v).__name__, len(v)); 
+                if depth<1: walk(v,depth+1)
+          walk(d)
+          s=json.dumps(d)
+          i=s.find('uefa.nations'); print(s[max(0,i-200):i+2500])
+          PY
