@@ -1,18 +1,19 @@
-# One-off (owner, 2026-11-13: the five leagues' managers reels): Commons candidates, thumbs committed back. Never merged.
+# One-off (owner, 2026-11-13: the five leagues' managers reels): queue them one at a time, a render apart. Never merged.
 name: NLA probe
 on:
   push:
     branches: [claude/nla-probe]
-permissions:
-  contents: write
 jobs:
   p:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 90
     steps:
-      - uses: actions/checkout@v4
-        with: { ref: claude/nla-probe }
-      - run: python3 probe/commons.py
-      - run: |
-          git config user.name probe; git config user.email probe@users.noreply.github.com
-          git add probe/th && git commit -qm "probe: Commons thumbs" && git push -q origin HEAD:claude/nla-probe
+      - env:
+          REELS_KEY: ${{ secrets.REELS_KEY }}
+        run: |
+          echo "::add-mask::$REELS_KEY"
+          sleep 200
+          for L in pl laliga seriea bund l1; do
+            curl -sS --max-time 120 -G "https://api.football-legend.com/v2/fben/dry" --data-urlencode "key=$REELS_KEY" --data-urlencode "special=coaches-$L" | python3 -c "import json,sys;d=json.load(sys.stdin);print('$L', json.dumps((d.get('result') or {}).get('special')))"
+            [ "$L" = l1 ] || sleep 960
+          done
