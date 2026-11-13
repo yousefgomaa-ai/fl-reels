@@ -1,16 +1,18 @@
-# One-off (owner, 2026-11-12: the Leicester story reel): queue the special once the API is deployed. Never merged.
+# One-off (owner, 2026-11-13: the five leagues' managers reels): Commons candidates, thumbs committed back. Never merged.
 name: NLA probe
 on:
   push:
     branches: [claude/nla-probe]
+permissions:
+  contents: write
 jobs:
   p:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
-      - env:
-          REELS_KEY: ${{ secrets.REELS_KEY }}
-        run: |
-          echo "::add-mask::$REELS_KEY"
-          sleep 240
-          curl -sS --max-time 120 -G "https://api.football-legend.com/v2/fben/dry" --data-urlencode "key=$REELS_KEY" --data-urlencode "special=leicester" | python3 -c "import json,sys;d=json.load(sys.stdin);print(json.dumps(d.get('special'),indent=1)); print(list(d.keys())[:20])"
+      - uses: actions/checkout@v4
+        with: { ref: claude/nla-probe }
+      - run: python3 probe/commons.py
+      - run: |
+          git config user.name probe; git config user.email probe@users.noreply.github.com
+          git add probe/th && git commit -qm "probe: Commons thumbs" && git push -q origin HEAD:claude/nla-probe
