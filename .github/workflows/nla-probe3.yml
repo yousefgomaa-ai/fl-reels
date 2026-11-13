@@ -1,0 +1,16 @@
+# One-off (owner, 2026-11-13): why the managers specials are not queued. Never merged.
+name: NLA probe 3
+on:
+  push:
+    branches: [claude/nla-probe]
+    paths: [.github/workflows/nla-probe3.yml]
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - env:
+          REELS_KEY: ${{ secrets.REELS_KEY }}
+        run: |
+          echo "::add-mask::$REELS_KEY"
+          curl -sS --max-time 120 -G "https://api.football-legend.com/v2/fben/dry" --data-urlencode "key=$REELS_KEY" --data-urlencode "special=coaches-laliga" | python3 -c "import json,sys;d=json.load(sys.stdin);r=d.get('result') or {};print(json.dumps(r.get('special')));print(list(r.keys()))"
