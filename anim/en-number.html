@@ -1,0 +1,114 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends «THE NUMBER» (owner, 2026-11-13: «نفذهم كلهم بس اهم حاجة التصميم و الدقة»): a short reel, about ten seconds,
+   to be watched to the end and again. One number fills the black screen with its question («What did he do in 21 minutes
+   last night?»); the player comes in behind it; the answer as a headline over a minute line with each moment marked and
+   the span bracketed; then the match card, one fact and the question. The big pages' winners told through one star
+   («Reijnders hat-trick in 21 minutes», 11.9K at 433 against 1.4K for the plain score card). */
+.scr{position:absolute;inset:0;opacity:0}
+.flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:60;pointer-events:none}
+.cr{position:absolute;left:24px;bottom:18px;font:500 19px O,Arial;color:rgba(255,255,255,.75);z-index:5;text-shadow:0 1px 4px rgba(0,0,0,.8)}
+/* the number */
+#nu{background:#000}
+#nu .n{position:absolute;left:0;right:0;top:300px;text-align:center;font:400 900px/1 B;color:#ffd21f;text-shadow:0 0 120px rgba(255,210,31,.45)}
+#nu .u{position:absolute;left:0;right:0;top:1150px;text-align:center;font:400 120px/1 B;letter-spacing:12px}
+#nu .t{position:absolute;left:60px;right:60px;top:1360px;text-align:center;font:400 96px/0.98 B;letter-spacing:2px}#nu .t i{font-style:normal;color:#ffd21f}
+#nu .rg{position:absolute;left:50%;top:740px;width:980px;height:980px;margin:-490px 0 0 -490px;border-radius:50%;border:6px solid rgba(255,210,31,.35)}
+/* the answer: the player full height, the headline, the minute line */
+#an .ph{position:absolute;left:0;right:0;top:0;height:1350px;overflow:hidden}#an .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#an .ph:after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,0) 35%,rgba(var(--bx),.7) 70%,rgba(var(--bx),1))}
+#an .nm{position:absolute;left:56px;top:930px;font:700 48px O;letter-spacing:8px;color:var(--kc);z-index:2}
+#an .h{position:absolute;left:50px;right:50px;top:990px;font:400 150px/0.88 B;letter-spacing:2px;z-index:2;text-shadow:0 8px 30px rgba(0,0,0,.6)}#an .h i{font-style:normal;color:#ffd21f}
+#an .tl{position:absolute;left:70px;right:70px;top:1470px;height:200px;z-index:2}
+#an .tl .ax{position:absolute;left:0;right:0;top:120px;height:12px;border-radius:6px;background:rgba(255,255,255,.18)}
+#an .tl .fi{position:absolute;left:0;top:120px;height:12px;border-radius:6px;background:linear-gradient(90deg,var(--kc),#ffd21f);width:0}
+#an .tl .br{position:absolute;top:58px;height:40px;border:5px solid #ffd21f;border-bottom:none;border-radius:10px 10px 0 0}
+#an .tl .bl{position:absolute;top:0;transform:translateX(-50%);padding:4px 20px;border-radius:10px;background:#ffd21f;color:#040a2e;font:400 50px/1 B;letter-spacing:3px;white-space:nowrap}
+#an .tl .m{position:absolute;top:96px;width:60px;height:60px;margin-left:-30px;border-radius:50%;background:#fff;border:6px solid #ffd21f;box-shadow:0 0 24px rgba(255,210,31,.8);display:flex;align-items:center;justify-content:center;font-size:30px}
+#an .tl .mm{position:absolute;top:170px;transform:translateX(-50%);font:400 50px/1 B;letter-spacing:1px}
+#an .tl .e{position:absolute;top:170px;font:700 30px O;letter-spacing:3px;color:var(--sm)}
+/* the match, the fact, the question */
+#mt .card{position:absolute;left:50px;right:50px;top:300px;padding:40px 30px 36px;border-radius:34px;background:rgba(0,0,0,.45);border:5px solid rgba(var(--kl),.6);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+#mt .cp{text-align:center;font:700 36px O;letter-spacing:6px;color:var(--kc);margin-bottom:24px}
+#mt .rw{display:flex;align-items:center;justify-content:space-between}
+#mt .tm{width:300px;text-align:center}#mt .tm img{width:170px;height:170px;object-fit:contain;filter:drop-shadow(0 8px 20px rgba(0,0,0,.5))}
+#mt .tm div{margin-top:14px;font:400 58px/1 B;letter-spacing:2px}
+#mt .sc{font:400 220px/0.9 B;letter-spacing:4px}#mt .sc i{font-style:normal;color:#ffd21f}
+#mt .fx{position:absolute;left:60px;right:60px;top:900px;text-align:center;font:400 96px/1 B;letter-spacing:2px}#mt .fx i{font-style:normal;color:#ffd21f}
+#mt .fs{position:absolute;left:60px;right:60px;top:1240px;text-align:center;font:700 40px/1.3 O;letter-spacing:3px;color:var(--sm)}
+#cta{position:absolute;left:40px;right:40px;top:1500px;text-align:center;font:400 88px B;letter-spacing:3px;color:#ffd21f}
+</style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div>
+<div class="scr" id="nu"><div class="rg"></div><div class="n"></div><div class="u"></div><div class="t"></div></div>
+<div class="scr" id="an"><div class="ph"><img></div><div class="nm"></div><div class="h"></div><div class="tl"><div class="ax"></div><div class="fi"></div></div><div class="cr"></div></div>
+<div class="scr" id="mt"><div class="card"><div class="cp"></div><div class="rw"><div class="tm"><img><div></div></div><div class="sc"></div><div class="tm"><img><div></div></div></div></div>
+  <div class="fx"></div><div class="fs"></div><div id="cta"></div></div>
+<div class="flash" id="fl"></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA, W = D.who || {}, M = D.match || null, TL = D.line || null;
+const S = [{ t: 'nu' }, { t: 'an' }, { t: 'mt' }];
+const mins = D.minBeats || [2.8, 4.6, 4.2];
+const B = D.beats || (() => { let t = 0; return mins.map((m) => { const b = [t, m]; t += m; return b; }); })();
+window.TOTAL = B[B.length - 1][0] + B[B.length - 1][1];
+const q = (id, sel) => $(id).querySelector(sel), c01 = (x) => Math.min(1, Math.max(0, x));
+q('nu', '.n').textContent = D.num; q('nu', '.u').textContent = D.unit || ''; q('nu', '.t').innerHTML = D.hook || '';
+q('an', '.ph img').src = W.photo || ''; q('an', '.ph img').style.objectPosition = W.pos || '50% 20%';
+q('an', '.nm').textContent = W.name || ''; q('an', '.h').innerHTML = D.head || '';
+q('an', '.cr').textContent = W.credit ? '📷 ' + W.credit : '';
+// the minute line: each moment a ball at its minute, the span between the first and the last bracketed and labelled
+const tl = q('an', '.tl'), [a0, a1] = (TL && TL.span) || [0, 90], X = (m) => 100 * (m - a0) / (a1 - a0), MK = (TL && TL.marks) || [];
+if (TL) {
+  // one mark: the span runs from it to the line's end (Kane's 92 and the 8 still to go to 100)
+  const f = MK[0], l = MK.length > 1 ? MK[MK.length - 1] : a1, un = TL.unit == null ? "'" : TL.unit;
+  tl.insertAdjacentHTML('beforeend', `<div class="br" style="left:${X(f)}%;width:${X(l) - X(f)}%"></div><div class="bl" style="left:${(X(f) + X(l)) / 2}%">${TL.label || ''}</div>`
+    + MK.map((m) => `<div class="m" style="left:${X(m)}%">${TL.icon || '⚽'}</div><div class="mm" style="left:${X(m)}%${X(m) > 85 ? ';margin-left:-70px' : ''}">${m}${un}</div>`).join('')
+    + `<div class="e" style="left:0">${TL.start || (a0 ? a0 + un : 'KICK-OFF')}</div><div class="e" style="right:0">${TL.end || a1 + un}</div>`);
+} else tl.remove();
+if (M) {
+  q('mt', '.cp').textContent = M.comp || '';
+  const tms = [...q('mt', '.rw').children].filter((x) => x.classList.contains('tm'));
+  [[M.home, M.homeLogo], [M.away, M.awayLogo]].forEach(([n, lg], i) => { const im = tms[i].querySelector('img'); if (lg) im.src = lg; else im.remove(); tms[i].querySelector('div').textContent = n; });
+  q('mt', '.sc').innerHTML = `${M.hs}<i>-</i>${M.as}`;
+} else q('mt', '.card').remove();
+q('mt', '.fx').innerHTML = D.fact || ''; q('mt', '.fs').innerHTML = D.factSub || ''; $('cta').textContent = D.cta || 'COMMENT BELOW 👇';
+window.draw = (t) => {
+  const bi = B.findIndex(([s0, l0]) => t >= s0 && t < s0 + l0), k = bi < 0 ? B.length - 1 : bi, [s0, l] = B[k], u = t - s0, s = S[k];
+  for (const id of ['nu', 'an', 'mt']) if (id !== s.t) $(id).style.opacity = 0;
+  const sc = $(s.t), last = k === S.length - 1;
+  sc.style.opacity = last ? ease(u / .25) : k === 0 ? 1 - ease((u - l + .15) / .15) : Math.min(ease(u / .2), 1 - ease((u - l + .2) / .2));
+  let fl = 0;
+  if (s.t === 'nu') {
+    // the number slams in and keeps breathing; the ring pulses out like a heartbeat
+    const n = q('nu', '.n'); n.style.transform = `scale(${u < .35 ? 2.4 - 1.4 * back(u / .35) : 1 + .03 * Math.sin(u * 7)})`;
+    const r = q('nu', '.rg'), p = (u * 1.4) % 1; r.style.transform = `scale(${.55 + .6 * p})`; r.style.opacity = .9 * (1 - p);
+    q('nu', '.u').style.opacity = ease((u - .3) / .25); q('nu', '.t').style.opacity = ease((u - .6) / .3);
+    q('nu', '.t').style.transform = `translateY(${(1 - ease((u - .6) / .4)) * 50}px)`;
+    if (u < .12) fl = .5 * (1 - u / .12);
+  }
+  if (s.t === 'an') {
+    fl = u < .25 ? .7 * (1 - u / .25) : 0;
+    q('an', '.ph img').style.transform = `scale(${1.15 - .1 * c01(u / l)})`;
+    q('an', '.nm').style.opacity = ease((u - .2) / .3);
+    const h = q('an', '.h'); h.style.opacity = ease((u - .3) / .25); h.style.transform = `scale(${u < .3 ? 1.3 : u < .75 ? 1.3 - .3 * back((u - .3) / .45) : 1})`; h.style.transformOrigin = '0 50%';
+    if (TL) {
+      const lineA = c01((u - 1) / 1.6), at = a0 + (a1 - a0) * lineA;
+      q('an', '.fi').style.width = (100 * lineA) + '%';
+      tl.querySelectorAll('.m').forEach((m, i) => { const on = at >= MK[i]; m.style.transform = `scale(${on ? 1 + .25 * Math.max(0, 1 - (at - MK[i]) / ((a1 - a0) * .08)) : 0})`; });
+      tl.querySelectorAll('.mm').forEach((m, i) => { m.style.opacity = at >= MK[i] ? 1 : 0; });
+      const bA = c01((at - (MK.length > 1 ? MK[MK.length - 1] : MK[0])) / ((a1 - a0) * .06));
+      tl.querySelector('.br').style.opacity = bA; const bl = tl.querySelector('.bl'); bl.style.opacity = bA; bl.style.transform = `translateX(-50%) scale(${bA < 1 ? .6 + .4 * back(bA) : 1 + .04 * Math.sin(u * 6)})`;
+      tl.querySelectorAll('.e').forEach((e) => { e.style.opacity = ease((u - .9) / .3); });
+    }
+  }
+  if (s.t === 'mt') {
+    const cd = q('mt', '.card'); if (cd) { cd.style.opacity = ease(u / .3); cd.style.transform = `translateY(${(1 - ease(u / .4)) * -80}px)`; }
+    const scn = q('mt', '.sc'); if (scn) scn.style.transform = `scale(${u < .3 ? 1.5 : u < .7 ? 1.5 - .5 * back((u - .3) / .4) : 1})`;
+    const fx = q('mt', '.fx'); fx.style.opacity = ease((u - .6) / .3); fx.style.transform = `translateY(${(1 - ease((u - .6) / .4)) * 40}px)`;
+    q('mt', '.fs').style.opacity = ease((u - 1) / .3); $('cta').style.opacity = ease((u - 1.4) / .3);
+    $('cta').style.transform = `scale(${1 + .03 * Math.sin(u * 5)})`;
+  }
+  $('fl').style.opacity = fl;
+};
+window.POSTER = 1.2;
+window.COVER = B[1][0] + 3.6;
+progBar();
+draw(0);
+</script></body></html>
