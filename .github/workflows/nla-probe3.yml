@@ -1,13 +1,19 @@
-# One-off (owner, 2026-11-13): the facts behind the new reel samples. Never merged.
+# One-off (owner, 2026-11-14): read the trend reels' scripts to check the Messi one before it is posted. Never merged.
 name: NLA probe 3
 on:
   push:
     branches: [claude/nla-probe]
-    paths: [.github/workflows/nla-probe3.yml, sample/probe.py]
+    paths: [.github/workflows/nla-probe3.yml]
 jobs:
   p:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - run: python3 sample/probe.py
+      - env:
+          REELS_KEY: ${{ secrets.REELS_KEY }}
+        shell: bash
+        run: |
+          echo "::add-mask::$REELS_KEY"
+          sleep 200
+          curl -sS --max-time 400 -G "https://api.football-legend.com/v2/fben/dry" --data-urlencode "key=$REELS_KEY" --data-urlencode "kinds=none" --data-urlencode "trends=1" -o r.json || echo "no answer"
+          python3 -c "import json;d=json.load(open('r.json'));print(json.dumps((d.get('result') or d).get('trends'), ensure_ascii=False, indent=1))" || head -c 500 r.json
