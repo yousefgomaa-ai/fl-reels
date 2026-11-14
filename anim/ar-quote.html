@@ -1,0 +1,76 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><style>
+/* Football Legends (the Arabic pages) «تصريح» (owner, 2026-11-14: «يبقي في ابوشن نعرضها علي صفحات العربي بتاعتنا
+   عربي»): the same quote as FB Legends' en-quote, translated into Modern Standard Arabic: the speaker's photo, the words
+   one by one, who said it, when and where, the source, and the question. One beat a spoken line. */
+.scr{position:absolute;inset:0;opacity:0}
+.ph{position:absolute;left:0;right:0;top:0;height:1250px;overflow:hidden}.ph>img{position:absolute;inset:-40px;width:calc(100% + 80px);height:calc(100% + 80px);object-fit:cover}
+.ph:after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(5,8,18,.15),rgba(5,8,18,0) 35%,rgba(5,8,18,.75) 72%,#050812)}
+.ci{position:absolute;display:none;left:50%;top:260px;width:560px;height:560px;margin-left:-280px;border-radius:50%;overflow:hidden;border:8px solid #ffd23f;box-shadow:0 20px 60px rgba(0,0,0,.6);z-index:1}.ci img{width:100%;height:100%;object-fit:cover}
+.sm .ci{display:block}.sm>img{filter:blur(22px) brightness(.45)}
+#fl{position:absolute;inset:0;background:#fff;opacity:0;z-index:60;pointer-events:none}
+#pb{position:absolute;top:0;right:0;height:12px;width:0;background:linear-gradient(270deg,#22e9ff,#ff2f97);z-index:99}
+.cr{position:absolute;left:24px;bottom:18px;direction:ltr;font:500 19px Arial;color:rgba(255,255,255,.7);z-index:5}
+#hk .tg{position:absolute;right:56px;top:1010px;padding:8px 30px;border-radius:40px;background:#ff2f97;font-weight:900;font-size:44px}
+#hk .nm{position:absolute;right:56px;left:56px;top:1100px;font-weight:900;font-size:110px;line-height:1.15;text-shadow:0 8px 30px rgba(0,0,0,.6)}
+#hk .ab{position:absolute;right:58px;left:58px;top:1400px;font-weight:700;font-size:46px;line-height:1.4;color:#22e9ff}
+#qt .mk{position:absolute;right:40px;top:200px;font-weight:900;font-size:440px;line-height:1;color:#ffd23f;opacity:.9}
+#qt .tx{position:absolute;left:70px;right:70px;top:600px;font-weight:900;font-size:78px;line-height:1.45}
+#qt .tx span{opacity:0;display:inline-block;margin-left:.22em}
+#qt .by{position:absolute;left:70px;right:70px;bottom:250px;display:flex;align-items:center;gap:26px}
+#qt .by .fc{flex:none;width:170px;height:170px;border-radius:50%;overflow:hidden;border:6px solid #22e9ff}#qt .by .fc img{width:100%;height:100%;object-fit:cover}
+#qt .by b{display:block;font-weight:900;font-size:60px}#qt .by small{display:block;margin-top:6px;font-weight:700;font-size:32px;color:#c9d2f2;line-height:1.4}
+#en .h{position:absolute;left:50px;right:50px;top:340px;text-align:center;font-weight:900;font-size:110px;line-height:1.3}#en .h i{font-style:normal;color:#22e9ff}
+#en .op{position:absolute;left:90px;right:90px;top:760px;display:flex;gap:40px}
+#en .op div{flex:1;height:240px;border-radius:40px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:96px;border:6px solid #2fe37a;background:rgba(47,227,122,.12)}
+#en .op div:last-child{border-color:#ff3b5c;background:rgba(255,59,92,.12)}
+#en .so{position:absolute;left:60px;right:60px;top:1110px;text-align:center;font-weight:700;font-size:36px;color:#c9d2f2;line-height:1.5}
+#cta{position:absolute;left:40px;right:40px;top:1380px;text-align:center;font-weight:900;font-size:68px;color:#ffd23f}
+</style></head><body><div class="bg"></div><div class="grid"></div>
+<div class="scr" id="hk"><div class="ph"><img><div class="ci"><img></div></div><div class="tg"></div><div class="nm"></div><div class="ab"></div><div class="cr"></div></div>
+<div class="scr" id="qt"><div class="mk">”</div><div class="tx"></div><div class="by"><div class="fc"><img></div><div><b></b><small></small></div></div></div>
+<div class="scr" id="en"><div class="h"></div><div class="op"><div>نعم</div><div>لا</div></div><div class="so"></div><div id="cta"></div></div>
+<div class="brand">FOOTBALL LEGENDS</div><div id="pb"></div><div id="fl"></div>
+<script src="lib.js"></script><script>
+const D = window.DATA, W = D.who || {};
+const S = ['hk', 'qt', 'en'], mins = D.minBeats || [3.6, 7, 4.4];
+const B = D.beats || (() => { let t = 0; return mins.map((m) => { const b = [t, m]; t += m; return b; }); })();
+window.TOTAL = B[B.length - 1][0] + B[B.length - 1][1] + 1.5;
+const q = (id, sel) => $(id).querySelector(sel), c01 = (x) => Math.min(1, Math.max(0, x));
+const ph = $('hk').querySelector('.ph'); ph.querySelector(':scope > img').src = W.photo || ''; ph.querySelector(':scope > img').style.objectPosition = W.pos || '50% 20%';
+ph.querySelector('.ci img').src = W.photo || ''; ph.classList.toggle('sm', !!W.small);
+q('hk', '.tg').textContent = D.tag || 'تصريح'; q('hk', '.nm').innerHTML = D.name || ''; q('hk', '.ab').textContent = D.about || ''; q('hk', '.cr').textContent = W.credit ? '📷 ' + W.credit + ' • Wikimedia Commons' : '';
+const words = String(D.quote || '').split(/\s+/).filter(Boolean), len = words.join(' ').length;
+q('qt', '.tx').innerHTML = words.map((w) => `<span>${w.replace(/</g, '&lt;')}</span>`).join('');
+q('qt', '.tx').style.fontSize = (len > 220 ? 52 : len > 160 ? 60 : len > 100 ? 68 : 78) + 'px';
+q('qt', '.by img').src = W.photo || ''; q('qt', '.by img').style.objectPosition = W.pos || '50% 20%';
+q('qt', '.by b').innerHTML = D.name || ''; q('qt', '.by small').textContent = D.context || '';
+q('en', '.h').innerHTML = D.endH || 'هل معه <i>حق؟</i>'; q('en', '.so').textContent = D.source ? 'المصدر: ' + D.source : ''; $('cta').textContent = D.cta || 'اكتب نعم أو لا في التعليقات 👇';
+window.draw = (t) => {
+  const bi = B.findIndex(([s0, l0]) => t >= s0 && t < s0 + l0), k = bi < 0 ? B.length - 1 : bi, [s0, l] = B[k], u = t - s0, s = S[k];
+  for (const id of S) if (id !== s) $(id).style.opacity = 0;
+  $(s).style.opacity = k === S.length - 1 ? ease(u / .3) : Math.min(ease(u / .22), 1 - ease((u - l + .22) / .22));
+  let fl = 0;
+  if (s === 'hk') {
+    ph.querySelector(':scope > img').style.transform = `scale(${1.12 - .08 * c01(u / l)})`;
+    q('hk', '.tg').style.transform = `translateX(${(1 - ease(u / .35)) * 600}px)`;
+    const nm = q('hk', '.nm'); nm.style.opacity = ease((u - .3) / .25); nm.style.transform = `translateY(${(1 - ease((u - .3) / .4)) * 60}px)`;
+    q('hk', '.ab').style.opacity = ease((u - .8) / .3); if (u < .12) fl = .5 * (1 - u / .12);
+  }
+  if (s === 'qt') {
+    q('qt', '.mk').style.transform = `scale(${u < .4 ? 1.6 - .6 * back(u / .4) : 1 + .03 * Math.sin(u * 4)})`;
+    const sp = [...q('qt', '.tx').children], per = Math.min(.3, (l - 1.6) / Math.max(1, sp.length));
+    sp.forEach((w, i) => { const a = ease((u - .3 - i * per) / .18); w.style.opacity = a; w.style.transform = `translateY(${(1 - a) * 30}px)`; });
+    const by = q('qt', '.by'), b0 = .3 + sp.length * per; by.style.opacity = ease((u - b0) / .3); by.style.transform = `translateX(${(1 - ease((u - b0) / .4)) * 80}px)`;
+  }
+  if (s === 'en') {
+    q('en', '.h').style.transform = `scale(${1.1 - .1 * ease(u / .4)})`;
+    [...q('en', '.op').children].forEach((x, i) => { const a = (u - .3 - i * .2) / .35; x.style.opacity = ease(a); x.style.transform = `scale(${a < 1 ? .6 + .4 * back(c01(a)) : 1 + .04 * Math.max(0, Math.sin(u * 3.2 + i * Math.PI))})`; });
+    q('en', '.so').style.opacity = ease((u - .8) / .3); $('cta').style.opacity = ease((u - 1.1) / .3);
+  }
+  $('fl').style.opacity = fl;
+  $('pb').style.width = (100 * Math.min(1, t / window.TOTAL)) + '%';
+  document.body.style.transform = `scale(${1 + .03 * Math.min(1, t / window.TOTAL)})`;
+};
+window.POSTER = Math.min(2.4, B[0][1] - .3);
+draw(0);
+</script></body></html>
