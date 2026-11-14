@@ -1,0 +1,335 @@
+[
+ {
+  "id": "mirror-esposito",
+  "added": "2026-11-14",
+  "ar": "«Legend Mirror»: بيو إسبوزيتو 9 أهداف في 14 ماتش مع إيطاليا، وتوتي جاب نفس الـ 9 في 58 ماتش. المشاهد يخمّن الأسطورة من 3 تلميحات.",
+  "facts": [
+   "إسبوزيتو مع إيطاليا: 14 ماتش، 9 أهداف (ويكيبيديا، اتقرأت 14 نوفمبر 2026)",
+   "توتي مع إيطاليا: 58 ماتش، 9 أهداف (1998–2006)",
+   "أول لاعب يجيب 9 أهداف في أول 14 ماتش مع إيطاليا (GOAL)",
+   "التلميحات: بطل كاس العالم 2006، 25 موسم في نادي واحد، رقم 10 روما",
+   "رقم ريفا القياسي: 35 هدف"
+  ],
+  "sources": [
+   "https://en.wikipedia.org/wiki/Pio_Esposito",
+   "https://en.wikipedia.org/wiki/Francesco_Totti",
+   "https://www.goal.com/en/news/italy-have-a-world-class-goalscorer-too-pio-esposito-has-already-scored-like-totti-against-france-tears-a-kiss-for-sebastiano-and-a-bid-to-break-meazza-and-riva-s-records/bltb79f4c680e5bc0b1"
+  ],
+  "spec": {
+   "theme": "nat",
+   "kind": "en-mirror",
+   "title": "Pio Esposito v Francesco Totti: 9 Italy goals in 14 games against 58",
+   "now": {
+    "name": "PIO<br>ESPOSITO",
+    "short": "ESPOSITO",
+    "file": "Francesco Pio Esposito a La Spezia (cropped).jpg",
+    "credit": "NewMicrosoikos (CC0)",
+    "pos": "50% 18%"
+   },
+   "legend": {
+    "name": "FRANCESCO<br>TOTTI",
+    "short": "TOTTI",
+    "file": "Italy vs France - FIFA World Cup 2006 final - Francesco Totti.jpg",
+    "credit": "David Ruddell (CC BY 2.0)",
+    "pos": "50% 8%"
+   },
+   "stat": {
+    "n": 9,
+    "unit": "GOALS",
+    "nowGames": 14,
+    "legGames": 58
+   },
+   "hook": "AN ITALY LEGEND NEEDED <i>58 GAMES</i> FOR THE SAME",
+   "hookSub": "CAN YOU NAME HIM?",
+   "clues": [
+    "WORLD CUP WINNER IN 2006",
+    "25 SEASONS AT ONE CLUB",
+    "ROMA'S NUMBER 10"
+   ],
+   "fact": "THE FIRST TO SCORE <b>9 IN HIS FIRST 14</b> GAMES FOR ITALY",
+   "endH": "CAN HE CATCH <i>RIVA'S 35?</i>",
+   "cta": "COMMENT HIS FINAL TALLY 👇",
+   "minBeats": [
+    3.4,
+    3.4,
+    3.4,
+    3.4,
+    2.4,
+    4.6,
+    4.4,
+    4.2
+   ],
+   "voice": [
+    "Pio Esposito: nine goals in fourteen games for Italy. An Italy legend needed fifty-eight games for the same nine. Can you name him?",
+    "Clue one: he won the World Cup in two thousand and six.",
+    "Clue two: twenty-five seasons at one club.",
+    "Clue three: Roma's number ten.",
+    "The legend is...",
+    "Francesco Totti. Nine goals in fifty-eight games for Italy. Esposito has the same nine in fourteen.",
+    "That is more than four times as often.",
+    "Can he catch Gigi Riva's record of thirty-five? Tell us in the comments."
+   ],
+   "caption": "Pio Esposito has 9 goals in 14 games for Italy: Francesco Totti scored his 9 in 58.\n\nEsposito's brace against France took him to nine Italy goals, level with Totti, and no one had scored nine in his first 14 games for Italy. Goals per game: Esposito 0.64, Totti 0.16.\n\nCan he catch Gigi Riva's Italy record of 35? Comment his final tally 👇\n\nSources: Wikipedia (Italy caps and goals, read 14 November 2026), GOAL",
+   "tags": "#Italy #PioEsposito #Totti #Azzurri #NationsLeague"
+  }
+ },
+ {
+  "id": "number-kane",
+  "added": "2026-11-14",
+  "ar": "«The Number»: رقم 92: هاري كين عادل ليفاندوفسكي في الأهداف الدولية، وفاضله 8 على 100.",
+  "facts": [
+   "كين مع إنجلترا: 126 ماتش، 92 هدف (ويكيبيديا)",
+   "ليفاندوفسكي مع بولندا: 170 ماتش، 92 هدف",
+   "الهدف الـ 92 بركلة جزاء في فوز إنجلترا 2-1 على كرواتيا في ويمبلي",
+   "الماتش الـ 126 رقم قياسي، عدّى بيتر شيلتون (125)"
+  ],
+  "sources": [
+   "https://en.wikipedia.org/wiki/Harry_Kane",
+   "https://en.wikipedia.org/wiki/Robert_Lewandowski",
+   "https://sports.yahoo.com/articles/harry-kane-breaks-england-appearance-090700656.html"
+  ],
+  "spec": {
+   "theme": "nat",
+   "kind": "en-number",
+   "title": "Harry Kane level with Robert Lewandowski on 92 international goals",
+   "num": "92",
+   "unit": "GOALS",
+   "hook": "ONE PENALTY THIS WEEK. <i>92</i> FOR HIS COUNTRY. WHO IS HE?",
+   "who": {
+    "name": "HARRY KANE",
+    "photo": "cut/harry-kane.webp",
+    "credit": "Bryan Berlin (CC BY-SA 4.0)",
+    "pos": "50% 12%"
+   },
+   "head": "LEVEL WITH<br><i>LEWANDOWSKI</i>",
+   "line": {
+    "span": [
+     0,
+     100
+    ],
+    "marks": [
+     92
+    ],
+    "label": "8 TO GO",
+    "unit": "",
+    "start": "0",
+    "end": "100"
+   },
+   "match": {
+    "comp": "UEFA NATIONS LEAGUE • WEMBLEY",
+    "home": "ENGLAND",
+    "away": "CROATIA",
+    "hs": 2,
+    "as": 1,
+    "homeLogo": "https://a.espncdn.com/i/teamlogos/countries/500/eng.png",
+    "awayLogo": "https://a.espncdn.com/i/teamlogos/countries/500/cro.png"
+   },
+   "fact": "AND A RECORD <i>126TH CAP</i>: PAST PETER SHILTON",
+   "factSub": "8 MORE FOR THE FIRST 100 BY AN ENGLAND MAN",
+   "cta": "WILL HE GET TO 100? 👇",
+   "minBeats": [
+    3,
+    5,
+    4.6
+   ],
+   "voice": [
+    "Ninety-two. One penalty this week, ninety-two for his country. Who is he?",
+    "Harry Kane. Level with Robert Lewandowski on ninety-two international goals... and eight short of a hundred.",
+    "England beat Croatia two-one at Wembley, and Kane won a record hundred and twenty-sixth cap. Will he get to a hundred?"
+   ],
+   "caption": "Harry Kane is level with Robert Lewandowski on 92 international goals.\n\nHis penalty in England's 2-1 win over Croatia at Wembley took him to 92 goals for England, and the game was his 126th cap, an England record past Peter Shilton. Eight more and he is the first England man to 100.\n\nWill he get to 100? 👇\n\nSources: Wikipedia (England and Poland caps and goals, read 14 November 2026), Yahoo Sports",
+   "tags": "#HarryKane #England #Lewandowski #NationsLeague #ThreeLions"
+  }
+ },
+ {
+  "id": "said-mourinho",
+  "added": "2026-11-14",
+  "ar": "«مين قال؟»: تصريح مورينيو الشهير «The Special One» في أول مؤتمر صحفي ليه مع تشيلسي، والاختيارات: جوارديولا ومورينيو وكلوب.",
+  "facts": [
+   "نص التصريح المنشور: «Please don't call me arrogant, but I'm European champion and I think I'm a special one.»",
+   "التاريخ: 2 يونيو 2004، تقديمه في ستامفورد بريدج",
+   "الصور من Commons واتشافت بالعين (مورينيو في كييف 2015، جوارديولا 2023، كلوب 2019)"
+  ],
+  "sources": [
+   "https://www.skysports.com/football/news/15116/11522231/the-special-one-press-conference",
+   "https://www.nbcsports.com/soccer/news/jose-mourinho-top-30-premier-league-moments-no-7-mourinho-arrives-names-himself-the-special-one"
+  ],
+  "spec": {
+   "theme": "",
+   "kind": "en-said",
+   "title": "Who said it? A famous Premier League manager quote quiz",
+   "quote": "Please don't call me arrogant, but I'm European champion and I think I'm *a* *special* *one.*",
+   "options": [
+    {
+     "name": "PEP GUARDIOLA",
+     "file": "Josep Guardiola 2023-10-04 Fußball, Männer, UEFA Champions League, RB Leipzig - Manchester City FC 1DX 2797 (cropped).jpg",
+     "credit": "Steffen Prößdorf (CC BY-SA 4.0)",
+     "pos": "50% 20%"
+    },
+    {
+     "name": "JOSÉ MOURINHO",
+     "full": "JOSÉ<br>MOURINHO",
+     "file": "José Mourinho in Kyiv, October 2015.jpg",
+     "credit": "Aleksandr Osipov (CC BY-SA 2.0)",
+     "pos": "50% 25%"
+    },
+    {
+     "name": "JÜRGEN KLOPP",
+     "file": "Jürgen Klopp, Liverpool vs. Chelsea, UEFA Super Cup 2019-08-14 04.jpg",
+     "credit": "Mehdi Bolourian (CC BY 4.0)",
+     "pos": "50% 20%"
+    }
+   ],
+   "answer": 1,
+   "context": "HIS FIRST CHELSEA PRESS CONFERENCE • 2 JUNE 2004",
+   "source": "Chelsea unveiling, Stamford Bridge, 2 June 2004 (Sky Sports, NBC Sports)",
+   "endH": "DID YOU <i>GET IT?</i>",
+   "cta": "COMMENT A, B OR C 👇",
+   "minBeats": [
+    4.6,
+    5.2,
+    5.4,
+    3.6
+   ],
+   "voice": [
+    "\"Please don't call me arrogant, but I'm European champion and I think I'm a special one.\" Who said it?",
+    "A: Pep Guardiola. B: José Mourinho. C: Jürgen Klopp. Comment your answer... three, two, one.",
+    "It is José Mourinho, at his first Chelsea press conference, in June two thousand and four.",
+    "Did you get it? Comment A, B or C."
+   ],
+   "caption": "Who said it? A famous Premier League manager quote quiz.\n\n\"Please don't call me arrogant, but I'm European champion and I think I'm a special one.\"\n\nA: Pep Guardiola\nB: José Mourinho\nC: Jürgen Klopp\n\nComment A, B or C, then watch to the end for the answer 👇",
+   "tags": "#PremierLeague #Football #Quiz #WhoSaidIt #Chelsea"
+  }
+ },
+ {
+  "id": "next-pochettino",
+  "added": "2026-11-14",
+  "ar": "«الأرقام ورا الخبر»: بوكيتينو مدرب مانشستر يونايتد الجديد: نسبة فوزه في كل نادي، وأول 4 ماتشات ليه.",
+  "facts": [
+   "نسبة الفوز (كل البطولات): إسبانيول 33%، ساوثهامبتون 38%، توتنهام 55%، باريس 65%، تشيلسي 51%",
+   "سطر منتخب أمريكا اتشال لأنه لسه شغال ومش متحدّث",
+   "بيبدأ يوم 18 نوفمبر (ويكيبيديا)",
+   "أول 4 ماتشات: ليفربول برة 22 نوفمبر، سبورتنج برة 25 نوفمبر (أبطال أوروبا)، برينتفورد في البيت 28 نوفمبر، نيوكاسل برة 2 ديسمبر"
+  ],
+  "sources": [
+   "https://en.wikipedia.org/wiki/Mauricio_Pochettino",
+   "https://www.espn.com/soccer/team/fixtures/_/id/360/manchester-united",
+   "https://www.skysports.com/football/news/13610882/mauricio-pochettino-appointed-as-manchester-united-head-coach-after-michael-carricks-sacking-at-old-trafford"
+  ],
+  "spec": {
+   "theme": "pl",
+   "kind": "en-next",
+   "title": "Mauricio Pochettino's managerial record and his first Manchester United games",
+   "who": {
+    "name": "MAURICIO POCHETTINO",
+    "file": "Mauricio Pochettino USMNT v Belgium Mar 28 2026-3 (cropped).jpg",
+    "credit": "Bryan Berlin (CC BY-SA 4.0)",
+    "pos": "50% 15%"
+   },
+   "tag": "BREAKING",
+   "head": "POCHETTINO IS <i>MANCHESTER UNITED'S</i> NEW HEAD COACH",
+   "sub": "THE NUMBERS BEHIND THE NEWS 👇",
+   "crest": "Manchester United",
+   "record": {
+    "title": "HIS CLUB RECORD, <i>CLUB BY CLUB</i>",
+    "foot": "ALL COMPETITIONS • SOURCE: WIKIPEDIA",
+    "rows": [
+     {
+      "club": "ESPANYOL",
+      "crest": "Espanyol",
+      "years": "2009–12",
+      "p": 161,
+      "w": 53,
+      "d": 38,
+      "l": 70
+     },
+     {
+      "club": "SOUTHAMPTON",
+      "crest": "Southampton",
+      "years": "2013–14",
+      "p": 60,
+      "w": 23,
+      "d": 18,
+      "l": 19
+     },
+     {
+      "club": "TOTTENHAM",
+      "crest": "Tottenham Hotspur",
+      "years": "2014–19",
+      "p": 293,
+      "w": 160,
+      "d": 60,
+      "l": 73
+     },
+     {
+      "club": "PARIS SAINT-GERMAIN",
+      "crest": "Paris Saint-Germain",
+      "years": "2021–22",
+      "p": 84,
+      "w": 55,
+      "d": 15,
+      "l": 14
+     },
+     {
+      "club": "CHELSEA",
+      "crest": "Chelsea",
+      "years": "2023–24",
+      "p": 51,
+      "w": 26,
+      "d": 11,
+      "l": 14
+     }
+    ]
+   },
+   "fixtures": {
+    "title": "HIS FIRST <i>4 GAMES</i>",
+    "rows": [
+     {
+      "opp": "LIVERPOOL",
+      "crest": "Liverpool",
+      "date": "SUN 22 NOV",
+      "comp": "PREMIER LEAGUE",
+      "ha": "A"
+     },
+     {
+      "opp": "SPORTING CP",
+      "crest": "Sporting CP",
+      "date": "WED 25 NOV",
+      "comp": "CHAMPIONS LEAGUE",
+      "ha": "A"
+     },
+     {
+      "opp": "BRENTFORD",
+      "crest": "Brentford",
+      "date": "SAT 28 NOV",
+      "comp": "PREMIER LEAGUE",
+      "ha": "H"
+     },
+     {
+      "opp": "NEWCASTLE",
+      "crest": "Newcastle United",
+      "date": "WED 2 DEC",
+      "comp": "PREMIER LEAGUE",
+      "ha": "A"
+     }
+    ]
+   },
+   "endH": "HOW MANY POINTS AT <i>ANFIELD?</i>",
+   "cta": "COMMENT 0, 1 OR 3 👇",
+   "minBeats": [
+    4.2,
+    6.6,
+    6.2,
+    3.8
+   ],
+   "voice": [
+    "Breaking: Mauricio Pochettino is Manchester United's new head coach. Here are the numbers behind the news.",
+    "His club record. Espanyol: thirty-three per cent wins. Southampton: thirty-eight. Tottenham: fifty-five. Paris Saint-Germain: sixty-five. Chelsea: fifty-one.",
+    "His first four games: Liverpool away, Sporting away in the Champions League, Brentford at home... then Newcastle away.",
+    "How many points does he take at Anfield? Comment zero, one or three."
+   ],
+   "caption": "Mauricio Pochettino's managerial record and his first Manchester United games.\n\nManchester United have named Pochettino head coach; he starts on 18 November. His win rate, club by club (all competitions): Espanyol 33%, Southampton 38%, Tottenham 55%, Paris Saint-Germain 65%, Chelsea 51%.\n\nHis first four games: Liverpool (away, 22 Nov), Sporting CP (away, Champions League, 25 Nov), Brentford (home, 28 Nov), Newcastle (away, 2 Dec).\n\nHow many points does he take at Anfield? Comment 0, 1 or 3 👇\n\nSources: Wikipedia (managerial statistics, read 14 November 2026), ESPN fixtures",
+   "tags": "#ManUtd #Pochettino #PremierLeague #MUFC #Liverpool"
+  }
+ }
+]
