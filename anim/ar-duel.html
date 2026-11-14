@@ -1,0 +1,125 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><style>
+/* Football Legends (the Arabic pages): a disputed record explained as an interactive reel (owner, 2026-11-14: «ريلز
+   بالشرح تفاعلي», Salah against Hossam Hassan for Egypt's goals record). A hook with the disputed numbers, a card a beat
+   (each person's photo, a number counted up, a number struck and corrected), the two side by side with their bars, the
+   question with two answers. One beat a spoken line (DATA.beats from the voice, else DATA.minBeats). */
+.scr{position:absolute;inset:0;opacity:0}
+.ph{position:absolute;overflow:hidden}.ph img{position:absolute;inset:-40px;width:calc(100% + 80px);height:calc(100% + 80px);object-fit:cover}
+.fade{position:absolute;left:0;right:0;bottom:0;height:62%;background:linear-gradient(rgba(5,8,18,0),#050812 82%)}
+.cr{position:absolute;left:24px;bottom:18px;direction:ltr;font:500 19px Arial;color:rgba(255,255,255,.7);z-index:5}
+.tag{display:inline-block;padding:8px 30px;border-radius:40px;background:#ff2f97;font-weight:900;font-size:40px}
+.big{font-weight:900;color:#ffd23f;text-shadow:0 0 60px rgba(255,210,63,.45);direction:ltr;unicode-bidi:isolate}
+.h{font-weight:900;line-height:1.25}.h i{font-style:normal;color:#22e9ff}
+.sub{font-weight:700;color:#c9d2f2;line-height:1.45}
+/* a small Commons photo (DATA.photos[i].small: Hossam Hassan's is 280x160) is never stretched: a sharp circle over its own blurred copy */
+.ci{position:absolute;display:none;border-radius:50%;overflow:hidden;border:8px solid #ffd23f;box-shadow:0 20px 60px rgba(0,0,0,.6);z-index:2}.ci img{width:100%;height:100%;object-fit:cover}
+.sm>.ci{display:block}.sm>img{filter:blur(22px) brightness(.45)}
+#cd .ci{left:50%;top:200px;width:560px;height:560px;margin-left:-280px}
+#du .p .fc .ci{left:50%;top:50%;width:300px;height:300px;margin:-150px 0 0 -150px}
+#ak .sm>img{filter:none}
+#fl{position:absolute;inset:0;background:#fff;opacity:0;z-index:60;pointer-events:none}
+#pb{position:absolute;top:0;right:0;height:12px;width:0;background:linear-gradient(270deg,#22e9ff,#ff2f97);z-index:99;box-shadow:0 0 14px rgba(255,47,151,.7)}
+/* the hook */
+#hk .ph{inset:0}#hk .q{position:absolute;left:0;right:0;top:900px;text-align:center;font-size:190px;direction:rtl;unicode-bidi:normal}
+#hk .h{position:absolute;left:60px;right:60px;top:1240px;text-align:center;font-size:76px}
+#hk .sub{position:absolute;left:60px;right:60px;top:1500px;text-align:center;font-size:44px}
+/* a card */
+#cd .ph{left:0;right:0;top:0;height:1150px}
+#cd .t{position:absolute;right:60px;top:1000px}
+#cd .row{position:absolute;right:60px;left:60px;top:1100px;display:flex;align-items:baseline;gap:30px;flex-direction:row-reverse;justify-content:flex-end}
+#cd .row .big{font-size:300px;line-height:.9}
+#cd .row .old{font-size:170px;font-weight:900;color:#7f89b0;direction:ltr;position:relative}
+#cd .row .old:after{content:'';position:absolute;left:-10px;right:-10px;top:52%;height:16px;background:#ff2f97;transform:scaleX(var(--s,0));transform-origin:right;border-radius:8px}
+#cd .h{position:absolute;right:60px;left:60px;top:1420px;font-size:70px}
+#cd .sub{position:absolute;right:60px;left:60px;top:1620px;font-size:40px}
+/* the two side by side */
+#du .h{position:absolute;left:50px;right:50px;top:230px;text-align:center;font-size:80px}
+#du .pair{position:absolute;left:50px;right:50px;top:440px;display:flex;gap:40px}
+#du .p{flex:1;text-align:center}
+#du .p .fc{width:100%;height:560px;border-radius:30px;overflow:hidden;border:6px solid #22e9ff;position:relative}
+#du .p.w .fc{border-color:#ffd23f;box-shadow:0 0 50px rgba(255,210,63,.45)}
+#du .p .fc img{width:100%;height:100%;object-fit:cover}
+#du .p .nm{margin-top:24px;font-weight:900;font-size:58px}
+#du .p .big{font-size:200px;line-height:1}
+#du .p .lb{font-weight:700;font-size:34px;color:#c9d2f2}
+#du .bars{position:absolute;left:70px;right:70px;top:1500px}
+#du .sub{position:absolute;left:60px;right:60px;top:1560px;text-align:center;font-size:44px}
+/* the question */
+#ak .h{position:absolute;left:60px;right:60px;top:380px;text-align:center;font-size:92px}
+#ak .opts{position:absolute;left:60px;right:60px;top:800px;display:flex;flex-direction:column;gap:40px}
+#ak .o{display:flex;align-items:center;gap:30px;padding:26px 36px;border-radius:120px;background:rgba(255,255,255,.06);border:5px solid #22e9ff}
+#ak .o:last-child{border-color:#ff2f97}
+#ak .o b{flex:none;width:130px;height:130px;border-radius:50%;background:#22e9ff;color:#050812;display:flex;align-items:center;justify-content:center;font-size:84px;font-weight:900}
+#ak .o:last-child b{background:#ff2f97;color:#fff}
+#ak .o .fc{flex:none;width:170px;height:170px;border-radius:50%;overflow:hidden;border:5px solid rgba(255,255,255,.4)}#ak .o .fc img{width:100%;height:100%;object-fit:cover}
+#ak .o span{font-weight:900;font-size:72px}
+#ak .c{position:absolute;left:60px;right:60px;top:1480px;text-align:center;font-weight:900;font-size:66px;color:#ffd23f}
+</style></head><body><div class="bg"></div><div class="grid"></div>
+<div class="scr" id="hk"><div class="ph"><img></div><div class="fade"></div><div class="q big"></div><div class="h"></div><div class="sub"></div><div class="cr"></div></div>
+<div class="scr" id="cd"><div class="ph"><img><div class="ci"><img></div></div><div class="fade"></div><div class="t"><span class="tag"></span></div><div class="row"><div class="big"></div><div class="old"></div></div><div class="h"></div><div class="sub"></div><div class="cr"></div></div>
+<div class="scr" id="du"><div class="h"></div><div class="pair"><div class="p"><div class="fc"><img><div class="ci"><img></div></div><div class="nm"></div><div class="big"></div><div class="lb"></div></div><div class="p"><div class="fc"><img><div class="ci"><img></div></div><div class="nm"></div><div class="big"></div><div class="lb"></div></div></div><div class="sub"></div></div>
+<div class="scr" id="ak"><div class="h"></div><div class="opts"><div class="o"><b>أ</b><div class="fc"><img></div><span></span></div><div class="o"><b>ب</b><div class="fc"><img></div><span></span></div></div><div class="c"></div></div>
+<div class="brand">FOOTBALL LEGENDS</div><div id="pb"></div><div id="fl"></div>
+<script src="lib.js"></script><script>
+const D = window.DATA, P = D.photos || [], S = D.steps || [];
+const mins = D.minBeats || S.map((s) => ({ hook: 4, card: 6, duel: 6, ask: 5 }[s.t] || 5));
+const B = D.beats || (() => { let t = 0; return mins.map((m) => { const b = [t, m]; t += m; return b; }); })();
+window.TOTAL = B[B.length - 1][0] + B[B.length - 1][1] + 1.5;
+const q = (id, sel) => $(id).querySelector(sel), c01 = (x) => Math.min(1, Math.max(0, x));
+const pic = (el, i) => { const p = P[i] || {}; el.src = p.photo || ''; el.style.objectPosition = p.pos || '50% 20%';
+  const box = el.parentNode, ci = box && box.querySelector(':scope > .ci img'); if (box) box.classList.toggle('sm', !!p.small); if (ci) { ci.src = p.photo || ''; ci.style.objectPosition = p.pos || '50% 20%'; } };
+const cr = (i) => (P[i] && P[i].credit ? '📷 ' + P[i].credit + ' • Wikimedia Commons' : '');
+let cur = -1;
+const set = (s) => {
+  if (s.t === 'hook') { pic(q('hk', '.ph img'), s.p || 0); q('hk', '.q').textContent = s.big || ''; q('hk', '.h').innerHTML = s.h || ''; q('hk', '.sub').innerHTML = s.sub || ''; q('hk', '.cr').textContent = cr(s.p || 0); }
+  if (s.t === 'card') { pic(q('cd', '.ph > img'), s.p || 0); q('cd', '.tag').textContent = s.label || ''; q('cd', '.t').style.display = s.label ? '' : 'none'; q('cd', '.row .big').textContent = '0';
+    q('cd', '.row .old').textContent = s.old != null ? s.old : ''; q('cd', '.h').innerHTML = s.h || ''; q('cd', '.sub').innerHTML = s.sub || ''; q('cd', '.cr').textContent = cr(s.p || 0); }
+  if (s.t === 'duel') { q('du', '.h').innerHTML = s.h || ''; q('du', '.sub').innerHTML = s.sub || '';
+    [s.a, s.b].forEach((x, i) => { const p = q('du', '.pair').children[i]; pic(p.querySelector('.fc > img'), x.p); p.querySelector('.nm').textContent = x.name; p.querySelector('.lb').textContent = x.lbl || ''; p.classList.toggle('w', !!x.top); }); }
+  if (s.t === 'ask') { q('ak', '.h').innerHTML = s.h || ''; q('ak', '.c').textContent = s.c || '';
+    [s.a, s.b].forEach((x, i) => { const o = q('ak', '.opts').children[i]; o.querySelector('span').textContent = x.name; pic(o.querySelector('img'), x.p); }); }
+};
+const scr = { hook: 'hk', card: 'cd', duel: 'du', ask: 'ak' };
+window.draw = (t) => {
+  const bi = B.findIndex(([s0, l0]) => t >= s0 && t < s0 + l0), k = bi < 0 ? B.length - 1 : bi, [s0, l] = B[k], u = t - s0, s = S[k];
+  if (cur !== k) { set(s); cur = k; }
+  const id = scr[s.t];
+  for (const x of Object.values(scr)) if (x !== id) $(x).style.opacity = 0;
+  const last = k === S.length - 1;
+  $(id).style.opacity = last ? ease(u / .3) : Math.min(ease(u / .25), 1 - ease((u - l + .25) / .25));
+  let fl = 0;
+  if (s.t === 'hook') {
+    q('hk', '.ph img').style.transform = `scale(${1.12 - .08 * c01(u / l)})`;
+    const qq = q('hk', '.q'); qq.style.transform = `scale(${u < .4 ? 2 - back(u / .4) : 1 + .03 * Math.sin(u * 6)})`;
+    q('hk', '.h').style.opacity = ease((u - .5) / .3); q('hk', '.sub').style.opacity = ease((u - 1) / .3);
+    if (u < .12) fl = .5 * (1 - u / .12);
+  }
+  if (s.t === 'card') {
+    q('cd', '.ph > img').style.transform = `scale(${1.04 + .08 * c01(u / l)}) translateX(${(k % 2 ? 1 : -1) * (24 - 48 * c01(u / l))}px)`;
+    q('cd', '.t').style.opacity = ease((u - .2) / .3);
+    const a = c01((u - .5) / 1.2), bg = q('cd', '.row .big'); bg.textContent = Math.round(Number(s.num || 0) * ease(a));
+    bg.style.transform = `scale(${a >= 1 ? 1 + .03 * Math.sin(u * 5) : 1})`;
+    const od = q('cd', '.row .old'); od.style.opacity = s.old != null ? ease((u - .3) / .3) : 0; od.style.setProperty('--s', ease((u - 1.2) / .5));
+    q('cd', '.h').style.opacity = ease((u - .9) / .3); q('cd', '.h').style.transform = `translateY(${(1 - ease((u - .9) / .4)) * 40}px)`;
+    q('cd', '.sub').style.opacity = ease((u - 1.5) / .3);
+  }
+  if (s.t === 'duel') {
+    q('du', '.h').style.opacity = ease(u / .3);
+    [s.a, s.b].forEach((x, i) => { const p = q('du', '.pair').children[i], a = (u - .3 - i * .3) / .4;
+      p.style.opacity = ease(a); p.style.transform = `translateY(${(1 - ease(a)) * 80}px)`;
+      p.querySelector('.big').textContent = Math.round(Number(x.num) * ease(c01((u - .6 - i * .3) / 1.2)));
+      p.querySelector('.fc > img').style.transform = `scale(${1.05 + .05 * Math.sin(u * 1.5 + i)})`; });
+    q('du', '.sub').style.opacity = ease((u - 2) / .3);
+  }
+  if (s.t === 'ask') {
+    q('ak', '.h').style.transform = `scale(${1.1 - .1 * ease(u / .4)})`;
+    [...q('ak', '.opts').children].forEach((o, i) => { const a = (u - .4 - i * .25) / .35; o.style.opacity = ease(a); o.style.transform = `translateX(${(1 - ease(a)) * (i ? -200 : 200)}px) scale(${1 + .03 * Math.max(0, Math.sin(u * 3.2 + i * Math.PI))})`; });
+    q('ak', '.c').style.opacity = ease((u - 1.2) / .3) * (.8 + .2 * Math.sin(u * 5));
+  }
+  $('fl').style.opacity = fl;
+  $('pb').style.width = (100 * Math.min(1, t / window.TOTAL)) + '%';
+  document.body.style.transform = `scale(${1 + .03 * Math.min(1, t / window.TOTAL)})`;
+};
+window.POSTER = Math.min(2.5, B[0][1] - .2);
+draw(0);
+</script></body></html>
