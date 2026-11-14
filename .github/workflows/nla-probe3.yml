@@ -14,6 +14,6 @@ jobs:
         shell: bash
         run: |
           echo "::add-mask::$REELS_KEY"
-          sleep 30
+          sleep 5
           curl -sS --max-time 400 -G "https://api.football-legend.com/v2/fben/dry" --data-urlencode "key=$REELS_KEY" --data-urlencode "kinds=none" --data-urlencode "quotes=1" -o r.json || echo "no answer"
-          python3 -c "import json;d=json.load(open('r.json'));print(list(d.keys())[:30]);print(json.dumps(d.get('quotes'),ensure_ascii=False,indent=1)[:6000])" || head -c 1500 r.json
+          python3 -c "import json;d=json.load(open('r.json'));print(json.dumps(d['result'].get('quotes'),ensure_ascii=False,indent=1)[:6000])" || head -c 1500 r.json
