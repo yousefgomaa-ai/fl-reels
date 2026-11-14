@@ -1,4 +1,4 @@
-# One-off (owner, 2026-11-14): ask the owner before the Salah reel goes out, after the API's deploy. Never merged.
+# One-off (owner, 2026-11-14): queue the Süper Lig's November fixtures reel for the English page, after the API's deploy. Never merged.
 name: NLA probe 3
 on:
   push:
@@ -14,6 +14,6 @@ jobs:
         shell: bash
         run: |
           echo "::add-mask::$REELS_KEY"
-          sleep 170
-          curl -sS --max-time 400 -G "https://api.football-legend.com/v2/fben/dry" --data-urlencode "key=$REELS_KEY" --data-urlencode "kinds=none" --data-urlencode "arask=salah-hossam" -o r.json || echo "no answer"
-          python3 -c "import json;d=json.load(open('r.json'));print(json.dumps((d.get("result") or d).get("arask"), ensure_ascii=False))" || head -c 500 r.json
+          sleep 200
+          curl -sS --max-time 400 -G "https://api.football-legend.com/v2/fben/dry" --data-urlencode "key=$REELS_KEY" --data-urlencode "kinds=none" --data-urlencode "special=month-tur.1" -o r.json || echo "no answer"
+          head -c 800 r.json
