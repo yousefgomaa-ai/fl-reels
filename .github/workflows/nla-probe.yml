@@ -1,6 +1,5 @@
-# One-off (owner, 2026-11-13: the five leagues' managers reels): queue them one at a time, a render apart; La Liga again
-# with the faces framed. The API answers in about two minutes: a long timeout, and one failure does not stop the rest.
-# Never merged.
+# One-off (owner, 2026-11-13: the four new kinds): queue the samples one at a time, a render apart, after the API's deploy.
+# The API answers in about two minutes: a long timeout, and one failure does not stop the rest. Never merged.
 name: NLA probe
 on:
   push:
@@ -16,9 +15,9 @@ jobs:
         shell: bash
         run: |
           echo "::add-mask::$REELS_KEY"
-          sleep 240
-          for L in laliga pl seriea bund l1; do
-            curl -sS --max-time 400 -G "https://api.football-legend.com/v2/fben/dry" --data-urlencode "key=$REELS_KEY" --data-urlencode "special=coaches-$L" -o r.json || echo "$L: no answer"
-            python3 -c "import json;d=json.load(open('r.json'));print('$L', json.dumps((d.get('result') or {}).get('special')))" || true
-            [ "$L" = l1 ] || sleep 840
+          sleep 300
+          for S in number-kane said-mourinho mirror-esposito next-pochettino; do
+            curl -sS --max-time 400 -G "https://api.football-legend.com/v2/fben/dry" --data-urlencode "key=$REELS_KEY" --data-urlencode "kinds=none" --data-urlencode "special=$S" -o r.json || echo "$S: no answer"
+            python3 -c "import json;d=json.load(open('r.json'));print('$S', json.dumps((d.get('result') or d).get('special')))" || head -c 300 r.json
+            [ "$S" = next-pochettino ] || sleep 840
           done
