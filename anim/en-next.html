@@ -1,0 +1,120 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends «THE NUMBERS BEHIND THE NEWS» (owner, 2026-11-13: «ركوب الترند» approved with the other three): the day's big
+   story (a new manager, a signing) told with our data within hours, where the big pages post only the photo. A breaking
+   headline over the man; his record club by club, each win rate raced as a bar; what comes next, game by game, with the
+   crests, dates and venues (OneFootball's «Pochettino's next four games», 9.7K); the question. */
+.scr{position:absolute;inset:0;opacity:0}
+.flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:60;pointer-events:none}
+.cr{position:absolute;left:24px;bottom:18px;font:500 19px O,Arial;color:rgba(255,255,255,.75);z-index:5;text-shadow:0 1px 4px rgba(0,0,0,.8)}
+/* the news */
+#nw .ph{position:absolute;inset:0;overflow:hidden}#nw .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#nw .ph:after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,0) 30%,rgba(var(--bx),.7) 58%,rgba(var(--bx),.98) 80%)}
+#nw .tg{position:absolute;left:0;top:1030px;padding:14px 60px 10px 56px;background:#e3122c;font:400 92px/1 B;letter-spacing:10px;clip-path:polygon(0 0,100% 0,94% 100%,0 100%);box-shadow:0 10px 30px rgba(0,0,0,.5)}
+#nw .tg i{display:inline-block;width:26px;height:26px;border-radius:50%;background:#fff;margin-right:22px;vertical-align:middle;position:relative;top:-8px}
+#nw .h{position:absolute;left:56px;right:56px;top:1170px;font:400 124px/0.92 B;letter-spacing:2px;text-shadow:0 8px 30px rgba(0,0,0,.6)}#nw .h i{font-style:normal;color:#ffd21f}
+#nw .s{position:absolute;left:58px;right:58px;top:1660px;font:700 42px/1.25 O;letter-spacing:4px;color:var(--kc)}
+#nw .lg{position:absolute;right:56px;top:860px;width:190px;height:190px;object-fit:contain;filter:drop-shadow(0 10px 30px rgba(0,0,0,.6))}
+/* the record */
+#rc .h{position:absolute;left:50px;right:50px;top:190px;font:400 104px/0.95 B;letter-spacing:2px}#rc .h i{font-style:normal;color:#ffd21f}
+#rc .hd{position:absolute;left:50px;right:50px;top:420px;display:flex;font:700 28px O;letter-spacing:4px;color:var(--sm)}
+#rc .hd span:first-child{flex:1}#rc .hd span:last-child{width:170px;text-align:right}
+#rc .ls{position:absolute;left:50px;right:50px;top:470px;display:flex;flex-direction:column;gap:18px}
+#rc .r{position:relative;height:150px;border-radius:24px;background:rgba(0,0,0,.42);border:3px solid rgba(var(--kl),.35);overflow:hidden;opacity:0}
+#rc .r .fi{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,rgba(var(--kl),.12),rgba(var(--kl),.38))}
+#rc .r.best{border-color:#ffd21f}#rc .r.best .fi{background:linear-gradient(90deg,rgba(255,210,31,.15),rgba(255,210,31,.45))}
+#rc .r .in{position:absolute;inset:0;display:flex;align-items:center;gap:24px;padding:0 30px}
+#rc .r img{flex:none;width:96px;height:96px;object-fit:contain}
+#rc .r .nm{flex:1}#rc .r .nm b{display:block;font:400 62px/1 B;letter-spacing:2px}#rc .r .nm small{display:block;margin-top:6px;font:700 28px O;letter-spacing:2px;color:var(--sm)}
+#rc .r .pc{width:200px;text-align:right;font:400 96px/1 B}#rc .r .pc em{font-style:normal;font-size:56px}
+#rc .r.best .pc{color:#ffd21f}
+#rc .ft{position:absolute;left:50px;right:50px;top:1720px;text-align:center;font:700 34px O;letter-spacing:3px;color:var(--sm)}
+/* what comes next */
+#fx .h{position:absolute;left:50px;right:50px;top:190px;font:400 110px/0.95 B;letter-spacing:2px}#fx .h i{font-style:normal;color:#ffd21f}
+#fx .ls{position:absolute;left:50px;right:50px;top:460px;display:flex;flex-direction:column;gap:26px}
+#fx .g{display:flex;align-items:center;gap:30px;height:240px;padding:0 34px;border-radius:30px;background:rgba(0,0,0,.45);border:4px solid rgba(var(--kl),.5);opacity:0}
+#fx .g .n{flex:none;width:96px;height:96px;border-radius:50%;background:#ffd21f;color:#040a2e;display:flex;align-items:center;justify-content:center;font:400 72px/1 B}
+#fx .g img{flex:none;width:150px;height:150px;object-fit:contain;filter:drop-shadow(0 8px 20px rgba(0,0,0,.5))}
+#fx .g .tx{flex:1}#fx .g .tx b{display:block;font:400 76px/1 B;letter-spacing:2px}#fx .g .tx small{display:block;margin-top:8px;font:700 32px O;letter-spacing:3px;color:var(--sm)}
+#fx .g .ha{flex:none;padding:8px 20px;border-radius:14px;border:4px solid var(--kc);font:400 54px/1 B;letter-spacing:2px;color:var(--kc)}
+#fx .g .ha.h1{border-color:#ffd21f;color:#ffd21f}
+/* the question */
+#en .h{position:absolute;left:50px;right:50px;top:360px;text-align:center;font:400 128px/0.95 B;letter-spacing:2px}#en .h i{font-style:normal;color:#ffd21f}
+#en .fc{position:absolute;left:50%;top:760px;width:480px;height:480px;margin-left:-240px;border-radius:50%;overflow:hidden;border:9px solid #ffd21f;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+#en .fc img{width:100%;height:100%;object-fit:cover}
+#cta{position:absolute;left:40px;right:40px;top:1360px;text-align:center;font:400 88px B;letter-spacing:3px;color:#ffd21f}
+</style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div>
+<div class="scr" id="nw"><div class="ph"><img></div><img class="lg"><div class="tg"><i></i></div><div class="h"></div><div class="s"></div><div class="cr"></div></div>
+<div class="scr" id="rc"><div class="h"></div><div class="hd"><span></span><span>WIN %</span></div><div class="ls"></div><div class="ft"></div></div>
+<div class="scr" id="fx"><div class="h"></div><div class="ls"></div></div>
+<div class="scr" id="en"><div class="h"></div><div class="fc"><img></div><div id="cta"></div></div>
+<div class="flash" id="fl"></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA, W = D.who || {}, R = (D.record && D.record.rows) || [], F = (D.fixtures && D.fixtures.rows) || [];
+const S = [{ t: 'nw' }, ...(R.length ? [{ t: 'rc' }] : []), ...(F.length ? [{ t: 'fx' }] : []), { t: 'en' }];
+const mins = D.minBeats || S.map((s) => ({ nw: 4, rc: 3 + .7 * R.length, fx: 2.4 + .9 * F.length, en: 3.6 }[s.t]));
+const B = D.beats || (() => { let t = 0; return mins.map((m) => { const b = [t, m]; t += m; return b; }); })();
+window.TOTAL = B[B.length - 1][0] + B[B.length - 1][1];
+const q = (id, sel) => $(id).querySelector(sel), c01 = (x) => Math.min(1, Math.max(0, x));
+q('nw', '.ph img').src = W.photo || ''; q('nw', '.ph img').style.objectPosition = W.pos || '50% 20%';
+if (D.logo) q('nw', '.lg').src = D.logo; else q('nw', '.lg').remove();
+q('nw', '.tg').insertAdjacentText('beforeend', D.tag || 'BREAKING'); q('nw', '.h').innerHTML = D.head || ''; q('nw', '.s').innerHTML = D.sub || '';
+q('nw', '.cr').textContent = W.credit ? '📷 ' + W.credit : '';
+const pct = (r) => (r.p ? 100 * r.w / r.p : 0), best = R.reduce((b, r, i) => (pct(r) > pct(R[b] || {}) ? i : b), 0);
+if (R.length) {
+  q('rc', '.h').innerHTML = D.record.title || 'HIS RECORD, <i>CLUB BY CLUB</i>'; q('rc', '.hd span').textContent = D.record.head || 'CLUB • GAMES • W-D-L';
+  q('rc', '.ls').innerHTML = R.map((r, i) => `<div class="r${i === best ? ' best' : ''}"><div class="fi"></div><div class="in">${r.logo ? `<img src="${r.logo}">` : ''}<div class="nm"><b>${r.club}</b><small>${r.years} • ${r.p} GAMES • ${r.w}-${r.d}-${r.l}</small></div><div class="pc">0<em>%</em></div></div></div>`).join('');
+  q('rc', '.ft').textContent = D.record.foot || '';
+  // a long record is set closer
+  // the rows fill the frame down to the footnote, a long record set closer
+  const rh = Math.min(200, Math.floor(1180 / R.length) - 18); q('rc', '.ls').querySelectorAll('.r').forEach((r) => { r.style.height = rh + 'px'; });
+}
+if (F.length) {
+  q('fx', '.h').innerHTML = D.fixtures.title || 'WHAT COMES <i>NEXT</i>';
+  q('fx', '.ls').innerHTML = F.map((g, i) => `<div class="g"><div class="n">${i + 1}</div>${g.logo ? `<img src="${g.logo}">` : ''}<div class="tx"><b>${g.opp}</b><small>${g.date} • ${g.comp}</small></div><div class="ha${g.ha === 'H' ? ' h1' : ''}">${g.ha === 'H' ? 'HOME' : 'AWAY'}</div></div>`).join('');
+  if (F.length > 4) { q('fx', '.ls').style.gap = '16px'; q('fx', '.ls').querySelectorAll('.g').forEach((g) => { g.style.height = (1300 / F.length - 16) + 'px'; }); }
+}
+q('en', '.h').innerHTML = D.endH || 'WHAT DO YOU <i>EXPECT?</i>'; q('en', '.fc img').src = W.photo || ''; q('en', '.fc img').style.objectPosition = W.pos || '50% 20%';
+$('cta').textContent = D.cta || 'COMMENT BELOW 👇';
+window.draw = (t) => {
+  const bi = B.findIndex(([s0, l0]) => t >= s0 && t < s0 + l0), k = bi < 0 ? B.length - 1 : bi, [s0, l] = B[k], u = t - s0, s = S[k];
+  for (const id of ['nw', 'rc', 'fx', 'en']) if (id !== s.t) $(id).style.opacity = 0;
+  const sc = $(s.t), last = k === S.length - 1;
+  sc.style.opacity = last ? ease(u / .3) : Math.min(ease(u / .22), 1 - ease((u - l + .22) / .22));
+  let fl = 0;
+  if (s.t === 'nw') {
+    q('nw', '.ph img').style.transform = `scale(${1.14 - .1 * c01(u / l)})`;
+    const tg = q('nw', '.tg'); tg.style.transform = `translateX(${(1 - ease(u / .35)) * -700}px)`; tg.querySelector('i').style.opacity = Math.sin(u * 8) > 0 ? 1 : .2;
+    const h = q('nw', '.h'); h.style.opacity = ease((u - .35) / .3); h.style.transform = `translateY(${(1 - ease((u - .35) / .4)) * 60}px)`;
+    q('nw', '.s').style.opacity = ease((u - 1) / .3);
+    const lg = q('nw', '.lg'); if (lg) lg.style.transform = `scale(${u < .6 ? 0 : u < 1.05 ? back((u - .6) / .45) : 1 + .03 * Math.sin(u * 4)})`;
+    if (u < .15) fl = .5 * (1 - u / .15);
+  }
+  if (s.t === 'rc') {
+    q('rc', '.h').style.opacity = ease(u / .3); q('rc', '.hd').style.opacity = ease((u - .3) / .3);
+    const per = Math.min(.7, (l - 2) / Math.max(1, R.length));
+    [...q('rc', '.ls').children].forEach((r, i) => {
+      const a = (u - .4 - i * per) / .3, g = c01((u - .55 - i * per) / .8), v = pct(R[i]);
+      r.style.opacity = ease(a); r.style.transform = `translateX(${(1 - ease(a)) * -140}px)` + (i === best && g >= 1 ? ` scale(${1 + .015 * Math.sin(u * 5)})` : '');
+      r.querySelector('.fi').style.width = (v * ease(g)) + '%';
+      r.querySelector('.pc').innerHTML = `${(v * ease(g)).toFixed(0)}<em>%</em>`;
+    });
+    q('rc', '.ft').style.opacity = ease((u - .5 - R.length * per) / .3);
+  }
+  if (s.t === 'fx') {
+    q('fx', '.h').style.opacity = ease(u / .3); q('fx', '.h').style.transform = `scale(${1.1 - .1 * ease(u / .4)})`;
+    const per = Math.min(.9, (l - 1.4) / Math.max(1, F.length));
+    [...q('fx', '.ls').children].forEach((g, i) => { const a = (u - .5 - i * per) / .35; g.style.opacity = ease(a); g.style.transform = `translateX(${(1 - ease(a)) * (i % 2 ? 180 : -180)}px)`;
+      g.querySelector('img') && (g.querySelector('img').style.transform = `scale(${a < 1 ? .5 + .5 * back(c01(a)) : 1})`); });
+  }
+  if (s.t === 'en') {
+    q('en', '.h').style.transform = `scale(${1.12 - .12 * ease(u / .4)})`;
+    const fc = q('en', '.fc'); fc.style.transform = `scale(${u < .25 ? .6 : u < .7 ? .6 + .4 * back((u - .25) / .45) : 1 + .02 * Math.sin(u * 4)})`; fc.style.opacity = ease((u - .25) / .3);
+    $('cta').style.opacity = ease((u - .8) / .3);
+  }
+  $('fl').style.opacity = fl;
+};
+window.POSTER = Math.min(2.2, B[0][1] - .3);
+window.COVER = B[0][0] + 2.2;
+progBar();
+draw(0);
+</script></body></html>

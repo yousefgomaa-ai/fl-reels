@@ -1,0 +1,109 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends «WHO SAID IT?» (owner, 2026-11-13: «نفذهم كلهم بس اهم حاجة التصميم و الدقة»): a real quote, its source
+   named, as a game (the quote card won at OneFootball, 9.9K, and was Football Funnys' best post). The words come up one by
+   one under huge quote marks; three faces to pick from, A, B or C, with a countdown; the speaker revealed, the others
+   dimmed, the quote again with when and where it was said; the question. */
+.scr{position:absolute;inset:0;opacity:0}
+.flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:60;pointer-events:none}
+/* the quote */
+#qt .mk{position:absolute;left:40px;top:330px;font:400 620px/1 B;color:#ffd21f;opacity:.9;text-shadow:0 0 80px rgba(255,210,31,.35)}
+#qt .tx{position:absolute;left:70px;right:70px;top:760px;font:400 112px/1.02 B;letter-spacing:2px}
+#qt .tx span{opacity:0;display:inline-block;margin-right:.24em}#qt .tx span.k{color:#ffd21f}
+#qt .s{position:absolute;left:0;right:0;top:1560px;text-align:center}
+#qt .s b{display:inline-block;padding:14px 46px;border-radius:60px;background:#ffd21f;color:#040a2e;font:400 92px/1 B;letter-spacing:4px;box-shadow:0 14px 40px rgba(0,0,0,.5)}
+/* the choice */
+#ch .h{position:absolute;left:40px;right:40px;top:200px;text-align:center;font:400 120px/1 B;letter-spacing:3px}#ch .h i{font-style:normal;color:#ffd21f}
+#ch .qs{position:absolute;left:80px;right:80px;top:350px;text-align:center;font:700 40px/1.3 O;color:var(--sm);letter-spacing:1px}
+#ch .op{position:absolute;left:60px;right:60px;display:flex;align-items:center;gap:34px;padding:22px 30px;border-radius:200px;background:rgba(0,0,0,.45);border:5px solid rgba(var(--kl),.55)}
+#ch .op .fc{flex:none;width:250px;height:250px;border-radius:50%;overflow:hidden;border:6px solid var(--kc)}#ch .op .fc img{width:100%;height:100%;object-fit:cover}
+#ch .op .lt{flex:none;width:120px;height:120px;border-radius:50%;background:#ffd21f;color:#040a2e;display:flex;align-items:center;justify-content:center;font:400 96px/1 B}
+#ch .op .nm{font:400 96px/0.95 B;letter-spacing:2px}
+#ch .op.ok{border-color:#2fe37a;background:rgba(10,60,30,.75);box-shadow:0 0 60px rgba(47,227,122,.45)}#ch .op.ok .fc{border-color:#2fe37a}#ch .op.ok .lt{background:#2fe37a}
+#ch .tm{position:absolute;right:70px;top:1700px;width:150px;height:150px}
+#ch .tm svg{position:absolute;inset:0;transform:rotate(-90deg)}#ch .tm b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:400 96px/1 B;color:#ffd21f}
+#ch .cm{position:absolute;left:70px;top:1735px;font:700 46px O;letter-spacing:4px;color:var(--kc)}
+/* the answer */
+#an .ph{position:absolute;left:0;right:0;top:0;height:1180px;overflow:hidden}#an .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#an .ph:after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,0) 40%,rgba(var(--bx),.85) 82%,rgba(var(--bx),1))}
+#an .ok{position:absolute;right:60px;top:180px;width:170px;height:170px;border-radius:50%;background:#2fe37a;color:#04210f;display:flex;align-items:center;justify-content:center;font:400 130px/1 B;box-shadow:0 0 50px rgba(47,227,122,.7);z-index:2}
+#an .nm{position:absolute;left:56px;right:56px;bottom:860px;font:400 150px/0.88 B;letter-spacing:2px;z-index:2;text-shadow:0 8px 30px rgba(0,0,0,.6)}
+#an .cx{position:absolute;left:58px;right:58px;top:1090px;font:700 34px O;letter-spacing:4px;color:var(--kc);z-index:2}
+#an .tx{position:absolute;left:58px;right:58px;top:1180px;padding-left:34px;border-left:10px solid #ffd21f;font:400 76px/1.04 B;letter-spacing:1px;z-index:2}
+#an .so{position:absolute;left:58px;right:58px;top:1700px;font:500 30px/1.3 O;color:rgba(255,255,255,.7);z-index:2}
+#an .cr{position:absolute;left:24px;bottom:18px;font:500 19px O,Arial;color:rgba(255,255,255,.75);z-index:5}
+/* the question */
+#en .h{position:absolute;left:50px;right:50px;top:380px;text-align:center;font:400 130px/0.95 B;letter-spacing:2px}#en .h i{font-style:normal;color:#ffd21f}
+#en .fc{position:absolute;left:50%;top:700px;width:520px;height:520px;margin-left:-260px;border-radius:50%;overflow:hidden;border:9px solid #ffd21f;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+#en .fc img{width:100%;height:100%;object-fit:cover}
+#cta{position:absolute;left:40px;right:40px;top:1360px;text-align:center;font:400 88px B;letter-spacing:3px;color:#ffd21f}
+</style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div>
+<div class="scr" id="qt"><div class="mk">“</div><div class="tx"></div><div class="s"><b>WHO SAID IT?</b></div></div>
+<div class="scr" id="ch"><div class="h">WHO SAID <i>IT?</i></div><div class="qs"></div><div class="ops"></div>
+  <div class="cm">COMMENT A, B OR C 👇</div><div class="tm"><svg viewBox="0 0 150 150"><circle cx="75" cy="75" r="66" fill="none" stroke="rgba(255,255,255,.15)" stroke-width="12"/><circle class="rg" cx="75" cy="75" r="66" fill="none" stroke="#ffd21f" stroke-width="12" stroke-linecap="round" stroke-dasharray="415" stroke-dashoffset="0"/></svg><b>3</b></div></div>
+<div class="scr" id="an"><div class="ph"><img></div><div class="ok">✓</div><div class="nm"></div><div class="cx"></div><div class="tx"></div><div class="so"></div><div class="cr"></div></div>
+<div class="scr" id="en"><div class="h"></div><div class="fc"><img></div><div id="cta"></div></div>
+<div class="flash" id="fl"></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA, O = (D.options || []).slice(0, 3), A = O[D.answer || 0] || {};
+const S = [{ t: 'qt' }, { t: 'ch' }, { t: 'an' }, { t: 'en' }];
+const mins = D.minBeats || [4.6, 5.2, 5.4, 3.6];
+const B = D.beats || (() => { let t = 0; return mins.map((m) => { const b = [t, m]; t += m; return b; }); })();
+window.TOTAL = B[B.length - 1][0] + B[B.length - 1][1];
+const q = (id, sel) => $(id).querySelector(sel), c01 = (x) => Math.min(1, Math.max(0, x));
+// the quote, word by word; words wrapped in *stars* in DATA.quote are lit in gold
+const words = String(D.quote || '').split(/\s+/).filter(Boolean);
+q('qt', '.tx').innerHTML = words.map((w) => { const k = /^\*.*\*[.,!?]*$/.test(w); return `<span${k ? ' class="k"' : ''}>${w.replace(/\*/g, '')}</span>`; }).join('');
+// a long quote is set smaller so it always fits between the marks and the button
+const len = words.join(' ').length; q('qt', '.tx').style.fontSize = (len > 150 ? 82 : len > 100 ? 96 : 112) + 'px';
+q('ch', '.qs').textContent = '“' + words.join(' ').replace(/\*/g, '') + '”';
+q('ch', '.ops').innerHTML = O.map((o, i) => `<div class="op" style="top:${560 + i * 360}px"><div class="lt">${'ABC'[i]}</div><div class="fc"><img src="${o.photo || ''}" style="object-position:${o.pos || '50% 20%'}"></div><div class="nm">${o.name}</div></div>`).join('');
+q('an', '.ph img').src = A.photo || ''; q('an', '.ph img').style.objectPosition = A.pos || '50% 20%';
+q('an', '.nm').innerHTML = A.full || A.name || ''; q('an', '.cx').textContent = D.context || '';
+q('an', '.tx').textContent = '“' + words.join(' ').replace(/\*/g, '') + '”'; q('an', '.so').textContent = D.source ? 'Source: ' + D.source : '';
+q('an', '.cr').textContent = A.credit ? '📷 ' + A.credit : '';
+q('en', '.h').innerHTML = D.endH || 'DID YOU <i>GET IT?</i>'; q('en', '.fc img').src = A.photo || ''; q('en', '.fc img').style.objectPosition = A.pos || '50% 20%';
+$('cta').textContent = D.cta || 'COMMENT BELOW 👇';
+// the quote's long answer line: a smaller size when it runs long
+q('an', '.tx').style.fontSize = (len > 150 ? 56 : len > 100 ? 64 : 76) + 'px';
+window.draw = (t) => {
+  const bi = B.findIndex(([s0, l0]) => t >= s0 && t < s0 + l0), k = bi < 0 ? B.length - 1 : bi, [s0, l] = B[k], u = t - s0, s = S[k];
+  for (const id of ['qt', 'ch', 'an', 'en']) if (id !== s.t) $(id).style.opacity = 0;
+  const sc = $(s.t), last = k === S.length - 1;
+  sc.style.opacity = last ? ease(u / .3) : Math.min(ease(u / .22), 1 - ease((u - l + .22) / .22));
+  let fl = 0;
+  if (s.t === 'qt') {
+    q('qt', '.mk').style.transform = `scale(${u < .4 ? 1.6 - .6 * back(u / .4) : 1 + .03 * Math.sin(u * 4)})`;
+    const sp = [...q('qt', '.tx').children], per = Math.min(.22, (l - 1.6) / Math.max(1, sp.length));
+    sp.forEach((w, i) => { const a = ease((u - .35 - i * per) / .18); w.style.opacity = a; w.style.transform = `translateY(${(1 - a) * 30}px)`; });
+    const bt = q('qt', '.s b'), b0 = .35 + sp.length * per + .1; bt.style.opacity = ease((u - b0) / .25);
+    bt.style.transform = `scale(${u < b0 ? .5 : u < b0 + .4 ? .5 + .5 * back((u - b0) / .4) : 1 + .04 * Math.sin(u * 6)})`;
+  }
+  if (s.t === 'ch') {
+    q('ch', '.h').style.transform = `scale(${1.15 - .15 * ease(u / .35)})`; q('ch', '.qs').style.opacity = ease((u - .2) / .3);
+    [...q('ch', '.ops').children].forEach((o, i) => { const a = (u - .3 - i * .22) / .35; o.style.opacity = ease(a); o.style.transform = `translateX(${(1 - ease(a)) * (i % 2 ? 160 : -160)}px)`; o.classList.remove('ok'); });
+    const r0 = 1.2, n = Math.max(1, 3 - Math.floor((u - r0) / ((l - r0) / 3))), f = c01((u - r0) / (l - r0));
+    q('ch', '.tm').style.opacity = ease((u - r0 + .3) / .3); q('ch', '.tm b').textContent = u < r0 ? 3 : n;
+    q('ch', '.rg').setAttribute('stroke-dashoffset', String(415 * f));
+    q('ch', '.cm').style.opacity = ease((u - .9) / .3) * (.75 + .25 * Math.sin(u * 5));
+  }
+  if (s.t === 'an') {
+    fl = u < .3 ? .8 * (1 - u / .3) : 0;
+    q('an', '.ph img').style.transform = `scale(${1.14 - .1 * c01(u / l)})`;
+    const ok = q('an', '.ok'); ok.style.transform = `scale(${u < .3 ? 0 : u < .75 ? back((u - .3) / .45) : 1 + .05 * Math.sin(u * 6)})`;
+    const nm = q('an', '.nm'); nm.style.opacity = ease((u - .2) / .25); nm.style.transform = `translateY(${(1 - ease((u - .2) / .4)) * 60}px)`;
+    q('an', '.cx').style.opacity = ease((u - .6) / .3);
+    const tx = q('an', '.tx'); tx.style.opacity = ease((u - .9) / .3); tx.style.transform = `translateX(${(1 - ease((u - .9) / .4)) * 80}px)`;
+    q('an', '.so').style.opacity = ease((u - 1.4) / .3);
+  }
+  if (s.t === 'en') {
+    q('en', '.h').style.transform = `scale(${1.12 - .12 * ease(u / .4)})`;
+    const fc = q('en', '.fc'); fc.style.transform = `scale(${u < .25 ? .6 : u < .7 ? .6 + .4 * back((u - .25) / .45) : 1 + .02 * Math.sin(u * 4)})`; fc.style.opacity = ease((u - .25) / .3);
+    $('cta').style.opacity = ease((u - .8) / .3);
+  }
+  $('fl').style.opacity = fl;
+};
+window.POSTER = Math.min(3.6, B[0][1] - .3);
+window.COVER = B[2][0] + 2.4;
+progBar();
+draw(0);
+</script></body></html>

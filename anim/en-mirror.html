@@ -1,0 +1,193 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* FB Legends «LEGEND MIRROR» (owner, 2026-11-13: «نفذهم كلهم بس اهم حاجة التصميم و الدقة»): a player of today set against
+   a legend on the same number (OneFootball's Esposito v Totti, 9 goals in 14 games against 9 in 58: 9.8K likes where the
+   numbers alone got 279). The hook shows today's man and his number, the legend hidden in a circle; three clues sharpen
+   the legend's photo while the viewers guess in the comments; a countdown; the two faces split on a diagonal with the
+   same number and their games; a rate per game raced as two bars; the question. One beat a spoken line. */
+.scr{position:absolute;inset:0;opacity:0}
+.ph{position:absolute;overflow:hidden}.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:60;pointer-events:none}
+.cr{position:absolute;font:500 19px O,Arial;color:rgba(255,255,255,.75);z-index:5;text-shadow:0 1px 4px rgba(0,0,0,.8)}
+/* the hook: today's man full height, his number huge, the legend a blurred circle with a question mark */
+#hk .ph{inset:0}#hk .ph:after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.15) 0%,rgba(0,0,0,0) 30%,rgba(var(--bx),.55) 55%,rgba(var(--bx),.98) 80%)}
+#hk .ci{position:absolute;right:46px;top:760px;width:300px;height:300px;border-radius:50%;overflow:hidden;border:8px solid #ffd21f;box-shadow:0 0 0 10px rgba(0,0,0,.35),0 20px 60px rgba(0,0,0,.6)}
+#hk .ci img{width:100%;height:100%;object-fit:cover;filter:blur(18px) brightness(.55)}
+#hk .ci b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:400 260px/1 B;color:#ffd21f;text-shadow:0 0 40px rgba(0,0,0,.7)}
+#hk .nm{position:absolute;left:60px;top:1060px;font:700 46px O;letter-spacing:8px;color:var(--kc)}
+#hk .big{position:absolute;left:44px;top:1110px;display:flex;align-items:flex-end;gap:26px}
+#hk .big b{font:400 440px/0.8 B;color:#ffd21f;text-shadow:0 0 60px rgba(255,210,31,.35)}
+#hk .big span{font:400 92px/0.9 B;letter-spacing:2px;padding-bottom:24px}#hk .big span i{font-style:normal;color:var(--kc)}
+#hk .t{position:absolute;left:60px;right:60px;top:1500px;font:400 104px/0.95 B;letter-spacing:2px}#hk .t i{font-style:normal;color:#ffd21f}
+#hk .s{position:absolute;left:60px;right:60px;top:1730px;font:700 44px O;letter-spacing:6px;color:var(--kc)}
+/* the clues: the legend's photo in the top half, sharper with each clue; the clues stacked below */
+#cl .ph{left:0;right:0;top:0;height:1040px}#cl .ph img{object-position:50% 20%}
+#cl .ph:after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(var(--bx),.2),rgba(var(--bx),0) 40%,rgba(var(--bx),1))}
+#cl .q{position:absolute;left:0;right:0;top:250px;text-align:center;font:400 560px/1 B;color:#ffd21f;text-shadow:0 0 80px rgba(0,0,0,.8);z-index:2}
+#cl .hd{position:absolute;left:0;right:0;top:860px;text-align:center;font:400 104px/1 B;letter-spacing:3px;z-index:2}#cl .hd i{font-style:normal;color:#ffd21f}
+#cl .ls{position:absolute;left:50px;right:50px;top:1020px;display:flex;flex-direction:column;gap:30px;z-index:2}
+#cl .k{display:flex;align-items:center;gap:30px;padding:30px 34px;border-radius:26px;background:rgba(0,0,0,.5);border:4px solid rgba(var(--kl),.55);opacity:0}
+#cl .k b{flex:none;width:118px;height:118px;border-radius:50%;background:#ffd21f;color:#040a2e;display:flex;align-items:center;justify-content:center;font:400 86px/1 B}
+#cl .k span{font:400 78px/1 B;letter-spacing:2px}
+#cl .k.on{border-color:#ffd21f;background:rgba(var(--bx),.92);box-shadow:0 0 40px rgba(255,210,31,.35)}
+#cl .gs{position:absolute;left:0;right:0;top:1650px;text-align:center;font:700 42px O;letter-spacing:5px;color:var(--kc);z-index:2}
+/* the countdown */
+#cd .bl{position:absolute;inset:-80px;width:calc(100% + 160px);height:calc(100% + 160px);object-fit:cover;filter:blur(36px) brightness(.4)}
+#cd .h{position:absolute;left:0;right:0;top:430px;text-align:center;font:400 120px/1 B;letter-spacing:4px}
+#cd .k{position:absolute;left:0;right:0;top:640px;text-align:center;font:400 620px/1 B;color:#ffd21f;text-shadow:0 0 80px rgba(255,210,31,.5)}
+/* the reveal: the legend above a diagonal, today's man below, the same number on the seam */
+#rv .ph.a{left:0;right:0;top:0;height:1060px;clip-path:polygon(0 0,100% 0,100% 82%,0 100%)}
+#rv .ph.b{left:0;right:0;top:860px;height:1060px;clip-path:polygon(0 18%,100% 0,100% 100%,0 100%)}
+#rv .ph.a:after,#rv .ph.b:after{content:'';position:absolute;inset:0}
+#rv .ph.a:after{background:linear-gradient(rgba(var(--bx),0) 45%,rgba(var(--bx),.85))}#rv .ph.b:after{background:linear-gradient(rgba(var(--bx),.85),rgba(var(--bx),0) 40%,rgba(var(--bx),0) 60%,rgba(var(--bx),.9))}
+#rv .seam{position:absolute;left:-20px;right:-20px;top:957px;height:14px;background:#ffd21f;transform:rotate(-10.6deg);box-shadow:0 0 30px rgba(255,210,31,.8);z-index:3}
+#rv .tg{position:absolute;z-index:4;display:flex;flex-direction:column;gap:6px}
+#rv .tg .n{font:400 112px/0.9 B;letter-spacing:2px;text-shadow:0 6px 24px rgba(0,0,0,.7)}
+#rv .tg .f{display:flex;align-items:baseline;gap:16px}#rv .tg .f b{font:400 170px/0.85 B;color:#ffd21f;text-shadow:0 0 40px rgba(0,0,0,.6)}
+#rv .tg .f span{font:400 64px/1 B;letter-spacing:2px}#rv .tg .f span i{font-style:normal;color:var(--kc)}
+#rv .tg.a{left:56px;top:380px}#rv .tg.b{right:56px;top:1440px;align-items:flex-end;text-align:right}
+#rv .tg .lb{display:inline-block;align-self:flex-start;padding:6px 22px;border-radius:10px;background:#ffd21f;color:#040a2e;font:400 50px/1.05 B;letter-spacing:3px}
+#rv .tg.b .lb{align-self:flex-end;background:var(--kc)}
+#rv .mid{position:absolute;left:50%;top:900px;transform:translateX(-50%) rotate(-10.6deg);z-index:5;padding:10px 40px;border-radius:16px;background:#040a2e;border:5px solid #ffd21f;font:400 74px/1 B;letter-spacing:4px;white-space:nowrap;box-shadow:0 10px 40px rgba(0,0,0,.6)}
+#rv .mid i{font-style:normal;color:#ffd21f}
+#rv .cra{left:24px;top:1010px}#rv .crb{left:24px;bottom:18px}
+/* the race: goals per game as two bars */
+#ra .h{position:absolute;left:50px;right:50px;top:250px;text-align:center;font:400 112px/0.95 B;letter-spacing:2px}#ra .h i{font-style:normal;color:#ffd21f}
+#ra .row{position:absolute;left:50px;right:50px;display:flex;align-items:center;gap:28px}
+#ra .row .fc{flex:none;width:250px;height:250px;border-radius:50%;overflow:hidden;border:7px solid var(--kc);box-shadow:0 14px 40px rgba(0,0,0,.5)}
+#ra .row .fc img{width:100%;height:100%;object-fit:cover}
+#ra .row .bx{flex:1}#ra .row .nm{font:400 70px/1 B;letter-spacing:2px;margin-bottom:12px}
+#ra .row .tr{position:relative;height:96px;border-radius:48px;background:rgba(255,255,255,.08);overflow:hidden}
+#ra .row .br{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:48px;background:linear-gradient(90deg,var(--kc),#ffd21f)}
+#ra .row .v{position:absolute;right:24px;top:0;bottom:0;display:flex;align-items:center;font:400 76px/1 B;letter-spacing:2px}
+#ra .row .sm{margin-top:10px;font:700 34px O;letter-spacing:3px;color:var(--sm)}
+#ra .r1{top:560px}#ra .r2{top:900px}#ra .r1 .fc{border-color:#ffd21f}
+#ra .x{position:absolute;left:40px;right:40px;top:1290px;text-align:center;font:400 300px/1 B;color:#ffd21f;text-shadow:0 0 60px rgba(255,210,31,.4)}
+#ra .xs{position:absolute;left:60px;right:60px;top:1560px;text-align:center;font:700 44px/1.25 O;letter-spacing:3px}
+/* the question */
+#en .h{position:absolute;left:50px;right:50px;top:330px;text-align:center;font:400 128px/0.95 B;letter-spacing:2px}#en .h i{font-style:normal;color:#ffd21f}
+#en .duo{position:absolute;left:0;right:0;top:780px;display:flex;justify-content:center;gap:60px}
+#en .duo div{width:380px;height:380px;border-radius:50%;overflow:hidden;border:8px solid var(--kc);box-shadow:0 20px 60px rgba(0,0,0,.6)}
+#en .duo div:first-child{border-color:#ffd21f}#en .duo img{width:100%;height:100%;object-fit:cover}
+#en .fx{position:absolute;left:60px;right:60px;top:1240px;text-align:center;font:700 46px/1.3 O;letter-spacing:2px;color:var(--sm)}
+#en .fx b{color:#fff}
+#cta{position:absolute;left:40px;right:40px;top:1560px;text-align:center;font:400 84px B;letter-spacing:3px;color:#ffd21f}
+.credit{bottom:18px;left:24px}
+</style></head><body><div class="bg"></div><div class="streak"></div><div class="logo">FB<i>LEGENDS</i></div>
+<div class="scr" id="hk"><div class="ph"><img></div><div class="ci"><img><b>?</b></div><div class="nm"></div><div class="big"><b></b><span></span></div><div class="t"></div><div class="s"></div><div class="cr" style="left:24px;bottom:18px"></div></div>
+<div class="scr" id="cl"><div class="ph"><img></div><div class="q">?</div><div class="hd"></div><div class="ls"></div><div class="gs">COMMENT YOUR GUESS 👇</div></div>
+<div class="scr" id="cd"><img class="bl"><div class="h">THE LEGEND IS…</div><div class="k">3</div></div>
+<div class="scr" id="rv"><div class="ph a"><img></div><div class="ph b"><img></div><div class="seam"></div>
+  <div class="tg a"><div class="lb"></div><div class="n"></div><div class="f"><b></b><span></span></div></div>
+  <div class="tg b"><div class="lb"></div><div class="n"></div><div class="f"><b></b><span></span></div></div>
+  <div class="mid"></div><div class="cr cra"></div><div class="cr crb"></div></div>
+<div class="scr" id="ra"><div class="h"></div>
+  <div class="row r1"><div class="fc"><img></div><div class="bx"><div class="nm"></div><div class="tr"><div class="br"></div><div class="v"></div></div><div class="sm"></div></div></div>
+  <div class="row r2"><div class="fc"><img></div><div class="bx"><div class="nm"></div><div class="tr"><div class="br"></div><div class="v"></div></div><div class="sm"></div></div></div>
+  <div class="x"></div><div class="xs"></div></div>
+<div class="scr" id="en"><div class="h"></div><div class="duo"><div><img></div><div><img></div></div><div class="fx"></div><div id="cta"></div></div>
+<div class="flash" id="fl"></div>
+<script src="lib.js"></script><script src="en-lib.js"></script><script>
+const D = window.DATA, N = D.now || {}, L = D.legend || {}, ST = D.stat || {}, CL = (D.clues || []).slice(0, 3);
+// the beats: hook, one per clue, the countdown, the reveal, the race, the question
+const S = [{ t: 'hk' }, ...CL.map((c, i) => ({ t: 'cl', i })), { t: 'cd' }, { t: 'rv' }, { t: 'ra' }, { t: 'en' }];
+const mins = D.minBeats || S.map((s) => ({ hk: 3.4, cl: 3.6, cd: 2.4, rv: 4.6, ra: 4.6, en: 4.2 }[s.t]));
+const B = D.beats || (() => { let t = 0; return mins.map((m) => { const b = [t, m]; t += m; return b; }); })();
+window.TOTAL = B[B.length - 1][0] + B[B.length - 1][1];
+const q = (id, sel) => $(id).querySelector(sel), c01 = (x) => Math.min(1, Math.max(0, x));
+const img = (el, p) => { el.src = p.photo || ''; el.style.objectPosition = p.pos || '50% 20%'; };
+const rate = (g) => (ST.n / g).toFixed(2);
+// fixed parts
+img(q('hk', '.ph img'), N); q('hk', '.ci img').src = L.photo || ''; q('hk', '.nm').textContent = String(N.name || '').replace(/<br>/g, ' ');
+q('hk', '.big b').textContent = ST.n; q('hk', '.big span').innerHTML = `${ST.unit || 'GOALS'}<br><i>IN ${ST.nowGames} GAMES</i>`;
+q('hk', '.t').innerHTML = D.hook || ''; q('hk', '.s').textContent = D.hookSub || 'WHO IS IT?'; q('hk', '.cr').textContent = N.credit ? '📷 ' + N.credit : '';
+img(q('cl', '.ph img'), L); q('cl', '.hd').innerHTML = D.clueHead || `${ST.n} ${ST.unit || 'GOALS'} IN <i>${ST.legGames} GAMES</i>`;
+q('cl', '.ls').innerHTML = CL.map((c, i) => `<div class="k"><b>${i + 1}</b><span>${c}</span></div>`).join('');
+q('cd', '.bl').src = L.photo || '';
+img(q('rv', '.ph.a img'), L); img(q('rv', '.ph.b img'), N);
+q('rv', '.tg.a .lb').textContent = D.legLabel || 'THE LEGEND'; q('rv', '.tg.b .lb').textContent = D.nowLabel || 'NOW';
+q('rv', '.tg.a .n').innerHTML = L.name || ''; q('rv', '.tg.b .n').innerHTML = N.name || '';
+q('rv', '.tg.a .f b').textContent = ST.n; q('rv', '.tg.a .f span').innerHTML = `${ST.unit || 'GOALS'} IN <i>${ST.legGames}</i>`;
+q('rv', '.tg.b .f b').textContent = ST.n; q('rv', '.tg.b .f span').innerHTML = `${ST.unit || 'GOALS'} IN <i>${ST.nowGames}</i>`;
+q('rv', '.mid').innerHTML = D.mid || `SAME <i>${ST.n}</i> ${ST.unit || 'GOALS'}`;
+q('rv', '.cra').textContent = L.credit ? '📷 ' + L.credit : ''; q('rv', '.crb').textContent = N.credit ? '📷 ' + N.credit : '';
+q('ra', '.h').innerHTML = D.raceHead || `${ST.unit || 'GOALS'} PER <i>GAME</i>`;
+[[N, ST.nowGames, '.r1'], [L, ST.legGames, '.r2']].forEach(([p, g, r]) => {
+  q('ra', r + ' .fc img').src = p.photo || ''; q('ra', r + ' .fc img').style.objectPosition = p.pos || '50% 20%';
+  q('ra', r + ' .nm').innerHTML = p.short || p.name; q('ra', r + ' .sm').textContent = `${ST.n} IN ${g} ${ST.per || 'GAMES'}`;
+});
+const times = ST.legGames / ST.nowGames;
+q('ra', '.x').textContent = `${times >= 10 ? Math.round(times) : times.toFixed(1)}×`;
+q('ra', '.xs').innerHTML = D.raceSub || `${N.short || N.name} IS SCORING ${times >= 10 ? Math.round(times) : times.toFixed(1)} TIMES AS OFTEN`;
+q('en', '.h').innerHTML = D.endH || 'WHO DO YOU <i>PICK?</i>';
+[N, L].forEach((p, i) => { const im = q('en', '.duo').children[i].firstChild; im.src = p.photo || ''; im.style.objectPosition = p.pos || '50% 20%'; });
+q('en', '.fx').innerHTML = D.fact || ''; $('cta').textContent = D.cta || 'COMMENT BELOW 👇';
+// the clues sharpen the legend: heavily blurred at the first, still soft at the third (never named before the reveal)
+const BLUR = [44, 30, 18];
+window.draw = (t) => {
+  const bi = B.findIndex(([s0, l0]) => t >= s0 && t < s0 + l0), k = bi < 0 ? B.length - 1 : bi, [s0, l] = B[k], u = t - s0, s = S[k];
+  for (const id of ['hk', 'cl', 'cd', 'rv', 'ra', 'en']) if (id !== s.t) $(id).style.opacity = 0;
+  const sc = $(s.t), last = k === S.length - 1;
+  // the clues run as one screen: no fade between them
+  const inCl = s.t === 'cl', fIn = inCl && s.i > 0 ? 1 : ease(u / .25), fOut = inCl && s.i < CL.length - 1 ? 1 : 1 - ease((u - l + .25) / .25);
+  sc.style.opacity = last ? ease(u / .35) : Math.min(fIn, fOut);
+  let fl = 0;
+  if (s.t === 'hk') {
+    q('hk', '.ph img').style.transform = `scale(${1.12 - .08 * c01(u / l)})`;
+    const big = q('hk', '.big b'); big.style.transform = `scale(${u < .45 ? 2.2 - 1.2 * back(u / .45) : 1 + .025 * Math.sin(u * 6)})`; big.style.transformOrigin = '0 100%';
+    q('hk', '.big').style.opacity = ease(u / .15); q('hk', '.big span').style.opacity = ease((u - .35) / .3);
+    q('hk', '.nm').style.opacity = ease((u - .2) / .3);
+    q('hk', '.t').style.opacity = ease((u - .7) / .3); q('hk', '.t').style.transform = `translateY(${(1 - ease((u - .7) / .4)) * 40}px)`;
+    q('hk', '.s').style.opacity = ease((u - 1.3) / .3);
+    const ci = q('hk', '.ci'); ci.style.transform = `scale(${u < .9 ? 0 : .3 + .7 * back((u - .9) / .45)}) rotate(${Math.sin(u * 2) * 4}deg)`;
+    q('hk', '.ci b').style.transform = `scale(${1 + .1 * Math.sin(u * 6)})`;
+  }
+  if (s.t === 'cl') {
+    const g = B.findIndex((_, j) => S[j].t === 'cl'), U = t - B[g][0];
+    const im = q('cl', '.ph img'), bl = BLUR[s.i] + (s.i < 2 ? 0 : 0) - (BLUR[s.i] - (BLUR[s.i + 1] || 12)) * c01((u - l + .6) / .6);
+    im.style.filter = `blur(${bl}px) brightness(${.45 + .12 * s.i})`; im.style.transform = `scale(${1.15 - .1 * c01(U / (l * CL.length))})`;
+    q('cl', '.q').style.transform = `scale(${1 + .06 * Math.sin(U * 5)})`; q('cl', '.q').style.opacity = 1 - .25 * s.i;
+    q('cl', '.hd').style.opacity = ease(U / .3);
+    [...q('cl', '.ls').children].forEach((x, i) => {
+      const a = i < s.i ? 1 : i === s.i ? ease((u - .15) / .35) : 0; x.style.opacity = i < s.i ? .55 : a;
+      x.classList.toggle('on', i === s.i); x.style.transform = i === s.i ? `translateX(${(1 - a) * 160}px) scale(${1 + .015 * Math.sin(u * 5)})` : '';
+    });
+    q('cl', '.gs').style.opacity = ease((U - .8) / .3) * (.75 + .25 * Math.sin(U * 5));
+  }
+  if (s.t === 'cd') {
+    const n = Math.max(1, 3 - Math.floor(u / (l / 3))), f = (u % (l / 3)) / (l / 3), kk = q('cd', '.k');
+    kk.textContent = n; kk.style.transform = `scale(${1.5 - .5 * ease(f / .4)})`; kk.style.opacity = 1 - .7 * c01((f - .7) / .3);
+    q('cd', '.bl').style.filter = `blur(${36 - 20 * u / l}px) brightness(${.35 + .15 * u / l})`;
+  }
+  if (s.t === 'rv') {
+    fl = u < .3 ? .8 * (1 - u / .3) : 0;
+    q('rv', '.ph.a').style.transform = `translateY(${(1 - ease(u / .5)) * -200}px)`; q('rv', '.ph.b').style.transform = `translateY(${(1 - ease(u / .5)) * 200}px)`;
+    q('rv', '.ph.a img').style.transform = `scale(${1.04 + .06 * c01(u / l)})`; q('rv', '.ph.b img').style.transform = `scale(${1.1 - .06 * c01(u / l)})`;
+    q('rv', '.seam').style.transform = `rotate(-10.6deg) scaleX(${ease((u - .3) / .4)})`;
+    const ta = q('rv', '.tg.a'), tb = q('rv', '.tg.b');
+    ta.style.opacity = ease((u - .5) / .3); ta.style.transform = `translateX(${(1 - ease((u - .5) / .4)) * -120}px)`;
+    tb.style.opacity = ease((u - 1.1) / .3); tb.style.transform = `translateX(${(1 - ease((u - 1.1) / .4)) * 120}px)`;
+    const md = q('rv', '.mid'); md.style.opacity = ease((u - 1.8) / .3); md.style.transform = `translateX(-50%) rotate(-10.6deg) scale(${u < 1.8 ? 0 : u < 2.3 ? 1.6 - .6 * back((u - 1.8) / .5) : 1 + .03 * Math.sin(u * 5)})`;
+  }
+  if (s.t === 'ra') {
+    q('ra', '.h').style.opacity = ease(u / .3);
+    [['.r1', ST.nowGames, 0], ['.r2', ST.legGames, .25]].forEach(([r, g, d]) => {
+      const row = q('ra', r), a = c01((u - .4 - d) / 1.4), max = Math.max(ST.n / ST.nowGames, ST.n / ST.legGames), w = (ST.n / g) / max;
+      row.style.opacity = ease((u - .2 - d) / .3); row.style.transform = `translateX(${(1 - ease((u - .2 - d) / .4)) * -100}px)`;
+      q('ra', r + ' .br').style.width = Math.max(12, 100 * w * ease(a)) + '%';
+      q('ra', r + ' .v').textContent = (ST.n / g * ease(a)).toFixed(2);
+    });
+    const x = q('ra', '.x'); x.style.opacity = ease((u - 2.1) / .3); x.style.transform = `scale(${u < 2.1 ? 0 : u < 2.6 ? 1.8 - .8 * back((u - 2.1) / .5) : 1 + .03 * Math.sin(u * 5)})`;
+    q('ra', '.xs').style.opacity = ease((u - 2.6) / .3);
+  }
+  if (s.t === 'en') {
+    q('en', '.h').style.transform = `scale(${1.12 - .12 * ease(u / .4)})`;
+    [...q('en', '.duo').children].forEach((x, i) => { const a = (u - .3 - i * .2) / .35; x.style.opacity = ease(a); x.style.transform = `scale(${a < 1 ? .6 + .4 * back(c01(a)) : 1 + .02 * Math.sin(u * 4 + i)})`; });
+    q('en', '.fx').style.opacity = ease((u - .9) / .3); $('cta').style.opacity = ease((u - 1.3) / .3);
+  }
+  $('fl').style.opacity = fl;
+};
+window.POSTER = Math.min(2.4, B[0][1] - .2);
+window.COVER = B[S.findIndex((s) => s.t === 'rv')][0] + 3.2;
+progBar();
+draw(0);
+</script></body></html>
