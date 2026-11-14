@@ -3,17 +3,20 @@ name: NLA probe 3
 on:
   push:
     branches: [claude/nla-probe]
-    paths: [.github/workflows/nla-probe3.yml]
+    paths: [.github/workflows/nla-probe3.yml, sample/gn.py]
 jobs:
   p:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      - uses: actions/checkout@v4
       - env:
           REELS_KEY: ${{ secrets.REELS_KEY }}
         shell: bash
         run: |
           echo "::add-mask::$REELS_KEY"
+          python3 sample/gn.py || true
+          exit 0
           sleep 5
           curl -sS --max-time 400 -G "https://api.football-legend.com/v2/fben/dry" --data-urlencode "key=$REELS_KEY" --data-urlencode "kinds=none" --data-urlencode "quotes=1" -o r.json || echo "no answer"
           python3 -c "import json;d=json.load(open('r.json'));print(json.dumps(d['result'].get('quotes'),ensure_ascii=False,indent=1)[:6000])" || head -c 1500 r.json
