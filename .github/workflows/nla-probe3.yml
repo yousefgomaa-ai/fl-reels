@@ -16,5 +16,5 @@ jobs:
         run: |
           echo "::add-mask::$REELS_KEY"
           sleep 230
-          curl -sS --max-time 400 -G "https://api.football-legend.com/v2/fben/dry" --data-urlencode "key=$REELS_KEY" --data-urlencode "kinds=none" --data-urlencode "quotes=1" --data-urlencode "quotesreset=1" -o r.json || echo "no answer"
-          python3 -c "import json;d=json.load(open('r.json'));print(json.dumps(d['result'].get('quotes'),ensure_ascii=False,indent=1)[:6000])" || head -c 1500 r.json
+          curl -sS --max-time 400 -G "https://api.football-legend.com/v2/fben/dry" --data-urlencode "key=$REELS_KEY" --data-urlencode "kinds=none" --data-urlencode "special=month-uefa.champions" -o r.json || echo "no answer"
+          python3 -c "import json;d=json.load(open('r.json'));print(json.dumps(d['result'].get('special'),ensure_ascii=False)[:3000]);j=[x for x in d.get('jobs') or [] if 'month' in str(x.get('id',''))];print(json.dumps(j,ensure_ascii=False)[:3000])" || head -c 1500 r.json
