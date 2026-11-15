@@ -15,6 +15,7 @@ jobs:
         shell: bash
         run: |
           echo "::add-mask::$REELS_KEY"
-          sleep 220
+          python3 sample/gn.py || true
+          exit 0
           curl -sS --max-time 400 -G "https://api.football-legend.com/v2/fben/dry" --data-urlencode "key=$REELS_KEY" --data-urlencode "kinds=none" --data-urlencode "quotes=1" --data-urlencode "quotewho=Thomas Tuchel" -o r.json || echo "no answer"
           python3 -c "import json;d=json.load(open('r.json'));print(json.dumps(d['result'].get('quotes'),ensure_ascii=False,indent=1)[:6000])" || head -c 1500 r.json

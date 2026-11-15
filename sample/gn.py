@@ -1,10 +1,11 @@
-import urllib.request,urllib.parse,re,html,time,email.utils
-SRC=re.compile(r"^(espn|espn fc|espn uk|bbc|bbc sport|bbc news|reuters|associated press|ap news|afp|sky sports|sky news|the athletic|the guardian|the independent|the telegraph|the times|marca|as|as english|mundo deportivo|sport|l'equipe|l'équipe|kicker|la gazzetta dello sport|football italia|record|a bola|o jogo|olé|goal|goal\.com|cbs sports|fox sports|nbc sports|yahoo sports|uefa\.com|fifa|premier league|the standard|evening standard|football\.london|manchester evening news|liverpool echo|talksport|si|sports illustrated|cnn|al jazeera english|bein sports|onefootball|daily mail|mail online)$",re.I)
-for n in ["Pep Guardiola","Mikel Arteta","Carlo Ancelotti","Thomas Tuchel","Cristiano Ronaldo","Mohamed Salah"]:
-  u="https://news.google.com/rss/search?"+urllib.parse.urlencode({"q":f'"{n}" when:1d',"hl":"en-GB","gl":"GB","ceid":"GB:en"})
-  x=urllib.request.urlopen(urllib.request.Request(u,headers={"User-Agent":"Mozilla/5.0"}),timeout=15).read().decode()
-  print("==",n)
-  for it in re.findall(r"<item>(.*?)</item>",x,re.S)[:15]:
-    t=html.unescape(re.search(r"<title>(.*?)</title>",it,re.S).group(1)); s=re.search(r"<source[^>]*>(.*?)</source>",it,re.S); s=html.unescape(s.group(1)) if s else ""
-    d=email.utils.parsedate_to_datetime(re.search(r"<pubDate>(.*?)</pubDate>",it).group(1)).timestamp(); age=(time.time()-d)/3600
-    print(f" {'OK' if SRC.match(s) else '--'} {age:4.1f}h | {s} :: {t[:130]}")
+import urllib.request,re,html
+F=["https://feeds.bbci.co.uk/sport/football/rss.xml","https://www.skysports.com/rss/12040","https://www.espn.com/espn/rss/soccer/news","https://www.theguardian.com/football/rss","https://www.independent.co.uk/sport/football/rss","https://www.football.london/?service=rss","https://talksport.com/football/feed/","https://www.goal.com/feeds/en/news","https://www.standard.co.uk/sport/football/rss","https://www.manchestereveningnews.co.uk/sport/football/?service=rss","https://www.liverpoolecho.co.uk/sport/football/?service=rss","https://www.mirror.co.uk/sport/football/?service=rss"]
+for u in F:
+  try:
+    x=urllib.request.urlopen(urllib.request.Request(u,headers={"User-Agent":"Mozilla/5.0 (compatible; FootballLegendsBot/1.0; +https://football-legend.com/about)"}),timeout=15).read().decode("utf-8","ignore")
+    its=re.findall(r"<item[\s>](.*?)</item>",x,re.S); print("==",u,len(its))
+    for it in its[:6]:
+      t=re.search(r"<title>(.*?)</title>",it,re.S); d=re.search(r"<description>(.*?)</description>",it,re.S); l=re.search(r"<link>(.*?)</link>",it,re.S); p=re.search(r"<pubDate>(.*?)</pubDate>",it)
+      f=lambda m: html.unescape(re.sub(r"<!\[CDATA\[|\]\]>","",m.group(1))).strip() if m else ""
+      print("  ",f(p)[:25],"|",f(t)[:110],"|",re.sub("<[^>]+>","",f(d))[:110],"|",f(l)[:90])
+  except Exception as e: print("==",u,"ERR",e)
