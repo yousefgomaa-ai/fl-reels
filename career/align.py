@@ -4,7 +4,8 @@ vt, vj = sys.argv[1], sys.argv[2]
 lines = [l.strip() for l in open(vt) if l.strip()]
 W = [w for s in json.load(open(vj)) for w in s.get('w', [])]
 def norm(t):
-    t = re.sub(r'[ً-ْـ،,.:؟!«»]', '', t)
+    t = t.lower()  # English cuts (owner, 2026-11-15)
+    t = re.sub(r"[ً-ْـ،,.:؟!«»?;'’\"-]", '', t)
     t = re.sub('[أإآ]', 'ا', t).replace('ة', 'ه').replace('ى', 'ي')
     return t.strip()
 words = [norm(w[1]) for w in W]
