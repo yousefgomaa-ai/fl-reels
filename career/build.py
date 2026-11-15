@@ -2,7 +2,9 @@
 import json, sys, importlib.util, shutil, os
 spec_path, out_dir = sys.argv[1], sys.argv[2]
 sp = importlib.util.spec_from_file_location('spec', spec_path); S = importlib.util.module_from_spec(sp); sp.loader.exec_module(S)
-L = open(os.path.join(os.path.dirname(__file__), 'template.html')).read().split('\n')
+# English cuts for FB Legends (owner, 2026-11-15): LANG = 'en' in the player file → template-en.html (Bebas Neue / Oswald).
+EN = getattr(S, 'LANG', 'ar') == 'en'
+L = open(os.path.join(os.path.dirname(__file__), 'template-en.html' if EN else 'template.html')).read().split('\n')
 import html as H
 cred = [dict(c, artist=H.unescape(c['artist']).strip(), license=H.unescape(c['license'])) for c in json.load(open(os.path.join(out_dir, 'ph/credits.json')))]
 by = {c['n']: c for c in cred}
@@ -14,9 +16,13 @@ L[58] = '<script>window.PHOTOS=' + json.dumps([{'n': c['n'], 'artist': c['artist
 L[61] = 'const CLUBS = ' + json.dumps(S.CLUBS) + ';'
 L[67] = S.CONSTS
 import re
-sc_text = re.sub(r'(\d{4})\s*-\s*(\d{4})', '<span dir="ltr">\\1 - \\2</span>', S.SC.strip())
+sc_text = S.SC.strip() if EN else re.sub(r'(\d{4})\s*-\s*(\d{4})', '<span dir="ltr">\\1 - \\2</span>', S.SC.strip())
 html = '\n'.join(L[:69] + ['const SC = ['] + [l.rstrip() for l in sc_text.split('\n')] + ['];'] + L[89:])
 assert html.count('const SC = [') == 1
 open(os.path.join(out_dir, 'page.html'), 'w').write(html)
-for f in ('cairo700.woff2', 'cairo900.woff2'): shutil.copy(os.path.join(os.path.dirname(__file__), f), out_dir)
+if EN:
+    for f in ('bebas-neue-latin-400-normal', 'bebas-neue-latin-ext-400-normal', 'oswald-latin-500-normal', 'oswald-latin-700-normal', 'oswald-latin-ext-700-normal'):
+        shutil.copy(os.path.join(os.path.dirname(__file__), '..', 'anim', 'fonts', f + '.woff2'), out_dir)
+else:
+    for f in ('cairo700.woff2', 'cairo900.woff2'): shutil.copy(os.path.join(os.path.dirname(__file__), f), out_dir)
 print('ok', len(S.SC.strip().split('\n')), 'scenes')

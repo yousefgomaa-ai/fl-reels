@@ -16,7 +16,8 @@ lines.forEach((l, i) => {
   const segEnd = ws.length ? Math.min(b, ws[ws.length - 1][0] + 0.5) : b;
   seg.push([a + LEAD, segEnd + LEAD]);
   const bounds = W.filter((s) => s.s > a + 0.01 && s.s < b - 0.01).map((s) => s.s).concat(WORDS.filter((w, k) => k && w[0] > a + 0.01 && w[0] < b - 0.01 && w[0] - WORDS[k - 1][0] > 0.55).map((w) => w[0]));
-  const parts = l.split(/(?<=[،.:؟!])\s+/), tot = parts.reduce((x, p) => x + p.length, 0);
+  // English sentences end on ? and ; too (the English cuts, 2026-11-15)
+  const parts = l.split(/(?<=[،.:؟!?;])\s+/), tot = parts.reduce((x, p) => x + p.length, 0);
   let c = a, acc = 0;
   parts.forEach((p, k) => {
     acc += p.length;

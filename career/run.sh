@@ -1,6 +1,6 @@
 set -e
 cd "$(dirname "$0")/work"
-M=../../music/$(ls ../../music | sort | sed -n 2p)
+M=../../music/${MUSIC:-$(ls ../../music | sort | sed -n 2p)}  # MUSIC=<file>: another track (a different one each video)
 for p in "$@"; do
   (cd $p && DIR=$p node ../render.cjs)
   T=$(python3 -c "import json;print(round(json.load(open('$p/timeline.json'))['total'],2))")

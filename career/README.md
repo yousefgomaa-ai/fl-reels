@@ -18,3 +18,11 @@ voice (Gemini, through `/v2/reels/voice`) and posts what the owner picks on Tele
 6. **Publish.** Copy to `videos/<slug>-N.mp4` and add an entry to `videos/index.json`
    (`id: path-<slug>-N`, video, seconds, player, top, caption). The server announces it on Telegram once; the owner
    watches it there and presses 🚀 to post it (Facebook, Instagram, then YouTube).
+
+## «THE CAREER»: English cuts for FB Legends (owner, 2026-11-15)
+The same steps, in English: folder `sample/career/en-<slug>/` on `voice-sample` (read by Fenrir, en-GB, no spoken
+direction; whisper in English), `players/en-<slug>.py` with `LANG = 'en'` (→ `template-en.html`, Bebas Neue / Oswald,
+left to right, «THE CAREER», «FOLLOW FB LEGENDS»), captions in digits as the voice says them. `MUSIC=<file> run.sh en-<slug>`:
+a different track each video. Publish as `videos/en-<slug>-N.mp4`, entry `id: path-en-<slug>-N`, `lang: "en"`, a
+search-first `title` (e.g. «Erling Haaland career: Bryne to Manchester City»), an English `caption` (title line, plain
+sentences with the key words, a question, 3-5 hashtags). The bot lists it with 🇬🇧; 🚀 posts it on FB Legends only.
