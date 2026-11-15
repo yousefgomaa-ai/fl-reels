@@ -55,6 +55,10 @@ const rowHtml = (m, i) => `<div class="m"><span class="no">${i + 1}</span><img s
 $('list').innerHTML = Array.from({ length: PAGES }, (_, p) => `<div class="pg" style="position:absolute;left:0;right:0;top:0">${M.slice(p * P, p * P + P).map((m, j) => rowHtml(m, p * P + j)).join('')}</div>`).join('');
 $('cta').innerHTML = `${D.cta || 'WHICH ONE ARE YOU WATCHING?'}<small>COMMENT THE NUMBER 👇</small>`;
 // A long name is shrunk to fit its half of the row, never cut («Nottingham Forest», «Manchester City»).
+// A long competition name fits the width (owner, 2026-11-15: «ليه ليج مش باينة كامله»: UEFA CHAMPIONS LEAGUE ran off the
+// edge at 150px); measured again once the fonts are in.
+const fitT2 = () => { const el = $('t2'); let f = 150; el.style.fontSize = f + 'px'; while (el.offsetWidth > 1080 - 88 && f > 60) { f -= 2; el.style.fontSize = f + 'px'; } el.style.top = (246 + (150 - f) * 0.45) + 'px'; };
+fitT2(); if (document.fonts) document.fonts.ready.then(fitT2);
 document.querySelectorAll('.m .n').forEach((el) => { let f = parseFloat(getComputedStyle(el).fontSize); while (el.scrollWidth > el.clientWidth + 1 && f > 22) { f -= 1; el.style.fontSize = f + 'px'; } });
 const rows = [...document.querySelectorAll('.m')], pgs = [...document.querySelectorAll('.pg')], T1 = .7, PER = .45, PG = P * PER + 2.2, TP = (p) => T1 + p * PG, TB = TP(PAGES - 1) + P * PER + .3;
 window.TOTAL = Math.max(9, TB + 4.5);
