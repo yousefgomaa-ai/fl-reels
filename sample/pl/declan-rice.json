@@ -688,9 +688,9 @@
       "endDate": null,
       "active": true,
       "role": null,
-      "appearances": "81",
+      "appearances": "82",
       "goals": "8",
-      "assists": "8",
+      "assists": "9",
       "hasUncertainData": false
      },
      {
@@ -713,11 +713,11 @@
     "seasonEntries": [
      {
       "seasonName": "2026/2027",
-      "appearances": "1",
+      "appearances": "2",
       "goals": "0",
-      "assists": "0",
+      "assists": "1",
       "rating": {
-       "rating": "7.14"
+       "rating": "7.46"
       },
       "tournamentStats": [
        {
@@ -727,10 +727,10 @@
         "seasonName": "2026/2027",
         "tournamentId": 31436,
         "goals": "0",
-        "assists": "0",
-        "appearances": "1",
+        "assists": "1",
+        "appearances": "2",
         "rating": {
-         "rating": "7.14"
+         "rating": "7.46"
         }
        }
       ],
