@@ -100,7 +100,7 @@
         "assists": "0",
         "appearances": "4",
         "rating": {
-         "rating": "7.78"
+         "rating": "7.79"
         }
        }
       ],
@@ -688,7 +688,7 @@
       "endDate": null,
       "active": true,
       "role": null,
-      "appearances": "80",
+      "appearances": "81",
       "goals": "8",
       "assists": "8",
       "hasUncertainData": false
@@ -711,6 +711,35 @@
      }
     ],
     "seasonEntries": [
+     {
+      "seasonName": "2026/2027",
+      "appearances": "1",
+      "goals": "0",
+      "assists": "0",
+      "rating": {
+       "rating": "7.14"
+      },
+      "tournamentStats": [
+       {
+        "isFriendly": false,
+        "leagueId": 9806,
+        "leagueName": "UEFA Nations League A",
+        "seasonName": "2026/2027",
+        "tournamentId": 31436,
+        "goals": "0",
+        "assists": "0",
+        "appearances": "1",
+        "rating": {
+         "rating": "7.14"
+        }
+       }
+      ],
+      "teamId": 8491,
+      "team": "England",
+      "teamGender": "male",
+      "showTeamGender": false,
+      "transferType": null
+     },
      {
       "seasonName": "2026",
       "appearances": "8",
