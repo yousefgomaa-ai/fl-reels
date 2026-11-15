@@ -6,6 +6,7 @@ UA = {'User-Agent': 'Mozilla/5.0 (FootballLegends/1.0; football-legend.com)'}
 KEY = urllib.parse.quote(os.environ.get('REELS_KEY', ''), safe='')
 STYLE = urllib.parse.quote('Read aloud in a warm, natural Egyptian Arabic accent, like an Egyptian football presenter on TV:', safe='')
 model = None
+EN = lambda d: os.path.basename(d.rstrip('/')).startswith('en-')
 for d in sorted(glob.glob('sample/career/*/')):
     vt, vm, vj = d + 'voice.txt', d + 'voice.mp3', d + 'voice.json'
     # Whisper's word timings place each line's start inside a long segment (Ronaldo's came in nine segments for 17 lines).
@@ -14,9 +15,12 @@ for d in sorted(glob.glob('sample/career/*/')):
     if os.path.exists(vt) and not os.path.exists(vm):
         text = '\n\n'.join(l.strip() for l in open(vt) if l.strip())
         body = json.dumps({'text': text}).encode()
+        # English cuts for FB Legends (owner, 2026-11-15), folders en-<slug>: its voice, Fenrir in en-GB with no spoken
+        # direction (every style tried on 2026-11-03 was read out with the line).
+        q = 'voice=Fenrir&lang=en-GB&style=' if EN(d) else f'voice=Puck&lang=ar-EG&style={STYLE}'
         for attempt in range(3):
             try:
-                req = urllib.request.Request(f'https://api.football-legend.com/v2/reels/voice?key={KEY}&voice=Puck&lang=ar-EG&style={STYLE}', data=body, headers={'Content-Type': 'application/json', **UA})
+                req = urllib.request.Request(f'https://api.football-legend.com/v2/reels/voice?key={KEY}&{q}', data=body, headers={'Content-Type': 'application/json', **UA})
                 open('/tmp/v.wav', 'wb').write(urllib.request.urlopen(req, timeout=240).read()); break
             except Exception as e:
                 print(d, 'voice try', attempt + 1, e, (e.read()[:300] if hasattr(e, 'read') else b'')); time.sleep(45)
@@ -28,7 +32,7 @@ for d in sorted(glob.glob('sample/career/*/')):
         from faster_whisper import WhisperModel
         model = model or WhisperModel('small', device='cpu', compute_type='int8')
         pcm = subprocess.run(['ffmpeg', '-loglevel', 'error', '-i', vm, '-f', 'f32le', '-ac', '1', '-ar', '16000', '-'], capture_output=True, check=True).stdout
-        segs, _ = model.transcribe(np.frombuffer(pcm, np.float32), language='ar', word_timestamps=True)
+        segs, _ = model.transcribe(np.frombuffer(pcm, np.float32), language='en' if EN(d) else 'ar', word_timestamps=True)
         out = [{'s': round(s.start, 2), 'e': round(s.end, 2), 't': s.text.strip(), 'w': [[round(w.start, 2), w.word.strip()] for w in (s.words or [])]} for s in segs]
         json.dump(out, open(vj, 'w'), ensure_ascii=False)
         print(d, 'voice', round(len(pcm) / 64000, 1), 's')
