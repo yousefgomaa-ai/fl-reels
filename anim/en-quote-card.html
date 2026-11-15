@@ -1,4 +1,5 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="en.css"><style>
+/* No question on the card (owner, 2026-11-15: «شيل هل معه حق دي»). */
 /* FB Legends «QUOTE» as a photo post (owner, 2026-11-15: «التصريحات دي تنزل صور مش ريلز»): one 1080x1350 card, the same
    checked quote as en-quote: the speaker's photo, the words, who said it, where, the source and the question. */
 html,body{width:1080px!important;height:1350px!important;overflow:hidden}
@@ -25,18 +26,18 @@ body{background:#060a1e;color:#fff;font-family:O,Arial}
 <div class="ph"><img id="p1"><div class="ci"><img id="p2"></div></div>
 <div class="lg">FB<i>LEGENDS</i></div><div class="tg" id="tg">QUOTE</div><div class="cr" id="cr"></div>
 <div class="mk">“</div><div class="tx" id="tx"></div><div class="by" id="by"><b id="nm"></b><small id="cx"></small></div>
-<div class="qq"><div class="h" id="h"></div><div class="p">YES</div><div class="p n">NO</div></div><div class="so" id="so"></div>
+<div class="so" id="so"></div>
 <script>
 const D = window.DATA || {}, W = D.who || {}, $ = (i) => document.getElementById(i);
 $('p1').src = W.photo || ''; $('p1').style.objectPosition = W.pos || '50% 20%'; $('p2').src = W.photo || '';
 document.querySelector('.ph').classList.toggle('sm', !!W.small); if (!W.photo) document.querySelector('.ph').style.background = 'radial-gradient(800px 500px at 50% 30%,#1b2f7a,#060a1e)';
 $('cr').textContent = W.credit ? '📷 ' + W.credit + ' • Wikimedia Commons' : '';
 const q = String(D.quote || ''), len = q.length;
-$('tx').textContent = q; $('tx').style.fontSize = (len > 260 ? 50 : len > 200 ? 56 : len > 150 ? 64 : len > 100 ? 72 : 82) + 'px';
+$('tx').textContent = q; $('tx').style.fontSize = (len > 260 ? 58 : len > 200 ? 66 : len > 150 ? 74 : len > 100 ? 84 : 96) + 'px';
 $('nm').innerHTML = D.name || ''; $('cx').textContent = [D.about ? 'ON ' + D.about : '', D.context || ''].filter(Boolean).join(' · ');
-$('h').innerHTML = D.endH || 'IS HE <i>RIGHT?</i>'; $('so').textContent = D.source ? 'Source: ' + D.source : '';
+$('so').textContent = D.source ? 'Source: ' + D.source : '';
 // the speaker's line right under the quote, however long it is
 // the speaker's line right under the quote, however long it is (laid out in draw(), after the fonts are in)
-const place = () => { const tb = $('tx').getBoundingClientRect(); $('by').style.top = Math.min(1080, tb.bottom + 26) + 'px'; };
+const place = () => { const tb = $('tx').getBoundingClientRect(); $('by').style.top = Math.min(1150, tb.bottom + 26) + 'px'; };
 window.POSTER = 0; window.draw = place; place(); document.fonts && document.fonts.ready.then(place);
 </script></body></html>
