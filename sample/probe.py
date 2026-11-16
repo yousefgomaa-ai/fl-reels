@@ -12,7 +12,7 @@ print('PROBE finished UNL matches', len(ids))
 skip = {'Spain', 'England', 'Belgium', 'Italy', 'France', 'Turkiye', 'Croatia', 'Czechia'}
 for mid, h, a in [x for x in ids if x[1] not in skip and x[2] not in skip][:3]:
     try:
-        j = json.load(urllib.request.urlopen(urllib.request.Request(f'https://api.football-legend.com/match/live-feed?league=uefa.nations&eventId=fm-{mid}', headers=H), timeout=60))
+        j = json.load(urllib.request.urlopen(urllib.request.Request(f'https://api.football-legend.com/match/live-feed?league=fra.coupe_de_france&eventId=fm-{mid}', headers=H), timeout=60))
         for l in j.get('lineups', []):
             st = [p for p in l.get('players', []) if p.get('starter')]
             print('PROBE', mid, h, 'v', a, l.get('side'), l.get('formation'), 'starters', len(st), 'with spots', sum(1 for p in st if p.get('fx') is not None), (st[1] if len(st) > 1 else None))
