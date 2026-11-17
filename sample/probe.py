@@ -1,4 +1,4 @@
-# One-off (2026-11-17): the Bundesliga's November fixtures made again after the fix for matches listed twice (#701).
+# One-off (2026-11-17): the Bundesliga November fixtures made again, now that the old job is really dropped (#702).
 import json, os, time, urllib.request, urllib.parse
 K = os.environ['REELS_KEY']
 time.sleep(150)  # Cloudflare's build of the merge
