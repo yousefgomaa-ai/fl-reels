@@ -26,7 +26,7 @@ for i, f in enumerate(F):
     subprocess.run(['curl', '-sSL', '--retry', '4', '--retry-delay', '8', '-A', UA, '-o', loc, url])
     dur = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', loc], capture_output=True, text=True).stdout.strip() or 0)
     step = 1 if dur <= 25 else max(1, int(dur // 24))
-    r = subprocess.run(['ffmpeg', '-v', 'error', '-i', loc, '-vf', f'fps=1/{step},scale=240:-2,drawtext=text=%{{pts\\:hms}}:x=4:y=4:fontsize=18:fontcolor=yellow,tile=6x4', '-frames:v', '1', '-y', f'probe/img/c{i}.jpg'], capture_output=True, text=True)
+    r = subprocess.run(['ffmpeg', '-v', 'error', '-i', loc, '-vf', f'fps=1/{step},scale=240:-2,tile=6x4', '-frames:v', '1', '-y', f'probe/img/c{i}.jpg'], capture_output=True, text=True)
     print(i, url[-60:], dur, step, r.stderr[-200:])
     os.remove(loc)
     out.append({'i': i, 'file': f, 'artist': art, 'license': em.get('LicenseShortName', {}).get('value', ''), 'url': url, 'dur': dur, 'step': step})
