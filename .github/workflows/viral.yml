@@ -3,7 +3,7 @@ name: Rules photos probe
 on:
   push:
     branches: [viral-probe]
-    paths: [probe/commons.py, .github/workflows/viral.yml]
+    paths: [probe/clips.py, .github/workflows/viral.yml]
 permissions:
   contents: write
 jobs:
@@ -12,7 +12,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - run: pip install -q pillow && python3 probe/commons.py
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null && python3 probe/clips.py
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
