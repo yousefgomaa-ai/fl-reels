@@ -42,6 +42,26 @@
 .gl{width:470px;height:250px;border:18px solid #fff;border-bottom:none;position:relative;background:repeating-linear-gradient(45deg,rgba(255,255,255,.18) 0 4px,transparent 4px 28px),repeating-linear-gradient(-45deg,rgba(255,255,255,.18) 0 4px,transparent 4px 28px)}
 .ln{position:relative;width:480px;height:300px}.ln .w{position:absolute;left:0;right:0;top:140px;height:22px;background:#fff}
 .ln .b{position:absolute;left:180px;top:60px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#c8cfdd 60%,#8a93a8)}
+/* a Commons photo (DATA.photos[i], step.p): the hook's whole background, a rule's top half with the sign over its edge */
+.ph{position:absolute;overflow:hidden;display:none}.ph img{position:absolute;inset:-40px;width:calc(100% + 80px);height:calc(100% + 80px);object-fit:cover}
+.ph .fd{position:absolute;left:0;right:0;bottom:0;height:55%;background:linear-gradient(rgba(5,8,18,0),var(--bg0,#050812))}
+.cr{position:absolute;left:24px;direction:ltr;font:500 20px Arial;color:rgba(255,255,255,.75);z-index:5;display:none}
+.wp .ph,.wp .cr{display:block}
+#hk .ph{inset:0}#hk .ph:after{content:'';position:absolute;inset:0;background:rgba(5,8,18,.55)}#hk .cr{bottom:24px}
+#it .ph{left:0;right:0;top:0;height:1060px}#it .cr{top:1020px}
+#it.wp .med{top:800px;width:340px;height:340px;margin-left:-170px;border-width:8px}
+#it.wp .med .yc{width:120px;height:170px}#it.wp .med .rg{width:150px;height:150px;border-width:24px}#it.wp .med .rg:after{top:-46px;width:50px;height:50px}
+#it.wp .med .xx{width:260px;height:18px}#it.wp .med .big{font-size:140px}#it.wp .med .fg,#it.wp .med .ln,#it.wp .med .gl{transform:scale(.5)}#it.wp .med .bl{width:160px;height:160px}
+#it.wp svg.arc{width:360px;height:360px}#it.wp .stamp{top:700px}
+#it.wp .h{top:1180px}#it.wp .sub{top:1420px}#it.wp .lb{top:1060px;right:60px;z-index:3}
+/* the episode's colours (DATA.theme): each episode looks its own */
+body.t-pitch .bg{background:radial-gradient(1100px 800px at 15% -5%,#0f5a3a 0%,#073322 45%,#03140d 100%)}body.t-pitch{--bg0:#03140d}
+body.t-pitch .grid{background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.04) 0 90px,transparent 90px 180px)}
+body.t-pitch #pb,body.t-pitch #it .lb,body.t-pitch .chip{background:#2fe08a;color:#03140d}body.t-pitch #it .med{border-color:rgba(47,224,138,.7);background:radial-gradient(circle at 50% 40%,#16754c,#073322 70%)}
+body.t-card .bg{background:radial-gradient(1100px 800px at 50% -5%,#5a0f1c 0%,#2a0710 45%,#0d0306 100%)}body.t-card{--bg0:#0d0306}
+body.t-card #pb,body.t-card #it .lb,body.t-card .chip{background:#ffd23f;color:#0d0306}body.t-card #it .med{border-color:rgba(255,210,63,.7);background:radial-gradient(circle at 50% 40%,#7a1a2a,#2a0710 70%)}
+body.t-night .bg{background:radial-gradient(1100px 800px at 80% -5%,#3a1670 0%,#1a0a3a 45%,#08041a 100%)}body.t-night{--bg0:#08041a}
+body.t-night #pb,body.t-night #it .lb,body.t-night .chip{background:#ff8a00;color:#08041a}body.t-night #it .med{border-color:rgba(255,138,0,.7);background:radial-gradient(circle at 50% 40%,#5a2aa0,#1a0a3a 70%)}
 /* the question */
 #ak .h{position:absolute;left:60px;right:60px;top:360px;text-align:center;font-size:92px}
 #ak .opts{position:absolute;left:90px;right:90px;top:820px;display:flex;flex-direction:column;gap:46px}
@@ -53,14 +73,17 @@
 #ak .c{position:absolute;left:60px;right:60px;top:1450px;text-align:center;font-weight:900;font-size:66px;color:#ffd23f}
 #ak .src{position:absolute;left:60px;right:60px;top:1640px;text-align:center;font-weight:700;font-size:34px;color:#7f89b0}
 </style></head><body><div class="bg"></div><div class="grid" id="gr"></div>
-<div class="scr" id="hk"><div class="ring0"></div><div class="n num"></div><div class="stamp"></div><div class="h"></div><div class="sub"></div></div>
-<div class="scr" id="it"><div class="lb"></div><div class="med"><div class="ic"></div><div class="big num"></div>
+<div class="scr" id="hk"><div class="ph"><img><div class="fd"></div></div><div class="cr"></div><div class="ring0"></div><div class="n num"></div><div class="stamp"></div><div class="h"></div><div class="sub"></div></div>
+<div class="scr" id="it"><div class="ph"><img><div class="fd"></div></div><div class="cr"></div><div class="lb"></div><div class="med"><div class="ic"></div><div class="big num"></div>
   <svg class="arc" viewBox="0 0 640 640"><circle cx="320" cy="320" r="300" fill="none" stroke="#ff2f4f" stroke-width="18" stroke-linecap="round" stroke-dasharray="1885" stroke-dashoffset="1885"/></svg></div>
   <div class="stamp"></div><div class="h"></div><div class="sub"></div><div class="vd"></div></div>
 <div class="scr" id="ak"><div class="h"></div><div class="opts"><div class="o"><b>أ</b><span></span></div><div class="o"><b>ب</b><span></span></div></div><div class="c"></div><div class="src"></div></div>
 <div class="brand">FOOTBALL LEGENDS</div><div class="chip" id="chip"></div><div id="pb"></div><div id="fl"></div>
 <script src="lib.js"></script><script>
-const D = window.DATA, S = D.steps || [];
+const D = window.DATA, S = D.steps || [], P = D.photos || [];
+if (D.theme) document.body.classList.add('t-' + D.theme);
+const pic = (id, s) => { const p = s.p != null ? P[s.p] : null; $(id).classList.toggle('wp', !!p);
+  if (p) { const im = q(id, '.ph img'); im.src = p.photo; im.style.objectPosition = p.pos || '50% 30%'; q(id, '.cr').textContent = p.credit ? '📷 ' + p.credit + ' • Wikimedia Commons' : ''; } };
 const mins = D.minBeats || S.map((s) => ({ hook: 3.5, item: 6, ask: 5 }[s.t] || 5));
 const B = (() => { let t = 0; return mins.map((m) => { const b = [t, m]; t += m; return b; }); })();
 window.TOTAL = B[B.length - 1][0] + B[B.length - 1][1] + 1;
@@ -73,6 +96,7 @@ const ICON = {
 };
 let cur = -1;
 const set = (s) => {
+  if (s.t === 'hook' || s.t === 'item') pic(scr[s.t], s);
   if (s.t === 'hook') { q('hk', '.n').textContent = s.big || ''; q('hk', '.stamp').textContent = s.stamp || 'ممنوع'; q('hk', '.h').innerHTML = s.h || ''; q('hk', '.sub').innerHTML = s.sub || ''; }
   if (s.t === 'item') {
     q('it', '.lb').textContent = s.label || ''; q('it', '.ic').innerHTML = ICON[s.icon] != null ? ICON[s.icon] : ''; q('it', '.big').textContent = s.big != null ? String(s.big) : '';
@@ -126,6 +150,7 @@ window.draw = (t) => {
     [...q('ak', '.opts').children].forEach((o, i) => { const a = (u - .4 - i * .25) / .35; o.style.opacity = ease(a); o.style.transform = `translateX(${(1 - ease(a)) * (i ? -220 : 220)}px) scale(${1 + .03 * Math.max(0, Math.sin(u * 3.2 + i * Math.PI))})`; });
     q('ak', '.c').style.opacity = ease((u - 1.2) / .3) * (.8 + .2 * Math.sin(u * 5)); q('ak', '.src').style.opacity = ease((u - 1.6) / .3);
   }
+  if ((s.t === 'hook' || s.t === 'item') && s.p != null) { const im = q(id, '.ph img'); im.style.transform = `scale(${1.04 + .1 * c01(u / l)}) translateX(${(k % 2 ? 1 : -1) * (30 - 60 * c01(u / l))}px)`; }
   $('fl').style.opacity = fl;
   $('pb').style.width = (100 * Math.min(1, t / window.TOTAL)) + '%';
   document.body.style.transform = `scale(${1 + .03 * Math.min(1, t / window.TOTAL)})`;
