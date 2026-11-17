@@ -3,16 +3,31 @@
   "episode": 1,
   "note": "v2 (owner, 2026-11-17): characters speak on camera (lip-sync), almost no narrator, voices placed in the scene.",
   "cast": {
-    "emma": {"edge": "en-US-AriaNeural", "ref": "My name is Emma. I live alone now, in the house we bought together. Some nights I still hear his footsteps on the stairs, and I wonder if I am losing my mind."},
-    "mark": {"edge": "en-GB-RyanNeural", "ref": "I am Mark, Daniel's older brother. I have always looked after this family. Whatever happens, I make sure everything stays exactly the way it should be."},
-    "operator": {"edge": "en-US-MichelleNeural", "ref": "We are sorry. The number you have dialed is not in service. Please check the number and try again."},
-    "narrator": {"edge": "en-US-ChristopherNeural", "ref": "Some messages should never be answered. This is the story of one of them, and of the night it arrived."}
+    "emma": {
+      "edge": "en-US-AriaNeural",
+      "ref": "My name is Emma. I live alone now, in the house we bought together. Some nights I still hear his footsteps on the stairs, and I wonder if I am losing my mind."
+    },
+    "mark": {
+      "edge": "en-GB-RyanNeural",
+      "ref": "I am Mark, Daniel's older brother. I have always looked after this family. Whatever happens, I make sure everything stays exactly the way it should be."
+    },
+    "operator": {
+      "edge": "en-US-MichelleNeural",
+      "ref": "We are sorry. The number you have dialed is not in service. Please check the number and try again."
+    },
+    "narrator": {
+      "edge": "en-US-ChristopherNeural",
+      "ref": "Some messages should never be answered. This is the story of one of them, and of the night it arrived."
+    }
   },
   "looks": {
     "emma": "a 32-year-old woman with long straight auburn hair, pale skin with light freckles and green eyes, wearing a grey knit cardigan over a black top",
     "mark": "a tall 42-year-old man with short black hair and a short trimmed black beard, sharp jaw, wearing a long black wool overcoat"
   },
   "style": "Cinematic thriller film shot, night, dark moody low-key lighting, deep shadows, realistic, 35mm film",
+  "redo": [
+    "s21"
+  ],
   "shots": [
     {"id": "s01", "reuse": "s22", "mood": "drone", "sfx": [["key", 0.8]], "dur": 3.2},
     {"id": "s02", "phone": {"from": "Daniel", "time": "3:24 AM", "msgs": [["in", "RUN."]]}, "dur": 1.8, "mood": "hit", "sfx": [["buzz", 0.0]]},
@@ -34,7 +49,7 @@
     {"id": "s18", "v": "A dark house hallway at night seen from the far end, the front door at the end of the hall, a thin line of warm light under the door. Very slow push-in. No people.", "label": "3:21 AM", "dur": 3.5, "mood": "silence", "space": "hall", "sfx": [["bell", 0.4]]},
     {"id": "s19", "v": "{emma} creeps slowly along a dark hallway toward the front door holding her phone light, terrified, breathing fast. Camera follows behind her.", "dur": 4.2, "mood": "dread", "space": "hall", "sfx": [["bell", 1.4]]},
     {"id": "s20", "v": "Night, a front porch under a single dim porch light. {mark} faces the camera and speaks calmly toward the closed door, his lips moving, a cold smile, then he raises a single house key. Static medium shot.", "lip": true, "lines": [["mark", "Emma? I saw your light. Open up. It's just me.", 0.4]], "mood": "dread", "space": "porch"},
-    {"id": "s21", "v": "Extreme close-up of {emma} with her back against the inside of the front door in the dark, eyes wide with fear, whispering, her lips moving, her phone light on her face.", "lip": true, "lines": [["emma", "I never gave you a key.", 0.6]], "mood": "dread", "space": "hall"},
+    {"id": "s21", "v": "Medium close-up of {emma} standing with her back against the inside of the front door in a dark hallway, her face fully lit by her phone light from below, facing the camera, eyes wide with fear, whispering, her lips moving. Static camera.", "lip": true, "lines": [["emma", "I never gave you a key.", 0.6]], "mood": "dread", "space": "hall"},
     {"id": "s22", "v": "Extreme close-up of a door lock at night, a metal key slides into the keyhole from outside and slowly turns, the door handle starts to move. Dark, moody.", "dur": 3.2, "mood": "riser", "space": "hall", "sfx": [["key", 0.6]]},
     {"id": "s23", "phone": {"from": "Daniel", "time": "3:24 AM", "msgs": [["in", "Don't trust Mark."], ["out", "Who is this?"], ["in", "Check his laptop. Before he does."], ["in", "RUN."]]}, "dur": 2.0, "mood": "hit", "sfx": [["buzz", 0.0]]},
     {"id": "s24", "v": "Inside a dark hallway, the front door slowly creaks open, warm light spills in and a tall dark silhouette of a man stands in the doorway, {emma} backs away into the darkness.", "dur": 4.5, "mood": "dread", "space": "hall"},

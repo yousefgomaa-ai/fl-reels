@@ -449,7 +449,7 @@ def ir_of(decay, n=None):
     return x / np.abs(x).sum() * 3
 
 
-IRS = {'room': (ir_of(0.12), 0.22), 'hall': (ir_of(0.35), 0.30), 'porch': (ir_of(0.05), 0.08), 'rain': (ir_of(0.08), 0.12)}
+IRS = {'room': (ir_of(0.12), 0.22), 'hall': (ir_of(0.35), 0.18), 'porch': (ir_of(0.05), 0.08), 'rain': (ir_of(0.08), 0.12)}
 
 
 def place(a, space):

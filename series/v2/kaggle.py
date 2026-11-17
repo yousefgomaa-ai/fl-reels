@@ -23,12 +23,18 @@ for sid, k, l in LINES:
     sh(f"curl -sSfL -o {W}/src/{sid}_{k}.wav {RAW}voice_src/{sid}_{k}.wav")
 for who in EP["cast"]:
     sh(f"curl -sSfL -o {W}/src/ref_{who}.wav {RAW}voice_src/ref_{who}.wav")
+# Shots already made by an earlier run are reused (owner, 2026-11-18: only the voices and the lips were redone);
+# the ones listed in "redo" are made again.
+REDO = set(EP.get("redo", []))
+for s_ in EP["shots"]:
+    if s_.get("v") and s_["id"] not in REDO:
+        sh(f"curl -sSfL -o {W}/shots/{s_['id']}.mp4 {RAW}ep1/shots/{s_['id']}.mp4 || rm -f {W}/shots/{s_['id']}.mp4")
 sh("pip install -q uv")
 UV = sys.executable + " -m uv"
 
 # ---------- 1. acted voices: Chatterbox (MIT), each character cloned from one fixed reference ----------
 t = time.time()
-sh(f"{UV} venv /tmp/cb -p 3.11 && {UV} pip install -p /tmp/cb/bin/python chatterbox-tts", "chatterbox_install")
+sh(f"{UV} venv /tmp/cb -p 3.11 && {UV} pip install -p /tmp/cb/bin/python chatterbox-tts 'setuptools<81'", "chatterbox_install")
 job = {"lines": [[sid, k, l[0], l[1], l[2] if len(l) > 2 else 0.5] for sid, k, l in LINES], "W": W}
 json.dump(job, open("/tmp/cb_job.json", "w"))
 open("/tmp/cb.py", "w").write(r'''
@@ -59,7 +65,9 @@ def prompt(s):
     for k, v in EP["looks"].items():
         p = p.replace("{" + k + "}", v)
     return p + " " + EP["style"] + "."
-json.dump({"shots": [[s["id"], prompt(s), 200 + i] for i, s in enumerate(EP["shots"]) if s.get("v")], "W": W}, open("/tmp/wan_job.json", "w"))
+todo = [[s["id"], prompt(s), 200 + i] for i, s in enumerate(EP["shots"]) if s.get("v") and not os.path.exists(f"{W}/shots/{s['id']}.mp4")]
+json.dump({"shots": todo, "W": W}, open("/tmp/wan_job.json", "w"))
+log["wan_todo"] = [x[0] for x in todo]; save()
 open("/tmp/wan.py", "w").write(r'''
 import json, os, gc, time, threading, torch
 os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
@@ -102,14 +110,19 @@ def dec(g):
 ths = [threading.Thread(target=dec, args=(g,)) for g in range(n)]
 [th.start() for th in ths]; [th.join() for th in ths]
 ''')
-sh(f"{sys.executable} /tmp/wan.py", "wan_run")
+if todo:
+    sh(f"{sys.executable} /tmp/wan.py", "wan_run")
 log["shots_seconds"] = round(time.time() - t); log["shots_made"] = sorted(os.listdir(f"{W}/shots")); save()
 
 # ---------- 3. lip-sync: LatentSync 1.5 (Apache-2.0) on every speaking shot ----------
 t = time.time()
 sh(f"{UV} venv /tmp/ls -p 3.10 && git clone -q --depth 1 https://github.com/bytedance/LatentSync /tmp/LatentSync && "
    f"cd /tmp/LatentSync && {UV} pip install -p /tmp/ls/bin/python -r requirements.txt huggingface_hub", "latentsync_install")
-sh("cd /tmp/LatentSync && (/tmp/ls/bin/huggingface-cli download ByteDance/LatentSync-1.5 --local-dir checkpoints --exclude '*.git*' || /tmp/ls/bin/hf download ByteDance/LatentSync-1.5 --local-dir checkpoints)")
+for rep, d in (("ByteDance/LatentSync-1.5", "checkpoints"), ("ByteDance/LatentSync-1.6", "ck16")):
+    sh(f"cd /tmp/LatentSync && (/tmp/ls/bin/huggingface-cli download {rep} --local-dir {d} --exclude '*.git*' || /tmp/ls/bin/hf download {rep} --local-dir {d})")
+if os.path.exists("/tmp/LatentSync/ck16/latentsync_unet.pt"):
+    sh("cd /tmp/LatentSync && cp -rn checkpoints/whisper ck16/ 2>/dev/null; ls ck16")
+use16 = os.path.exists("/tmp/LatentSync/ck16/latentsync_unet.pt")
 for s in EP["shots"]:
     if not s.get("lip") or not os.path.exists(f"{W}/shots/{s['id']}.mp4"):
         continue
@@ -118,9 +131,15 @@ for s in EP["shots"]:
     sh(f"ffmpeg -v error -y -f lavfi -t 0.3 -i anullsrc=r=16000:cl=mono -i {W}/voice/{sid}_0.wav -filter_complex "
        f"\"[1:a]aresample=16000,aformat=channel_layouts=mono[v];[0:a][v]concat=n=2:v=0:a=1,apad=whole_dur=5.1[a]\" -map \"[a]\" /tmp/{sid}_lip.wav")
     tt = time.time()
-    sh(f"cd /tmp/LatentSync && /tmp/ls/bin/python -m scripts.inference --unet_config_path configs/unet/stage2.yaml "
-       f"--inference_ckpt_path checkpoints/latentsync_unet.pt --inference_steps 20 --guidance_scale 1.5 "
-       f"--video_path {W}/shots/{sid}.mp4 --audio_path /tmp/{sid}_lip.wav --video_out_path {W}/lip/{sid}.mp4", f"lip_{sid}")
+    def ls(cfg, ck, key):
+        return sh(f"cd /tmp/LatentSync && /tmp/ls/bin/python -m scripts.inference --unet_config_path configs/unet/{cfg} "
+                  f"--inference_ckpt_path {ck}/latentsync_unet.pt --inference_steps 20 --guidance_scale 1.5 "
+                  f"--video_path {W}/shots/{sid}.mp4 --audio_path /tmp/{sid}_lip.wav --video_out_path {W}/lip/{sid}.mp4", key)
+    r = ls("stage2_512.yaml", "ck16", f"lip_{sid}") if use16 else None
+    if r is None or r.returncode:
+        use16 = use16 and "Face not detected" in (r.stderr if r else "")  # out of memory: 1.5 for the rest
+        ls("stage2.yaml", "checkpoints", f"lip_{sid}")
+    log[f"lip_{sid}"]["v16"] = bool(r is not None and r.returncode == 0)
     log[f"lip_{sid}"]["seconds"] = round(time.time() - tt); save()
 log["lip_seconds"] = round(time.time() - t)
 log["total_seconds"] = round(time.time() - log.pop("t0"))
