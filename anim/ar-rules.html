@@ -83,7 +83,7 @@ body.t-night #pb,body.t-night #it .lb,body.t-night .chip{background:#ff8a00;colo
 const D = window.DATA, S = D.steps || [], P = D.photos || [];
 if (D.theme) document.body.classList.add('t-' + D.theme);
 const pic = (id, s) => { const p = s.p != null ? P[s.p] : null; $(id).classList.toggle('wp', !!p);
-  if (p) { const im = q(id, '.ph img'); im.src = p.photo; im.style.objectPosition = p.pos || '50% 30%'; q(id, '.cr').textContent = p.credit ? '📷 ' + p.credit + ' • Wikimedia Commons' : ''; } };
+  if (p) { const im = q(id, '.ph img'); im.src = p.frames && p.frames.length ? p.frames[0] : p.photo; im.style.objectPosition = p.pos || '50% 30%'; q(id, '.cr').textContent = p.credit ? (p.frames ? '🎥 ' : '📷 ') + p.credit + ' • Wikimedia Commons' : ''; } };
 const mins = D.minBeats || S.map((s) => ({ hook: 3.5, item: 6, ask: 5 }[s.t] || 5));
 const B = (() => { let t = 0; return mins.map((m) => { const b = [t, m]; t += m; return b; }); })();
 window.TOTAL = B[B.length - 1][0] + B[B.length - 1][1] + 1;
@@ -150,6 +150,9 @@ window.draw = (t) => {
     [...q('ak', '.opts').children].forEach((o, i) => { const a = (u - .4 - i * .25) / .35; o.style.opacity = ease(a); o.style.transform = `translateX(${(1 - ease(a)) * (i ? -220 : 220)}px) scale(${1 + .03 * Math.max(0, Math.sin(u * 3.2 + i * Math.PI))})`; });
     q('ak', '.c').style.opacity = ease((u - 1.2) / .3) * (.8 + .2 * Math.sin(u * 5)); q('ak', '.src').style.opacity = ease((u - 1.6) / .3);
   }
+  // a Commons clip (make.mjs cuts it into frames): one frame a 30th of a second, looping if the screen outlasts it
+  const ph = (s.t === 'hook' || s.t === 'item') && s.p != null ? P[s.p] : null;
+  if (ph && ph.frames && ph.frames.length) { const im = q(id, '.ph img'), f = ph.frames[Math.floor(u * 30) % ph.frames.length]; if (im.getAttribute('src') !== f) im.src = f; }
   if ((s.t === 'hook' || s.t === 'item') && s.p != null) { const im = q(id, '.ph img'); im.style.transform = `scale(${1.04 + .1 * c01(u / l)}) translateX(${(k % 2 ? 1 : -1) * (30 - 60 * c01(u / l))}px)`; }
   $('fl').style.opacity = fl;
   $('pb').style.width = (100 * Math.min(1, t / window.TOTAL)) + '%';

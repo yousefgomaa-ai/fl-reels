@@ -7,6 +7,7 @@ import { spawn } from 'node:child_process';
 import { mkdtemp, writeFile, readFile, readdir, stat, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { pathToFileURL } from 'node:url';
 // The runner's own Chrome when the workflow found one (PW_CHROME): no browser download or system libraries to install,
 // minutes saved before a live reel (owner, 2026-11-05: «السيرفر هو اللي ما يتأخرش في صنع الفيديو»); else Playwright's.
 async function launchBrowser(chromium) {
@@ -254,6 +255,26 @@ async function makeAnim(job, dir) {
     }
     o[k] = cache.get(o[k]);
   }
+  // A moving Commons clip under the drawing (owner, 2026-11-17: «لو في فيديوهات في ويكيميديا ممكن ندمجها»): {clip, from, len}
+  // anywhere in the data is downloaded once (Wikimedia answers 429 to ffmpeg's many range requests) and cut into frames at
+  // 30 a second; the page shows them one a frame (o.frames, file addresses) and each frame waits for its picture.
+  const clips = [];
+  const walkClip = (o) => { if (!o || typeof o !== 'object') return; if (typeof o.clip === 'string' && /^https?:/.test(o.clip)) clips.push(o); for (const v of Object.values(o)) walkClip(v); };
+  walkClip(d);
+  for (const [ci, o] of clips.entries()) {
+    try {
+      const res = await fetch(o.clip, { headers: { 'User-Agent': 'FootballLegendsReels/1.0 (https://football-legend.com)' }, signal: AbortSignal.timeout(120000) });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const src = join(dir, `clip${ci}.webm`), out = join(dir, `clip${ci}`);
+      await writeFile(src, Buffer.from(await res.arrayBuffer()));
+      await run('mkdir', ['-p', out]);
+      await run('ffmpeg', ['-v', 'error', '-y', '-ss', String(Number(o.from) || 0), '-i', src, '-t', String(Math.min(12, Number(o.len) || 6)), '-vf', 'fps=30,scale=1080:-2', '-q:v', '4', join(out, 'f%04d.jpg')]);
+      const n = (await readdir(out)).filter((f) => f.endsWith('.jpg')).length;
+      o.frames = Array.from({ length: n }, (_, i) => pathToFileURL(join(out, `f${String(i + 1).padStart(4, '0')}.jpg`)).href);
+      console.log(`${job.id}: clip ${ci} ${n} frames`);
+    } catch (e) { console.log(`${job.id}: clip ${ci} skipped (${e.message})`); }
+    delete o.clip;
+  }
   const story = await voiceBeats(job, d, dir).catch((e) => { console.log(`${job.id}: story voice skipped (${e.message})`); return null; });
   const page0 = await readFile(new URL(`./anim/${d.kind}.html`, import.meta.url), 'utf8');
   const html = new URL(`./anim/_${job.id.replace(/[^\w-]/g, '_')}.html`, import.meta.url);
@@ -275,6 +296,7 @@ async function makeAnim(job, dir) {
     const poster = await p.evaluate(() => (typeof window.POSTER === 'number' ? window.POSTER : null));
     for (let i = 0; i < Math.round(total * fps); i++) {
       await p.evaluate((t) => window.draw(t), i === 0 && poster != null ? poster : i / fps);
+      if (clips.length) await p.evaluate(() => Promise.all([...document.images].filter((im) => im.src && !im.complete).map((im) => new Promise((r) => { im.onload = im.onerror = r; }))));
       await p.screenshot({ path: join(frames, `${String(i).padStart(5, '0')}.jpg`), type: 'jpeg', quality: 90 });
     }
     // the cover: the page at its cover moment, the progress bar and the teaser hidden
