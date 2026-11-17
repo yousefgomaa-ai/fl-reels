@@ -129,7 +129,7 @@ let cur = -1;
 const set = (k) => {
   const g = G[k - 1]; if (!g) return;
   q('.hdr .k').textContent = g.k; q('.hdr .g').innerHTML = g.g; q('.hdr .n').textContent = `${k} / ${G.length}`;
-  $('rows').innerHTML = g.rows.map((r, i) => `<div class="tr ${r.z}"><div class="ps">${i + 1}</div><img src="${fl(r.c)}"><div class="t">${nm(r.c)}</div><div class="s">${r.p}</div><div class="s">${r.w}</div><div class="s">${r.d}</div><div class="s">${r.l}</div><div class="s">${r.gd}</div><div class="pt" data-v="${r.pts}">0</div></div>`).join('');
+  $('rows').innerHTML = g.rows.map((r, i) => `<div class="tr ${r.z}"><div class="ps">${r.rk || i + 1}</div><img src="${fl(r.c)}"><div class="t">${nm(r.c)}</div><div class="s">${r.p}</div><div class="s">${r.w}</div><div class="s">${r.d}</div><div class="s">${r.l}</div><div class="s">${r.gd}</div><div class="pt" data-v="${r.pts}">0</div></div>`).join('');
   // the form, oldest first, two lines of two under the points would crowd: shown as the row's tint instead (W/D/L chips below the name)
   $('rows').querySelectorAll('.t').forEach((t, i) => { const f = g.rows[i].f || ''; t.innerHTML = `${nm(g.rows[i].c)}<div class="fm" style="flex-direction:row;justify-content:flex-start;margin-top:2px"><div>${[...f].map((x) => `<span class="${x}">${x}</span>`).join('')}</div></div>`; t.style.lineHeight = '0.95'; });
   q('#rs .rg').innerHTML = g.res.map((r) => `<div class="rc${r.big ? ' big' : ''}"><img src="${fl(r[0])}"><div class="c">${r[0]}</div><div class="sc">${r[1]}-${r[2]}</div><div class="c">${r[3]}</div><img src="${fl(r[3])}"></div>`).join('');
