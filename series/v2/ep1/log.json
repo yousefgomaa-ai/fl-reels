@@ -1,0 +1,74 @@
+{
+ "chatterbox_install": {
+  "rc": 0,
+  "err": ""
+ },
+ "chatterbox_run": {
+  "rc": 0,
+  "err": ""
+ },
+ "edge_fallback": [
+  "s09_0"
+ ],
+ "voice_seconds": 300,
+ "wan_todo": [
+  "s21"
+ ],
+ "wan_run": {
+  "rc": 0,
+  "err": ""
+ },
+ "shots_seconds": 716,
+ "shots_made": [
+  "s05.mp4",
+  "s06.mp4",
+  "s08.mp4",
+  "s10.mp4",
+  "s11.mp4",
+  "s14.mp4",
+  "s15.mp4",
+  "s17.mp4",
+  "s18.mp4",
+  "s19.mp4",
+  "s20.mp4",
+  "s21.mp4",
+  "s22.mp4",
+  "s24.mp4"
+ ],
+ "latentsync_install": {
+  "rc": 0,
+  "err": ""
+ },
+ "lip_s08": {
+  "rc": 0,
+  "err": "",
+  "v16": false,
+  "seconds": 540
+ },
+ "lip_s11": {
+  "rc": 0,
+  "err": "",
+  "v16": false,
+  "seconds": 430
+ },
+ "lip_s15": {
+  "rc": 0,
+  "err": "",
+  "v16": false,
+  "seconds": 429
+ },
+ "lip_s20": {
+  "rc": 0,
+  "err": "",
+  "v16": false,
+  "seconds": 429
+ },
+ "lip_s21": {
+  "rc": 0,
+  "err": "",
+  "v16": false,
+  "seconds": 427
+ },
+ "lip_seconds": 2440,
+ "total_seconds": 3469
+}
