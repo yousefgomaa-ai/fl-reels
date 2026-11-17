@@ -1,0 +1,66 @@
+# Episode 1, version 2 (owner, 2026-11-17): on-camera dialogue. Edge voices as references here, then on Kaggle's free
+# T4s: acted voices (Chatterbox), Wan 2.2 shots, lip-sync (LatentSync); then the edit here. Never merge.
+name: Series v2
+on:
+  push:
+    branches: [claude/series-sample]
+    paths: [series/v2/ep1.json, series/v2/kaggle.py, series/v2/assemble.py, .github/workflows/series-v2.yml]
+permissions:
+  contents: write
+concurrency: { group: series-v2, cancel-in-progress: false }
+jobs:
+  episode:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    env:
+      KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+      KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fonts-dejavu-core >/dev/null
+      - run: pip install -q "kaggle>=1.8" edge-tts pillow numpy scipy
+      - name: Reference voices (Edge, one fixed voice per character)
+        run: |
+          git config user.name "series-sample" && git config user.email "actions@users.noreply.github.com"
+          python3 - <<'P'
+          import json, os, subprocess, time
+          e = json.load(open('series/v2/ep1.json')); o = 'series/v2/voice_src'; os.makedirs(o, exist_ok=True)
+          jobs = [(f"ref_{w}", c['edge'], c['ref']) for w, c in e['cast'].items()]
+          jobs += [(f"{s['id']}_{k}", e['cast'][l[0]]['edge'], l[1]) for s in e['shots'] for k, l in enumerate(s.get('lines', []))]
+          for name, v, text in jobs:
+              for t in range(8):
+                  r = subprocess.run(['edge-tts', '--voice', v, '--text', text, '--write-media', '/tmp/x.mp3'], capture_output=True)
+                  if r.returncode == 0 and os.path.getsize('/tmp/x.mp3') > 2000: break
+                  time.sleep(5 + 5 * t)
+              else:
+                  raise SystemExit('no voice ' + name)
+              subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', '/tmp/x.mp3', '-ar', '24000', '-ac', '1', f'{o}/{name}.wav'], check=True)
+          P
+          git add series/v2/voice_src && (git commit -m "Series v2: reference voices [skip ci]" && git pull -q --rebase origin claude/series-sample && git push || true)
+          echo "EP_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
+      - name: Kaggle (voices, shots, lip-sync)
+        run: |
+          if [ -f series/v2/ep1/log.json ]; then echo "already made"; exit 0; fi
+          cd series/v2
+          sed -i "s/EP_SHA/$EP_SHA/" kaggle.py
+          mkdir -p /tmp/k && cp kaggle.py /tmp/k/ && cd /tmp/k
+          cat > kernel-metadata.json <<J
+          {"id": "$KAGGLE_USERNAME/series-episode-v2", "title": "series-episode-v2", "code_file": "kaggle.py",
+           "language": "python", "kernel_type": "script", "is_private": true,
+           "enable_gpu": true, "enable_internet": true}
+          J
+          kaggle kernels push -p .
+          sleep 120
+          for i in $(seq 1 300); do
+            s=$(kaggle kernels status "$KAGGLE_USERNAME/series-episode-v2" 2>&1 | tail -1); echo "$(date -u +%H:%M) $s"
+            case "$s" in *COMPLETE*|*ERROR*|*CANCEL*) break;; esac
+            sleep 60
+          done
+          cd $GITHUB_WORKSPACE && git checkout -- series/v2/kaggle.py
+          mkdir -p series/v2/ep1 && kaggle kernels output "$KAGGLE_USERNAME/series-episode-v2" -p series/v2/ep1
+          tail -c 3000 series/v2/ep1/*.log || true; rm -f series/v2/ep1/*.log; rm -rf series/v2/ep1/src
+          cat series/v2/ep1/log.json; ls -R series/v2/ep1 | head -60
+          git add series/v2/ep1 && git commit -m "Series v2: Kaggle output [skip ci]" && git pull -q --rebase origin claude/series-sample && git push
+      - run: python3 series/v2/assemble.py 1
+      - run: |
+          git add series/v2/ep1/episode1.mp4 && git commit -m "Series v2: episode 1 [skip ci]" && git pull -q --rebase origin claude/series-sample && git push

@@ -1,0 +1,43 @@
+{
+  "series": "THE LAST TEXT",
+  "episode": 1,
+  "note": "v2 (owner, 2026-11-17): characters speak on camera (lip-sync), almost no narrator, voices placed in the scene.",
+  "cast": {
+    "emma": {"edge": "en-US-AriaNeural", "ref": "My name is Emma. I live alone now, in the house we bought together. Some nights I still hear his footsteps on the stairs, and I wonder if I am losing my mind."},
+    "mark": {"edge": "en-GB-RyanNeural", "ref": "I am Mark, Daniel's older brother. I have always looked after this family. Whatever happens, I make sure everything stays exactly the way it should be."},
+    "operator": {"edge": "en-US-MichelleNeural", "ref": "We are sorry. The number you have dialed is not in service. Please check the number and try again."},
+    "narrator": {"edge": "en-US-ChristopherNeural", "ref": "Some messages should never be answered. This is the story of one of them, and of the night it arrived."}
+  },
+  "looks": {
+    "emma": "a 32-year-old woman with long straight auburn hair, pale skin with light freckles and green eyes, wearing a grey knit cardigan over a black top",
+    "mark": "a tall 42-year-old man with short black hair and a short trimmed black beard, sharp jaw, wearing a long black wool overcoat"
+  },
+  "style": "Cinematic thriller film shot, night, dark moody low-key lighting, deep shadows, realistic, 35mm film",
+  "shots": [
+    {"id": "s01", "reuse": "s22", "mood": "drone", "sfx": [["key", 0.8]], "dur": 3.2},
+    {"id": "s02", "phone": {"from": "Daniel", "time": "3:24 AM", "msgs": [["in", "RUN."]]}, "dur": 1.8, "mood": "hit", "sfx": [["buzz", 0.0]]},
+    {"id": "s03", "title": "THE LAST TEXT", "dur": 3.0, "mood": "braam"},
+    {"id": "s04", "card": "ONE HOUR EARLIER", "dur": 2.0, "mood": "silence"},
+    {"id": "s05", "v": "A dark bedroom at night. {emma} is asleep in bed. On the nightstand a smartphone suddenly lights up and glows brightly, lighting the room. Static camera.", "label": "3:07 AM", "dur": 4.0, "mood": "piano", "space": "room", "sfx": [["buzz", 0.5]]},
+    {"id": "s06", "v": "Close-up of {emma} lying in bed in a dark bedroom, she wakes up and slowly reaches for her glowing phone, the screen light on her sleepy face. Slow push-in.", "dur": 3.5, "mood": "piano", "space": "room"},
+    {"id": "s07", "phone": {"from": "Daniel", "time": "3:07 AM", "msgs": [["in", "Don't trust Mark."]]}, "dur": 3.0, "mood": "piano"},
+    {"id": "s08", "v": "Close-up of {emma} sitting up in bed in a dark bedroom, looking at her phone in shock, then looking up and speaking to herself in a trembling voice, her lips moving, phone light on her face. Static camera.", "lip": true, "lines": [["emma", "Daniel? No... no. You're dead. This isn't possible.", 0.75]], "mood": "piano", "space": "room"},
+    {"id": "s09", "call": "Daniel", "lines": [["operator", "The number you have dialed is not in service.", 0.3]], "mood": "drone", "space": "phone"},
+    {"id": "s10", "v": "Flashback. A funeral in heavy rain at a grey cemetery. {mark} and other men in black carry a wooden coffin slowly, his face grim. Slow tracking shot.", "flashback": true, "label": "ONE YEAR AGO", "dur": 4.0, "mood": "sad", "space": "rain"},
+    {"id": "s11", "v": "Flashback. At a rainy cemetery under a black umbrella, {mark} holds the shoulders of a crying woman and looks into her eyes, speaking to her softly, his lips moving, his face toward the camera. Slow push-in.", "flashback": true, "lip": true, "lines": [["mark", "I'm here now, Emma. Whatever you need. Always.", 0.45]], "mood": "sad", "space": "rain"},
+    {"id": "s12", "phone": {"from": "Daniel", "time": "3:09 AM", "msgs": [["in", "Don't trust Mark."], ["out", "Who is this?"]]}, "lines": [["emma", "Who is this?", 0.6]], "mood": "drone", "space": "room"},
+    {"id": "s13", "phone": {"from": "Daniel", "time": "3:10 AM", "msgs": [["in", "Don't trust Mark."], ["out", "Who is this?"], ["in", "Check his laptop. Before he does."]]}, "dur": 3.6, "mood": "pulse", "sfx": [["buzz", 0.3]]},
+    {"id": "s14", "v": "{emma} walks slowly down a dark wooden staircase at night holding her phone flashlight, looking around nervously. Camera follows her.", "dur": 4.0, "mood": "pulse", "space": "hall"},
+    {"id": "s15", "v": "In a dark home office at night {emma} sits at a desk in front of an open laptop, the bright screen lighting her tense face, she whispers to herself, her lips moving. Static close-up.", "lip": true, "lines": [["emma", "His password... still our wedding date.", 0.5]], "mood": "pulse", "space": "room"},
+    {"id": "s16", "laptop": ["Photos", "Taxes 2025", "Wedding", "MARK"], "lines": [["emma", "Mark?", 0.6]], "mood": "pulse", "space": "room"},
+    {"id": "s17", "v": "In a dark home office {emma} looks up startled as the lights suddenly go out, the room drops into darkness, only the laptop glow on her frightened face.", "dur": 3.0, "mood": "silence", "space": "room", "sfx": [["power", 0.0]]},
+    {"id": "s18", "v": "A dark house hallway at night seen from the far end, the front door at the end of the hall, a thin line of warm light under the door. Very slow push-in. No people.", "label": "3:21 AM", "dur": 3.5, "mood": "silence", "space": "hall", "sfx": [["bell", 0.4]]},
+    {"id": "s19", "v": "{emma} creeps slowly along a dark hallway toward the front door holding her phone light, terrified, breathing fast. Camera follows behind her.", "dur": 4.2, "mood": "dread", "space": "hall", "sfx": [["bell", 1.4]]},
+    {"id": "s20", "v": "Night, a front porch under a single dim porch light. {mark} faces the camera and speaks calmly toward the closed door, his lips moving, a cold smile, then he raises a single house key. Static medium shot.", "lip": true, "lines": [["mark", "Emma? I saw your light. Open up. It's just me.", 0.4]], "mood": "dread", "space": "porch"},
+    {"id": "s21", "v": "Extreme close-up of {emma} with her back against the inside of the front door in the dark, eyes wide with fear, whispering, her lips moving, her phone light on her face.", "lip": true, "lines": [["emma", "I never gave you a key.", 0.6]], "mood": "dread", "space": "hall"},
+    {"id": "s22", "v": "Extreme close-up of a door lock at night, a metal key slides into the keyhole from outside and slowly turns, the door handle starts to move. Dark, moody.", "dur": 3.2, "mood": "riser", "space": "hall", "sfx": [["key", 0.6]]},
+    {"id": "s23", "phone": {"from": "Daniel", "time": "3:24 AM", "msgs": [["in", "Don't trust Mark."], ["out", "Who is this?"], ["in", "Check his laptop. Before he does."], ["in", "RUN."]]}, "dur": 2.0, "mood": "hit", "sfx": [["buzz", 0.0]]},
+    {"id": "s24", "v": "Inside a dark hallway, the front door slowly creaks open, warm light spills in and a tall dark silhouette of a man stands in the doorway, {emma} backs away into the darkness.", "dur": 4.5, "mood": "dread", "space": "hall"},
+    {"id": "s25", "end": ["WOULD YOU OPEN THE DOOR?", "COMMENT YES OR NO", "PART 2 IN 1 HOUR"], "dur": 4.0, "mood": "drone"}
+  ]
+}
