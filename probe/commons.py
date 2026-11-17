@@ -3,20 +3,18 @@ import json, urllib.request, urllib.parse, os, re, html, io, traceback
 from PIL import Image, ImageDraw
 UA = {'User-Agent': 'FootballLegends/1.0 (reels)'}
 C = {
- 'yellow': ['Category:Yellow cards (association football)', 'Category:Referees showing yellow cards'],
- 'red': ['Category:Red cards (association football)'],
- 'penalty': ['Category:Penalty kicks (association football)'],
- 'corner': ['Category:Corner kicks'],
- 'throwin': ['Category:Throw-ins (association football)'],
- 'goalkick': ['Category:Goal kicks'],
- 'keeper': ['Category:Association football goalkeepers in action', 'Category:Goalkeeping (association football)'],
- 'shirt': ['Category:Association football players celebrating goals'],
- 'ball': ['Category:Association football balls', 'Category:Adidas footballs'],
- 'goal': ['Category:Association football goals (structure)', 'Category:Football goals'],
- 'referee': ['Category:Association football referees in action'],
- 'kickoff': ['Category:Kick-offs (association football)'],
- 'gltech': ['Category:Goal-line technology'],
- 'penspot': ['Category:Penalty marks'],
+ 'yellow': ['incategory:"Yellow cards" football', 'referee yellow card association football'],
+ 'penalty': ['penalty kick association football match', 'penalty kick football goalkeeper dive'],
+ 'corner': ['corner kick association football match'],
+ 'throwin': ['throw-in association football match'],
+ 'keeper': ['goalkeeper catches ball association football match', 'goalkeeper ball hands football match'],
+ 'shirt': ['footballer celebrates goal shirt', 'football player celebrating goal'],
+ 'ball': ['association football match ball', 'football ball grass pitch'],
+ 'goal': ['empty football goal net stadium', 'association football goal posts net'],
+ 'referee': ['association football referee match whistle'],
+ 'kickoff': ['kick-off association football centre circle'],
+ 'line': ['football pitch penalty area line', 'goal line association football'],
+ 'stadium': ['football stadium match crowd pitch'],
 }
 def get(u): return json.load(urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=40))
 out = {}
@@ -25,7 +23,7 @@ for k, cats in C.items():
     lst = []
     for cat in cats:
         try:
-            u = 'https://commons.wikimedia.org/w/api.php?' + urllib.parse.urlencode({'action': 'query', 'format': 'json', 'generator': 'categorymembers', 'gcmtitle': cat, 'gcmtype': 'file', 'gcmlimit': 40,
+            u = 'https://commons.wikimedia.org/w/api.php?' + urllib.parse.urlencode({'action': 'query', 'format': 'json', 'generator': 'search', 'gsrsearch': cat + ' filetype:bitmap', 'gsrnamespace': 6, 'gsrlimit': 40,
                 'prop': 'imageinfo', 'iiprop': 'url|extmetadata|size|mime', 'iiurlwidth': 300})
             pages = (get(u).get('query') or {}).get('pages') or {}
         except Exception as e: print(k, cat, e); continue
@@ -35,7 +33,7 @@ for k, cats in C.items():
             lic = (md.get('LicenseShortName') or {}).get('value', '')
             if not re.search(r'CC|Public domain|PD', lic, re.I): continue
             t = p['title']
-            if re.search(r'women|woman|female|girls|ladies|frauen|femen|israel|algeri', t + json.dumps(md)[:3000], re.I): continue
+            if re.search(r'women|woman|female|girls|ladies|frauen|femen|feminin|israel|algeri|american football|rugby|nfl|ncaa|gaelic|aussie|afl|packers|lacrosse|hockey|basketball', t + str((md.get('ImageDescription') or {}).get('value', '')) + str((md.get('Categories') or {}).get('value', '')), re.I): continue
             art = re.sub('<[^>]+>', '', html.unescape((md.get('Artist') or {}).get('value', ''))).strip()[:60]
             lst.append({'title': t, 'thumb': ii.get('thumburl'), 'w': ii['width'], 'h': ii['height'], 'artist': art, 'license': lic})
             if len(lst) >= 12: break
