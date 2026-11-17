@@ -1,6 +1,7 @@
 # One-off (owner, 2026-11-17): frames of the Commons clips to pick from by eye, through the 720p copy Commons keeps.
 import json, urllib.request, urllib.parse, hashlib, subprocess, re, html, os
-UA = 'FootballLegends/1.0 (reels)'
+UA = 'FootballLegendsReels/1.0 (https://football-legend.com)'
+import time
 F = ["20110611-wsg-swarovski-wattens-vs-fc-blau-weiß-linz-relegation-david-wimleitner-hält-den-elfmeter-von-armin-hobel.webm",
  "2022 FIFA World Cup's first goal by Enner Valencia of Ecuador against Qatar.webm", "Penalty Max-Alain Gradel (2018-04-21).ogv",
  "Còrner València-Llevant.webm", "FC Utrecht takes a Corner.ogv", "Train like a Real Madrid goalkeeper! - Courtois, Lunin & Altube.webm",
@@ -16,13 +17,17 @@ for i, f in enumerate(F):
     for q in ['720p.vp9.webm', '720p.webm', '480p.vp9.webm', '480p.webm']:
         u = f'https://upload.wikimedia.org/wikipedia/commons/transcoded/{h[0]}/{h[:2]}/{e}/{e}.{q}'
         try:
-            r = urllib.request.urlopen(urllib.request.Request(u, method='HEAD', headers={'User-Agent': UA}), timeout=20)
+            time.sleep(1); r = urllib.request.urlopen(urllib.request.Request(u, method='HEAD', headers={'User-Agent': UA}), timeout=20)
             if r.status == 200: url = u; break
         except Exception: pass
     url = url or ii['url']
-    dur = float(subprocess.run(['ffprobe', '-v', 'error', '-user_agent', UA, '-show_entries', 'format=duration', '-of', 'csv=p=0', url], capture_output=True, text=True).stdout.strip() or 0)
+    time.sleep(4)
+    loc = f'probe/v{i}.bin'
+    subprocess.run(['curl', '-sSL', '--retry', '4', '--retry-delay', '8', '-A', UA, '-o', loc, url])
+    dur = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', loc], capture_output=True, text=True).stdout.strip() or 0)
     step = 1 if dur <= 25 else max(1, int(dur // 24))
-    r = subprocess.run(['ffmpeg', '-v', 'error', '-user_agent', UA, '-i', url, '-vf', f'fps=1/{step},scale=240:-2,drawtext=text=%{{pts\\:hms}}:x=4:y=4:fontsize=18:fontcolor=yellow,tile=6x4', '-frames:v', '1', '-y', f'probe/img/c{i}.jpg'], capture_output=True, text=True)
+    r = subprocess.run(['ffmpeg', '-v', 'error', '-i', loc, '-vf', f'fps=1/{step},scale=240:-2,drawtext=text=%{{pts\\:hms}}:x=4:y=4:fontsize=18:fontcolor=yellow,tile=6x4', '-frames:v', '1', '-y', f'probe/img/c{i}.jpg'], capture_output=True, text=True)
     print(i, url[-60:], dur, step, r.stderr[-200:])
+    os.remove(loc)
     out.append({'i': i, 'file': f, 'artist': art, 'license': em.get('LicenseShortName', {}).get('value', ''), 'url': url, 'dur': dur, 'step': step})
 json.dump(out, open('probe/clips.json', 'w'), ensure_ascii=False, indent=1)
