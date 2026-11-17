@@ -1,0 +1,73 @@
+{
+ "chatterbox_install": {
+  "rc": 0,
+  "err": ""
+ },
+ "chatterbox_run": {
+  "rc": 1,
+  "err": "Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n/tmp/cb/lib/python3.11/site-packages/diffusers/models/lora.py:393: FutureWarning: `LoRACompatibleLinear` is deprecated and will be removed in version 1.0.0. Use of `LoRACompatibleLinear` is deprecated. Please switch to PEFT backend by installing PEFT: `pip install peft`.\n  deprecate(\"LoRACompatibleLinear\", \"1.0.0\", deprecation_message)\nTraceback (most recent call last):\n  File \"/tmp/cb.py\", line 5, in <module>\n    m = ChatterboxTTS.from_pretrained(device=\"cuda\")\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/tmp/cb/lib/python3.11/site-packages/chatterbox/tts.py\", line 180, in from_pretrained\n    return cls.from_local(Path(local_path).parent, device)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/tmp/cb/lib/python3.11/site-packages/chatterbox/tts.py\", line 165, in from_local\n    return cls(t3, s3gen, ve, tokenizer, device, conds=conds)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/tmp/cb/lib/python3.11/site-packages/chatterbox/tts.py\", line 126, in __init__\n    self.watermarker = perth.PerthImplicitWatermarker()\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: 'NoneType' object is not callable\n"
+ },
+ "edge_fallback": [
+  "s08_0",
+  "s09_0",
+  "s11_0",
+  "s12_0",
+  "s15_0",
+  "s16_0",
+  "s20_0",
+  "s21_0"
+ ],
+ "voice_seconds": 144,
+ "wan_run": {
+  "rc": 0,
+  "err": ""
+ },
+ "shots_seconds": 3589,
+ "shots_made": [
+  "s05.mp4",
+  "s06.mp4",
+  "s08.mp4",
+  "s10.mp4",
+  "s11.mp4",
+  "s14.mp4",
+  "s15.mp4",
+  "s17.mp4",
+  "s18.mp4",
+  "s19.mp4",
+  "s20.mp4",
+  "s21.mp4",
+  "s22.mp4",
+  "s24.mp4"
+ ],
+ "latentsync_install": {
+  "rc": 0,
+  "err": ""
+ },
+ "lip_s08": {
+  "rc": 0,
+  "err": "",
+  "seconds": 649
+ },
+ "lip_s11": {
+  "rc": 0,
+  "err": "",
+  "seconds": 469
+ },
+ "lip_s15": {
+  "rc": 0,
+  "err": "",
+  "seconds": 396
+ },
+ "lip_s20": {
+  "rc": 0,
+  "err": "",
+  "seconds": 520
+ },
+ "lip_s21": {
+  "rc": 1,
+  "err": "\n  0%|          | 0/127 [00:00<?, ?it/s]\n  0%|          | 0/127 [00:00<?, ?it/s]\nTraceback (most recent call last):\n  File \"/root/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/runpy.py\", line 196, in _run_module_as_main\n    return _run_code(code, main_globals, None,\n  File \"/root/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/runpy.py\", line 86, in _run_code\n    exec(code, run_globals)\n  File \"/tmp/LatentSync/scripts/inference.py\", line 120, in <module>\n    main(config, args)\n  File \"/tmp/LatentSync/scripts/inference.py\", line 89, in main\n    pipeline(\n  File \"/tmp/ls/lib/python3.10/site-packages/torch/utils/_contextlib.py\", line 116, in decorate_context\n    return func(*args, **kwargs)\n  File \"/tmp/LatentSync/latentsync/pipelines/lipsync_pipeline.py\", line 370, in __call__\n    video_frames, faces, boxes, affine_matrices = self.loop_video(whisper_chunks, video_frames)\n  File \"/tmp/LatentSync/latentsync/pipelines/lipsync_pipeline.py\", line 284, in loop_video\n    faces, boxes, affine_matrices = self.affine_transform_video(video_frames)\n  File \"/tmp/LatentSync/latentsync/pipelines/lipsync_pipeline.py\", line 258, in affine_transform_video\n    face, box, affine_matrix = self.image_processor.affine_transform(frame)\n  File \"/tmp/LatentSync/latentsync/utils/image_processor.py\", line 59, in affine_transform\n    raise RuntimeError(\"Face not detected\")\nRuntimeError: Face not detected\n",
+  "seconds": 28
+ },
+ "lip_seconds": 2195,
+ "total_seconds": 5937
+}
