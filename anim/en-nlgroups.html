@@ -120,6 +120,10 @@ $('eh').src = fl(E.h); $('ea').src = fl(E.a);
 q('#en .k').textContent = E.k; q('#en .vs .tm:first-child div').textContent = nm(E.h); q('#en .vs .tm:last-child div').textContent = nm(E.a);
 q('#en .wh').textContent = E.q; q('#en .sub').textContent = E.sub;
 const ops = document.querySelectorAll('#en .op span'); ops[0].textContent = nm(E.h); ops[2].textContent = nm(E.a);
+// a third choice in the middle in place of the draw (E.mid; owner, 2026-11-17: the final tables' «who wins it all?»)
+if (E.mid) { const mb = document.querySelectorAll('#en .op b'); mb[1].textContent = E.mid.b; ops[1].textContent = E.mid.s; }
+// the final tables (2026-11-17): «EVERY RESULT» over the results, no games left to play
+if (D.rsTitle) q('#rs .st').textContent = D.rsTitle;
 $('cta').textContent = E.c;
 let cur = -1;
 const set = (k) => {
@@ -129,6 +133,7 @@ const set = (k) => {
   // the form, oldest first, two lines of two under the points would crowd: shown as the row's tint instead (W/D/L chips below the name)
   $('rows').querySelectorAll('.t').forEach((t, i) => { const f = g.rows[i].f || ''; t.innerHTML = `${nm(g.rows[i].c)}<div class="fm" style="flex-direction:row;justify-content:flex-start;margin-top:2px"><div>${[...f].map((x) => `<span class="${x}">${x}</span>`).join('')}</div></div>`; t.style.lineHeight = '0.95'; });
   q('#rs .rg').innerHTML = g.res.map((r) => `<div class="rc${r.big ? ' big' : ''}"><img src="${fl(r[0])}"><div class="c">${r[0]}</div><div class="sc">${r[1]}-${r[2]}</div><div class="c">${r[3]}</div><img src="${fl(r[3])}"></div>`).join('');
+  $('fx').style.display = g.fx.length ? '' : 'none';
   q('#fx .fl2').innerHTML = g.fx.map((r) => `<div class="fr${r.tag ? ' hot' : ''}"><div class="d">${r.d}</div><img src="${fl(r.h)}"><div class="m">${nm(r.h)}<s>v</s>${nm(r.a)}</div><img src="${fl(r.a)}"><div class="h">${r.t}</div>${r.tag ? `<div class="tg">${r.tag}</div>` : ''}</div>`).join('');
   q('.key span').textContent = g.key;
   q('.zn').innerHTML = (g.zones || [['#22c55e', 'QUARTER-FINALS'], ['#f59e0b', 'RELEGATION PLAY-OFF'], ['#ef4444', 'RELEGATED']]).map(([c, x]) => `<span><b style="background:${c}"></b>${x}</span>`).join('');
