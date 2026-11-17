@@ -239,7 +239,7 @@ for i, p in enumerate(plan):
         lipf = os.path.join(LIP_DIR, vid + '.mp4')
         src = lipf if (s.get('lip') and os.path.exists(lipf)) else os.path.join(SHOTS_DIR, vid + '.mp4')
         slow = 1.0 if src == lipf else min(max(D_ / CLIP, 1.0), 1.6)
-        chain = f"[0:v]setpts={slow:.3f}*PTS,minterpolate=fps={FPS}:mi_mode=mci:mc_mode=aobmc:vsbmc=1,tpad=stop_mode=clone:stop_duration=10,scale={W}:{H}:flags=lanczos,{GRADE}"
+        chain = f"[0:v]setpts={slow:.3f}*PTS,fps={FPS},tpad=stop_mode=clone:stop_duration=10,scale={W}:{H}:flags=lanczos,{GRADE}"
         if s.get('flashback'):
             chain += ",hue=s=0.35,gblur=sigma=0.7,fade=t=in:st=0:d=0.35:color=white"
         inputs = ['-i', src]
