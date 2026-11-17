@@ -1,35 +1,52 @@
-# One-off (owner, 2026-11-17: «عايزين نحط صور»): Commons candidates for the «قانون في 20 ثانية» episodes, small copies
-# and credits to check by eye.
-import json, urllib.request, urllib.parse, os, re, html
-UA = {'User-Agent': 'FootballLegends/1.0 (reels; contact via site)'}
-Q = {
- 'shirtoff': 'footballer shirt off goal celebration', 'yellow': 'referee showing yellow card football', 'keeperball': 'goalkeeper holding ball football match',
- 'jewel': 'football player earring', 'kickoff': 'kick-off football centre circle', 'goalkick': 'goal kick goalkeeper football', 'throwin': 'throw-in football match',
- 'corner': 'corner kick football', 'penalty': 'penalty kick football goalkeeper', 'post': 'football hits post goal', 'keepercatch': 'goalkeeper catches ball',
- 'keeperthrow': 'goalkeeper throws ball', 'goalnet': 'football goal net', 'penaltyspot': 'penalty spot football pitch', 'matchball': 'football match ball',
- 'lineup': 'football team lineup before match', 'referee': 'football referee whistle match', 'goalline': 'ball on goal line football', 'pitchlines': 'football pitch penalty area lines',
+# One-off (owner, 2026-11-17: «عايزين نحط صور»): Commons candidates by category for the rules episodes, a contact sheet each.
+import json, urllib.request, urllib.parse, os, re, html, io, traceback
+from PIL import Image, ImageDraw
+UA = {'User-Agent': 'FootballLegends/1.0 (reels)'}
+C = {
+ 'yellow': ['Category:Yellow cards (association football)', 'Category:Referees showing yellow cards'],
+ 'red': ['Category:Red cards (association football)'],
+ 'penalty': ['Category:Penalty kicks (association football)'],
+ 'corner': ['Category:Corner kicks'],
+ 'throwin': ['Category:Throw-ins (association football)'],
+ 'goalkick': ['Category:Goal kicks'],
+ 'keeper': ['Category:Association football goalkeepers in action', 'Category:Goalkeeping (association football)'],
+ 'shirt': ['Category:Association football players celebrating goals'],
+ 'ball': ['Category:Association football balls', 'Category:Adidas footballs'],
+ 'goal': ['Category:Association football goals (structure)', 'Category:Football goals'],
+ 'referee': ['Category:Association football referees in action'],
+ 'kickoff': ['Category:Kick-offs (association football)'],
+ 'gltech': ['Category:Goal-line technology'],
+ 'penspot': ['Category:Penalty marks'],
 }
+def get(u): return json.load(urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=40))
 out = {}
-def get(u):
-    return json.load(urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=30))
-for k, q in Q.items():
-    u = 'https://commons.wikimedia.org/w/api.php?' + urllib.parse.urlencode({'action': 'query', 'format': 'json', 'generator': 'search', 'gsrsearch': q + ' filetype:bitmap', 'gsrnamespace': 6, 'gsrlimit': 8,
-        'prop': 'imageinfo', 'iiprop': 'url|extmetadata|size', 'iiurlwidth': 360})
-    try: pages = (get(u).get('query') or {}).get('pages') or {}
-    except Exception as e: print(k, e); continue
+os.makedirs('probe/img', exist_ok=True)
+for k, cats in C.items():
     lst = []
-    for p in sorted(pages.values(), key=lambda p: p.get('index', 99)):
-        ii = (p.get('imageinfo') or [{}])[0]; md = ii.get('extmetadata') or {}
-        if ii.get('width', 0) < 900: continue
-        art = re.sub('<[^>]+>', '', html.unescape((md.get('Artist') or {}).get('value', ''))).strip()[:60]
-        lic = (md.get('LicenseShortName') or {}).get('value', '')
-        if not re.search(r'CC|Public domain|PD', lic, re.I): continue
-        n = len(lst); fn = f'probe/img/{k}-{n}.jpg'; os.makedirs('probe/img', exist_ok=True)
+    for cat in cats:
         try:
-            urllib.request.urlretrieve if False else None
-            data = urllib.request.urlopen(urllib.request.Request(ii['thumburl'], headers=UA), timeout=30).read(); open(fn, 'wb').write(data)
-        except Exception as e: print(k, 'thumb', e); continue
-        lst.append({'n': n, 'title': p['title'], 'w': ii.get('width'), 'h': ii.get('height'), 'artist': art, 'license': lic})
-        if len(lst) >= 5: break
+            u = 'https://commons.wikimedia.org/w/api.php?' + urllib.parse.urlencode({'action': 'query', 'format': 'json', 'generator': 'categorymembers', 'gcmtitle': cat, 'gcmtype': 'file', 'gcmlimit': 40,
+                'prop': 'imageinfo', 'iiprop': 'url|extmetadata|size|mime', 'iiurlwidth': 300})
+            pages = (get(u).get('query') or {}).get('pages') or {}
+        except Exception as e: print(k, cat, e); continue
+        for p in pages.values():
+            ii = (p.get('imageinfo') or [{}])[0]; md = ii.get('extmetadata') or {}
+            if ii.get('mime') not in ('image/jpeg', 'image/png') or ii.get('width', 0) < 1000: continue
+            lic = (md.get('LicenseShortName') or {}).get('value', '')
+            if not re.search(r'CC|Public domain|PD', lic, re.I): continue
+            t = p['title']
+            if re.search(r'women|woman|female|girls|ladies|frauen|femen|israel|algeri', t + json.dumps(md)[:3000], re.I): continue
+            art = re.sub('<[^>]+>', '', html.unescape((md.get('Artist') or {}).get('value', ''))).strip()[:60]
+            lst.append({'title': t, 'thumb': ii.get('thumburl'), 'w': ii['width'], 'h': ii['height'], 'artist': art, 'license': lic})
+            if len(lst) >= 12: break
+        if len(lst) >= 12: break
+    # a contact sheet: 4 x 3, numbered
+    sheet = Image.new('RGB', (4 * 300, 3 * 240), (20, 20, 30)); d = ImageDraw.Draw(sheet)
+    for i, x in enumerate(lst):
+        try:
+            im = Image.open(io.BytesIO(urllib.request.urlopen(urllib.request.Request(x['thumb'], headers=UA), timeout=30).read())).convert('RGB')
+            im.thumbnail((296, 220)); sheet.paste(im, ((i % 4) * 300 + 2, (i // 4) * 240 + 2)); d.rectangle(((i % 4) * 300, (i // 4) * 240 + 200, (i % 4) * 300 + 40, (i // 4) * 240 + 238), fill=(255, 0, 80)); d.text(((i % 4) * 300 + 8, (i // 4) * 240 + 210), str(i), fill=(255, 255, 255))
+        except Exception as e: print(k, i, e)
+    sheet.save(f'probe/img/{k}.jpg', quality=80)
     out[k] = lst; print(k, len(lst))
 json.dump(out, open('probe/commons.json', 'w'), ensure_ascii=False, indent=1)
