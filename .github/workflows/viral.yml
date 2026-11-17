@@ -1,30 +1,20 @@
-# One-off trial (owner, 2026-11-17): the viral radar run now, without sending (Cloudflare models, no Gemini), again after the deploy.
-name: Viral radar trial
+# One-off (owner, 2026-11-17): Commons photo candidates for the rules episodes, to be checked by eye.
+name: Rules photos probe
 on:
   push:
     branches: [viral-probe]
-    paths: [.github/workflows/viral.yml]
+    paths: [probe/commons.py, .github/workflows/viral.yml]
 permissions:
   contents: write
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - name: Dry run
-        env:
-          REELS_KEY: ${{ secrets.REELS_KEY }}
-        run: |
-          set -uo pipefail
-          for t in 1 2 3 4 5 6 7 8; do
-            code=$(curl -sS -G -o probe/dry.json -w '%{http_code}' --max-time 400 "https://api.football-legend.com/v2/ytviral/dry" --data-urlencode "key=$REELS_KEY" || echo 000)
-            echo "try $t: HTTP $code"; head -c 300 probe/dry.json; echo
-            [ "$code" = "200" ] && break; sleep 60
-          done
-      - name: Keep the result
-        run: |
+      - run: python3 probe/commons.py
+      - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add probe/dry.json; git commit -m "Viral radar dry run" || exit 0
+          git add probe; git commit -m "Rules photos probe result" || exit 0
           for t in 1 2 3; do git push && break; sleep $((t * 5)); done
