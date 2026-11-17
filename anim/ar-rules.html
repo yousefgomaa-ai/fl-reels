@@ -1,0 +1,135 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><style>
+/* «قانون في 20 ثانية» (owner, 2026-11-17: «اعملة و يجيلي موافقة علي تلجرام»): a law of the game in a YouTube Short, after
+   the «3 أشياء ممنوعة» Shorts that spread. A hook (a stamp and a count), one screen a rule (a drawn sign: a card, a ring,
+   a countdown, a flag, a ball, a goal; the rule, what it costs), the last one the surprise, then the question with two
+   answers. Text on screen and music, no voice. DATA.steps: {t:'hook'|'item'|'ask', ...}, DATA.minBeats in seconds. */
+.scr{position:absolute;inset:0;opacity:0}
+#pb{position:absolute;top:0;right:0;height:12px;width:0;background:linear-gradient(270deg,#22e9ff,#ff2f97);z-index:99;box-shadow:0 0 14px rgba(255,47,151,.7)}
+#fl{position:absolute;inset:0;background:#fff;opacity:0;z-index:60;pointer-events:none}
+.h{font-weight:900;line-height:1.25}.h i{font-style:normal;color:#ffd23f}
+.sub{font-weight:700;color:#c9d2f2;line-height:1.5}
+.num{direction:ltr;unicode-bidi:isolate}
+/* the stamp */
+.stamp{position:absolute;padding:10px 46px;border:12px solid #ff2f4f;border-radius:26px;color:#ff2f4f;font-weight:900;font-size:120px;letter-spacing:2px;
+  background:rgba(255,47,79,.08);box-shadow:0 0 50px rgba(255,47,79,.35);transform-origin:center;white-space:nowrap}
+/* the hook */
+#hk .ring0{position:absolute;left:50%;top:330px;width:560px;height:560px;margin-left:-280px;border-radius:50%;border:16px solid #22e9ff;box-shadow:0 0 80px rgba(34,233,255,.35),inset 0 0 80px rgba(34,233,255,.2)}
+#hk .n{position:absolute;left:0;right:0;top:390px;text-align:center;font-size:360px;font-weight:900;color:#ffd23f;text-shadow:0 0 70px rgba(255,210,63,.5)}
+#hk .stamp{left:50%;top:860px;margin-left:-250px;width:500px;text-align:center}
+#hk .h{position:absolute;left:60px;right:60px;top:1190px;text-align:center;font-size:84px}
+#hk .sub{position:absolute;left:60px;right:60px;top:1560px;text-align:center;font-size:50px;color:#ffd23f}
+/* a rule */
+#it .lb{position:absolute;right:60px;top:200px;padding:8px 34px;border-radius:40px;background:#ff2f97;font-weight:900;font-size:44px}
+#it .med{position:absolute;left:50%;top:300px;width:620px;height:620px;margin-left:-310px;border-radius:50%;
+  background:radial-gradient(circle at 50% 40%,#1d3a80,#0a1233 70%);border:10px solid rgba(34,233,255,.6);box-shadow:0 0 90px rgba(34,233,255,.25);overflow:hidden}
+#it .ic{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+#it .big{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:250px;font-weight:900;color:#ffd23f;text-shadow:0 0 60px rgba(255,210,63,.45)}
+#it svg.arc{position:absolute;inset:-10px;width:640px;height:640px;transform:rotate(-90deg)}
+#it .stamp{left:50%;top:760px;width:460px;margin-left:-230px;text-align:center;font-size:96px}
+#it .h{position:absolute;left:60px;right:60px;top:1000px;text-align:center;font-size:76px}
+#it .sub{position:absolute;left:70px;right:70px;top:1290px;text-align:center;font-size:46px}
+#it .vd{position:absolute;left:50%;top:1610px;transform:translateX(-50%);padding:16px 50px;border-radius:60px;font-weight:900;font-size:56px;white-space:nowrap;background:#ffd23f;color:#050812}
+#it .vd.red{background:#ff2f4f;color:#fff}#it .vd.ok{background:#2fe08a;color:#050812}
+/* the drawn signs */
+.yc{width:250px;height:350px;border-radius:22px;background:#ffd23f;box-shadow:0 20px 60px rgba(0,0,0,.5)}.yc.red{background:#ff2f4f}
+.rg{width:300px;height:300px;border-radius:50%;border:44px solid #ffd23f;box-shadow:0 0 60px rgba(255,210,63,.5),inset 0 0 30px rgba(0,0,0,.3);position:relative}
+.rg:after{content:'';position:absolute;left:50%;top:-80px;width:90px;height:90px;margin-left:-45px;background:#9ff3ff;transform:rotate(45deg);border-radius:10px}
+.xx{position:absolute;width:480px;height:30px;background:#ff2f4f;border-radius:16px;box-shadow:0 0 30px rgba(255,47,79,.6)}
+.fg{position:relative;width:300px;height:400px}.fg .pole{position:absolute;left:60px;top:0;width:16px;height:400px;background:#fff;border-radius:8px}
+.fg .cl{position:absolute;left:76px;top:10px;width:190px;height:130px;background:#ff2f97;clip-path:polygon(0 0,100% 50%,0 100%)}
+.bl{width:300px;height:300px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#d8dde8 60%,#9aa3b8);position:relative;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.bl:after{content:'';position:absolute;left:50%;top:50%;width:90px;height:90px;margin:-45px 0 0 -45px;background:#111a33;clip-path:polygon(50% 0,100% 38%,82% 100%,18% 100%,0 38%)}
+.gl{width:470px;height:250px;border:18px solid #fff;border-bottom:none;position:relative;background:repeating-linear-gradient(45deg,rgba(255,255,255,.18) 0 4px,transparent 4px 28px),repeating-linear-gradient(-45deg,rgba(255,255,255,.18) 0 4px,transparent 4px 28px)}
+.ln{position:relative;width:480px;height:300px}.ln .w{position:absolute;left:0;right:0;top:140px;height:22px;background:#fff}
+.ln .b{position:absolute;left:180px;top:60px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#c8cfdd 60%,#8a93a8)}
+/* the question */
+#ak .h{position:absolute;left:60px;right:60px;top:360px;text-align:center;font-size:92px}
+#ak .opts{position:absolute;left:90px;right:90px;top:820px;display:flex;flex-direction:column;gap:46px}
+#ak .o{display:flex;align-items:center;gap:34px;padding:30px 40px;border-radius:120px;background:rgba(255,255,255,.06);border:6px solid #2fe08a}
+#ak .o:last-child{border-color:#ff2f4f}
+#ak .o b{flex:none;width:140px;height:140px;border-radius:50%;background:#2fe08a;color:#050812;display:flex;align-items:center;justify-content:center;font-size:84px;font-weight:900}
+#ak .o:last-child b{background:#ff2f4f;color:#fff}
+#ak .o span{font-weight:900;font-size:76px}
+#ak .c{position:absolute;left:60px;right:60px;top:1450px;text-align:center;font-weight:900;font-size:66px;color:#ffd23f}
+#ak .src{position:absolute;left:60px;right:60px;top:1640px;text-align:center;font-weight:700;font-size:34px;color:#7f89b0}
+</style></head><body><div class="bg"></div><div class="grid" id="gr"></div>
+<div class="scr" id="hk"><div class="ring0"></div><div class="n num"></div><div class="stamp"></div><div class="h"></div><div class="sub"></div></div>
+<div class="scr" id="it"><div class="lb"></div><div class="med"><div class="ic"></div><div class="big num"></div>
+  <svg class="arc" viewBox="0 0 640 640"><circle cx="320" cy="320" r="300" fill="none" stroke="#ff2f4f" stroke-width="18" stroke-linecap="round" stroke-dasharray="1885" stroke-dashoffset="1885"/></svg></div>
+  <div class="stamp"></div><div class="h"></div><div class="sub"></div><div class="vd"></div></div>
+<div class="scr" id="ak"><div class="h"></div><div class="opts"><div class="o"><b>أ</b><span></span></div><div class="o"><b>ب</b><span></span></div></div><div class="c"></div><div class="src"></div></div>
+<div class="brand">FOOTBALL LEGENDS</div><div class="chip" id="chip"></div><div id="pb"></div><div id="fl"></div>
+<script src="lib.js"></script><script>
+const D = window.DATA, S = D.steps || [];
+const mins = D.minBeats || S.map((s) => ({ hook: 3.5, item: 6, ask: 5 }[s.t] || 5));
+const B = (() => { let t = 0; return mins.map((m) => { const b = [t, m]; t += m; return b; }); })();
+window.TOTAL = B[B.length - 1][0] + B[B.length - 1][1] + 1;
+const q = (id, sel) => $(id).querySelector(sel), c01 = (x) => Math.min(1, Math.max(0, x));
+$('chip').textContent = D.series || 'قانون في 20 ثانية';
+const ICON = {
+  yellow: '<div class="yc"></div>', red: '<div class="yc red"></div>', ring: '<div class="rg"></div><div class="xx"></div>',
+  flag: '<div class="fg"><div class="pole"></div><div class="cl"></div></div>', ball: '<div class="bl"></div>', goal: '<div class="gl"></div>',
+  line: '<div class="ln"><div class="w"></div><div class="b"></div></div>', none: '',
+};
+let cur = -1;
+const set = (s) => {
+  if (s.t === 'hook') { q('hk', '.n').textContent = s.big || ''; q('hk', '.stamp').textContent = s.stamp || 'ممنوع'; q('hk', '.h').innerHTML = s.h || ''; q('hk', '.sub').innerHTML = s.sub || ''; }
+  if (s.t === 'item') {
+    q('it', '.lb').textContent = s.label || ''; q('it', '.ic').innerHTML = ICON[s.icon] != null ? ICON[s.icon] : ''; q('it', '.big').textContent = s.big != null ? String(s.big) : '';
+    q('it', '.stamp').textContent = s.stamp || ''; q('it', '.stamp').style.display = s.stamp ? '' : 'none';
+    q('it', '.h').innerHTML = s.h || ''; q('it', '.sub').innerHTML = s.sub || '';
+    const vd = q('it', '.vd'); vd.textContent = s.verdict || ''; vd.style.display = s.verdict ? '' : 'none'; vd.className = 'vd' + (s.tone ? ' ' + s.tone : '');
+  }
+  if (s.t === 'ask') { q('ak', '.h').innerHTML = s.h || ''; q('ak', '.c').textContent = s.c || ''; q('ak', '.src').textContent = s.src || '';
+    (s.opts || ['نعم', 'لا']).forEach((x, i) => { q('ak', '.opts').children[i].querySelector('span').textContent = x; }); }
+};
+const scr = { hook: 'hk', item: 'it', ask: 'ak' };
+window.draw = (t) => {
+  const bi = B.findIndex(([s0, l0]) => t >= s0 && t < s0 + l0), k = bi < 0 ? B.length - 1 : bi, [s0, l] = B[k], u = t - s0, s = S[k];
+  if (cur !== k) { set(s); cur = k; }
+  const id = scr[s.t];
+  for (const x of Object.values(scr)) if (x !== id) $(x).style.opacity = 0;
+  const last = k === S.length - 1;
+  $(id).style.opacity = last ? ease(u / .3) : Math.min(ease(u / .25), 1 - ease((u - l + .25) / .25));
+  let fl = 0;
+  $('gr').style.transform = `translateY(${(t * 22) % 90}px)`;
+  if (s.t === 'hook') {
+    const n = q('hk', '.n'); n.style.transform = `scale(${u < .45 ? 2.2 - 1.2 * back(u / .45) : 1 + .04 * Math.sin(u * 6)})`;
+    q('hk', '.ring0').style.transform = `scale(${.6 + .4 * back(u / .5)}) rotate(${u * 40}deg)`;
+    const st = q('hk', '.stamp'), a = c01((u - .6) / .25); st.style.opacity = a; st.style.transform = `rotate(-8deg) scale(${a < 1 ? 2.4 - 1.4 * a : 1})`;
+    if (u > .6 && u < .78) fl = .35 * (1 - (u - .6) / .18);
+    q('hk', '.h').style.opacity = ease((u - .9) / .3); q('hk', '.h').style.transform = `translateY(${(1 - ease((u - .9) / .4)) * 50}px)`;
+    q('hk', '.sub').style.opacity = ease((u - 1.5) / .3) * (.85 + .15 * Math.sin(u * 5));
+    if (u < .12) fl = Math.max(fl, .5 * (1 - u / .12));
+  }
+  if (s.t === 'item') {
+    q('it', '.lb').style.opacity = ease(u / .3); q('it', '.lb').style.transform = `translateX(${(1 - ease(u / .4)) * 200}px)`;
+    const med = q('it', '.med'); med.style.transform = `scale(${u < .5 ? .3 + .7 * back(u / .5) : 1 + .02 * Math.sin(u * 3)})`;
+    const ic = q('it', '.ic'); ic.style.transform = s.icon === 'yellow' || s.icon === 'red' ? `rotateY(${(1 - ease((u - .2) / .8)) * 540}deg) rotate(${-8 + 4 * Math.sin(u * 2)}deg)`
+      : s.icon === 'ball' ? `translateX(${(1 - ease((u - .2) / .8)) * -400}px) rotate(${u * 220}deg)` : `scale(${.8 + .2 * ease((u - .2) / .5)}) rotate(${3 * Math.sin(u * 2.5)}deg)`;
+    ic.style.opacity = ease((u - .2) / .3);
+    // a countdown (the eight seconds): the number falls to zero while the red ring closes, then a flash
+    const big = q('it', '.big'), arc = q('it', 'svg.arc circle');
+    if (s.count) { const a = c01((u - .4) / Math.max(1, (s.countFor || 3))); big.textContent = String(Math.max(0, Math.ceil(Number(s.count) * (1 - a))));
+      arc.style.strokeDashoffset = String(1885 * (1 - a)); big.style.transform = `scale(${1 + .08 * Math.max(0, Math.sin(u * 2 * Math.PI))})`;
+      if (a >= 1 && u - .4 - (s.countFor || 3) < .2) fl = .4; }
+    else { arc.style.strokeDashoffset = '1885'; big.style.opacity = ease((u - .3) / .4); big.style.transform = `scale(${1 + .03 * Math.sin(u * 4)})`; }
+    const cnt = s.count ? .4 + (s.countFor || 3) : 0;
+    const st = q('it', '.stamp'), a2 = c01((u - 1 - cnt * .0) / .25); st.style.opacity = s.stamp ? a2 : 0; st.style.transform = `rotate(-8deg) scale(${a2 < 1 ? 2.2 - 1.2 * a2 : 1})`;
+    const t0 = s.count ? Math.min(1, cnt - .6) : .9;
+    q('it', '.h').style.opacity = ease((u - t0) / .3); q('it', '.h').style.transform = `translateY(${(1 - ease((u - t0) / .4)) * 50}px)`;
+    q('it', '.sub').style.opacity = ease((u - t0 - .7) / .3);
+    const vd = q('it', '.vd'), a3 = c01((u - Math.max(t0 + 1.4, cnt + .2)) / .3); vd.style.opacity = a3; vd.style.transform = `translateX(-50%) scale(${a3 < 1 ? 1.6 - .6 * back(a3) : 1 + .03 * Math.sin(u * 5)})`;
+  }
+  if (s.t === 'ask') {
+    q('ak', '.h').style.transform = `scale(${1.15 - .15 * ease(u / .4)})`; q('ak', '.h').style.opacity = ease(u / .3);
+    [...q('ak', '.opts').children].forEach((o, i) => { const a = (u - .4 - i * .25) / .35; o.style.opacity = ease(a); o.style.transform = `translateX(${(1 - ease(a)) * (i ? -220 : 220)}px) scale(${1 + .03 * Math.max(0, Math.sin(u * 3.2 + i * Math.PI))})`; });
+    q('ak', '.c').style.opacity = ease((u - 1.2) / .3) * (.8 + .2 * Math.sin(u * 5)); q('ak', '.src').style.opacity = ease((u - 1.6) / .3);
+  }
+  $('fl').style.opacity = fl;
+  $('pb').style.width = (100 * Math.min(1, t / window.TOTAL)) + '%';
+  document.body.style.transform = `scale(${1 + .03 * Math.min(1, t / window.TOTAL)})`;
+};
+window.POSTER = 1.8;
+draw(0);
+</script></body></html>
