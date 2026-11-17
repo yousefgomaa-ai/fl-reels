@@ -2,7 +2,7 @@
 /* «قانون في 20 ثانية» (owner, 2026-11-17: «اعملة و يجيلي موافقة علي تلجرام»): a law of the game in a YouTube Short, after
    the «3 أشياء ممنوعة» Shorts that spread. A hook (a stamp and a count), one screen a rule (a drawn sign: a card, a ring,
    a countdown, a flag, a ball, a goal; the rule, what it costs), the last one the surprise, then the question with two
-   answers. Text on screen and music, no voice. DATA.steps: {t:'hook'|'item'|'ask', ...}, DATA.minBeats in seconds. */
+   answers. Text on screen and music; since 2026-11-17 a spoken line a screen (owner: «الصوت بتاع الشخص اللي بيتكلم»). DATA.steps: {t:'hook'|'item'|'ask', ...}, DATA.minBeats in seconds. */
 .scr{position:absolute;inset:0;opacity:0}
 #pb{position:absolute;top:0;right:0;height:12px;width:0;background:linear-gradient(270deg,#22e9ff,#ff2f97);z-index:99;box-shadow:0 0 14px rgba(255,47,151,.7)}
 #fl{position:absolute;inset:0;background:#fff;opacity:0;z-index:60;pointer-events:none}
@@ -85,7 +85,8 @@ if (D.theme) document.body.classList.add('t-' + D.theme);
 const pic = (id, s) => { const p = s.p != null ? P[s.p] : null; $(id).classList.toggle('wp', !!p);
   if (p) { const im = q(id, '.ph img'); im.src = p.frames && p.frames.length ? p.frames[0] : p.photo; im.style.objectPosition = p.pos || '50% 30%'; q(id, '.cr').textContent = p.credit ? (p.frames ? '🎥 ' : '📷 ') + p.credit + ' • Wikimedia Commons' : ''; } };
 const mins = D.minBeats || S.map((s) => ({ hook: 3.5, item: 6, ask: 5 }[s.t] || 5));
-const B = (() => { let t = 0; return mins.map((m) => { const b = [t, m]; t += m; return b; }); })();
+// the screens follow the narration when there is one (DATA.beats from make.mjs, each screen as long as its line)
+const B = D.beats || (() => { let t = 0; return mins.map((m) => { const b = [t, m]; t += m; return b; }); })();
 window.TOTAL = B[B.length - 1][0] + B[B.length - 1][1] + 1;
 const q = (id, sel) => $(id).querySelector(sel), c01 = (x) => Math.min(1, Math.max(0, x));
 $('chip').textContent = D.series || 'قانون في 20 ثانية';
