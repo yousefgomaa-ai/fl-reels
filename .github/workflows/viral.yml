@@ -1,4 +1,4 @@
-# One-off trial (owner, 2026-11-17): the viral radar run now, without sending (Cloudflare models, no Gemini).
+# One-off trial (owner, 2026-11-17): the viral radar run now, without sending (Cloudflare models, no Gemini), again after the deploy.
 name: Viral radar trial
 on:
   push:
