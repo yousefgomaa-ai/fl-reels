@@ -1,0 +1,54 @@
+{
+  "version": "1.0",
+  "source": {
+    "type": "shorts",
+    "duration_seconds": 0,
+    "url": "https://www.youtube.com/shorts/X7ouGSWV978"
+  },
+  "content_analysis": {
+    "summary": "",
+    "topics": [],
+    "target_audience": "general"
+  },
+  "structure_analysis": {
+    "total_scenes": 0,
+    "scenes": [],
+    "pacing_profile": {}
+  },
+  "keyframes": [],
+  "replication_guidance": {
+    "suggested_pipeline": "animation",
+    "suggested_playbook": "flat-motion-graphics",
+    "key_elements_to_replicate": [],
+    "elements_requiring_custom_work": [],
+    "estimated_complexity": "simple",
+    "motion_required": false,
+    "creative_differentiation_seeds": []
+  },
+  "style_profile": {
+    "color_palette": {
+      "primary_colors": [],
+      "accent_colors": [],
+      "overall_mood": ""
+    },
+    "typography_observed": "",
+    "transition_types": [],
+    "music_style": "",
+    "subtitle_style": "",
+    "production_quality": "prosumer",
+    "closest_playbook": "",
+    "playbook_delta": ""
+  },
+  "_analysis_meta": {
+    "depth": "standard",
+    "steps_completed": [],
+    "steps_failed": [
+      "download: Download failed: ERROR: [youtube] X7ouGSWV978: Sign in to confirm you\u2019re not a bot. This helps protect our community. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies",
+      "transcript_youtube: No module named 'youtube_transcript_api'"
+    ],
+    "keyframe_count": 0,
+    "scene_count": 0,
+    "has_transcript": false,
+    "duration_seconds": 4.12
+  }
+}
