@@ -1,0 +1,15 @@
+{
+ "wan_run": {
+  "rc": 0,
+  "err": ""
+ },
+ "made": [
+  "c1.mp4",
+  "c2.mp4",
+  "c3.mp4",
+  "c4.mp4",
+  "c5.mp4",
+  "c6.mp4"
+ ],
+ "total_seconds": 1726
+}
