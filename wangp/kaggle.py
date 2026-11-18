@@ -64,9 +64,14 @@ if os.path.exists(dp):
         open(dp, "w").write(fixed)
         log["preset_fix"] = "removed placeholder source keys"
         save()
+# Attention: "sage" = SageAttention 1.0.6, the version WanGP lists for this GPU generation (Turing T4); plain SDPA
+# ran out of memory on Ovi (it tried to hold the whole attention matrix).
+att = job.pop("_attention", "sdpa")
+if att == "sage":
+    sh(f"{UV} pip install -p {PY} sageattention==1.0.6", "sage_install", 1500)
 json.dump(job, open("/tmp/job.json", "w"))
 r = sh(f"cd /tmp/Wan2GP && {PY} wgp.py --process /tmp/job.json --output-dir {W}/out "
-       f"--fp16 --attention sdpa --profile 4 --verbose 1", "generate", 8000)
+       f"--fp16 --attention {att} --profile 4 --verbose 1", "generate", 8000)
 log["outputs"] = sorted(os.listdir(f"{W}/out"))
 log["total_s"] = round(time.time() - log.pop("t0"))
 save()
