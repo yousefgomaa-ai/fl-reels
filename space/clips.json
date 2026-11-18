@@ -1,0 +1,43 @@
+{
+  "_note": "Each scene: a 720x1280 keyframe from Z-Image-Turbo, animated by Wan 2.2 14B image-to-video, both free ZeroGPU Spaces. Files already in space/clips are skipped, so a run after the daily quota continues where the last one stopped.",
+  "image_space": "Tongyi-MAI/Z-Image-Turbo",
+  "video_space": "zerogpu-aoti/wan2-2-fp8da-aoti-faster",
+  "scenes": [
+    {
+      "id": "s1_sun",
+      "image": "Extreme close-up of the Sun filling most of the frame, roiling orange plasma, solar flares and looping prominences, pure black space and a few stars around it, ultra detailed, cinematic space photography, vertical composition",
+      "motion": "The Sun suddenly collapses inward into a single tiny point of white light and vanishes completely, leaving only black space and distant stars, dramatic, cinematic",
+      "seconds": 4
+    },
+    {
+      "id": "s2_light",
+      "image": "A bright golden beam of sunlight streaking through dark space toward a small distant blue planet Earth, glowing particles, starfield, cinematic sci-fi, vertical composition",
+      "motion": "The beam of light races forward through space toward Earth, motion streaks, the camera follows it fast, cinematic",
+      "seconds": 5
+    },
+    {
+      "id": "s3_orbit",
+      "image": "Planet Earth in deep space circling an empty dark point where the Sun used to be, a faint glowing orbit line around the empty center, starfield, eerie and cinematic, vertical composition",
+      "motion": "Earth moves slowly along its curved orbit around the empty dark center, the faint orbit line glows, slow camera drift, eerie",
+      "seconds": 5
+    },
+    {
+      "id": "s4_noon",
+      "image": "A busy big-city street at midday, people walking on the sidewalks, yellow taxis, bright sunlight and blue sky, realistic cinematic photo, vertical composition",
+      "motion": "The sky suddenly turns pitch black and the sunlight disappears, people stop and look up in shock, streetlights and car headlights flicker on, cinematic",
+      "seconds": 5
+    },
+    {
+      "id": "s5_drift",
+      "image": "Planet Earth alone in deep black space, its night side covered in glowing city lights, thin blue atmosphere, stars, lonely and cinematic, vertical composition",
+      "motion": "Earth drifts slowly away from the camera into the darkness in a straight line, stars slide past, lonely, cinematic",
+      "seconds": 4
+    },
+    {
+      "id": "s6_saturn",
+      "image": "Saturn with its rings glowing warm gold, brightly lit against pitch black space, ultra detailed, majestic, cinematic space photography, vertical composition",
+      "motion": "Slow cinematic push-in toward Saturn, its rings shimmer softly in the light, majestic",
+      "seconds": 4
+    }
+  ]
+}
