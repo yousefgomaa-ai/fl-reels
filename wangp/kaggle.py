@@ -53,6 +53,17 @@ if r.returncode:
     save()
 
 # ---- generate
+# Some presets (ovi_1_1_fastwan at the pinned commit) carry placeholder "source": "xxx" keys, and WanGP then skips
+# downloading the weights and fails with "file not found": drop the placeholders so the listed URLs are downloaded.
+dp = f"/tmp/Wan2GP/defaults/{job['model_type']}.json"
+if os.path.exists(dp):
+    import re
+    txt = open(dp).read()
+    fixed = re.sub(r'\s*"source2?"\s*:\s*"xxx"\s*,', "", txt)
+    if fixed != txt:
+        open(dp, "w").write(fixed)
+        log["preset_fix"] = "removed placeholder source keys"
+        save()
 json.dump(job, open("/tmp/job.json", "w"))
 r = sh(f"cd /tmp/Wan2GP && {PY} wgp.py --process /tmp/job.json --output-dir {W}/out "
        f"--fp16 --attention sdpa --profile 4 --verbose 1", "generate", 8000)
