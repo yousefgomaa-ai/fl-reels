@@ -2,7 +2,7 @@
   "_note": "Edit the prompt and push to claude/wangp-kaggle: the workflow sends this to WanGP on Kaggle's free T4 and commits the clip to wangp/out. Ovi makes the sound too: spoken words go inside <S>...<E>, and the prompt ends with 'Audio:' and the sounds.",
   "model_type": "ovi_1_1_fastwan",
   "prompt": "A white and black soccer ball drops into frame and bounces high three times on the green grass of an empty stadium at golden sunset, each bounce kicking up small blades of grass, then rolls slowly toward the camera and stops. Warm backlight, cinematic slow motion, shallow depth of field. Audio: three hollow thumps of a ball hitting turf, a soft roll on grass, a distant echoing stadium ambience and a light evening breeze.",
-  "resolution": "480x832",
+  "resolution": "416x736",
   "video_length": 121,
   "num_inference_steps": 6,
   "guidance_scale": 1,
@@ -11,5 +11,5 @@
   "seed": 7,
   "sliding_window_size": 121,
   "sliding_window_overlap": 1,
-  "_attention": "sage"
+  "_attention": "sdpa"
 }
