@@ -1,0 +1,43 @@
+# THE LAST TEXT on free ZeroGPU Spaces: same-face + talking test (owner, 2026-11-19). claude/series-zerogpu only; never merge.
+name: Series ZeroGPU test
+on:
+  push:
+    branches: [claude/series-zerogpu]
+    paths: [seriesz/*.py, seriesz/test.json, seriesz/go, .github/workflows/series-zerogpu.yml]
+permissions:
+  contents: write
+concurrency: { group: series-zerogpu, cancel-in-progress: false }
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null
+      - run: pip install -q -U huggingface_hub gradio_client edge-tts
+      - name: Space APIs (no GPU)
+        run: python3 seriesz/api.py seriesz/test.json seriesz/apis.json
+      - name: Voices (Edge)
+        run: |
+          python3 - <<'PY'
+          import json, os, subprocess, time
+          c = json.load(open('seriesz/test.json')); os.makedirs('seriesz/voice', exist_ok=True)
+          for k, text in c['lines'].items():
+              if os.path.exists(f'seriesz/voice/{k}.wav'): continue
+              for t in range(8):
+                  r = subprocess.run(['edge-tts', '--voice', c['voice'], '--text', text, '--write-media', '/tmp/x.mp3'], capture_output=True)
+                  if r.returncode == 0 and os.path.getsize('/tmp/x.mp3') > 2000: break
+                  time.sleep(5 + 5 * t)
+              else:
+                  print('no voice', k); continue
+              subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', '/tmp/x.mp3', '-ar', '24000', '-ac', '1', f'seriesz/voice/{k}.wav'], check=True)
+          PY
+      - name: Generate (uses the ZeroGPU quota)
+        if: hashFiles('seriesz/go') != ''
+        run: python3 seriesz/gen.py seriesz/test.json seriesz/out || true
+      - name: Commit
+        run: |
+          git config user.name "series-zerogpu" && git config user.email "actions@users.noreply.github.com"
+          git add seriesz && git commit -m "Series ZeroGPU: output [skip ci]" && git pull -q --rebase origin claude/series-zerogpu && git push || true

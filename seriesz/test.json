@@ -1,0 +1,12 @@
+{
+  "_note": "Same-face + talking test for THE LAST TEXT (owner, 2026-11-19). Voices: Edge, as the series used. Generation runs only when seriesz/go exists.",
+  "spaces": ["black-forest-labs/FLUX.2-dev", "black-forest-labs/FLUX.2-klein-9B", "Qwen/Qwen-Image-Edit-2511",
+             "prithivMLmods/Qwen-Image-Edit-2511-LoRAs-Fast", "yanze/PuLID-FLUX", "multimodalart/ltx2-audio-to-video",
+             "Lightricks/LTX-2-3", "linoyts/LTX-2-3-sync", "alexnasa/ltx-2-TURBO", "Lightricks/LTX-2.5",
+             "Tongyi-MAI/Z-Image-Turbo", "zerogpu-aoti/wan2-2-fp8da-aoti-faster"],
+  "voice": "en-US-AriaNeural",
+  "lines": {
+    "l1": "Daniel? No... no. You're dead. This isn't possible.",
+    "l2": "I never gave you a key."
+  }
+}
