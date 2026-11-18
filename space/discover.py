@@ -13,13 +13,16 @@ except Exception as e:
 seen = set()
 for q in ["wan2.2", "wan 2.2", "wan2-2", "wan22", "ltx-2", "flux", "qwen-image", "z-image"]:
     try:
-        for s in api.list_spaces(search=q, sort="likes", direction=-1, limit=25, full=True):
+        for s in api.list_spaces(search=q, sort="likes", limit=25):
             if s.id in seen:
                 continue
             seen.add(s.id)
-            rt = s.runtime or {}
-            hw = getattr(rt, "hardware", None) or (rt.get("hardware") if isinstance(rt, dict) else None)
-            stage = getattr(rt, "stage", None) or (rt.get("stage") if isinstance(rt, dict) else None)
+            try:
+                rt = api.space_info(s.id).runtime
+            except Exception:
+                rt = None
+            hw = getattr(rt, "hardware", None) if rt is not None else None
+            stage = getattr(rt, "stage", None) if rt is not None else None
             out["spaces"].append({"id": s.id, "likes": s.likes, "q": q, "hw": str(hw), "stage": str(stage)})
     except Exception as e:
         out.setdefault("errors", []).append(f"{q}: {e}")
