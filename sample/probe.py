@@ -1,22 +1,26 @@
-# One-off (2026-11-18): (1) why the Nations League final tables reel was not made (#704's reasons); (2) the league stars
-# who scored in the break: their club now and their league goals this season (FotMob), for the «back from the break» reel.
+# One-off (2026-11-18): (1) the Nations League final tables after #705 (dry run, why); (2) the six leagues' full
+# scorer lists (FotMob), for the stars who scored in the break: club now and league goals this season.
 import json, os, time, urllib.request, urllib.parse
 K = os.environ['REELS_KEY']
 H = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/130 Safari/537.36'}
-def get(u, h=H):
-    try: return json.load(urllib.request.urlopen(urllib.request.Request(u, headers=h), timeout=60))
+def get(u, h=H, t=60):
+    try: return json.load(urllib.request.urlopen(urllib.request.Request(u, headers=h), timeout=t))
     except Exception as e: return {'error': str(e)}
-names = ['Vinicius Junior', 'Erling Haaland', 'Florian Wirtz', 'Tijjani Reijnders', 'Julian Alvarez', 'Rasmus Hojlund', 'Pio Esposito', 'Christian Pulisic', 'Harry Kane', 'Mohamed Salah', 'Viktor Gyokeres', 'Achraf Hakimi', 'Jonathan David', 'Nico Paz', 'Franco Mastantuono', 'Nicolas Jackson', 'Kylian Mbappe', 'Raphinha', 'Alexander Isak', 'Lamine Yamal', 'Ousmane Dembele', 'Lautaro Martinez']
-for n in names:
-    s = get('https://www.fotmob.com/api/search/suggest?' + urllib.parse.urlencode({'term': n, 'lang': 'en'}))
-    opts = [o for g in (s if isinstance(s, list) else []) for x in g.get('suggestions', []) for o in [x] if x.get('type') == 'player']
-    if not opts: print('PROBE player', n, 'not found', str(s)[:150]); continue
-    pid = opts[0]['id']
-    d = get(f'https://www.fotmob.com/api/data/playerData?id={pid}')
-    team = (d.get('primaryTeam') or {}).get('teamName')
-    st = d.get('mainLeague') or {}
-    stats = {x.get('title'): x.get('value') for x in st.get('stats', [])} if isinstance(st, dict) else {}
-    print('PROBE player', n, '|', opts[0].get('name'), pid, '|', team, '|', st.get('leagueName'), st.get('season'), json.dumps(stats, ensure_ascii=False)[:200])
-time.sleep(60)
-x = get('https://api.football-legend.com/v2/fben/dry?' + urllib.parse.urlencode({'key': K, 'kinds': 'nlfinal'}), {'User-Agent': 'fl-probe'})
-print('PROBE nlfinal', json.dumps(x.get('result', x), ensure_ascii=False)[:1500])
+FM = {'eng.1': 47, 'esp.1': 87, 'ita.1': 55, 'ger.1': 54, 'fra.1': 53, 'tur.1': 71}
+for lg, fid in FM.items():
+    d = get(f'https://www.fotmob.com/api/data/leagues?id={fid}')
+    st = (d.get('stats') or {}).get('players') or []
+    for cat in st[:2]:
+        url = cat.get('fetchAllUrl') or ''
+        print('PROBE cat', lg, cat.get('header'), cat.get('name'), url[:160])
+        if url:
+            a = get(url if url.startswith('http') else 'https://www.fotmob.com' + url)
+            lst = ((a.get('TopLists') or [{}])[0].get('StatList') or [])
+            print('PROBE list', lg, cat.get('name'), json.dumps([[r.get('ParticipantName'), r.get('TeamName'), r.get('StatValue'), r.get('ParticiantId') or r.get('ParticipantId')] for r in lst[:25]], ensure_ascii=False) if lst else str(a)[:200])
+time.sleep(30)
+x = get('https://api.football-legend.com/v2/fben/dry?' + urllib.parse.urlencode({'key': K, 'kinds': 'nlfinal'}), {'User-Agent': 'fl-probe'}, 180)
+r = x.get('result', x)
+print('PROBE nlfinal', r.get('nlfinal') if isinstance(r, dict) else '', json.dumps(r.get('nlfinalWhy') if isinstance(r, dict) else r, ensure_ascii=False)[:800])
+for j in (x.get('jobs') or [])[:1]:
+    print('PROBE caption', j.get('caption', '')[:900])
+    for g in (j.get('anim') or {}).get('groups', []): print('PROBE group', g.get('g'), json.dumps(g.get('rows'), ensure_ascii=False)[:600], '|', g.get('key'), '|', json.dumps(g.get('res'), ensure_ascii=False)[:300])
