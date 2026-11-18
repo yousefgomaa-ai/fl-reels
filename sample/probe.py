@@ -4,9 +4,11 @@ import subprocess, json, sys
 subprocess.run([sys.executable, '-m', 'pip', 'install', '-q', 'faster-whisper', 'demucs', 'soundfile'], check=True)
 subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', 'sample/yt/dub/in.m4a', '-ac', '2', '-ar', '44100', '/tmp/in.wav'], check=True)
 from faster_whisper import WhisperModel
+import numpy as np
+pcm = np.frombuffer(subprocess.run(['ffmpeg', '-loglevel', 'error', '-i', '/tmp/in.wav', '-f', 'f32le', '-ac', '1', '-ar', '16000', '-'], capture_output=True, check=True).stdout, np.float32)
 for name in ['large-v3']:
     m = WhisperModel(name, device='cpu', compute_type='int8')
-    segs, info = m.transcribe('/tmp/in.wav', language='ar', word_timestamps=True, vad_filter=True)
+    segs, info = m.transcribe(pcm, language='ar', word_timestamps=True, vad_filter=True)
     out = [{'s': round(s.start, 2), 'e': round(s.end, 2), 't': s.text.strip()} for s in segs]
     for o in out: print('PROBE', name, f"{o['s']:6.2f}-{o['e']:6.2f}", o['t'])
     json.dump(out, open('sample/yt/dub/ar.json', 'w'), ensure_ascii=False, indent=1)
