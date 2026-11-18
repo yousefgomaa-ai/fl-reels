@@ -1,6 +1,5 @@
 # WanGP (github.com/deepbeepmeep/Wan2GP) on Kaggle's free T4, headless: one settings file in, one clip out.
-# The T4 has no bf16, so --fp16 and plain SDPA attention; WanGP's GTX 10xx recipe (Python 3.10, torch 2.7.1 cu126)
-# is used because Kaggle's driver is older than the CUDA 13 build the main recipe asks for.
+# The T4 has no bf16, so --fp16.
 import json, os, subprocess, sys, time, urllib.request
 
 SHA = "JOB_SHA"                      # replaced by the workflow with the commit that holds job.json
@@ -37,8 +36,15 @@ UV = sys.executable + " -m uv"
 PY = "/tmp/wgp/bin/python"
 sh(f"git clone -q https://github.com/deepbeepmeep/Wan2GP.git /tmp/Wan2GP && cd /tmp/Wan2GP && git checkout -q {WANGP_REF}",
    "clone", 600)
-sh(f"{UV} venv /tmp/wgp -p 3.10 && {UV} pip install -p {PY} torch==2.7.1 torchvision==0.22.1 torchaudio==2.7.1 "
-   f"--index-url https://download.pytorch.org/whl/cu126", "torch")
+# WanGP's main recipe (Python 3.11, torch 2.10 cu130): Kaggle's driver (580) runs CUDA 13, and the Triton of torch 2.7
+# could not compile WanGP's Turing attention kernel. "_torch": "2.7" in job.json falls back to the GTX 10xx recipe.
+if job.pop("_torch", "2.10") == "2.7":
+    sh(f"{UV} venv /tmp/wgp -p 3.10 && {UV} pip install -p {PY} torch==2.7.1 torchvision==0.22.1 torchaudio==2.7.1 "
+       f"--index-url https://download.pytorch.org/whl/cu126", "torch")
+else:
+    sh(f"{UV} venv /tmp/wgp -p 3.11 && {UV} pip install -p {PY} torch==2.10.0 torchvision==0.25.0 torchaudio==2.10.0 "
+       f"--index-url https://download.pytorch.org/whl/cu130", "torch")
+sh(f"{PY} -c \"import torch,triton;print(torch.__version__,triton.__version__,torch.cuda.is_available(),torch.cuda.get_device_capability())\"", "torch_check", 800)
 r = sh(f"cd /tmp/Wan2GP && {UV} pip install -p {PY} -r requirements.txt --index-strategy unsafe-best-match", "reqs")
 if r.returncode:
     # one bad pin should not sink the rest: install line by line and keep a list of what failed
