@@ -1,0 +1,32 @@
+{
+ "s1_sun": {
+  "image_s": 10,
+  "video_s": 42,
+  "seconds": 4
+ },
+ "s2_light": {
+  "image_s": 10,
+  "video_s": 56,
+  "seconds": 5
+ },
+ "s3_orbit": {
+  "image_s": 10,
+  "video_s": 57,
+  "seconds": 5
+ },
+ "s4_noon": {
+  "image_s": 9,
+  "video_s": 60,
+  "seconds": 5
+ },
+ "s5_drift": {
+  "error": "You have exceeded your free ZeroGPU quota (60s requested vs. 0s left). Try again in 0:00:00. Subscribe to Hugging Face PRO to get 25 min of ZeroGPU quota a day - https://huggingface.co/subscribe/pro?from=ZeroGPU"
+ },
+ "stopped": "quota at s5_drift (2026-11-18 23:00 UTC)",
+ "done": [
+  "s1_sun.mp4",
+  "s2_light.mp4",
+  "s3_orbit.mp4",
+  "s4_noon.mp4"
+ ]
+}
