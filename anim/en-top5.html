@@ -85,7 +85,7 @@ $('cards').innerHTML = P.map((p, i) => `<div class="c5 ${i === 0 ? 'one' : ''}">
   + `<div class="tx"><div class="nm">${p.short || p.name}</div><div class="cl">${p.logo ? `<img src="${p.logo}">` : ''}<span>${p.team || ''}</span></div>`
   + (Array.isArray(p.stats)
     // its own numbers (owner, 2026-11-18, «back from the break»: the goals for his country, his club, his league goals)
-    ? `<div class="st">${p.stats.map(([v, l], k) => `<div${k === 1 ? ' class="ga"' : ''}><b>${v}</b><span>${l}</span></div>`).join('')}</div></div>`
+    ? `<div class="st">${p.stats.map(([v, l], k) => `<div${k === 1 ? ' class="ga"' : ''}><b${String(v).length > 4 ? ' style="font-size:40px;white-space:nowrap;letter-spacing:1px"' : ''}>${v}</b><span>${l}</span></div>`).join('')}</div></div>`
     : D.alltime
     // all-time mode (owner, 2026-11-12: «الخمس الهدافين في تاريخ الدوريات»): no assists were counted before the 1990s, so games and goals per game
     ? `<div class="st"><div><b>${p.n}</b><span>GAMES</span></div><div class="ga"><b>${(p.g / p.n).toFixed(2)}</b><span>PER GAME</span></div></div></div>`
