@@ -1,18 +1,24 @@
-# One-off (2026-11-17): the owner's comedy reel dubbed into English. Step 1: what the Arabic voice says (whisper, word
-# times) and the voice taken out of the soundtrack (demucs), so the English voice goes over the same music and sounds.
-import subprocess, json, sys
-subprocess.run([sys.executable, '-m', 'pip', 'install', '-q', 'faster-whisper', 'demucs', 'soundfile'], check=True)
-subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', 'sample/yt/dub/in.m4a', '-ac', '2', '-ar', '44100', '/tmp/in.wav'], check=True)
+# One-off (2026-11-18): the comedy reel in English, step 2: a line at a time in Fenrir (en-GB, the FB Legends voice),
+# each checked by whisper (what it really says).
+import json, os, subprocess, sys, time, urllib.request, urllib.parse
+K = os.environ['REELS_KEY']
+lines = json.load(open('sample/yt/dub/en.json'))
+for i, (s, e, t) in enumerate(lines):
+    for k in range(4):
+        u = 'https://api.football-legend.com/v2/reels/voice?' + urllib.parse.urlencode({'key': K, 'voice': 'Fenrir', 'lang': 'en-GB', 'text': t})
+        try:
+            d = urllib.request.urlopen(urllib.request.Request(u, headers={'User-Agent': 'fl-probe'}), timeout=120).read()
+            open('/tmp/v.wav', 'wb').write(d); subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', '/tmp/v.wav', '-b:a', '160k', f'sample/yt/dub/en-{i:02d}.mp3'], check=True)
+            print('PROBE line', i, 'ok'); break
+        except Exception as x:
+            print('PROBE line', i, 'try', k, x); time.sleep(20)
+    time.sleep(8)
+subprocess.run([sys.executable, '-m', 'pip', 'install', '-q', 'faster-whisper'], check=True)
 from faster_whisper import WhisperModel
-import numpy as np
-pcm = np.frombuffer(subprocess.run(['ffmpeg', '-loglevel', 'error', '-i', '/tmp/in.wav', '-f', 'f32le', '-ac', '1', '-ar', '16000', '-'], capture_output=True, check=True).stdout, np.float32)
-for name in ['large-v3']:
-    m = WhisperModel(name, device='cpu', compute_type='int8')
-    segs, info = m.transcribe(pcm, language='ar', word_timestamps=True, vad_filter=True)
-    out = [{'s': round(s.start, 2), 'e': round(s.end, 2), 't': s.text.strip()} for s in segs]
-    for o in out: print('PROBE', name, f"{o['s']:6.2f}-{o['e']:6.2f}", o['t'])
-    json.dump(out, open('sample/yt/dub/ar.json', 'w'), ensure_ascii=False, indent=1)
-r = subprocess.run([sys.executable, '-m', 'demucs', '--two-stems=vocals', '-n', 'htdemucs', '-o', '/tmp/sep', '/tmp/in.wav'], capture_output=True, text=True)
-print('PROBE demucs', r.returncode, r.stderr[-400:])
-subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', '/tmp/sep/htdemucs/in/no_vocals.wav', '-b:a', '192k', 'sample/yt/dub/bed.mp3'])
-subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', '/tmp/sep/htdemucs/in/vocals.wav', '-b:a', '128k', 'sample/yt/dub/vocals.mp3'])
+m = WhisperModel('small', device='cpu', compute_type='int8')
+for i in range(len(lines)):
+    f = f'sample/yt/dub/en-{i:02d}.mp3'
+    if not os.path.exists(f): continue
+    d = subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f], capture_output=True, text=True).stdout.strip()
+    segs, _ = m.transcribe(f, language='en')
+    print('PROBE heard', i, d, ' '.join(x.text.strip() for x in segs))
