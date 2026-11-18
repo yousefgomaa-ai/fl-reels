@@ -1,34 +1,22 @@
-# One-off (2026-11-18): the international break of 12-17 Nov 2026: every goal (ESPN), and the six leagues' top scorers
-# (ESPN, then FotMob), to find which league stars scored for their country. Read-only, public feeds.
-import json, urllib.request, datetime
+# One-off (2026-11-18): (1) why the Nations League final tables reel was not made (#704's reasons); (2) the league stars
+# who scored in the break: their club now and their league goals this season (FotMob), for the «back from the break» reel.
+import json, os, time, urllib.request, urllib.parse
+K = os.environ['REELS_KEY']
 H = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/130 Safari/537.36'}
-def get(u):
-    try: return json.load(urllib.request.urlopen(urllib.request.Request(u, headers=H), timeout=40))
+def get(u, h=H):
+    try: return json.load(urllib.request.urlopen(urllib.request.Request(u, headers=h), timeout=60))
     except Exception as e: return {'error': str(e)}
-# 1. top scorers of each league (FotMob league stats)
-FM = {'eng.1': 47, 'esp.1': 87, 'ita.1': 55, 'ger.1': 54, 'fra.1': 53, 'tur.1': 71}
-for lg, fid in FM.items():
-    d = get(f'https://www.fotmob.com/api/data/leagues?id={fid}')
-    st = (d.get('stats') or {}).get('players') or []
-    top = next((x for x in st if x.get('header') in ('Top scorer', 'Goals') or x.get('name') == 'goals'), st[0] if st else None)
-    rows = (top or {}).get('topThree') or []
-    url = (top or {}).get('fetchAllUrl')
-    allr = get(url) if url else {}
-    lst = ((allr.get('TopLists') or [{}])[0].get('StatList') or [])[:15]
-    print('PROBE top', lg, json.dumps([[r.get('ParticipantName'), r.get('TeamName'), r.get('StatValue'), r.get('MatchesPlayed')] for r in lst], ensure_ascii=False) if lst else json.dumps(rows, ensure_ascii=False)[:600])
-# 2. every goal of the window, all ESPN national competitions
-COMPS = ['uefa.nations', 'fifa.friendly', 'fifa.worldq.uefa', 'caf.nations_qual', 'fifa.worldq.caf', 'conmebol.america', 'concacaf.nations.league', 'afc.asian.cup.qual', 'fifa.worldq.conmebol']
-for day in ['20261112', '20261113', '20261114', '20261115', '20261116', '20261117']:
-    for c in COMPS:
-        d = get(f'https://site.api.espn.com/apis/site/v2/sports/soccer/{c}/scoreboard?dates={day}')
-        for ev in d.get('events', []) or []:
-            co = (ev.get('competitions') or [{}])[0]
-            t = {x['homeAway']: x for x in co.get('competitors', [])}
-            h, a = t.get('home', {}), t.get('away', {})
-            goals = []
-            for g in co.get('details', []) or []:
-                if not g.get('scoringPlay'): continue
-                who = ', '.join(p.get('displayName', '') for p in g.get('athletesInvolved', []) or [])
-                tag = ' (pen)' if g.get('penaltyKick') else ' (og)' if g.get('ownGoal') else ''
-                goals.append(f"{g.get('clock', {}).get('displayValue', '')} {who}{tag} [{g.get('team', {}).get('displayName', '')}]")
-            print('PROBE match', day, c, f"{h.get('team', {}).get('displayName')} {h.get('score')}-{a.get('score')} {a.get('team', {}).get('displayName')}", co.get('status', {}).get('type', {}).get('name'), '|', '; '.join(goals))
+names = ['Vinicius Junior', 'Erling Haaland', 'Florian Wirtz', 'Tijjani Reijnders', 'Julian Alvarez', 'Rasmus Hojlund', 'Pio Esposito', 'Christian Pulisic', 'Harry Kane', 'Mohamed Salah', 'Viktor Gyokeres', 'Achraf Hakimi', 'Jonathan David', 'Nico Paz', 'Franco Mastantuono', 'Nicolas Jackson', 'Kylian Mbappe', 'Raphinha', 'Alexander Isak', 'Lamine Yamal', 'Ousmane Dembele', 'Lautaro Martinez']
+for n in names:
+    s = get('https://www.fotmob.com/api/search/suggest?' + urllib.parse.urlencode({'term': n, 'lang': 'en'}))
+    opts = [o for g in (s if isinstance(s, list) else []) for x in g.get('suggestions', []) for o in [x] if x.get('type') == 'player']
+    if not opts: print('PROBE player', n, 'not found', str(s)[:150]); continue
+    pid = opts[0]['id']
+    d = get(f'https://www.fotmob.com/api/data/playerData?id={pid}')
+    team = (d.get('primaryTeam') or {}).get('teamName')
+    st = d.get('mainLeague') or {}
+    stats = {x.get('title'): x.get('value') for x in st.get('stats', [])} if isinstance(st, dict) else {}
+    print('PROBE player', n, '|', opts[0].get('name'), pid, '|', team, '|', st.get('leagueName'), st.get('season'), json.dumps(stats, ensure_ascii=False)[:200])
+time.sleep(60)
+x = get('https://api.football-legend.com/v2/fben/dry?' + urllib.parse.urlencode({'key': K, 'kinds': 'nlfinal'}), {'User-Agent': 'fl-probe'})
+print('PROBE nlfinal', json.dumps(x.get('result', x), ensure_ascii=False)[:1500])
