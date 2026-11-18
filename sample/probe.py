@@ -1,4 +1,4 @@
-# One-off (2026-11-18): (1) the Nations League final tables after #705 (dry run, why); (2) the six leagues' full
+# One-off (2026-11-18, again: the runner hung installing ffmpeg): (1) the Nations League final tables after #705 (dry run, why); (2) the six leagues' full
 # scorer lists (FotMob), for the stars who scored in the break: club now and league goals this season.
 import json, os, time, urllib.request, urllib.parse
 K = os.environ['REELS_KEY']
