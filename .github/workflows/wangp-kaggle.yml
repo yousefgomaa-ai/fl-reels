@@ -1,0 +1,46 @@
+# WanGP on Kaggle's free GPU (owner, 2026-11-18). Lives on claude/wangp-kaggle only; never merge.
+# Push a change to wangp/job.json (the prompt) and this sends it to Kaggle, waits, and commits the clip to wangp/out.
+name: WanGP on Kaggle
+on:
+  push:
+    branches: [claude/wangp-kaggle]
+    paths: [wangp/job.json, wangp/kaggle.py, .github/workflows/wangp-kaggle.yml]
+permissions:
+  contents: write
+concurrency: { group: wangp-kaggle, cancel-in-progress: false }
+jobs:
+  wangp:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    env:
+      KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+      KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q "kaggle>=1.8"
+      - name: Run WanGP on Kaggle
+        run: |
+          mkdir -p /tmp/k && sed "s/JOB_SHA/$GITHUB_SHA/" wangp/kaggle.py > /tmp/k/kaggle.py && cd /tmp/k
+          cat > kernel-metadata.json <<J
+          {"id": "$KAGGLE_USERNAME/wangp-test", "title": "wangp-test", "code_file": "kaggle.py",
+           "language": "python", "kernel_type": "script", "is_private": true,
+           "enable_gpu": true, "enable_internet": true}
+          J
+          kaggle kernels push -p .
+          sleep 120
+          for i in $(seq 1 220); do
+            s=$(kaggle kernels status "$KAGGLE_USERNAME/wangp-test" 2>&1 | tail -1); echo "$(date -u +%H:%M) $s"
+            case "$s" in *COMPLETE*|*ERROR*|*CANCEL*) break;; esac
+            sleep 60
+          done
+          mkdir -p "$GITHUB_WORKSPACE/wangp/out" && kaggle kernels output "$KAGGLE_USERNAME/wangp-test" -p /tmp/kout || true
+          ls -laR /tmp/kout || true
+          cp /tmp/kout/log.json "$GITHUB_WORKSPACE/wangp/out/" || true
+          find /tmp/kout -name '*.mp4' -exec cp {} "$GITHUB_WORKSPACE/wangp/out/" \; || true
+          python3 -c "import json;l=json.load(open('$GITHUB_WORKSPACE/wangp/out/log.json'));print(json.dumps({k:(v if not isinstance(v,dict) else {a:b for a,b in v.items()}) for k,v in l.items()},indent=1)[-12000:])" || true
+      - uses: actions/upload-artifact@v4
+        with: { name: wangp-out, path: wangp/out }
+      - name: Commit the clip
+        run: |
+          git config user.name "wangp-kaggle" && git config user.email "actions@users.noreply.github.com"
+          git add wangp/out && git commit -m "WanGP on Kaggle: output [skip ci]" && git pull -q --rebase origin claude/wangp-kaggle && git push || true

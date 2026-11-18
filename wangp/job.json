@@ -1,0 +1,11 @@
+{
+  "_note": "Edit the prompt and push to claude/wangp-kaggle: the workflow sends this to WanGP on Kaggle's free T4 and commits the clip to wangp/out.",
+  "model_type": "ti2v_2_2_fastwan",
+  "prompt": "A red football bouncing slowly on green grass in an empty stadium at golden sunset, warm light, cinematic slow motion, shallow depth of field.",
+  "resolution": "480x832",
+  "video_length": 81,
+  "num_inference_steps": 3,
+  "guidance_scale": 1,
+  "flow_shift": 3,
+  "seed": 7
+}
