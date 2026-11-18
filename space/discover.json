@@ -1,0 +1,16 @@
+{
+ "spaces": [],
+ "who": true,
+ "errors": [
+  "wan2.2: HfApi.list_spaces() got an unexpected keyword argument 'direction'",
+  "wan 2.2: HfApi.list_spaces() got an unexpected keyword argument 'direction'",
+  "wan2-2: HfApi.list_spaces() got an unexpected keyword argument 'direction'",
+  "wan22: HfApi.list_spaces() got an unexpected keyword argument 'direction'",
+  "ltx-2: HfApi.list_spaces() got an unexpected keyword argument 'direction'",
+  "flux: HfApi.list_spaces() got an unexpected keyword argument 'direction'",
+  "qwen-image: HfApi.list_spaces() got an unexpected keyword argument 'direction'",
+  "z-image: HfApi.list_spaces() got an unexpected keyword argument 'direction'"
+ ],
+ "live_zero": [],
+ "apis": {}
+}
