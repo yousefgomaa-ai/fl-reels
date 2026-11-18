@@ -1,0 +1,28 @@
+# Space reel (owner, 2026-11-19): clips from free Hugging Face ZeroGPU Spaces. Lives on claude/space-reel only; never merge.
+name: Space reel
+on:
+  push:
+    branches: [claude/space-reel]
+    paths: [space/discover.py, space/clips.py, space/clips.json, .github/workflows/space-reel.yml]
+permissions:
+  contents: write
+concurrency: { group: space-reel, cancel-in-progress: false }
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q -U huggingface_hub gradio_client
+      - name: Discover live ZeroGPU Spaces
+        if: hashFiles('space/clips.json') == ''
+        run: python3 space/discover.py space/discover.json
+      - name: Make the clips
+        if: hashFiles('space/clips.json') != ''
+        run: python3 space/clips.py space/clips.json space/clips
+      - name: Commit
+        run: |
+          git config user.name "space-reel" && git config user.email "actions@users.noreply.github.com"
+          git add space && git commit -m "Space reel: output [skip ci]" && git pull -q --rebase origin claude/space-reel && git push || true
