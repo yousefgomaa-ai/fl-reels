@@ -83,11 +83,14 @@ document.body.classList.add('L-' + (/^(rows|tv|cards|led|split|neon|ticket|paper
 $('lg').innerHTML = `${D.league || ''}<small>${D.sub || 'THIS SEASON'}</small>`; if (D.head) $('ti').innerHTML = D.head; $('side').textContent = `${D.league || ''} • ${D.league || ''}`;
 $('cards').innerHTML = P.map((p, i) => `<div class="c5 ${i === 0 ? 'one' : ''}"><div class="rk">${p.rank || i + 1}</div><div class="pb" id="pb${i}"></div>`
   + `<div class="tx"><div class="nm">${p.short || p.name}</div><div class="cl">${p.logo ? `<img src="${p.logo}">` : ''}<span>${p.team || ''}</span></div>`
-  + (D.alltime
+  + (Array.isArray(p.stats)
+    // its own numbers (owner, 2026-11-18, «back from the break»: the goals for his country, his club, his league goals)
+    ? `<div class="st">${p.stats.map(([v, l], k) => `<div${k === 1 ? ' class="ga"' : ''}><b>${v}</b><span>${l}</span></div>`).join('')}</div></div>`
+    : D.alltime
     // all-time mode (owner, 2026-11-12: «الخمس الهدافين في تاريخ الدوريات»): no assists were counted before the 1990s, so games and goals per game
     ? `<div class="st"><div><b>${p.n}</b><span>GAMES</span></div><div class="ga"><b>${(p.g / p.n).toFixed(2)}</b><span>PER GAME</span></div></div></div>`
     : `<div class="st"><div><b>${p.a}</b><span>ASSISTS</span></div><div class="ga"><b>${p.g + p.a}</b><span>G + A</span></div><div><b>${p.n}</b><span>GAMES</span></div></div></div>`)
-  + `<div class="gl"><b id="g${i}">${p.g}</b><span>GOALS</span></div></div>`).join('');
+  + `<div class="gl"><b id="g${i}">${p.g}</b><span>${D.gLabel || 'GOALS'}</span></div></div>`).join('');
 // a long name shrinks until it fits (Lewandowski, Burgsmüller), never cut with «…»
 let fitted = false; const fit = () => { document.querySelectorAll('.nm').forEach((el) => { let f = parseFloat(getComputedStyle(el).fontSize); while (el.scrollWidth > el.clientWidth + 1 && f > 34) { f -= 2; el.style.fontSize = f + 'px'; } }); };
 document.fonts.ready.then(() => { fit(); fitted = true; });
