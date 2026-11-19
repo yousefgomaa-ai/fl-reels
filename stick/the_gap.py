@@ -44,6 +44,7 @@ GOLD = (255, 200, 80)
 CT = 1180                               # the top of both cliffs
 LE, RE = 380, 700                       # left cliff's edge, right cliff's edge
 RIVER = 1800
+MOON_Y = 700
 CHEST_X = 915
 ROCK_X = 92
 PLANK_L = 230
@@ -485,7 +486,7 @@ def build_bg():
     yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
     g = np.clip(yy / 1300, 0, 1)[..., None]
     img = (1 - g) * np.array([6, 8, 18], np.float32) + g * np.array([26, 32, 58], np.float32)
-    d_m = np.sqrt((xx - 820) ** 2 + (yy - 700) ** 2)
+    d_m = np.sqrt((xx - 820) ** 2 + (yy - MOON_Y) ** 2)
     img += (np.exp(-(d_m / 260) ** 2) * 0.5)[..., None] * np.array([60, 70, 100], np.float32)
     im = Image.fromarray(np.clip(img, 0, 255).astype(np.uint8), "RGB").convert("RGBA")
     d = ImageDraw.Draw(im)
@@ -495,7 +496,7 @@ def build_bg():
         b = int(rng.uniform(70, 220))
         r = rng.choice([0.8, 1.2, 1.8], p=[0.6, 0.3, 0.1])
         d.ellipse([x - r, y - r, x + r, y + r], fill=(b, b, min(255, b + 20), 255))
-    d.ellipse([820 - 44, 700 - 44, 820 + 44, 700 + 44], fill=(232, 230, 214, 255))
+    d.ellipse([820 - 44, MOON_Y - 44, 820 + 44, MOON_Y + 44], fill=(232, 230, 214, 255))
     # far mountains, two layers
     for base, amp, col, seed in ((1110, 150, (16, 20, 38), 1), (1150, 90, (22, 26, 46), 2)):
         r2 = np.random.default_rng(seed)
