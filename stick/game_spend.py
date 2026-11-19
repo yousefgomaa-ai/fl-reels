@@ -63,16 +63,17 @@ T_L1, T_L2 = 17.6, 18.55
 CPS = 24.0
 LINE1, LINE2 = "ONE PAID TO PLAY.", "ONE GOT PAID, THEN PLAYED."
 
-PURCHASES = [(3.3, "LEGENDARY SKIN", 19.99), (5.0, "1,000 COINS", 9.99), (5.9, "BATTLE PASS", 24.99),
+PURCHASES = [(1.4, "LEGENDARY SKIN", 19.99), (3.3, "1,000 COINS", 9.99), (5.0, "BATTLE PASS", 24.99),
+             (5.9, "SKIN BUNDLE", 29.99),
              (6.8, "LOOT BOX x10", 49.99), (7.7, "MYTHIC WINGS", 39.99), (8.6, "5,000 COINS", 49.99),
              (9.5, "LOOT BOX x20", 99.99), (10.4, "PET DRAGON", 79.99), (11.3, "VIP PASS", 99.99),
              (12.2, "GOLD CROWN", 149.99), (13.1, "LOOT BOX x50", 249.99)]
 PAYMENTS = [(5.3, 150), (6.5, 300), (7.7, 500), (8.9, 800), (10.1, 1200), (11.3, 2000), (12.5, 3000), (13.7, 5000)]
 BILLS = [10.2, 11.6, 12.9, 13.8]
 
-BUB_TOP = [(1.15, 2.2, "ONE MATCH."), (3.6, 4.6, "BACK TO WORK."), (8.0, 9.0, "NEXT CLIENT."),
+BUB_TOP = [(0.15, 1.3, "ONE MATCH."), (3.6, 4.6, "BACK TO WORK."), (8.0, 9.0, "NEXT CLIENT."),
            (16.3, 17.5, "NOW I PLAY.")]
-BUB_BOT = [(2.3, 3.2, "JUST ONE MORE."), (3.7, 4.7, "I NEED THIS SKIN."), (6.0, 7.0, "IT'S ON SALE!"),
+BUB_BOT = [(0.3, 1.25, "JUST ONE MORE."), (1.6, 2.6, "I NEED THIS SKIN."), (6.0, 7.0, "IT'S ON SALE!"),
            (9.0, 10.2, "LAST ONE, I PROMISE."), (12.0, 13.1, "I'LL PAY IT LATER."), (15.0, 15.9, "NO NO NO!"),
            (16.6, 17.6, "...ONE MORE MATCH?")]
 
@@ -95,12 +96,14 @@ def doer_bank(t):
 
 
 def ot_bank(t):
-    if t < 3.45:
+    if t < 1.45:
         return 500
-    if t < 4.6:
+    if t < 3.35:
         return 480
+    if t < 4.6:
+        return 470
     if t < T_D1:
-        return int(round(480 - 2880 * prog(t, 4.6, T_D1) ** 1.15))
+        return int(round(470 - 2870 * prog(t, 4.6, T_D1) ** 1.15))
     return -2400
 
 
@@ -333,7 +336,7 @@ def draw_tv(d, im, t, top):
         level = 5 if t > 13.0 else level
     avatar(d, x0 + 90, TV_Y1 - 46, t, level)
     # title card on day 1
-    if t < 1.0:
+    if t < 0.6:
         fb = font("InterDisplay-Bold.otf", 44)
         d.rectangle([x0, y0, x1, TV_Y1], fill=(10, 16, 40, 230))
         spaced(d, TV_X, y0 + 34, "NEW GAME", fb, (255, 214, 90, 255), 3)
