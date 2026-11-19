@@ -32,7 +32,7 @@ SR = 44100
 BPM = 75
 BEAT = 60 / BPM
 BAR = 4 * BEAT
-DUR = 13 * BAR                          # 41.6 s
+DUR = 9 * BAR                           # 28.8 s
 NF = int(round(DUR * FPS))
 XFADE = 0.5
 
@@ -53,27 +53,27 @@ PILE_X = 668                             # the cash pile (doer) / the cans and p
 # ---------------------------------------------------------------- timeline (slow, like the split-room reels: a day
 # stays on screen for 4.5 s, a bubble for 2 s, a price for 1.8 s)
 T_TURN0, T_TURN1 = 2.0, 3.0              # the doer turns the TV off and swivels to the laptop
-DAY_STEPS = [(0.0, 1), (6.0, 7), (10.5, 30), (15.0, 90), (19.5, 180), (24.0, 270), (28.5, 365)]
-T_D0, T_D1, T_365 = 6.0, 28.5, 28.5
-T_DECLINE = 29.8
-T_DARK0, T_DARK1 = 32.0, 32.7            # the power goes out below
-T_BACK0, T_BACK1 = 29.0, 30.0            # the doer closes the laptop and swivels to the TV
-T_TVON = 30.4
-T_PAID = 31.6
-T_L1, T_L2 = 35.0, 36.6
+DAY_STEPS = [(0.0, 1), (5.0, 30), (9.0, 90), (13.0, 180), (17.0, 365)]
+T_D0, T_D1, T_365 = 5.0, 17.0, 17.0
+T_DECLINE = 17.8
+T_DARK0, T_DARK1 = 19.6, 20.2            # the power goes out below
+T_BACK0, T_BACK1 = 17.2, 18.0            # the doer closes the laptop and swivels to the TV
+T_TVON = 18.3
+T_PAID = 19.2
+T_L1, T_L2 = 21.4, 22.8
 CPS = 16.0
 LINE1, LINE2 = "ONE PAID TO PLAY.", "ONE GOT PAID, THEN PLAYED."
 
-PURCHASES = [(3.2, "LEGENDARY SKIN", 19.99), (8.2, "BATTLE PASS", 24.99), (12.7, "LOOT BOX x10", 49.99),
-             (17.2, "MYTHIC WINGS", 39.99), (21.7, "GOLD CROWN", 149.99), (26.2, "LOOT BOX x50", 249.99)]
-PAYMENTS = [(7.4, 300), (11.9, 800), (16.4, 1500), (20.9, 3000), (25.4, 5000)]
-BILLS = [19.0, 21.0, 23.5, 26.8]
+PURCHASES = [(3.2, "LEGENDARY SKIN", 19.99), (6.6, "BATTLE PASS", 24.99), (10.6, "LOOT BOX x10", 49.99),
+             (14.6, "GOLD CROWN", 149.99)]
+PAYMENTS = [(5.8, 300), (9.8, 1500), (13.8, 5000)]
+BILLS = [12.0, 13.5, 15.0, 16.2]
 
-BUB_TOP = [(0.3, 1.9, "ONE MATCH."), (3.4, 5.6, "BACK TO WORK."), (13.4, 15.6, "NEXT CLIENT."),
-           (32.0, 34.6, "NOW I PLAY.")]
-BUB_BOT = [(0.9, 2.9, "JUST ONE MORE."), (3.6, 5.8, "I NEED THIS SKIN."), (9.0, 11.2, "IT'S ON SALE!"),
-           (17.8, 20.0, "LAST ONE, I PROMISE."), (22.6, 24.8, "I'LL PAY IT LATER."), (30.0, 31.8, "NO NO NO!"),
-           (33.0, 35.8, "...ONE MORE MATCH?")]
+BUB_TOP = [(0.3, 1.9, "ONE MATCH."), (3.4, 5.4, "BACK TO WORK."), (11.0, 13.0, "NEXT CLIENT."),
+           (19.8, 21.6, "NOW I PLAY.")]
+BUB_BOT = [(0.9, 2.9, "JUST ONE MORE."), (3.6, 5.6, "I NEED THIS SKIN."), (7.4, 9.4, "IT'S ON SALE!"),
+           (11.4, 13.4, "LAST ONE, I PROMISE."), (15.0, 16.8, "I'LL PAY IT LATER."), (18.2, 19.6, "NO NO NO!"),
+           (20.6, 23.4, "...ONE MORE MATCH?")]
 
 
 def day_step(t):
@@ -331,7 +331,7 @@ def draw_tv(d, im, t, top):
     if top:
         level = 5 if t >= T_PAID else 0
     else:
-        level = min(5, sum(1 for p in PURCHASES if t >= p[0] + 0.5))
+        level = min(5, sum(1 for p in PURCHASES if t >= p[0] + 0.5) * 5 // 4)
     avatar(d, x0 + 90, TV_Y1 - 46, t, level)
     # title card on day 1
     if t < 1.2:
@@ -549,7 +549,7 @@ def audio():
     chords = [[53, 57, 60, 64], [52, 55, 59, 62], [50, 53, 57, 60], [48, 52, 55, 59]]
     roots = [41, 40, 38, 36]
     mel = [72, 71, 69, 67, 69, 72, 71, 67]
-    for b in range(13):
+    for b in range(int(round(DUR / BAR))):
         t0 = b * BAR
         ch, rt = chords[b % 4], roots[b % 4]
         for k, m in enumerate(ch):
