@@ -180,6 +180,19 @@ def background():
         light += np.exp(-(((xx - lx) / (wid * 0.9)) ** 2 + ((yy - fl) / 30) ** 2)) * 0.7
         light += np.exp(-(((xx - lx) ** 2 + (yy - ly) ** 2) / (2 * 50 ** 2))) * 0.9
     img += light[..., None] * np.array([255, 212, 158], np.float32) / 255 * 105
+    photo = os.environ.get("BG_PHOTO")
+    if photo:
+        # a real photo behind the drawn set: cover-fit, a little blur (depth), darker at the top for the counter
+        # and the typed line, then the drawn stairs, sign and characters stay crisp in front
+        ph = Image.open(photo).convert("RGB")
+        sc = max(W / ph.width, H / ph.height)
+        ph = ph.resize((int(ph.width * sc + 1), int(ph.height * sc + 1)), Image.LANCZOS)
+        ph = ph.crop(((ph.width - W) // 2, (ph.height - H) // 2, (ph.width - W) // 2 + W, (ph.height - H) // 2 + H))
+        ph = ph.filter(ImageFilter.GaussianBlur(float(os.environ.get("BG_BLUR", "3"))))
+        a = np.asarray(ph).astype(np.float32) * float(os.environ.get("BG_DIM", "0.78"))
+        top = np.clip(1 - yy / 520, 0, 1)[..., None]
+        a = a * (1 - 0.55 * top)
+        img = a
     im = Image.fromarray(np.clip(img, 0, 255).astype(np.uint8), "RGB").convert("RGBA")
     k = 2
     lay = Image.new("RGBA", (W * k, H * k), (0, 0, 0, 0))
@@ -198,8 +211,8 @@ def background():
     # top landing (where the bus stops)
     d.rectangle([TOP_X0 * k, TOP_Y * k, W * k, GROUND * k], fill=(54, 54, 60, 255))
     d.rectangle([(STAIR_X0 + (STEPS - 1) * STEP_W) * k, TOP_Y * k, W * k, (TOP_Y + 12) * k], fill=(120, 120, 126, 255), outline=o, width=4 * k)
-    # street lamps
-    for lx, ly, base in ((SIGN_X + 70, 980, GROUND), (880, 330, TOP_Y)):
+    # street lamps (the photo brings its own lights)
+    for lx, ly, base in (() if photo else ((SIGN_X + 70, 980, GROUND), (880, 330, TOP_Y))):
         d.line([((lx + 90) * k, (ly - 10) * k), ((lx + 90) * k, base * k)], fill=o, width=12 * k)
         d.line([((lx + 90) * k, (ly - 10) * k), ((lx + 90) * k, base * k)], fill=(70, 70, 76, 255), width=6 * k)
         d.line([(lx * k, (ly - 10) * k), ((lx + 92) * k, (ly - 10) * k)], fill=(70, 70, 76, 255), width=8 * k)
