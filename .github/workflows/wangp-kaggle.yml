@@ -36,7 +36,7 @@ jobs:
           mkdir -p "$GITHUB_WORKSPACE/wangp/out" && kaggle kernels output "$KAGGLE_USERNAME/wangp-test" -p /tmp/kout || true
           ls -laR /tmp/kout || true
           cp /tmp/kout/log.json "$GITHUB_WORKSPACE/wangp/out/" || true
-          find /tmp/kout -name '*.mp4' -exec cp {} "$GITHUB_WORKSPACE/wangp/out/" \; || true
+          find /tmp/kout \( -name '*.mp4' -o -name '*.png' -o -name '*.jpg' -o -name '*.webp' \) -exec cp {} "$GITHUB_WORKSPACE/wangp/out/" \; || true
           python3 -c "import json;l=json.load(open('$GITHUB_WORKSPACE/wangp/out/log.json'));print(json.dumps({k:(v if not isinstance(v,dict) else {a:b for a,b in v.items()}) for k,v in l.items()},indent=1)[-12000:])" || true
       - uses: actions/upload-artifact@v4
         with: { name: wangp-out, path: wangp/out }

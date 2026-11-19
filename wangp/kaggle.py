@@ -61,21 +61,25 @@ if r.returncode:
 # ---- generate
 # Some presets (ovi_1_1_fastwan at the pinned commit) carry placeholder "source": "xxx" keys, and WanGP then skips
 # downloading the weights and fails with "file not found": drop the placeholders so the listed URLs are downloaded.
-dp = f"/tmp/Wan2GP/defaults/{job['model_type']}.json"
-if os.path.exists(dp):
-    import re
-    txt = open(dp).read()
-    fixed = re.sub(r'\s*"source2?"\s*:\s*"xxx"\s*,', "", txt)
-    if fixed != txt:
-        open(dp, "w").write(fixed)
-        log["preset_fix"] = "removed placeholder source keys"
-        save()
+# "tasks": [...] in job.json runs several settings in one go (shared fields come from the top level)
+tasks = [dict({k: v for k, v in job.items() if k != "tasks" and not k.startswith("_")}, **t) for t in job["tasks"]] \
+    if "tasks" in job else None
+import re
+for mt in {t["model_type"] for t in tasks} if tasks else {job["model_type"]}:
+    dp = f"/tmp/Wan2GP/defaults/{mt}.json"
+    if os.path.exists(dp):
+        txt = open(dp).read()
+        fixed = re.sub(r'\s*"source2?"\s*:\s*"xxx"\s*,', "", txt)
+        if fixed != txt:
+            open(dp, "w").write(fixed)
+            log["preset_fix"] = "removed placeholder source keys"
+            save()
 # Attention: "sage" = SageAttention 1.0.6, the version WanGP lists for this GPU generation (Turing T4); plain SDPA
 # ran out of memory on Ovi (it tried to hold the whole attention matrix).
 att = job.pop("_attention", "sdpa")
 if att == "sage":
     sh(f"{UV} pip install -p {PY} sageattention==1.0.6", "sage_install", 1500)
-json.dump(job, open("/tmp/job.json", "w"))
+json.dump(tasks if tasks else job, open("/tmp/job.json", "w"))
 r = sh(f"cd /tmp/Wan2GP && {PY} wgp.py --process /tmp/job.json --output-dir {W}/out "
        f"--fp16 --attention {att} --profile 4 --verbose 1", "generate", 8000)
 log["outputs"] = sorted(os.listdir(f"{W}/out"))

@@ -1,15 +1,16 @@
 {
-  "_note": "Edit the prompt and push to claude/wangp-kaggle: the workflow sends this to WanGP on Kaggle's free T4 and commits the clip to wangp/out. Ovi makes the sound too: spoken words go inside <S>...<E>, and the prompt ends with 'Audio:' and the sounds.",
-  "model_type": "ovi_1_1_fastwan",
-  "prompt": "A white and black soccer ball drops into frame and bounces high three times on the green grass of an empty stadium at golden sunset, each bounce kicking up small blades of grass, then rolls slowly toward the camera and stops. Warm backlight, cinematic slow motion, shallow depth of field. Audio: three hollow thumps of a ball hitting turf, a soft roll on grass, a distant echoing stadium ambience and a light evening breeze.",
-  "resolution": "416x736",
-  "video_length": 121,
-  "num_inference_steps": 6,
-  "guidance_scale": 1,
-  "audio_guidance_scale": 1,
-  "flow_shift": 6,
-  "seed": 7,
-  "sliding_window_size": 121,
-  "sliding_window_overlap": 1,
-  "_attention": "sdpa"
+  "_note": "Realistic, empty backgrounds for the stickman reels (owner, 2026-11-19): Z-Image Turbo on Kaggle's free T4. Stickmen are drawn over them later, so no people in the pictures.",
+  "_attention": "sdpa",
+  "model_type": "z_image",
+  "resolution": "768x1344",
+  "num_inference_steps": 8,
+  "guidance_scale": 0,
+  "tasks": [
+    {"seed": 11, "prompt": "Realistic photo of an empty city street at night, eye level, vertical composition. On the left a bus stop sign and a small bus shelter on the sidewalk. On the right a long straight outdoor concrete staircase with a metal handrail climbing up to an elevated street. Warm orange street lamps, wet asphalt with soft reflections, quiet, no people, no cars, cinematic 35mm, shallow depth of field, slightly blurred background."},
+    {"seed": 12, "prompt": "Realistic photo of an empty city street at golden hour, eye level, vertical composition. On the left a bus stop sign on the sidewalk. On the right a wide outdoor stone staircase going up to a higher street with trees. Warm sunlight, long soft shadows, no people, no cars, cinematic 35mm, slightly blurred background."},
+    {"seed": 13, "prompt": "Realistic photo of an empty small bedroom at night, eye level, vertical composition, a bed on the left, a desk with a lamp on the right, warm lamp light, cozy, tidy, no people, cinematic 35mm, slightly blurred."},
+    {"seed": 14, "prompt": "Realistic photo of an empty park path at sunset splitting into two paths, eye level, vertical composition, green grass, trees, warm light, no people, cinematic 35mm, slightly blurred background."},
+    {"seed": 15, "prompt": "Realistic photo of an empty gym at night, eye level, vertical composition, a barbell on the floor in the middle, dumbbell rack on the side, warm overhead lights, no people, cinematic 35mm, slightly blurred background."},
+    {"seed": 16, "prompt": "Realistic photo of an empty wooden pier on a calm lake at dawn, eye level, vertical composition, mist on the water, soft light, no people, cinematic 35mm, slightly blurred background."}
+  ]
 }
