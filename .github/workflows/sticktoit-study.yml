@@ -1,0 +1,20 @@
+# Channel study (owner, 2026-11-19): frame sheets and stats of a Shorts channel. claude/sticktoit-study only; never merge.
+name: Shorts channel study
+on:
+  push:
+    branches: [claude/sticktoit-study]
+    paths: [study/grab.py, .github/workflows/sticktoit-study.yml]
+permissions:
+  contents: write
+jobs:
+  study:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null && pip install -q -U yt-dlp
+      - run: python3 study/grab.py "https://www.youtube.com/@sticktoit-q4d" study/out
+      - name: Commit
+        run: |
+          git config user.name "study" && git config user.email "actions@users.noreply.github.com"
+          git add study/out && git commit -m "Channel study: output [skip ci]" && git pull -q --rebase origin claude/sticktoit-study && git push || true
