@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """BOOK SMART vs RICH KID - four obstacles, the rich kid buys his way past every one; the twist: the book-smart one
-finally gets a job... and the boss is the rich kid. 16.8 s (7 bars at 100 bpm), loops on itself.
+finally gets a job... and the boss is the rich kid. 26.4 s (7 bars at 100 bpm), loops on itself.
 
 Two lanes (book smart on top, rich kid below) with a scoreboard between them. Each obstacle is its own little set
 that slides in. 1080x1920, PIL + numpy, music and sounds synthesised from sines (no samples, no noise).
@@ -25,11 +25,13 @@ W, H, FPS = 1080, 1920, 30
 SR = 44100
 BPM = 100
 BAR = 4 * 60 / BPM
-DUR = 7 * BAR                                    # 16.8 s
-V = 2.5                                          # one obstacle
+DUR = 11 * BAR                                   # 26.4 s
+V = 3.8                                          # one obstacle
+TS = 2.5 / V                                     # the obstacles' moves were timed for 2.5 s; slowed to V
+TS2 = 0.7                                        # the twist, slowed the same way
 SLIDE = 0.28
-T_TWIST = 4 * V                                  # 10.0
-T_TEXT = 12.7
+T_TWIST = 4 * V                                  # 15.2
+T_TEXT = T_TWIST + 3.2 / TS2                     # 19.8
 T_LOOP = DUR - 0.45
 LANE_H = 948
 LANES = {"book": 0, "rich": 972}
@@ -262,7 +264,7 @@ def lane(i, who, u):
 
 # ---------------------------------------------------------------- the twist (full screen)
 def twist(t):
-    u = t - T_TWIST
+    u = (t - T_TWIST) * TS2
     yy = np.linspace(0, 1, H)[:, None, None]
     c = Image.fromarray(np.repeat((np.array([232, 230, 226], np.float32) * (1 - yy) + np.array([200, 196, 190], np.float32) * yy), W, axis=1).astype(np.uint8), "RGB").convert("RGBA")
     d = ImageDraw.Draw(c)
@@ -321,7 +323,7 @@ def frame_raw(t):
         if t >= T_TEXT:
             p = out_cubic(prog(t, T_TEXT, 0.4))
             c.alpha_composite(Image.new("RGBA", (W, H), (0, 0, 0, int(150 * p))))
-            chars = int((t - T_TEXT - 0.3) / 0.035)
+            chars = int((t - T_TEXT - 0.3) / 0.05)
             l1 = LINE1[:max(0, chars)]
             l2 = LINE2[:max(0, chars - len(LINE1) - 4)]
             cur = "_" if int(t * 3) % 2 == 0 else " "
@@ -335,10 +337,10 @@ def frame_raw(t):
     c = Image.new("RGBA", (W, H), (20, 20, 24, 255))
     i, u = vig_at(t)
     for who, y0 in LANES.items():
-        cur = lane(i, who, u)
+        cur = lane(i, who, u * TS)
         if i > 0 and u < SLIDE:          # the new obstacle slides in over the last one
             p = out_cubic(u / SLIDE)
-            prev = lane(i - 1, who, V - 0.01)
+            prev = lane(i - 1, who, (V - 0.01) * TS)
             c.alpha_composite(prev, (int(-W * p), y0))
             c.alpha_composite(cur, (int(W * (1 - p)), y0))
         else:
@@ -349,9 +351,9 @@ def frame_raw(t):
         bg = Image.new("RGBA", (im.width + 40, im.height + 14), (20, 20, 24, 200))
         bg.alpha_composite(im, (20, 7))
         put(c, bg, W / 2, y0 + 60)
-    rich_n = sum(1 for k in range(4) if t >= k * V + 1.2)
+    rich_n = sum(1 for k in range(4) if t >= k * V + 1.2 / TS)
     title = OBST[i]
-    pulse = 1 + 0.12 * math.exp(-((u - 1.2) * 8) ** 2)
+    pulse = 1 + 0.12 * math.exp(-((u - 1.2 / TS) * 8) ** 2)
     score_badge(c, 0, rich_n, title, pulse)
     return c
 
@@ -370,7 +372,7 @@ def audio():
     beat = 60 / BPM
     chords = [[45, 52, 57, 60], [41, 48, 53, 57], [43, 50, 55, 59], [40, 47, 52, 55]]
     roots = [33, 29, 31, 28]
-    for b in range(7):
+    for b in range(11):
         t0 = b * BAR
         ch, rt = chords[b % 4], roots[b % 4]
         twist_bar = t0 >= T_TWIST - 0.01
@@ -396,21 +398,21 @@ def audio():
             wh = sum(np.sin(2 * np.pi * np.cumsum(fr * m) / SR) / (q + 1) for q, m in enumerate([1, 1.01, 1.5])) * np.sin(np.pi * ts / 0.3) ** 2
             mix_in(fx, wh, t0 - 0.05, 0.06)
         # the book one fails: a low bonk sliding down
-        mix_in(fx, tone(220, 0.35, (1, 0.5), a=0.002, d=0.12, sweep=90), t0 + 1.7, 0.18, -0.3)
+        mix_in(fx, tone(220, 0.35, (1, 0.5), a=0.002, d=0.12, sweep=90), t0 + 1.7 / TS, 0.18, -0.3)
         # the rich one wins: cha-ching (two bright bells)
         for k, m in enumerate([88, 93]):
-            mix_in(fx, tone(midi(m), 0.6, (1, 0.4, 0.2), a=0.001, d=0.18), t0 + 1.2 + k * 0.08, 0.09, 0.3)
+            mix_in(fx, tone(midi(m), 0.6, (1, 0.4, 0.2), a=0.001, d=0.18), t0 + 1.2 / TS + k * 0.08, 0.09, 0.3)
         for k in range(4):   # a few coins
-            mix_in(fx, tone(2600 + 300 * k, 0.08, (1,), a=0.0008, d=0.02), t0 + 1.25 + k * 0.05, 0.04, 0.4)
+            mix_in(fx, tone(2600 + 300 * k, 0.08, (1,), a=0.0008, d=0.02), t0 + 1.25 / TS + k * 0.05, 0.04, 0.4)
     # the twist: the chair turns - dun dun
     for k, (m, d_) in enumerate([(38, 0.5), (37, 1.1)]):
-        mix_in(fx, tone(midi(m), d_ + 0.4, (1, 0.6, 0.4, 0.25), a=0.005, d=0.5), T_TWIST + 1.1 + k * 0.35, 0.3)
-    mix_in(fx, tone(80, 0.9, (1, 0.5), a=0.002, d=0.3, sweep=32), T_TWIST + 1.1, 0.6)
+        mix_in(fx, tone(midi(m), d_ + 0.4, (1, 0.6, 0.4, 0.25), a=0.005, d=0.5), T_TWIST + 1.1 / TS2 + k * 0.35, 0.3)
+    mix_in(fx, tone(80, 0.9, (1, 0.5), a=0.002, d=0.3, sweep=32), T_TWIST + 1.1 / TS2, 0.6)
     total = len(LINE1) + 4 + len(LINE2)
     for i in range(total):
         ch_ = (LINE1 + "    " + LINE2)[i]
         if ch_ != " ":
-            mix_in(fx, tone(1700 + (i % 3) * 140, 0.025, (1, 0.4), a=0.0006, d=0.005), T_TEXT + 0.3 + i * 0.035, 0.05)
+            mix_in(fx, tone(1700 + (i % 3) * 140, 0.025, (1, 0.4), a=0.0006, d=0.005), T_TEXT + 0.3 + i * 0.05, 0.05)
     x = mus + fx
     x -= x.mean(axis=0)
     x = np.tanh(x * 1.3)
