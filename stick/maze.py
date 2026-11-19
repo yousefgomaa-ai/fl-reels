@@ -32,7 +32,7 @@ SR = 44100
 BPM = 75
 BEAT = 60 / BPM
 BAR = 4 * BEAT
-DUR = 6 * BAR                           # 19.2 s
+DUR = 6.5 * BAR                         # 20.8 s
 NF = int(round(DUR * FPS))
 XFADE = 0.5
 INK = AJ.INK
@@ -98,7 +98,7 @@ EXIT = (MX0 + COLS * CELL, MY0 + 0.5 * CELL)
 
 # ---------------------------------------------------------------- the walk (both, together)
 STEP = 0.3
-PAUSE = 0.55
+PAUSE = 0.75
 WALK = [("pt", (MX0 - 40, MY0 + 2.5 * CELL)), (0, 2), (1, 2), (2, 2), (2, 1), (2, 0), "bump", (2, 1), (2, 2), (3, 2),
         (4, 2), (4, 3), (4, 4), (5, 4), "bump", (4, 4), (4, 3), (4, 2), (4, 1), (5, 1), (6, 1), (6, 2), (7, 2), (8, 2),
         (8, 3), "bump"]
@@ -128,7 +128,7 @@ TRACK, BUMPS = build_track(WALK, 0.3)
 T_C = BUMPS[-1]                          # both at dead end C
 T_SPLIT = T_C + PAUSE
 T_Q0, T_BULB, T_BULB1 = T_SPLIT + 0.05, T_SPLIT + 0.6, T_SPLIT + 1.15
-T_CHALK0, T_CHALK1 = T_BULB1, T_BULB1 + 0.45
+T_CHALK0, T_CHALK1 = T_BULB1, T_BULB1
 OUT_SEQ = [(8, 3), (8, 2), (7, 2), "look", (7, 1), (7, 0), (8, 0), ("pt", (EXIT[0] + 60, EXIT[1]))]
 
 
@@ -139,7 +139,7 @@ def build_out(t0):
     for s in OUT_SEQ:
         if s == "look":
             look = t
-            t += 0.45
+            t += 0.65
             keys.append((t, keys[-1][1], keys[-1][2]))
             continue
         if isinstance(s, tuple) and s and s[0] == "pt":
@@ -158,7 +158,7 @@ T_OUT = OUT[-1][0]
 T_SIT0, T_SIT1 = T_SPLIT + 0.2, T_SPLIT + 0.7
 T_LIGHT = T_ESC + 0.3                    # below: the light behind the hedge
 T_UP0, T_UP1 = T_LIGHT + 0.2, T_LIGHT + 0.7
-T_L1, T_L2 = 14.2, 15.4
+T_L1, T_L2 = 15.0, 16.2
 CPS = 16.0
 LINE1, LINE2 = "HE SAT DOWN", "ONE TURN FROM THE EXIT."
 
@@ -175,6 +175,18 @@ def at(track, t):
             u = (t - t0) / (t1 - t0)
             return lerp(x0, x1, u), lerp(y0, y1, u), x1 - x0, y1 - y0
     return track[-1][1], track[-1][2], 0.0, 0.0
+
+
+# the chalk: an X on the end wall of every dead end (the doer only), an arrow on the way out
+CHALK_AT = [(MX0 + 2.5 * CELL, MY0 + 14), (MX0 + 6 * CELL - 14, MY0 + 4.5 * CELL), (MX0 + 8.5 * CELL, MY0 + 4 * CELL - 14)]
+
+
+def chalking(t):
+    """Is the doer drawing right now (during a dead-end pause, or at the turn)?"""
+    for b in BUMPS:
+        if b + 0.05 <= t < b + PAUSE - 0.1:
+            return True
+    return T_LOOK is not None and T_LOOK + 0.1 <= t < T_LOOK + 0.55
 
 
 def dead_ends(t, top):
@@ -198,6 +210,8 @@ def person(t, top):
         x, y, dx, dy = at(TRACK, t)
         moving = abs(dx) + abs(dy) > 0
         f = 1 if dx >= 0 else -1
+        if top and chalking(t):
+            return dict(CHALK, hl=(80 + 16 * math.sin(t * 22), -110 + 12 * math.cos(t * 22))), x, y, 1
         return (AJ.walk(t * 9, STAND) if moving else STAND), x, y, f
     if top:
         if t < T_CHALK0:
@@ -209,6 +223,8 @@ def person(t, top):
         x, y, dx, dy = at(OUT, t)
         moving = abs(dx) + abs(dy) > 0
         f = 1 if dx >= 0 else -1
+        if chalking(t):
+            return dict(CHALK, hl=(80 + 16 * math.sin(t * 22), -110 + 12 * math.cos(t * 22))), x, y, 1
         if t >= T_ESC:
             k = smooth(prog(t, T_ESC, T_ESC + 0.25))
             return lerp_pose(AJ.walk(t * 9, STAND), CHEER, k), x, y, 1
@@ -287,10 +303,9 @@ def exit_glow(im, t, k):
     im.alpha_composite(gl, (int(ex - 260), int(ey - 210)))
 
 
-def chalk_x(d, k):
-    # on the hedge at the end of dead end C
-    x0, y0 = MX0 + 8 * CELL + CELL / 2, MY0 + 4 * CELL
-    s = 18
+def chalk_x(d, k, where):
+    x0, y0 = where
+    s = 16
     a = int(255 * k)
     d.line([(x0 - s, y0 - s - 4), (x0 + s, y0 + s - 4)], fill=(250, 250, 250, a), width=5)
     if k > 0.5:
@@ -372,8 +387,18 @@ def panel(t, top):
             u = i / max(1, n)
             x, y = lerp(a[0], b[0], u), lerp(a[1], b[1], u)
             d.ellipse([x - 3, y + 18, x + 3, y + 24], fill=col + (150,))
-    if top and t >= T_CHALK0:
-        chalk_x(d, smooth(prog(t, T_CHALK0, T_CHALK1)))
+    if top:
+        for b, where in zip(BUMPS, CHALK_AT):
+            if t >= b + 0.05:
+                chalk_x(d, smooth(prog(t, b + 0.05, b + PAUSE - 0.1)), where)
+        if T_LOOK is not None and t >= T_LOOK + 0.1:
+            # an arrow on the gravel at the turn: the one way without an X
+            k = smooth(prog(t, T_LOOK + 0.1, T_LOOK + 0.55))
+            x0, y0 = cxy(7, 2)
+            a = int(255 * k)
+            d.line([(x0, y0 + 6), (x0, y0 - 6 - 30 * k)], fill=(250, 250, 250, a), width=5)
+            if k > 0.6:
+                d.line([(x0 - 12, y0 - 22), (x0, y0 - 36), (x0 + 12, y0 - 22)], fill=(250, 250, 250, a), width=5)
     # the dead-end bumps: a little burst of leaves
     for b in BUMPS:
         if b <= t < b + 0.5:
@@ -406,11 +431,6 @@ def panel(t, top):
     d = ImageDraw.Draw(im)
     if top:
         thought(d, t, pts["head"])
-        if T_LOOK and T_LOOK <= t < T_LOOK + 0.45:
-            # he looks up the corridor: the turn they both walked past
-            x0, y0 = cxy(7, 2)
-            k = math.sin(math.pi * prog(t, T_LOOK, T_LOOK + 0.45))
-            d.polygon([(x0 - 10, y0 - 40), (x0 + 10, y0 - 40), (x0, y0 - 64)], fill=(255, 230, 140, int(255 * k)))
     # counter
     n = dead_ends(t, top)
     bx, by = W - 162, PH - 100
@@ -496,7 +516,8 @@ def audio():
     # the idea, the chalk, the look, the way out
     for i, m in enumerate((84, 91)):
         mix_in(fx, GS.keys(midi(m), 1.2), T_BULB + i * 0.08, 0.06, -0.3)
-    mix_in(fx, noise(0.4, 50, lo=2500, hi=8000) * env(int(0.4 * SR), 0.02, 0.1), T_CHALK0, 0.05, -0.3)
+    for b in BUMPS + [T_LOOK]:
+        mix_in(fx, noise(0.45, int(b * 100) + 50, lo=2500, hi=8000) * env(int(0.45 * SR), 0.03, 0.12), b + 0.1, 0.05, -0.3)
     mix_in(fx, GS.keys(midi(81), 0.8), T_LOOK, 0.05, -0.3)
     for i, m in enumerate((72, 76, 79, 84, 88)):
         mix_in(fx, GS.keys(midi(m), 1.6), T_ESC + i * 0.08, 0.06, -0.3)
