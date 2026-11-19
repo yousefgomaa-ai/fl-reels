@@ -29,10 +29,10 @@ from perfect_wave import (MONO, clamp, env, font, lerp, lerp_pose, midi, mix_in,
 
 W, H, FPS = 1080, 1920, 30
 SR = 44100
-BPM = 100
+BPM = 75
 BEAT = 60 / BPM
 BAR = 4 * BEAT
-DUR = 10 * BAR                          # 24 s
+DUR = 13 * BAR                          # 41.6 s
 NF = int(round(DUR * FPS))
 XFADE = 0.5
 
@@ -50,60 +50,59 @@ TV_X, TV_W, TV_H = 846, 300, 190
 TV_Y1 = FY - 190                         # bottom of the screen
 PILE_X = 668                             # the cash pile (doer) / the cans and pizza boxes (overthinker)
 
-# ---------------------------------------------------------------- timeline
-T_TURN0, T_TURN1 = 3.0, 3.5              # the doer turns the TV off and swivels to the laptop
-T_D0, T_D1, T_365 = 4.2, 14.2, 14.4
-T_DECLINE = 14.9
-T_DARK0, T_DARK1 = 16.1, 16.5            # the power goes out below
-T_BACK0, T_BACK1 = 14.7, 15.2            # the doer closes the laptop and swivels to the TV
-T_TVON = 15.3
-T_BUY = 15.8
-T_PAID = 16.15
-T_L1, T_L2 = 17.6, 18.55
-CPS = 24.0
+# ---------------------------------------------------------------- timeline (slow, like the split-room reels: a day
+# stays on screen for 4.5 s, a bubble for 2 s, a price for 1.8 s)
+T_TURN0, T_TURN1 = 2.0, 3.0              # the doer turns the TV off and swivels to the laptop
+DAY_STEPS = [(0.0, 1), (6.0, 7), (10.5, 30), (15.0, 90), (19.5, 180), (24.0, 270), (28.5, 365)]
+T_D0, T_D1, T_365 = 6.0, 28.5, 28.5
+T_DECLINE = 29.8
+T_DARK0, T_DARK1 = 32.0, 32.7            # the power goes out below
+T_BACK0, T_BACK1 = 29.0, 30.0            # the doer closes the laptop and swivels to the TV
+T_TVON = 30.4
+T_PAID = 31.6
+T_L1, T_L2 = 35.0, 36.6
+CPS = 16.0
 LINE1, LINE2 = "ONE PAID TO PLAY.", "ONE GOT PAID, THEN PLAYED."
 
-PURCHASES = [(1.4, "LEGENDARY SKIN", 19.99), (3.3, "1,000 COINS", 9.99), (5.0, "BATTLE PASS", 24.99),
-             (5.9, "SKIN BUNDLE", 29.99),
-             (6.8, "LOOT BOX x10", 49.99), (7.7, "MYTHIC WINGS", 39.99), (8.6, "5,000 COINS", 49.99),
-             (9.5, "LOOT BOX x20", 99.99), (10.4, "PET DRAGON", 79.99), (11.3, "VIP PASS", 99.99),
-             (12.2, "GOLD CROWN", 149.99), (13.1, "LOOT BOX x50", 249.99)]
-PAYMENTS = [(5.3, 150), (6.5, 300), (7.7, 500), (8.9, 800), (10.1, 1200), (11.3, 2000), (12.5, 3000), (13.7, 5000)]
-BILLS = [10.2, 11.6, 12.9, 13.8]
+PURCHASES = [(3.2, "LEGENDARY SKIN", 19.99), (8.2, "BATTLE PASS", 24.99), (12.7, "LOOT BOX x10", 49.99),
+             (17.2, "MYTHIC WINGS", 39.99), (21.7, "GOLD CROWN", 149.99), (26.2, "LOOT BOX x50", 249.99)]
+PAYMENTS = [(7.4, 300), (11.9, 800), (16.4, 1500), (20.9, 3000), (25.4, 5000)]
+BILLS = [19.0, 21.0, 23.5, 26.8]
 
-BUB_TOP = [(0.15, 1.3, "ONE MATCH."), (3.6, 4.6, "BACK TO WORK."), (8.0, 9.0, "NEXT CLIENT."),
-           (16.3, 17.5, "NOW I PLAY.")]
-BUB_BOT = [(0.3, 1.25, "JUST ONE MORE."), (1.6, 2.6, "I NEED THIS SKIN."), (6.0, 7.0, "IT'S ON SALE!"),
-           (9.0, 10.2, "LAST ONE, I PROMISE."), (12.0, 13.1, "I'LL PAY IT LATER."), (15.0, 15.9, "NO NO NO!"),
-           (16.6, 17.6, "...ONE MORE MATCH?")]
+BUB_TOP = [(0.3, 1.9, "ONE MATCH."), (3.4, 5.6, "BACK TO WORK."), (13.4, 15.6, "NEXT CLIENT."),
+           (32.0, 34.6, "NOW I PLAY.")]
+BUB_BOT = [(0.9, 2.9, "JUST ONE MORE."), (3.6, 5.8, "I NEED THIS SKIN."), (9.0, 11.2, "IT'S ON SALE!"),
+           (17.8, 20.0, "LAST ONE, I PROMISE."), (22.6, 24.8, "I'LL PAY IT LATER."), (30.0, 31.8, "NO NO NO!"),
+           (33.0, 35.8, "...ONE MORE MATCH?")]
+
+
+def day_step(t):
+    cur = DAY_STEPS[0]
+    for st in DAY_STEPS:
+        if t >= st[0]:
+            cur = st
+    return cur
 
 
 def day_at(t):
-    if t < T_D0:
-        return 1
-    if t < T_365:
-        return min(364, 1 + int(round(363 * prog(t, T_D0, T_D1) ** 1.25)))
-    return 365
+    return day_step(t)[1]
 
 
 def doer_bank(t):
-    if t < 4.6:
+    if t < T_D0:
         return 500
-    v = 500 + 27500 * prog(t, 4.6, T_D1) ** 1.6
-    if t >= T_PAID:
-        v -= 100
-    return int(round(v / 10) * 10) if t < T_D1 else (28000 if t < T_PAID else 27900)
+    if t < T_365:
+        return int(round((500 + 27500 * prog(t, T_D0, T_365) ** 1.6) / 10) * 10)
+    return 28000 if t < T_PAID else 27900
 
 
 def ot_bank(t):
-    if t < 1.45:
+    if t < 3.25:
         return 500
-    if t < 3.35:
+    if t < T_D0:
         return 480
-    if t < 4.6:
-        return 470
-    if t < T_D1:
-        return int(round(470 - 2870 * prog(t, 4.6, T_D1) ** 1.15))
+    if t < T_365:
+        return int(round(480 - 2880 * prog(t, T_D0, T_365) ** 1.15))
     return -2400
 
 
@@ -121,11 +120,11 @@ SIT_TYPE = AJ.SIT_TYPE
 SIT_DARK = dict(SIT_PLAY_SLUMP, head=(26, -122))
 
 
-def playing(pose, t, amp=4.0):
+def playing(pose, t, amp=2.5):
     p = dict(pose)
-    j = amp * math.sin(t * 23)
+    j = amp * math.sin(t * 8)
     p["hl"] = (p["hl"][0] + j * 0.5, p["hl"][1] - abs(j))
-    p["hr"] = (p["hr"][0] - j * 0.5, p["hr"][1] - abs(math.sin(t * 19)) * amp)
+    p["hr"] = (p["hr"][0] - j * 0.5, p["hr"][1] - abs(math.sin(t * 6.5)) * amp)
     return p
 
 
@@ -135,19 +134,19 @@ def person(t, top):
         if t < T_TURN0:
             return playing(SIT_PLAY, t), 1, "pad"
         if t < T_TURN1:
-            k = smooth(prog(t, T_TURN0 + 0.2, T_TURN1))
-            if t < T_TURN0 + 0.2:
+            k = smooth(prog(t, T_TURN0 + 0.4, T_TURN1))
+            if t < T_TURN0 + 0.4:
                 p = dict(SIT_PLAY, el=(50, -80), hl=(100, -92))       # reaches for the TV's button
                 return p, 1, None
             return lerp_pose(SIT_PLAY, SIT_TYPE, k), (1 if k < 0.5 else -1), None
         if t < T_BACK0:
-            return AJ.typing(SIT_TYPE, t), -1, None
+            return AJ.typing(SIT_TYPE, t, 6.0, 3.0), -1, None
         if t < T_BACK1:
-            k = smooth(prog(t, T_BACK0 + 0.15, T_BACK1))
+            k = smooth(prog(t, T_BACK0 + 0.3, T_BACK1))
             return lerp_pose(SIT_TYPE, SIT_PLAY, k), (-1 if k < 0.5 else 1), ("pad" if k > 0.5 else None)
         if t < T_PAID:
-            return playing(SIT_PLAY, t, 1.5), 1, "pad"
-        if t < T_PAID + 0.6:
+            return playing(SIT_PLAY, t, 1.2), 1, "pad"
+        if t < T_PAID + 1.0:
             return SIT_CHEER, 1, "pad"
         return playing(SIT_PLAY, t), 1, "pad"
     # the overthinker never leaves the chair
@@ -155,9 +154,9 @@ def person(t, top):
         return playing(SIT_PLAY, t), 1, "pad"
     if t < T_DECLINE:
         k = 0.8 * smooth(prog(t, T_D0, T_D1))
-        return playing(lerp_pose(SIT_PLAY, SIT_PLAY_SLUMP, k), t, 3.5), 1, "pad"
+        return playing(lerp_pose(SIT_PLAY, SIT_PLAY_SLUMP, k), t, 2.5), 1, "pad"
     if t < T_DARK0:
-        shake = 6 * math.sin(t * 40)
+        shake = 4 * math.sin(t * 12)
         p = dict(SIT_PLAY, hl=(70, -72 + shake), hr=(64, -68 - shake))
         return p, 1, "pad"
     return lerp_pose(SIT_PLAY_SLUMP, SIT_DARK, smooth(prog(t, T_DARK0, T_DARK1))), 1, "pad"
@@ -287,17 +286,17 @@ def avatar(d, x, y, t, level, run=True):
     body = PW.lerp_c((240, 240, 240), (255, 200, 60), clamp(level / 3))
     if level >= 4:
         for s in (-1, 1):
-            fl = 6 * math.sin(t * 14)
+            fl = 5 * math.sin(t * 6)
             d.polygon([(x, y - 30), (x - s * 34, y - 52 - fl), (x - s * 26, y - 22)], fill=(170, 120, 255, 255),
                       outline=ink)
-    ph = t * 16 if run else 0
+    ph = t * 8 if run else 0
     d.line([(x, y - 34), (x, y - 12)], fill=body + (255,), width=5)
     for s in (-1, 1):
         d.line([(x, y - 12), (x + s * 9 * math.sin(ph) + s * 3, y + 4)], fill=body + (255,), width=5)
         d.line([(x, y - 28), (x + s * 12, y - 18 - 4 * s * math.sin(ph))], fill=body + (255,), width=4)
     d.ellipse([x - 9, y - 52, x + 9, y - 34], fill=body + (255,), outline=ink, width=2)
     if level >= 2:
-        d.line([(x - 9, y - 30), (x - 20, y - 20 + 3 * math.sin(t * 9))], fill=(230, 60, 60, 255), width=5)   # cape
+        d.line([(x - 9, y - 30), (x - 20, y - 20 + 3 * math.sin(t * 4))], fill=(230, 60, 60, 255), width=5)   # cape
     if level >= 5:
         d.polygon([(x - 10, y - 50), (x - 12, y - 64), (x - 4, y - 56), (x, y - 66), (x + 4, y - 56), (x + 12, y - 64),
                    (x + 10, y - 50)], fill=(255, 210, 60, 255), outline=ink)
@@ -309,7 +308,7 @@ def draw_tv(d, im, t, top):
     x0, y0 = draw_tv_frame(d)
     x1 = x0 + TV_W
     if top:
-        on = t < T_TURN0 + 0.15 or t >= T_TVON
+        on = t < T_TURN0 + 0.35 or t >= T_TVON
     else:
         on = t < T_DARK0
     if not on:
@@ -319,24 +318,23 @@ def draw_tv(d, im, t, top):
     # the game: a night city road, our hero runs
     d.rectangle([x0, y0, x1, TV_Y1], fill=(24, 44, 92, 255))
     for i in range(6):
-        bx = x0 + ((i * 60 - t * 40) % (TV_W + 40)) - 20
+        bx = x0 + ((i * 60 - t * 16) % (TV_W + 40)) - 20
         bh = 40 + (i * 37) % 60
         if min(x1, bx + 40) > max(x0, bx):
             d.rectangle([max(x0, bx), TV_Y1 - 46 - bh, min(x1, bx + 40), TV_Y1 - 46], fill=(16, 28, 60, 255))
     d.rectangle([x0, TV_Y1 - 46, x1, TV_Y1], fill=(40, 44, 54, 255))
     for i in range(5):
-        lx = x0 + ((i * 70 - t * 160) % (TV_W + 60)) - 30
+        lx = x0 + ((i * 70 - t * 60) % (TV_W + 60)) - 30
         if min(x1, lx + 30) > max(x0, lx):
             d.line([(max(x0, lx), TV_Y1 - 24), (min(x1, lx + 30), TV_Y1 - 24)], fill=(230, 230, 230, 255), width=4)
     spaced(d, x0 + 46, y0 + 8, "SEASON 1", font(MONO, 15), (170, 210, 255, 255), 1)
     if top:
         level = 5 if t >= T_PAID else 0
     else:
-        level = sum(1 for p in PURCHASES if t >= p[0] + 0.5) // 2 if t < T_D1 + 1 else 5
-        level = 5 if t > 13.0 else level
+        level = min(5, sum(1 for p in PURCHASES if t >= p[0] + 0.5))
     avatar(d, x0 + 90, TV_Y1 - 46, t, level)
     # title card on day 1
-    if t < 0.6:
+    if t < 1.2:
         fb = font("InterDisplay-Bold.otf", 44)
         d.rectangle([x0, y0, x1, TV_Y1], fill=(10, 16, 40, 230))
         spaced(d, TV_X, y0 + 34, "NEW GAME", fb, (255, 214, 90, 255), 3)
@@ -345,15 +343,17 @@ def draw_tv(d, im, t, top):
     card = None
     if not top:
         for t0, name, price in PURCHASES:
-            if t0 - 0.35 <= t < t0 + 0.55:
+            if t0 - 0.6 <= t < t0 + 1.3:
                 card = (t0, name, f"${price:.2f}", "BUY")
-        if T_DECLINE - 0.4 <= t < T_DARK0:
+        if T_DECLINE - 0.7 <= t < T_DARK0:
             card = (T_DECLINE, "ULTIMATE BUNDLE", "$99.99", "DECLINED")
-    elif T_BUY - 0.4 <= t < T_PAID + 0.7:
+    elif T_PAID - 0.9 <= t < T_PAID + 1.5:
         card = (T_PAID, "ULTIMATE BUNDLE", "$99.99", "PAID")
     if card:
         t0, name, price, state = card
-        sc = out_back(prog(t, t0 - 0.35, t0 - 0.2))
+        sc = out_back(prog(t, t0 - (0.9 if t0 == T_PAID else 0.7 if t0 == T_DECLINE else 0.6), t0 - 0.3), 1.2)
+        if sc < 0.05:
+            return
         cw, ch = 220 * sc, 140 * sc
         cx0, cy0 = TV_X - cw / 2, y0 + (TV_H - ch) / 2
         d.rounded_rectangle([cx0, cy0, cx0 + cw, cy0 + ch], 10, fill=(250, 248, 240, 255), outline=INK + (255,),
@@ -366,7 +366,7 @@ def draw_tv(d, im, t, top):
                 bc = (60, 180, 90) if not pressed else (40, 130, 60)
                 label = "BUY" if not pressed else "BOUGHT"
             elif state == "DECLINED":
-                bc = RED if (not pressed or int(t * 8) % 2 == 0) else (150, 40, 40)
+                bc = RED if (not pressed or int(t * 3) % 2 == 0) else (170, 50, 50)
                 label = "BUY" if not pressed else "CARD DECLINED"
                 if not pressed:
                     bc = (60, 180, 90)
@@ -385,8 +385,8 @@ def bank_box(d, value, t, floats, red_when_negative=True):
     col = RED if value <= 0 and red_when_negative else GOLD
     spaced(d, x0 + bw / 2, y0 + 40, money(value), font(MONO, 40), col + (255,), 1)
     for t0, txt, c in floats:
-        if t0 <= t < t0 + 1.0:
-            u = prog(t, t0, t0 + 1.0)
+        if t0 <= t < t0 + 1.8:
+            u = prog(t, t0, t0 + 1.8)
             a = int(255 * (1 - smooth(prog(u, 0.55, 1.0))))
             spaced(d, x0 + bw + 96, y0 + 34 - 34 * out_cubic(u), txt, font(MONO, 32), c + (a,), 1)
 
@@ -421,14 +421,14 @@ def panel(t, top):
     if top:
         k = 1.0
         if t < T_TURN1:
-            k = 0.0 if t < T_TURN0 + 0.3 else smooth(prog(t, T_TURN0 + 0.3, T_TURN1))
+            k = 0.0 if t < T_TURN0 + 0.5 else smooth(prog(t, T_TURN0 + 0.5, T_TURN1))
         if t >= T_BACK0:
-            k = 1 - smooth(prog(t, T_BACK0, T_BACK0 + 0.3))
+            k = 1 - smooth(prog(t, T_BACK0, T_BACK0 + 0.5))
         draw_laptop(d, k, True, t)
         draw_cash(d, 230 * clamp((doer_bank(t) - 500) / 27500))
     else:
         draw_laptop(d, 0.0, False, t)
-        draw_junk(d, smooth(prog(t, 3.5, T_D1)), t)
+        draw_junk(d, smooth(prog(t, 4.0, T_D1)), t)
         draw_bills(d, t)
     draw_tv(d, im, t, top)
     draw_chair(d, facing)
@@ -443,8 +443,8 @@ def panel(t, top):
         bank_box(d, doer_bank(t), t, fl, red_when_negative=False)
         # "CLIENT PAID" over the laptop
         for t0, a in PAYMENTS:
-            if t0 <= t < t0 + 0.9:
-                u = prog(t, t0, t0 + 0.9)
+            if t0 <= t < t0 + 1.8:
+                u = prog(t, t0, t0 + 1.8)
                 al = int(255 * (1 - smooth(prog(u, 0.6, 1.0))))
                 y = DESK_TOP - 150 - 40 * out_cubic(u)
                 d.rounded_rectangle([LAPTOP_X - 92, y, LAPTOP_X + 92, y + 40], 8, fill=(30, 120, 70, al))
@@ -456,7 +456,7 @@ def panel(t, top):
     if not top and t >= T_DARK0:
         # the power goes out: lights flicker, then the room is dark
         if t < T_DARK1:
-            k = 0.85 if int(t * 22) % 2 == 0 else 0.25
+            k = 0.85 if int(t * 9) % 2 == 0 else 0.3
         else:
             k = 0.82
         a = np.asarray(im).astype(np.float32)
@@ -479,15 +479,17 @@ def frame(t):
     spaced(d, W / 2, BOT_Y0 + PH + 18, "OVERTHINKER", font("Inter-SemiBold.otf", 40), (200, 204, 214, 255), 10)
     spaced(d, W / 2, TOP_Y0 + PH + 18, "SAME GAME", font("Inter-SemiBold.otf", 34), (206, 210, 220, 255), 8)
     day = day_at(t)
-    dpop = math.exp(-(t - T_365) * 6) if t >= T_365 else 0.0
+    st0 = day_step(t)[0]
+    dpop = math.exp(-(t - st0) * 5) if st0 > 0 else 0.0
+    red = 1.0 if t >= T_365 else 0.0
     fl = font("Inter-SemiBold.otf", 40)
-    fn = font("InterDisplay-Bold.otf", int(56 * (1 + 0.3 * dpop)))
+    fn = font("InterDisplay-Bold.otf", int(56 * (1 + 0.25 * dpop)))
     wl = sum(fl.getlength(c) for c in "DAY") + 16
     wn = fn.getlength(str(day))
     x0 = W / 2 - (wl + 20 + wn) / 2
     spaced(d, x0 + wl / 2, TOP_Y0 + PH + 66, "DAY", fl, (206, 210, 220, 255), 8)
     d.text((x0 + wl + 20, TOP_Y0 + PH + 52 - 8 * dpop), str(day), font=fn,
-           fill=PW.lerp_c((250, 250, 252), (255, 120, 110), dpop) + (255,))
+           fill=PW.lerp_c((250, 250, 252), (255, 120, 110), red * dpop) + (255,))
     d.line([(60, BOT_Y0 - 8), (W - 60, BOT_Y0 - 8)], fill=(50, 52, 60, 255), width=2)
     fm = font(MONO, 50)
     for t0, s, y, col in ((T_L1, LINE1, 92, (250, 250, 252)), (T_L2, LINE2, 164, GOLD)):
@@ -522,77 +524,73 @@ def render(i):
 
 
 # ---------------------------------------------------------------- sound
+def pad(f, dur, a=0.6, r=1.2):
+    """A soft, slightly detuned pad note (sines only), slow in and slow out."""
+    n = int((dur + r) * SR)
+    t = np.arange(n) / SR
+    x = sum(np.sin(2 * np.pi * f * dt * t + ph) for dt, ph in ((1.0, 0), (1.003, 1.3), (0.997, 2.1))) / 3
+    x += 0.18 * np.sin(2 * np.pi * 2 * f * t)
+    e = np.minimum(1, t / a) * np.clip((dur + r - t) / r, 0, 1)
+    return x * e
+
+
+def keys(f, dur=1.6):
+    """A soft electric-piano note."""
+    n = int(dur * SR)
+    t = np.arange(n) / SR
+    x = np.sin(2 * np.pi * f * t + 0.6 * np.sin(2 * np.pi * f * t) * np.exp(-t * 6))
+    return x * np.minimum(1, t / 0.01) * np.exp(-t * 2.2)
+
+
 def audio():
     n = int(DUR * SR)
     mus, fx = np.zeros((n, 2)), np.zeros((n, 2))
+    # one calm loop the whole way: Fmaj7 - Em7 - Dm7 - Cmaj7, one chord a bar, no drums, no hats
     chords = [[53, 57, 60, 64], [52, 55, 59, 62], [50, 53, 57, 60], [48, 52, 55, 59]]
     roots = [41, 40, 38, 36]
-    for b in range(6):                       # the year, bars 0-5 (to 14.4 s)
+    mel = [72, 71, 69, 67, 69, 72, 71, 67]
+    for b in range(13):
         t0 = b * BAR
         ch, rt = chords[b % 4], roots[b % 4]
         for k, m in enumerate(ch):
-            mix_in(mus, tone(midi(m), BAR + 0.1, (1, 0.35, 0.12, 0.05), a=0.02, d=1.2), t0, 0.05, (k - 1.5) * 0.35)
-        for q in range(4):
-            tb = t0 + q * BEAT
-            mix_in(mus, tone(105, 0.32, (1,), a=0.002, d=0.11, sweep=42), tb, 0.55 if q % 2 == 0 else 0.3)
-            mix_in(mus, tone(midi(rt), BEAT * 0.9, (1, 0.4, 0.1), a=0.005, d=0.3), tb, 0.2)
-            if q % 2 == 1:
-                mix_in(mus, noise(0.12, 900 + b * 4 + q, lo=900, hi=5000) * env(int(0.12 * SR), 0.001, 0.03), tb, 0.14)
-            for e in range(2):
-                mix_in(mus, noise(0.04, 300 + b * 8 + q * 2 + e, lo=6000) * env(int(0.04 * SR), 0.0005, 0.008),
-                       tb + e * BEAT / 2, 0.045, 0.4 - 0.8 * e)
-            if (b * 4 + q) % 3 != 2:
-                m = ch[(q * 2 + b) % 4] + 12
-                mix_in(mus, tone(midi(m), 0.5, (1, 0.25, 0.08), a=0.004, d=0.18), tb + BEAT / 2, 0.065, 0.2)
-    # day 365 to the end: the beat thins out, then the line on soft chords (bars 6-9)
-    tt = np.arange(int(3.0 * SR)) / SR
-    mix_in(mus, (np.sin(2 * np.pi * 55 * tt) + 0.4 * np.sin(2 * np.pi * 110 * tt)) * np.minimum(1, tt / 0.4)
-           * np.clip((3.0 - tt) / 0.6, 0, 1), 14.4, 0.12)
-    for b in range(4):
-        t0 = 6 * BAR + b * BAR
-        ch, rt = chords[(b + 2) % 4], roots[(b + 2) % 4]
-        for k, m in enumerate(ch):
-            mix_in(mus, tone(midi(m), BAR + 0.3, (1, 0.3, 0.1), a=0.2, d=1.5), t0, 0.06 if b else 0.03, (k - 1.5) * 0.4)
-        mix_in(mus, tone(midi(rt), BAR, (1, 0.3), a=0.08, d=1.2), t0, 0.16)
-        if b >= 1:
-            for q in range(4):
-                mix_in(mus, tone(105, 0.3, (1,), a=0.002, d=0.1, sweep=42), t0 + q * BEAT, 0.3 if q % 2 == 0 else 0.18)
-    # game blips while they play
-    r = np.random.default_rng(2)
-    for tb in np.arange(0.1, T_DARK0, 0.3):
-        if r.uniform() < 0.6:
-            mix_in(fx, tone(midi(int(r.choice([72, 76, 79, 84]))), 0.06, (1, 0.5, 0.3), a=0.001, d=0.03), tb, 0.035, 0.3)
-    # every purchase: a "buy" chime, then the money going (a falling coin)
+            mix_in(mus, pad(midi(m), BAR, 0.8, 1.4), t0, 0.045, (k - 1.5) * 0.4)
+        mix_in(mus, pad(midi(rt - 12), BAR, 0.3, 1.0), t0, 0.11)
+        for q in (0, 2):
+            m = mel[(b * 2 + q // 2) % len(mel)]
+            mix_in(mus, keys(midi(m)), t0 + q * BEAT + 0.05, 0.05, 0.25)
+        mix_in(mus, keys(midi(ch[1] + 12), 1.0), t0 + 3 * BEAT, 0.03, -0.25)
+    # quiet room tone
+    mix_in(fx, noise(DUR, 3, lo=80, hi=500), 0, 0.012)
+    # a purchase: two soft notes going down
     for t0, name, p in PURCHASES:
-        mix_in(fx, tone(midi(84), 0.08, (1, 0.3), a=0.001, d=0.04), t0, 0.08, 0.3)
-        mix_in(fx, tone(midi(79), 0.35, (1, 0.4), a=0.002, d=0.15, sweep=midi(67)), t0 + 0.06, 0.08, 0.3)
-    # every payment: a cash register
+        for i, m in enumerate((76, 69)):
+            mix_in(fx, keys(midi(m), 0.8), t0 + i * 0.12, 0.07, 0.3)
+    # a payment: two soft notes going up
     for t0, a in PAYMENTS:
-        for i, m in enumerate((88, 95)):
-            mix_in(fx, tone(midi(m), 0.4, (1, 0.3), a=0.002, d=0.16), t0 + i * 0.07, 0.08, -0.3)
-        mix_in(fx, noise(0.1, int(t0 * 10), lo=3000, hi=9000) * env(int(0.1 * SR), 0.001, 0.03), t0, 0.06, -0.3)
-    # the TV clicks off, the laptop opens / closes
-    for tc in (T_TURN0 + 0.15, T_BACK0, T_TVON):
-        mix_in(fx, tone(1800, 0.03, (1,), a=0.0005, d=0.01), tc, 0.15)
-    # declined: a buzzer x2; the power cut: a falling hum, then quiet
-    for i in range(2):
-        mix_in(fx, tone(150, 0.22, (1, 0.6, 0.4, 0.3, 0.2), a=0.003, d=0.15), T_DECLINE + i * 0.28, 0.22, 0.3)
-    td = np.arange(int(0.9 * SR)) / SR
-    hum = np.sin(2 * np.pi * np.cumsum(220 * (1 - td / 1.0) + 30) / SR) * np.clip(1 - td / 0.9, 0, 1)
-    mix_in(fx, hum, T_DARK0, 0.18, 0.3)
-    # paid: a bright chord
-    for i, m in enumerate((76, 81, 84, 88)):
-        mix_in(fx, tone(midi(m), 0.7, (1, 0.3), a=0.003, d=0.3), T_PAID + i * 0.04, 0.07, -0.3)
-    # bubbles, typewriter
+        for i, m in enumerate((79, 84)):
+            mix_in(fx, keys(midi(m), 0.9), t0 + i * 0.12, 0.07, -0.3)
+    # the TV and the laptop: soft clicks
+    for tc in (T_TURN0 + 0.35, T_BACK0, T_TVON):
+        mix_in(fx, tone(900, 0.04, (1,), a=0.001, d=0.012), tc, 0.06)
+    # declined: two low soft notes; the power cut: a hum that falls away
+    for i, m in enumerate((52, 47)):
+        mix_in(fx, keys(midi(m), 1.0), T_DECLINE + i * 0.3, 0.12, 0.3)
+    td = np.arange(int(1.2 * SR)) / SR
+    hum = np.sin(2 * np.pi * np.cumsum(120 * (1 - td / 1.4) + 20) / SR) * np.clip(1 - td / 1.2, 0, 1)
+    mix_in(fx, hum, T_DARK0, 0.08, 0.3)
+    # paid: a soft rising arpeggio
+    for i, m in enumerate((72, 76, 79, 84)):
+        mix_in(fx, keys(midi(m), 1.2), T_PAID + i * 0.09, 0.06, -0.3)
+    # bubbles: a very soft pop; the line: soft key taps
     for lst in (BUB_TOP, BUB_BOT):
         for b0, b1, s in lst:
-            mix_in(fx, tone(560, 0.11, (1, 0.3), a=0.002, d=0.05, sweep=1100), b0, 0.1)
+            mix_in(fx, tone(700, 0.08, (1,), a=0.003, d=0.03), b0, 0.03)
     for t0, s in ((T_L1, LINE1), (T_L2, LINE2)):
         for i, c in enumerate(s):
             if c != " ":
-                mix_in(fx, noise(0.03, 500 + i + int(t0), lo=2000, hi=8000) * env(int(0.03 * SR), 0.0005, 0.006),
-                       t0 + i / CPS, 0.12)
-    x = mus * 0.9 + fx
+                mix_in(fx, noise(0.03, 500 + i + int(t0), lo=1200, hi=4000) * env(int(0.03 * SR), 0.001, 0.008),
+                       t0 + i / CPS, 0.05)
+    x = mus + fx
     m = int(XFADE * SR)
     k = np.linspace(0, 1, m)[:, None]
     x[-m:] = x[-m:] * (1 - k) + x[:m] * k
