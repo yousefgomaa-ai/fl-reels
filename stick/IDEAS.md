@@ -12,10 +12,10 @@ Wait for "نفذ" before making the next reel. Make them in this order, one at a
 - **Alternate the openings, A then B**, until we review the numbers:
   - A: current style, dark room, calm start.
   - B: brighter room, a close-up that pulls back, and the speech bubble plus action on screen from frame 0.
-  - Order so far: #10 A (fridge), #11 B (jacket), Black Friday A, Check the price B. **Next one is A.**
+  - Order so far: #10 A (fridge), #11 B (jacket), Black Friday A, Check the price B, $7 latte A. **Next one is B.**
 - **Different music for every reel** (`stick/music.py`). Don't use the same track twice in a row:
   piano_c, music_box_d, guitar_g, marimba_f, lofi_eb, strings_am, kalimba_e, harp_bb.
-  Used so far: #10 music_box_d, #11 marimba_f, Black Friday guitar_g, Check the price kalimba_e.
+  Used so far: #10 music_box_d, #11 marimba_f, Black Friday guitar_g, Check the price kalimba_e, $7 latte lofi_eb.
 - One version per reel (no more two copies), and send the title with every video.
 
 ## Up next (14), in order
@@ -81,3 +81,4 @@ Wait for "نفذ" before making the next reel. Make them in this order, one at a
 | 11 | Expectation shipped separately (B, marimba) | jacket.mp4 |
 | new 1 | Black Friday (A, guitar) | black-friday.mp4 |
 | new 2 | Let me check the price (B, kalimba) | check-price.mp4 |
+| new 3 | $7 latte (A, lo-fi) | latte.mp4 |
