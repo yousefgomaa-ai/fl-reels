@@ -16,5 +16,7 @@ jobs:
         run: |
           echo "::add-mask::$REELS_KEY"
           sleep 2
-          curl -sS --max-time 120 -G "https://api.football-legend.com/v2/social/check" --data-urlencode "key=$REELS_KEY" -o r.json || echo "no answer"
-          python3 -c "import json;d=json.load(open('r.json'));print(json.dumps(d,ensure_ascii=False,indent=1)[:5000])" || head -c 2000 r.json
+          curl -sS --max-time 120 -G "https://api.football-legend.com/v2/fben/dry" --data-urlencode "key=$REELS_KEY" --data-urlencode "kinds=none" --data-urlencode "repost=en-rsched-pl-20261121" --data-urlencode "state=en-rsched-pl-20261121" -o r.json || echo "no answer"
+          python3 -c "import json;d=json.load(open('r.json'))['result'];print(json.dumps({k:d.get(k) for k in ('repost','state')},ensure_ascii=False)[:2500])" || head -c 1500 r.json
+          curl -sS --max-time 120 -G "https://api.football-legend.com/v2/fben/dry" --data-urlencode "key=$REELS_KEY" --data-urlencode "kinds=none" --data-urlencode "repost=en-rsched-seriea-20261121" --data-urlencode "state=en-rsched-seriea-20261121" -o r.json || echo "no answer"
+          python3 -c "import json;d=json.load(open('r.json'))['result'];print(json.dumps({k:d.get(k) for k in ('repost','state')},ensure_ascii=False)[:2500])" || head -c 1500 r.json
