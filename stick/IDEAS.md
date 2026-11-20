@@ -7,8 +7,8 @@ Wait for "نفذ" before making the next reel. Make them in this order, one at a
 - Split screen. Both people start in **exactly the same situation**. The idea has to be clear from the first scene.
 - Calm and slow. The music starts soft and builds until the twist. A warm chord under the closing line, which is
   **two short lines that answer each other**, then the FOLLOW FOR MORE card. 18 seconds, and it loops.
-- **Western audience** (US / Europe): situations from American and European daily life. Clock in **12-hour AM/PM**,
-  temperatures in **°F**, money in **$**.
+- **Western audience** (US / Europe): situations from American and European daily life that work in both.
+  Clock in **12-hour AM/PM**, money in **$**, and **no temperatures on screen** (Europe uses °C, the US °F).
 - **Alternate the openings, A then B**, until we review the numbers:
   - A: current style, dark room, calm start.
   - B: brighter room, a close-up that pulls back, and the speech bubble plus action on screen from frame 0.
@@ -18,7 +18,7 @@ Wait for "نفذ" before making the next reel. Make them in this order, one at a
   Used so far: #10 music_box_d, #11 marimba_f, Black Friday guitar_g, Check the price kalimba_e, $7 latte lofi_eb, Tipping harp_bb.
 - One version per reel (no more two copies), and send the title with every video.
 
-## Up next (14), in order
+## Up next, in order (1-4 done, 5-22 left)
 
 | # | Idea | Twist | Closing line |
 |---|---|---|---|
@@ -36,6 +36,14 @@ Wait for "نفذ" before making the next reel. Make them in this order, one at a
 | 12 | **"Let's split the bill"**: steak vs. water | Equal split | EQUAL SPLIT. UNEQUAL PAIN. |
 | 13 | **Free trial** vs. forgot to cancel | A year later he has paid $120 for an app he never opened | THE TRIAL WAS FREE. THE FORGETTING WASN'T. |
 | 14 | **Printer jams**: the new employee vs. the one with 10 years | The veteran hits it once and it works | EXPERIENCE IS KNOWING WHERE TO HIT. |
+| 15 | **Budget airline**: small bag vs. "it'll fit" | He pays $70 for a bag on a $19 flight, wearing 4 jackets | THE FLIGHT WAS $19. THE BAG WASN'T. |
+| 16 | **Airport**: there 3 hours early vs. last minute | Runs through security with his shoes in his hand, then the flight is 2 hours late | HE RAN. THE PLANE DIDN'T. |
+| 17 | **Train / bus**: leaves early vs. runs for it | The doors close in his face | HE RAN FOR IT. IT LEFT ANYWAY. |
+| 18 | **Weather app**: takes an umbrella vs. "it's sunny" | A downpour | THE APP SAID 80%. HE SAID NO. |
+| 19 | **Duolingo**: talks to real people vs. a 300-day streak | Abroad, he can't order a coffee | 300-DAY STREAK. ZERO CONVERSATIONS. |
+| 20 | **Delivery** "between 8 AM and 8 PM": waits all day | Steps out for 2 minutes, finds a "We missed you" note | HE WAITED 10 HOURS. HE MISSED 2 MINUTES. |
+| 21 | **Vacation**: out of office vs. answers emails from the beach | Comes back to the same emails | HE WENT ON VACATION. HIS INBOX CAME TOO. |
+| 22 | **Parking**: pays for parking vs. "5 minutes only" | A $60 ticket | 5 MINUTES. $60. |
 
 ## Saved for their season
 
