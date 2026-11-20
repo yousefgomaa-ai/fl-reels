@@ -18,32 +18,44 @@ Wait for "نفذ" before making the next reel. Make them in this order, one at a
   Used so far: #10 music_box_d, #11 marimba_f, Black Friday guitar_g, Check the price kalimba_e, $7 latte lofi_eb, Tipping harp_bb.
 - One version per reel (no more two copies), and send the title with every video.
 
-## Up next, in order (1-4 done, 5-22 left)
+## Up next, in order (1-4 done, 5-30 left)
 
-| # | Idea | Twist | Closing line |
+Alternate them: one everyday situation, then one 🧠 **creative** idea, until the creative ones run out.
+Creative ideas: two people with the same problem. One says "impossible" or takes the easy way (label **GAVE UP**);
+the other solves it in a clever, real-life way (label **FIGURED IT OUT**).
+
+| # | Idea | Twist / the clever fix | Closing line |
 |---|---|---|---|
 | 1 | **Black Friday**: in line outside the store from 3 AM vs. buys online from bed. Must be ready before **Nov 27**. | Both bought the same TV at the same price | SAME TV. ONE OF THEM SLEPT. |
 | 2 | **"Let me check the price"** | He checks, puts it back gently, walks away slowly | HE CHECKED. HE LEFT. |
 | 3 | **$7 latte** every day vs. coffee made at home | End of year: $2,555 vs. a trip | HE DRANK A VACATION. |
 | 4 | **Tipping screen**: 18% / 20% / 25% with the cashier watching | He taps 25% on a $4 coffee | HE TIPPED THE IPAD. |
 | 5 | **Self-checkout**: "it's faster" | "UNEXPECTED ITEM IN BAGGING AREA" ×6, and the cashier line was empty | THE CASHIER LINE WAS EMPTY. |
-| 6 | **IKEA**: reads the instructions vs. "who needs instructions" | The wardrobe stands, and he has 12 screws left | HE HAD 12 SCREWS LEFT. AND NO DOOR. |
-| 7 | **Zoom call**: "camera off" | The camera was on the whole time | HIS CAMERA WAS ON. HIS PANTS WEREN'T. |
-| 8 | **Sunday night**: plans the week vs. Sunday scaries on the couch | Same Monday, only one of them is awake | SAME MONDAY. DIFFERENT SUNDAY. |
-| 9 | **Uber surge**: "I'll wait for the price to drop" | Surge goes up to $89, and it's raining | HE SAVED NOTHING. HE GOT WET. |
-| 10 | **7 alarms**: 6:00, 6:05, 6:10... | Wakes up at 9:30 | HE SET 7 ALARMS. HE MET NONE. |
-| 11 | **Group project**: one works, three write "looks good 👍" | Everyone gets an A | TEAMWORK: 1 PERSON, 4 NAMES. |
-| 12 | **"Let's split the bill"**: steak vs. water | Equal split | EQUAL SPLIT. UNEQUAL PAIN. |
-| 13 | **Free trial** vs. forgot to cancel | A year later he has paid $120 for an app he never opened | THE TRIAL WAS FREE. THE FORGETTING WASN'T. |
-| 14 | **Printer jams**: the new employee vs. the one with 10 years | The veteran hits it once and it works | EXPERIENCE IS KNOWING WHERE TO HIT. |
-| 15 | **Budget airline**: small bag vs. "it'll fit" | He pays $70 for a bag on a $19 flight, wearing 4 jackets | THE FLIGHT WAS $19. THE BAG WASN'T. |
-| 16 | **Airport**: there 3 hours early vs. last minute | Runs through security with his shoes in his hand, then the flight is 2 hours late | HE RAN. THE PLANE DIDN'T. |
-| 17 | **Train / bus**: leaves early vs. runs for it | The doors close in his face | HE RAN FOR IT. IT LEFT ANYWAY. |
-| 18 | **Weather app**: takes an umbrella vs. "it's sunny" | A downpour | THE APP SAID 80%. HE SAID NO. |
-| 19 | **Duolingo**: talks to real people vs. a 300-day streak | Abroad, he can't order a coffee | 300-DAY STREAK. ZERO CONVERSATIONS. |
-| 20 | **Delivery** "between 8 AM and 8 PM": waits all day | Steps out for 2 minutes, finds a "We missed you" note | HE WAITED 10 HOURS. HE MISSED 2 MINUTES. |
-| 21 | **Vacation**: out of office vs. answers emails from the beach | Comes back to the same emails | HE WENT ON VACATION. HIS INBOX CAME TOO. |
-| 22 | **Parking**: pays for parking vs. "5 minutes only" | A $60 ticket | 5 MINUTES. $60. |
+| 6 | 🧠 **Jar won't open**: twists until his hand hurts, "IMPOSSIBLE." | Taps the lid with a spoon and uses a rubber band, and it opens | SAME JAR. ONE USED HIS HEAD. |
+| 7 | **IKEA**: reads the instructions vs. "who needs instructions" | The wardrobe stands, and he has 12 screws left | HE HAD 12 SCREWS LEFT. AND NO DOOR. |
+| 8 | 🧠 **Keys fell into a drain**: "THEY'RE GONE.", calls someone for $200 | Ties a magnet to a string and fishes them out | HE CALLED FOR HELP. HE CALLED FOR A MAGNET. |
+| 9 | **Zoom call**: "camera off" | The camera was on the whole time | HIS CAMERA WAS ON. HIS PANTS WEREN'T. |
+| 10 | 🧠 **Couch won't fit through the door**: leaves it on the sidewalk | Takes off the legs, stands it on end, "PIVOT!", and it goes in | THE DOOR DIDN'T CHANGE. HE DID. |
+| 11 | **Sunday night**: plans the week vs. Sunday scaries on the couch | Same Monday, only one of them is awake | SAME MONDAY. DIFFERENT SUNDAY. |
+| 12 | 🧠 **Car stuck in snow or mud**: floors the gas and sinks deeper | Puts the floor mats under the tires and drives out | HE PUSHED HARDER. HE THOUGHT HARDER. |
+| 13 | **Uber surge**: "I'll wait for the price to drop" | Surge goes up to $89, and it's raining | HE SAVED NOTHING. HE GOT WET. |
+| 14 | 🧠 **Power cut at night**: sits in the dark | Phone flashlight under a bottle of water lights up the room like a lamp | SAME DARKNESS. ONE MADE A LAMP. |
+| 15 | **7 alarms**: 6:00, 6:05, 6:10... | Wakes up at 9:30 | HE SET 7 ALARMS. HE MET NONE. |
+| 16 | 🧠 **Weak WiFi in his room**: "THE INTERNET HATES ME." | Raises the router and puts foil behind it, and the signal fills up | HE BLAMED THE WIFI. HE MOVED THE ROUTER. |
+| 17 | **Group project**: one works, three write "looks good 👍" | Everyone gets an A | TEAMWORK: 1 PERSON, 4 NAMES. |
+| 18 | 🧠 **Ball stuck in a tree**: throws one shoe, then the other, and both get stuck | Sprays the ball with the garden hose and it falls | HE LOST TWO SHOES. HE USED A HOSE. |
+| 19 | **"Let's split the bill"**: steak vs. water | Equal split | EQUAL SPLIT. UNEQUAL PAIN. |
+| 20 | 🧠 **Heavy box, stairs to climb**: lifts it, drops it, hurts his back | Puts it on a blanket and slides it, or makes a ramp from a plank | HE LIFTED. HE SLID. |
+| 21 | **Free trial** vs. forgot to cancel | A year later he has paid $120 for an app he never opened | THE TRIAL WAS FREE. THE FORGETTING WASN'T. |
+| 22 | **Printer jams**: the new employee vs. the one with 10 years | The veteran hits it once and it works | EXPERIENCE IS KNOWING WHERE TO HIT. |
+| 23 | **Budget airline**: small bag vs. "it'll fit" | He pays $70 for a bag on a $19 flight, wearing 4 jackets | THE FLIGHT WAS $19. THE BAG WASN'T. |
+| 24 | **Airport**: there 3 hours early vs. last minute | Runs through security with his shoes in his hand, then the flight is 2 hours late | HE RAN. THE PLANE DIDN'T. |
+| 25 | **Train / bus**: leaves early vs. runs for it | The doors close in his face | HE RAN FOR IT. IT LEFT ANYWAY. |
+| 26 | **Weather app**: takes an umbrella vs. "it's sunny" | A downpour | THE APP SAID 80%. HE SAID NO. |
+| 27 | **Duolingo**: talks to real people vs. a 300-day streak | Abroad, he can't order a coffee | 300-DAY STREAK. ZERO CONVERSATIONS. |
+| 28 | **Delivery** "between 8 AM and 8 PM": waits all day | Steps out for 2 minutes, finds a "We missed you" note | HE WAITED 10 HOURS. HE MISSED 2 MINUTES. |
+| 29 | **Vacation**: out of office vs. answers emails from the beach | Comes back to the same emails | HE WENT ON VACATION. HIS INBOX CAME TOO. |
+| 30 | **Parking**: pays for parking vs. "5 minutes only" | A $60 ticket | 5 MINUTES. $60. |
 
 ## Saved for their season
 
