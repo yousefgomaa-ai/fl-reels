@@ -15,12 +15,6 @@ jobs:
         shell: bash
         run: |
           echo "::add-mask::$REELS_KEY"
-          sleep 2
-          curl -sS --max-time 120 -G "https://api.football-legend.com/v2/fben/dry" --data-urlencode "key=$REELS_KEY" --data-urlencode "kinds=none" --data-urlencode "state=en-rsched-superlig-20261121" -o r.json || echo "no answer"
-          python3 -c "import json;d=json.load(open('r.json'))['result'];print(json.dumps(d.get('state'),ensure_ascii=False)[:1200])" || head -c 800 r.json
-          curl -sS --max-time 120 -G "https://api.football-legend.com/v2/fben/dry" --data-urlencode "key=$REELS_KEY" --data-urlencode "kinds=none" --data-urlencode "state=en-rsched-superlig-20261122" -o r.json || echo "no answer"
-          python3 -c "import json;d=json.load(open('r.json'))['result'];print(json.dumps(d.get('state'),ensure_ascii=False)[:1200])" || head -c 800 r.json
-          curl -sS --max-time 120 -G "https://api.football-legend.com/v2/fben/dry" --data-urlencode "key=$REELS_KEY" --data-urlencode "kinds=none" --data-urlencode "state=en-rsched-superlig-20261120" -o r.json || echo "no answer"
-          python3 -c "import json;d=json.load(open('r.json'))['result'];print(json.dumps(d.get('state'),ensure_ascii=False)[:1200])" || head -c 800 r.json
-          curl -sS --max-time 300 -G "https://api.football-legend.com/v2/fben/dry" --data-urlencode "key=$REELS_KEY" --data-urlencode "kinds=round" -o r2.json || echo "no answer"
-          python3 -c "import json;d=json.load(open('r2.json'));print(json.dumps([{k:j.get(k) for k in ('id','title','until')} for j in d.get('jobs') or []],ensure_ascii=False)[:3000]);print(str(d.get('result'))[:800])" || head -c 1500 r2.json
+          sleep 240
+          curl -sS --max-time 120 -G "https://api.football-legend.com/v2/fben/dry" --data-urlencode "key=$REELS_KEY" --data-urlencode "kinds=none" --data-urlencode "reask=en-rsched-superlig-20261121" --data-urlencode "state=en-rsched-superlig-20261121" -o r.json || echo "no answer"
+          python3 -c "import json;d=json.load(open('r.json'))['result'];print(json.dumps({k:d.get(k) for k in ('reask','state')},ensure_ascii=False)[:1500])" || head -c 800 r.json
