@@ -3,7 +3,7 @@ name: Reference channel study
 on:
   push:
     branches: [claude/two-paths]
-    paths: [study/schedule.py, .github/workflows/simply-study.yml]
+    paths: [study/channel.py, .github/workflows/simply-study.yml]
   workflow_dispatch:
 permissions:
   contents: write
@@ -17,8 +17,8 @@ jobs:
         with:
           deno-version: v2.x
       - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null && pip install -q -U "yt-dlp[default]"
-      - run: python3 study/schedule.py "@simplyanimatedvisuals" study/simply/schedule.json
+      - run: python3 study/channel.py "https://www.youtube.com/@varkynyt" study/varkyn
       - name: Commit
         run: |
           git config user.name "study" && git config user.email "actions@users.noreply.github.com"
-          git add study/simply && git commit -m "Reference channel study: output [skip ci]" && git pull -q --rebase origin claude/two-paths && git push || true
+          git add study/varkyn && git commit -m "Reference channel study: output [skip ci]" && git pull -q --rebase origin claude/two-paths && git push || true
