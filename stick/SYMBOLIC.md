@@ -17,3 +17,9 @@ ours; none of them copy a reference reel.
 | 8 | SCROLLS / BUILDS | Same hour every day. One scrolls an endless feed; the other lays one brick. A day counter runs to 365. | A sore thumb vs a finished house. | Same hour. One built a house. |
 | 9 | ONCE A YEAR / EVERY DAY | Two empty glasses. One dumps a full bucket in once, then stops; most of it spills. The other adds one drop every day. | The glass of drops is full; the other is a third full. | Small drops fill the glass. |
 | 10 | SAFE / STORM | Two seeds. One is planted under a glass dome, safe from wind and rain. The other is planted in the open, in storms. | The safe one is still a small sprout; the open one is a big tree with deep roots. | Storms grow roots. |
+
+## Done
+
+| # | Reel | File | Music |
+|---|---|---|---|
+| 2 | Fear is just a shadow | fear-shadow.mp4 | strings_am |
