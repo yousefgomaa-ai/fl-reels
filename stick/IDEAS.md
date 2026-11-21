@@ -1,5 +1,7 @@
 # Two Paths: idea queue
 
+**Read `stick/WORKFLOW.md` first: the owner's standing rules.**
+
 Wait for "نفذ" before making the next reel. Make them in this order, one at a time, and send each one when it's done.
 
 
