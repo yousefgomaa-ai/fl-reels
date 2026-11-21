@@ -22,4 +22,5 @@ ours; none of them copy a reference reel.
 
 | # | Reel | File | Music |
 |---|---|---|---|
-| 2 | Fear is just a shadow | fear-shadow.mp4 | strings_am |
+| 2 | Fear is just a shadow | fear-shadow.mp4 | strings_am + horror drone |
+| new | Keep rolling (consistency, snowball) | snowball.mp4 | music box that grows into a full chord |
