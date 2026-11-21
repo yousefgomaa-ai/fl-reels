@@ -30,7 +30,7 @@ from perfect_wave import (MONO, clamp, env, font, lerp, lerp_pose, midi, mix_in,
 
 W, H, FPS = 1080, 1920, 30
 SR = 44100
-DUR = 18.0
+DUR = 14.0
 NF = int(round(DUR * FPS))
 XFADE = 0.45
 SC = AJ.SC
@@ -40,13 +40,20 @@ BOLD = FM.BOLD
 PH, TOP_Y0, BOT_Y0, STRIP_Y, FYP = OC.PH, OC.TOP_Y0, OC.BOT_Y0, OC.STRIP_Y, OC.FYP
 STAND_Y = FYP - 141
 
-T0, T1 = 0.5, 12.6          # DAY 1 -> DAY 30
+T_HOOK = 1.3                # 0-1.3 s: the ending first (DAY 30), then a rewind
+T_REW = 1.6
+T0, T1 = 1.6, 10.0          # DAY 1 -> DAY 30
 R0, R1 = 22, 235
-T_L1, T_L2 = 15.0, 16.1
+T_L1, T_L2 = 11.0, 12.0
 CPS = 18.0
 LINE1, LINE2 = "30 NEW STARTS.", "OR ONE THAT KEPT ROLLING."
-T_FOLLOW = 16.95
+T_FOLLOW = 12.9
 CYCLE = (T1 - T0) / 10      # below: a new start every cycle
+
+
+def story_t(t):
+    """The hook shows the end of the story first."""
+    return T1 + 0.8 if t < T_HOOK else t
 
 
 def day(t):
@@ -231,15 +238,16 @@ def panel(t, top):
 
 def frame(t):
     img = Image.new("RGBA", (W, H), (2, 2, 4, 255))
-    img.alpha_composite(panel(t, True), (0, TOP_Y0))
-    img.alpha_composite(panel(t, False), (0, BOT_Y0))
+    ts = story_t(t)
+    img.alpha_composite(panel(ts, True), (0, TOP_Y0))
+    img.alpha_composite(panel(ts, False), (0, BOT_Y0))
     d = ImageDraw.Draw(img)
     fl = font(BOLD, 42)
     if t < T_L1:
         spaced(d, W / 2, TOP_Y0 + 24, "KEEPS ROLLING", fl, (250, 250, 252, 255), 12)
     spaced(d, W / 2, BOT_Y0 + 24, "STARTS OVER", fl, (230, 232, 238, 255), 12)
     # the day, small and quiet in the middle
-    s = f"DAY {day(t)}"
+    s = f"DAY {day(ts)}"
     spaced(d, W / 2, STRIP_Y - 26, s, font(BOLD, 44), (220, 226, 240, 255), 8)
     fm = font(BOLD, 54)
     for t0, s2, y in ((T_L1, LINE1, 40), (T_L2, LINE2, 108)):
@@ -251,6 +259,18 @@ def frame(t):
         for c in s2[:k]:
             d.text((xx, y), c, font=fm, fill=(250, 250, 252, 255))
             xx += fm.getlength(c) + 3
+    if t < T_HOOK:
+        # a slow push-in on the ending, so the hook moves from frame 0
+        z = 1 + 0.07 * smooth(prog(t, 0, T_HOOK))
+        cw, ch = W / z, H / z
+        img = img.resize((W, H), Image.BICUBIC, box=((W - cw) / 2, (H - ch) / 2, (W + cw) / 2, (H + ch) / 2))
+        d = ImageDraw.Draw(img)
+    if T_HOOK - 0.05 <= t < T_REW + 0.1:
+        k = 1 - abs(prog(t, T_HOOK - 0.05, T_REW + 0.1) * 2 - 1)
+        img.alpha_composite(Image.new("RGBA", (W, H), (235, 240, 255, int(235 * k))))
+        d = ImageDraw.Draw(img)
+        if k > 0.5:
+            spaced(d, W / 2, H / 2 - 40, "DAY 1", font(BOLD, 80), (20, 24, 40, 255), 10)
     arr = np.asarray(img.convert("RGB")).astype(np.float32)
     if t >= T_FOLLOW:
         k = smooth(prog(t, T_FOLLOW, T_FOLLOW + 0.3))
@@ -292,7 +312,15 @@ def audio():
     beat = 60 / bpm
     bar = 4 * beat
     chords = music.PROG["D"]
-    tt, i = 0.0, 0
+    # the hook: the big chord of the ending hits at frame 0, then a rewind sweep
+    for k, m in enumerate((38, 50, 57, 62, 66, 69, 74)):
+        sig = music.strings(midi(m), 1.2, 0.01, 0.6) if m < 60 else GS.pad(midi(m), 1.2, 0.01, 0.6)
+        mix_in(mus, sig, 0.0, 0.06, (k - 3) * 0.25)
+    mix_in(mus, tone(36.7, 1.2, (1, 0.5), a=0.003, d=0.6), 0.0, 0.25)
+    mix_in(mus, music.music_box(midi(86), 1.4), 0.0, 0.07, 0.2)
+    mix_in(fx, tone(2400, 0.32, (1, 0.4), a=0.01, d=0.2, sweep=300) + 0.5 * noise(0.32, 5, lo=500, hi=6000)
+           * env(int(0.32 * SR), 0.02, 0.15), T_HOOK, 0.06)
+    tt, i = T0, 0
     while tt < T1:
         g = prog(tt, T0, T1) ** 1.6
         ch = chords[int(tt / bar) % 4]
@@ -304,8 +332,8 @@ def audio():
         i += 1
         tt += beat
     b = 0
-    while b * bar < T1:
-        t0 = b * bar
+    while T0 + b * bar < T1:
+        t0 = T0 + b * bar
         g = prog(t0, T0, T1) ** 1.4
         ch = chords[b % 4]
         if g > 0.2:
@@ -324,7 +352,7 @@ def audio():
     for j, m in enumerate((81, 78, 74, 69)):
         mix_in(mus, music.music_box(midi(m), 1.6), T_L1 + j * 0.5, 0.05, 0.2)
     for k, m in enumerate((50, 57, 62, 66)):
-        mix_in(mus, GS.pad(midi(m), 3.0, 0.5, 1.6), 14.6, 0.04, (k - 1.5) * 0.4)
+        mix_in(mus, GS.pad(midi(m), 3.0, 0.5, 1.6), T_L1 - 0.4, 0.04, (k - 1.5) * 0.4)
     # snow crunching under the boots, and the rolling ball (deeper as it grows)
     for tk in np.arange(T0, T1, 0.33):
         g = prog(tk, T0, T1)
