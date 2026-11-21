@@ -14,6 +14,17 @@ Every reel opens with a strong hook in its first 1.5 s. Check it on a still of f
 - Sound from frame 0: a hit, a sting or the first note - no silent start.
 - Length follows the idea: symbolic 10-14 s, simple situations 12-15 s, stories 18-25 s (not a fixed 18 s).
 
+## Lessons from viewers
+
+- "Great idea, wrong execution" (Black Friday, Nov 2026). From now on:
+  1. The twist is the biggest thing on screen: large, centred, on screen for at least 1.5 s, and it lands by 60-70%
+     of the reel - never a small notification at the end.
+  2. One counter at most per panel, and no extra cards or signs that don't serve the joke. If it isn't needed to
+     understand the story, cut it.
+  3. Check the logic against real life before building it (would an American viewer argue with it?). If the
+     comparison can be argued, change it.
+  4. Bigger figures and props; everything must read on a phone at a glance.
+
 ## Rules for every reel
 
 - Split screen. Both people start in **exactly the same situation**. The idea has to be clear from the first scene.
