@@ -49,7 +49,7 @@ TITLE_H = 300
 
 # world layout (x)
 DOORS_X = 350
-BOARD_X = -700
+BOARD_X = 1000
 QUEUE_X = [1440, 1560, 1680]
 ARCH_X = 1880
 BELT = (1980, 2340)
@@ -62,10 +62,10 @@ DESK_X = 5950
 DOOR_X = 6170
 
 # timeline
-T_WHIP1 = 1.35        # board -> early guy
-T_WHIP2 = 3.6         # early guy -> doors
-T_DOORS = 4.0
-T_QUEUE = 5.5
+T_DOORS = 0.0         # hook: the last-minute guy bursts in on frame 0, the board behind him
+T_WHIP1 = 1.6         # -> early guy
+T_QUEUE = 2.2         # (off camera) he joins the security line
+T_WHIP2 = 3.6         # early guy -> security
 T_BEEP = 7.0
 T_SHOES = 7.6
 T_RUN2 = 8.9
@@ -89,12 +89,10 @@ RUN_V = 520.0
 
 
 def runner_x(t):
-    if t < T_DOORS:
-        return DOORS_X - 260
     if t < T_QUEUE:
-        return lerp(DOORS_X - 200, 1300, prog(t, T_DOORS, T_QUEUE))
+        return lerp(DOORS_X + 80, 1300, prog(t, T_DOORS, T_QUEUE))
     if t < T_BEEP - 0.5:
-        return lerp(1300, 1420, smooth(prog(t, T_QUEUE + 0.6, T_BEEP - 0.5)))
+        return lerp(1300, 1420, smooth(prog(t, T_WHIP2 + 1.2, T_BEEP - 0.5)))
     if t < T_BEEP:
         return lerp(1420, ARCH_X, smooth(prog(t, T_BEEP - 0.5, T_BEEP)))
     if t < T_RUN2:
@@ -104,7 +102,7 @@ def runner_x(t):
 
 def clock_s(t):
     """seconds after 9:00"""
-    keys = [(0, 12 * 60), (T_DOORS, 14 * 60), (T_QUEUE, 17 * 60), (T_BEEP, 23 * 60), (T_RUN2, 30 * 60),
+    keys = [(0, 12 * 60), (T_WHIP2, 17 * 60), (T_BEEP, 23 * 60), (T_RUN2, 30 * 60),
             (T_WHIP4, 33 * 60), (T_FINAL, 37 * 60), (16.0, 39 * 60 + 40), (T_CLOSE, 40 * 60),
             (DUR, 47 * 60)]
     for (a, va), (b, vb) in zip(keys, keys[1:]):
@@ -118,18 +116,15 @@ def cam(t):
     """cx, cy, z in world units; whip-pans are fast eases between holds."""
     rx = runner_x(t)
 
-    def hold_board(u):
-        return BOARD_X, 930, 1.85 + 0.12 * prog(u, 0, T_WHIP1)
-
     def early_shot(u, z0=1.25, z1=1.34):
         return EARLY_X + 120, 1210, lerp(z0, z1, prog(u, T_WHIP1, T_WHIP2))
 
     def doors_shot(u):
-        x = max(620, rx + 160)
-        return x, 1210, 1.22
+        x = rx + 170
+        return x, 1000, 1.22 + 0.06 * prog(u, 0, T_WHIP1)
 
     def security(u):
-        return lerp(1500, ARCH_X + 40, smooth(prog(u, T_QUEUE, T_BEEP))), 1210, lerp(1.22, 1.36, prog(u, T_QUEUE, T_SHOES))
+        return lerp(1480, ARCH_X + 40, smooth(prog(u, T_WHIP2, T_BEEP))), 1210, lerp(1.24, 1.36, prog(u, T_WHIP2, T_SHOES))
 
     def nap(u):
         return EARLY_X + 40, 1230, lerp(1.32, 1.55, prog(u, T_WHIP3, T_WHIP4))
@@ -149,9 +144,9 @@ def cam(t):
         x0, y0, z0 = reveal(T_WIDE)
         return lerp(x0, 5760, k), lerp(y0, 1180, k), lerp(z0, 1.22, k)
 
-    segs = [(0, hold_board), (T_WHIP1, early_shot), (T_WHIP2, doors_shot), (T_QUEUE, security),
+    segs = [(0, doors_shot), (T_WHIP1, early_shot), (T_WHIP2, security),
             (T_WHIP3, nap), (T_WHIP4, chase), (T_DOOR_IN - 0.4, door), (T_PAN, reveal), (T_WIDE, wide)]
-    whips = {T_WHIP1: 0.38, T_WHIP2: 0.38, T_WHIP3: 0.36, T_WHIP4: 0.36, T_DOOR_IN - 0.4: 0.5, T_QUEUE: 0.5}
+    whips = {T_WHIP1: 0.38, T_WHIP2: 0.38, T_WHIP3: 0.36, T_WHIP4: 0.36, T_DOOR_IN - 0.4: 0.5}
     cur_i = 0
     for i, (ts, fn) in enumerate(segs):
         if t >= ts:
@@ -225,15 +220,13 @@ def run(ph, lean=1.0):
 def runner_state(t):
     """pose, hip (world), facing, alpha, bob"""
     x = runner_x(t)
-    if t < T_DOORS:
-        return None
     if t < T_QUEUE:
         ph = (t - T_DOORS) * 15
         return run(ph), (x, HIP_Y - 10 * abs(math.sin(ph))), 1, 1
     if t < T_BEEP - 0.5:
         k = smooth(prog(t, T_QUEUE, T_QUEUE + 0.3))
         pose = lerp_pose(run(0.8), TAP, k)
-        if t > T_QUEUE + 0.6:
+        if t > T_QUEUE + 0.3:
             pose = dict(pose, fr=(13 + 8 * max(0, math.sin(t * 18)), 113 - 14 * max(0, math.sin(t * 18))))
         return pose, (x, HIP_Y), 1, 1
     if t < T_BEEP:
@@ -347,7 +340,7 @@ def world(p, v, t):
             p.fill_rect([sx - 20 * z, fy + (50 + 50 * k_) * z, sx + 20 * z, fy + (60 + 50 * k_) * z], (120, 130, 200),
                         26 - 5 * k_)
     # entrance: glass doors that slide open
-    dx = 110 * smooth(prog(t, T_DOORS - 0.2, T_DOORS + 0.15)) * (1 - smooth(prog(t, T_DOORS + 0.9, T_DOORS + 1.4)))
+    dx = 110 * smooth(prog(t, T_DOORS - 0.5, T_DOORS + 0.15)) * (1 - smooth(prog(t, T_DOORS + 0.9, T_DOORS + 1.4)))
     p.fill_rect(v.box([DOORS_X - 230, 1000, DOORS_X + 230, FLOOR]), (8, 14, 34), 255)
     for side in (-1, 1):
         x0_ = DOORS_X + side * (dx + 2)
@@ -355,9 +348,8 @@ def world(p, v, t):
         b = [min(b[0], b[2]), b[1], max(b[0], b[2]), b[3]]
         p.fill_rect(v.box(b), (60, 90, 140), 60)
         p.rect(v.box(b), (150, 190, 255), 3 * z, 200)
-    p.text((v.x(DOORS_X), v.y(930)), "ENTRANCE", 26 * z, (150, 190, 255), 220)
     # departures board
-    bx0, bx1, by0, by1 = BOARD_X - 270, BOARD_X + 270, 700, 1130
+    bx0, bx1, by0, by1 = BOARD_X - 270, BOARD_X + 270, 460, 890
     p.fill_rect(v.box([bx0, by0, bx1, by1]), (6, 6, 12), 255, r=10 * z)
     p.rect(v.box([bx0, by0, bx1, by1]), GOLD, 5 * z, 255, r=10 * z)
     p.text((v.x(BOARD_X), v.y(by0 + 22)), "DEPARTURES", 34 * z, GOLD, 255, neon=True, spacing=4)
@@ -392,6 +384,18 @@ def world(p, v, t):
         p.fill_rect(v.box([gx - 90, 860, gx + 90, 940]), (10, 10, 20), 255, r=8 * z)
         p.rect(v.box([gx - 90, 860, gx + 90, 940]), GOLD, 4 * z, 255, r=8 * z)
         p.text((v.x(gx), v.y(872)), s, 42 * z, GOLD, 255, neon=True)
+    # storefronts along the corridor
+    for sx, name, col in ((2800, "COFFEE", (255, 170, 80)), (3800, "NEWS", (120, 200, 255)),
+                          (4800, "BURGERS", (255, 90, 120))):
+        p.fill_rect(v.box([sx - 190, 1000, sx + 190, FLOOR - 4]), col, 34)
+        p.rect(v.box([sx - 190, 1000, sx + 190, FLOOR - 4]), col, 5 * z, 230)
+        for j in range(3):
+            p.fill_rect(v.box([sx - 150 + j * 110, 1240, sx - 80 + j * 110, 1300]), col, 90, r=6 * z)
+        p.text((v.x(sx), v.y(906)), name, 44 * z, col, 255, neon=True, spacing=5)
+    for wx in range(2400, 5100, 300):
+        if not any(abs(wx - sx) < 260 for sx in (2800, 3800, 4800)):
+            p.fill_rect(v.box([wx - 120, 1040, wx + 120, 1380]), (30, 40, 90), 90)
+            p.rect(v.box([wx - 120, 1040, wx + 120, 1380]), (90, 100, 160), 3 * z, 200)
     # the suitcase in the corridor
     sx0 = SUITCASE_X
     p.fill_rect(v.box([sx0 - 60, FLOOR - 130, sx0 + 60, FLOOR - 10]), (70, 40, 90), 255, r=10 * z)
@@ -515,7 +519,7 @@ def scene(t):
     world(p, v, t)
     # queue people, then the security staff and the gate agent
     for j, qx in enumerate(QUEUE_X):
-        k = smooth(prog(t, T_QUEUE + 0.4 + j * 0.3, T_QUEUE + 1.0 + j * 0.3))
+        k = smooth(prog(t, T_WHIP2 + 0.8 + j * 0.3, T_WHIP2 + 1.4 + j * 0.3))
         x = lerp(qx, ARCH_X + 400 + j * 60, k)
         if k < 1:
             gray_person(p, v, x, AJ.walk(t * 8 + j, STAND) if 0 < k < 1 else STAND, a=200 * (1 - k), bag=True)
@@ -562,9 +566,9 @@ def scene(t):
                 xx = hip[0] - 200 - rng.uniform(0, 300)
                 p.line(v.pts([(xx, yy), (xx + 150, yy)]), LATE, 3 * v.z, 120)
     # words
-    say(p, v, t, T_WHIP1 + 0.35, T_WHIP2, EARLY_X + 60, FLOOR - 710, "3 HOURS EARLY.", EARLY, 44)
-    say(p, v, t, T_DOORS + 0.2, T_QUEUE, runner_x(t) + 60, FLOOR - 760, "I'VE GOT TIME.", LATE, 40)
-    say(p, v, t, T_QUEUE + 0.6, T_BEEP - 0.1, 1420, FLOOR - 760, "COME ON, COME ON...", LATE, 38)
+    say(p, v, t, T_WHIP1 + 0.35, T_WHIP2, EARLY_X + 60, FLOOR - 710, "FLIGHT 227. 3 HOURS EARLY.", EARLY, 38)
+    say(p, v, t, -0.3, T_WHIP1, runner_x(t) + 60, FLOOR - 735, "I'VE GOT TIME.", LATE, 40)
+    say(p, v, t, T_WHIP2 + 0.3, T_BEEP - 0.1, 1420, FLOOR - 760, "COME ON, COME ON...", LATE, 38)
     say(p, v, t, T_BEEP, T_SHOES, ARCH_X, 1000, "BEEP! BEEP!", REDC, 60)
     say(p, v, t, T_SHOES, T_RUN2 + 0.1, ARCH_X + 120, FLOOR - 760, "SHOES OFF, SIR.", (200, 200, 220), 40)
     say(p, v, t, T_WHIP3 + 0.3, T_NAP + 1.1, EARLY_X + 60, FLOOR - 710, "NOW BOARDING. GROUP 1", GREEN, 32)
@@ -627,7 +631,7 @@ def frame(t):
     img.alpha_composite(tl.resize((W, TITLE_H), Image.LANCZOS), (0, 0))
     rgb = hq.bloom(np.asarray(img.convert("RGB")), 0.45, 150, 26)
     if t < 0.22:
-        rgb = np.clip(rgb.astype(np.float32) + 80 * (1 - t / 0.22), 0, 255).astype(np.uint8)
+        rgb = np.clip(rgb.astype(np.float32) + 35 * (1 - t / 0.22), 0, 255).astype(np.uint8)
     for t0 in (T_BEEP, T_CLOSE, T_MISS):
         if t0 <= t < t0 + 0.12:
             rgb = np.clip(rgb.astype(np.float32) + 40 * (1 - (t - t0) / 0.12), 0, 255).astype(np.uint8)
@@ -708,7 +712,7 @@ def audio():
     bpm = 128
     beat = 60 / bpm
     chords = [57, 53, 55, 52]      # A F G E
-    tt, i = T_DOORS - 0.1, 0
+    tt, i = 0.0, 0
     while tt < T_CLOSE:
         bi = int((tt - T_DOORS) / (4 * beat)) % 4
         root = chords[bi]
@@ -732,7 +736,7 @@ def audio():
                 mix_in(fx, noise(0.05, int(tt * 100), lo=100, hi=1500) * env(int(0.05 * SR), 0.001, 0.02), tt, 0.09,
                        0.1)
             tt += rate
-    mix_in(fx, noise(0.7, 5, lo=200, hi=3000) * env(int(0.7 * SR), 0.05, 0.4), T_DOORS - 0.2, 0.06)
+    mix_in(fx, noise(0.7, 5, lo=200, hi=3000) * env(int(0.7 * SR), 0.05, 0.4), 0.0, 0.06)
     # security beep
     for j in range(3):
         sq = np.sign(np.sin(2 * np.pi * 1250 * np.arange(int(0.14 * SR)) / SR)) * env(int(0.14 * SR), 0.002, 0.08)
