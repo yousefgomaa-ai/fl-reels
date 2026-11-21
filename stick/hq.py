@@ -154,8 +154,8 @@ def camera(im, z=1.0, dx=0.0, dy=0.0):
         return im
     w, h = im.size
     cw, ch = w / z, h / z
-    x0 = (w - cw) / 2 - dx / z
-    y0 = (h - ch) / 2 - dy / z
+    x0 = clamp((w - cw) / 2 - dx / z, 0, w - cw)
+    y0 = clamp((h - ch) / 2 - dy / z, 0, h - ch)
     return im.resize((w, h), Image.BICUBIC, box=(x0, y0, x0 + cw, y0 + ch))
 
 
