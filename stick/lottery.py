@@ -30,7 +30,7 @@ from perfect_wave import (MONO, clamp, env, font, lerp, lerp_pose, midi, mix_in,
 
 W, H, FPS = 1080, 1920, 30
 SR = 44100
-DUR = 14.0
+DUR = 24.0
 NF = int(round(DUR * FPS))
 XFADE = 0.45
 BOLD = N.BOLD
@@ -41,26 +41,35 @@ S = 0.95
 GOLD = (255, 205, 60)
 GREEN = (110, 240, 140)
 
-T_Y0, T_Y1 = 1.0, 9.5          # YEAR 0 -> YEAR 10
-T_RES = 9.5
-T_L1, T_L2 = 10.8, 11.8
+T_HOOK = 2.0                   # the jackpot
+T_DEC = 2.0                    # 2-6 s: the first decisions
+T_Y0, T_Y1 = 6.0, 17.0         # YEAR 0 -> YEAR 10
+T_CRASH0, T_CRASH1 = 13.0, 15.2
+T_RES = 17.0
+T_L1, T_L2 = 19.0, 20.0
 CPS = 18.0
 LINE1, LINE2 = "IT WASN'T LUCK.", "IT WAS THE NEXT DECISION."
-T_FOLLOW = 12.8
+T_FOLLOW = 21.9
 
 
 def year(t):
-    return int(round(10 * prog(t, T_Y0, T_Y1)))
+    return int(10 * prog(t, T_Y0, T_Y1) + 0.0001)
+
+
+def doer_value(t):
+    base = 1 + 1.5 * prog(t, T_Y0, T_Y1) ** 1.5
+    dip = 0.55 * math.sin(math.pi * prog(t, T_CRASH0, T_CRASH1)) if T_CRASH0 <= t < T_CRASH1 else 0
+    return 1e6 * max(0.4, base - dip)
 
 
 def money(t, i):
     if i == 0:
-        return 1e6 * (1 + 1.5 * prog(t, 1.4, T_Y1) ** 1.6)
+        return doer_value(t)
     if i == 1:
         return 1e6 if t < T_RES else 0
     if i == 2:
-        return 1e6 * (1 - prog(t, 1.6, 5.0) ** 0.8)
-    return 1e6 * (1 - prog(t, 1.2, 3.4) ** 0.7)
+        return 1e6 * (1 - prog(t, T_Y0, 12.0) ** 0.8)
+    return 1e6 * (1 - prog(t, T_Y0, 10.5) ** 0.7)
 
 
 def fmt(v):
@@ -90,32 +99,32 @@ def stand_hip(x):
 
 def person(t, i):
     """pose, hip, facing"""
-    if t < T_Y0:
+    if t < T_HOOK:
         k = 0.5 + 0.5 * math.sin(t * 12)
         return lerp_pose(STAND, HOLD_UP, 0.7 + 0.3 * k), stand_hip(240), 1
     if i == 0:
-        k = smooth(prog(t, T_Y0, T_Y0 + 0.4))
+        k = smooth(prog(t, 2.6, 3.0))
         typ = 0.5 + 0.5 * math.sin(t * 16)
         p = dict(SIT_TYPE, hl=(84, -50 + 3 * typ), hr=(78, -46 - 3 * typ))
         return lerp_pose(HOLD_UP, p, k), (240, lerp(FLOOR - 113 * S, FLOOR - 104, k)), 1
     if i == 1:
-        k = smooth(prog(t, T_Y0, T_Y0 + 0.4))
+        k = smooth(prog(t, 2.8, 3.2))
         sway = math.sin(t * 2.5)
         return lerp_pose(HOLD_UP, dict(THINK, head=(10 + 4 * sway, -146)), k), \
             (240, lerp(FLOOR - 113 * S, FLOOR - 104, k)), 1
     if i == 2:
-        if t < 1.7:
+        if t < T_Y0:
             return QUIT, stand_hip(240), 1
-        if t < 5.2:
-            k = smooth(prog(t, 1.7, 2.1))
+        if t < 12.3:
+            k = smooth(prog(t, T_Y0, T_Y0 + 0.4))
             return lerp_pose(QUIT, LOUNGE, k), (lerp(240, 330, k), lerp(FLOOR - 113 * S, FLOOR - 72, k)), 1
-        k = smooth(prog(t, 5.2, 5.6))
+        k = smooth(prog(t, 12.3, 12.7))
         return lerp_pose(LOUNGE, LOOK, k), (lerp(330, 560, k), lerp(FLOOR - 72, FLOOR - 113 * S, k)), 1
     # show-off
-    if t < 3.4:
+    if t < 10.6:
         k = 0.5 + 0.5 * math.sin(t * 9)
         return lerp_pose(FLEX, THROW, k), stand_hip(240), 1
-    k = smooth(prog(t, 3.4, 3.9))
+    k = smooth(prog(t, 10.6, 11.1))
     return lerp_pose(STAND, SLUMP, k), (240, lerp(FLOOR - 113 * S, FLOOR - 60, k)), 1
 
 
@@ -137,25 +146,26 @@ def desk(im, t):
     N.neon_line(im, [(540, FLOOR - 110), (540, FLOOR)], (200, 200, 210), 4, 0.3)
     N.neon_line(im, [(400, FLOOR - 112), (470, FLOOR - 112), (490, FLOOR - 170)], (200, 200, 210), 4, 0.6)
     # the growing chart
-    k = prog(t, 1.4, T_Y1)
+    k = prog(t, T_Y0, T_Y1)
     if k > 0:
         pts = []
-        steps = max(2, int(30 * k))
+        steps = max(2, int(40 * k))
+        crash = T_CRASH0 <= t < T_CRASH1 + 0.6
         for j in range(steps + 1):
-            u = j / 30
-            x = 620 + 360 * u
-            y = 290 - 230 * (u ** 1.6) + 10 * math.sin(u * 20)
-            pts.append((x, y))
-        N.neon_line(im, pts, GREEN, 5, 1.2)
+            u = j / 40
+            tt = T_Y0 + u * (T_Y1 - T_Y0)
+            v = doer_value(tt) / 1e6
+            pts.append((620 + 360 * u, 290 - 230 * (v - 0.4) / 2.1 + 6 * math.sin(u * 30)))
+        N.neon_line(im, pts, (255, 80, 80) if crash else GREEN, 5, 1.2)
         N.neon_line(im, [(620, 300), (990, 300)], (80, 80, 90), 2, 0.2)
         d = ImageDraw.Draw(im)
         d.text((640, 300), "INDEX FUND", font=font(BOLD, 22), fill=GREEN + (255,))
 
 
 def beach(im, t):
-    if t < 1.7:
+    if t < T_Y0:
         return
-    a = smooth(prog(t, 1.7, 2.1))
+    a = smooth(prog(t, T_Y0, T_Y0 + 0.4))
     col = (255, 150, 40)
     N.neon_line(im, [(250, FLOOR - 40), (420, FLOOR - 70), (440, FLOOR)], col, 5, 0.7 * a)
     N.neon_line(im, [(250, FLOOR - 40), (200, FLOOR - 130)], col, 5, 0.7 * a)
@@ -165,8 +175,8 @@ def beach(im, t):
     for ang in (-150, -110, -60, -20):
         r = math.radians(ang)
         N.neon_line(im, [(870, 150), (870 + 70 * math.cos(r), 150 + 30 * math.sin(r) + 20)], (120, 220, 120), 4, 0.6 * a)
-    if t >= 5.4:
-        k = out_back(prog(t, 5.4, 5.7))
+    if t >= 12.5:
+        k = out_back(prog(t, 12.5, 12.8))
         N.neon_rect(im, [620, 80, 620 + 300 * k, 80 + 110 * k], (255, 255, 255), 4, 1.0)
         if k > 0.9:
             N.neon_text(im, (770, 110), "NOW HIRING", 40, (255, 255, 255), glow=0.8)
@@ -174,15 +184,17 @@ def beach(im, t):
 
 def car(im, t):
     col = (255, 70, 200)
-    a = 1.0 if t < 3.6 else 1 - 0.7 * smooth(prog(t, 3.6, 4.4))
+    if t < T_Y0:
+        return
+    a = smooth(prog(t, T_Y0, T_Y0 + 0.3)) if t < 11.0 else 1 - 0.7 * smooth(prog(t, 11.0, 11.8))
     base = FLOOR - 10
     body = [(520, base - 40), (560, base - 90), (700, base - 110), (860, base - 90), (980, base - 60), (990, base - 20),
             (520, base - 20)]
     N.neon_line(im, body, col, 5, 1.1 * a, closed=True)
     for wx in (600, 900):
         N.neon_rect(im, [wx - 34, base - 54, wx + 34, base + 14], col, 5, 1.1 * a, radius=34)
-    if t >= 3.6:
-        k = out_back(prog(t, 3.6, 3.9))
+    if t >= 11.0:
+        k = out_back(prog(t, 11.0, 11.3))
         lay = Image.new("RGBA", (280, 110), (0, 0, 0, 0))
         ld = ImageDraw.Draw(lay)
         ld.rounded_rectangle([0, 0, 279, 109], 12, outline=(255, 60, 60, 255), width=6)
@@ -193,7 +205,7 @@ def car(im, t):
 
 
 def cash_rain(im, t, pts):
-    if not (1.0 <= t < 3.4):
+    if not (T_Y0 <= t < 10.6):
         return
     d = ImageDraw.Draw(im)
     rng = np.random.default_rng(7)
@@ -211,13 +223,13 @@ def cash_rain(im, t, pts):
 
 
 def thoughts(im, t, col):
-    for t0, s in [(1.3, "STOCKS OR GOLD?"), (2.9, "TAXES?"), (4.5, "WHAT IF..."), (6.1, "NEXT YEAR."),
-                  (7.7, "MAYBE LATER.")]:
-        if t0 <= t < t0 + 1.5:
-            k = prog(t, t0, t0 + 1.5)
+    for t0, s in [(4.0, "STOCKS OR GOLD?"), (6.6, "TAXES?"), (9.0, "WHAT IF..."), (11.5, "NEXT YEAR."),
+                  (14.0, "MAYBE LATER.")]:
+        if t0 <= t < t0 + 2.0:
+            k = prog(t, t0, t0 + 2.0)
             a = math.sin(math.pi * min(1, k * 1.2))
             lay = Image.new("RGBA", im.size, (0, 0, 0, 0))
-            N.neon_text(lay, (560, 120 - 40 * k), s, 34, col, glow=0.8)
+            N.neon_text(lay, (680, 120 - 40 * k), s, 34, col, glow=0.8)
             lay.putalpha(lay.split()[3].point(lambda v, a=a: int(v * a)))
             im.alpha_composite(lay)
 
@@ -279,23 +291,31 @@ def panel(t, i):
     lay = Image.new("RGBA", im.size, (0, 0, 0, 0))
     N.neon_stick(lay, pts, col, width=10, glow=1.3)
     im.alpha_composite(lay)
-    if t < T_Y0:
+    if t < T_HOOK:
         ticket(im, pts["hl"][0] + 10, pts["hl"][1] - 30, col, ang=8 * math.sin(t * 10))
     elif i == 1:
         ticket(im, pts["hr"][0] + 40, pts["hr"][1] - 10, col, ang=-10)
     if i == 3:
         cash_rain(im, t, pts)
-        if t < 3.4:
+        if t < 10.6:
             hx, hy = pts["neck"]
             N.neon_line(im, [(hx - 16, hy + 6), (hx, hy + 30), (hx + 16, hy + 6)], GOLD, 4, 1.0)
     if i == 1:
         thoughts(im, t, col)
-    if i == 2 and 1.0 <= t < 1.9:
-        lay = Image.new("RGBA", im.size, (0, 0, 0, 0))
-        N.neon_text(lay, (500, 90), "I QUIT!", 44, col)
-        im.alpha_composite(lay)
+    events = {0: [(2.2, 3.4, "INVEST IT."), (T_CRASH0, T_CRASH0 + 1.2, "MARKET CRASH!"), (14.3, 15.5, "STAY CALM.")],
+              1: [(2.6, 3.8, "LET ME THINK...")],
+              2: [(3.0, 4.6, "I QUIT!"), (7.0, 8.2, "PARIS!"), (8.5, 9.7, "BALI!"), (10.0, 11.2, "VEGAS!")],
+              3: [(3.4, 4.6, "BUY EVERYTHING!"), (6.2, 7.3, "NEW CAR"), (7.6, 8.7, "YACHT"), (9.0, 10.1, "MANSION"),
+                  (10.5, 11.6, "BALANCE: $0")]}[i]
+    for a0, a1, s_ in events:
+        if a0 <= t < a1:
+            k = out_back(prog(t, a0, a0 + 0.25))
+            c = (255, 80, 80) if ("CRASH" in s_ or "$0" in s_) else col
+            lay = Image.new("RGBA", im.size, (0, 0, 0, 0))
+            N.neon_text(lay, (660 if i == 1 else 560, 100), s_, int(44 * max(0.3, min(1.0, k))), c)
+            im.alpha_composite(lay)
     # the jackpot flash on the hook
-    if t < T_Y0:
+    if t < T_HOOK:
         k = 0.5 + 0.5 * math.sin(t * 20)
         N.neon_text(im, (PW_ / 2 + 200, 140), "JACKPOT!", 62, GOLD, glow=0.8 + 0.6 * k)
         rng = np.random.default_rng(i)
@@ -380,22 +400,30 @@ def kaching(at, g, pan, fx):
 def audio():
     n = int(DUR * SR)
     fx = np.zeros((n, 2))
-    mus = music.score("marimba_f", DUR, t_end=T_RES, t_warm=T_L1 - 0.4, t_line=T_L1, start=T_Y0, loud=1.3)
+    mus = music.score("marimba_f", DUR, t_end=T_RES, t_warm=T_L1 - 0.4, t_line=T_L1, start=T_HOOK, loud=1.3)
     # the hook: a jackpot fanfare and falling coins from frame 0
     for j, m in enumerate((72, 76, 79, 84)):
         mix_in(fx, tone(midi(m), 0.5, (1, 0.5, 0.3), a=0.003, d=0.3), 0.04 * j, 0.06, (j - 1.5) * 0.3)
     for k, m in enumerate((48, 60, 64, 67, 72)):
         mix_in(fx, GS.pad(midi(m), 0.9, 0.01, 0.4), 0.0, 0.05, (k - 2) * 0.3)
     rng = np.random.default_rng(3)
-    for tk in np.arange(0.0, T_Y0, 0.05):
+    for tk in np.arange(0.0, T_HOOK, 0.05):
         mix_in(fx, tone(2600 + rng.uniform(0, 1500), 0.08, (1, 0.4), a=0.001, d=0.03), tk, 0.02, rng.uniform(-0.6, 0.6))
     # the Doer: a ka-ching every year; the Show-off: cash throws; the Quitter: a slow sad slide
     for y in range(1, 11):
         kaching(T_Y0 + (T_Y1 - T_Y0) * y / 10, 0.035, -0.3, fx)
-    for tk in np.arange(1.1, 3.4, 0.3):
+    for tk in np.arange(T_Y0, 10.6, 0.3):
         mix_in(fx, noise(0.12, int(tk * 100), lo=2000, hi=8000) * env(int(0.12 * SR), 0.005, 0.06), tk, 0.03, 0.4)
-    mix_in(fx, tone(330, 0.8, (1, 0.4), a=0.01, d=0.5, sweep=200), 5.0, 0.04, 0.2)
-    mix_in(fx, tone(180, 0.4, (1, 0.5), a=0.003, d=0.2, sweep=120), 3.6, 0.07, 0.3)
+    mix_in(fx, tone(330, 0.8, (1, 0.4), a=0.01, d=0.5, sweep=200), 12.0, 0.04, 0.2)
+    mix_in(fx, tone(180, 0.4, (1, 0.5), a=0.003, d=0.2, sweep=120), 11.0, 0.07, 0.3)
+    # the market crash: a falling tone and a low rumble; the recovery: a rising chime
+    mix_in(fx, tone(600, 1.2, (1, 0.5, 0.3), a=0.01, d=0.8, sweep=120), T_CRASH0, 0.06, -0.3)
+    mix_in(fx, noise(1.4, 61, lo=40, hi=300) * env(int(1.4 * SR), 0.05, 0.8), T_CRASH0, 0.18)
+    for j, m in enumerate((72, 76, 79, 84)):
+        mix_in(fx, music.music_box(midi(m), 1.2), T_CRASH1 + 0.1 * j, 0.04, -0.3)
+    # the first decisions: one pop each
+    for tk in (2.2, 2.6, 3.0, 3.4):
+        mix_in(fx, tone(1046, 0.12, (1, 0.3), a=0.002, d=0.06), tk, 0.04)
     # the results: stamps, the Overthinker's last and heaviest
     for j, i in enumerate([0, 2, 3, 1]):
         t0 = T_RES + 0.25 * j + (0.35 if i == 1 else 0)
