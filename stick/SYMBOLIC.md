@@ -5,6 +5,18 @@ solid white figures, one visual metaphor readable in the first frame without rea
 (no clocks, counters or speech bubbles), one accent light, the title is a short saying. Ideas and metaphors are
 ours; none of them copy a reference reel.
 
+
+## The first 1.5 seconds (most important rule)
+
+Every reel opens with a strong hook in its first 1.5 s. Check it on a still of frame 0 and of 1.5 s before rendering.
+- Frame 0 already shows the conflict or the strangest image of the reel (the monster shadow, the 25% button,
+  the giant pile) - never two people just standing.
+- Something moves from frame 0 (no slow fade-ins, no empty room).
+- The contrast between the two panels is visible without reading.
+- At most one short line on screen in that time (a label or one bubble), readable in under a second.
+- Sound from frame 0: a hit, a sting or the first note - no silent start.
+- Length follows the idea: symbolic 10-14 s, simple situations 12-15 s, stories 18-25 s (not a fixed 18 s).
+
 | # | Labels | The image | Ending | Title |
 |---|---|---|---|---|
 | 1 | WAITS / GOES | Two cars at the start of a long road with 5 traffic lights. One waits until all 5 are green; they never are. The other drives, and each light turns green as he reaches it. | One is still at the start; the other at the end of the road. | You don't need every light green. Only the next one. |

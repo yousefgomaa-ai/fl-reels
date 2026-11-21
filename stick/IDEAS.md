@@ -2,6 +2,18 @@
 
 Wait for "نفذ" before making the next reel. Make them in this order, one at a time, and send each one when it's done.
 
+
+## The first 1.5 seconds (most important rule)
+
+Every reel opens with a strong hook in its first 1.5 s. Check it on a still of frame 0 and of 1.5 s before rendering.
+- Frame 0 already shows the conflict or the strangest image of the reel (the monster shadow, the 25% button,
+  the giant pile) - never two people just standing.
+- Something moves from frame 0 (no slow fade-ins, no empty room).
+- The contrast between the two panels is visible without reading.
+- At most one short line on screen in that time (a label or one bubble), readable in under a second.
+- Sound from frame 0: a hit, a sting or the first note - no silent start.
+- Length follows the idea: symbolic 10-14 s, simple situations 12-15 s, stories 18-25 s (not a fixed 18 s).
+
 ## Rules for every reel
 
 - Split screen. Both people start in **exactly the same situation**. The idea has to be clear from the first scene.
