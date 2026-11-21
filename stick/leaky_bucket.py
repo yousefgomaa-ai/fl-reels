@@ -333,7 +333,9 @@ def render(i):
 
 def coin_clink(seed):
     f = 2600 + (seed * 137) % 1800
-    return tone(f, 0.12, (1, 0.5, 0.3), a=0.001, d=0.05) + 0.3 * tone(f * 1.5, 0.08, (1,), a=0.001, d=0.03)
+    a = tone(f, 0.12, (1, 0.5, 0.3), a=0.001, d=0.05)
+    b = tone(f * 1.5, 0.12, (1,), a=0.001, d=0.03)
+    return a + 0.3 * b
 
 
 def audio():
