@@ -123,79 +123,88 @@ def bottom_person(t):
 
 
 # ---------------------------------------------------------------- drawing
-def chair_and_coat(scale=1.0):
-    """The chair with the coat over its back, as one sprite (white-ish on transparent). Origin = floor centre."""
-    s = scale
-    w, h = int(260 * s), int(360 * s)
-    im = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-    d = ImageDraw.Draw(im)
-    cx, fy = w / 2, h - 2
-    col = (255, 255, 255, 255)
-    # chair: back on the left, seat, legs
-    d.rectangle([cx - 70 * s, fy - 230 * s, cx - 56 * s, fy], fill=col)
-    d.rectangle([cx - 70 * s, fy - 110 * s, cx + 70 * s, fy - 96 * s], fill=col)
-    d.rectangle([cx + 56 * s, fy - 110 * s, cx + 70 * s, fy], fill=col)
-    # the coat hanging over the back: a hook, wide shoulders, two long sleeves, the body
-    d.arc([cx - 78 * s, fy - 300 * s, cx - 48 * s, fy - 262 * s], 180, 20, fill=col, width=max(2, int(6 * s)))
-    d.line([(cx - 63 * s, fy - 266 * s), (cx - 63 * s, fy - 246 * s)], fill=col, width=max(2, int(5 * s)))
-    d.polygon([(cx - 63 * s, fy - 248 * s), (cx - 130 * s, fy - 220 * s), (cx + 4 * s, fy - 220 * s)], fill=col)
-    d.polygon([(cx - 120 * s, fy - 222 * s), (cx - 6 * s, fy - 222 * s), (cx - 14 * s, fy - 80 * s),
-               (cx - 112 * s, fy - 80 * s)], fill=col)
+def coat_chair(d, cx, fy, s, col):
+    """The chair with the hooded winter coat, gloves and fringed scarf - drawn so that its shadow is a monster.
+    col: dict of colours (all white for the silhouette)."""
+    # chair
+    d.rectangle([cx - 70 * s, fy - 230 * s, cx - 56 * s, fy], fill=col["wood"])
+    d.rectangle([cx - 70 * s, fy - 110 * s, cx + 70 * s, fy - 96 * s], fill=col["wood"])
+    d.rectangle([cx + 56 * s, fy - 110 * s, cx + 70 * s, fy], fill=col["wood"])
+    hx = cx - 63 * s
+    # body of the coat: wide shoulders down to the seat
+    d.polygon([(hx - 70 * s, fy - 236 * s), (hx + 70 * s, fy - 236 * s), (hx + 52 * s, fy - 96 * s),
+               (hx - 52 * s, fy - 96 * s)], fill=col["coat"])
+    # the hood = the head, with two pointed tips = horns
+    d.ellipse([hx - 40 * s, fy - 312 * s, hx + 40 * s, fy - 230 * s], fill=col["coat"])
     for sx in (-1, 1):
-        x = cx - 63 * s + sx * 60 * s
-        ex, ey = x + sx * 70 * s, fy - 120 * s
-        d.polygon([(x - 12 * s, fy - 224 * s), (x + 12 * s, fy - 224 * s), (ex + 12 * s, ey), (ex - 12 * s, ey)],
-                  fill=col)
-        # cuffs like claws
+        d.polygon([(hx + sx * 22 * s, fy - 300 * s), (hx + sx * 40 * s, fy - 296 * s), (hx + sx * 58 * s, fy - 356 * s)],
+                  fill=col["coat"])
+    # the hanger hook on top
+    d.arc([hx - 12 * s, fy - 336 * s, hx + 12 * s, fy - 312 * s], 180, 30, fill=col["hook"], width=max(2, int(5 * s)))
+    # the scarf hanging from the neck with a jagged fringe = the open jaw
+    d.polygon([(hx - 30 * s, fy - 236 * s), (hx + 30 * s, fy - 236 * s), (hx + 24 * s, fy - 178 * s),
+               (hx - 24 * s, fy - 178 * s)], fill=col["scarf"])
+    for j in range(6):
+        x = hx - 24 * s + j * 9.6 * s
+        d.polygon([(x, fy - 180 * s), (x + 9.6 * s, fy - 180 * s), (x + 4.8 * s, fy - 156 * s)], fill=col["scarf"])
+    # sleeves spread up and out, ending in gloves with long fingers = claws
+    for sx in (-1, 1):
+        x0, y0 = hx + sx * 60 * s, fy - 230 * s
+        ex, ey = hx + sx * 150 * s, fy - 300 * s
+        d.polygon([(x0, y0 - 14 * s), (x0, y0 + 22 * s), (ex, ey + 14 * s), (ex, ey - 14 * s)], fill=col["coat"])
+        d.ellipse([ex - 16 * s, ey - 18 * s, ex + 16 * s, ey + 18 * s], fill=col["glove"])
         for j in range(4):
-            cxx = ex - 12 * s + j * 8 * s
-            d.polygon([(cxx - 3 * s, ey - 2 * s), (cxx + 3 * s, ey - 2 * s), (cxx + sx * 4 * s, ey + 22 * s)], fill=col)
+            a = math.radians(-90 + sx * (10 + 22 * j))
+            fx2, fy2 = ex + math.cos(a) * 52 * s * sx ** 0, ey + math.sin(a) * 52 * s
+            fx2 = ex + sx * abs(math.cos(a)) * 52 * s
+            d.line([(ex, ey), (fx2, fy2)], fill=col["glove"], width=max(2, int(8 * s)))
+            d.polygon([(fx2 - 4 * s, fy2), (fx2 + 4 * s, fy2), (fx2 + sx * 10 * s, fy2 - 16 * s)], fill=col["glove"])
+
+
+WHITE = {k: (255, 255, 255, 255) for k in ("wood", "coat", "hook", "scarf", "glove")}
+
+
+def chair_and_coat(scale=1.0):
+    w, h = int(420 * scale), int(400 * scale)
+    im = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    coat_chair(ImageDraw.Draw(im), w / 2 + 63 * scale, h - 2, scale, WHITE)
     return im
 
 
 def chair_real(d, lightk):
-    """The chair as an object in the room (seen when the light is on, a dim shape in the dark)."""
-    cx, fy = CHAIR_X, FYP
-    a = int(lerp(18, 255, lightk))
-    ink = INK + (a,)
-    wood = (130, 96, 66, a)
-    coat = (90, 100, 130, a)
-    d.rectangle([cx - 70, fy - 230, cx - 56, fy], fill=wood, outline=ink)
-    d.rectangle([cx - 70, fy - 110, cx + 70, fy - 96], fill=wood, outline=ink)
-    d.rectangle([cx + 56, fy - 110, cx + 70, fy], fill=wood, outline=ink)
-    d.arc([cx - 78, fy - 300, cx - 48, fy - 262], 180, 20, fill=(180, 184, 194, a), width=6)
-    d.polygon([(cx - 63, fy - 248), (cx - 130, fy - 220), (cx + 4, fy - 220)], fill=coat, outline=ink)
-    d.polygon([(cx - 120, fy - 222), (cx - 6, fy - 222), (cx - 14, fy - 80), (cx - 112, fy - 80)], fill=coat,
-              outline=ink)
-    for sx in (-1, 1):
-        x = cx - 63 + sx * 60
-        ex, ey = x + sx * 70, fy - 120
-        d.polygon([(x - 12, fy - 224), (x + 12, fy - 224), (ex + 12, ey), (ex - 12, ey)], fill=coat, outline=ink)
+    """The real objects in the room: almost invisible in the dark, plain when the light is on."""
+    a = int(lerp(14, 255, lightk))
+    col = {"wood": (130, 96, 66, a), "coat": (90, 100, 130, a), "hook": (180, 184, 194, a), "scarf": (200, 70, 60, a),
+           "glove": (70, 70, 76, a)}
+    coat_chair(d, CHAIR_X, FYP, 1.0, col)
 
 
 CHAIR_SPR = None
 
 
 def shadow_layer(t, top):
-    """The monster: the chair-and-coat silhouette, thrown huge on the wall by the candle."""
+    """The monster: the chair-and-coat silhouette thrown huge on the wall by the low candle - taller than wide,
+    leaning, flickering, and it "breathes"."""
     k_l = lit(t, top)
     if k_l >= 0.999:
         return None
-    flick = 1 + 0.025 * math.sin(t * 7.3) + 0.015 * math.sin(t * 13.1)
-    grow = 1.0
+    flick = 1 + 0.03 * math.sin(t * 7.3) + 0.02 * math.sin(t * 13.1)
+    grow = 1.0 + 0.03 * math.sin(t * 2.1)
     if not top:
-        grow += 0.08 * smooth(prog(t, 3.0, 14.0))
-        grow += 0.06 * math.sin(math.pi * prog(t, T_PEEK0, T_PEEK1))
-    if top and T_FLINCH0 <= t < T_FLINCH1:
-        grow += 0.07 * math.sin(math.pi * prog(t, T_FLINCH0, T_FLINCH1))
-    sc = 1.85 * flick * grow
-    spr = CHAIR_SPR.resize((int(CHAIR_SPR.width * sc), int(CHAIR_SPR.height * sc)), Image.BILINEAR)
-    a = spr.split()[3].filter(ImageFilter.GaussianBlur(5))
+        grow += 0.10 * smooth(prog(t, 3.0, 14.0))
+        grow += 0.10 * math.sin(math.pi * prog(t, T_PEEK0, T_PEEK1))
+    if top:
+        grow += 0.06 * smooth(prog(t, T_GO, T_SWITCH))
+        if T_FLINCH0 <= t < T_FLINCH1:
+            grow += 0.12 * math.sin(math.pi * prog(t, T_FLINCH0, T_FLINCH1))
+    sx, sy = 1.35 * flick * grow, 1.55 * flick * grow
+    spr = CHAIR_SPR.resize((int(CHAIR_SPR.width * sx), int(CHAIR_SPR.height * sy)), Image.BILINEAR)
+    spr = spr.transform(spr.size, Image.AFFINE, (1, 0.12 + 0.03 * math.sin(t * 1.7), -40, 0, 1, 0), Image.BILINEAR)
+    a = spr.split()[3].filter(ImageFilter.GaussianBlur(4))
     lay = Image.new("RGBA", (W, PH), (0, 0, 0, 0))
     sh = Image.new("RGBA", spr.size, (2, 2, 4, 255))
-    sh.putalpha(a.point(lambda v: int(v * 0.92 * (1 - k_l))))
-    sway = 10 * math.sin(t * 1.7)
-    lay.alpha_composite(sh, (int(470 - spr.width / 2 + sway), int(FYP - spr.height + 6)))
+    sh.putalpha(a.point(lambda v: int(v * 0.95 * (1 - k_l))))
+    lay.alpha_composite(sh, (int(450 - spr.width / 2), int(FYP - spr.height + 8)))
     return lay
 
 
@@ -373,30 +382,51 @@ def render(i):
 
 def audio():
     n = int(DUR * SR)
-    mus = music.score(MUSIC, DUR, t_end=T_SWITCH, start=0.0, loud=1.15)
-    fx = np.zeros((n, 2))
-    # a low drone of dread that swells until the switch, then cuts
     t = np.arange(n) / SR
-    drone = (np.sin(2 * np.pi * 55 * t) + 0.5 * np.sin(2 * np.pi * 58.3 * t)) * 0.02
-    drone *= np.clip(t / 1.0, 0, 1) * (0.6 + 0.4 * np.clip(t / T_SWITCH, 0, 1)) * (t < T_SWITCH)
+    fx = np.zeros((n, 2))
+    # after the light: only the warm chord and the soft closing notes of the strings track
+    mus = music.score(MUSIC, DUR, t_end=0.01, start=0.0, loud=1.0)
+    # 1) a deep, beating drone (two close low notes) that swells until the switch, then sinks to a quiet hum
+    swell = np.clip(t / 1.2, 0, 1) * (0.5 + 0.5 * np.clip(t / T_SWITCH, 0, 1))
+    after = np.where(t < T_SWITCH, 1.0, 0.25 * np.clip((15.0 - t) / 1.0, 0, 1))
+    drone = (np.sin(2 * np.pi * 41.2 * t) + 0.8 * np.sin(2 * np.pi * 43.6 * t) + 0.35 * np.sin(2 * np.pi * 61.7 * t))
+    drone = drone * 0.05 * swell * after
     fx[:, 0] += drone
     fx[:, 1] += drone
-    # heartbeat while he creeps (above) and hides (below)
-    for tb in np.arange(0.4, T_SWITCH, 0.85):
-        mix_in(fx, tone(55, 0.16, (1, 0.4), a=0.004, d=0.07), tb, 0.12)
-        mix_in(fx, tone(50, 0.14, (1, 0.4), a=0.004, d=0.06), tb + 0.18, 0.09)
-    # the shadow lurch: a low whoosh
+    # 2) high dissonant strings (a minor second) creeping in, eerie
+    for f0, pan in ((659.3, -0.5), (698.5, 0.5)):
+        x = music.strings(f0, T_SWITCH - 1.5, 3.0, 0.05)[: int((T_SWITCH - 1.5) * SR)]
+        mix_in(fx, x * (1 + 0.3 * np.sin(np.arange(len(x)) / SR * 2 * np.pi * 5.5)), 1.5, 0.018, pan)
+    # 3) a slow growl / breathing of the "monster"
+    br = noise(DUR, 77, lo=40, hi=260)
+    breath = (0.5 + 0.5 * np.sin(2 * np.pi * 0.45 * t)) ** 2
+    g = br * breath * 0.05 * np.clip((t - 0.5) / 1.5, 0, 1) * np.where(t < T_SWITCH, 1.0, 0.35)
+    fx[:, 0] += g
+    fx[:, 1] += np.roll(g, 900)
+    # 4) a heartbeat that gets faster as he gets closer
+    tb, gap = 0.3, 0.95
+    while tb < T_SWITCH - 0.4:
+        mix_in(fx, tone(52, 0.18, (1, 0.5), a=0.004, d=0.08), tb, 0.2)
+        mix_in(fx, tone(47, 0.16, (1, 0.5), a=0.004, d=0.07), tb + 0.17, 0.15)
+        tb += gap
+        gap = max(0.45, gap * 0.94)
+    # 5) stings: the shadow lurches (above) and moves when he peeks (below)
     for t0 in (T_FLINCH0, T_PEEK0 + 0.2):
-        mix_in(fx, noise(0.7, int(t0 * 10), lo=60, hi=500) * env(int(0.7 * SR), 0.15, 0.3), t0, 0.12, 0.2)
+        mix_in(fx, tone(1800, 0.6, (1, 0.6, 0.3), a=0.01, d=0.35, sweep=2600), t0, 0.04, 0.3)
+        mix_in(fx, tone(38, 0.9, (1, 0.6), a=0.005, d=0.5), t0, 0.3)
+        mix_in(fx, noise(0.9, int(t0 * 10), lo=40, hi=300) * env(int(0.9 * SR), 0.05, 0.5), t0, 0.25)
     # running feet and the dive under the blanket
     for j in range(5):
-        mix_in(fx, noise(0.06, 70 + j, lo=100, hi=900) * env(int(0.06 * SR), 0.002, 0.03), T_RUN0 + j * 0.14, 0.06, -0.3)
-    mix_in(fx, noise(0.35, 80, lo=200, hi=2500) * env(int(0.35 * SR), 0.01, 0.15), T_DIVE, 0.07, -0.3)
-    # the switch: a click, and light (a soft bright chord)
-    mix_in(fx, noise(0.03, 90, lo=1500, hi=6000) * env(int(0.03 * SR), 0.001, 0.01), T_SWITCH - 0.02, 0.14, 0.2)
-    for k, m in enumerate((69, 72, 76, 81)):
-        mix_in(fx, music.strings(midi(m), 1.8, 0.05, 1.4), T_SWITCH + 0.02, 0.035, (k - 1.5) * 0.4)
-    mix_in(fx, music.music_box(midi(88), 1.6), T_SWITCH + 0.1, 0.04, 0.2)
+        mix_in(fx, noise(0.06, 70 + j, lo=100, hi=900) * env(int(0.06 * SR), 0.002, 0.03), T_RUN0 + j * 0.14, 0.08, -0.3)
+    mix_in(fx, noise(0.35, 80, lo=200, hi=2500) * env(int(0.35 * SR), 0.01, 0.15), T_DIVE, 0.08, -0.3)
+    # 6) a breath of silence, then the click - and the light: a bright, warm chord
+    i0, i1 = int((T_SWITCH - 0.35) * SR), int(T_SWITCH * SR)
+    fx[i0:i1] *= np.linspace(1, 0.05, i1 - i0)[:, None]
+    mix_in(fx, noise(0.03, 90, lo=1500, hi=6000) * env(int(0.03 * SR), 0.001, 0.01), T_SWITCH - 0.02, 0.18, 0.2)
+    for k, m in enumerate((57, 64, 69, 72, 76)):
+        mix_in(fx, music.strings(midi(m), 2.2, 0.08, 1.6), T_SWITCH + 0.02, 0.03, (k - 2) * 0.35)
+    mix_in(fx, music.music_box(midi(88), 1.6), T_SWITCH + 0.1, 0.05, 0.2)
+    mix_in(fx, music.music_box(midi(84), 1.6), T_SWITCH + 0.35, 0.04, 0.2)
     for t0, s in ((T_L1, LINE1), (T_L2, LINE2)):
         for i2, c in enumerate(s):
             if c != " ":
