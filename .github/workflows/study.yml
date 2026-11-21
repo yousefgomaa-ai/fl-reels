@@ -2,7 +2,7 @@
 name: Shorts channel study
 on:
   push:
-    branches: [main]
+    branches: [main-disabled]
     paths: [study/schedule.py, .github/workflows/study.yml]
 permissions:
   contents: write

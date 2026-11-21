@@ -1,0 +1,24 @@
+# Reference channel study (owner, 2026-11-21): runs on the claude/two-paths branch only. Read-only research.
+name: Reference channel study
+on:
+  push:
+    branches: [claude/two-paths]
+    paths: [study/simply.py, .github/workflows/simply-study.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  study:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null && pip install -q -U "yt-dlp[default]"
+      - run: python3 study/simply.py "https://www.youtube.com/@simplyanimatedvisuals" study/simply
+      - name: Commit
+        run: |
+          git config user.name "study" && git config user.email "actions@users.noreply.github.com"
+          git add study/simply && git commit -m "Reference channel study: output [skip ci]" && git pull -q --rebase origin claude/two-paths && git push || true
