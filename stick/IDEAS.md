@@ -121,6 +121,7 @@ the other solves it in a clever, real-life way (label **FIGURED IT OUT**).
 | 23 | **Airport** (moving camera, airport.py) | The early guy fell asleep at the gate and missed it | 3 HOURS EARLY. STILL MISSED IT. |
 | 1 | **Self-checkout** (moving camera, self_checkout.py) | Cashier lane was faster: DONE IN 5 MIN vs STILL HERE. 12 MIN | THE CASHIER LINE WAS FASTER. |
 | 26 | **Ketchup** (opens on the explosion, moving camera, loops, ketchup.py) | Two taps on the neck vs shaking until it explodes | SHAKE IT. OR TAP IT. |
+| 32 | **The fly** (opens mid-leap in slow motion, 7 things broken, loops, fly.py) | Lights off + window open, the fly leaves | HE CHASED IT. HE SHOWED IT OUT. |
 
 ## Saved for their season
 
