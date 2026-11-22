@@ -123,6 +123,7 @@ the other solves it in a clever, real-life way (label **FIGURED IT OUT**).
 | 26 | **Ketchup** (opens on the explosion, moving camera, loops, ketchup.py) | Two taps on the neck vs shaking until it explodes | SHAKE IT. OR TAP IT. |
 | 32 | **The fly** (opens mid-leap in slow motion, 7 things broken, loops, fly.py) | Lights off + window open, the fly leaves | HE CHASED IT. HE SHOWED IT OUT. |
 | 6 | **Will it fit?** (split, bright, one big symbol, answer held to the end, couch.py) | Legs off, stand it on its end: FITS! vs ramming: NEW DOOR | (no line - the stamps answer) |
+| new | **Would you wait 60 min?** (split, sunset lake, golden fish visible from frame 0, perfect loop, fishing.py) | Left at 59:00 - the fish swims to his empty spot; the patient one catches it at 60:00 | (stamps: LEFT AT 59 / CAUGHT IT!) |
 
 ## Saved for their season
 
