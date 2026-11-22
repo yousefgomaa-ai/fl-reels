@@ -48,3 +48,7 @@
       restarts the question (satisfying loop).
     - **One "wrong" action on purpose** (rage bait): someone does the obviously wrong thing so viewers comment
       "just do X!".
+12. **Split screen is the default (owner's data, Nov 2026).** Our best performers are split-screen (Black Friday
+    1.9K, 1% battery 1.8K); the single-scene moving-camera reels did less (airport 811, the fly ~300 / 12% stayed).
+    Two panels, top and bottom, same situation, both visible from frame 0 - the comparison is understood instantly.
+    Camera movement stays *inside* each panel (slow push, shake on hits), never whip-pans between people.
