@@ -43,7 +43,29 @@ Every reel opens with a strong hook in its first 1.5 s. Check it on a still of f
   Used so far: #10 music_box_d, #11 marimba_f, Black Friday guitar_g, Check the price kalimba_e, $7 latte lofi_eb, Tipping harp_bb.
 - One version per reel (no more two copies), and send the title with every video.
 
-## Up next, in order (36)
+## Filtered for 85% stayed / 150% viewed (Nov 22) - this order replaces the old one
+Kept only ideas whose frame 0 can be the peak image with no words, and that have at least two rewatch tools
+(rule 10 in WORKFLOW.md). Numbers refer to the table below.
+**Tier A - make these, in this order:**
+| Order | # | Frame 0 (the peak) | Why people rewatch |
+|---|---|---|---|
+| 1 | 32 Fly in the room | Room wrecked mid-swing: lamp falling, slipper in the air, the fly calmly in frame | Loop (a new fly comes in); count the broken things; the fly is visible in every shot |
+| 2 | 3 IKEA | The wardrobe collapses in slow motion, 12 screws raining | Ending = frame 0 explained; the leftover screws are visible on the floor from the start |
+| 3 | 8 Car stuck in snow (winter, now) | Wheels spinning, snow spraying all over him | Loop (he gets stuck again); the floor-mat trick is a real hack people save |
+| 4 | 21 Budget airline | A man wearing 4 jackets, sweating, at the gate | "How many jackets?" - count them; loop to the next flight |
+| 5 | 34 Garlic in a jar | Peels flying everywhere from a jar shaken hard | Real hack (saves/shares); "does it work?" debate; 20 min vs 10 s |
+| 6 | 4 Keys in a drain | Keys falling in slow motion through the grate | Magnet fix is satisfying; loop (he drops them again) |
+| 7 | 14 Ball in a tree | A tree full of shoes, a ball and a cat on top | Hidden detail: count everything stuck in the tree |
+| 8 | 6 Couch through the door | Couch jammed in the doorway, a man squashed behind it | Rotation trick shown fast - people replay to see how |
+| 9 | Symbolic 4 Key in your pocket | A huge locked door, a tiny glint in his pocket | The key is visible in frame 0 - the ending sends people back to find it |
+**Tier B - only with a stronger peak or loop:** 11 Seven alarms, 19 Printer jam, 28 Frozen windshield (winter),
+36 Clogged sink, 2 Jar, 16 Heavy box, 10 Power cut, 22 Warm soda, 25 Train doors, 27 Weather app, 30 Burnt pot,
+31 Delivery; symbolic 1 Traffic lights, 7 Echo, 10 Seeds.
+**Tier C - parked (the joke needs numbers/text, or the object is too small to read on a phone):** 5 Zoom call,
+7 Sunday night, 9 Uber surge, 12 WiFi, 13 Group project, 15 Split the bill, 17 Free trial, 18 Zipper, 20 Earring,
+24 Ring, 29 Duolingo, 33 Vacation emails, 35 Parking; symbolic 3 Phone vs you, 5 Buckets, 6 Mountain, 8 Scroll/build,
+9 Drops.
+## The full list (36) - for reference
 
 One everyday situation, then one 🧠 **creative** idea, all the way through.
 Creative ideas: two people with the same problem. One says "impossible" or takes the easy way (label **GAVE UP**);
