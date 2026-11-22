@@ -19,7 +19,7 @@
    answer is "no", fix the video before sending.
 8. **The numbers we aim at (from our own analytics, Nov 2026).** "1% battery" reached 7K views with **45% stayed /
    95%+ average viewed**: people who stay love it, but over half swipe on frame one. Targets for every video:
-   **stayed >= 70%** (viral shorts sit at 75-85%) and **average viewed >= 100%** (loops). So the first frame must be
+   **stayed >= 85%** and **average viewed >= 150%** (see rule 10; 70% / 100% is only the floor). So the first frame must be
    understood with no reading: visible action + a problem about to happen, big and centred; minimal on-screen text
    (two words if possible, the story must work for any language); end on something viewers will argue about.
 9. **An ordinary video vs a video that grabs from the first instant.** An ordinary video *sets up* and then gets
@@ -27,3 +27,13 @@
    explains it afterwards. Every video must be the second kind. Frame 0 = the peak moment, already moving, with a
    sound hit - a viewer who stops for 0.3 s must already ask "wait, what happened?". Keep it short (10-14 s) and make
    the last frame flow back into frame 0, so people watch it twice (average viewed > 100%).
+10. **Exceptional only: stayed >= 85%, average viewed >= 150%.** Before proposing and again before sending, answer
+    in writing: **"What makes me watch this a 2nd and a 3rd time?"** If there is no concrete answer, the idea is not
+    ready. The tools we use to earn rewatches (at least two per video):
+    - **Seamless loop**: the last frame *is* the first frame; no FOLLOW card that breaks it, no fade to black.
+    - **The ending changes the beginning**: the payoff makes frame 0 mean something new, so people go back to look.
+    - **A hidden detail** seen only on a second look (the runner passing the sleeper; a clue in the background).
+    - **Too fast to catch once**: a key moment or a joke that flashes by in under a second.
+    - **A question in the title** that is answered in the picture, not in words ("did you see it?").
+    - **Short and dense**: 12-20 s, an event every ~1.5-2 s, no dead second anywhere.
+    The viewer review now also states: the rewatch reason(s), and the expected stayed / viewed numbers, honestly.
