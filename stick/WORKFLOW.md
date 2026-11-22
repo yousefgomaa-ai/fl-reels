@@ -17,3 +17,8 @@
 7. **The "would I get it?" test, every video.** Watch it as a stranger, once, with no sound: do I know who is who,
    what they want, what happened, and why the ending is funny/surprising? Answer it honestly in the review; if any
    answer is "no", fix the video before sending.
+8. **The numbers we aim at (from our own analytics, Nov 2026).** "1% battery" reached 7K views with **45% stayed /
+   95%+ average viewed**: people who stay love it, but over half swipe on frame one. Targets for every video:
+   **stayed >= 70%** (viral shorts sit at 75-85%) and **average viewed >= 100%** (loops). So the first frame must be
+   understood with no reading: visible action + a problem about to happen, big and centred; minimal on-screen text
+   (two words if possible, the story must work for any language); end on something viewers will argue about.
