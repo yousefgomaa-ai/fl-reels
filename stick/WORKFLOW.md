@@ -52,3 +52,17 @@
     1.9K, 1% battery 1.8K); the single-scene moving-camera reels did less (airport 811, the fly ~300 / 12% stayed).
     Two panels, top and bottom, same situation, both visible from frame 0 - the comparison is understood instantly.
     Camera movement stays *inside* each panel (slow push, shake on hits), never whip-pans between people.
+13. **Channel data, Nov 22 (stayed to watch / views / average viewed).** The bottleneck is *stayed*, not *viewed*:
+    | Reel | Format | Stayed | Views | Avg viewed |
+    |---|---|---|---|---|
+    | 1% vs 80% battery | split, one big icon (the battery %) | **45.7%** | 1,496 | 96% |
+    | Perfect wave | one simple bright image (a man and a giant wave) | **41.2%** | 1,650 | 89% |
+    | Just one episode | split | 34.2% | 1,334 | 98% |
+    | Black Friday | split | 33.1% | 1,276 | 93% |
+    | His phone ate first | split | 30.4% | 421 | 97% |
+    | Moms don't search (1st hour) | split | 21.4% | 217 | 79% |
+    | Airport (1st hour) | one scene, moving camera, dark | 15.5% | 104 | 65% |
+    | The fly (1st hour) | one scene, moving camera, dark, busy | 12.2% | 280 | 113% |
+    Lesson: the winners show **one big, instantly readable symbol** in frame 0 (a battery at 1%, a giant wave) and a
+    contrast you get without thinking. Dark, busy, moving-camera openings lose two thirds of the viewers. Post one
+    reel a day so they don't compete for the same test audience.
