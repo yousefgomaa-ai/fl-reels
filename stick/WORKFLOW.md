@@ -66,3 +66,13 @@
     Lesson: the winners show **one big, instantly readable symbol** in frame 0 (a battery at 1%, a giant wave) and a
     contrast you get without thinking. Dark, busy, moving-camera openings lose two thirds of the viewers. Post one
     reel a day so they don't compete for the same test audience.
+14. **Lessons from two reference Shorts the owner sent (Nov 22; study/links).** "Motivation vs Discipline vs
+    Obsession: Quit At 99?" (@Stick_Do_It) and "Start now, Don't wait" (@AnimationArt-t3d). Ideas only, never copy:
+    - **Show the viewer what the characters can't see** (the diamonds behind the wall, from frame 0): instant
+      suspense - "will he stop one hit too early?" - and it holds to the very end.
+    - **Archetype labels as characters** (MOTIVATION / DISCIPLINE / OBSESSION, PERFECTIONIST / ACTION TAKER): viewers
+      pick a side ("which one are you?").
+    - **Thick white figures with a dark outline**, large, on warm mid-bright illustrated backgrounds - far more
+      readable on a phone than our thin coloured lines.
+    - **One big counter per character at the top** (hits), climbing.
+    - **End on a question to the viewer** ("WOULD YOU HAVE QUIT AT 99?").
