@@ -1,0 +1,24 @@
+# Reference Shorts the owner sent (2026-11-22): runs on the claude/two-paths branch only. Read-only research.
+name: Reference Shorts study
+on:
+  push:
+    branches: [claude/two-paths]
+    paths: [study/links.py, .github/workflows/links-study.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  study:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null && pip install -q -U "yt-dlp[default]"
+      - run: python3 study/links.py Jn4O_tyNmGE nlgj4eUJim0
+      - name: Commit
+        run: |
+          git config user.name "study" && git config user.email "actions@users.noreply.github.com"
+          git add study/links && git commit -m "Reference Shorts study: output [skip ci]" && git pull -q --rebase origin claude/two-paths && git push || true
