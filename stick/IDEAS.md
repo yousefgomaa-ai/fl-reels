@@ -96,6 +96,8 @@ the other solves it in a clever, real-life way (label **FIGURED IT OUT**).
 | 2 | **"Let me check the price"** | He checks, puts it back gently, walks away slowly | HE CHECKED. HE LEFT. |
 | 3 | **$7 latte** every day vs. coffee made at home | End of year: $2,555 vs. a trip | HE DRANK A VACATION. |
 | 4 | **Tipping screen**: 18% / 20% / 25% with the cashier watching | He taps 25% on a $4 coffee | HE TIPPED THE IPAD. |
+| 23 | **Airport** (moving camera, airport.py) | The early guy fell asleep at the gate and missed it | 3 HOURS EARLY. STILL MISSED IT. |
+| 1 | **Self-checkout** (moving camera, self_checkout.py) | Cashier lane was faster: DONE IN 5 MIN vs STILL HERE. 12 MIN | THE CASHIER LINE WAS FASTER. |
 
 ## Saved for their season
 
