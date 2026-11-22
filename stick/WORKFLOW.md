@@ -22,3 +22,8 @@
    **stayed >= 70%** (viral shorts sit at 75-85%) and **average viewed >= 100%** (loops). So the first frame must be
    understood with no reading: visible action + a problem about to happen, big and centred; minimal on-screen text
    (two words if possible, the story must work for any language); end on something viewers will argue about.
+9. **An ordinary video vs a video that grabs from the first instant.** An ordinary video *sets up* and then gets
+   interesting; a grabbing one *opens on its most dramatic image* (the mess, the crash, the impossible picture) and
+   explains it afterwards. Every video must be the second kind. Frame 0 = the peak moment, already moving, with a
+   sound hit - a viewer who stops for 0.3 s must already ask "wait, what happened?". Keep it short (10-14 s) and make
+   the last frame flow back into frame 0, so people watch it twice (average viewed > 100%).
