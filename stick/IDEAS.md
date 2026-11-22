@@ -122,6 +122,7 @@ the other solves it in a clever, real-life way (label **FIGURED IT OUT**).
 | 1 | **Self-checkout** (moving camera, self_checkout.py) | Cashier lane was faster: DONE IN 5 MIN vs STILL HERE. 12 MIN | THE CASHIER LINE WAS FASTER. |
 | 26 | **Ketchup** (opens on the explosion, moving camera, loops, ketchup.py) | Two taps on the neck vs shaking until it explodes | SHAKE IT. OR TAP IT. |
 | 32 | **The fly** (opens mid-leap in slow motion, 7 things broken, loops, fly.py) | Lights off + window open, the fly leaves | HE CHASED IT. HE SHOWED IT OUT. |
+| 6 | **Will it fit?** (split, bright, one big symbol, answer held to the end, couch.py) | Legs off, stand it on its end: FITS! vs ramming: NEW DOOR | (no line - the stamps answer) |
 
 ## Saved for their season
 
