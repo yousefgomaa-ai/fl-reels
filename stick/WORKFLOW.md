@@ -37,3 +37,14 @@
     - **A question in the title** that is answered in the picture, not in words ("did you see it?").
     - **Short and dense**: 12-20 s, an event every ~1.5-2 s, no dead second anywhere.
     The viewer review now also states: the rewatch reason(s), and the expected stayed / viewed numbers, honestly.
+11. **Zero friction + curiosity to the last second (YouTube Studio advice, after "The fly": 12% stayed, 144% viewed).**
+    The fly proved people who stay will rewatch - but 88% swiped because frame 0 needed thinking (dark, busy, no
+    question). So:
+    - **Understood in 0.1 s**: frame 0 shows ONE big, simple thing in the centre safe zone (y 450-1450), on a
+      **bright** background, plus ONE big question in plain words (max 5 words, e.g. "WILL IT FIT?"). This is the
+      one place where big text is required (rule 8 still applies to everything after it).
+    - **No context needed**: no backstory, no rewind, no whip-pans in the first 3 s; both people are visible at once.
+    - **Hold the answer to the very end**: the result is revealed in the last ~1.5 s, never earlier; the loop then
+      restarts the question (satisfying loop).
+    - **One "wrong" action on purpose** (rage bait): someone does the obviously wrong thing so viewers comment
+      "just do X!".
