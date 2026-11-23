@@ -42,6 +42,11 @@ for i, a in enumerate(top):
     for q in ("oardefault", "hq720", "hqdefault"):
         if sh(f"curl -sSfL -o {OUT}/thumbs/{i:02d}.jpg https://i.ytimg.com/vi/{a['id']}/{q}.jpg").returncode == 0:
             break
+# YouTube's own preview frames (25/50/75 %) of the top 8, to see the middle of each Short
+os.makedirs(f"{OUT}/frames", exist_ok=True)
+for i, a in enumerate(top[:8]):
+    for n in ("maxres1", "maxres2", "maxres3"):
+        sh(f"curl -sSfL -o {OUT}/frames/{i:02d}_{n}.jpg https://i.ytimg.com/vi/{a['id']}/{n}.jpg")
 sh(f"ffmpeg -v error -y -pattern_type glob -i '{OUT}/thumbs/*.jpg' -vf 'scale=270:480:force_original_aspect_ratio="
    f"decrease,pad=270:480:(ow-iw)/2:(oh-ih)/2,tile=8x3' -frames:v 1 {OUT}/thumbs_sheet.jpg")
 json.dump(summary, open(f"{OUT}/summary.json", "w"), indent=1)
