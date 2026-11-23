@@ -82,3 +82,16 @@
     template to copy. Its weak point: average viewed only **75.7%** - it runs 22.4 s and the doer wins at ~16.5 s, so
     the last ~6 s (the closing lines) lose people. Rule: the payoff lands in the last 1.5-2 s; no tail after it;
     aim for 15-18 s. Check the retention graph of every reel for the exact drop second.
+16. **STICK TO IT study (Nov 23; study/sticktoit + the 7 reels in study/).** 33 Shorts in 5 weeks, 36.6M views; top:
+    "Overthinker vs Doer: Same Stone" 12M, "Can You Do Me a Quick Favor?" 11M, "Fake Friend vs Real Friend" 3.8M,
+    "Taking Off a Band-Aid" 3.7M. ~1 post a day. What they do (ideas only, never copy):
+    - **ONE mechanic that escalates visibly**: the same stone gets rounder every DAY until it rolls; a stack of boxes
+      grows taller with every "yes" and wobbles until it collapses. The viewer watches one quantity change - no plot.
+    - **Dark is fine**: black stage + warm spotlights; the figure in the light is the only thing to look at. (So the
+      fly failed on clutter and small figures, not on darkness.)
+    - **Figures are the product**: big, 3D-shaded white limbs with a soft glow, smooth weighted motion (push,
+      strain, stagger). Our flat stick lines look cheaper - upgrade the figure renderer.
+    - Labels: DOER / OVERTHINKER, SAYS YES / SAYS NO; one counter (DAY n, TASKS); 1-2 tiny bubbles.
+    - Ending: two short lines that flip the idea ("IDEAS DON'T ROLL. / MOTION DOES.", "NO IS A FULL SENTENCE.").
+    - Sound: one continuous music track at a steady level, rising a little to the end (not SFX-driven).
+    - Length 13-25 s; titles "X vs Y: <situation>" + "#shorts #viral #stickman".
