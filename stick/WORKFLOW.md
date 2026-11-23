@@ -76,9 +76,9 @@
       readable on a phone than our thin coloured lines.
     - **One big counter per character at the top** (hits), climbing.
     - **End on a question to the viewer** ("WOULD YOU HAVE QUIT AT 99?").
-15. **Data, Nov 23: the new recipe works.** "The Only Difference Was One More Try" (the fishing reel: split, bright
-    sunset, the golden fish visible from frame 0, question band, perfect loop) = **54.5% stayed** - our best ever
-    (the fly was 14.2%, battery 50.4%). But its average viewed is only **75.7%** (most reels sit at 90-99%): people
-    stop before the end. Likely drop: after the impatient one leaves at ~12.6 s it *feels* finished, and 13-15 s is
-    slow waiting. Rule: after the first payoff, the next beat must start within 1 s; never stretch time to build
-    suspense with nothing on screen. Check the retention graph of every reel for the exact drop second.
+15. **Data, Nov 23: our best reel is "The Only Difference Was One More Try" (gap_split.py) - 54.5% stayed.**
+    Split screen; big thick white figures; archetype labels (DOER / OVERTHINKER, "SAME GAP"); one glowing goal visible
+    from frame 0 (the gold chest across the gap); one counter (TRIES); a symbolic, wordless problem. That is the
+    template to copy. Its weak point: average viewed only **75.7%** - it runs 22.4 s and the doer wins at ~16.5 s, so
+    the last ~6 s (the closing lines) lose people. Rule: the payoff lands in the last 1.5-2 s; no tail after it;
+    aim for 15-18 s. Check the retention graph of every reel for the exact drop second.
