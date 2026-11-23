@@ -76,3 +76,9 @@
       readable on a phone than our thin coloured lines.
     - **One big counter per character at the top** (hits), climbing.
     - **End on a question to the viewer** ("WOULD YOU HAVE QUIT AT 99?").
+15. **Data, Nov 23: the new recipe works.** "The Only Difference Was One More Try" (the fishing reel: split, bright
+    sunset, the golden fish visible from frame 0, question band, perfect loop) = **54.5% stayed** - our best ever
+    (the fly was 14.2%, battery 50.4%). But its average viewed is only **75.7%** (most reels sit at 90-99%): people
+    stop before the end. Likely drop: after the impatient one leaves at ~12.6 s it *feels* finished, and 13-15 s is
+    slow waiting. Rule: after the first payoff, the next beat must start within 1 s; never stretch time to build
+    suspense with nothing on screen. Check the retention graph of every reel for the exact drop second.
