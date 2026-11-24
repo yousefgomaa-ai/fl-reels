@@ -95,3 +95,8 @@
     - Ending: two short lines that flip the idea ("IDEAS DON'T ROLL. / MOTION DOES.", "NO IS A FULL SENTENCE.").
     - Sound: one continuous music track at a steady level, rising a little to the end (not SFX-driven).
     - Length 13-25 s; titles "X vs Y: <situation>" + "#shorts #viral #stickman".
+17. **How STICK TO IT makes its films (their site, Nov 24; study/site).** They build every film with **Claude Code**:
+    a code "Film Kit" engine, a **rule book learned from 30+ films** that Claude reads first, 3 skills (Film Director
+    builds, Film Doctor fixes, Post Writer writes captions), 6 looks, 100 ideas; ~1 hour per film. **Sounds come from
+    free libraries**, added by hand - not synthesized. They sell the kit (19 EUR Black Friday, then 49 EUR).
+    For us: our WORKFLOW.md is the rule book and hq.py the engine; the gaps are the figure renderer and real music/SFX.
