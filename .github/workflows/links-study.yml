@@ -17,7 +17,7 @@ jobs:
         with:
           deno-version: v2.x
       - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null && pip install -q -U "yt-dlp[default]"
-      - run: python3 study/links.py vpC4AnQJ4Yo
+      - run: python3 study/links.py 4p1tD6ki2BE
       - name: Commit
         run: |
           git config user.name "study" && git config user.email "actions@users.noreply.github.com"
