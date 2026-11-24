@@ -591,7 +591,7 @@ def audio():
         mix_in(fx, sq, t0, 0.04, -0.3)
     # thunder and rain
     th = noise(3.0, 32, lo=30, hi=400)[:3 * SR] * env(3 * SR, 0.02, 1.2)
-    mix_in(fx, th, T_BOLT + 0.05, 0.35)
+    mix_in(fx, th, T_BOLT + 0.05, 0.14)
     mix_in(fx, noise(0.15, 33, lo=1000, hi=9000)[:int(0.15 * SR)] * env(int(0.15 * SR), 0.0005, 0.04), T_BOLT, 0.3)
     rl = DUR - T_BOLT
     rn = noise(rl, 34, lo=1200, hi=9000)[:int(rl * SR)] * np.minimum(1, np.arange(int(rl * SR)) / (0.8 * SR))
