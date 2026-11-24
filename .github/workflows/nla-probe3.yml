@@ -15,6 +15,17 @@ jobs:
         shell: bash
         run: |
           echo "::add-mask::$REELS_KEY"
-          sleep 240
-          curl -sS --max-time 120 -G "https://api.football-legend.com/v2/fben/dry" --data-urlencode "key=$REELS_KEY" --data-urlencode "kinds=none" --data-urlencode "reask=en-rsched-superlig-20261121" --data-urlencode "state=en-rsched-superlig-20261121" -o r.json || echo "no answer"
-          python3 -c "import json;d=json.load(open('r.json'))['result'];print(json.dumps({k:d.get(k) for k in ('reask','state')},ensure_ascii=False)[:1500])" || head -c 800 r.json
+          sleep 1
+          for d in 20261124 20261125; do curl -sS --max-time 60 "https://api.football-legend.com/matches?date=$d" -o m$d.json; done
+          python3 -c "
+import json
+for d in ['20261124','20261125']:
+  try: j=json.load(open('m'+d+'.json'))
+  except Exception as e: print(d,'ERR',e); continue
+  evs=j.get('events') or j.get('matches') or (j if isinstance(j,list) else [])
+  if isinstance(j,dict) and not evs: print(d,list(j.keys())[:10])
+  for m in evs:
+    s=json.dumps(m)
+    if '575398' in s or 'Galatasaray' in s:
+      print(d, json.dumps({k:m.get(k) for k in ('id','leagueSlug','goals','score','fixture','teams','liveSource','penalties')},ensure_ascii=False)[:1500])
+"
