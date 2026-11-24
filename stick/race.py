@@ -32,7 +32,7 @@ from perfect_wave import clamp, env, font, lerp, lerp_pose, midi, mix_in, noise,
 
 W, H, FPS = 1080, 1920, 30
 SR = 44100
-DUR = 28.8
+DUR = 27.95
 NF = int(round(DUR * FPS))
 K = hq.K
 BOLD = hq.BOLD
@@ -96,7 +96,7 @@ T_CROSS = 26.25            # the car's nose breaks its tape
 T_CUT = T_CROSS - 0.45     # the camera jumps to the finish line
 T_STOP = 26.6
 T_STAMP = 26.95
-T_RW = 27.8                # rewind into frame 0
+T_RW = 27.15               # rewind into frame 0
 
 
 def scene_t(t):
@@ -107,21 +107,21 @@ def scene_t(t):
 
 # ---------------------------------------------------------------- distances (metres)
 def m_s(t):
-    if t < 1.2:
-        return 3.75 * t * t
+    if t < 0.6:
+        return 7.5 * t * t
     if t < 6.0:
-        return 5.4 + 9 * (t - 1.2)
+        return 2.7 + 9 * (t - 0.6)
     if t < T_STOP_S:
         u = t - 6.0
-        return 48.6 + 9 * u - 3.75 * u * u
+        return 51.3 + 9 * u - 3.75 * u * u
     if t < T_RUN2:
-        return 54.0
+        return 56.7
     if t < T_RUN2 + 0.8:
         u = t - T_RUN2
-        return 54.0 + 0.5 * (8.5 / 0.8) * u * u
+        return 56.7 + 0.5 * (8.5 / 0.8) * u * u
     if t < T_CRAMP:
-        return 57.4 + 8.5 * (t - T_RUN2 - 0.8)
-    m0 = 57.4 + 8.5 * (T_CRAMP - T_RUN2 - 0.8)
+        return 60.1 + 8.5 * (t - T_RUN2 - 0.8)
+    m0 = 60.1 + 8.5 * (T_CRAMP - T_RUN2 - 0.8)
     if t < T_FALL:
         u = t - T_CRAMP
         return m0 + 8.5 * u - 10.625 * u * u
@@ -198,6 +198,8 @@ def _phase(mf):
 
 PH_S, V_S = _phase(m_s)
 PH_C, V_C = _phase(m_c)
+PH_S = PH_S + 1.3            # frame 0 catches both mid-stride
+PH_C = PH_C + 0.6
 
 
 def gait(arr, t):
@@ -291,6 +293,8 @@ def sprinter(t):
     ph = gait(PH_S, t)
     if t < T_STOP_S or T_RUN2 <= t < T_CRAMP:
         amp = clamp(v / 9.0, 0.3, 1.0)
+        if t < 0.6:
+            amp = max(amp, 0.8)
         pose = run_pose(ph, amp)
         if t > T_STOP_S - 0.35 and t < T_STOP_S:
             pose = lerp_pose(pose, STAND, smooth(prog(t, T_STOP_S - 0.35, T_STOP_S)))
@@ -363,8 +367,6 @@ def consistent(t):
     amp = 0.55 if t < T_TOUCH else 0.55 * (1 - prog(t, T_TOUCH, T_TOUCH + 0.9))
     rainy = T_RAIN0 + 0.3 <= t < T_RAIN1
     p = run_pose(ph, max(0.2, amp), lean=0.32 if rainy else 0.18)
-    if t < 0.3:
-        p = lerp_pose(STAND, p, smooth(prog(t, 0, 0.3)))
     if t >= T_TOUCH + 0.6:
         p = lerp_pose(p, STAND, smooth(prog(t, T_TOUCH + 0.6, T_TOUCH + 0.9)))
     if T_REACH <= t < T_TOUCH + 0.3:
@@ -875,6 +877,7 @@ def panel(t, st, lane):
     c = cam(lane, st)
     vc = cam_v(lane, st)
     draw_world(d, lane, c, vc)
+    focus = (PWD / 2, PHT / 2)
     ev = []
     if lane == 0:
         front = finish(d, 0, c, None, st)
@@ -889,6 +892,7 @@ def panel(t, st, lane):
                 d.ellipse([(px - r) * K, (FEET - r) * K, (px + r) * K, (FEET + r * 0.5) * K],
                           fill=(120, 130, 160, int(120 * (1 - u))))
         figure(d, pts, S, "band", f)
+        focus = (pts["hip"][0] + 10, (pts["head"][1] + FEET) / 2)
         hx, hy = pts["head"]
         if extra == "sweat":
             sweat(d, pts, st, f)
@@ -909,6 +913,7 @@ def panel(t, st, lane):
         pose, hip, f, s = consistent(st)
         pts = W2S(AJ.place(pose, hip, f, s), c)
         figure(d, pts, s, "cap", f)
+        focus = (pts["hip"][0] + 10, (pts["head"][1] + max(pts["fl"][1], pts["fr"][1])) / 2)
         if T_RAIN0 + 0.3 <= st < T_RAIN1:
             for j in range(2):
                 u = ((st * 2.4 + j / 2) % 1.0)
@@ -958,6 +963,7 @@ def panel(t, st, lane):
             pose, hip, f, prop = rs
             pts = W2S(AJ.place(pose, hip, f, S), c)
             figure(d, pts, S, "rich", f)
+            focus = (pts["hip"][0] + 10, pts["hip"][1] - 40)
             hx, hy = pts["hr"]
             if prop == "keys":
                 keys(d, hx, hy - 6, st)
@@ -1012,15 +1018,23 @@ def panel(t, st, lane):
     if lane == 2 and T_CUT <= st < T_CUT + 0.12:
         fl = Image.new("RGBA", base.size, (255, 255, 255, int(90 * (1 - prog(st, T_CUT, T_CUT + 0.12)))))
         base.alpha_composite(fl)
-    tag(base, ["SPRINTER", "CONSISTENT", "RICH KID"][lane])
-    im = hq.downsample(base, PWD, PHT)
     dx, dy = hq.shake(st, ev, 7) if t < T_RW else (0.0, 0.0)
     if lane == 2 and T_LAUNCH <= st < T_CUT:
         dx += 3 * math.sin(st * 70)
         dy += 2 * math.cos(st * 63)
-    z = 1.0 + 0.03 * math.sin(math.pi * st / T_RW)
-    im = hq.camera(im, z, dx, dy)
-    ImageDraw.Draw(im).rounded_rectangle([1, 1, PWD - 2, PHT - 2], 16, outline=(44, 54, 88, 255), width=3)
+    zo = 1 - smooth(prog(st, 0.0, 1.9))           # the opening close-up pulls back over the first ~2 s
+    z = 1.0 + 0.03 * math.sin(math.pi * st / T_RW) + 0.85 * zo
+    dx += z * (PWD / 2 - focus[0]) * zo
+    dy += z * (PHT / 2 - focus[1]) * zo
+    im = hq.downsample(hq.camera(base, z, dx * K, dy * K), PWD, PHT)
+    di = ImageDraw.Draw(im)
+    f = font("Inter-SemiBold.otf", 32)
+    x = 28
+    for ch_ in ["SPRINTER", "CONSISTENT", "RICH KID"][lane]:
+        di.text((x + 2, 20), ch_, font=f, fill=(0, 0, 0, 160))
+        di.text((x, 18), ch_, font=f, fill=(214, 220, 238, 255))
+        x += f.getlength(ch_) + 9
+    di.rounded_rectangle([1, 1, PWD - 2, PHT - 2], 16, outline=(44, 54, 88, 255), width=3)
     return im
 
 
@@ -1049,8 +1063,9 @@ def counter(img, st, t):
     for i, (cx, lab) in enumerate(COLS):
         v = int(m[i])
         win = i == 2 and v >= 100 and t < T_RW + 0.3
+        txt = "100" if m[i] >= 99.95 else f"{m[i]:.1f}"
         col = GOLD if win else ((245, 246, 252) if i == lead else (128, 136, 160))
-        PW.spaced(d, cx, 148, str(v), fnum, col + (255,), 2)
+        PW.spaced(d, cx, 148, txt, fnum, col + (255,), 2)
         PW.spaced(d, cx, 254, lab, flab, ((230, 232, 242) if i == lead else (128, 136, 160)) + (255,), 6)
 
 
