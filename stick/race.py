@@ -32,11 +32,11 @@ from perfect_wave import clamp, env, font, lerp, lerp_pose, midi, mix_in, noise,
 
 W, H, FPS = 1080, 1920, 30
 SR = 44100
-DUR = 29.6
+DUR = 28.8
 NF = int(round(DUR * FPS))
 K = hq.K
 BOLD = hq.BOLD
-MUSIC = "strings_am"
+MUSIC = "hype_am_140 (race.hype)"
 
 TITLE_H = 292
 PX0 = 20
@@ -96,7 +96,7 @@ T_CROSS = 26.25            # the car's nose breaks its tape
 T_CUT = T_CROSS - 0.45     # the camera jumps to the finish line
 T_STOP = 26.6
 T_STAMP = 26.95
-T_RW = 28.6                # rewind into frame 0
+T_RW = 27.8                # rewind into frame 0
 
 
 def scene_t(t):
@@ -1019,13 +1019,6 @@ def panel(t, st, lane):
         fl = Image.new("RGBA", base.size, (255, 255, 255, int(90 * (1 - prog(st, T_CUT, T_CUT + 0.12)))))
         base.alpha_composite(fl)
     tag(base, ["SPRINTER", "CONSISTENT", "RICH KID"][lane])
-    if t < T_RW:
-        if lane == 0:
-            stamp(base, t, T_STAMP + 0.3, T_RW, "TIRED", GREY, 560, 130)
-        elif lane == 1:
-            stamp(base, t, T_STAMP + 0.15, T_RW, "2ND", (200, 120, 30), 560, 130)
-        else:
-            stamp(base, t, T_STAMP, T_RW, "1ST", GREEN, 560, 130, 92)
     im = hq.downsample(base, PWD, PHT)
     dx, dy = hq.shake(st, ev, 7) if t < T_RW else (0.0, 0.0)
     if lane == 2 and T_LAUNCH <= st < T_CUT:
@@ -1129,10 +1122,123 @@ def steps_from(ph_arr, v_arr, t0, t1):
     return out
 
 
+# ---------------------------------------------------------------- energetic race track (140 BPM, A minor)
+BPM = 140
+BEAT = 60 / BPM
+CHORDS = [(45, 48, 52), (41, 45, 48), (48, 52, 55), (43, 47, 50)]      # Am F C G
+
+
+def kick():
+    n = int(0.28 * SR)
+    tt = np.arange(n) / SR
+    f = 45 + 110 * np.exp(-tt * 28)
+    return np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-tt * 9) + 0.15 * noise(0.28, 1, lo=1500)[:n] * np.exp(-tt * 120)
+
+
+def snare(seed=2):
+    n = int(0.22 * SR)
+    tt = np.arange(n) / SR
+    return 0.8 * noise(0.22, seed, lo=900, hi=9000)[:n] * np.exp(-tt * 18) + 0.5 * np.sin(2 * np.pi * 190 * tt) * np.exp(-tt * 30)
+
+
+def hat(seed=3, open_=False):
+    d = 0.18 if open_ else 0.045
+    n = int(d * SR)
+    tt = np.arange(n) / SR
+    return noise(d, seed, lo=7000)[:n] * np.exp(-tt * (14 if open_ else 70))
+
+
+def saw(f, dur, bright=2500, decay=3.0):
+    n = int(dur * SR)
+    tt = np.arange(n) / SR
+    x = 2 * ((f * tt) % 1.0) - 1
+    x += 2 * ((f * 1.007 * tt) % 1.0) - 1
+    x = PW.filt(x, hi=bright)
+    return x * np.minimum(1, tt / 0.004) * np.exp(-tt * decay)
+
+
+def pulse(f, dur):
+    n = int(dur * SR)
+    tt = np.arange(n) / SR
+    x = np.sign(np.sin(2 * np.pi * f * tt)) * 0.6 + np.sin(2 * np.pi * f * 2 * tt) * 0.3
+    return PW.filt(x, hi=5000) * np.minimum(1, tt / 0.003) * np.exp(-tt * 7)
+
+
+def crash(seed=9):
+    n = int(1.6 * SR)
+    tt = np.arange(n) / SR
+    return noise(1.6, seed, lo=3000)[:n] * np.exp(-tt * 2.5)
+
+
+def hype():
+    """drums + bass + arps; full from the pistol, thinner while the sprinter rests, a build into the car's launch,
+    a drop on the launch, a final hit when the car breaks the tape, then a held chord into the rewind"""
+    n = int(DUR * SR)
+    mus = np.zeros((n, 2))
+    K_, S_, H_, B_, A_ = kick(), snare(), hat(), None, None
+    nb = int(T_CROSS / BEAT) + 1
+    for b in range(nb):
+        t0 = b * BEAT
+        if t0 >= T_CROSS - 0.02:
+            break
+        bar = b // 4
+        ch = CHORDS[bar % 4]
+        rest = T_PANT1 <= t0 < T_RUN2 - 0.9          # the sprinter rests: lighter groove
+        build = T_IGN - 1.7 <= t0 < T_LAUNCH            # snare build into the launch
+        drop = t0 >= T_LAUNCH
+        # kick: four on the floor (half time while resting)
+        if not rest or b % 2 == 0:
+            mix_in(mus, K_, t0, 0.55 if not rest else 0.4)
+        if b % 2 == 1 and not build:
+            mix_in(mus, S_, t0, 0.32 if not rest else 0.2, 0.1)
+        for e in range(2 if not drop else 4):
+            sub = BEAT / (2 if not drop else 4)
+            mix_in(mus, H_, t0 + e * sub, (0.09 if e % 2 else 0.13) * (0.7 if rest else 1), 0.35)
+        if b % 4 == 3 and not rest:
+            mix_in(mus, hat(4, True), t0 + BEAT / 2, 0.08, 0.35)
+        # bass: driving 8ths, octave jumps
+        for e in range(2):
+            m = ch[0] - 12 + (12 if e == 1 and b % 2 == 1 else 0)
+            mix_in(mus, saw(midi(m), BEAT / 2 * 0.95, 900 if rest else 1400, 4.0), t0 + e * BEAT / 2,
+                   0.16 if not rest else 0.11, -0.05)
+        # arp lead (16ths) - off while resting
+        if not rest:
+            seq = [0, 1, 2, 1, 2, 3, 2, 1]
+            notes = [ch[0] + 24, ch[1] + 24, ch[2] + 24, ch[0] + 36]
+            for e in range(4 if (drop or t0 > T_RUN2) else 2):
+                i = (b * 4 + e) % 8 if (drop or t0 > T_RUN2) else (b * 2 + e) % 8
+                sub = BEAT / (4 if (drop or t0 > T_RUN2) else 2)
+                mix_in(mus, pulse(midi(notes[seq[i] % 4]), sub * 0.9), t0 + e * sub, 0.05, 0.3 if e % 2 else -0.3)
+        else:
+            if b % 4 == 0:
+                for k2, m in enumerate(ch):
+                    mix_in(mus, saw(midi(m + 12), 4 * BEAT, 1200, 0.6), t0, 0.035, (k2 - 1) * 0.4)
+        if build:
+            u = prog(t0, T_IGN - 1.7, T_LAUNCH)
+            for e in range(2 if u < 0.5 else 4):
+                mix_in(mus, snare(5 + e), t0 + e * BEAT / (2 if u < 0.5 else 4), 0.12 + 0.2 * u, 0.1)
+    # riser into the launch, crash on the launch, crash + big chord on the tape
+    rl = T_LAUNCH - (T_IGN - 1.7)
+    nr = int(rl * SR)
+    rs = noise(rl, 11, lo=800, hi=9000)[:nr] * np.linspace(0, 1, nr) ** 2
+    rs += 0.3 * np.sin(2 * np.pi * np.cumsum(200 + 1600 * np.linspace(0, 1, nr) ** 2) / SR) * np.linspace(0, 1, nr)
+    mix_in(mus, rs, T_IGN - 1.7, 0.10)
+    for t0 in (0.0, T_RUN2, T_LAUNCH):
+        mix_in(mus, crash(int(t0 * 10)), t0, 0.12)
+    mix_in(mus, crash(77), T_CROSS, 0.18)
+    mix_in(mus, kick(), T_CROSS, 0.7)
+    ch = CHORDS[0]
+    tail = DUR - T_CROSS
+    for k2, m in enumerate((ch[0] - 12, ch[0], ch[1], ch[2], ch[0] + 12)):
+        mix_in(mus, saw(midi(m), tail, 2000, 0.9), T_CROSS, 0.07, (k2 - 2) * 0.3)
+    mus /= np.abs(mus).max() + 1e-9
+    return mus * 0.45
+
+
 def audio():
     n = int(DUR * SR)
     fx = np.zeros((n, 2))
-    mus = music.score(MUSIC, DUR, t_end=T_CROSS - 0.35, t_warm=T_CROSS + 0.05, t_line=T_STAMP + 0.1, start=0.0, loud=1.0)
+    mus = hype()
     tt = np.arange(n) / SR
     bed = noise(DUR, 3, lo=150, hi=900)[:n] * 0.02
     cr = np.sin(2 * np.pi * 4300 * tt) * (np.sin(2 * np.pi * 28 * tt) > 0.6) * (np.sin(2 * np.pi * 0.7 * tt) > 0)
@@ -1204,9 +1310,6 @@ def audio():
     sk *= np.sin(2 * np.pi * 2200 * np.arange(len(sk)) / SR) * 0.5 + 0.5
     mix_in(fx, sk, T_CROSS + 0.05, 0.12, 0.3)
     mix_in(fx, tone(1000, 0.08, (1, 0.5), a=0.001, d=0.03, sweep=500), T_TOUCH, 0.06, -0.1)
-    for t0, g in ((T_STAMP, 0.2), (T_STAMP + 0.15, 0.14), (T_STAMP + 0.3, 0.12)):
-        mix_in(fx, tone(70, 0.3, (1, 0.5), a=0.001, d=0.12) + 0.3 * noise(0.3, int(t0 * 100), lo=300, hi=4000) *
-               env(int(0.3 * SR), 0.001, 0.05), t0, g)
     rw = DUR - T_RW
     nrw = int(rw * SR)
     fr = 300 + 2200 * np.linspace(0, 1, nrw) ** 1.5

@@ -30,3 +30,4 @@ Every reel: propose first, build after "نفذ"; send it with idea, title, first
   car); realistic run cycle (knee fold, bent arms, lean, feet grounded, cadence from speed: sprinter 9 m/s, consistent
   3.8 m/s jog); the rich kid starts on a lounger with no car, the car arrives with a chauffeur before the end; the
   sprinter rests (water, leans back, phone) instead of sleeping. 29.6 s; 25/50/75 M signs on the roads.
+- v3 (owner): energetic synthesized race track (140 BPM, drums/bass/arps, build into the launch) instead of strings_am; no TIRED/2ND/1ST stamps - the gold 100 on the counter tells the result; 28.8 s.
