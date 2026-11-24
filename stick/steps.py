@@ -38,9 +38,9 @@ from perfect_wave import clamp, env, font, lerp, lerp_pose, midi, mix_in, noise,
 
 FPS = 30
 SR = 44100
-DUR = 21.5
+DUR = 24.5
 NF = int(round(DUR * FPS))
-SC = [0.0, 3.0, 6.5, 10.0, 13.5, 17.0, DUR]
+SC = [0.0, 3.2, 6.8, 11.0, 14.8, 18.8, DUR]
 AGES = [1, 6, 16, 25, 40, 45]
 DAD_AGE = [0.0, 0.08, 0.3, 0.5, 0.85, 0.9]
 SON_S = [0.45, 0.62, 1.02, 1.12, 1.12, 1.12]
@@ -280,38 +280,70 @@ def s1(stage, d, st, T):
         if st < 1.4:
             dpts = reach(dpts, DAD_S, "hr", (b["seat"][0] - 20, b["seat"][1] + 6), 1)
     else:
-        k = smooth(prog(st, 2.0, 2.4))
+        k = smooth(prog(st, 2.0, 2.35)) * (1 - smooth(prog(st, 2.8, 3.2)))
         dp = lerp_pose(STAND, C.CHEER, k)
+        chest = smooth(prog(st, 2.9, 3.3))
+        dp = lerp_pose(dp, dict(STAND, er=(26, -96), hr=(4, -96), head=(4, -150)), chest)     # hand on his heart
         dpts = place(aged(dp, a), grounded(dp, dxs, DAD_S), 1, DAD_S)
     figure(stage, dpts, DAD_S, light=(-0.4, -0.9), body=dad_col(a))
-    fx = lerp(520, 640, smooth(prog(st, 1.6, 3.2)))
-    return [], ((480, 1.0),), (fx, 1100, 1.15), None
+    fx = lerp(520, 600, smooth(prog(st, 1.6, 3.4)))
+    return [], ((480, 1.0),), (fx, 1100, lerp(1.15, 1.25, smooth(prog(st, 2.6, 3.6)))), None
 
 
 def s2(stage, d, st, T):
+    """the hand left in the air - slow, long, the camera closes in on it"""
     a = DAD_AGE[2]
     ks = SON_S[2]
-    c = scroll(st, [(0.0, 150.0), (1.9, 60.0), (2.2, 0.0)])
+    c = scroll(st, [(0.0, 140.0), (1.6, 70.0), (2.0, 0.0)])
     lamps(d, c + 900)
-    teen_world = 150.0 * st if st < 1.6 else 150.0 * 1.6 + 300.0 * (st - 1.6)
+    teen_world = 140.0 * st if st < 1.7 else 140.0 * 1.7 + 330.0 * (st - 1.7)
     tx = 600 + teen_world - c
-    tp = walk(teen_world / 26.0, 1.0, 0.15)
-    tp = dict(tp, er=(26, -70), hr=(40, -96), head=(10, -146))
-    tpts = place(tp, grounded(tp, tx, ks), 1, ks)
-    figure(stage, tpts, ks, light=(-0.4, -0.9), scarf=True)
-    headphones(d, tpts["head"], ks)
-    phone(d, tpts["hr"], ks)
-    dad_world = scroll(st, [(0.0, 150.0), (1.9, 60.0), (2.15, 0.0)])
+    if tx < 1300:
+        tp = walk(teen_world / 26.0, 1.0, 0.15)
+        tp = dict(tp, er=(26, -70), hr=(40, -96), head=(10, -146))
+        tpts = place(tp, grounded(tp, tx, ks), 1, ks)
+        figure(stage, tpts, ks, light=(-0.4, -0.9), scarf=True)
+        headphones(d, tpts["head"], ks)
+        phone(d, tpts["hr"], ks)
+    dad_world = scroll(st, [(0.0, 140.0), (1.6, 70.0), (1.95, 0.0)])
     dxs = 400 + dad_world - c
-    dp = walk(dad_world / 28.0, 0.8, 0.2) if st < 2.15 else dict(STAND)
-    if st >= 1.3:
-        k = smooth(prog(st, 1.3, 1.8)) * (1 - smooth(prog(st, 2.9, 3.5)))
-        dp = lerp_pose(dp, dict(dp, er=REACH_OUT["er"], hr=REACH_OUT["hr"]), k)
-    dpts = place(aged(dp, a), grounded(dp, dxs, DAD_S), 1, DAD_S)
+    dp = walk(dad_world / 28.0, 0.8, 0.2) if st < 1.95 else dict(STAND)
+    k = smooth(prog(st, 1.2, 2.0)) * (1 - smooth(prog(st, 3.5, 4.1)))
+    dp = lerp_pose(dp, dict(dp, er=REACH_OUT["er"], hr=REACH_OUT["hr"]), k)
+    if st >= 3.6:
+        dp = lerp_pose(dp, dict(C.SAD, head=(18, -134)), smooth(prog(st, 3.6, 4.1)))
+    dpts = place(aged(dp, a), grounded(STAND, dxs, DAD_S), 1, DAD_S)
     figure(stage, dpts, DAD_S, light=(-0.4, -0.9), body=dad_col(a))
-    fx = lerp(520, 440, smooth(prog(st, 1.8, 3.0)))
-    z = lerp(1.15, 1.32, smooth(prog(st, 1.9, 3.5)))
-    return [], ((440, 1.0),), (fx, 1110, z), None
+    push = smooth(prog(st, 2.0, 3.6))
+    hx, hy = dpts["hr"]
+    fx = lerp(520, hx - 40, push)
+    fy = lerp(1110, hy + 30, push)
+    z = lerp(1.15, 1.9, push) - 0.5 * smooth(prog(st, 3.6, 4.2))
+    return [], ((440, 1.0),), (fx, fy, z), ("slowmo", (2.0, 3.6))
+
+
+def rain(d, T, a, x0=-40, x1=W + 40):
+    rng = np.random.default_rng(7)
+    for j in range(140):
+        x = rng.uniform(x0, x1)
+        sp = rng.uniform(0.9, 1.3)
+        ph = rng.uniform(0, 1)
+        y = ((T * sp * 1.4 + ph) % 1.0) * (FLOOR + 60) - 40
+        line(d, [(x, y), (x - 8, y + 34)], (150, 170, 210, int(150 * a)), 2)
+        if y > FLOOR - 30:
+            ell(d, x, FLOOR + 4, 10, 2, None, outline=(160, 180, 220, int(120 * a)), w=1.5)
+
+
+def snow(d, T, a):
+    rng = np.random.default_rng(11)
+    for j in range(90):
+        x0 = rng.uniform(-40, W + 40)
+        sp = rng.uniform(0.08, 0.16)
+        ph = rng.uniform(0, 1)
+        y = ((T * sp + ph) % 1.0) * (FLOOR + 40) - 20
+        x = x0 + 18 * math.sin(T * 0.8 + ph * 6)
+        r = rng.uniform(2, 4.5)
+        ell(d, x, y, r, r, (235, 238, 248, int(220 * a)))
 
 
 def s3(stage, d, st, T):
@@ -336,16 +368,20 @@ def s3(stage, d, st, T):
             figure(stage, spts, ks, light=(-0.4, -0.9), scarf=True, alpha=1 - smooth(prog(st, 2.1, 2.3)))
     dp = STAND
     if st >= 1.6:
-        k = smooth(prog(st, 1.6, 1.9)) * (1 - smooth(prog(st, 3.0, 3.4)))
+        k = smooth(prog(st, 1.6, 1.9)) * (1 - smooth(prog(st, 2.9, 3.4)))
         dp = lerp_pose(STAND, WAVE, k)
-        if 1.9 <= st < 3.0:
-            dp = dict(dp, hr=(44 + 10 * math.sin(st * 14), -184))
+        if 1.9 <= st < 2.9:
+            dp = dict(dp, hr=(44 + 10 * math.sin(st * 12), -184))
+    if st >= 3.0:
+        dp = lerp_pose(dp, dict(C.SAD, head=(20, -132)), smooth(prog(st, 3.0, 3.6)))
     dpts = place(aged(dp, a), grounded(STAND, 250, DAD_S), 1, DAD_S)
     figure(stage, dpts, DAD_S, light=(0.4, -0.9), body=dad_col(a))
-    narrow = smooth(prog(st, 2.6, 3.4))
+    if st >= 2.4:
+        rain(d, T, smooth(prog(st, 2.4, 3.0)))
+    narrow = smooth(prog(st, 2.6, 3.6))
     spots = ((250, 1.0), (700, round(1.0 - narrow, 1))) if narrow < 0.95 else ((250, 1.0),)
-    fx = lerp(480, 300, narrow)
-    return [], spots, (fx, 1110, lerp(1.12, 1.3, narrow)), None
+    fx = lerp(480, 290, narrow)
+    return [], spots, (fx, 1110, lerp(1.12, 1.35, narrow)), None
 
 
 def s4(stage, d, st, T):
@@ -353,16 +389,23 @@ def s4(stage, d, st, T):
     ks = SON_S[4]
     lamps(d, 3100)
     bench(d, 520)
-    rise = smooth(prog(st, 1.0, 1.4)) * (1 - smooth(prog(st, 2.0, 2.6)))
-    bp = lerp_pose(SIT_B, dict(STAND, head=(28, -134), neck=(20, -98), er=(30, -50), hr=(40, -6), el=(40, -96),
-                                hl=(70, -110)), rise * 0.55)
+    # his old little bike, leaning by the bench - rusty now
+    b = mini_bike(d, 760, (150, 96, 50), 0.6, 0.0, SON_S[1] * 1.15)
+    touch = smooth(prog(st, 0.2, 0.8)) * (1 - smooth(prog(st, 1.4, 1.8)))
+    rise = smooth(prog(st, 1.8, 2.3)) * (1 - smooth(prog(st, 2.8, 3.4)))
+    bp = SIT_B
+    if touch > 0:
+        bp = lerp_pose(SIT_B, dict(SIT_B, el=(60, -70), hl=(100, -80), head=(22, -144)), touch)
+    bp = lerp_pose(bp, dict(STAND, head=(28, -134), neck=(20, -98), er=(30, -50), hr=(40, -6), el=(40, -96),
+                            hl=(84, -110)), rise * 0.55)
+    if st >= 3.0:
+        bp = lerp_pose(bp, dict(SIT_B, head=(26, -128), neck=(16, -96)), smooth(prog(st, 3.0, 3.6)))
     hip = (500, lerp(FLOOR - 66 * DAD_S * 0.98, grounded(STAND, 500, DAD_S)[1], rise * 0.55))
     dpts = place(aged(bp, a), hip, 1, DAD_S)
     figure(stage, dpts, DAD_S, light=(0.3, -0.95), body=dad_col(a))
     cane(d, dpts["hr"], DAD_S)
-    # the son rushes past on the phone
-    u = prog(st, 0.3, 2.6)
-    if 0.3 <= st < 2.6:
+    if 1.0 <= st < 3.2:
+        u = prog(st, 1.0, 3.2)
         sx = lerp(-120, 1260, u)
         sp = walk(st * 11, 1.0, 0.1)
         sp = dict(sp, er=PHONE_EAR["er"], hr=PHONE_EAR["hr"], el=(-10, -60), hl=(-6, -14))
@@ -370,48 +413,74 @@ def s4(stage, d, st, T):
         figure(stage, spts, ks, light=(-0.4, -0.9), scarf=True)
         phone(d, spts["hr"], ks, lit=False)
         briefcase(d, spts["hl"], ks)
-    fx = lerp(560, 500, smooth(prog(st, 2.0, 3.5)))
-    return [], ((500, 1.0),), (fx, 1120, lerp(1.12, 1.28, smooth(prog(st, 2.2, 3.5)))), None
+    snow(d, T, 1.0)
+    fx = lerp(600, 520, smooth(prog(st, 2.6, 4.0)))
+    return [], ((520, 0.9),), (fx, 1120, lerp(1.12, 1.32, smooth(prog(st, 2.8, 4.0)))), None
 
 
 def s5(stage, d, st, T):
+    """he stops, turns, drops the briefcase, runs back, kneels; the old hand on his head; they walk at dad's pace"""
     a = DAD_AGE[5]
     ks = SON_S[5]
-    walk_t = 2.6
-    c = scroll(st, [(0.0, 0.0), (walk_t, 55.0)])
+    walk_t = 3.6
+    c = scroll(st, [(0.0, 0.0), (walk_t, 50.0)])
     lamps(d, 3100 + c)
     bench(d, 520 - c)
-    # the son comes back
-    if st < 1.0:
-        sx = lerp(1250, 720, smooth(st / 1.0))
-        sp = walk(st * 8, 1.0, 0.1)
-        spts = place(sp, grounded(sp, sx, ks), -1, ks)
-        figure(stage, spts, ks, light=(-0.4, -0.9), scarf=True)
-        briefcase(d, spts["hl"], ks)
+    mini_bike(d, 760 - c, (150, 96, 50), 0.6, 0.0, SON_S[1] * 1.15)
+    warm = smooth(prog(st, 2.3, 3.4))
+    if st < walk_t:
+        # the father, sitting
+        stand = smooth(prog(st, 3.0, 3.6))
         dp = SIT_B
-        dpts = place(aged(dp, a), (500, FLOOR - 66 * DAD_S * 0.98), 1, DAD_S)
-        figure(stage, dpts, DAD_S, light=(0.3, -0.95), body=dad_col(a))
-        cane(d, dpts["hr"], DAD_S)
-    elif st < walk_t:
-        k = smooth(prog(st, 1.2, 1.7))
-        sp = lerp_pose(STAND, OFFER, k)
-        spts = place(sp, grounded(STAND, 690 - 40 * k, ks), -1, ks)
-        stand = smooth(prog(st, 1.9, 2.5))
-        dp = lerp_pose(SIT_B, dict(STAND, er=(30, -50), hr=(40, -6)), stand)
+        if 2.3 <= st:
+            dp = lerp_pose(SIT_B, dict(SIT_B, el=(40, -110), hl=(70, -100)), smooth(prog(st, 2.3, 2.7)))
+        dp = lerp_pose(dp, dict(STAND, er=(30, -50), hr=(40, -6)), stand)
         hip = (500 + 20 * stand, lerp(FLOOR - 66 * DAD_S * 0.98, grounded(STAND, 520, DAD_S)[1], stand))
         dpts = place(aged(dp, a), hip, 1, DAD_S)
-        if st >= 1.7:
+        # the son
+        bag = None
+        if st < 0.9:
+            k = smooth(prog(st, 0.4, 0.9))
+            sp = lerp_pose(dict(STAND, el=(-10, -60), hl=(-6, -14)), dict(STAND, head=(-8, -152)), k)
+            spts = place(sp, grounded(STAND, 980, ks), 1 if st < 0.6 else -1, ks)
+            bag = spts["hl"]
+        elif st < 1.2:
+            sp = dict(STAND, head=(-6, -152), el=(-10, -60), hl=(-6, -14))
+            spts = place(sp, grounded(STAND, 980, ks), -1, ks)
+        elif st < 2.0:
+            u = smooth(prog(st, 1.2, 2.0))
+            rp = C.run_pose((st - 1.2) * 14, 0.8)
+            spts = place(rp, grounded(rp, lerp(980, 640, u), ks), -1, ks)
+        elif st < 3.0:
+            k = smooth(prog(st, 2.0, 2.4))
+            kneel = {"head": (-20, -128), "neck": (-14, -88), "el": (-30, -50), "hl": (-36, -10), "er": (8, -50),
+                     "hr": (10, -8), "kl": (-40, 10), "fl": (-46, 66), "kr": (30, 52), "fr": (70, 60)}
+            sp = lerp_pose(STAND, kneel, k)
+            spts = place(sp, (620, lerp(grounded(STAND, 620, ks)[1], FLOOR - 64 * ks, k)), -1, ks)
+        else:
+            k = smooth(prog(st, 3.0, 3.6))
+            sp = lerp_pose(STAND, OFFER, 0.6)
+            spts = place(sp, (lerp(620, 640, k), lerp(FLOOR - 64 * ks, grounded(STAND, 640, ks)[1], k)), -1, ks)
             meet = (lerp(spts["hr"][0], dpts["neck"][0] + 60, 0.5), lerp(spts["hr"][1], dpts["neck"][1] + 70, 0.5))
             spts = reach(spts, ks, "hr", meet, -1)
             dpts = reach(dpts, DAD_S, "hl", meet, 1)
+        if 2.4 <= st < 3.0:
+            dpts = reach(dpts, DAD_S, "hl", (spts["head"][0] + 6, spts["head"][1] - 22), 1)   # hand on his head
         figure(stage, dpts, DAD_S, light=(0.3, -0.95), body=dad_col(a))
         cane(d, dpts["hr"], DAD_S)
         figure(stage, spts, ks, light=(-0.4, -0.9), scarf=True)
-        if st >= 1.7:
+        # the briefcase: in his hand, dropped at 1.1
+        if bag is not None:
+            briefcase(d, bag, ks)
+        else:
+            u = st - 1.0
+            y = min(FLOOR - 40 * ks, 1080 + 900 * u * u)
+            briefcase(d, (1000, y), ks)
+        if st >= 3.0:
             hands_hold(d, spts["hr"], ks, DAD_S, old_holds=True)
     else:
-        # walking together at the father's pace
-        w = (st - walk_t)
+        briefcase(d, (1000 - c, FLOOR - 40 * ks), ks)
+        w = st - walk_t
         dp = walk(w * 4.0, 0.45, 0.0)
         dp = dict(dp, er=(30, -50), hr=(40, -6))
         dpts = place(aged(dp, a), grounded(dp, 520, DAD_S), 1, DAD_S)
@@ -424,31 +493,57 @@ def s5(stage, d, st, T):
         cane(d, dpts["hr"], DAD_S)
         figure(stage, spts, ks, light=(-0.4, -0.9), scarf=True)
         hands_hold(d, meet, ks, DAD_S, old_holds=True)
-    # camera: wide, then down to the joined hands - the same shot as frame 0
-    if st < 3.7:
-        fx, fy, z = 600, 1110, 1.15
+    snow(d, T, 1 - warm)
+    if st < 1.2:
+        fx, fy, z = lerp(760, 820, st / 1.2), 1110, 1.2
+    elif st < 2.4:
+        fx, fy, z = lerp(820, 580, smooth(prog(st, 1.2, 2.2))), 1120, lerp(1.2, 1.35, smooth(prog(st, 1.6, 2.4)))
+    elif st < 4.8:
+        fx, fy, z = 580, 1110, lerp(1.35, 1.15, smooth(prog(st, 2.4, 3.6)))
     else:
-        k = smooth(prog(st, 3.7, 4.5))
-        mx = (520 + 640) / 2
-        fx, fy, z = lerp(600, mx, k), lerp(1110, 1160, k), lerp(1.15, 2.7, k)
-    lines = [(2.5, "HE WAITED FOR YOUR FIRST STEPS."), (3.2, "WAIT FOR HIS LAST ONES.")]
-    return lines, ((560, 1.0),), (fx, fy, z), None
+        k = smooth(prog(st, 4.8, 5.6))
+        fx, fy, z = lerp(580, 580, k), lerp(1110, 1160, k), lerp(1.15, 2.7, k)
+    lines = [(3.7, "HE WAITED FOR YOUR FIRST STEPS."), (4.4, "WAIT FOR HIS LAST ONES.")]
+    return lines, ((560, 0.6 + 0.4 * round(warm, 1)),), (fx, fy, z), ("warm", warm)
 
 
 SCENES = [s0, s1, s2, s3, s4, s5]
+GRADE = [0.9, 0.8, 0.0, -0.55, -1.0, -1.0]     # warm (+) to cold (-)
+
+
+def grade(im, g):
+    if abs(g) < 0.02:
+        return im
+    warm = np.array([1.12, 1.01, 0.82], np.float32)
+    cold = np.array([0.84, 0.95, 1.16], np.float32)
+    gain = 1 + (warm - 1) * g if g > 0 else 1 + (cold - 1) * (-g)
+    a = np.asarray(im.convert("RGB"), np.float32)
+    if g < 0:
+        m = a.mean(axis=2, keepdims=True)
+        a = a * (1 + 0.25 * g) + m * (-0.25 * g)
+    a = np.clip(a * gain, 0, 255).astype(np.uint8)
+    return Image.fromarray(a, "RGB").convert("RGBA")
 
 
 # ---------------------------------------------------------------- frame
+def age_now(sc, st):
+    """the counter rolls through the years at the start of every scene"""
+    if sc == 0:
+        return 1
+    a0, a1 = AGES[sc - 1], AGES[sc]
+    return int(round(lerp(a0, a1, smooth(prog(st, 0.0, 0.55)))))
+
+
 def age_counter(img, sc, st, t):
     if sc == 0 and st < 1.6:
         return
     d = ImageDraw.Draw(img)
-    age = AGES[sc]
-    k = hq.pop(st, 0.0, 0.3) if sc > 0 else hq.pop(st, 1.6, 0.3)
+    age = age_now(sc, st)
+    k = hq.pop(st, 0.5, 0.3) if sc > 0 else hq.pop(st, 1.6, 0.3)
     fa = font(C.SERIF, 30)
     PW.spaced(d, W / 2, 150, "AGE", fa, (170, 174, 186, 255), 10)
-    fb = font(SERIF_B, max(8, int(96 * (0.8 + 0.2 * k))))
-    PW.spaced(d, W / 2, 186, str(age), fb, (244, 240, 230, int(255 * min(1, k + 0.2))), 4)
+    fb = font(SERIF_B, max(8, int(96 * (0.85 + 0.15 * k))))
+    PW.spaced(d, W / 2, 186, str(age), fb, (244, 240, 230, 255), 4)
 
 
 def frame(t):
@@ -475,13 +570,16 @@ def frame(t):
     dx = z * (W / 2 - fx)
     dy = z * (H / 2 - fy)
     im = hq.camera(base, z, dx * K, dy * K).resize((W, H), Image.LANCZOS)
-    # a soft dip between the years
-    if sc > 0 and st < 0.25:
-        k = 1 - st / 0.25
-        im = Image.blend(im, Image.new("RGBA", im.size, (0, 0, 0, 255)), 0.6 * k)
-    if sc < 5 and st > SC[sc + 1] - SC[sc] - 0.2:
-        k = (st - (SC[sc + 1] - SC[sc] - 0.2)) / 0.2
-        im = Image.blend(im, Image.new("RGBA", im.size, (0, 0, 0, 255)), 0.6 * k)
+    gr = GRADE[sc]
+    if extra and extra[0] == "warm":
+        gr = lerp(-1.0, 1.0, extra[1])
+    im = grade(im, gr)
+    if sc > 0 and st < 0.3:
+        k = 1 - st / 0.3
+        im = Image.blend(im, Image.new("RGBA", im.size, (0, 0, 0, 255)), 0.75 * k)
+    if sc < 5 and st > SC[sc + 1] - SC[sc] - 0.25:
+        k = (st - (SC[sc + 1] - SC[sc] - 0.25)) / 0.25
+        im = Image.blend(im, Image.new("RGBA", im.size, (0, 0, 0, 255)), 0.75 * k)
     age_counter(im, sc, st, t)
     C.caption(im, lines, st)
     if sc == 0 and st < 1.6:
@@ -499,78 +597,129 @@ def render(i):
     return frame(i / FPS).tobytes()
 
 
-# ---------------------------------------------------------------- music: emotional piano + strings on GM (FluidSynth)
+# ---------------------------------------------------------------- music: a dramatic cinematic cue (FluidSynth GM)
 def score():
+    """piano alone -> strings; heartbeat tension at 16; total silence and one high violin on the hand in the air;
+    a timpani/low-brass blow as he walks away; a cello lament in the rain; sparse piano in the snow; a timpani roll
+    when the briefcase drops; the full orchestra + choir as he comes back; the last chord rings into the loop"""
     import mido
-    notes = []
-    prg = {0: 0, 1: 48, 2: 42, 3: 52, 4: 60, 5: 46, 6: 43, 7: 89}
-    chords = [(45, 52, 57, 60, 64), (41, 48, 53, 57, 60), (48, 55, 60, 64, 67), (43, 50, 55, 59, 62)]   # Am F C G
-    melody = [76, 74, 72, 71, 72, 69, 71, 72]
-    bar = 2.4
+    ev = []        # (time, kind, ch, a, b)  kind: 1 on, 0 off, 2 cc
+
+    def note(t, du, ch, n, v):
+        if t >= DUR or du <= 0:
+            return
+        ev.append((t, 1, ch, int(n), int(min(127, max(1, v)))))
+        ev.append((min(DUR, t + du), 0, ch, int(n), 0))
+
+    def swell(ch, t0, t1, v0, v1, steps=24):
+        for j in range(steps + 1):
+            u = j / steps
+            ev.append((t0 + (t1 - t0) * u, 2, ch, 11, int(lerp(v0, v1, u))))
+    prg = {0: 0, 1: 48, 2: 42, 3: 52, 4: 60, 5: 47, 6: 43, 7: 40, 8: 61, 10: 49, 11: 46}
+    Am, F, Cc, G, Dm, E = (45, 57, 60, 64), (41, 57, 60, 65), (48, 55, 60, 64), (43, 55, 59, 62), (50, 57, 62, 65), \
+        (40, 56, 59, 64)
+    prog_ = [Am, F, Cc, G]
+    bar = 2.0
+    hand0, hand1 = SC[2] + 1.6, SC[2] + 3.7
+    # piano throughout (except the silence): arpeggios, sparser in the cold
     t = 0.0
     i = 0
-    silence = (SC[2] + 1.8, SC[3])          # the hand left in the air
     while t < DUR - 0.05:
-        ch = chords[i % 4]
+        ch = prog_[i % 4] if t < SC[5] + 1.2 else [Am, F, Cc, E][i % 4]
         sc, st = scene_of(t + 1e-4)
-        quiet = silence[0] <= t < silence[1]
-        # piano arpeggio (8ths)
-        if not quiet:
-            arp = [ch[0] + 12, ch[2] + 12, ch[3] + 12, ch[4] + 12, ch[3] + 12, ch[2] + 12]
-            for j, n in enumerate(arp):
-                tt = t + j * bar / 6
-                if not (silence[0] <= tt < silence[1]) and tt < DUR:
-                    notes.append((tt, bar / 6 * 1.6, 0, n, 58 + 6 * sc))
-            # bass
-            notes.append((t, bar * 0.95, 0, ch[0] - 12, 60 + 6 * sc))
-        # the melody: from the first scene, piano; later horn
-        if not quiet:
-            for j in range(2):
-                tt = t + j * bar / 2
-                mn = melody[(i * 2 + j) % len(melody)]
-                if tt < DUR and not (silence[0] <= tt < silence[1]):
-                    notes.append((tt, bar / 2 * 0.95, 0 if sc < 5 else 4, mn, 72 + 6 * sc))
-        # strings pad from AGE 6, cellos from AGE 25, choir at the end
-        if sc >= 1 and not quiet:
-            for n in ch[1:4]:
-                notes.append((t, bar * 0.98, 1, n + 12, 46 + 12 * sc))
-        if sc >= 3 and not quiet:
-            notes.append((t, bar * 0.98, 2, ch[0], 60 + 8 * sc))
-        if sc == 5 and t >= SC[5] + 1.2:
-            for n in ch[1:4]:
-                notes.append((t, bar * 0.98, 3, n + 12, 92))
-                notes.append((t, bar * 0.98, 6, n - 12, 80))
+        dens = {0: 6, 1: 8, 2: 8, 3: 6, 4: 3, 5: 8}[sc]
+        for j in range(dens):
+            tt = t + j * bar / dens
+            if hand0 <= tt < hand1:
+                continue
+            nn = [ch[1], ch[2], ch[3], ch[2] + 12, ch[3], ch[2]][j % 6] + (12 if sc in (0, 4) else 0)
+            note(tt, bar / dens * 2.2, 0, nn, 52 + 8 * sc)
+        if not (hand0 <= t < hand1):
+            note(t, bar * 1.2, 0, ch[0], 66)
         t += bar
         i += 1
-    # the single low note under the silence
-    notes.append((silence[0], silence[1] - silence[0], 6, 33, 70))
-    # harp gliss when he lets go of the bike, and when the son turns back
-    for t0 in (SC[1] + 1.4, SC[5] + 1.0):
-        for j, n in enumerate((57, 60, 64, 67, 69, 72, 76, 79, 81, 84)):
-            notes.append((t0 + j * 0.04, 1.2, 5, n, 70))
-    # the final chord held into the loop
-    for n in (45, 57, 60, 64, 69, 72):
-        notes.append((SC[5] + 3.2, DUR - SC[5] - 3.2, 1, n, 90))
+    # the theme (piano first, then strings) - a falling line that resolves
+    theme = [(0.0, 1.0, 76), (1.0, 0.5, 74), (1.5, 0.5, 72), (2.0, 1.5, 71), (3.5, 0.5, 69), (4.0, 2.0, 72),
+             (6.0, 1.0, 71), (7.0, 1.0, 69)]
+    for t0, ch_ in ((0.2, 0), (SC[1] + 0.2, 0), (SC[3] + 0.3, 2), (SC[5] + 2.2, 10)):
+        for b0, du, nn in theme:
+            tt = t0 + b0 * 0.5
+            if not (hand0 <= tt < hand1):
+                note(tt, du * 0.5 * 1.05, ch_, nn - (12 if ch_ == 2 else 0), 96)
+    # strings pad from AGE 6, swelling
+    for k_, (t0, t1) in enumerate(((SC[1], SC[2] + 1.6), (SC[3], SC[5]))):
+        t = t0
+        i = 0
+        while t < t1:
+            ch = prog_[i % 4]
+            for nn in ch[1:]:
+                note(t, bar, 1, nn, 70)
+            t += bar
+            i += 1
+    swell(1, SC[1], SC[2], 50, 90)
+    swell(1, SC[3], SC[4], 60, 110)
+    swell(1, SC[4], SC[5], 70, 50)
+    # AGE 16: low string ostinato + heartbeat build, then the silence with one high violin, then the blow
+    t = SC[2]
+    while t < hand0:
+        note(t, 0.2, 6, 33, 90)
+        note(t + 0.25, 0.2, 6, 33, 70)
+        t += 0.5
+    note(hand0, hand1 - hand0, 7, 88, 70)
+    swell(7, hand0, hand1, 30, 90)
+    note(hand1, 1.6, 5, 33, 127)
+    note(hand1, 1.6, 8, 33, 110)
+    note(hand1, 1.6, 8, 45, 110)
+    # AGE 25: cello lament in the rain
+    swell(2, SC[3], SC[4], 70, 115)
+    # AGE 40: sparse; high tremolo strings + a clock
+    t = SC[4]
+    while t < SC[5]:
+        note(t, 2.0, 1, 88, 40)
+        t += 2.0
+    # AGE 45: timpani roll when the briefcase drops, then everything
+    roll0 = SC[5] + 1.05
+    for j in range(24):
+        note(roll0 + j * 0.05, 0.05, 5, 45, int(50 + 3 * j))
+    climax = SC[5] + 2.2
+    for nn in (33, 45):
+        note(climax, 0.9, 5, nn, 127)
+    t = climax
+    i = 0
+    while t < DUR - 0.05:
+        ch = [Am, F, Cc, G][i % 4]
+        for nn in ch:
+            note(t, bar, 1, nn + 12, 110)
+            note(t, bar, 3, nn + 12, 100)
+            note(t, bar, 8, nn - 12, 90)
+            note(t, bar, 6, nn - 24, 100)
+        note(t, bar, 4, ch[3] + 12, 105)
+        t += bar
+        i += 1
+    swell(1, climax, DUR, 90, 127)
+    swell(3, climax, DUR, 60, 120)
+    for j, nn in enumerate((57, 60, 64, 67, 69, 72, 76, 79, 81, 84, 88)):
+        note(SC[5] + 2.1 + j * 0.035, 1.5, 11, nn, 80)
+    ev.sort(key=lambda e: (e[0], {2: 0, 0: 1, 1: 2}[e[1]]))
     mid = mido.MidiFile(ticks_per_beat=960)
     tr = mido.MidiTrack()
     mid.tracks.append(tr)
     tr.append(mido.MetaMessage("set_tempo", tempo=500000, time=0))
-    vol = {0: 104, 1: 92, 2: 96, 3: 86, 4: 100, 5: 80, 6: 96, 7: 60}
+    vol = {0: 106, 1: 100, 2: 108, 3: 88, 4: 96, 5: 118, 6: 104, 7: 96, 8: 100, 10: 104, 11: 80}
     for c_, p_ in prg.items():
         tr.append(mido.Message("program_change", channel=c_, program=p_, time=0))
     for c_, v in vol.items():
         tr.append(mido.Message("control_change", channel=c_, control=7, value=v, time=0))
-        tr.append(mido.Message("control_change", channel=c_, control=91, value=95, time=0))
-    ev = []
-    for s_, du, c_, n, v in notes:
-        ev.append((s_, 1, c_, n, v))
-        ev.append((s_ + du, 0, c_, n, 0))
-    ev.sort(key=lambda e: (e[0], e[1]))
+        tr.append(mido.Message("control_change", channel=c_, control=91, value=110, time=0))
+        tr.append(mido.Message("control_change", channel=c_, control=11, value=100, time=0))
     now = 0
-    for s_, on, c_, n, v in ev:
+    for s_, kind, c_, a_, b_ in ev:
         tk = int(round(max(0.0, s_) * 1920))
-        tr.append(mido.Message("note_on" if on else "note_off", channel=c_, note=int(n), velocity=int(min(127, v)),
-                               time=max(0, tk - now)))
+        dt = max(0, tk - now)
+        if kind == 2:
+            tr.append(mido.Message("control_change", channel=c_, control=a_, value=b_, time=dt))
+        else:
+            tr.append(mido.Message("note_on" if kind == 1 else "note_off", channel=c_, note=a_, velocity=b_, time=dt))
         now = max(now, tk)
     tmp = tempfile.mkdtemp()
     mp, wp = os.path.join(tmp, "s.mid"), os.path.join(tmp, "s.wav")
@@ -582,8 +731,10 @@ def score():
     n = int(DUR * SR)
     out = np.zeros((n, 2))
     out[:min(n, len(m))] = m[:n]
+    # hard silence on the hand (only the violin), then the blow
+    i0, i1 = int((hand0 + 0.05) * SR), int(hand1 * SR)
     out /= np.abs(out).max() + 1e-9
-    return out * 0.6
+    return out * 0.65
 
 
 def step(fx, at, g, pan=0.0, low=140):
@@ -595,39 +746,42 @@ def audio():
     n = int(DUR * SR)
     fx = np.zeros((n, 2))
     mus = score()
-    # S0: tiny steps, the fall, a giggle-like chirp when lifted
     for j in range(6):
         step(fx, SC[0] + 0.2 + j * 0.3, 0.02, 0.1, 220)
     mix_in(fx, tone(90, 0.25, (1, 0.5), a=0.002, d=0.08), SC[0] + 1.95, 0.06)
-    for j, f_ in enumerate((900, 1100, 1300)):
-        mix_in(fx, tone(f_, 0.09, (1, 0.3), a=0.005, d=0.05), SC[0] + 2.45 + j * 0.09, 0.025)
-    # S1: running steps, chain
     for j in range(8):
         step(fx, SC[1] + j * 0.18, 0.03, -0.2)
     for j in range(20):
         mix_in(fx, noise(0.02, 40 + j, lo=2000, hi=7000)[:int(0.02 * SR)] * env(int(0.02 * SR), 0.0005, 0.006),
                SC[1] + j * 0.16, 0.03, 0.3)
-    # S2: steps that stop
-    for j in range(7):
+    for j in range(6):
         step(fx, SC[2] + j * 0.3, 0.03, -0.2)
-    # S3: suitcase wheels, car door, engine leaving
+    # heartbeat under AGE 16
+    for j in range(6):
+        for k2, dt in enumerate((0.0, 0.18)):
+            mix_in(fx, tone(50, 0.2, (1, 0.5), a=0.003, d=0.08), SC[2] + 0.4 + j * 0.5 + dt, 0.12 - 0.05 * k2)
+    # AGE 25: wheels, door, car, rain
     mix_in(fx, noise(1.2, 3, lo=200, hi=1500)[:int(1.2 * SR)] * 0.6, SC[3], 0.04, 0.2)
     mix_in(fx, tone(100, 0.2, (1, 0.5), a=0.001, d=0.06), SC[3] + 2.25, 0.12, 0.3)
     eng = noise(1.2, 4, lo=60, hi=500)[:int(1.2 * SR)] * np.linspace(1, 0, int(1.2 * SR))
     mix_in(fx, eng, SC[3] + 2.4, 0.12, 0.5)
-    # S4: phone talk murmur, fast steps, the bench creak
+    rn = noise(SC[4] - SC[3] - 2.4, 5, lo=900, hi=9000)
+    rn = rn[:int((SC[4] - SC[3] - 2.4) * SR)] * np.minimum(1, np.linspace(0, 4, int((SC[4] - SC[3] - 2.4) * SR)))
+    mix_in(fx, rn, SC[3] + 2.4, 0.06)
+    # AGE 40: a clock ticking, steps rushing past
+    t0 = SC[4]
+    while t0 < SC[5]:
+        mix_in(fx, tone(2400, 0.02, (1,), a=0.0005, d=0.008), t0, 0.03)
+        t0 += 0.5
     for j in range(10):
-        step(fx, SC[4] + 0.3 + j * 0.22, 0.03, lerp(-0.6, 0.6, j / 9))
-    mix_in(fx, tone(210, 0.4, (1, 1.7, 2.3), a=0.05, d=0.2, sweep=180), SC[4] + 1.05, 0.03)
-    # S5: steps back, cane taps as they walk
-    for j in range(4):
-        step(fx, SC[5] + j * 0.25, 0.03, 0.3)
-    for j in range(6):
-        mix_in(fx, tone(700, 0.05, (1, 2.4), a=0.001, d=0.02), SC[5] + 2.7 + j * 0.42, 0.04, -0.1)
-    # dips between the years: a soft breath of air
-    for cut in SC[1:6]:
-        mix_in(fx, noise(0.5, int(cut * 10), lo=300, hi=3000)[:int(0.5 * SR)] *
-               np.sin(np.linspace(0, np.pi, int(0.5 * SR))), cut - 0.25, 0.03)
+        step(fx, SC[4] + 1.0 + j * 0.22, 0.03, lerp(-0.6, 0.6, j / 9))
+    # AGE 45: the briefcase hits the ground, running steps, cane taps
+    mix_in(fx, tone(80, 0.3, (1, 0.5), a=0.001, d=0.1) + 0.4 * noise(0.3, 6, lo=200, hi=3000)[:int(0.3 * SR)] *
+           env(int(0.3 * SR), 0.001, 0.05), SC[5] + 1.12, 0.2, 0.4)
+    for j in range(5):
+        step(fx, SC[5] + 1.25 + j * 0.15, 0.04, 0.2)
+    for j in range(5):
+        mix_in(fx, tone(700, 0.05, (1, 2.4), a=0.001, d=0.02), SC[5] + 3.7 + j * 0.42, 0.035, -0.1)
     x = mus + fx
     m = int(0.25 * SR)
     k = np.linspace(0, 1, m)[:, None]
