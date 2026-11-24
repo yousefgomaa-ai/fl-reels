@@ -85,3 +85,12 @@ Every reel: propose first, build after "نفذ"; send it with idea, title, first
   rises and falls as he passes with headphones; at his door he stops, turns; the camera dives into her hourglass
   (music ducked, heartbeat); headphones drop, he runs back and holds her; the last grain hangs. Reunited is cut from
   22 s so its swell lands on the hug. YOU CAN'T SEE IT. / BUT IT'S RUNNING.
+
+## Nov 25 - "The Rope" (stick/rope.py -> rope.mp4, 20 s)
+- Owner rejected the hourglass (who is mom/dad unclear, no pull at the start) and asked for strong-hook ideas; chose
+  The Rope. Frame 0: close-up of a rope fraying over a rock lip + THE ROPE CAN ONLY HOLD ONE., ROPE % counter
+  (62 -> 0). Hero (red scarf) above, stranger (yellow helmet, backpack) below; the stranger points at the hero's
+  knife; trembling hesitation; the knife thrown into the dark; he grabs the stranger, they climb (snaps, a slip),
+  he hauls him over the edge as the rope snaps. HE COULD HAVE CUT IT. / HE CHOSE NOT TO.
+- Music: "Immersed" (tension) then "Eternal Hope" from 228 s so its swell (244 s) lands on the rescue - both Kevin
+  MacLeod, CC BY 4.0 (credit both in the description).
