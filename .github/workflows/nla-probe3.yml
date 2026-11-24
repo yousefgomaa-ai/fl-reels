@@ -3,7 +3,7 @@ name: NLA probe 3
 on:
   push:
     branches: [claude/nla-probe]
-    paths: [.github/workflows/nla-probe3.yml, sample/gn.py]
+    paths: [.github/workflows/nla-probe3.yml, sample/m.py]
 jobs:
   p:
     runs-on: ubuntu-latest
@@ -17,15 +17,4 @@ jobs:
           echo "::add-mask::$REELS_KEY"
           sleep 1
           for d in 20261124 20261125; do curl -sS --max-time 60 "https://api.football-legend.com/matches?date=$d" -o m$d.json; done
-          python3 -c "
-import json
-for d in ['20261124','20261125']:
-  try: j=json.load(open('m'+d+'.json'))
-  except Exception as e: print(d,'ERR',e); continue
-  evs=j.get('events') or j.get('matches') or (j if isinstance(j,list) else [])
-  if isinstance(j,dict) and not evs: print(d,list(j.keys())[:10])
-  for m in evs:
-    s=json.dumps(m)
-    if '575398' in s or 'Galatasaray' in s:
-      print(d, json.dumps({k:m.get(k) for k in ('id','leagueSlug','goals','score','fixture','teams','liveSource','penalties')},ensure_ascii=False)[:1500])
-"
+          python3 sample/m.py
