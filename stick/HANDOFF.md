@@ -50,3 +50,11 @@ Every reel: propose first, build after "نفذ"; send it with idea, title, first
 - v2 (owner: more motion, clearer situations, the phone idea is unclear): 20.3 s - S0 'the grass is greener' (his lawn dries as he looks over the fence), S1 tracking bike + the car passes and splashes him, S2 the barbell slammed down (shake), S3 payday envelopes (the colleague's bursts with money, a whip pan), S4 he runs through a 5K FINISH arch, the giant screen shows a marathon winner, S5 the reveal; moving cameras, whip-ins on every cut.
 - v3 (owner: the grass looked bad, didn't like the ending; chose ending B): lawns are now raised turf patches (lit edge, tufts, flowers, bush), both gardens in view from frame 0, the neighbour's lusher; a dark figure peeks over the left fence at HIS garden (hidden detail). New ending: the camera pulls back over a row of gardens, everyone leaning on a fence staring at the next one, lights come on one by one: EVERYONE IS LOOKING / AT SOMEONE ELSE'S GRASS. 21.5 s.
 - v4 (owner chose hook 1): frame 0 = he leans on the fence staring at the lush garden while his own lawn is already yellowing and crackles dry; big serif question WHY IS HIS GRASS / DYING? for 1.5 s, then the small WHEN YOU COMPARE YOURSELF.
+
+## Nov 24 (late) - "Wait For His Last Steps" (stick/steps.py -> steps.mp4, 21.5 s)
+- Owner asked for an emotional idea; chose "Wait For His Last Steps". Built on the compare.py night engine (imports it).
+- One road of street lamps, AGE counter (1, 6, 16, 25, 40, 45), the father ages (hunch, greyer, a cane); the son
+  wears the red scarf. Hook: close-up of a tiny hand around a big finger + HE TAUGHT YOU TO WALK. End mirrors it:
+  the old hand holding the son's, HE WAITED FOR YOUR FIRST STEPS. / WAIT FOR HIS LAST ONES.
+- Music: emotional piano + strings on FluidSynth, silence when the father's hand is left in the air (AGE 16),
+  choir/horn swell when the son comes back.
