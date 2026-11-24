@@ -615,10 +615,10 @@ def watering_can(d, hand, T, tilt, pour):
 
 
 def s0(stage, d, st, T):
-    """the grass is greener: both gardens in view from frame 0; his dries up while he stares over the fence"""
+    """hook: he leans on the fence staring at the neighbour's lush garden while his own dries up under him, from
+    frame 0. WHY IS HIS GRASS DYING? (big, 0-1.5 s), then WHEN YOU COMPARE YOURSELF"""
     s = 1.2
-    look = smooth(prog(st, 0.7, 1.1))
-    dry = smooth(prog(st, 1.3, 2.3))
+    dry = 0.2 + 0.8 * smooth(prog(st, 0.0, 1.7))
     turf(d, stage, 580, 1080, 1.0, 1.0, seed=2, glow=1.0, lush_extra=1.0, fl_gap=34)
     sprinkler(d, 800, T)
     turf(d, stage, 20, 520, 0.85 * (1 - dry), 1.0, seed=1, fl_gap=90)
@@ -627,18 +627,21 @@ def s0(stage, d, st, T):
     # the hidden detail: someone peeking over the left fence at HIS garden (dark, only on a second look)
     pk = place(LEAN, stand_hip(-50, 1.0), 1, 1.0)
     figure(stage, pk, 1.0, light=(0.6, -0.8), body=(70, 72, 80), alpha=0.9, blur=2.5)
-    hip = stand_hip(300, s)
-    pose = dict(STAND, er=(30, -80), hr=(66, -64), head=(lerp(0, 18, look), -150))
-    if dry > 0.5:
-        pose = lerp_pose(pose, dict(SAD, er=(20, -60), hr=(36, -24)), smooth(prog(st, 2.1, 2.7)))
-    pts = place(pose, hip, 1, s)
+    # dry flakes drifting off his lawn
+    if st < 2.0:
+        rng = np.random.default_rng(8)
+        for j in range(24):
+            u = ((st * 0.9 + j / 24) % 1.0)
+            x = 40 + rng.uniform(0, 470) + 40 * u
+            y = FLOOR - 50 - 120 * u
+            ell(d, x, y, 3, 2, (190, 160, 90, int(200 * (1 - u) * min(1, dry * 3))))
+    turn = smooth(prog(st, 1.8, 2.3))
+    pose = lerp_pose(LEAN, dict(SAD, head=(14, -138)), turn)
+    pts = place(pose, stand_hip(lerp(450, 400, turn), s), 1 if turn < 0.5 else -1, s)
     figure(stage, pts, s, light=(0.5, -0.85), scarf=True)
-    tilt = 0.5 * (1 - smooth(prog(st, 1.0, 1.4)))
-    watering_can(d, pts["hr"], T, tilt, st < 1.0)
-    fx = lerp(560, 330, smooth(prog(st, 1.5, 2.6)))
-    z = lerp(1.06, 1.22, smooth(prog(st, 1.5, 2.6)))
-    return [(-1.0, "WHEN YOU COMPARE YOURSELF")], ((300, 0.9), (820, 1.0)), (fx, 1060, z), None
-
+    fx = lerp(600, 380, smooth(prog(st, 1.7, 2.8)))
+    z = lerp(1.1, 1.22, smooth(prog(st, 1.7, 2.8)))
+    return [(1.55, "WHEN YOU COMPARE YOURSELF")], ((420, 0.9), (820, 1.0)), (fx, 1060, z), ("hook", None)
 
 
 BIKE_X = 430
@@ -1041,6 +1044,14 @@ def frame(t):
             bl = im.resize((max(8, int(W / (1 + 40 * k))), H), Image.BILINEAR).resize((W, H), Image.BILINEAR)
             im = Image.blend(im, bl, min(1.0, k * 1.2))
     caption(im, lines, st)
+    if sc == 0 and st < 1.55:
+        k = 1 - smooth(prog(st, 1.3, 1.55))
+        dq = ImageDraw.Draw(im)
+        fb = font("/usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf", 84)
+        for i, ln in enumerate(("WHY IS HIS GRASS", "DYING?")):
+            y = 300 + i * 104
+            PW.spaced(dq, W / 2 + 3, y + 4, ln, fb, (0, 0, 0, int(160 * k)), 6)
+            PW.spaced(dq, W / 2, y, ln, fb, (244, 240, 230, int(255 * k)), 6)
     return np.asarray(im.convert("RGB"))
 
 
@@ -1168,14 +1179,13 @@ def audio():
     n = int(DUR * SR)
     fx = np.zeros((n, 2))
     mus = score()
-    # S0: watering, the sprinkler, the lawn drying
-    w = noise(2.1, 1, lo=1500, hi=7000)[:int(2.1 * SR)] * 0.5
-    mix_in(fx, w * np.minimum(1, np.linspace(0, 8, len(w))), SC[0], 0.03, -0.2)
+    # S0: the lawn crackling dry from frame 0, the neighbour's sprinkler
     for j in range(16):
         mix_in(fx, burst_noise(0.03, 20 + j, 3000, 9000, 0.0005, 0.01), SC[0] + 0.1 + j * 0.17, 0.03, 0.5)
-    mix_in(fx, noise(0.8, 2, lo=1500, hi=6000)[:int(0.8 * SR)] * (np.random.default_rng(1).random(int(0.8 * SR)) > 0.985),
-           SC[0] + 1.5, 0.25)
-    mix_in(fx, tone(160, 0.6, (1, 0.5), a=0.01, d=0.3, sweep=70), SC[0] + 1.6, 0.06)
+    ncr = int(1.8 * SR)
+    cr = noise(1.8, 2, lo=1500, hi=6000)[:ncr] * (np.random.default_rng(1).random(ncr) > 0.975)
+    mix_in(fx, cr * np.linspace(1, 0.3, ncr), SC[0], 0.3, -0.2)
+    mix_in(fx, tone(160, 0.9, (1, 0.5), a=0.01, d=0.5, sweep=60), SC[0] + 0.2, 0.07)
     # S1: chain, the car passing, the splash, the brakes
     for j in range(16):
         mix_in(fx, burst_noise(0.02, 40 + j, 2000, 7000, 0.0005, 0.006), SC[1] + j * 0.15, 0.035, -0.3)
