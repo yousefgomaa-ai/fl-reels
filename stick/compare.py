@@ -41,7 +41,7 @@ from perfect_wave import clamp, env, font, lerp, lerp_pose, midi, mix_in, noise,
 W, H, FPS = 1080, 1920, 30
 K = 2
 SR = 44100
-DUR = 20.3
+DUR = 21.5
 NF = int(round(DUR * FPS))
 FLOOR = 1330
 SERIF = "/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf"
@@ -522,70 +522,123 @@ def grounded(pose, x, s, feet=FLOOR):
     return (x, feet - low * s)
 
 
-def blades(d, x0, x1, col, h, seed, wind, dens=7):
+LUSH = (58, 168, 74)
+DRY = (168, 140, 76)
+LEAN = dict(STAND, head=(18, -150), neck=(8, -108), el=(34, -86), hl=(66, -96), er=(30, -90), hr=(62, -100))
+
+
+def turf(d, layer, x0, x1, health, sc=1.0, seed=0, glow=0.0, lush_extra=0.0, fl_gap=60):
+    """a raised patch of lawn: a bumpy green mass with a lit top edge, tufts, flowers and a bush.
+    health 1 = green and in bloom, 0 = dry and wilted. coordinates on screen, sc = size scale"""
     rng = np.random.default_rng(seed)
-    n = int((x1 - x0) / dens)
-    for j in range(n):
-        x = x0 + j * dens + rng.uniform(-3, 3)
-        y = FLOOR + rng.uniform(-6, 26)
-        hh = h * rng.uniform(0.6, 1.2)
-        sw = wind * rng.uniform(0.5, 1.5)
-        c = tuple(int(v * rng.uniform(0.8, 1.15)) for v in col)
-        line(d, [(x, y), (x + sw, y - hh)], tuple(min(255, v) for v in c) + (255,), 3)
+    col = tuple(int(lerp(b, a, health)) for a, b in zip(LUSH, DRY))
+    if lush_extra > 0:
+        col = tuple(int(min(255, c * (1 + 0.25 * lush_extra))) for c in col)
+    top = FLOOR - 58 * sc
+    if glow > 0:
+        gl = Image.new("RGBA", layer.size, (0, 0, 0, 0))
+        ell(ImageDraw.Draw(gl), (x0 + x1) / 2, top, (x1 - x0) * 0.6, 70 * sc, (120, 255, 140, int(60 * glow)))
+        layer.alpha_composite(gl.filter(ImageFilter.GaussianBlur(30 * sc * K)))
+    xs = np.linspace(x0, x1, 40)
+    edge = [(x, top - 6 * sc * math.sin(x * 0.05 + seed) - 4 * sc * math.sin(x * 0.13 + seed * 2)) for x in xs]
+    body = edge + [(x1, FLOOR + 16 * sc), (x0, FLOOR + 16 * sc)]
+    dark = tuple(int(c * 0.55) for c in col)
+    poly(d, body, dark + (255,), outline=INK + (255,), w=2 * sc)
+    inner = [(x, y + 6 * sc) for x, y in edge] + [(x1 - 6 * sc, FLOOR + 4 * sc), (x0 + 6 * sc, FLOOR + 4 * sc)]
+    poly(d, inner, col + (255,))
+    lite = tuple(min(255, int(c * 1.3 + 20)) for c in col)
+    line(d, [(x, y + 4 * sc) for x, y in edge], lite + (255,), 5 * sc)
+    # tufts along the top
+    for j in range(int((x1 - x0) / (9 * sc))):
+        x = x0 + 6 * sc + j * 9 * sc + rng.uniform(-2, 2) * sc
+        y = top - 6 * sc * math.sin(x * 0.05 + seed) - 4 * sc * math.sin(x * 0.13 + seed * 2) + 2 * sc
+        hgt = rng.uniform(12, 26) * sc * (0.55 + 0.45 * health) * (1 + 0.5 * lush_extra)
+        lean = rng.uniform(-4, 4) * sc + (1 - health) * 6 * sc
+        poly(d, [(x - 3 * sc, y), (x + 3 * sc, y), (x + lean, y - hgt)], lite + (255,))
+    # flowers
+    for j in range(int((x1 - x0) / (fl_gap * sc)) + 1):
+        x = x0 + 30 * sc + j * fl_gap * sc + rng.uniform(-10, 10) * sc
+        if x > x1 - 60 * sc:
+            continue
+        y = top - 4 * sc
+        stem_h = 40 * sc * (0.4 + 0.6 * health) * (1 + 0.3 * lush_extra)
+        bend = (1 - health) * 14 * sc
+        tip = (x + bend, y - stem_h + (1 - health) * 10 * sc)
+        line(d, [(x, y), tip], (40, 110, 50, 255), 3 * sc)
+        fc = [(240, 90, 120), (255, 210, 70), (250, 250, 255), (180, 120, 240)][int(rng.integers(4))]
+        fcol = tuple(int(lerp(b, a, health)) for a, b in zip(fc, (120, 100, 70)))
+        r = 10 * sc * (0.5 + 0.5 * health)
+        for k2 in range(5):
+            a = k2 * 1.256
+            ell(d, tip[0] + r * 0.9 * math.cos(a), tip[1] + r * 0.9 * math.sin(a), r * 0.6, r * 0.6, fcol + (255,))
+        ell(d, tip[0], tip[1], r * 0.45, r * 0.45, (250, 200, 60, 255))
+    # a bush at the far end
+    bx = x1 - 50 * sc
+    for dx, dy, r in ((-30, -14, 40), (24, -18, 46), (0, -48, 44)):
+        ell(d, bx + dx * sc, top + dy * sc, r * sc * (0.75 + 0.25 * health), r * sc * (0.75 + 0.25 * health),
+            tuple(int(c * 0.8) for c in col) + (255,), outline=INK + (255,), w=2 * sc)
+    ell(d, bx - 8 * sc, top - 58 * sc, 16 * sc, 10 * sc, lite + (255,))
 
 
-def fence(d, x):
+def fence_s(d, x, sc=1.0):
+    """a picket fence between two gardens, seen at an angle"""
     for j in range(6):
-        px = x + j * 12
-        py = FLOOR + 30 - j * 16
-        poly(d, [(px - 7, py), (px + 7, py), (px + 7, py - 120), (px, py - 132), (px - 7, py - 120)], (190, 182, 170, 255),
-             outline=INK + (255,), w=2)
-    line(d, [(x - 6, FLOOR - 40), (x + 66, FLOOR - 120)], (150, 142, 130, 255), 7)
-    line(d, [(x - 6, FLOOR - 0), (x + 66, FLOOR - 80)], (150, 142, 130, 255), 7)
+        px = x + (j * 12 - 30) * sc
+        py = FLOOR + (20 - j * 14) * sc
+        poly(d, [(px - 7 * sc, py), (px + 7 * sc, py), (px + 7 * sc, py - 125 * sc), (px, py - 137 * sc),
+                 (px - 7 * sc, py - 125 * sc)], (196, 188, 176, 255), outline=INK + (255,), w=2 * sc)
+    line(d, [(x - 36 * sc, FLOOR - 40 * sc), (x + 36 * sc, FLOOR - 110 * sc)], (150, 142, 130, 255), 7 * sc)
+    line(d, [(x - 36 * sc, FLOOR - 0 * sc), (x + 36 * sc, FLOOR - 70 * sc)], (150, 142, 130, 255), 7 * sc)
 
 
-def s0(stage, d, st, T):
-    """the grass is greener: watering his lawn, he looks over the fence, his lawn dries up"""
-    s = 1.25
-    look = smooth(prog(st, 0.9, 1.3))
-    dry = smooth(prog(st, 1.5, 2.3))
-    # neighbour's lawn: lush, bright, a sprinkler
-    glow = Image.new("RGBA", stage.size, (0, 0, 0, 0))
-    gd = ImageDraw.Draw(glow)
-    ell(gd, 860, FLOOR - 20, 260, 90, (90, 230, 110, 70))
-    stage.alpha_composite(glow.filter(ImageFilter.GaussianBlur(40)))
-    blades(d, 660, 1100, (70, 210, 90), 46, 2, 4 * math.sin(T * 3))
-    sx, sy = 870, FLOOR - 6
-    rrect(d, (sx - 8, sy - 16, sx + 8, sy + 4), 3, (60, 62, 70, 255))
+def sprinkler(d, x, T, sc=1.0):
+    y = FLOOR - 30 * sc
+    rrect(d, (x - 7 * sc, y - 16 * sc, x + 7 * sc, y + 2 * sc), 3, (60, 62, 70, 255))
     ang = -math.pi / 2 + 0.9 * math.sin(T * 2.2)
-    for j in range(26):
-        u = ((T * 1.6 + j / 26) % 1.0)
-        a = ang + (j % 5 - 2) * 0.08
-        x = sx + math.cos(a) * 260 * u
-        y = sy + math.sin(a) * 260 * u + 300 * u * u
-        ell(d, x, y, 3, 3, (180, 220, 255, int(230 * (1 - u))))
-    fence(d, 600)
-    # his lawn: green -> dry
-    col = tuple(int(lerp(a, b, dry)) for a, b in zip((80, 190, 90), (150, 130, 70)))
-    blades(d, -20, 590, col, lerp(40, 22, dry), 1, lerp(3, -6, dry))
-    # him, watering
-    hip = stand_hip(320, s)
-    pose = dict(STAND, er=(30, -80), hr=(66, -64), head=lerp_pose({"a": (0, -150)}, {"a": (14, -152)}, look)["a"])
-    if dry > 0.3:
-        pose = lerp_pose(pose, dict(SAD, er=(20, -60), hr=(36, -24)), smooth(prog(st, 2.1, 2.7)))
-    pts = place(pose, hip, 1, s)
-    figure(stage, pts, s, light=(0.5, -0.85), scarf=True)
-    hx, hy = pts["hr"]
-    tilt = 0.5 if st < 2.1 else 0.5 * (1 - smooth(prog(st, 2.1, 2.5)))
+    for j in range(30):
+        u = ((T * 1.6 + j / 30) % 1.0)
+        a = ang + (j % 5 - 2) * 0.07
+        px = x + math.cos(a) * 240 * u * sc
+        py = y - 16 * sc + math.sin(a) * 240 * u * sc + 300 * u * u * sc
+        ell(d, px, py, 3 * sc, 3.5 * sc, (190, 225, 255, int(235 * (1 - u))))
+
+
+def watering_can(d, hand, T, tilt, pour):
+    hx, hy = hand
     poly(d, [(hx - 10, hy - 10), (hx + 34, hy - 10), (hx + 30, hy + 26), (hx - 6, hy + 26)], (70, 140, 200, 255),
          outline=INK + (255,), w=2)
     line(d, [(hx + 32, hy + 6), (hx + 70, hy - 12 + 30 * tilt)], (70, 140, 200, 255), 6)
-    if st < 2.1:
+    if pour:
         for j in range(12):
             u = ((T * 2.5 + j / 12) % 1.0)
-            ell(d, hx + 72 + 40 * u, hy - 8 + 30 * tilt + 260 * u * u + 40 * u, 3, 4, (170, 210, 255, int(220 * (1 - u))))
-    fx = lerp(lerp(330, 720, look), 420, dry)
-    return [(-1.0, "WHEN YOU COMPARE YOURSELF")], ((330, 0.9), (860, 0.8)), (fx, 1060, lerp(1.25, 1.12, look)), None
+            ell(d, hx + 72 + 30 * u, hy - 8 + 30 * tilt + 200 * u * u + 40 * u, 3, 4, (170, 210, 255, int(220 * (1 - u))))
+
+
+def s0(stage, d, st, T):
+    """the grass is greener: both gardens in view from frame 0; his dries up while he stares over the fence"""
+    s = 1.2
+    look = smooth(prog(st, 0.7, 1.1))
+    dry = smooth(prog(st, 1.3, 2.3))
+    turf(d, stage, 580, 1080, 1.0, 1.0, seed=2, glow=1.0, lush_extra=1.0, fl_gap=34)
+    sprinkler(d, 800, T)
+    turf(d, stage, 20, 520, 0.85 * (1 - dry), 1.0, seed=1, fl_gap=90)
+    fence_s(d, 550)
+    fence_s(d, 0)
+    # the hidden detail: someone peeking over the left fence at HIS garden (dark, only on a second look)
+    pk = place(LEAN, stand_hip(-50, 1.0), 1, 1.0)
+    figure(stage, pk, 1.0, light=(0.6, -0.8), body=(70, 72, 80), alpha=0.9, blur=2.5)
+    hip = stand_hip(300, s)
+    pose = dict(STAND, er=(30, -80), hr=(66, -64), head=(lerp(0, 18, look), -150))
+    if dry > 0.5:
+        pose = lerp_pose(pose, dict(SAD, er=(20, -60), hr=(36, -24)), smooth(prog(st, 2.1, 2.7)))
+    pts = place(pose, hip, 1, s)
+    figure(stage, pts, s, light=(0.5, -0.85), scarf=True)
+    tilt = 0.5 * (1 - smooth(prog(st, 1.0, 1.4)))
+    watering_can(d, pts["hr"], T, tilt, st < 1.0)
+    fx = lerp(560, 330, smooth(prog(st, 1.5, 2.6)))
+    z = lerp(1.06, 1.22, smooth(prog(st, 1.5, 2.6)))
+    return [(-1.0, "WHEN YOU COMPARE YOURSELF")], ((300, 0.9), (820, 1.0)), (fx, 1060, z), None
+
 
 
 BIKE_X = 430
@@ -638,8 +691,6 @@ def s1(stage, d, st, T):
                 x = BIKE_X + 120 + vx * k
                 y = FLOOR - 10 + vy * k + 900 * k * k
                 ell(d, x, y, 4, 5, (170, 200, 240, int(230 * (1 - k))))
-    if v < 80:
-        observer(stage if False else _BACK[0], 0.0, 0.0, T)
     return [(0.3, "YOU WERE HAPPY."), (1.85, "UNTIL YOU LOOKED.")], ((BIKE_X + 60, 1.0),), \
         (lerp(BIKE_X + 120, BIKE_X + 40, smooth(prog(st, 2.3, 3.5))), 1050, lerp(1.0, 1.12, smooth(prog(st, 2.3, 3.5)))), \
         ("shake", [1.3])
@@ -878,20 +929,48 @@ def s4(stage, d, st, T):
 
 
 def s5(stage, d, st, T):
-    c = bike_scroll(9.0)
-    street(d, c)
-    color_back = smooth(prog(st, 1.9, 2.7))
-    col = tuple(int(lerp(a, b, color_back)) for a, b in zip(DULL, ORANGE))
-    bike(d, BIKE_X, st, col, c / 60.0, -c / 95.0)
-    s = 1.2
-    turn = st >= 1.45
-    pose = SAD if not turn else lerp_pose(SAD, dict(STAND, head=(8, -150)), smooth(prog(st, 1.45, 1.8)))
-    pts = place(pose, stand_hip(660, s), -1 if turn else 1, s)
-    figure(stage, pts, s, light=(-0.5, -0.85), scarf=True)
-    light2 = smooth(prog(st, 0.8, 1.3))
-    k = smooth(prog(st, 0.0, 1.4))
-    return [(1.4, "SOMEONE IS LOOKING AT YOU"), (2.0, "THE SAME WAY.")], ((BIKE_X + 140, 1.0), (130, 0.9 * light2)), \
-        (lerp(660, 470, k), lerp(1000, 1030, k), lerp(1.45, 1.06, k)), ("flip", (smooth(prog(st, 0.6, 1.3)), light2))
+    """back at the fence; the camera pulls far back: a row of gardens, everyone staring over a fence at the next one"""
+    pull = smooth(prog(st, 0.7, 2.6))
+    ws = lerp(1.0, 0.52, pull)
+    pc = lerp(540, 820, pull)
+    green_back = smooth(prog(st, 1.6, 2.6))
+
+    def X(wx):
+        return W / 2 + (wx - pc) * ws
+
+    def Y(wy):
+        return FLOOR + (wy - FLOOR) * ws
+    gw = 560
+    owners = []
+    for i in range(-1, 5):
+        gx0 = 20 + (i - 0) * gw
+        health = 1.0 if i != 0 else lerp(0.0, 1.0, green_back)
+        turf(d, stage, X(gx0), X(gx0 + 500), health, ws, seed=i + 1)
+        fence_s(d, X(gx0 + 530), ws)
+        owners.append((i, gx0))
+    for i, gx0 in owners:
+        if i == 0:
+            continue
+        ox = gx0 + 440
+        pts = place(LEAN, (X(ox), Y(FLOOR - 113 * 1.15)), 1, 1.15 * ws)
+        shade = [(150, 152, 162), (190, 192, 200), (170, 172, 182), (205, 206, 212), (160, 162, 172)][i % 5]
+        figure(stage, pts, 1.15 * ws, light=(0.4, -0.9), body=shade)
+    # the hero: by his fence, staring right; at the end he turns back to his own garden
+    hx = 20 + 440
+    turn = smooth(prog(st, 3.4, 3.8))
+    pose = lerp_pose(dict(SAD, head=(18, -146)), LEAN, smooth(prog(st, 0.0, 0.5)))
+    f = 1
+    if turn > 0.5:
+        pose = dict(STAND, head=(6, -152))
+        f = -1
+    pts = place(pose, (X(hx), Y(FLOOR - 113 * 1.2)), f, 1.2 * ws)
+    figure(stage, pts, 1.2 * ws, light=(-0.5, -0.85), scarf=True)
+    spots = [(540.0, 1.0 - 0.5 * pull)]
+    for i in range(-1, 4):
+        k = round(smooth(prog(st, 2.0 + 0.15 * (i + 1), 2.3 + 0.15 * (i + 1))) * 4) / 4
+        if k > 0:
+            spots.append((float(round(X(20 + i * gw + 360))), 0.8 * k))
+    return [(2.3, "EVERYONE IS LOOKING"), (3.0, "AT SOMEONE ELSE'S GRASS.")], tuple(spots), (540, 1040, 1.0), None
 
 
 SCENES = [s0, s1, s2, s3, s4, s5]
