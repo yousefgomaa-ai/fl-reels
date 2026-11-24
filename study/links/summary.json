@@ -1,10 +1,10 @@
 [
  {
-  "id": "Jn4O_tyNmGE",
+  "id": "vpC4AnQJ4Yo",
   "oembed": {
-   "title": "Motivation vs Discipline vs Obsession: Quit At 99? 💎",
-   "author_name": "Stick Do It",
-   "author_url": "https://www.youtube.com/@Stick_Do_It",
+   "title": "When Your Ego Gets Hurt",
+   "author_name": "Simply Animated",
+   "author_url": "https://www.youtube.com/@SimplyAnimatedVisuals",
    "type": "video",
    "height": 200,
    "width": 113,
@@ -13,30 +13,10 @@
    "provider_url": "https://www.youtube.com/",
    "thumbnail_height": 360,
    "thumbnail_width": 480,
-   "thumbnail_url": "https://i.ytimg.com/vi/Jn4O_tyNmGE/hq2.jpg",
-   "html": "<iframe width=\"113\" height=\"200\" src=\"https://www.youtube.com/embed/Jn4O_tyNmGE?feature=oembed\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen title=\"Motivation vs Discipline vs Obsession: Quit At 99? 💎\"></iframe>"
+   "thumbnail_url": "https://i.ytimg.com/vi/vpC4AnQJ4Yo/hq2.jpg",
+   "html": "<iframe width=\"113\" height=\"200\" src=\"https://www.youtube.com/embed/vpC4AnQJ4Yo?feature=oembed\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen title=\"When Your Ego Gets Hurt\"></iframe>"
   },
-  "meta_err": "] Jn4O_tyNmGE: Sign in to confirm you’re not a bot. This helps protect our community. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies\n",
-  "dl_err": "from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies\n"
- },
- {
-  "id": "nlgj4eUJim0",
-  "oembed": {
-   "title": "Start now, Don’t wait",
-   "author_name": "Animation Art",
-   "author_url": "https://www.youtube.com/@AnimationArt-t3d",
-   "type": "video",
-   "height": 200,
-   "width": 113,
-   "version": "1.0",
-   "provider_name": "YouTube",
-   "provider_url": "https://www.youtube.com/",
-   "thumbnail_height": 360,
-   "thumbnail_width": 480,
-   "thumbnail_url": "https://i.ytimg.com/vi/nlgj4eUJim0/hq2.jpg",
-   "html": "<iframe width=\"113\" height=\"200\" src=\"https://www.youtube.com/embed/nlgj4eUJim0?feature=oembed\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen title=\"Start now, Don’t wait\"></iframe>"
-  },
-  "meta_err": "] nlgj4eUJim0: Sign in to confirm you’re not a bot. This helps protect our community. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies\n",
+  "meta_err": "] vpC4AnQJ4Yo: Sign in to confirm you’re not a bot. This helps protect our community. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies\n",
   "dl_err": "from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies\n"
  }
 ]
