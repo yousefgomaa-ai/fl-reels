@@ -8,7 +8,7 @@ back, forward again, trembling. He throws the knife into the dark. He reaches do
 they climb; strands snap, a hand slips; he drags himself over the edge and hauls the stranger up - the rope snaps
 (0%) the moment the stranger's feet leave it. They lie on the ledge, breathing. HE COULD HAVE CUT IT. / HE CHOSE NOT TO.
 
-Music: "Immersed" then "Eternal Hope" by Kevin MacLeod (incompetech.com), CC BY 4.0 - the swell lands on the rescue.
+Music: "Rynos Theme" by Kevin MacLeod (incompetech.com), CC BY 4.0 - its big hit lands on the snap.
 
     python3 stick/rope.py stick/rope.mp4
 """
@@ -553,15 +553,9 @@ def audio():
     n = int(DUR * SR)
     tt = np.arange(n) / SR
     mus = np.zeros((n, 2))
-    # tension: Immersed (quiet) until the knife is thrown; then Eternal Hope's build, its peak on the rescue
-    a = load("Immersed.mp3", 2.0, T_THROW + 1.5)
-    mus[:len(a)] += a[:n] * np.minimum(1, np.arange(len(a)) / (0.3 * SR))[:, None] * \
-        np.clip((T_THROW + 1.5 - np.arange(len(a)) / SR) / 1.5, 0, 1)[:, None] * 1.3
-    eh_start = 244.0 - (T_SNAP - 0.3)          # 244 s = the big swell
-    i0 = int((T_THROW - 0.2) * SR)
-    b = load("Eternal Hope.mp3", eh_start + T_THROW - 0.2, DUR - T_THROW + 0.2)
-    fade_in = np.minimum(1, np.arange(len(b)) / (1.2 * SR))
-    mus[i0:i0 + len(b)] += b[:n - i0] * fade_in[:n - i0, None]
+    # "Rynos Theme": driving strings/horns/percussion from 36 s; its dip at 52 s and the hit at 53 s land on the snap
+    a = load("Rynos Theme.mp3", 53.0 - T_SNAP, DUR)
+    mus[:len(a)] += a[:n] * np.minimum(1, np.arange(len(a)) / (0.15 * SR))[:, None]
     mus *= np.clip((DUR - tt) / 0.8, 0.2, 1)[:, None]
     fx = np.zeros((n, 2))
     wind = noise(DUR, 3, lo=150, hi=1500)[:n] * (0.6 + 0.4 * np.sin(tt * 0.9))
