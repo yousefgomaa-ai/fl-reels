@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
-"""WHO WINS? - three lanes, one race, 26.8 s, a perfect loop (the race rewinds into frame 0).
+"""WHO WINS? - three lanes, one 100 m race at night, 29.6 s, a perfect loop (the race rewinds into frame 0).
 
-Top: SPRINTER - straight road, bursts ahead, "EASY!", pants, sits, sleeps, wakes in a panic, sprints, overtakes,
-cramps, limps. Middle: CONSISTENT - a winding road, the same steady walk the whole time, through the rain; passes the
-sleeper, gets passed back, passes again and is one step from the tape. Bottom: RICH KID - never runs: a lounger at the
-start line, keys spinning on his finger, a red sports car with a gift bow behind him. Juice, selfie, fanning himself
-with cash, a drone brings pizza, checks his gold watch, stands, pulls the bow, gets in, revs - and while CONSISTENT's
-hand reaches for the tape in slow motion, the car tears through its own tape first. Stamps: TIRED / 2ND / 1ST.
-Then everything rewinds to the start line (frame 0).
+Each lane has its own camera that follows its runner along the road; the finish line only comes into view at the very
+end. One counter on top: DISTANCE (M) for all three.
+
+Top: SPRINTER - bursts to ~54 m, "EASY!", pants, sits down to rest (water, leans back, checks his phone), sees the
+others coming ("!"), sprints again, takes the lead for a moment, cramps ("OW!"), limps on. Middle: CONSISTENT - a
+winding road, the same steady jog the whole time, through the rain, one step from the tape. Bottom: RICH KID - never
+runs: on a lounger at the start line with keys, juice, selfie, cash fan, drone pizza, gold watch. Before the end his
+gift car arrives with a chauffeur, he gets in, the bow flies off, the car rockets down the road and breaks its tape
+a moment before CONSISTENT reaches his. Stamps: TIRED / 2ND / 1ST. Then everything rewinds to the start.
 
     python3 stick/race.py stick/who-wins.mp4
-    ONLY_FRAMES=0,3.5,8,10.5,15.5,16.3,21,23.4,23.7,24.6,26.3 python3 stick/race.py /tmp/race
+    ONLY_FRAMES=0,4,11,15,16.2,18.5,19.8,22.5,24.8,25.95,26.4,27.2 python3 stick/race.py /tmp/race
 """
 import math
 import os
@@ -30,7 +32,7 @@ from perfect_wave import clamp, env, font, lerp, lerp_pose, midi, mix_in, noise,
 
 W, H, FPS = 1080, 1920, 30
 SR = 44100
-DUR = 26.8
+DUR = 29.6
 NF = int(round(DUR * FPS))
 K = hq.K
 BOLD = hq.BOLD
@@ -40,10 +42,13 @@ TITLE_H = 292
 PX0 = 20
 PWD, PHT = 1040, 500
 PANEL_Y = [296, 802, 1308]
-HORIZON = 228
-FEET = 392                 # feet on the straight roads
-START_X, FIN_X = 92, 800
-S = 1.05
+HORIZON = 262
+FEET = 412                 # feet line on the straight roads (screen)
+S = 0.62                   # figure scale: ~180 px tall, 1 m = 100 px
+PXM = 100                  # world pixels per metre
+START = 300                # world x of the start line
+FIN = START + 100 * PXM    # world x of the finish line
+RUN_SX = 380               # where the camera keeps a runner on screen
 
 INK = (14, 16, 28)
 WHITE = (226, 230, 240)
@@ -52,66 +57,159 @@ GOLD = (255, 196, 40)
 RED = (226, 54, 54)
 GREEN = (40, 176, 86)
 GREY = (120, 124, 134)
-YEL = (255, 210, 60)
 CAR = (230, 40, 52)
 
 # ---------------------------------------------------------------- timeline (scene time)
-T_EASY0, T_EASY1 = 3.1, 4.7
-T_PANT = 4.4
-T_SIT = 6.0
-T_LIE = 6.8
-T_WAKE = 14.0
-T_RUN2 = 14.4
-T_CRAMP = 16.0
-T_FALL = 16.5
-T_UP = 16.95
-T_LIMP = 17.35
-T_RAIN0, T_RAIN1 = 9.0, 11.7
-T_REACH = 22.9
-T_TOUCH = 23.85            # CONSISTENT reaches his tape
+T_STOP_S = 7.2             # sprinter stops at 54 m
+T_EASY1 = 8.4
+T_PANT1 = 9.4
+T_SITDOWN = 9.9
+T_DRINK0, T_DRINK1 = 10.1, 12.1
+T_RELAX1 = 14.3
+T_ALERT = 16.0             # "!" on his phone
+T_RUN2 = 16.5
+T_CRAMP = 19.6
+T_FALL = 20.0
+T_UP = 21.0
+T_LIMP = 21.6
+T_RAIN0, T_RAIN1 = 10.0, 13.6
+T_TOUCH = 0.6 + (100 - 1.14) / 3.8      # 26.62: CONSISTENT reaches his tape
+T_REACH = T_TOUCH - 0.6
 T_KEYS1 = 3.0
 T_JUICE1 = 5.5
-T_SELFIE = 6.55            # the flash
-T_FAN0, T_FAN1 = 7.6, 9.9
-T_DRONE0, T_DRONE_HAND, T_DRONE1 = 9.9, 11.0, 12.2
-T_EAT1 = 14.0
-T_YAWN1 = 16.0
-T_WATCH1 = 18.3
-T_STAND1 = 19.0
-T_WALK0, T_WALK1 = 19.55, 20.25
-T_BOW = 20.45
-T_WALK2 = 21.15
-T_IN = 21.45
-T_IGN = 22.0
-T_LAUNCH = 23.2
-T_CROSS = 23.55            # the car's nose breaks its tape
-T_STOP = 23.78
-T_STAMP = 24.1
-T_RW = 25.8                # rewind into frame 0
+T_SELFIE = 6.55
+T_FAN0, T_FAN1 = 7.6, 10.0
+T_DRONE0, T_DRONE_HAND, T_DRONE1 = 10.0, 11.2, 12.6
+T_EAT1 = 15.0
+T_YAWN1 = 17.0
+T_WATCH1 = 19.6
+T_CAR0, T_CAR1 = 19.6, 21.2              # the car arrives
+T_HONK = 20.9
+T_CHAUF = 21.3                           # chauffeur steps out
+T_KSTAND = 21.4
+T_KWALK0, T_KWALK1 = 22.0, 22.8
+T_IN = 23.2
+T_IGN = 23.4
+T_LAUNCH = 24.3
+T_BOW = 24.45
+T_CROSS = 26.25            # the car's nose breaks its tape
+T_CUT = T_CROSS - 0.45     # the camera jumps to the finish line
+T_STOP = 26.6
+T_STAMP = 26.95
+T_RW = 28.6                # rewind into frame 0
 
 
 def scene_t(t):
     if t < T_RW:
         return t
-    u = prog(t, T_RW, DUR)
-    return T_RW * (1 - smooth(u))
+    return T_RW * (1 - smooth(prog(t, T_RW, DUR)))
 
 
-# ---------------------------------------------------------------- the roads
-def zig_y(x):
-    """the winding road of the middle lane (feet line)"""
-    return FEET + 40 * math.sin(2 * math.pi * (x - START_X) / ((FIN_X - START_X) / 3))
+# ---------------------------------------------------------------- distances (metres)
+def m_s(t):
+    if t < 1.2:
+        return 3.75 * t * t
+    if t < 6.0:
+        return 5.4 + 9 * (t - 1.2)
+    if t < T_STOP_S:
+        u = t - 6.0
+        return 48.6 + 9 * u - 3.75 * u * u
+    if t < T_RUN2:
+        return 54.0
+    if t < T_RUN2 + 0.8:
+        u = t - T_RUN2
+        return 54.0 + 0.5 * (8.5 / 0.8) * u * u
+    if t < T_CRAMP:
+        return 57.4 + 8.5 * (t - T_RUN2 - 0.8)
+    m0 = 57.4 + 8.5 * (T_CRAMP - T_RUN2 - 0.8)
+    if t < T_FALL:
+        u = t - T_CRAMP
+        return m0 + 8.5 * u - 10.625 * u * u
+    m1 = m0 + 1.7
+    if t < T_LIMP:
+        return m1
+    return m1 + 1.3 * (t - T_LIMP)
 
 
-def lane_x(frac):
-    return START_X + frac * (FIN_X - START_X)
+def m_c(t):
+    if t < 0.6:
+        return 3.8 * t * t / 1.2
+    if t < T_TOUCH:
+        return 1.14 + 3.8 * (t - 0.6)
+    u = clamp((t - T_TOUCH) / 0.9)
+    return 100 + 1.7 * (1 - (1 - u) ** 2)
 
 
-def depth(y):
-    return S * (1 + (y - FEET) / 40 * 0.07)
+CAR_STOP = 640             # world x (centre) where the car parks next to the lounger
+CAR_FRONT = 190            # car nose, from its centre
+FIN_SX = 600               # screen x of the finish line after the cut
+A_END = FIN - FIN_SX - 700  # end of the chase shot: just off screen, left of the finish shot
 
 
-# ---------------------------------------------------------------- poses (hip-relative, y up is negative)
+def car_x(t):
+    if t < T_CAR0:
+        return -800.0
+    if t < T_CAR1:
+        u = prog(t, T_CAR0, T_CAR1)
+        return lerp(-800, CAR_STOP, 1 - (1 - u) ** 2)
+    if t < T_LAUNCH:
+        return CAR_STOP
+    if t < T_CUT:
+        return CAR_STOP + (A_END - CAR_STOP) * prog(t, T_LAUNCH, T_CUT) ** 1.7
+    cross = FIN - CAR_FRONT
+    if t < T_CROSS:
+        return lerp(A_END, cross, prog(t, T_CUT, T_CROSS))
+    v = (cross - A_END) / (T_CROSS - T_CUT)
+    u = prog(t, T_CROSS, T_STOP)
+    return cross + v * (T_STOP - T_CROSS) * 0.5 * (1 - (1 - u) ** 2)
+
+
+def m_r(t):
+    return 100 * clamp((car_x(t) - CAR_STOP) / (FIN - CAR_FRONT - CAR_STOP))
+
+
+def cam(lane, t):
+    if lane == 0:
+        return max(0.0, START + m_s(t) * PXM - RUN_SX)
+    if lane == 1:
+        return max(0.0, START + m_c(t) * PXM - RUN_SX)
+    if t < T_LAUNCH:
+        return 0.0
+    if t < T_CUT:
+        return car_x(t) - CAR_STOP
+    return FIN - FIN_SX
+
+
+def cam_v(lane, t):
+    return (cam(lane, t + 0.01) - cam(lane, t - 0.01)) / 0.02
+
+
+# gait phase, integrated over time so the legs never jump
+_TG = np.arange(0, DUR + 0.5, 1 / 240)
+
+
+def _phase(mf):
+    m = np.array([mf(t) for t in _TG])
+    v = np.gradient(m, _TG)
+    L = (150 + 28 * np.abs(v)) / PXM            # metres per stride cycle
+    ph = np.concatenate([[0], np.cumsum(2 * np.pi * np.abs(v[:-1]) / L[:-1] * np.diff(_TG))])
+    return ph, v
+
+
+PH_S, V_S = _phase(m_s)
+PH_C, V_C = _phase(m_c)
+
+
+def gait(arr, t):
+    return float(np.interp(t, _TG, arr))
+
+
+def zig_y(wx):
+    """the winding road of the middle lane (feet line), in world x"""
+    return FEET + 26 * math.sin(2 * math.pi * wx / 760)
+
+
+# ---------------------------------------------------------------- poses (hip-relative)
 STAND = PW.STAND
 HANDS_HIP = dict(STAND, el=(-34, -74), hl=(-14, -34), er=(34, -74), hr=(14, -34))
 LAUGH = dict(HANDS_HIP, head=(-8, -150), neck=(-4, -108))
@@ -119,10 +217,16 @@ BENT = {"head": (66, -112), "neck": (44, -82), "el": (50, -36), "hl": (34, 22), 
         "kl": (22, 54), "fl": (6, 113), "kr": (18, 56), "fr": (-4, 113)}
 SIT_G = {"head": (-16, -138), "neck": (-10, -96), "el": (-32, -52), "hl": (-52, -4), "er": (-26, -48), "hr": (-46, 0),
          "kl": (52, -38), "fl": (104, -2), "kr": (46, -32), "fr": (100, 2)}
+SIT_DRINK = dict(SIT_G, head=(-24, -136), neck=(-12, -96), er=(10, -86), hr=(-6, -132))
+SIT_RELAX = dict(SIT_G, head=(-30, -130), neck=(-22, -92), el=(-60, -112), hl=(-34, -140), er=(-48, -50),
+                 hr=(-66, -4), kr=(60, -30), fr=(112, -20))
+SIT_PHONE = dict(SIT_G, head=(4, -134), neck=(0, -96), el=(26, -56), hl=(46, -78), er=(22, -52), hr=(42, -74))
 HOP = {"head": (18, -146), "neck": (12, -104), "el": (36, -62), "hl": (50, -16), "er": (30, -58), "hr": (46, -12),
        "kl": (8, 56), "fl": (2, 113), "kr": (48, -6), "fr": (24, 42)}
 GRAB_HEAD = dict(STAND, el=(-40, -120), hl=(-12, -168), er=(40, -120), hr=(12, -168))
 CHEER = dict(STAND, el=(-30, -130), hl=(-40, -180), er=(30, -130), hr=(40, -180))
+PRESENT = dict(STAND, er=(40, -86), hr=(84, -96))
+WAVE = dict(STAND, er=(30, -130), hr=(40, -180))
 RECLINE = {"head": (-64, -126), "neck": (-46, -90), "el": (-86, -112), "hl": (-58, -150), "er": (-8, -58),
            "hr": (26, -84), "kl": (58, -16), "fl": (116, -8), "kr": (56, -10), "fr": (114, -2)}
 R_JUICE = dict(RECLINE, er=(-6, -76), hr=(-34, -118))
@@ -132,172 +236,152 @@ R_TAKE = dict(RECLINE, er=(10, -112), hr=(22, -160))
 R_EAT = dict(RECLINE, er=(-6, -76), hr=(-36, -116))
 R_YAWN = dict(RECLINE, el=(-76, -150), hl=(-70, -200), er=(-30, -150), hr=(-18, -202))
 R_WATCH = dict(RECLINE, el=(-16, -70), hl=(-30, -120), er=(-10, -60), hr=(-26, -114))
-STRETCH = CHEER
 
 
-def run_pose(ph, amp):
+def run_pose(ph, amp, lean=0.24):
+    """a real run cycle: thigh swing, knee folds in early swing, bent arms swinging opposite, torso lean"""
     p = {}
-    lean = 20 * amp
-    p["neck"] = (lean, -104)
-    p["head"] = (lean + 10 * amp, -146)
+    L = lean * (0.4 + 0.6 * amp)
+    p["neck"] = (104 * math.sin(L), -104 * math.cos(L))
+    p["head"] = (p["neck"][0] + 42 * math.sin(L * 0.8), p["neck"][1] - 42 * math.cos(L * 0.8))
     for side, off in (("l", 0.0), ("r", math.pi)):
-        s = math.sin(ph + off)
-        a = 0.8 * amp * s
-        kx, ky = 56 * math.sin(a), 56 * math.cos(a)
-        bend = 0.15 + 1.4 * amp * max(0.0, -math.cos(ph + off))
+        q = ph + off
+        thigh = 0.15 + 0.1 * amp + (0.3 + 0.55 * amp) * math.sin(q)
+        flex = 0.32 + (0.5 + 1.6 * amp) * max(0.0, math.cos(q + 0.9)) ** 2
+        kx, ky = 56 * math.sin(thigh), 56 * math.cos(thigh)
+        sh = thigh - flex
         p["k" + side] = (kx, ky)
-        p["f" + side] = (kx + 57 * math.sin(a - bend), ky + 57 * math.cos(a - bend))
-        b = -0.95 * amp * s
+        p["f" + side] = (kx + 57 * math.sin(sh), ky + 57 * math.cos(sh))
+        a = -(0.3 + 0.85 * amp) * math.sin(q) + L * 0.5
         nx, ny = p["neck"]
-        ex, ey = nx + 42 * math.sin(b), ny + 42 * math.cos(b)
-        fb = b + 0.3 + 1.3 * amp
+        ex, ey = nx + 40 * math.sin(a), ny + 40 * math.cos(a)
+        fa = a + 1.35 + 0.25 * amp
         p["e" + side] = (ex, ey)
-        p["h" + side] = (ex + 40 * math.sin(fb), ey + 40 * math.cos(fb))
+        p["h" + side] = (ex + 36 * math.sin(fa), ey + 36 * math.cos(fa))
     return p
 
 
-def walk_pose(ph, amp=0.3, base=STAND):
-    p = dict(base)
+def walk_pose(ph, amp=0.32):
+    p = dict(STAND)
     for side, off in (("l", 0.0), ("r", math.pi)):
-        s = math.sin(ph + off)
-        a = amp * s
+        q = ph + off
+        a = amp * math.sin(q)
         kx, ky = 56 * math.sin(a), 56 * math.cos(a)
-        bend = 0.1 + 0.7 * max(0.0, -math.cos(ph + off))
+        bend = 0.08 + 0.6 * max(0.0, math.cos(q + 0.6)) ** 2
         p["k" + side] = (kx, ky)
         p["f" + side] = (kx + 57 * math.sin(a - bend), ky + 57 * math.cos(a - bend))
-    if base is STAND:
-        for side, off in (("l", math.pi), ("r", 0.0)):
-            b = -0.5 * amp / 0.3 * 0.6 * math.sin(ph + off)
-            ex, ey = 42 * math.sin(b), -104 + 42 * math.cos(b)
-            p["e" + side] = (ex, ey)
-            p["h" + side] = (ex + 40 * math.sin(b + 0.35), ey + 40 * math.cos(b + 0.35))
+        b = -0.5 * amp * math.sin(q)
+        ex, ey = 40 * math.sin(b), -104 + 40 * math.cos(b)
+        p["e" + side] = (ex, ey)
+        p["h" + side] = (ex + 38 * math.sin(b + 0.3), ey + 38 * math.cos(b + 0.3))
     return p
 
 
-# ---------------------------------------------------------------- the sprinter
-def frac_s(t):
-    if t < 4.2:
-        u = t / 4.2
-        return 0.50 * (1 - (1 - u) ** 2)
-    if t < T_RUN2:
-        return 0.50
-    if t < T_CRAMP:
-        u = prog(t, T_RUN2, T_CRAMP)
-        return 0.50 + 0.24 * (u * u * (1.6 - 0.6 * u))
-    if t < T_LIMP:
-        return 0.74 + 0.01 * smooth(prog(t, T_CRAMP, T_FALL))
-    return 0.75 + 0.115 * prog(t, T_LIMP, T_RW)
+def grounded(pose, x, feet_y, s=S):
+    """hip position so the lowest foot touches the ground"""
+    low = max(pose["fl"][1], pose["fr"][1])
+    return x, feet_y - low * s
 
 
+# ---------------------------------------------------------------- the sprinter (world coords)
 def sprinter(t):
-    """pose, hip, facing, extra"""
-    x = lane_x(frac_s(t))
-    hip_y = FEET - 113 * S
-    if t < 3.2 or T_RUN2 <= t < T_CRAMP:
-        v = (frac_s(t + 0.02) - frac_s(t - 0.02)) / 0.04 * (FIN_X - START_X)
-        amp = clamp(0.45 + v / 220, 0.45, 1.05)
-        ph = 2 * math.pi * x / 72
-        return run_pose(ph, amp), (x, hip_y - 7 * amp * abs(math.sin(ph))), 1, None
-    if t < T_EASY0 + 0.35:
-        k = smooth(prog(t, 3.2, T_EASY0 + 0.35))
-        ph = 2 * math.pi * x / 72
-        return lerp_pose(run_pose(ph, 0.45), STAND, k), (x, hip_y), 1, None
-    if t < T_PANT:
-        b = 4 * math.sin(t * 16)
-        return dict(LAUGH, head=(-8 + b * 0.5, -150 + b)), (x, hip_y), -1, None
-    if t < T_SIT:
-        k = smooth(prog(t, T_PANT, T_PANT + 0.3))
+    """pose, hip (world), facing, extra"""
+    x = START + m_s(t) * PXM
+    v = gait(V_S, t)
+    ph = gait(PH_S, t)
+    if t < T_STOP_S or T_RUN2 <= t < T_CRAMP:
+        amp = clamp(v / 9.0, 0.3, 1.0)
+        pose = run_pose(ph, amp)
+        if t > T_STOP_S - 0.35 and t < T_STOP_S:
+            pose = lerp_pose(pose, STAND, smooth(prog(t, T_STOP_S - 0.35, T_STOP_S)))
+        if T_RUN2 <= t < T_RUN2 + 0.2:
+            pose = lerp_pose(STAND, pose, smooth(prog(t, T_RUN2, T_RUN2 + 0.2)))
+        return pose, grounded(pose, x, FEET), 1, None
+    if t < T_EASY1:
+        k = smooth(prog(t, T_STOP_S, T_STOP_S + 0.3))
+        b = 3 * math.sin(t * 16)
+        pose = lerp_pose(STAND, dict(LAUGH, head=(-8, -150 + b)), k)
+        return pose, grounded(pose, x, FEET), -1 if k > 0.5 else 1, "easy"
+    if t < T_PANT1:
+        k = smooth(prog(t, T_EASY1, T_EASY1 + 0.3))
         b = 5 * math.sin(t * 13)
         pose = lerp_pose(STAND, dict(BENT, head=(66, -112 + b), neck=(44, -82 + b * 0.6)), k)
-        return pose, (x, hip_y + 4 * k), 1, "sweat"
-    sit_hip = FEET - 12
-    if t < T_LIE:
-        k = smooth(prog(t, T_SIT, T_SIT + 0.5))
-        return lerp_pose(BENT, SIT_G, k), (x, lerp(hip_y + 4, sit_hip, k)), 1, "sweat"
-    if t < T_WAKE:
-        k = smooth(prog(t, T_LIE, T_LIE + 0.45))
-        br = 1.5 * math.sin(t * 2.4)
-        lie = dict(STAND, head=(0, -150 + br), el=(-14, -62), hl=(-30, -20), er=(12, -62), hr=(22, -18))
-        return lerp_pose(SIT_G, lie, k), (x, lerp(sit_hip, FEET - 16, k)), 1, ("lie", k * math.pi / 2)
+        return pose, grounded(pose, x, FEET), 1, "sweat"
+    sit_hip = (x, FEET - 12 * S)
+    if t < T_SITDOWN:
+        k = smooth(prog(t, T_PANT1, T_SITDOWN))
+        pose = lerp_pose(BENT, SIT_G, k)
+        hy = lerp(grounded(BENT, x, FEET)[1], sit_hip[1], k)
+        return pose, (x, hy), 1, "sweat"
+    if t < T_DRINK1:
+        k = math.sin(math.pi * prog(t, T_DRINK0, T_DRINK1))
+        return lerp_pose(SIT_G, SIT_DRINK, min(1, k * 2.2)), sit_hip, 1, "bottle"
+    if t < T_RELAX1:
+        k = math.sin(math.pi * prog(t, T_DRINK1, T_RELAX1))
+        return lerp_pose(SIT_G, SIT_RELAX, min(1, k * 2.2)), sit_hip, 1, None
+    if t < T_RUN2 - 0.5:
+        k = smooth(prog(t, T_RELAX1, T_RELAX1 + 0.4))
+        p = lerp_pose(SIT_G, SIT_PHONE, k)
+        if t >= T_ALERT:
+            p = dict(p, head=(12, -142))
+        return p, sit_hip, 1, "phone"
     if t < T_RUN2:
-        u = prog(t, T_WAKE, T_RUN2)
-        jump = 60 * math.sin(math.pi * u)
-        return lerp_pose(STAND, CHEER, math.sin(math.pi * u)), (x, hip_y - jump), 1, "panic"
+        k = smooth(prog(t, T_RUN2 - 0.5, T_RUN2))
+        return lerp_pose(SIT_PHONE, STAND, k), (x, lerp(sit_hip[1], grounded(STAND, x, FEET)[1], k)), 1, None
     if t < T_FALL:
-        hop = 18 * abs(math.sin((t - T_CRAMP) * 14))
-        return HOP, (x, hip_y - hop), 1, "ow"
+        hop = 14 * abs(math.sin((t - T_CRAMP) * 14))
+        hx, hy = grounded(HOP, x, FEET)
+        return HOP, (hx, hy - hop), 1, "ow"
     if t < T_UP:
-        k = smooth(prog(t, T_FALL, T_FALL + 0.15))
-        return lerp_pose(HOP, SIT_G, k), (x, lerp(hip_y, sit_hip, k)), 1, "ow"
+        k = smooth(prog(t, T_FALL, T_FALL + 0.18))
+        return lerp_pose(HOP, SIT_G, k), (x, lerp(grounded(HOP, x, FEET)[1], sit_hip[1], k)), 1, "ow"
     if t < T_LIMP:
         k = smooth(prog(t, T_UP, T_LIMP))
-        return lerp_pose(SIT_G, STAND, k), (x, lerp(sit_hip, hip_y, k)), 1, None
-    ph = 2 * math.pi * x / 40
-    p = walk_pose(ph, 0.3)
-    dip = 12 * max(0.0, math.sin(ph))
-    p["head"] = (6, -146 + dip * 0.3)
-    p["neck"] = (4, -104)
-    return p, (x, hip_y + dip), 1, "sweat"
+        return lerp_pose(SIT_G, STAND, k), (x, lerp(sit_hip[1], grounded(STAND, x, FEET)[1], k)), 1, None
+    ph = 2 * math.pi * (t - T_LIMP) * 1.1
+    p = walk_pose(ph, 0.28)
+    p["head"] = (10, -146)
+    p["neck"] = (6, -104)
+    hx, hy = grounded(p, x, FEET)
+    return p, (hx, hy + 5 * max(0.0, math.sin(ph))), 1, "sweat"
 
 
 # ---------------------------------------------------------------- the consistent one
-_ZX = np.linspace(START_X, FIN_X + 120, 4000)
-_ZY = np.array([zig_y(x) for x in _ZX])
-_ZARC = np.concatenate([[0], np.cumsum(np.hypot(np.diff(_ZX), np.diff(_ZY)))])
-
-
-def frac_c(t):
-    if t < 0.15:
-        return 0.0
-    if t < T_REACH:
-        return (t - 0.15) * 0.0416
-    f0 = (T_REACH - 0.15) * 0.0416
-    if t < T_TOUCH:
-        return f0 + (1.0 - f0) * prog(t, T_REACH, T_TOUCH)
-    return 1.0 + 0.07 * (1 - (1 - prog(t, T_TOUCH, T_TOUCH + 0.6)) ** 2)
+def depth(y):
+    return S * (1 + (y - FEET) / 26 * 0.05)
 
 
 def consistent(t):
-    x = lane_x(frac_c(t))
+    x = START + m_c(t) * PXM
     y = zig_y(x)
     s = depth(y)
-    arc = float(np.interp(x, _ZX, _ZARC))
-    ph = 2 * math.pi * arc / 62
-    hip = (x, y - 113 * s)
+    ph = gait(PH_C, t)
+    if t >= T_TOUCH + 0.9:
+        k = smooth(prog(t, T_TOUCH + 0.9, T_TOUCH + 1.2))
+        p = lerp_pose(STAND, GRAB_HEAD, k)
+        return p, grounded(p, x, y, s), 1, s
+    amp = 0.55 if t < T_TOUCH else 0.55 * (1 - prog(t, T_TOUCH, T_TOUCH + 0.9))
+    rainy = T_RAIN0 + 0.3 <= t < T_RAIN1
+    p = run_pose(ph, max(0.2, amp), lean=0.32 if rainy else 0.18)
+    if t < 0.3:
+        p = lerp_pose(STAND, p, smooth(prog(t, 0, 0.3)))
     if t >= T_TOUCH + 0.6:
-        k = smooth(prog(t, T_TOUCH + 0.6, T_TOUCH + 0.9))
-        return lerp_pose(walk_pose(ph, 0.3), GRAB_HEAD, k), hip, 1, s
-    p = walk_pose(ph, 0.3)
-    if T_RAIN0 + 0.3 <= t < T_RAIN1:
-        p["head"] = (12, -142)
-        p["neck"] = (6, -104)
-    if t >= T_REACH:
-        k = smooth(prog(t, T_REACH, T_REACH + 0.4))
-        p["er"] = lerp_pose({"a": p["er"]}, {"a": (44, -108)}, k)["a"]
-        p["hr"] = lerp_pose({"a": p["hr"]}, {"a": (90, -112)}, k)["a"]
-        p["head"] = (14, -146)
-    return p, (hip[0], hip[1] - 3 * abs(math.sin(ph))), 1, s
+        p = lerp_pose(p, STAND, smooth(prog(t, T_TOUCH + 0.6, T_TOUCH + 0.9)))
+    if T_REACH <= t < T_TOUCH + 0.3:
+        k = smooth(prog(t, T_REACH, T_REACH + 0.35))
+        p["er"] = (lerp(p["er"][0], 50, k), lerp(p["er"][1], -104, k))
+        p["hr"] = (lerp(p["hr"][0], 92, k), lerp(p["hr"][1], -108, k))
+    return p, grounded(p, x, y, s), 1, s
 
 
 # ---------------------------------------------------------------- the rich kid
-CHAIR_X = 560
-LOUNGE_Y = 478             # lounger feet (foreground grass)
-KID_HIP = (CHAIR_X - 10, LOUNGE_Y - 68)
-CAR_X0 = 220
-
-
-def car_x(t):
-    if t < T_LAUNCH:
-        return CAR_X0
-    if t < T_CROSS:
-        u = prog(t, T_LAUNCH, T_CROSS)
-        return CAR_X0 + 430 * u * u
-    u = prog(t, T_CROSS, T_STOP)
-    return CAR_X0 + 430 + 200 * (1 - (1 - u) ** 2)
+LOUNGE_X = 380             # world x (lounger centre), foreground
+LOUNGE_Y = 486
+KID_HIP = (LOUNGE_X - 6, LOUNGE_Y - 42)
 
 
 def rich(t):
-    """pose, hip, facing, prop (or None when he is in the car)"""
+    """pose, hip, facing, prop (None when he is in the car)"""
     hip = KID_HIP
     if t < T_KEYS1:
         return RECLINE, hip, 1, "keys"
@@ -310,7 +394,7 @@ def rich(t):
     if t < T_FAN1:
         k = math.sin(math.pi * prog(t, T_FAN0, T_FAN1))
         p = lerp_pose(RECLINE, R_FAN, min(1, k * 2.5))
-        w = 16 * math.sin(t * 22) * min(1, k * 2.5)
+        w = 12 * math.sin(t * 22) * min(1, k * 2.5)
         p["hr"] = (p["hr"][0] + w, p["hr"][1] + w * 0.3)
         return p, hip, 1, "cash"
     if t < T_DRONE_HAND:
@@ -325,39 +409,47 @@ def rich(t):
     if t < T_YAWN1:
         k = math.sin(math.pi * prog(t, T_EAT1, T_YAWN1))
         return lerp_pose(RECLINE, R_YAWN, min(1, k * 1.6)), hip, 1, None
-    if t < T_WATCH1:
-        k = math.sin(math.pi * prog(t, T_YAWN1, T_WATCH1))
-        return lerp_pose(RECLINE, R_WATCH, min(1, k * 2.2)), hip, 1, "watch"
-    st_hip = (CHAIR_X + 30, LOUNGE_Y - 113 * S)
-    if t < T_STAND1:
-        k = smooth(prog(t, T_WATCH1, T_STAND1))
-        return lerp_pose(RECLINE, STAND, k), (lerp(hip[0], st_hip[0], k), lerp(hip[1], st_hip[1], k)), 1, None
-    if t < T_WALK0:
-        k = math.sin(math.pi * prog(t, T_STAND1, T_WALK0))
-        return lerp_pose(STAND, STRETCH, k), st_hip, 1, None
-    if t < T_WALK1:
-        u = prog(t, T_WALK0, T_WALK1)
-        x = lerp(st_hip[0], CAR_X0 + 70, smooth(u))
-        y = lerp(st_hip[1], FEET - 113 * S + 30, smooth(u))
-        return walk_pose(t * 9, 0.35), (x, y), -1, None
-    bx, by = CAR_X0 + 70, FEET - 113 * S + 30
-    if t < T_BOW + 0.35:
-        k = math.sin(math.pi * prog(t, T_WALK1, T_BOW + 0.35))
-        pull = dict(STAND, el=(30, -126), hl=(40, -176), er=(24, -120), hr=(34, -172))
-        return lerp_pose(STAND, pull, k), (bx, by), -1, None
-    if t < T_WALK2:
-        u = prog(t, T_BOW + 0.35, T_WALK2)
-        return walk_pose(t * 9, 0.35), (lerp(bx, CAR_X0 + 10, u), by), -1, None
+    if t < T_KSTAND:
+        k = math.sin(math.pi * prog(t, T_YAWN1, T_WATCH1)) if t < T_WATCH1 else 0.0
+        return lerp_pose(RECLINE, R_WATCH, min(1, k * 2.2)), hip, 1, "watch" if t < T_WATCH1 else None
+    st = grounded(STAND, LOUNGE_X + 40, LOUNGE_Y)
+    if t < T_KWALK0:
+        k = smooth(prog(t, T_KSTAND, T_KWALK0))
+        return lerp_pose(RECLINE, STAND, k), (lerp(hip[0], st[0], k), lerp(hip[1], st[1], k)), 1, None
+    door = CAR_STOP - 70
+    if t < T_KWALK1:
+        u = smooth(prog(t, T_KWALK0, T_KWALK1))
+        p = walk_pose((t - T_KWALK0) * 9, 0.32)
+        x = lerp(st[0], door, u)
+        fy = lerp(LOUNGE_Y, FEET + 4, u)
+        return p, grounded(p, x, fy), 1, None
     if t < T_IN:
-        u = prog(t, T_WALK2, T_IN)
-        return lerp_pose(STAND, CHEER, math.sin(math.pi * u)), (CAR_X0 + 10, by - 70 * math.sin(math.pi * u)), 1, "hop"
+        u = prog(t, T_KWALK1, T_IN)
+        g = grounded(STAND, door, FEET + 4)
+        return lerp_pose(STAND, CHEER, math.sin(math.pi * u)), (g[0], g[1] - 40 * math.sin(math.pi * u)), 1, "hop"
     return None
 
 
+def chauffeur(t):
+    if t < T_CHAUF:
+        return None
+    x = CAR_STOP + 70
+    if t < T_CHAUF + 0.3:
+        k = smooth(prog(t, T_CHAUF, T_CHAUF + 0.3))
+        return STAND, grounded(STAND, x, FEET + 22), k
+    if t < T_IN:
+        return PRESENT, grounded(PRESENT, x, FEET + 22), 1.0
+    k = math.sin(math.pi * prog(t, T_LAUNCH, T_LAUNCH + 0.8)) if t >= T_LAUNCH else 0
+    p = lerp_pose(STAND, WAVE, k)
+    if t >= T_LAUNCH:
+        p["hr"] = (p["hr"][0] + 12 * math.sin(t * 20) * k, p["hr"][1])
+    return p, grounded(p, x, FEET + 22), 1.0
+
+
 # ---------------------------------------------------------------- drawing helpers
-def figure(d, pts, s, acc, facing=1, alpha=255):
-    lw0, lw1 = 15 * s, 10 * s
-    for w, col in ((lw0, INK), (lw1, WHITE)):
+def figure(d, pts, s, acc, facing=1, alpha=255, body=WHITE):
+    lw0, lw1 = 19 * s, 12.5 * s
+    for w, col in ((lw0, INK), (lw1, body)):
         for b0, b1 in [("neck", "hip"), ("neck", "el"), ("el", "hl"), ("neck", "er"), ("er", "hr"), ("hip", "kl"),
                        ("kl", "fl"), ("hip", "kr"), ("kr", "fr")]:
             (x0, y0), (x1, y1) = pts[b0], pts[b1]
@@ -366,30 +458,35 @@ def figure(d, pts, s, acc, facing=1, alpha=255):
                 r = w * K / 2
                 d.ellipse([x * K - r, y * K - r, x * K + r, y * K + r], fill=col + (alpha,))
     hx, hy = pts["head"]
-    for r, col in ((30 * s, INK), (25.5 * s, WHITE)):
+    for r, col in ((31 * s, INK), (25.5 * s, body)):
         d.ellipse([(hx - r) * K, (hy - r) * K, (hx + r) * K, (hy + r) * K], fill=col + (alpha,))
     f = facing
     if acc == "band":
-        d.line([(hx - 25 * s) * K, (hy - 9 * s) * K, (hx + 25 * s) * K, (hy - 9 * s) * K], fill=RED + (255,),
+        d.line([(hx - 26 * s) * K, (hy - 9 * s) * K, (hx + 26 * s) * K, (hy - 9 * s) * K], fill=RED + (255,),
                width=int(9 * s * K))
         for j in (0, 1):
-            ex = hx - f * (24 + 26 + 6 * j) * s
-            d.line([(hx - f * 22 * s) * K, (hy - 9 * s) * K, ex * K, (hy - 2 + 10 * j) * K], fill=RED + (255,),
+            ex = hx - f * (50 + 8 * j) * s
+            d.line([(hx - f * 22 * s) * K, (hy - 9 * s) * K, ex * K, (hy + (-4 + 14 * j) * s) * K], fill=RED + (255,),
                    width=int(6 * s * K))
     elif acc == "cap":
         d.chord([(hx - 27 * s) * K, (hy - 32 * s) * K, (hx + 27 * s) * K, (hy + 14 * s) * K], 180, 360,
-                fill=(50, 110, 220, 255), outline=INK + (255,), width=int(3 * K))
+                fill=(50, 110, 220, 255), outline=INK + (255,), width=int(2 * K))
         x0, x1 = (hx, hx + 42 * s) if f > 0 else (hx - 42 * s, hx)
         d.rectangle([x0 * K, (hy - 12 * s) * K, x1 * K, (hy - 4 * s) * K], fill=(50, 110, 220, 255),
-                    outline=INK + (255,), width=int(2 * K))
+                    outline=INK + (255,), width=int(1.5 * K))
     elif acc == "rich":
-        x0, x1 = (hx - 4 * s, hx + 27 * s) if f > 0 else (hx - 27 * s, hx + 4 * s)
-        d.rounded_rectangle([x0 * K, (hy - 10 * s) * K, x1 * K, (hy + 3 * s) * K], int(4 * K), fill=(15, 15, 20, 255))
-        d.line([(hx - f * 24 * s) * K, (hy - 8 * s) * K, x0 * K if f > 0 else x1 * K, (hy - 7 * s) * K],
-               fill=(15, 15, 20, 255), width=int(3 * K))
+        x0, x1 = (hx - 4 * s, hx + 28 * s) if f > 0 else (hx - 28 * s, hx + 4 * s)
+        d.rounded_rectangle([x0 * K, (hy - 11 * s) * K, x1 * K, (hy + 3 * s) * K], int(3 * K), fill=(15, 15, 20, 255))
         nx, ny = pts["neck"]
         d.arc([(nx - 20 * s) * K, (ny - 16 * s) * K, (nx + 20 * s) * K, (ny + 20 * s) * K], 20, 160,
-              fill=GOLD + (255,), width=int(5 * K))
+              fill=GOLD + (255,), width=int(4 * K))
+    elif acc == "chauffeur":
+        a = alpha
+        d.rectangle([(hx - 24 * s) * K, (hy - 40 * s) * K, (hx + 24 * s) * K, (hy - 16 * s) * K], fill=(20, 20, 26, a))
+        d.rectangle([(hx - 28 * s) * K, (hy - 20 * s) * K, (hx + 34 * s) * K, (hy - 13 * s) * K], fill=(20, 20, 26, a))
+        nx, ny = pts["neck"]
+        d.polygon([((nx - 10 * s) * K, (ny - 4 * s) * K), ((nx + 10 * s) * K, (ny + 4 * s) * K),
+                   ((nx + 10 * s) * K, (ny - 4 * s) * K), ((nx - 10 * s) * K, (ny + 4 * s) * K)], fill=(20, 20, 26, a))
 
 
 def text_c(d, x, y, s, size, col, stroke=0, stroke_col=INK, a=255):
@@ -399,25 +496,25 @@ def text_c(d, x, y, s, size, col, stroke=0, stroke_col=INK, a=255):
            stroke_fill=stroke_col + (int(a),))
 
 
-def bubble(lay, t, t0, t1, s, x, y):
+def bubble(lay, t, t0, t1, s, x, y, size=34):
     if not (t0 <= t < t1):
         return
     k = hq.pop(t, t0, 0.22) * (1 - smooth(prog(t, t1 - 0.15, t1)))
     if k < 0.05:
         return
-    f = font(BOLD, max(4, int(40 * K * k)))
+    f = font(BOLD, max(4, int(size * K * k)))
     tw = f.getlength(s)
-    bw, bh = tw + 44 * K * k, 70 * K * k
+    bw, bh = tw + 36 * K * k, size * 1.75 * K * k
     d = ImageDraw.Draw(lay)
     x0, y0 = x * K - bw / 2, y * K - bh
-    d.rounded_rectangle([x0, y0, x0 + bw, y0 + bh], int(16 * K * k), fill=(255, 255, 255, 250), outline=INK + (255,),
-                        width=int(4 * K))
-    d.polygon([(x * K - 14 * K * k, y0 + bh - 2), (x * K + 14 * K * k, y0 + bh - 2), (x * K - 4 * K * k, y0 + bh + 22 * K * k)],
-              fill=(255, 255, 255, 250), outline=INK + (255,))
-    d.text((x0 + 22 * K * k, y0 + 10 * K * k), s, font=f, fill=INK + (255,))
+    d.rounded_rectangle([x0, y0, x0 + bw, y0 + bh], int(14 * K * k), fill=(255, 255, 255, 250), outline=INK + (255,),
+                        width=int(3 * K))
+    d.polygon([(x * K - 12 * K * k, y0 + bh - 2), (x * K + 12 * K * k, y0 + bh - 2),
+               (x * K - 4 * K * k, y0 + bh + 18 * K * k)], fill=(255, 255, 255, 250), outline=INK + (255,))
+    d.text((x0 + 18 * K * k, y0 + 7 * K * k), s, font=f, fill=INK + (255,))
 
 
-def stamp(base, t, t0, t1, s, col, x, y, size=78):
+def stamp(base, t, t0, t1, s, col, x, y, size=74):
     if not (t0 <= t < t1):
         return
     k = hq.pop(t, t0, 0.28) * (1 - smooth(prog(t, t1 - 0.2, t1)))
@@ -438,7 +535,7 @@ def stamp(base, t, t0, t1, s, col, x, y, size=78):
 
 
 # ---------------------------------------------------------------- backgrounds
-def make_bg(lane):
+def make_sky(lane):
     a = np.zeros((PHT * K, PWD * K, 3), np.float32)
     yy = np.arange(PHT * K)[:, None] / K
     sky = np.clip(yy / HORIZON, 0, 1)
@@ -449,421 +546,315 @@ def make_bg(lane):
         a[..., c] = np.where(yy < HORIZON, c0[c] * (1 - sky) + c1[c] * sky, g0[c] * (1 - gk) + g1[c] * gk)
     im = Image.fromarray(a.astype(np.uint8), "RGB").convert("RGBA")
     d = ImageDraw.Draw(im)
-    # stars, the moon and its halo, hills, trees
     rng = np.random.default_rng(lane + 3)
-    for _ in range(90):
-        x, y = rng.uniform(0, PWD), rng.uniform(0, HORIZON - 30)
+    for _ in range(100):
+        x, y = rng.uniform(0, PWD), rng.uniform(0, HORIZON - 40)
         r = rng.uniform(0.7, 2.0)
         d.ellipse([(x - r) * K, (y - r) * K, (x + r) * K, (y + r) * K], fill=(220, 228, 255, int(rng.uniform(70, 220))))
-    mx, my = 600, 92
+    mx, my = 640, 96
     halo = Image.new("RGBA", im.size, (0, 0, 0, 0))
     hd = ImageDraw.Draw(halo)
     for r, a_ in ((210, 14), (160, 18), (115, 26), (80, 34)):
         hd.ellipse([(mx - r) * K, (my - r) * K, (mx + r) * K, (my + r) * K], fill=(110, 140, 220, a_))
     im.alpha_composite(halo)
-    d.ellipse([(mx - 46) * K, (my - 46) * K, (mx + 46) * K, (my + 46) * K], fill=(240, 236, 214, 255))
+    d.ellipse([(mx - 44) * K, (my - 44) * K, (mx + 44) * K, (my + 44) * K], fill=(240, 236, 214, 255))
     for cx, cy, r in ((-14, -10, 10), (12, 8, 8), (-6, 18, 6), (16, -16, 5)):
         d.ellipse([(mx + cx - r) * K, (my + cy - r) * K, (mx + cx + r) * K, (my + cy + r) * K], fill=(214, 208, 186, 255))
-    d.polygon([(0, (HORIZON - 40) * K), (200 * K, (HORIZON - 90) * K), (420 * K, (HORIZON - 30) * K),
-               (650 * K, (HORIZON - 100) * K), (880 * K, (HORIZON - 40) * K), (PWD * K, (HORIZON - 80) * K),
+    d.polygon([(0, (HORIZON - 30) * K), (200 * K, (HORIZON - 70) * K), (420 * K, (HORIZON - 24) * K),
+               (650 * K, (HORIZON - 80) * K), (880 * K, (HORIZON - 30) * K), (PWD * K, (HORIZON - 64) * K),
                (PWD * K, HORIZON * K), (0, HORIZON * K)], fill=(14, 20, 38, 255))
-    for j in range(9):
-        tx = 40 + j * 125 + rng.uniform(-20, 20)
-        ty = HORIZON + 6
-        d.rectangle([(tx - 5) * K, (ty - 30) * K, (tx + 5) * K, ty * K], fill=(10, 14, 26, 255))
-        d.ellipse([(tx - 24) * K, (ty - 74) * K, (tx + 24) * K, (ty - 22) * K], fill=(12, 18, 32, 255))
-    # the road
-    if lane == 1:
-        xs = np.linspace(-40, PWD + 40, 600)
-        pts = [(x * K, (zig_y(x) if START_X - 30 <= x else zig_y(START_X - 30)) * K) for x in xs]
-        d.line(pts, fill=INK + (255,), width=int(66 * K), joint="curve")
-        d.line(pts, fill=(84, 80, 98, 255), width=int(58 * K), joint="curve")
-        for j, (px, py) in enumerate(pts[::12]):
-            d.ellipse([px - 3 * K, py - 3 * K, px + 3 * K, py + 3 * K], fill=(54, 54, 68, 255))
-    else:
-        d.rectangle([0, (FEET - 38) * K, PWD * K, (FEET + 26) * K], fill=(34, 38, 54, 255), outline=INK + (255,),
-                    width=int(3 * K))
-        for x in range(0, PWD, 90):
-            d.rectangle([x * K, (FEET - 8) * K, (x + 44) * K, (FEET - 3) * K], fill=(170, 180, 210, 170))
-    # grass tufts in the foreground
-    for j in range(40):
-        gx, gy = rng.uniform(0, PWD), rng.uniform(FEET + 40, PHT - 6)
-        if lane == 1 and abs(gy - zig_y(gx)) < 62:
-            continue
-        for dx in (-5, 0, 5):
-            d.line([gx * K, gy * K, (gx + dx * 1.6) * K, (gy - 14) * K], fill=(36, 54, 70, 255), width=int(2 * K))
-    # start line
-    fy = zig_y(START_X) if lane == 1 else FEET
-    d.polygon([((START_X - 6 + 18) * K, (fy - 34) * K), ((START_X + 6 + 18) * K, (fy - 34) * K),
-               ((START_X + 6 - 14) * K, (fy + 24) * K), ((START_X - 6 - 14) * K, (fy + 24) * K)], fill=(255, 255, 255, 255))
-    # finish: checkered strip on the road, a tall flag
-    fy = zig_y(FIN_X) if lane == 1 else FEET
-    for r in range(6):
-        for c in range(2):
-            y0 = fy - 34 + r * 10
-            x0 = FIN_X + 18 - (r * 10) * 0.55 + c * 12 - 6
-            col = (255, 255, 255, 255) if (r + c) % 2 == 0 else (20, 20, 24, 255)
-            d.polygon([(x0 * K, y0 * K), ((x0 + 12) * K, y0 * K), ((x0 + 12 - 5.5) * K, (y0 + 10) * K),
-                       ((x0 - 5.5) * K, (y0 + 10) * K)], fill=col)
-    vy, vx = np.mgrid[0:PHT * K:4, 0:PWD * K:4].astype(np.float32)
-    r = np.sqrt(((vx - PWD * K / 2) / (PWD * K)) ** 2 + ((vy - PHT * K / 2) / (PHT * K)) ** 2)
-    vig = Image.fromarray((np.clip((r - 0.3) * 1.5, 0, 1) * 150).astype(np.uint8), "L").resize(im.size)
-    v = Image.new("RGBA", im.size, (0, 0, 0, 255))
-    v.putalpha(vig)
-    im.alpha_composite(v)
     return im
 
 
-def finish_poles(d, lane, broken_at, t):
-    fy = zig_y(FIN_X) if lane == 1 else FEET
-    back = (FIN_X + 22, fy - 34)
-    front = (FIN_X - 14, fy + 26)
-    # back pole + flag
-    d.rectangle([(back[0] - 4) * K, (back[1] - 250) * K, (back[0] + 4) * K, back[1] * K], fill=(240, 240, 240, 255),
+def _hash(k, lane, salt):
+    return ((k * 73856093) ^ (lane * 19349663) ^ (salt * 83492791)) % 1000 / 1000.0
+
+
+def draw_world(d, lane, c, vc):
+    """everything that scrolls: trees (parallax), the road and its dashes, grass, start, distance signs"""
+    pc, pv = c * 0.45, abs(vc) * 0.45
+    stretch = min(500.0, pv / 28.0)
+    a_tree = int(255 * (1 - min(0.6, stretch / 600)))
+    for k in range(int((pc - 700) // 150), int((pc + PWD + 200) // 150) + 1):
+        tx = k * 150 + 60 * _hash(k, lane, 1) - pc
+        th = 34 + 26 * _hash(k, lane, 2)
+        ty = HORIZON + 6
+        d.rectangle([(tx - 4) * K, (ty - 22) * K, (tx + 4 + stretch) * K, ty * K], fill=(10, 14, 26, a_tree))
+        d.rounded_rectangle([(tx - 22) * K, (ty - 22 - th * 1.6) * K, (tx + 22 + stretch) * K, (ty - 18) * K],
+                            int(20 * K), fill=(12, 18, 34, a_tree))
+    if lane == 1:
+        xs = np.linspace(-60, PWD + 60, 300)
+        for hw, col in ((30, INK), (26.5, (84, 80, 98))):
+            up = [(x * K, (zig_y(x + c) - hw) * K) for x in xs]
+            dn = [(x * K, (zig_y(x + c) + hw) * K) for x in xs[::-1]]
+            d.polygon(up + dn, fill=col + (255,))
+        for k in range(int((c - 40) // 34), int((c + PWD + 40) // 34) + 1):
+            wx = k * 34 + 20 * _hash(k, 1, 3)
+            sx = wx - c
+            yy = zig_y(wx) - 14 + 28 * _hash(k, 1, 4)
+            d.ellipse([(sx - 3) * K, (yy - 3) * K, (sx + 3) * K, (yy + 3) * K], fill=(60, 58, 74, 255))
+    else:
+        d.rectangle([0, (FEET - 40) * K, PWD * K, (FEET + 32) * K], fill=(34, 38, 54, 255), outline=INK + (255,),
+                    width=int(3 * K))
+        dl = 60 + min(700.0, abs(vc) / 30.0)
+        for k in range(int((c - 800) // 130), int((c + PWD) // 130) + 1):
+            sx = k * 130 - c
+            d.rectangle([sx * K, (FEET - 6) * K, (sx + dl) * K, (FEET - 1) * K], fill=(170, 180, 210, 170))
+    for k in range(int((c - 40) // 46), int((c + PWD + 40) // 46) + 1):
+        gx = k * 46 + 30 * _hash(k, lane, 5) - c
+        gy = FEET + 50 + (PHT - FEET - 56) * _hash(k, lane, 6)
+        for dx in (-5, 0, 5):
+            d.line([gx * K, gy * K, (gx + dx * 1.6) * K, (gy - 13) * K], fill=(36, 54, 70, 255), width=int(2 * K))
+    sx = START - c
+    if -60 < sx < PWD + 60:
+        fy = zig_y(START) if lane == 1 else FEET
+        d.polygon([((sx + 14) * K, (fy - 36) * K), ((sx + 26) * K, (fy - 36) * K), ((sx + 2) * K, (fy + 28) * K),
+                   ((sx - 10) * K, (fy + 28) * K)], fill=(235, 238, 248, 255))
+    for mk in (25, 50, 75):
+        wx = START + mk * PXM
+        sx = wx - c
+        if -120 < sx < PWD + 120:
+            fy = (zig_y(wx) if lane == 1 else FEET) - 46
+            d.rectangle([(sx - 3) * K, (fy - 70) * K, (sx + 3) * K, fy * K], fill=(150, 156, 176, 255))
+            d.rounded_rectangle([(sx - 40) * K, (fy - 108) * K, (sx + 40) * K, (fy - 66) * K], int(8 * K),
+                                fill=(36, 120, 70, 255), outline=(220, 230, 240, 255), width=int(2 * K))
+            text_c(d, sx, fy - 104, f"{mk} M", 26, (240, 244, 250))
+
+
+def finish(d, lane, c, broken_at, t):
+    """checkered strip, flag and tape at world FIN; returns the front post (drawn last) or None"""
+    fx = FIN - c
+    if not (-160 < fx < PWD + 200):
+        return None
+    fy = zig_y(FIN) if lane == 1 else FEET
+    for r in range(7):
+        for cc in range(2):
+            y0 = fy - 38 + r * 10
+            x0 = fx + 18 - r * 10 * 0.5 + cc * 12 - 6
+            col = (240, 240, 244, 255) if (r + cc) % 2 == 0 else (20, 20, 24, 255)
+            d.polygon([(x0 * K, y0 * K), ((x0 + 12) * K, y0 * K), ((x0 + 12 - 5) * K, (y0 + 10) * K),
+                       ((x0 - 5) * K, (y0 + 10) * K)], fill=col)
+    back = (fx + 22, fy - 38)
+    front = (fx - 12, fy + 30)
+    d.rectangle([(back[0] - 4) * K, (back[1] - 230) * K, (back[0] + 4) * K, back[1] * K], fill=(230, 232, 240, 255),
                 outline=INK + (255,), width=int(2 * K))
-    wav = 6 * math.sin(t * 5)
+    wav = 5 * math.sin(t * 5)
     for r in range(4):
-        for c in range(6):
-            x0 = back[0] + 4 + c * 16
-            y0 = back[1] - 250 + r * 15 + wav * c / 6
-            col = (255, 255, 255, 255) if (r + c) % 2 == 0 else (20, 20, 24, 255)
-            d.rectangle([x0 * K, y0 * K, (x0 + 16) * K, (y0 + 15) * K], fill=col)
-    d.rectangle([(back[0] + 4) * K, (back[1] - 250 + wav * 0) * K, (back[0] + 100) * K, (back[1] - 190 + wav) * K],
-                outline=INK + (255,), width=int(2 * K))
-    # tape between the posts at chest height
-    hb = (back[0], back[1] - 130)
-    hf = (front[0], front[1] - 130)
+        for cc in range(6):
+            x0 = back[0] + 4 + cc * 15
+            y0 = back[1] - 230 + r * 14 + wav * cc / 6
+            col = (240, 240, 244, 255) if (r + cc) % 2 == 0 else (20, 20, 24, 255)
+            d.rectangle([x0 * K, y0 * K, (x0 + 15) * K, (y0 + 14) * K], fill=col)
+    hb = (back[0], back[1] - 84)
+    hf = (front[0], front[1] - 84)
     if broken_at is None or t < broken_at:
-        d.line([hb[0] * K, hb[1] * K, hf[0] * K, hf[1] * K], fill=RED + (255,), width=int(7 * K))
+        d.line([hb[0] * K, hb[1] * K, hf[0] * K, hf[1] * K], fill=RED + (255,), width=int(6 * K))
     else:
         u = clamp((t - broken_at) / 0.4)
-        sw = 1 - u
         for p0, sgn in ((hb, 1), (hf, -1)):
             ang = math.pi / 2 * (0.3 + 0.7 * u)
-            L = 70
-            ex = p0[0] + sgn * L * math.cos(ang) * 0.8 + 30 * sw
-            ey = p0[1] + L * math.sin(ang)
-            d.line([p0[0] * K, p0[1] * K, ex * K, ey * K], fill=RED + (255,), width=int(7 * K))
+            ex = p0[0] + sgn * 50 * math.cos(ang) * 0.8 + 24 * (1 - u)
+            ey = p0[1] + 50 * math.sin(ang)
+            d.line([p0[0] * K, p0[1] * K, ex * K, ey * K], fill=RED + (255,), width=int(6 * K))
     return front
 
 
 def front_pole(d, front):
-    d.rectangle([(front[0] - 5) * K, (front[1] - 150) * K, (front[0] + 5) * K, front[1] * K],
-                fill=(240, 240, 240, 255), outline=INK + (255,), width=int(2 * K))
+    if front:
+        d.rectangle([(front[0] - 4) * K, (front[1] - 110) * K, (front[0] + 4) * K, front[1] * K],
+                    fill=(230, 232, 240, 255), outline=INK + (255,), width=int(2 * K))
 
 
 # ---------------------------------------------------------------- props
-def draw_car(d, cx, gy, t, bow, driver, vib=0.0, moving=0.0):
-    cy = gy - 4 * vib * math.sin(t * 60)
-    P = lambda x, y: ((cx + x) * K, (cy + y) * K)  # noqa
+CXS, CYS = 1.27, 0.95       # the car is drawn 1.27x longer, 0.95x taller than the base shape (~380 x 115 px)
+
+
+def draw_car(d, cx, gy, t, bow, driver, vib=0.0, moving=0.0, chauffeur_in=False):
+    cy = gy - 3 * vib * math.sin(t * 60)
+
+    def P(x, y):
+        return ((cx + x * CXS) * K, (cy + y * CYS) * K)
     if moving > 0.05:
         for j in range(6):
             y = -30 - j * 14
-            L = 120 + 60 * (j % 2)
-            d.line([P(-170 - L * moving, y), P(-160, y)], fill=(255, 255, 255, int(200 * moving)), width=int(4 * K))
+            L = 140 + 80 * (j % 2)
+            d.line([P(-170 - L * moving, y), P(-160, y)], fill=(230, 236, 255, int(200 * moving)), width=int(3 * K))
     body = [(-152, -36), (152, -36), (158, -58), (70, -78), (10, -118), (-66, -118), (-126, -86), (-156, -80)]
-    d.polygon([P(*p) for p in body], fill=CAR + (255,), outline=INK + (255,), width=int(4 * K))
-    d.line([P(-140, -60), P(140, -60)], fill=(255, 110, 110, 255), width=int(4 * K))
-    if driver:
-        hx, hy = cx - 22, cy - 96
-        d.ellipse([(hx - 22) * K, (hy - 22) * K, (hx + 22) * K, (hy + 22) * K], fill=WHITE + (255,),
-                  outline=INK + (255,), width=int(3 * K))
-        d.rounded_rectangle([(hx - 2) * K, (hy - 8) * K, (hx + 21) * K, (hy + 2) * K], int(3 * K), fill=(15, 15, 20, 255))
+    d.polygon([P(*p) for p in body], fill=CAR + (255,), outline=INK + (255,), width=int(3 * K))
+    d.line([P(-140, -60), P(140, -60)], fill=(255, 110, 110, 255), width=int(3 * K))
+    if driver or chauffeur_in:
+        hx, hy = P(-22, -94)
+        hx, hy = hx / K, hy / K
+        r = 18
+        d.ellipse([(hx - r) * K, (hy - r) * K, (hx + r) * K, (hy + r) * K], fill=WHITE + (255,), outline=INK + (255,),
+                  width=int(2 * K))
+        if driver:
+            d.rounded_rectangle([(hx - 2) * K, (hy - 7) * K, (hx + 18) * K, (hy + 2) * K], int(2 * K),
+                                fill=(15, 15, 20, 255))
+        else:
+            d.rectangle([(hx - 15) * K, (hy - 26) * K, (hx + 15) * K, (hy - 10) * K], fill=(20, 20, 26, 255))
     win = [(58, -80), (6, -112), (-60, -112), (-104, -82)]
-    d.polygon([P(*p) for p in win], fill=(150, 210, 245, 95), outline=INK + (255,), width=int(3 * K))
-    d.line([P(-24, -112), P(-24, -80)], fill=INK + (255,), width=int(3 * K))
+    d.polygon([P(*p) for p in win], fill=(150, 210, 245, 95), outline=INK + (255,), width=int(2 * K))
+    d.line([P(-24, -112), P(-24, -80)], fill=INK + (255,), width=int(2 * K))
     d.rectangle([P(-160, -100), P(-118, -92)], fill=(40, 40, 46, 255))
-    d.line([P(-138, -92), P(-132, -84)], fill=(40, 40, 46, 255), width=int(4 * K))
+    d.line([P(-138, -92), P(-132, -84)], fill=(40, 40, 46, 255), width=int(3 * K))
     d.ellipse([P(140, -58), P(156, -46)], fill=(255, 240, 150, 255), outline=INK + (255,), width=int(2 * K))
+    hx0, hy0 = P(156, -52)
+    d.polygon([(hx0, hy0), (hx0 + 220 * K, hy0 - 26 * K), (hx0 + 220 * K, hy0 + 40 * K)], fill=(255, 240, 170, 40))
     for wx in (-96, 100):
-        r = 31
-        d.ellipse([P(wx - r, -r - 2), P(wx + r, r - 2)], fill=(24, 24, 28, 255), outline=INK + (255,), width=int(2 * K))
-        d.ellipse([P(wx - 15, -17), P(wx + 15, 13)], fill=(190, 194, 204, 255))
-        rot = -t * 40 * moving - (cx / 31)
+        r = 30
+        cxw, cyw = P(wx, -2)
+        d.ellipse([cxw - r * K, cyw - r * K, cxw + r * K, cyw + r * K], fill=(24, 24, 28, 255), outline=INK + (255,),
+                  width=int(2 * K))
+        d.ellipse([cxw - 15 * K, cyw - 15 * K, cxw + 15 * K, cyw + 15 * K], fill=(190, 194, 204, 255))
+        rot = -(cx / 30)
         for j in range(5):
             a = rot + j * 2 * math.pi / 5
-            d.line([P(wx, -2), P(wx + 14 * math.cos(a), -2 + 14 * math.sin(a))], fill=(90, 94, 104, 255),
+            d.line([cxw, cyw, cxw + 13 * K * math.cos(a), cyw + 13 * K * math.sin(a)], fill=(90, 94, 104, 255),
                    width=int(3 * K))
     if bow is not None:
         bx, by, ang, al = bow
         if al > 0.02:
             a = int(255 * al)
-            band = [(-30, -118), (-16, -118), (-14, -36), (-32, -36)]
             if bx is None:
+                band = [(-30, -118), (-16, -118), (-14, -36), (-32, -36)]
                 d.polygon([P(*p) for p in band], fill=GOLD + (a,), outline=INK + (a,))
-                bx, by = cx - 23, cy - 122
+                bx, by = P(-23, -120)
+                bx, by = bx / K, by / K
             c, s = math.cos(ang), math.sin(ang)
 
             def Q(x, y):
+                x, y = x * 0.75, y * 0.75
                 return ((bx + x * c - y * s) * K, (by + x * s + y * c) * K)
             for sg in (-1, 1):
                 d.polygon([Q(0, 0), Q(sg * 46, -36), Q(sg * 54, 6)], fill=(255, 90, 160, a), outline=INK + (a,),
-                          width=int(3 * K))
-                d.line([Q(0, 0), Q(sg * 26, 34)], fill=(255, 90, 160, a), width=int(8 * K))
-            d.ellipse([Q(-12, -12)[0], Q(-12, -12)[1], Q(12, 12)[0], Q(12, 12)[1]] if abs(ang) < 1e-3 else
-                      [(bx - 12) * K, (by - 12) * K, (bx + 12) * K, (by + 12) * K], fill=(230, 60, 140, a),
-                      outline=INK + (a,), width=int(3 * K))
+                          width=int(2 * K))
+                d.line([Q(0, 0), Q(sg * 26, 34)], fill=(255, 90, 160, a), width=int(6 * K))
+            d.ellipse([(bx - 9) * K, (by - 9) * K, (bx + 9) * K, (by + 9) * K], fill=(230, 60, 140, a),
+                      outline=INK + (a,), width=int(2 * K))
 
 
-def lounger(d):
-    x, y = CHAIR_X, LOUNGE_Y
-    d.line([(x - 120) * K, y * K, (x - 100) * K, (y - 44) * K], fill=INK + (255,), width=int(5 * K))
-    d.line([(x + 110) * K, y * K, (x + 94) * K, (y - 44) * K], fill=INK + (255,), width=int(5 * K))
-    d.polygon([((x - 110) * K, (y - 58) * K), ((x + 120) * K, (y - 58) * K), ((x + 120) * K, (y - 42) * K),
-               ((x - 110) * K, (y - 42) * K)], fill=(255, 140, 60, 255), outline=INK + (255,))
-    d.polygon([((x - 60) * K, (y - 58) * K), ((x - 46) * K, (y - 46) * K), ((x - 112) * K, (y - 168) * K),
-               ((x - 128) * K, (y - 158) * K)], fill=(255, 140, 60, 255), outline=INK + (255,))
+def lounger(d, x, y):
+    sc = 0.8
+
+    def P(a, b):
+        return ((x + a * sc) * K, (y + b * sc) * K)
+    d.line([P(-120, 0), P(-100, -44)], fill=INK + (255,), width=int(4 * K))
+    d.line([P(110, 0), P(94, -44)], fill=INK + (255,), width=int(4 * K))
+    d.polygon([P(-110, -58), P(120, -58), P(120, -44), P(-110, -44)], fill=(230, 120, 50, 255), outline=INK + (255,))
+    d.polygon([P(-70, -58), P(-56, -46), P(-122, -160), P(-138, -150)], fill=(230, 120, 50, 255), outline=INK + (255,))
     for j in range(1, 5):
-        xx = x - 110 + j * 46
-        d.line([xx * K, (y - 58) * K, xx * K, (y - 42) * K], fill=(255, 220, 120, 255), width=int(4 * K))
+        xx = -110 + j * 46
+        d.line([P(xx, -58), P(xx, -44)], fill=(255, 210, 120, 255), width=int(3 * K))
 
 
 def keys(d, hx, hy, t):
     a = t * 14
-    kx, ky = hx + 32 * math.cos(a), hy + 32 * math.sin(a)
-    d.ellipse([(hx - 14) * K, (hy - 14) * K, (hx + 14) * K, (hy + 14) * K], outline=GOLD + (255,), width=int(5 * K))
-    d.line([hx * K, hy * K, kx * K, ky * K], fill=GOLD + (255,), width=int(5 * K))
-    d.rounded_rectangle([(kx - 18) * K, (ky - 11) * K, (kx + 18) * K, (ky + 11) * K], int(5 * K), fill=(20, 20, 24, 255),
-                        outline=GOLD + (255,), width=int(3 * K))
-    d.ellipse([(kx + 4) * K, (ky - 4) * K, (kx + 12) * K, (ky + 4) * K], fill=(255, 60, 60, 255))
+    kx, ky = hx + 22 * math.cos(a), hy + 22 * math.sin(a)
+    d.ellipse([(hx - 9) * K, (hy - 9) * K, (hx + 9) * K, (hy + 9) * K], outline=GOLD + (255,), width=int(3 * K))
+    d.line([hx * K, hy * K, kx * K, ky * K], fill=GOLD + (255,), width=int(3 * K))
+    d.rounded_rectangle([(kx - 12) * K, (ky - 7) * K, (kx + 12) * K, (ky + 7) * K], int(3 * K), fill=(20, 20, 24, 255),
+                        outline=GOLD + (255,), width=int(2 * K))
+    d.ellipse([(kx + 3) * K, (ky - 3) * K, (kx + 8) * K, (ky + 3) * K], fill=(255, 60, 60, 255))
 
 
 def drone(d, x, y, t, box):
-    for sx in (-38, 38):
-        d.ellipse([(x + sx - 30) * K, (y - 20) * K, (x + sx + 30) * K, (y - 10) * K], fill=(200, 200, 210, 140))
-        d.line([(x + sx) * K, (y - 15) * K, (x + sx) * K, y * K], fill=INK + (255,), width=int(3 * K))
-    d.rounded_rectangle([(x - 40) * K, (y - 2) * K, (x + 40) * K, (y + 14) * K], int(6 * K), fill=(60, 64, 76, 255),
+    for sx in (-26, 26):
+        d.ellipse([(x + sx - 20) * K, (y - 13) * K, (x + sx + 20) * K, (y - 7) * K], fill=(200, 200, 210, 140))
+        d.line([(x + sx) * K, (y - 10) * K, (x + sx) * K, y * K], fill=INK + (255,), width=int(2 * K))
+    d.rounded_rectangle([(x - 27) * K, (y - 2) * K, (x + 27) * K, (y + 9) * K], int(4 * K), fill=(60, 64, 76, 255),
                         outline=INK + (255,), width=int(2 * K))
-    d.ellipse([(x + 26) * K, (y + 2) * K, (x + 34) * K, (y + 10) * K], fill=(255, 60, 60, 255))
+    d.ellipse([(x + 17) * K, (y + 1) * K, (x + 23) * K, (y + 7) * K], fill=(255, 60, 60, 255))
     if box:
-        d.line([x * K, (y + 14) * K, x * K, (y + 40) * K], fill=INK + (255,), width=int(2 * K))
-        pizza_box(d, x, y + 52)
+        d.line([x * K, (y + 9) * K, x * K, (y + 28) * K], fill=INK + (255,), width=int(2 * K))
+        pizza_box(d, x, y + 36)
 
 
-def pizza_box(d, x, y, sc=1.0):
-    d.rectangle([(x - 34 * sc) * K, (y - 12 * sc) * K, (x + 34 * sc) * K, (y + 12 * sc) * K], fill=(230, 200, 150, 255),
-                outline=INK + (255,), width=int(3 * K))
-    text_c(d, x, y - 10 * sc, "PIZZA", 14 * sc, (200, 40, 40))
+def pizza_box(d, x, y):
+    d.rectangle([(x - 24) * K, (y - 8) * K, (x + 24) * K, (y + 8) * K], fill=(230, 200, 150, 255),
+                outline=INK + (255,), width=int(2 * K))
+    text_c(d, x, y - 7, "PIZZA", 10, (200, 40, 40))
 
 
 def slice_(d, x, y):
-    d.polygon([((x - 14) * K, (y - 10) * K), ((x + 18) * K, (y - 16) * K), ((x + 2) * K, (y + 22) * K)],
+    d.polygon([((x - 10) * K, (y - 7) * K), ((x + 12) * K, (y - 11) * K), ((x + 1) * K, (y + 15) * K)],
               fill=(255, 200, 70, 255), outline=INK + (255,), width=int(2 * K))
-    d.line([(x - 14) * K, (y - 10) * K, (x + 18) * K, (y - 16) * K], fill=(200, 130, 60, 255), width=int(6 * K))
-    for px, py in ((x, y - 4), (x + 6, y + 6)):
-        d.ellipse([(px - 4) * K, (py - 4) * K, (px + 4) * K, (py + 4) * K], fill=(220, 50, 40, 255))
+    d.line([(x - 10) * K, (y - 7) * K, (x + 12) * K, (y - 11) * K], fill=(200, 130, 60, 255), width=int(4 * K))
 
 
-def cash_fan(d, x, y, t):
+def cash_fan(d, x, y):
     for j in range(5):
         a = -0.9 + j * 0.42
-        ex, ey = x + 46 * math.sin(a), y - 46 * math.cos(a)
-        d.line([x * K, y * K, ex * K, ey * K], fill=(70, 160, 80, 255), width=int(18 * K))
-        d.line([x * K, y * K, ex * K, ey * K], fill=(150, 220, 140, 255), width=int(10 * K))
-    text_c(d, x, y - 40, "$", 22, (30, 100, 40))
+        ex, ey = x + 32 * math.sin(a), y - 32 * math.cos(a)
+        d.line([x * K, y * K, ex * K, ey * K], fill=(70, 160, 80, 255), width=int(12 * K))
+        d.line([x * K, y * K, ex * K, ey * K], fill=(150, 220, 140, 255), width=int(7 * K))
 
 
-def zzz(d, x, y, t):
-    for j in range(3):
-        u = ((t * 0.7 + j / 3) % 1.0)
-        a = int(255 * math.sin(math.pi * u))
-        text_c(d, x + 20 + 40 * u, y - 30 - 90 * u, "Z", 30 + 22 * u, (255, 255, 255), stroke=4, a=a)
+def bottle(d, x, y, ang=0.0):
+    c, s = math.cos(ang), math.sin(ang)
+
+    def P(a, b):
+        return ((x + a * c - b * s) * K, (y + a * s + b * c) * K)
+    d.polygon([P(-6, -4), P(6, -4), P(6, 26), P(-6, 26)], fill=(120, 190, 255, 230), outline=INK + (255,))
+    d.polygon([P(-3, -12), P(3, -12), P(3, -4), P(-3, -4)], fill=(240, 240, 250, 255), outline=INK + (255,))
+
+
+def phone_(d, x, y, lit=True):
+    d.rounded_rectangle([(x - 7) * K, (y - 12) * K, (x + 7) * K, (y + 12) * K], int(3 * K), fill=(20, 20, 26, 255),
+                        outline=INK + (255,))
+    if lit:
+        d.rectangle([(x - 5) * K, (y - 9) * K, (x + 5) * K, (y + 9) * K], fill=(140, 200, 255, 255))
 
 
 def sweat(d, pts, t, f):
     hx, hy = pts["head"]
     for j in range(2):
         u = (t * 1.8 + j * 0.5) % 1.0
-        x, y = hx - f * (30 + 14 * u) + j * 10, hy - 10 + 40 * u
+        x, y = hx - f * (20 + 10 * u) + j * 8, hy - 8 + 28 * u
         a = int(255 * (1 - u))
-        d.polygon([(x * K, (y - 9) * K), ((x + 6) * K, (y + 3) * K), ((x - 6) * K, (y + 3) * K)],
-                  fill=(120, 200, 255, a))
-        d.ellipse([(x - 6) * K, (y - 2) * K, (x + 6) * K, (y + 9) * K], fill=(120, 200, 255, a))
+        d.polygon([(x * K, (y - 6) * K), ((x + 4) * K, (y + 2) * K), ((x - 4) * K, (y + 2) * K)], fill=(120, 200, 255, a))
+        d.ellipse([(x - 4) * K, (y - 1) * K, (x + 4) * K, (y + 6) * K], fill=(120, 200, 255, a))
 
 
-def rain(d, cx, t, t0, t1):
+def rain(d, cx, cy, t, t0, t1):
     if not (t0 <= t < t1):
         return
     a = smooth(prog(t, t0, t0 + 0.4)) * (1 - smooth(prog(t, t1 - 0.4, t1)))
-    cy = 70
-    for dx, dy, r in ((-60, 10, 36), (-20, -6, 46), (30, 0, 44), (72, 12, 32)):
+    for dx, dy, r in ((-50, 8, 30), (-16, -5, 38), (26, 0, 36), (60, 10, 26)):
         d.ellipse([(cx + dx - r) * K, (cy + dy - r * 0.8) * K, (cx + dx + r) * K, (cy + dy + r * 0.8) * K],
-                  fill=(120, 126, 140, int(250 * a)), outline=INK + (int(255 * a),), width=int(3 * K))
+                  fill=(90, 96, 116, int(250 * a)), outline=INK + (int(255 * a),), width=int(2 * K))
     rng = np.random.default_rng(7)
-    for j in range(34):
-        x0 = cx + rng.uniform(-110, 110)
+    for j in range(30):
+        x0 = cx + rng.uniform(-90, 90)
         sp = rng.uniform(500, 700)
         ph = rng.uniform(0, 1)
-        y = 100 + ((t * sp / 400 + ph) % 1.0) * 340
-        d.line([x0 * K, y * K, (x0 - 6) * K, (y + 22) * K], fill=(90, 150, 230, int(230 * a)), width=int(3 * K))
+        y = cy + 20 + ((t * sp / 300 + ph) % 1.0) * (FEET + 20 - cy)
+        d.line([x0 * K, y * K, (x0 - 6) * K, (y + 18) * K], fill=(110, 160, 240, int(220 * a)), width=int(2 * K))
+
+
+def speed_lines(d, t, v):
+    if v < 1500:
+        return
+    a = clamp((v - 1500) / 3000)
+    rng = np.random.default_rng(int(t * 60))
+    for _ in range(14):
+        y = rng.uniform(40, PHT - 20)
+        x = rng.uniform(-200, PWD)
+        L = rng.uniform(120, 360)
+        d.line([x * K, y * K, (x + L) * K, y * K], fill=(220, 230, 255, int(120 * a)), width=int(2 * K))
 
 
 # ---------------------------------------------------------------- panel
-BGS = None
+SKY = None
 
 
 def tag(base, lab):
     tl = ImageDraw.Draw(base)
-    f = font("Inter-SemiBold.otf", int(34 * K))
-    x = 30 * K
+    f = font("Inter-SemiBold.otf", int(32 * K))
+    x = 28 * K
     for c in lab:
-        tl.text((x, 20 * K), c, font=f, fill=(196, 204, 226, 255))
+        tl.text((x, 18 * K), c, font=f, fill=(196, 204, 226, 255))
         x += f.getlength(c) + 9 * K
-
-
-def panel(t, st, lane):
-    base = BGS[lane].copy()
-    lay = Image.new("RGBA", base.size, (0, 0, 0, 0))
-    d = ImageDraw.Draw(lay)
-    ev = []
-    if lane == 0:
-        broken = None
-        front = finish_poles(d, 0, broken, st)
-        pose, hip, f, extra = sprinter(st)
-        if isinstance(extra, tuple):
-            pts = AJ.place(pose, hip, f, S, extra[1])
-        else:
-            pts = AJ.place(pose, hip, f, S)
-        # running dust
-        if st < 3.2 or T_RUN2 <= st < T_CRAMP:
-            for j in range(4):
-                u = ((st * 3 + j / 4) % 1.0)
-                px = hip[0] - 40 - 80 * u
-                r = 8 + 16 * u
-                d.ellipse([(px - r) * K, (FEET - r) * K, (px + r) * K, (FEET + r * 0.5) * K],
-                          fill=(230, 220, 200, int(170 * (1 - u))))
-        figure(d, pts, S, "band", f)
-        front_pole(d, front)
-        if extra == "sweat":
-            sweat(d, pts, st, f)
-        if isinstance(extra, tuple) and st > T_LIE + 0.6:
-            zzz(d, pts["head"][0], pts["head"][1], st)
-        if extra == "panic":
-            k = hq.pop(st, T_WAKE, 0.2)
-            text_c(d, pts["head"][0] + 10, pts["head"][1] - 120 * k, "!", 90 * k + 4, RED, stroke=5)
-        bubble(lay, st, T_EASY0, T_EASY1, "EASY!", pts["head"][0] - 10, pts["head"][1] - 40)
-        bubble(lay, st, T_CRAMP + 0.05, T_LIMP - 0.1, "OW!", pts["head"][0] + 20, pts["head"][1] - 40)
-        ev = [T_CRAMP, T_FALL]
-    elif lane == 1:
-        front = finish_poles(d, 1, T_TOUCH, st)
-        pose, hip, f, s = consistent(st)
-        pts = AJ.place(pose, hip, f, s)
-        figure(d, pts, s, "cap", f)
-        if not (T_TOUCH - 0.1 < st):
-            pass
-        front_pole(d, front)
-        rain(d, pts["head"][0], st, T_RAIN0, T_RAIN1)
-        if T_RAIN0 + 0.3 <= st < T_RAIN1:
-            for j in range(3):
-                u = ((st * 2.2 + j / 3) % 1.0)
-                fx = pts["fl"][0] if j % 2 else pts["fr"][0]
-                fy = max(pts["fl"][1], pts["fr"][1])
-                r = 8 + 26 * u
-                d.ellipse([(fx - r) * K, (fy - r * 0.25) * K, (fx + r) * K, (fy + r * 0.25) * K],
-                          outline=(220, 240, 255, int(220 * (1 - u))), width=int(2 * K))
-        if st >= T_REACH - 0.6:
-            sweat(d, pts, st, f)
-        ev = [T_TOUCH]
-    else:
-        front = finish_poles(d, 2, T_CROSS, st)
-        cx = car_x(st)
-        moving = clamp((cx - CAR_X0) / 200) * (1 - smooth(prog(st, T_CROSS + 0.05, T_STOP + 0.25)))
-        vib = 1.0 if T_IGN <= st < T_LAUNCH + 0.2 else 0.0
-        # the bow: on the car, then thrown off
-        if st < T_BOW:
-            bow = (None, None, 0.0, 1.0)
-        else:
-            u = prog(st, T_BOW, T_BOW + 0.9)
-            bow = (CAR_X0 - 23 - 160 * u, FEET - 122 - 220 * u + 260 * u * u, 6 * u, 1 - smooth(prog(st, T_BOW + 0.6, T_BOW + 0.9)))
-        driver = st >= T_IN
-        # exhaust puffs
-        if st >= T_IGN:
-            for j in range(5):
-                u = ((st * (1.6 if st < T_LAUNCH else 0.8) + j / 5) % 1.0)
-                if st > T_STOP + 0.6:
-                    break
-                px, py = cx - 160 - 60 * u, FEET - 40 - 20 * u
-                r = 8 + 22 * u
-                d.ellipse([(px - r) * K, (py - r) * K, (px + r) * K, (py + r) * K], fill=(220, 220, 226, int(170 * (1 - u))))
-        if st >= T_STOP - 0.1 and st < T_STOP + 1.2:
-            u = prog(st, T_STOP - 0.1, T_STOP + 1.2)
-            for j in range(5):
-                px = cx - 40 - j * 40 - 60 * u
-                r = 20 + 30 * u
-                d.ellipse([(px - r) * K, (FEET - 20 - r * 0.6) * K, (px + r) * K, (FEET - 20 + r * 0.4) * K],
-                          fill=(230, 230, 236, int(200 * (1 - u))))
-        draw_car(d, cx, FEET + 30, st, bow, driver, vib, moving)
-        front_pole(d, front)
-        lounger(d)
-        rs = rich(st)
-        if rs is not None:
-            pose, hip, f, prop = rs
-            pts = AJ.place(pose, hip, f, S)
-            figure(d, pts, S, "rich", f)
-            hx, hy = pts["hr"]
-            if prop == "keys":
-                keys(d, hx, hy - 10, st)
-            elif prop == "juice":
-                d.rounded_rectangle([(hx - 12) * K, (hy - 14) * K, (hx + 12) * K, (hy + 22) * K], int(4 * K),
-                                    fill=(255, 160, 40, 255), outline=INK + (255,), width=int(2 * K))
-                d.line([(hx + 4) * K, (hy - 14) * K, (hx - 8) * K, (hy - 36) * K], fill=(255, 80, 120, 255), width=int(4 * K))
-            elif prop == "phone":
-                d.rounded_rectangle([(hx - 12) * K, (hy - 20) * K, (hx + 12) * K, (hy + 18) * K], int(4 * K),
-                                    fill=(20, 20, 26, 255))
-                if T_SELFIE <= st < T_SELFIE + 0.25:
-                    k = 1 - prog(st, T_SELFIE, T_SELFIE + 0.25)
-                    for r in (90, 60, 34):
-                        d.ellipse([(hx - r) * K, (hy - r) * K, (hx + r) * K, (hy + r) * K], fill=(255, 255, 255, int(110 * k)))
-            elif prop == "cash":
-                cash_fan(d, hx, hy, st)
-            elif prop == "box":
-                pizza_box(d, hx, hy - 12)
-            elif prop == "slice":
-                slice_(d, hx, hy)
-            elif prop == "watch":
-                lx, ly = pts["hl"]
-                d.rounded_rectangle([(lx - 12) * K, (ly - 6) * K, (lx + 12) * K, (ly + 14) * K], int(4 * K),
-                                    fill=GOLD + (255,), outline=INK + (255,), width=int(2 * K))
-                if st > T_YAWN1 + 0.6:
-                    text_c(d, lx + 10, ly - 110, "...", 40, INK)
-            if prop not in ("keys",) and st < T_KEYS1 + 0.2:
-                pass
-        # the drone with the pizza
-        if T_DRONE0 <= st < T_DRONE1:
-            hx0, hy0 = AJ.place(R_TAKE, KID_HIP, 1, S)["hr"]
-            if st < T_DRONE_HAND:
-                u = smooth(prog(st, T_DRONE0, T_DRONE_HAND))
-                x, y = lerp(1120, hx0, u), lerp(-60, hy0 - 64, u)
-                drone(d, x, y, st, True)
-            else:
-                u = smooth(prog(st, T_DRONE_HAND, T_DRONE1))
-                drone(d, lerp(hx0, 1140, u), lerp(hy0 - 64, -80, u), st, False)
-        hq.confetti(_Pp(d), st, T_CROSS, T_CROSS + 0.6, FIN_X, 140, 5, 50)
-        ev = [T_IGN, T_LAUNCH, T_STOP]
-    g = lay.resize((lay.width // 4, lay.height // 4), Image.BILINEAR).filter(ImageFilter.GaussianBlur(5))
-    ga = g.split()[3].point(lambda v: int(v * 0.55))
-    glow = Image.new("RGBA", g.size, (150, 180, 255, 0))
-    glow.putalpha(ga)
-    base.alpha_composite(glow.resize(lay.size, Image.BILINEAR))
-    base.alpha_composite(lay)
-    if lane == 2 and T_CROSS <= st < T_CROSS + 0.2:
-        fl = Image.new("RGBA", base.size, (255, 255, 255, int(120 * (1 - prog(st, T_CROSS, T_CROSS + 0.2)))))
-        base.alpha_composite(fl)
-    tag(base, ["SPRINTER", "CONSISTENT", "RICH KID"][lane])
-    # answer stamps (held to the end), gone before the rewind
-    if t < T_RW:
-        if lane == 0:
-            stamp(base, t, T_STAMP + 0.3, T_RW, "TIRED", GREY, 470, 110)
-        elif lane == 1:
-            stamp(base, t, T_STAMP + 0.15, T_RW, "2ND", (200, 120, 30), 560, 110)
-        else:
-            stamp(base, t, T_STAMP, T_RW, "1ST", GREEN, 470, 110, 96)
-    im = hq.downsample(base, PWD, PHT)
-    dx, dy = hq.shake(st, ev, 9) if t < T_RW else (0.0, 0.0)
-    z = 1.0 + 0.04 * math.sin(math.pi * st / T_RW)
-    im = hq.camera(im, z, dx, dy)
-    ImageDraw.Draw(im).rounded_rectangle([1, 1, PWD - 2, PHT - 2], 16, outline=(44, 54, 88, 255), width=3)
-    return im
 
 
 class _Pp:
@@ -871,6 +862,179 @@ class _Pp:
 
     def __init__(self, d):
         self.ds = d
+
+
+def W2S(pts, c):
+    return {k: (x - c, y) for k, (x, y) in pts.items()}
+
+
+def panel(t, st, lane):
+    base = SKY[lane].copy()
+    lay = Image.new("RGBA", base.size, (0, 0, 0, 0))
+    d = ImageDraw.Draw(lay)
+    c = cam(lane, st)
+    vc = cam_v(lane, st)
+    draw_world(d, lane, c, vc)
+    ev = []
+    if lane == 0:
+        front = finish(d, 0, c, None, st)
+        pose, hip, f, extra = sprinter(st)
+        pts = W2S(AJ.place(pose, hip, f, S), c)
+        if st < T_STOP_S - 0.3 or T_RUN2 + 0.2 <= st < T_CRAMP:
+            ph = gait(PH_S, st)
+            for j in range(3):
+                u = ((ph / (2 * math.pi) * 2 + j / 3) % 1.0)
+                px = pts["hip"][0] - 30 - 70 * u
+                r = 5 + 12 * u
+                d.ellipse([(px - r) * K, (FEET - r) * K, (px + r) * K, (FEET + r * 0.5) * K],
+                          fill=(120, 130, 160, int(120 * (1 - u))))
+        figure(d, pts, S, "band", f)
+        hx, hy = pts["head"]
+        if extra == "sweat":
+            sweat(d, pts, st, f)
+        if extra == "bottle":
+            k = math.sin(math.pi * prog(st, T_DRINK0, T_DRINK1))
+            bottle(d, pts["hr"][0], pts["hr"][1] - 6, -2.4 * min(1, k * 2.2))
+        if extra == "phone":
+            phone_(d, pts["hr"][0] + 4, pts["hr"][1] - 10)
+        if T_ALERT <= st < T_RUN2 + 0.3:
+            k = hq.pop(st, T_ALERT, 0.2)
+            text_c(d, hx + 6, hy - 50 - 30 * k, "!", 70 * k + 4, RED, stroke=4)
+        bubble(lay, st, T_STOP_S + 0.1, T_EASY1, "EASY!", hx, hy - 36)
+        bubble(lay, st, T_CRAMP + 0.05, T_LIMP - 0.1, "OW!", hx + 14, hy - 36)
+        front_pole(d, front)
+        ev = [T_CRAMP, T_FALL]
+    elif lane == 1:
+        front = finish(d, 1, c, T_TOUCH, st)
+        pose, hip, f, s = consistent(st)
+        pts = W2S(AJ.place(pose, hip, f, s), c)
+        figure(d, pts, s, "cap", f)
+        if T_RAIN0 + 0.3 <= st < T_RAIN1:
+            for j in range(2):
+                u = ((st * 2.4 + j / 2) % 1.0)
+                fx_, fy_ = pts["fl"] if j else pts["fr"]
+                r = 6 + 20 * u
+                d.ellipse([(fx_ - r) * K, (fy_ - r * 0.25) * K, (fx_ + r) * K, (fy_ + r * 0.25) * K],
+                          outline=(200, 220, 255, int(200 * (1 - u))), width=int(2 * K))
+        rain(d, pts["head"][0] + 10, 70, st, T_RAIN0, T_RAIN1)
+        if st >= T_REACH - 1.0:
+            sweat(d, pts, st, f)
+        front_pole(d, front)
+        ev = [T_TOUCH]
+    else:
+        front = finish(d, 2, c, T_CROSS, st)
+        cx = car_x(st) - c
+        moving = 1.0 if T_LAUNCH + 0.15 <= st < T_STOP else 0.0
+        if T_CROSS <= st < T_STOP:
+            moving = 1 - prog(st, T_CROSS, T_STOP)
+        vib = 1.0 if T_IGN <= st < T_LAUNCH + 0.15 else 0.0
+        if st < T_BOW:
+            bow = (None, None, 0.0, 1.0)
+        else:
+            u = prog(st, T_BOW, T_BOW + 0.7)
+            bx0 = CAR_STOP - c - 23 * CXS
+            bow = (bx0 - 260 * u, FEET + 30 - 120 * CYS - 200 * u + 300 * u * u, 7 * u,
+                   1 - smooth(prog(st, T_BOW + 0.45, T_BOW + 0.7)))
+        if T_IGN <= st < T_STOP + 0.4:
+            for j in range(5):
+                u = ((st * (1.6 if st < T_LAUNCH else 0.8) + j / 5) % 1.0)
+                px, py = cx - 160 * CXS - 50 * u, FEET - 10 - 16 * u
+                r = 6 + 16 * u
+                d.ellipse([(px - r) * K, (py - r) * K, (px + r) * K, (py + r) * K], fill=(150, 156, 176, int(150 * (1 - u))))
+        if T_CROSS <= st < T_STOP + 1.2:
+            u = prog(st, T_CROSS, T_STOP + 1.2)
+            for j in range(5):
+                px = cx - 60 - j * 40 - 60 * u
+                r = 16 + 26 * u
+                d.ellipse([(px - r) * K, (FEET - 4 - r * 0.6) * K, (px + r) * K, (FEET - 4 + r * 0.4) * K],
+                          fill=(170, 176, 196, int(170 * (1 - u))))
+        if T_CAR0 <= st:
+            draw_car(d, cx, FEET + 30, st, bow, st >= T_IN, vib, moving, chauffeur_in=st < T_CHAUF)
+        ch = chauffeur(st)
+        if ch is not None and st < T_CUT:
+            pose, hip, al = ch
+            fc = -1 if st >= T_LAUNCH else 1
+            pts = W2S(AJ.place(pose, hip, fc, S), c)
+            figure(d, pts, S, "chauffeur", fc, int(255 * al), body=(176, 182, 200))
+        lx = LOUNGE_X - c
+        if -200 < lx < PWD + 200:
+            lounger(d, lx, LOUNGE_Y)
+        rs = rich(st)
+        if rs is not None:
+            pose, hip, f, prop = rs
+            pts = W2S(AJ.place(pose, hip, f, S), c)
+            figure(d, pts, S, "rich", f)
+            hx, hy = pts["hr"]
+            if prop == "keys":
+                keys(d, hx, hy - 6, st)
+            elif prop == "juice":
+                d.rounded_rectangle([(hx - 8) * K, (hy - 10) * K, (hx + 8) * K, (hy + 14) * K], int(3 * K),
+                                    fill=(255, 160, 40, 255), outline=INK + (255,), width=int(2 * K))
+                d.line([(hx + 3) * K, (hy - 10) * K, (hx - 6) * K, (hy - 26) * K], fill=(255, 80, 120, 255),
+                       width=int(3 * K))
+            elif prop == "phone":
+                phone_(d, hx, hy, False)
+                if T_SELFIE <= st < T_SELFIE + 0.25:
+                    k = 1 - prog(st, T_SELFIE, T_SELFIE + 0.25)
+                    for r in (70, 46, 26):
+                        d.ellipse([(hx - r) * K, (hy - r) * K, (hx + r) * K, (hy + r) * K],
+                                  fill=(255, 255, 255, int(110 * k)))
+            elif prop == "cash":
+                cash_fan(d, hx, hy)
+            elif prop == "box":
+                pizza_box(d, hx, hy - 8)
+            elif prop == "slice":
+                slice_(d, hx, hy)
+            elif prop == "watch":
+                lx_, ly_ = pts["hl"]
+                d.rounded_rectangle([(lx_ - 8) * K, (ly_ - 4) * K, (lx_ + 8) * K, (ly_ + 9) * K], int(3 * K),
+                                    fill=GOLD + (255,), outline=INK + (255,), width=int(2 * K))
+                if st > T_YAWN1 + 0.6:
+                    text_c(d, pts["head"][0] + 10, pts["head"][1] - 76, "...", 34, WHITE)
+        if T_DRONE0 <= st < T_DRONE1:
+            hx0, hy0 = AJ.place(R_TAKE, KID_HIP, 1, S)["hr"]
+            if st < T_DRONE_HAND:
+                u = smooth(prog(st, T_DRONE0, T_DRONE_HAND))
+                drone(d, lerp(1120, hx0, u), lerp(-60, hy0 - 44, u), st, True)
+            else:
+                u = smooth(prog(st, T_DRONE_HAND, T_DRONE1))
+                drone(d, lerp(hx0, 1140, u), lerp(hy0 - 44, -80, u), st, False)
+        if T_HONK <= st < T_HONK + 0.5:
+            k = hq.pop(st, T_HONK, 0.15)
+            text_c(d, cx + 160, FEET - 170, "BEEP!", 30 * k + 2, (255, 220, 120), stroke=3)
+        front_pole(d, front)
+        speed_lines(d, st, abs(cam_v(2, st)))
+        hq.confetti(_Pp(d), st, T_CROSS, T_CROSS + 0.6, FIN_SX, 150, 5, 50)
+        ev = [T_IGN, T_LAUNCH, T_CROSS, T_STOP]
+    g = lay.resize((lay.width // 4, lay.height // 4), Image.BILINEAR).filter(ImageFilter.GaussianBlur(5))
+    ga = g.split()[3].point(lambda v: int(v * 0.5))
+    glow = Image.new("RGBA", g.size, (150, 180, 255, 0))
+    glow.putalpha(ga)
+    base.alpha_composite(glow.resize(lay.size, Image.BILINEAR))
+    base.alpha_composite(lay)
+    if lane == 2 and T_CROSS <= st < T_CROSS + 0.2:
+        fl = Image.new("RGBA", base.size, (255, 255, 255, int(120 * (1 - prog(st, T_CROSS, T_CROSS + 0.2)))))
+        base.alpha_composite(fl)
+    if lane == 2 and T_CUT <= st < T_CUT + 0.12:
+        fl = Image.new("RGBA", base.size, (255, 255, 255, int(90 * (1 - prog(st, T_CUT, T_CUT + 0.12)))))
+        base.alpha_composite(fl)
+    tag(base, ["SPRINTER", "CONSISTENT", "RICH KID"][lane])
+    if t < T_RW:
+        if lane == 0:
+            stamp(base, t, T_STAMP + 0.3, T_RW, "TIRED", GREY, 560, 130)
+        elif lane == 1:
+            stamp(base, t, T_STAMP + 0.15, T_RW, "2ND", (200, 120, 30), 560, 130)
+        else:
+            stamp(base, t, T_STAMP, T_RW, "1ST", GREEN, 560, 130, 92)
+    im = hq.downsample(base, PWD, PHT)
+    dx, dy = hq.shake(st, ev, 7) if t < T_RW else (0.0, 0.0)
+    if lane == 2 and T_LAUNCH <= st < T_CUT:
+        dx += 3 * math.sin(st * 70)
+        dy += 2 * math.cos(st * 63)
+    z = 1.0 + 0.03 * math.sin(math.pi * st / T_RW)
+    im = hq.camera(im, z, dx, dy)
+    ImageDraw.Draw(im).rounded_rectangle([1, 1, PWD - 2, PHT - 2], 16, outline=(44, 54, 88, 255), width=3)
+    return im
 
 
 def title(img):
@@ -887,14 +1051,9 @@ def title(img):
 COLS = [(190, "SPRINTER"), (540, "CONSISTENT"), (890, "RICH KID")]
 
 
-def meters(st):
-    car = clamp((car_x(st) - CAR_X0) / 430)
-    return [min(100, frac_s(st) * 100), min(100, frac_c(st) * 100), car * 100]
-
-
 def counter(img, st, t):
     d = ImageDraw.Draw(img)
-    m = meters(st)
+    m = [min(100.0, m_s(st)), min(100.0, m_c(st)), m_r(st)]
     lead = max(range(3), key=lambda i: (m[i], -i))
     if m[2] >= 100:
         lead = 2
@@ -918,7 +1077,6 @@ def frame(t):
     for lane in range(3):
         img.alpha_composite(panel(t, st, lane), (PX0, PANEL_Y[lane]))
     if t >= T_RW:
-        # rewind look: a ◀◀ icon and tracking lines
         d = ImageDraw.Draw(img)
         a = int(230 * min(1, prog(t, T_RW, T_RW + 0.1)) * (1 - prog(t, DUR - 0.12, DUR)))
         cx, cy = W / 2, PANEL_Y[1] + PHT / 2
@@ -933,8 +1091,8 @@ def frame(t):
 
 
 def init_worker():
-    global BGS, TITLE
-    BGS = [make_bg(i) for i in range(3)]
+    global SKY, TITLE
+    SKY = [make_sky(i) for i in range(3)]
     TITLE = Image.new("RGBA", (W, H), NIGHT + (255,))
     title(TITLE)
 
@@ -950,7 +1108,7 @@ def engine(dur, f0, f1, curve=1.0, rough=0.25, seed=0):
     f = f0 + (f1 - f0) * u
     ph = 2 * np.pi * np.cumsum(f) / SR
     x = sum(np.sin(k * ph) / k for k in range(1, 9))
-    x += rough * noise(dur, seed, lo=60, hi=2000)
+    x += rough * noise(dur, seed, lo=60, hi=2000)[:n]
     return x / (np.abs(x).max() + 1e-9)
 
 
@@ -959,57 +1117,49 @@ def step(fx, at, g, pan, hi=False):
            0.4 * noise(0.07, int(at * 1000) % 9999, lo=300, hi=3000) * env(int(0.07 * SR), 0.001, 0.015), at, g, pan)
 
 
+def steps_from(ph_arr, v_arr, t0, t1):
+    """a footstep every half stride while running"""
+    out = []
+    last = None
+    for i in range(int(t0 * 240), min(int(t1 * 240), len(ph_arr))):
+        n = int(ph_arr[i] // math.pi)
+        if last is not None and n != last and abs(v_arr[i]) > 1.0:
+            out.append(_TG[i])
+        last = n
+    return out
+
+
 def audio():
     n = int(DUR * SR)
     fx = np.zeros((n, 2))
     mus = music.score(MUSIC, DUR, t_end=T_CROSS - 0.35, t_warm=T_CROSS + 0.05, t_line=T_STAMP + 0.1, start=0.0, loud=1.0)
-    # birds + breeze bed, continuous (the loop stays seamless)
-    bed = noise(DUR, 3, lo=150, hi=1200)
-    fx[:, 0] += 0.02 * bed
-    fx[:, 1] += 0.02 * bed
-    for t0 in (1.6, 8.3, 13.1, 19.4):
-        for k2 in range(3):
-            mix_in(fx, tone(2700 + 250 * k2, 0.07, (1,), a=0.003, d=0.035, sweep=3300), t0 + k2 * 0.11, 0.018, 0.5)
-    # frame 0: the starting pistol
+    tt = np.arange(n) / SR
+    bed = noise(DUR, 3, lo=150, hi=900)[:n] * 0.02
+    cr = np.sin(2 * np.pi * 4300 * tt) * (np.sin(2 * np.pi * 28 * tt) > 0.6) * (np.sin(2 * np.pi * 0.7 * tt) > 0)
+    fx[:, 0] += bed + 0.004 * cr
+    fx[:, 1] += bed + 0.004 * np.roll(cr, 9000)
     mix_in(fx, noise(0.5, 1, lo=200, hi=8000) * env(int(0.5 * SR), 0.0005, 0.07), 0.0, 0.32)
     mix_in(fx, tone(90, 0.4, (1, 0.5), a=0.001, d=0.15), 0.0, 0.25)
-    # sprinter's steps (fast, then the second sprint), CONSISTENT's steady steps under everything
-    t0 = 0.05
-    while t0 < 3.2:
-        step(fx, t0, 0.07, -0.3, True)
-        x = lane_x(frac_s(t0))
-        t0 += max(0.11, 36 / max(30, (frac_s(t0 + 0.05) - frac_s(t0)) / 0.05 * 710))
-    t0 = T_RUN2
-    while t0 < T_CRAMP:
-        step(fx, t0, 0.07, -0.3, True)
-        t0 += 0.13
-    t0 = 0.3
-    while t0 < T_TOUCH:
-        step(fx, t0, 0.03, 0.1)
-        t0 += 0.5
-    # "EASY!" pop, panting, snoring
-    mix_in(fx, tone(880, 0.1, (1, 0.4), a=0.002, d=0.05, sweep=1200), T_EASY0, 0.05)
+    for t0 in steps_from(PH_S, V_S, 0.0, T_FALL):
+        step(fx, t0, 0.06, -0.3, True)
+    for t0 in steps_from(PH_C, V_C, 0.0, T_TOUCH + 0.6):
+        step(fx, t0, 0.028, 0.1)
+    mix_in(fx, tone(880, 0.1, (1, 0.4), a=0.002, d=0.05, sweep=1200), T_STOP_S + 0.1, 0.05, -0.3)
     for j in range(5):
         mix_in(fx, noise(0.22, 20 + j, lo=500, hi=3000) * np.sin(np.linspace(0, np.pi, int(0.22 * SR))),
-               T_PANT + 0.1 + j * 0.32, 0.05, -0.3)
-    t0 = T_LIE + 0.6
-    while t0 < T_WAKE - 0.6:
-        sn = noise(1.0, int(t0 * 10), lo=80, hi=500) * np.sin(np.linspace(0, np.pi, SR)) ** 2
-        mix_in(fx, sn, t0, 0.07, -0.3)
-        t0 += 1.8
-    # the wake: alarm-ish sting
-    for j, m in enumerate((84, 88, 84)):
-        mix_in(fx, tone(midi(m), 0.09, (1, 0.5), a=0.001, d=0.05), T_WAKE + j * 0.08, 0.05)
-    # cramp + fall
+               T_EASY1 + 0.1 + j * 0.3, 0.05, -0.3)
+    for j in range(4):
+        mix_in(fx, tone(180, 0.12, (1, 0.5), a=0.005, d=0.05, sweep=120), T_DRINK0 + 0.6 + j * 0.3, 0.06, -0.3)
+    mix_in(fx, tone(1320, 0.18, (1, 0.3), a=0.002, d=0.1), T_ALERT - 0.15, 0.05, -0.3)
+    for j, m in enumerate((84, 88, 91)):
+        mix_in(fx, tone(midi(m), 0.09, (1, 0.5), a=0.001, d=0.05), T_ALERT + j * 0.07, 0.05, -0.3)
     mix_in(fx, tone(300, 0.35, (1, 0.6), a=0.002, d=0.2, sweep=110), T_CRAMP, 0.08, -0.3)
     mix_in(fx, tone(70, 0.4, (1, 0.5), a=0.002, d=0.18) + 0.3 * noise(0.4, 77, lo=100, hi=2000) *
-           env(int(0.4 * SR), 0.002, 0.08), T_FALL, 0.2, -0.3)
-    # rain
+           env(int(0.4 * SR), 0.002, 0.08), T_FALL, 0.18, -0.3)
     rn = noise(T_RAIN1 - T_RAIN0, 9, lo=800, hi=9000)
     m = len(rn)
     rn *= np.minimum(1, np.minimum(np.arange(m), m - np.arange(m)) / (0.4 * SR))
     mix_in(fx, rn, T_RAIN0, 0.05, 0.1)
-    # rich kid: keys jingle, slurp, shutter, cash flutter, drone, munching, watch ticks
     for j in range(8):
         mix_in(fx, tone(3200 + 400 * (j % 3), 0.05, (1, 0.6), a=0.001, d=0.03), 0.15 + j * 0.34, 0.02, 0.4)
     mix_in(fx, noise(0.6, 31, lo=1500, hi=6000) * env(int(0.6 * SR), 0.05, 0.2), T_KEYS1 + 0.9, 0.04, 0.4)
@@ -1018,53 +1168,52 @@ def audio():
     for j in range(10):
         mix_in(fx, noise(0.08, 40 + j, lo=1200, hi=7000) * env(int(0.08 * SR), 0.002, 0.03), T_FAN0 + 0.3 + j * 0.2,
                0.03, 0.4)
-    dr = (np.sin(2 * np.pi * 180 * np.arange(int((T_DRONE1 - T_DRONE0) * SR)) / SR) * 0.4 +
-          noise(T_DRONE1 - T_DRONE0, 50, lo=200, hi=900) * 0.6)
-    m = len(dr)
-    dr *= np.sin(np.linspace(0, np.pi, m))
+    dn = int((T_DRONE1 - T_DRONE0) * SR)
+    dr = np.sin(2 * np.pi * 180 * np.arange(dn) / SR) * 0.4 + noise(T_DRONE1 - T_DRONE0, 50, lo=200, hi=900)[:dn] * 0.6
+    dr *= np.sin(np.linspace(0, np.pi, dn))
     mix_in(fx, dr, T_DRONE0, 0.06, 0.5)
     for j in range(5):
-        mix_in(fx, noise(0.07, 60 + j, lo=800, hi=4000) * env(int(0.07 * SR), 0.002, 0.03), T_DRONE_HAND + 0.6 + j * 0.35,
-               0.04, 0.4)
+        mix_in(fx, noise(0.07, 60 + j, lo=800, hi=4000) * env(int(0.07 * SR), 0.002, 0.03),
+               T_DRONE_HAND + 0.6 + j * 0.35, 0.04, 0.4)
     for j in range(6):
         mix_in(fx, tone(2400, 0.02, (1,), a=0.0005, d=0.01), T_YAWN1 + 0.6 + j * 0.25, 0.04, 0.4)
-    # the bow rips, the door, the engine
-    mix_in(fx, noise(0.35, 70, lo=1500, hi=8000) * np.sin(np.linspace(0, np.pi, int(0.35 * SR))), T_BOW, 0.08, 0.4)
-    mix_in(fx, tone(100, 0.2, (1, 0.5), a=0.001, d=0.06) + 0.4 * noise(0.2, 71, lo=200, hi=3000) *
-           env(int(0.2 * SR), 0.001, 0.04), T_IN, 0.18, 0.4)
-    mix_in(fx, engine(0.5, 30, 70, 0.6, 0.6, 72) * env(int(0.5 * SR), 0.02, 0.3), T_IGN - 0.35, 0.10, 0.4)
+    arr = engine(T_CAR1 - T_CAR0, 60, 40, 1.0, 0.3, 69)
+    arr *= np.linspace(0.2, 1, len(arr)) * np.minimum(1, (len(arr) - np.arange(len(arr))) / (0.3 * SR))
+    mix_in(fx, arr, T_CAR0, 0.12, 0.4)
+    for j in range(2):
+        mix_in(fx, tone(440, 0.16, (1, 0.6, 0.4), a=0.005, d=0.1) + tone(554, 0.16, (1, 0.6), a=0.005, d=0.1),
+               T_HONK + j * 0.2, 0.06, 0.4)
+    for t0 in (T_CHAUF, T_IN):
+        mix_in(fx, tone(100, 0.2, (1, 0.5), a=0.001, d=0.06) + 0.4 * noise(0.2, int(t0 * 10), lo=200, hi=3000) *
+               env(int(0.2 * SR), 0.001, 0.04), t0, 0.16, 0.4)
+    mix_in(fx, engine(0.5, 30, 70, 0.6, 0.6, 72) * env(int(0.5 * SR), 0.02, 0.3), T_IGN - 0.2, 0.10, 0.4)
     idle = engine(T_LAUNCH - T_IGN, 46, 58, 1.0, 0.3, 73)
-    for j, tr in enumerate((0.35, 0.8)):
-        lo, hi_ = int(tr * SR), int((tr + 0.25) * SR)
+    for tr in (0.3, 0.6):
+        lo, hi_ = int(tr * SR), int((tr + 0.2) * SR)
         idle[lo:hi_] *= 1.6
     mix_in(fx, idle * np.minimum(1, np.arange(len(idle)) / (0.05 * SR)), T_IGN, 0.16, 0.4)
-    # heartbeat under the slow reach
+    mix_in(fx, noise(0.35, 70, lo=1500, hi=8000) * np.sin(np.linspace(0, np.pi, int(0.35 * SR))), T_BOW, 0.07, 0.4)
     for j in range(3):
         for k2, dt in enumerate((0.0, 0.17)):
-            mix_in(fx, tone(48, 0.2, (1, 0.5), a=0.003, d=0.08), T_REACH + j * 0.42 + dt, 0.16 - 0.06 * k2)
-    # launch: roar + whoosh, the tape snaps, the skid
-    mix_in(fx, engine(0.8, 70, 260, 0.7, 0.35, 74) * env(int(0.8 * SR), 0.01, 0.5), T_LAUNCH, 0.30, 0.2)
-    mix_in(fx, noise(0.6, 75, lo=300, hi=5000) * np.sin(np.linspace(0, np.pi, int(0.6 * SR))), T_LAUNCH + 0.05, 0.12)
+            mix_in(fx, tone(48, 0.2, (1, 0.5), a=0.003, d=0.08), T_REACH - 0.6 + j * 0.42 + dt, 0.16 - 0.06 * k2)
+    roar = engine(T_CUT - T_LAUNCH + 0.3, 70, 320, 0.6, 0.35, 74)
+    mix_in(fx, roar * env(len(roar), 0.01, 1.2), T_LAUNCH, 0.28, 0.2)
+    mix_in(fx, noise(0.5, 75, lo=300, hi=5000) * np.sin(np.linspace(0, np.pi, int(0.5 * SR))), T_CUT - 0.1, 0.16)
     mix_in(fx, tone(1200, 0.08, (1, 0.5), a=0.001, d=0.03, sweep=600), T_CROSS, 0.10)
     sk = noise(0.5, 76, lo=1500, hi=5000) * env(int(0.5 * SR), 0.01, 0.25)
     sk *= np.sin(2 * np.pi * 2200 * np.arange(len(sk)) / SR) * 0.5 + 0.5
-    mix_in(fx, sk, T_CROSS + 0.03, 0.12, 0.3)
+    mix_in(fx, sk, T_CROSS + 0.05, 0.12, 0.3)
     mix_in(fx, tone(1000, 0.08, (1, 0.5), a=0.001, d=0.03, sweep=500), T_TOUCH, 0.06, -0.1)
-    # stamps
     for t0, g in ((T_STAMP, 0.2), (T_STAMP + 0.15, 0.14), (T_STAMP + 0.3, 0.12)):
         mix_in(fx, tone(70, 0.3, (1, 0.5), a=0.001, d=0.12) + 0.3 * noise(0.3, int(t0 * 100), lo=300, hi=4000) *
                env(int(0.3 * SR), 0.001, 0.05), t0, g)
-    for j, m in enumerate((72, 76, 79, 84)):
-        mix_in(fx, music.marimba(midi(m), 0.9), T_CROSS + 0.05 + 0.07 * j, 0.07)
-    # rewind whir into frame 0
     rw = DUR - T_RW
     nrw = int(rw * SR)
     fr = 300 + 2200 * np.linspace(0, 1, nrw) ** 1.5
-    w = np.sin(2 * np.pi * np.cumsum(fr) / SR) * 0.5 + noise(rw, 80, lo=1000, hi=6000) * 0.5
+    w = np.sin(2 * np.pi * np.cumsum(fr) / SR) * 0.5 + noise(rw, 80, lo=1000, hi=6000)[:nrw] * 0.5
     w *= np.minimum(1, np.arange(nrw) / (0.05 * SR))
     mix_in(fx, w, T_RW, 0.06)
     x = mus + fx
-    # duck the music under the rewind
     i0 = int(T_RW * SR)
     x[i0:] = fx[i0:] + mus[i0:] * np.linspace(1, 0.2, n - i0)[:, None]
     m = int(0.3 * SR)

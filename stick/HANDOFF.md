@@ -25,3 +25,8 @@ Every reel: propose first, build after "نفذ"; send it with idea, title, first
   reference (navy sky, stars, moon halo, light-grey glowing figures, spaced Inter type), one counter on top:
   DISTANCE (M) for all three; the rich kid sits at 0 until the last second. Loop = a fast rewind into frame 0.
   Music strings_am. Waiting for the owner's numbers.
+- Owner's notes on v1 (applied, v2): no finish line in frame 0 - each lane has its own camera following its runner,
+  the finish only appears at the end; smaller figures in proportion to the road (S=0.62, 1 m = 100 px, real-size
+  car); realistic run cycle (knee fold, bent arms, lean, feet grounded, cadence from speed: sprinter 9 m/s, consistent
+  3.8 m/s jog); the rich kid starts on a lounger with no car, the car arrives with a chauffeur before the end; the
+  sprinter rests (water, leans back, phone) instead of sleeping. 29.6 s; 25/50/75 M signs on the roads.
