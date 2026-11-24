@@ -47,3 +47,4 @@ Every reel: propose first, build after "نفذ"; send it with idea, title, first
   (figure(): lit edge / far-side shadow / dark outline from the silhouette mask), wet-floor reflection, depth of field,
   dust in the light, spaced serif captions; music on FluidSynth (piano ostinato, cellos, taiko, strings, brass/choir
   at the flip, hits on every cut). 19.3 s, 5 scenes + flip; the barefoot observer is hidden blurred in scene 1.
+- v2 (owner: more motion, clearer situations, the phone idea is unclear): 20.3 s - S0 'the grass is greener' (his lawn dries as he looks over the fence), S1 tracking bike + the car passes and splashes him, S2 the barbell slammed down (shake), S3 payday envelopes (the colleague's bursts with money, a whip pan), S4 he runs through a 5K FINISH arch, the giant screen shows a marathon winner, S5 the reveal; moving cameras, whip-ins on every cut.

@@ -41,7 +41,7 @@ from perfect_wave import clamp, env, font, lerp, lerp_pose, midi, mix_in, noise,
 W, H, FPS = 1080, 1920, 30
 K = 2
 SR = 44100
-DUR = 19.3
+DUR = 20.3
 NF = int(round(DUR * FPS))
 FLOOR = 1330
 SERIF = "/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf"
@@ -54,7 +54,7 @@ ORANGE = (238, 140, 36)
 DULL = (104, 98, 92)
 GOLD = (244, 190, 60)
 
-SC = [0.0, 2.5, 6.0, 9.5, 13.0, 16.0, DUR]        # scene starts
+SC = [0.0, 3.0, 6.5, 10.0, 13.5, 17.0, DUR]        # scene starts
 
 
 def scene_of(t):
@@ -374,25 +374,32 @@ def rider_pts(b, s, droop=0.0):
             "fl": b["pa"], "kr": kr, "fr": b["pb"]}
 
 
-def sports_car(d, layer, cx, t, moving):
+def sports_car(d, layer, cx, t, moving, flip=False):
+    """white sports car; flip=True faces right"""
+    f = -1 if flip else 1
     gy = FLOOR
     beam = Image.new("RGBA", layer.size, (0, 0, 0, 0))
     bd = ImageDraw.Draw(beam)
-    poly(bd, [(cx - 200, gy - 70), (cx - 560, gy - 150), (cx - 560, gy + 20)], (255, 246, 220, 60))
+    poly(bd, [(cx - f * 200, gy - 70), (cx - f * 560, gy - 150), (cx - f * 560, gy + 20)], (255, 246, 220, 60))
     layer.alpha_composite(beam.filter(ImageFilter.GaussianBlur(14)))
     body = [(-215, -30), (220, -30), (226, -62), (150, -84), (70, -132), (-60, -136), (-150, -92), (-222, -80)]
-    poly(d, [(cx - x, gy + y) for x, y in body], (226, 228, 236, 255), outline=INK + (255,), w=3)
-    poly(d, [(cx - x, gy + y) for x, y in [(130, -86), (62, -126), (-50, -128), (-118, -90)]], (40, 46, 62, 255))
+    poly(d, [(cx - f * x, gy + y) for x, y in body], (226, 228, 236, 255), outline=INK + (255,), w=3)
+    poly(d, [(cx - f * x, gy + y) for x, y in [(130, -86), (62, -126), (-50, -128), (-118, -90)]], (40, 46, 62, 255))
     line(d, [(cx - 200, gy - 56), (cx + 200, gy - 56)], (255, 255, 255, 255), 3)
-    ell(d, cx + 46, gy - 104, 17, 17, (190, 192, 200, 255))          # the friend at the wheel
-    ell(d, cx - 214, gy - 60, 12, 8, (255, 244, 200, 255))
-    ell(d, cx + 214, gy - 62, 8, 6, (220, 40, 40, 255))
-    for wx in (-130, 140):
-        ell(d, cx - wx, gy - 4, 40, 40, (18, 18, 22, 255))
-        ell(d, cx - wx, gy - 4, 22, 22, (170, 174, 186, 255))
+    ell(d, cx + f * 46, gy - 104, 17, 17, (190, 192, 200, 255))
+    ell(d, cx - f * 214, gy - 60, 12, 8, (255, 244, 200, 255))
+    ell(d, cx + f * 214, gy - 62, 8, 6, (220, 40, 40, 255))
+    if moving > 0.05:
         for j in range(5):
-            a = -t * 20 * moving + j * 1.256
-            line(d, [(cx - wx, gy - 4), (cx - wx + 20 * math.cos(a), gy - 4 + 20 * math.sin(a))], (90, 94, 104, 255), 4)
+            y = gy - 40 - j * 18
+            line(d, [(cx + f * 230, y), (cx + f * (330 + 60 * (j % 2)), y)], (220, 228, 255, int(180 * moving)), 3)
+    for wx in (-130, 140):
+        ell(d, cx - f * wx, gy - 4, 40, 40, (18, 18, 22, 255))
+        ell(d, cx - f * wx, gy - 4, 22, 22, (170, 174, 186, 255))
+        for j in range(5):
+            a = -f * t * 20 * moving + j * 1.256
+            line(d, [(cx - f * wx, gy - 4), (cx - f * wx + 20 * math.cos(a), gy - 4 + 20 * math.sin(a))],
+                 (90, 94, 104, 255), 4)
 
 
 def dumbbell(d, hand, s, ang=0.0):
@@ -487,151 +494,408 @@ def caption(img, lines, t):
 
 
 # ---------------------------------------------------------------- scenes (st = seconds into the scene)
+# every scene returns: captions, spotlights, camera (focus x, focus y, zoom), extra
+def run_pose(ph, amp, lean=0.24):
+    p = {}
+    L = lean * (0.4 + 0.6 * amp)
+    p["neck"] = (104 * math.sin(L), -104 * math.cos(L))
+    p["head"] = (p["neck"][0] + 42 * math.sin(L * 0.8), p["neck"][1] - 42 * math.cos(L * 0.8))
+    for side, off in (("l", 0.0), ("r", math.pi)):
+        q = ph + off
+        thigh = 0.15 + 0.1 * amp + (0.3 + 0.55 * amp) * math.sin(q)
+        flex = 0.32 + (0.5 + 1.6 * amp) * max(0.0, math.cos(q + 0.9)) ** 2
+        kx, ky = 56 * math.sin(thigh), 56 * math.cos(thigh)
+        sh = thigh - flex
+        p["k" + side] = (kx, ky)
+        p["f" + side] = (kx + 57 * math.sin(sh), ky + 57 * math.cos(sh))
+        a = -(0.3 + 0.85 * amp) * math.sin(q) + L * 0.5
+        nx, ny = p["neck"]
+        ex, ey = nx + 40 * math.sin(a), ny + 40 * math.cos(a)
+        fa = a + 1.35 + 0.25 * amp
+        p["e" + side] = (ex, ey)
+        p["h" + side] = (ex + 36 * math.sin(fa), ey + 36 * math.cos(fa))
+    return p
+
+
+def grounded(pose, x, s, feet=FLOOR):
+    low = max(pose["fl"][1], pose["fr"][1])
+    return (x, feet - low * s)
+
+
+def blades(d, x0, x1, col, h, seed, wind, dens=7):
+    rng = np.random.default_rng(seed)
+    n = int((x1 - x0) / dens)
+    for j in range(n):
+        x = x0 + j * dens + rng.uniform(-3, 3)
+        y = FLOOR + rng.uniform(-6, 26)
+        hh = h * rng.uniform(0.6, 1.2)
+        sw = wind * rng.uniform(0.5, 1.5)
+        c = tuple(int(v * rng.uniform(0.8, 1.15)) for v in col)
+        line(d, [(x, y), (x + sw, y - hh)], tuple(min(255, v) for v in c) + (255,), 3)
+
+
+def fence(d, x):
+    for j in range(6):
+        px = x + j * 12
+        py = FLOOR + 30 - j * 16
+        poly(d, [(px - 7, py), (px + 7, py), (px + 7, py - 120), (px, py - 132), (px - 7, py - 120)], (190, 182, 170, 255),
+             outline=INK + (255,), w=2)
+    line(d, [(x - 6, FLOOR - 40), (x + 66, FLOOR - 120)], (150, 142, 130, 255), 7)
+    line(d, [(x - 6, FLOOR - 0), (x + 66, FLOOR - 80)], (150, 142, 130, 255), 7)
+
+
 def s0(stage, d, st, T):
-    ticks = [0.35, 0.95, 1.55, 2.15]
-    giant_phone(d, stage, st, ["yacht", "car", "beach", "party", "yacht"], ticks)
-    n = sum(1 for tk in ticks if st >= tk)
-    k = 0.0
-    for tk in ticks:
-        if tk <= st < tk + 0.3:
-            k = smooth(prog(st, tk, tk + 0.3))
-    s = 1.3 * (0.8 ** (n - 1 + k)) if n else 1.3
-    pts = place(LOOK_UP, stand_hip(250, s), 1, s)
-    figure(stage, pts, s, light=(0.8, -0.6), scarf=True)
-    return [(-1.0, "WHEN YOU COMPARE YOURSELF")], ((650, 0.6),), (0.0, 0.0)
+    """the grass is greener: watering his lawn, he looks over the fence, his lawn dries up"""
+    s = 1.25
+    look = smooth(prog(st, 0.9, 1.3))
+    dry = smooth(prog(st, 1.5, 2.3))
+    # neighbour's lawn: lush, bright, a sprinkler
+    glow = Image.new("RGBA", stage.size, (0, 0, 0, 0))
+    gd = ImageDraw.Draw(glow)
+    ell(gd, 860, FLOOR - 20, 260, 90, (90, 230, 110, 70))
+    stage.alpha_composite(glow.filter(ImageFilter.GaussianBlur(40)))
+    blades(d, 660, 1100, (70, 210, 90), 46, 2, 4 * math.sin(T * 3))
+    sx, sy = 870, FLOOR - 6
+    rrect(d, (sx - 8, sy - 16, sx + 8, sy + 4), 3, (60, 62, 70, 255))
+    ang = -math.pi / 2 + 0.9 * math.sin(T * 2.2)
+    for j in range(26):
+        u = ((T * 1.6 + j / 26) % 1.0)
+        a = ang + (j % 5 - 2) * 0.08
+        x = sx + math.cos(a) * 260 * u
+        y = sy + math.sin(a) * 260 * u + 300 * u * u
+        ell(d, x, y, 3, 3, (180, 220, 255, int(230 * (1 - u))))
+    fence(d, 600)
+    # his lawn: green -> dry
+    col = tuple(int(lerp(a, b, dry)) for a, b in zip((80, 190, 90), (150, 130, 70)))
+    blades(d, -20, 590, col, lerp(40, 22, dry), 1, lerp(3, -6, dry))
+    # him, watering
+    hip = stand_hip(320, s)
+    pose = dict(STAND, er=(30, -80), hr=(66, -64), head=lerp_pose({"a": (0, -150)}, {"a": (14, -152)}, look)["a"])
+    if dry > 0.3:
+        pose = lerp_pose(pose, dict(SAD, er=(20, -60), hr=(36, -24)), smooth(prog(st, 2.1, 2.7)))
+    pts = place(pose, hip, 1, s)
+    figure(stage, pts, s, light=(0.5, -0.85), scarf=True)
+    hx, hy = pts["hr"]
+    tilt = 0.5 if st < 2.1 else 0.5 * (1 - smooth(prog(st, 2.1, 2.5)))
+    poly(d, [(hx - 10, hy - 10), (hx + 34, hy - 10), (hx + 30, hy + 26), (hx - 6, hy + 26)], (70, 140, 200, 255),
+         outline=INK + (255,), w=2)
+    line(d, [(hx + 32, hy + 6), (hx + 70, hy - 12 + 30 * tilt)], (70, 140, 200, 255), 6)
+    if st < 2.1:
+        for j in range(12):
+            u = ((T * 2.5 + j / 12) % 1.0)
+            ell(d, hx + 72 + 40 * u, hy - 8 + 30 * tilt + 260 * u * u + 40 * u, 3, 4, (170, 210, 255, int(220 * (1 - u))))
+    fx = lerp(lerp(330, 720, look), 420, dry)
+    return [(-1.0, "WHEN YOU COMPARE YOURSELF")], ((330, 0.9), (860, 0.8)), (fx, 1060, lerp(1.25, 1.12, look)), None
 
 
-BIKE_X = 400
+BIKE_X = 430
+STOP1 = 2.55                       # the bike stops (scene time in S1)
 
 
-def s1(stage, d, st, T, flip=False):
-    drained = smooth(prog(st, 1.8, 2.4))
+def bike_scroll(st):
+    """distance the world has moved in S1 (px)"""
+    v0 = 560.0
+    if st < 1.8:
+        return v0 * st
+    u = min(st, STOP1) - 1.8
+    dur = STOP1 - 1.8
+    return v0 * 1.8 + v0 * (u - u * u / (2 * dur))
+
+
+def street(d, c, seed=5):
+    """lamps, dashes and puddles of the S1/S5 street, scrolled by c"""
+    for k in range(int((c - 200) // 520), int((c + W + 200) // 520) + 1):
+        x = k * 520 + 140 - c
+        line(d, [(x, FLOOR - 40), (x, FLOOR - 560)], (40, 42, 50, 255), 8)
+        line(d, [(x, FLOOR - 560), (x + 60, FLOOR - 580)], (40, 42, 50, 255), 6)
+        ell(d, x + 62, FLOOR - 574, 16, 8, (255, 226, 160, 255))
+    for k in range(int((c - 100) // 160), int((c + W + 100) // 160) + 1):
+        x = k * 160 - c
+        line(d, [(x, FLOOR + 36), (x + 70, FLOOR + 36)], (70, 72, 84, 255), 5)
+
+
+def s1(stage, d, st, T):
+    c = bike_scroll(st)
+    v = (bike_scroll(st + 0.01) - bike_scroll(st - 0.01)) / 0.02
+    street(d, c)
+    drained = smooth(prog(st, 1.75, 2.4))
     col = tuple(int(lerp(a, b, drained)) for a, b in zip(ORANGE, DULL))
-    pedal = st < 2.1
-    ph = (st if pedal else 2.1) * 6.0
-    b = bike(d, BIKE_X, st, col, ph, -ph * 1.6)
-    droop = smooth(prog(st, 1.9, 2.4))
+    ph = c / 60.0
+    b = bike(d, BIKE_X, st, col, ph, -c / 95.0)
+    droop = smooth(prog(st, 2.0, 2.6))
     pts = rider_pts(b, 1.2, droop)
     figure(stage, pts, 1.2, light=(-0.5, -0.85), scarf=True, back=-1)
-    if st >= 0.9:
-        u = smooth(prog(st, 0.9, 1.5))
-        sports_car(d, stage, lerp(1400, 840, u), T, 1 - u)
-    return [(0.3, "YOU WERE HAPPY."), (1.85, "UNTIL YOU LOOKED.")], ((BIKE_X, 1.0),), (0.0, 0.0)
+    # the white car comes from behind and passes him, splashing through a puddle
+    if 0.7 <= st < 2.2:
+        u = prog(st, 0.7, 2.2)
+        cx = lerp(-400, 1600, u)
+        sports_car(d, stage, cx, T, 1.0, flip=True)
+        if 1.25 <= st < 1.9:
+            k = prog(st, 1.25, 1.9)
+            rng = np.random.default_rng(3)
+            for j in range(40):
+                vx, vy = rng.uniform(-260, 120), rng.uniform(-520, -200)
+                x = BIKE_X + 120 + vx * k
+                y = FLOOR - 10 + vy * k + 900 * k * k
+                ell(d, x, y, 4, 5, (170, 200, 240, int(230 * (1 - k))))
+    if v < 80:
+        observer(stage if False else _BACK[0], 0.0, 0.0, T)
+    return [(0.3, "YOU WERE HAPPY."), (1.85, "UNTIL YOU LOOKED.")], ((BIKE_X + 60, 1.0),), \
+        (lerp(BIKE_X + 120, BIKE_X + 40, smooth(prog(st, 2.3, 3.5))), 1050, lerp(1.0, 1.12, smooth(prog(st, 2.3, 3.5)))), \
+        ("shake", [1.3])
 
 
 def s2(stage, d, st, T):
-    # background rack silhouettes are in the bg layer (drawn by the caller)
     s = 1.2
     hip = stand_hip(330, s)
-    if st < 1.9:
+    jit = 6 * math.exp(-(st - 2.05) * 9) * math.sin(st * 90) if st > 2.05 else 0.0
+    if st < 1.95:
         c = 0.5 - 0.5 * math.cos(st * 2 * math.pi / 0.95)
         hand = (lerp(14, 40, c), lerp(-12, -100, c))
-        el = (12, -58)
-        pose = dict(PROUD, er=el, hr=hand, el=(-10, -58), hl=(-14, -12))
+        pose = dict(PROUD, er=(12, -58), hr=hand, el=(-10, -58), hl=(-14, -12))
         pts = place(pose, hip, 1, s)
         figure(stage, pts, s, light=(-0.5, -0.85), scarf=True)
         dumbbell(d, pts["hr"], s * 1.2)
     else:
-        k = smooth(prog(st, 2.0, 2.6))
-        pose = lerp_pose(dict(PROUD, er=(12, -58), hr=(14, -12)), dict(SAD, er=(-22, -54), hr=(-36, -8)), k)
+        k = smooth(prog(st, 2.3, 2.9))
+        pose = lerp_pose(dict(PROUD, er=(12, -58), hr=(14, -12), head=(10, -150)),
+                         dict(SAD, er=(-22, -54), hr=(-36, -8)), k)
         pts = place(pose, hip, 1, s)
         figure(stage, pts, s, light=(-0.5, -0.85), scarf=True)
-        dumbbell(d, pts["hr"], s * 1.2, 0.4 * k)
-    # the big lifter
+        hx, hy = pts["hr"]
+        dumbbell(d, (hx + jit, hy), s * 1.2, 0.4 * k + 0.05 * jit)
     s2_ = 1.5
     hip2 = stand_hip(760, s2_)
-    lift = smooth(prog(st, 1.2, 1.8))
-    bar_y = lerp(-112, -196, lift)
-    pose2 = dict(STAND, head=(0, -150), el=(-46, lerp(-80, -150, lift)), hl=(-60, bar_y), er=(46, lerp(-80, -150, lift)),
-                 hr=(60, bar_y), kl=(-26, 52), fl=(-40, 113), kr=(26, 52), fr=(40, 113))
-    pts2 = place(pose2, hip2, 1, s2_)
+    lift = smooth(prog(st, 0.7, 1.3))
+    drop = st >= 1.85
+    if not drop:
+        bar_y = lerp(-112, -196, lift)
+        pose2 = dict(STAND, el=(-46, lerp(-80, -150, lift)), hl=(-60, bar_y), er=(46, lerp(-80, -150, lift)),
+                     hr=(60, bar_y), kl=(-26, 52), fl=(-40, 113), kr=(26, 52), fr=(40, 113))
+        pts2 = place(pose2, hip2, 1, s2_)
+        bar_c = ((pts2["hl"][0] + pts2["hr"][0]) / 2, pts2["hl"][1])
+    else:
+        u = st - 1.85
+        up = dict(STAND, el=(-46, -150), hl=(-60, -196), er=(46, -150), hr=(60, -196), kl=(-26, 52), fl=(-40, 113),
+                  kr=(26, 52), fr=(40, 113))
+        down = dict(STAND, head=(4, -150), el=(-34, -64), hl=(-40, -16), er=(34, -64), hr=(40, -16), kl=(-26, 52),
+                    fl=(-40, 113), kr=(26, 52), fr=(40, 113))
+        pose2 = lerp_pose(up, down, smooth(prog(st, 1.9, 2.3)))
+        pts2 = place(pose2, hip2, 1, s2_)
+        y0 = hip2[1] - 196 * s2_
+        bar_c = (hip2[0], min(FLOOR - 78, y0 + 1600 * u * u))
+        if bar_c[1] >= FLOOR - 78:
+            bounce = max(0.0, 30 * math.sin((u - 0.2) * 22) * math.exp(-(u - 0.2) * 8))
+            bar_c = (bar_c[0], FLOOR - 78 - bounce)
     figure(stage, pts2, s2_, light=(0.5, -0.85))
-    barbell(d, ((pts2["hl"][0] + pts2["hr"][0]) / 2, pts2["hl"][1]), s2_)
-    return [(0.3, "SAME EFFORT."), (2.2, "LESS PRIDE.")], ((330, 1.0), (760, 0.7)), (0.0, 0.0)
+    barbell(d, bar_c, s2_)
+    if st >= 2.05:
+        u = st - 2.05
+        rng = np.random.default_rng(6)
+        for j in range(26):
+            vx = rng.uniform(-300, 300)
+            ell(d, 760 + vx * u, FLOOR - 4 - abs(vx) * 0.3 * u + 200 * u * u, 6 + 30 * u, 3 + 8 * u,
+                (150, 150, 160, int(150 * max(0, 1 - u * 1.4))))
+    orbit = smooth(prog(st, 0.0, 3.5))
+    return [(0.3, "SAME EFFORT."), (2.4, "LESS PRIDE.")], ((330, 1.0), (760, 0.75)), \
+        (lerp(700, 420, orbit), 1020, lerp(1.28, 1.12, orbit)), ("shake", [2.05])
+
+
+def office_bg(layer):
+    d = ImageDraw.Draw(layer)
+    for x in (80, 300, 780, 1000):
+        rrect(d, (x - 90, 640, x + 90, 1000), 8, (22, 24, 32, 255), outline=(60, 64, 80, 255), w=4)
+        for y in range(660, 990, 26):
+            line(d, [(x - 80, y), (x + 80, y)], (40, 44, 58, 255), 3)
+    for x in (300, 780):
+        rrect(d, (x - 150, FLOOR - 120, x + 150, FLOOR - 104), 4, (50, 52, 62, 255))
+        line(d, [(x - 130, FLOOR - 104), (x - 130, FLOOR)], (50, 52, 62, 255), 8)
+        line(d, [(x + 130, FLOOR - 104), (x + 130, FLOOR)], (50, 52, 62, 255), 8)
+
+
+def envelope(d, x, y, glow=0.0, open_=0.0, scale=1.0):
+    w, h = 46 * scale, 30 * scale
+    if glow > 0:
+        for r, a in ((90, 40), (60, 60), (40, 90)):
+            ell(d, x, y - 10, r * scale, r * scale * 0.8, (255, 210, 90, int(a * glow)))
+    rrect(d, (x - w, y - h, x + w, y + h), 3, (240, 238, 230, 255), outline=INK + (255,), w=2)
+    poly(d, [(x - w, y - h), (x + w, y - h), (x, y - h + lerp(26, -30, open_) * scale)], (220, 216, 206, 255),
+         outline=INK + (255,), w=2)
+
+
+def bill(d, x, y, ang, a=255, scale=1.0):
+    c, s_ = math.cos(ang), math.sin(ang)
+    pts = [(-30, -14), (30, -14), (30, 14), (-30, 14)]
+    poly(d, [(x + (px * c - py * s_) * scale, y + (px * s_ + py * c) * scale) for px, py in pts], (110, 190, 110, a),
+         outline=(30, 80, 40, a), w=2)
+    ell(d, x, y, 7 * scale, 7 * scale, (60, 140, 70, a))
 
 
 def s3(stage, d, st, T):
-    ticks = [0.4, 1.1, 1.8, 2.5]
-    giant_phone(d, stage, st, ["ring", "house", "promo", "stroller", "ring"], ticks)
-    n = sum(1 for tk in ticks if st >= tk)
-    k = 0.0
-    for tk in ticks:
-        if tk <= st < tk + 0.3:
-            k = smooth(prog(st, tk, tk + 0.3))
-    s = 1.1 * (0.68 ** (n + k))
-    pts = place(LOOK_UP, stand_hip(250, s), 1, s)
-    figure(stage, pts, s, light=(0.8, -0.6), scarf=True)
-    return [(0.25, "EVERYONE SEEMS AHEAD.")], ((650, 0.6),), (0.0, 0.0)
+    """payday: his envelope makes him smile - until the colleague's bursts with money"""
+    s = 1.2
+    # the boss walks in and hands the envelopes
+    if st < 1.0:
+        u = smooth(prog(st, 0.0, 0.8))
+        bx = lerp(1250, 520, u)
+        bpose = AJ.walk(st * 9, STAND) if u < 0.99 else dict(STAND, er=(40, -80), hr=(80, -86), el=(-40, -80),
+                                                             hl=(-80, -86))
+        bpts = place(bpose, stand_hip(bx, 1.25), -1, 1.25)
+        figure(stage, bpts, 1.25, light=(0.2, -1), body=(150, 154, 168))
+        line(d, [bpts["neck"], ((bpts["neck"][0] + bpts["hip"][0]) / 2, (bpts["neck"][1] + bpts["hip"][1]) / 2)],
+             (40, 60, 120, 255), 8)
+    elif st < 1.6:
+        u = smooth(prog(st, 1.0, 1.6))
+        bpts = place(AJ.walk(st * 9, STAND), stand_hip(lerp(520, 1300, u), 1.25), 1, 1.25)
+        figure(stage, bpts, 1.25, light=(0.2, -1), body=(150, 154, 168))
+    # hero
+    opened = smooth(prog(st, 1.0, 1.3))
+    happy = smooth(prog(st, 1.3, 1.6)) * (1 - smooth(prog(st, 2.1, 2.5)))
+    hp = dict(STAND, er=(26, -84), hr=(50, -92), el=(-26, -84), hl=(-46, -92))
+    hp = lerp_pose(hp, dict(CHEER, er=(30, -120), hr=(46, -150)), happy * 0.5)
+    if st > 2.1:
+        hp = lerp_pose(hp, dict(SAD, er=(20, -60), hr=(40, -40)), smooth(prog(st, 2.1, 2.6)))
+    hpts = place(hp, stand_hip(330, s), 1, s)
+    figure(stage, hpts, s, light=(-0.5, -0.85), scarf=True)
+    if st >= 0.8:
+        hx, hy = hpts["hr"]
+        envelope(d, hx, hy - 4, 0.0, opened, 0.9)
+        if st >= 1.2:
+            k = smooth(prog(st, 1.2, 1.4))
+            bill(d, hx, hy - 30 - 20 * k, 0.1, scale=0.8)
+    # colleague
+    cp = dict(STAND, er=(26, -84), hr=(50, -92), el=(-26, -84), hl=(-46, -92))
+    burst = smooth(prog(st, 1.85, 2.1))
+    cp = lerp_pose(cp, CHEER, smooth(prog(st, 2.0, 2.4)))
+    cpts = place(cp, stand_hip(760, s), -1, s)
+    figure(stage, cpts, s, light=(0.5, -0.85))
+    if st >= 0.8:
+        ex, ey = (cpts["hr"][0] + cpts["hl"][0]) / 2, min(cpts["hr"][1], cpts["hl"][1]) if st >= 2.0 else cpts["hr"][1]
+        if st < 2.0:
+            envelope(d, cpts["hr"][0], cpts["hr"][1] - 4, burst, burst, 1.0)
+    if st >= 1.9:
+        u = st - 1.9
+        rng = np.random.default_rng(12)
+        for j in range(60):
+            vx, vy = rng.uniform(-420, 420), rng.uniform(-900, -350)
+            g = 520
+            x = 760 + vx * u
+            y = 1000 + vy * u + g * u * u
+            if y > FLOOR - 6:
+                y = FLOOR - 6
+            bill(d, x, y, rng.uniform(0, 6) + u * rng.uniform(-6, 6), scale=0.9)
+        if u < 0.5:
+            glow = Image.new("RGBA", stage.size, (0, 0, 0, 0))
+            ell(ImageDraw.Draw(glow), 760, 1000, 320, 260, (255, 210, 100, int(120 * (1 - u * 2))))
+            stage.alpha_composite(glow.filter(ImageFilter.GaussianBlur(50)))
+    # camera: on him, a whip to the colleague, then both
+    if st < 1.85:
+        fx, z = 360, 1.3
+    elif st < 2.15:
+        k = smooth(prog(st, 1.85, 2.1))
+        fx, z = lerp(360, 760, k), 1.3
+    else:
+        k = smooth(prog(st, 2.3, 3.2))
+        fx, z = lerp(760, 540, k), lerp(1.3, 1.12, k)
+    return [(0.4, "IT WAS ENOUGH."), (2.3, "UNTIL IT WASN'T.")], ((330, 1.0), (760, 0.6 + 0.4 * burst)), \
+        (fx, 1040, z), ("whip", [1.85])
 
 
 def s4(stage, d, st, T):
-    s = 1.3
-    hip = stand_hip(470, s)
-    raise_ = smooth(prog(st, 0.7, 1.0))
-    drop_t = 2.15
-    if st < 0.7:
-        pose = lerp_pose(PROUD, dict(CHEER, el=(-34, -120), hl=(-30, -170)), math.sin(math.pi * st / 0.7) * 0.6)
-    elif st < 1.8:
-        pose = dict(PROUD, er=(24, -96), hr=(44, -132))
-    elif st < drop_t:
-        k = smooth(prog(st, 1.8, drop_t))
-        pose = lerp_pose(dict(SAD, er=(24, -96), hr=(44, -132)), dict(SAD, el=(-10, -96), hl=(4, -134), er=(26, -70),
-                                                                         hr=(40, -30)), k)
+    """he runs, breaks the 5K tape, gets his medal; the giant screen shows a marathon winner; he drops it"""
+    s = 1.25
+    run_end = 1.35
+    tape_x = 760
+    if st < run_end:
+        x = lerp(80, 560, st / run_end)
+        ph = st * 15
+        pose = run_pose(ph, 0.9)
+        hip = grounded(pose, x, s)
     else:
+        u = smooth(prog(st, run_end, run_end + 0.4))
+        x = 560 + 50 * u
+        pose = lerp_pose(run_pose(run_end * 15, 0.9), STAND, u)
+        hip = stand_hip(x, s)
+    cheer = smooth(prog(st, 1.6, 1.9)) * (1 - smooth(prog(st, 2.35, 2.6)))
+    if st >= 1.6:
+        pose = lerp_pose(pose, CHEER, cheer)
+    if st >= 2.45:
+        k = smooth(prog(st, 2.45, 2.75))
+        pose = lerp_pose(pose, dict(SAD, el=(-10, -96), hl=(4, -134)), k)
+    drop_t = 2.85
+    if st >= drop_t:
         pose = SAD
     pts = place(pose, hip, 1, s)
-    # the winner card behind him
-    if 0.8 <= st < 2.6:
-        a = smooth(prog(st, 0.8, 1.2)) * (1 - smooth(prog(st, 2.2, 2.6)))
-        trophy_card(stage, 800, 820, a)
+    # the finish arch "5K" he runs through (world scroll: the arch comes towards him)
+    arch_x = tape_x - 420 * smooth(prog(st, 0.0, run_end)) + 220
+    line(d, [(arch_x - 120, FLOOR), (arch_x - 120, FLOOR - 430)], (70, 74, 90, 255), 10)
+    line(d, [(arch_x + 120, FLOOR), (arch_x + 120, FLOOR - 430)], (70, 74, 90, 255), 10)
+    rrect(d, (arch_x - 150, FLOOR - 480, arch_x + 150, FLOOR - 420), 8, (40, 60, 110, 255), outline=(150, 170, 230, 255),
+          w=3)
+    f = font(PW.FD + "InterDisplay-Bold.otf", 40 * K)
+    d.text(((arch_x - f.getlength("5K FINISH") / K / 2) * K, (FLOOR - 474) * K), "5K FINISH", font=f,
+           fill=(240, 244, 255, 255))
+    if st < run_end - 0.15:
+        line(d, [(arch_x - 120, FLOOR - 200), (arch_x + 120, FLOOR - 200)], (220, 50, 60, 255), 6)
+    elif st < run_end + 0.5:
+        k = prog(st, run_end - 0.15, run_end + 0.5)
+        for sgn in (-1, 1):
+            line(d, [(arch_x + sgn * 120, FLOOR - 200), (arch_x + sgn * 120 - sgn * 60 * (1 - k),
+                                                         FLOOR - 200 + 140 * k)], (220, 50, 60, 255), 6)
+    # the giant screen
+    if st >= 2.0:
+        a = smooth(prog(st, 2.0, 2.35)) * (1 - smooth(prog(st, 3.1, 3.5)))
+        trophy_card(stage, 840, 760, a)
     figure(stage, pts, s, light=(-0.4, -0.9), scarf=True)
-    if 0.8 <= st < 1.9:
-        hx, hy = pts["hr"]
-        rrect(d, (hx - 12, hy - 20, hx + 12, hy + 20), 4, (18, 18, 24, 255))
-        rrect(d, (hx - 9, hy - 16, hx + 9, hy + 16), 3, (170, 200, 255, 255))
-    # the medal: on his chest, then pulled off over his head and dropped
     nx, ny = pts["neck"]
-    if st < drop_t:
-        if st < 1.8:
+    if 1.45 <= st < drop_t:
+        if st < 2.55:
             mx, my = nx + 6, ny + 60 * s
             line(d, [(nx - 16, ny), (mx, my - 20)], (200, 40, 50, 255), 6)
             line(d, [(nx + 16, ny), (mx, my - 20)], (200, 40, 50, 255), 6)
+            if st < 1.75:
+                k = 1 - prog(st, 1.45, 1.75)
+                ell(d, mx, my, 50 * k + 26, 50 * k + 26, (255, 240, 180, int(160 * k)))
         else:
             mx, my = pts["hl"][0], pts["hl"][1] + 40
             line(d, [pts["hl"], (mx, my - 20)], (200, 40, 50, 255), 5)
         medal(d, mx, my, 26)
-    else:
+    elif st >= drop_t:
         u = st - drop_t
         x0, y0 = pts["hl"][0] + 10, pts["hl"][1] + 40
-        y = y0 + 900 * u * u
-        x = x0 + 60 * u
-        if y > FLOOR - 26:
-            # bounce
-            tb = math.sqrt((FLOOR - 26 - y0) / 900)
-            v = 900 * 2 * tb * 0.35
+        tb = math.sqrt(max(1.0, FLOOR - 26 - y0) / 900)
+        if u < tb:
+            y = y0 + 900 * u * u
+        else:
             u2 = u - tb
+            v = 900 * 2 * tb * 0.35
             y = FLOOR - 26 - max(0.0, v * u2 - 450 * u2 * u2)
-            x = x0 + 60 * u
-        medal(d, x, y, 26)
-    dim = smooth(prog(st, 2.5, 2.95))
-    return [(drop_t - 0.1, "YOU FORGOT YOUR OWN WIN.")], ((470, 1.0 - 0.8 * dim),), (0.0, 0.0)
+        medal(d, x0 + 60 * u, y, 26)
+    dim = smooth(prog(st, 3.05, 3.45))
+    fx = lerp(lerp(260, 560, smooth(st / run_end)), 640, smooth(prog(st, 1.9, 2.6)))
+    return [(drop_t - 0.15, "YOU FORGOT YOUR OWN WIN.")], ((560, 1.0 - 0.8 * dim),), \
+        (fx, 1040, lerp(1.25, 1.12, smooth(prog(st, 1.9, 2.6)))), None
 
 
 def s5(stage, d, st, T):
+    c = bike_scroll(9.0)
+    street(d, c)
     color_back = smooth(prog(st, 1.9, 2.7))
     col = tuple(int(lerp(a, b, color_back)) for a, b in zip(DULL, ORANGE))
-    bike(d, BIKE_X, st, col, 0.6, 0.0)
+    bike(d, BIKE_X, st, col, c / 60.0, -c / 95.0)
     s = 1.2
     turn = st >= 1.45
     pose = SAD if not turn else lerp_pose(SAD, dict(STAND, head=(8, -150)), smooth(prog(st, 1.45, 1.8)))
-    pts = place(pose, stand_hip(640, s), -1 if turn else 1, s)
+    pts = place(pose, stand_hip(660, s), -1 if turn else 1, s)
     figure(stage, pts, s, light=(-0.5, -0.85), scarf=True)
     light2 = smooth(prog(st, 0.8, 1.3))
-    return [(1.4, "SOMEONE IS LOOKING AT YOU"), (2.0, "THE SAME WAY.")], ((BIKE_X + 120, 1.0), (130, 0.9 * light2)), \
-        (smooth(prog(st, 0.6, 1.3)), light2)
+    k = smooth(prog(st, 0.0, 1.4))
+    return [(1.4, "SOMEONE IS LOOKING AT YOU"), (2.0, "THE SAME WAY.")], ((BIKE_X + 140, 1.0), (130, 0.9 * light2)), \
+        (lerp(660, 470, k), lerp(1000, 1030, k), lerp(1.45, 1.06, k)), ("flip", (smooth(prog(st, 0.6, 1.3)), light2))
 
 
 SCENES = [s0, s1, s2, s3, s4, s5]
+_BACK = [None]
 
 
 def gym_bg(layer):
@@ -649,28 +913,21 @@ def frame(t):
     stage = Image.new("RGBA", (W * K, H * K), (0, 0, 0, 0))
     d = ImageDraw.Draw(stage)
     back = Image.new("RGBA", (W * K, H * K), (0, 0, 0, 0))
+    _BACK[0] = back
     if sc == 2:
         gym_bg(back)
-    if sc in (1, 5):
-        if sc == 1:
-            observer(back, 0.0, 0.0, t)
-    res = SCENES[sc](stage, d, st, t)
-    lines, spots, extra = res
-    base = stage_bg(tuple((float(x), round(float(s_), 2)) for x, s_ in spots)).copy()
-    if sc == 5:
-        focus, light2 = extra
-        if focus < 0.5:
-            observer(back, focus, light2, t)
-            base.alpha_composite(back.filter(ImageFilter.GaussianBlur(4 * K * (1 - focus))) if False else back)
-        else:
-            observer(stage, focus, light2, t)
-    else:
-        if sc == 2:
-            back = back.filter(ImageFilter.GaussianBlur(7 * K))
-        base.alpha_composite(back)
+    if sc == 3:
+        office_bg(back)
+    lines, spots, camf, extra = SCENES[sc](stage, d, st, t)
+    base = stage_bg(tuple((float(round(x)), round(float(s_), 2)) for x, s_ in spots)).copy()
+    if extra and extra[0] == "flip":
+        focus, light2 = extra[1]
+        observer(stage if focus >= 0.5 else back, focus, light2, t)
+    if sc in (2, 3):
+        back = back.filter(ImageFilter.GaussianBlur(6 * K))
+    base.alpha_composite(back)
     dd = ImageDraw.Draw(base)
     dust(dd, t, spots, seed=sc + 1)
-    # wet-floor reflection of the stage
     top = stage.crop((0, 0, W * K, FLOOR * K))
     refl = top.transpose(Image.FLIP_TOP_BOTTOM).crop((0, 0, W * K, (H - FLOOR) * K))
     refl = refl.resize((W * K // 4, (H - FLOOR) * K // 4), Image.BILINEAR).filter(ImageFilter.GaussianBlur(3))
@@ -679,28 +936,31 @@ def frame(t):
     ra = (np.asarray(refl.split()[3], np.float32) * fade).astype(np.uint8)
     refl.putalpha(Image.fromarray(ra))
     base.alpha_composite(refl, (0, FLOOR * K))
-    # soft glow of the lit things, then the stage itself
     g = stage.resize((W * K // 8, H * K // 8), Image.BILINEAR).filter(ImageFilter.GaussianBlur(6))
     ga = g.split()[3].point(lambda v: int(v * 0.35))
     gl = Image.new("RGBA", g.size, (200, 210, 235, 0))
     gl.putalpha(ga)
     base.alpha_composite(gl.resize(stage.size, Image.BILINEAR))
     base.alpha_composite(stage)
-    # camera: a slow push in every scene, a small punch on each cut; S5 pulls back
-    dur = SC[sc + 1] - SC[sc]
-    if sc == 5:
-        z = lerp(1.35, 1.0, smooth(prog(st, 0.0, 1.3)))
-        cx_f = lerp(640, W / 2, smooth(prog(st, 0.0, 1.3)))
-        dx = z * (W / 2 - cx_f)
-        dy = z * (H / 2 - 1050) * (1 - smooth(prog(st, 0.0, 1.3)))
-    else:
-        z = 1.0 + 0.05 * st / dur + 0.06 * (1 - smooth(prog(st, 0, 0.3)))
-        dx = dy = 0.0
-    zb = 1.16                                    # everything a bit bigger on a phone
-    z *= zb
-    dx *= zb
-    dy = dy * zb + z * (H / 2 - 1010)
+    # camera
+    fx, fy, z = camf
+    z *= 1.08
+    dx = z * (W / 2 - fx)
+    dy = z * (H / 2 - fy)
+    if extra and extra[0] == "shake":
+        for t0 in extra[1]:
+            if t0 <= st < t0 + 0.4:
+                k = 1 - (st - t0) / 0.4
+                dx += 14 * k * math.sin(st * 85)
+                dy += 9 * k * math.cos(st * 71)
     im = hq.camera(base, z, dx * K, dy * K).resize((W, H), Image.LANCZOS)
+    # whip-in at every cut, and the in-scene whip
+    whips = [0.0] + ([extra[1][0]] if extra and extra[0] == "whip" else [])
+    for w0 in whips:
+        if w0 <= st < w0 + 0.16 and not (sc == 0 and w0 == 0.0):
+            k = 1 - prog(st, w0, w0 + 0.16)
+            bl = im.resize((max(8, int(W / (1 + 40 * k))), H), Image.BILINEAR).resize((W, H), Image.BILINEAR)
+            im = Image.blend(im, bl, min(1.0, k * 1.2))
     caption(im, lines, st)
     return np.asarray(im.convert("RGB"))
 
@@ -821,35 +1081,64 @@ def score():
     return out * 0.55
 
 
+def burst_noise(dur, seed, lo, hi, a=0.002, d=0.05):
+    return noise(dur, seed, lo=lo, hi=hi)[:int(dur * SR)] * env(int(dur * SR), a, d)
+
+
 def audio():
     n = int(DUR * SR)
     fx = np.zeros((n, 2))
     mus = score()
-    # S0 / S3: scroll ticks and a falling "shrink" on each
-    for base_t, ticks in ((SC[0], [0.35, 0.95, 1.55, 2.15]), (SC[3], [0.4, 1.1, 1.8, 2.5])):
-        for tk in ticks:
-            mix_in(fx, tone(2200, 0.03, (1,), a=0.0005, d=0.012), base_t + tk, 0.06)
-            mix_in(fx, tone(180, 0.35, (1, 0.5), a=0.005, d=0.2, sweep=70), base_t + tk + 0.05, 0.08)
-    # S1: chain ticking, the car, the colour draining
-    for j in range(14):
-        mix_in(fx, noise(0.02, 10 + j, lo=2000, hi=7000) * env(int(0.02 * SR), 0.0005, 0.006), SC[1] + j * 0.15, 0.04, -0.3)
-    car = noise(0.8, 11, lo=60, hi=600) * np.sin(np.linspace(0, np.pi, int(0.8 * SR)))
-    mix_in(fx, car, SC[1] + 0.9, 0.12, 0.5)
-    mix_in(fx, noise(0.6, 12, lo=300, hi=3000) * np.linspace(1, 0, int(0.6 * SR)) ** 2, SC[1] + 1.8, 0.06)
-    # S2: dumbbell, barbell clank
+    # S0: watering, the sprinkler, the lawn drying
+    w = noise(2.1, 1, lo=1500, hi=7000)[:int(2.1 * SR)] * 0.5
+    mix_in(fx, w * np.minimum(1, np.linspace(0, 8, len(w))), SC[0], 0.03, -0.2)
+    for j in range(16):
+        mix_in(fx, burst_noise(0.03, 20 + j, 3000, 9000, 0.0005, 0.01), SC[0] + 0.1 + j * 0.17, 0.03, 0.5)
+    mix_in(fx, noise(0.8, 2, lo=1500, hi=6000)[:int(0.8 * SR)] * (np.random.default_rng(1).random(int(0.8 * SR)) > 0.985),
+           SC[0] + 1.5, 0.25)
+    mix_in(fx, tone(160, 0.6, (1, 0.5), a=0.01, d=0.3, sweep=70), SC[0] + 1.6, 0.06)
+    # S1: chain, the car passing, the splash, the brakes
+    for j in range(16):
+        mix_in(fx, burst_noise(0.02, 40 + j, 2000, 7000, 0.0005, 0.006), SC[1] + j * 0.15, 0.035, -0.3)
+    pas = noise(1.4, 3, lo=60, hi=900)[:int(1.4 * SR)]
+    pas *= np.exp(-((np.linspace(0, 1.4, len(pas)) - 0.75) / 0.25) ** 2)
+    mix_in(fx, pas, SC[1] + 0.7, 0.3)
+    mix_in(fx, burst_noise(0.5, 4, 300, 5000, 0.005, 0.15), SC[1] + 1.25, 0.14, 0.2)
+    sq = tone(2400, 0.35, (1, 0.5), a=0.01, d=0.2, sweep=1900)
+    mix_in(fx, sq, SC[1] + 2.2, 0.025, -0.2)
+    # S2: curls, the barbell slammed on the floor
     for j in range(2):
         mix_in(fx, tone(900, 0.1, (1, 2.7), a=0.001, d=0.05), SC[2] + 0.47 + j * 0.95, 0.03, -0.3)
-    mix_in(fx, tone(320, 0.6, (1, 2.4, 3.9), a=0.001, d=0.25) + 0.4 * noise(0.6, 13, lo=500, hi=6000) *
-           env(int(0.6 * SR), 0.001, 0.08), SC[2] + 1.8, 0.14, 0.4)
-    # S4: medal clink and bounces, the light switching off
-    t_drop = SC[4] + 2.15
-    for j, (dt, g) in enumerate(((0.33, 0.12), (0.52, 0.06), (0.62, 0.03))):
+    mix_in(fx, tone(55, 0.8, (1, 0.6), a=0.001, d=0.35) + 0.5 * burst_noise(0.8, 5, 100, 4000, 0.001, 0.12) +
+           0.4 * tone(320, 0.8, (1, 2.4, 3.9), a=0.001, d=0.2), SC[2] + 2.05, 0.4, 0.3)
+    # S3: footsteps, the envelope, the money burst
+    for j in range(5):
+        mix_in(fx, tone(140, 0.07, (1, 0.5), a=0.002, d=0.025), SC[3] + j * 0.17, 0.05, 0.4)
+    mix_in(fx, burst_noise(0.25, 6, 1500, 7000, 0.01, 0.08), SC[3] + 1.0, 0.07, -0.3)
+    mix_in(fx, tone(1400, 0.25, (1, 0.4), a=0.002, d=0.12), SC[3] + 1.3, 0.04, -0.3)
+    for j, f_ in enumerate((1568, 2093, 2637)):
+        mix_in(fx, tone(f_, 0.5, (1, 0.3), a=0.001, d=0.25), SC[3] + 1.9 + j * 0.06, 0.06, 0.3)
+    mix_in(fx, noise(1.0, 7, lo=1500, hi=7000)[:SR] * np.linspace(1, 0, SR) ** 2, SC[3] + 1.9, 0.08, 0.3)
+    # S4: running feet, the tape, applause, the medal, the giant screen's roar, the medal falls, the light dies
+    for j in range(10):
+        mix_in(fx, tone(180, 0.06, (1, 0.5), a=0.001, d=0.02), SC[4] + j * 0.135, 0.05)
+    mix_in(fx, tone(1200, 0.08, (1, 0.5), a=0.001, d=0.03, sweep=600), SC[4] + 1.2, 0.08)
+    ap = noise(1.0, 8, lo=800, hi=6000)[:SR] * (np.random.default_rng(2).random(SR) > 0.97) * np.linspace(1, 0, SR)
+    mix_in(fx, ap, SC[4] + 1.35, 0.35)
+    mix_in(fx, tone(2600, 0.6, (1, 2.76), a=0.002, d=0.3), SC[4] + 1.45, 0.04)
+    roar = noise(1.2, 9, lo=300, hi=3000)[:int(1.2 * SR)] * np.sin(np.linspace(0, np.pi, int(1.2 * SR)))
+    mix_in(fx, roar, SC[4] + 2.0, 0.12, 0.3)
+    t_drop = SC[4] + 2.85
+    for dt, g in ((0.33, 0.12), (0.52, 0.06), (0.62, 0.03)):
         mix_in(fx, tone(2600, 0.25, (1, 2.76, 5.4), a=0.0005, d=0.1), t_drop + dt, g)
-    mix_in(fx, tone(90, 0.2, (1, 0.5), a=0.001, d=0.06) + 0.3 * noise(0.2, 14, lo=200, hi=2000) *
-           env(int(0.2 * SR), 0.001, 0.03), SC[4] + 2.5, 0.14)
-    # cut whooshes
+    mix_in(fx, tone(90, 0.2, (1, 0.5), a=0.001, d=0.06) + 0.3 * burst_noise(0.2, 10, 200, 2000, 0.001, 0.03),
+           SC[4] + 3.05, 0.14)
+    # whooshes into every cut
     for cut in SC[1:6]:
-        mix_in(fx, noise(0.35, int(cut * 10), lo=400, hi=6000) * np.linspace(0, 1, int(0.35 * SR)) ** 2, cut - 0.35, 0.06)
+        mix_in(fx, noise(0.35, int(cut * 10), lo=400, hi=6000)[:int(0.35 * SR)] *
+               np.linspace(0, 1, int(0.35 * SR)) ** 2, cut - 0.35, 0.07)
+    mix_in(fx, noise(0.25, 11, lo=500, hi=6000)[:int(0.25 * SR)] * np.linspace(0, 1, int(0.25 * SR)) ** 2,
+           SC[3] + 1.62, 0.06)
     x = mus + fx
     m = int(0.2 * SR)
     k = np.linspace(0, 1, m)[:, None]
