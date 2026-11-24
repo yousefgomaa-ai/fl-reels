@@ -32,7 +32,7 @@ from perfect_wave import clamp, env, font, lerp, lerp_pose, midi, mix_in, noise,
 
 W, H, FPS = 1080, 1920, 30
 SR = 44100
-DUR = 23.85
+DUR = 21.63
 NF = int(round(DUR * FPS))
 K = hq.K
 BOLD = hq.BOLD
@@ -60,38 +60,38 @@ GREY = (120, 124, 134)
 CAR = (230, 40, 52)
 
 # ---------------------------------------------------------------- timeline (scene time)
-VJOG = 4.5                 # CONSISTENT's steady jog (m/s)
+VJOG = 5.0                 # CONSISTENT's steady jog (m/s)
 T_STOP_S = 7.2             # sprinter stops at 56.7 m
-T_EASY1 = 8.2
-T_PANT1 = 8.9
-T_SITDOWN = 9.3
-T_DRINK0, T_DRINK1 = 9.4, 10.8
-T_RELAX1 = 11.8
-T_ALERT = 13.0             # "!" on his phone, just after CONSISTENT passes him
-T_RUN2 = 13.4
-T_CRAMP = 15.4
-T_FALL = 15.8
-T_UP = 16.6
-T_LIMP = 17.1
-T_RAIN0, T_RAIN1 = 8.5, 11.5
-T_TOUCH = 0.6 + (100 - 0.3 * VJOG) / VJOG     # 22.52: CONSISTENT reaches his tape
+T_EASY1 = 8.0
+T_PANT1 = 8.6
+T_SITDOWN = 9.0
+T_DRINK0, T_DRINK1 = 9.1, 10.2
+T_RELAX1 = 10.9
+T_ALERT = 11.8             # "!" on his phone, just after CONSISTENT passes him
+T_RUN2 = 12.2
+T_CRAMP = 14.5
+T_FALL = 14.9
+T_UP = 15.6
+T_LIMP = 16.0
+T_RAIN0, T_RAIN1 = 7.6, 10.4
+T_TOUCH = 0.6 + (100 - 0.3 * VJOG) / VJOG     # 20.3: CONSISTENT reaches his tape
 T_REACH = T_TOUCH - 0.6
-T_KEYS1 = 2.5
-T_JUICE1 = 4.5
-T_SELFIE = 5.3
-T_FAN0, T_FAN1 = 6.2, 8.2
-T_DRONE0, T_DRONE_HAND, T_DRONE1 = 8.2, 9.3, 10.6
-T_EAT1 = 12.3
-T_YAWN1 = 13.7
-T_WATCH1 = 15.6
-T_CAR0, T_CAR1 = 15.6, 17.0              # the car arrives
-T_HONK = 16.7
-T_CHAUF = 17.1                           # chauffeur steps out
-T_KSTAND = 17.2
-T_KWALK0, T_KWALK1 = 17.7, 18.4
-T_IN = 18.8
-T_IGN = 19.0
-T_LAUNCH = 20.2
+T_KEYS1 = 2.3
+T_JUICE1 = 4.1
+T_SELFIE = 4.8
+T_FAN0, T_FAN1 = 5.6, 7.4
+T_DRONE0, T_DRONE_HAND, T_DRONE1 = 7.4, 8.4, 9.6
+T_EAT1 = 11.2
+T_YAWN1 = 12.5
+T_WATCH1 = 14.2
+T_CAR0, T_CAR1 = 14.2, 15.5              # the car arrives
+T_HONK = 15.2
+T_CHAUF = 15.6                           # chauffeur steps out
+T_KSTAND = 15.7
+T_KWALK0, T_KWALK1 = 16.2, 16.9
+T_IN = 17.2
+T_IGN = 17.4
+T_LAUNCH = 17.98
 T_BOW = 99.0
 T_CROSS = T_TOUCH - 0.37   # the car's nose breaks its tape
 T_CUT = T_CROSS - 0.45     # the camera jumps to the finish line
@@ -1035,14 +1035,13 @@ def panel(t, st, lane):
         di.text((x + 2, 20), ch_, font=f, fill=(0, 0, 0, 160))
         di.text((x, 18), ch_, font=f, fill=(214, 220, 238, 255))
         x += f.getlength(ch_) + 9
-    if t < T_RW:
-        im = progress_bar(im, lane, st)
-        di = ImageDraw.Draw(im)
+    im = progress_bar(im, lane, st)
+    di = ImageDraw.Draw(im)
     di.rounded_rectangle([1, 1, PWD - 2, PHT - 2], 16, outline=(44, 54, 88, 255), width=3)
     return im
 
 
-T_MAP0, T_MAP1 = 9.5, 12.0          # mid-video re-hook: how far each one still has to go
+T_MAP0, T_MAP1 = 8.0, 99.0          # from 8 s to the end: how far each one still has to go
 LANE_COL = [RED, (70, 140, 255), GOLD]
 
 
@@ -1063,7 +1062,7 @@ def progress_bar(im, lane, st):
                         outline=LANE_COL[lane] + (a,), width=3)
     f = font("InterDisplay-Bold.otf", 34)
     lab = f"{left:.1f} M LEFT"
-    col = (255, 90, 90) if lane == 2 else (240, 242, 250)
+    col = (255, 90, 90) if (lane == 2 and left > 0.05) else (GOLD if lane == 2 else (240, 242, 250))
     d.text((x0 + 22, y0 + 13), lab, font=f, fill=col + (a,))
     tx0, tx1, ty = x0 + 330, x1 - 70, y0 + 33
     d.line([(tx0, ty), (tx1, ty)], fill=(70, 80, 110, a), width=8)
