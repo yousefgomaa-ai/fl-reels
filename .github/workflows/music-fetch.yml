@@ -1,0 +1,20 @@
+# Download the chosen licensed tracks (incompetech CC BY 4.0) for the reels: runs on the claude/two-paths branch only.
+name: Music fetch
+on:
+  push:
+    branches: [claude/two-paths]
+    paths: [study/music_fetch.py, .github/workflows/music-fetch.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 study/music_fetch.py
+      - name: Commit
+        run: |
+          git config user.name "study" && git config user.email "actions@users.noreply.github.com"
+          git add study/music && git commit -m "Music fetch: output [skip ci]" && git pull -q --rebase origin claude/two-paths && git push || true
