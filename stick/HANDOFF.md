@@ -63,3 +63,4 @@ Every reel: propose first, build after "نفذ"; send it with idea, title, first
 - Channel art in the night look (owner): stick/brand_night.py -> stick/avatar/banner-night.png (2560x1440, safe 1546x423 checked) + avatar-night.png (800x800); previews banner-night-phone/desktop.png, avatar-night-circle.png.
 - Bolder avatar options (owner keeps the old banner): stick/avatar_pro.py -> avatar-pro-A-fork / B-halo / C-split.png + avatar-pro-compare.png (circle at 400/120/40 px). Recommended B (halo).
 - Owner picked option C (split) to develop: avatar-pro-C2-split.png (rain on the cold side, light rays and sparks on the warm side, coloured rim glows, wet-floor reflections, a glowing seam, two-tailed scarf, vignette) + avatar-pro-C2-preview.png.
+- Facebook page art: stick/fb_cover.py -> stick/avatar/fb-cover.png (1640x924; desktop band 1640x624 and phone view with the profile circle checked: fb-cover-desktop.png, fb-cover-phone.png); profile = avatar-pro-C2-split.png.
