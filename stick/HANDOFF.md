@@ -73,3 +73,15 @@ Every reel: propose first, build after "نفذ"; send it with idea, title, first
   warm table with two friends. 15.8 s: the camera dives into the plate - EACH PRESS = 10 YEARS OF YOUR LIFE; the old
   man reaches for the button again. YOU CAN EARN MONEY BACK. / NOT TIME. Music: accelerating ostinato + taiko and
   a brass/timpani hit on every press, then a sad piano/cello turn, a low hit on the reveal, a held chord at the end.
+
+## Nov 25 - licensed music + "The Hourglass" (stick/hourglass.py -> hourglass.mp4, 22 s)
+- Owner: the FluidSynth music sounds cheap/no soul -> use ready licensed music. GitHub Actions fetch it
+  (music-catalog.yml: incompetech catalog JSON with feel/bpm/instruments, 1443 tracks; music-fetch.yml: chosen mp3s
+  into study/music/). Tracks: Eternal Hope, Reunited, Bittersweet, Sad Trio, Touching Moments Four, Immersed.
+  Licence CC BY 4.0: put the credit line in the description, e.g.
+  Music: "Reunited" by Kevin MacLeod (incompetech.com), CC BY 4.0
+- The Hourglass: everyone has a glowing hourglass above the head (hook: WHAT IF YOU COULD SEE EVERYONE'S TIME?);
+  old man feeding pigeons (almost empty, smiling), man shouting at a waiter (half), home: mom at the table, her hand
+  rises and falls as he passes with headphones; at his door he stops, turns; the camera dives into her hourglass
+  (music ducked, heartbeat); headphones drop, he runs back and holds her; the last grain hangs. Reunited is cut from
+  22 s so its swell lands on the hug. YOU CAN'T SEE IT. / BUT IT'S RUNNING.
