@@ -3,7 +3,7 @@
 #   Licensed under Creative Commons: By Attribution 4.0 License  http://creativecommons.org/licenses/by/4.0/
 import json, os, subprocess, urllib.parse
 OUT = "study/music"
-WANT = ["Eternal Hope", "Reunited", "Bittersweet", "Sad Trio", "Touching Moments Four - Melody", "Immersed"]
+WANT = ["The Escalation", "Undaunted", "Crossing the Chasm", "Rynos Theme", "Hitman"]
 cat = {p["title"]: p for p in json.load(open(f"{OUT}/catalog.json"))["incompetech"]}
 got = []
 for t in WANT:
