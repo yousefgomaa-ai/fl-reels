@@ -62,3 +62,4 @@ Every reel: propose first, build after "نفذ"; send it with idea, title, first
 - steps v3 (owner): two counters YOU / DAD (always 30 apart); DAD's number warms to pale gold after 50 and soft red at 70-75.
 - Channel art in the night look (owner): stick/brand_night.py -> stick/avatar/banner-night.png (2560x1440, safe 1546x423 checked) + avatar-night.png (800x800); previews banner-night-phone/desktop.png, avatar-night-circle.png.
 - Bolder avatar options (owner keeps the old banner): stick/avatar_pro.py -> avatar-pro-A-fork / B-halo / C-split.png + avatar-pro-compare.png (circle at 400/120/40 px). Recommended B (halo).
+- Owner picked option C (split) to develop: avatar-pro-C2-split.png (rain on the cold side, light rays and sparks on the warm side, coloured rim glows, wet-floor reflections, a glowing seam, two-tailed scarf, vignette) + avatar-pro-C2-preview.png.

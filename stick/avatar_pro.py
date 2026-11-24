@@ -175,3 +175,123 @@ if __name__ == "__main__":
     ims = [option_fork(out), option_halo(out), option_split(out)]
     sheet(ims, out)
     print("ok")
+
+
+# ---------------------------------------------------------------- C, developed further
+def scarf_tails(d, neck, s, f=-1):
+    """a knot at the neck and two tapered tails blowing back in waves"""
+    nx, ny = neck
+    for k2, (amp, ph, ln, dy) in enumerate(((9, 0.0, 6, 0), (7, 1.4, 5, 12))):
+        top, bot = [], []
+        for j in range(ln + 1):
+            u = j / ln
+            x = nx + f * j * 13 * s
+            y = ny + (6 + dy) * s + amp * s * math.sin(j * 0.85 + ph) * u + j * 2.5 * s
+            w = (15 - 8 * u) * s
+            top.append((x, y - w / 2))
+            bot.append((x, y + w / 2))
+        poly_pts = [(x * K, y * K) for x, y in top + bot[::-1]]
+        d.polygon(poly_pts, fill=(176, 26, 36, 255) if k2 else SCARF + (255,), outline=INK + (255,), width=int(2 * K))
+    d.ellipse([(nx - 24 * s) * K, (ny - 9 * s) * K, (nx + 24 * s) * K, (ny + 15 * s) * K], fill=SCARF + (255,),
+              outline=INK + (255,), width=int(2 * K))
+    d.ellipse([(nx - 10 * s) * K, (ny - 2 * s) * K, (nx + 4 * s) * K, (ny + 8 * s) * K], fill=(236, 90, 96, 255))
+
+
+def tinted_glow(base, layer, col, a=0.6, blur=10):
+    g = layer.resize((layer.width // 4, layer.height // 4), Image.BILINEAR).filter(ImageFilter.GaussianBlur(blur))
+    gl = Image.new("RGBA", g.size, col + (0,))
+    gl.putalpha(g.split()[3].point(lambda v: int(v * a)))
+    base.alpha_composite(gl.resize(layer.size, Image.BILINEAR))
+
+
+def option_split_v2(out):
+    floor = 650
+    mid = S // 2
+    left = grad_bg((12, 22, 44), (5, 8, 16))
+    right = grad_bg((52, 34, 10), (14, 10, 6))
+    xx = np.arange(S)[None, :, None]
+    a = np.where(xx < mid, left, right)
+    a = glow(a, 660, 300, 260, (150, 100, 26))
+    a = glow(a, 150, 320, 240, (16, 40, 90))
+    a = glow(a, mid, 380, 70, (120, 110, 90), 0.5)
+    im = to_im(a)
+    d = ImageDraw.Draw(im)
+    stars(d, 3, 90, floor - 40)
+    # light rays on the warm side
+    rays = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    rd = ImageDraw.Draw(rays)
+    for j in range(5):
+        x0 = mid + 120 + j * 70
+        rd.polygon([(x0 * K, 0), ((x0 + 34) * K, 0), ((x0 - 60) * K, floor * K), ((x0 - 120) * K, floor * K)],
+                   fill=(255, 210, 120, 22))
+    rays = rays.filter(ImageFilter.GaussianBlur(10 * K))
+    im.alpha_composite(rays)
+    # floors: a wet cold half and a warm half
+    d = ImageDraw.Draw(im)
+    d.rectangle([0, floor * K, mid * K, S * K], fill=(8, 12, 24, 255))
+    d.rectangle([mid * K, floor * K, S * K, S * K], fill=(22, 15, 8, 255))
+    d.line([0, floor * K, mid * K, floor * K], fill=(70, 96, 150, 255), width=3 * K)
+    d.line([mid * K, floor * K, S * K, floor * K], fill=GOLD + (255,), width=4 * K)
+    # the figures on their own layer (for glows and reflections)
+    lay = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    s = 1.62
+    gp = {"head": (-26, -134), "neck": (-16, -98), "el": (-8, -54), "hl": (6, -14), "er": (-30, -56), "hr": (-26, -12),
+          "kl": (-26, 52), "fl": (-36, 112), "kr": (16, 52), "fr": (28, 110)}
+    gpts = place(gp, (215, floor - 113 * s), -1, s)
+    C.figure(lay, gpts, s, light=(-0.7, -0.7), body=(116, 126, 148))
+    hp = dict(STAND, head=(10, -154), neck=(5, -109), el=(-28, -66), hl=(-44, -28), er=(30, -70), hr=(48, -34),
+              kl=(-26, 52), fl=(-40, 110), kr=(30, 50), fr=(44, 110))
+    hpts = place(hp, (585, floor - 113 * s), 1, s)
+    C.figure(lay, hpts, s, light=(0.7, -0.7))
+    scarf_tails(ImageDraw.Draw(lay), hpts["neck"], s, -1)
+    left_l = lay.crop((0, 0, mid * K, S * K))
+    right_l = lay.crop((mid * K, 0, S * K, S * K))
+    tinted_glow(im, lay.crop((0, 0, mid * K, S * K)).resize(lay.size) if False else lay, (90, 140, 255), 0.0)
+    gl_left = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    gl_left.alpha_composite(left_l, (0, 0))
+    gl_right = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    gl_right.alpha_composite(right_l, (mid * K, 0))
+    tinted_glow(im, gl_left, (90, 140, 255), 0.55)
+    tinted_glow(im, gl_right, (255, 200, 110), 0.65)
+    # reflections in the wet floor
+    top = lay.crop((0, 0, S * K, floor * K))
+    refl = top.transpose(Image.FLIP_TOP_BOTTOM).crop((0, 0, S * K, (S - floor) * K))
+    refl = refl.resize((refl.width // 4, refl.height // 4)).filter(ImageFilter.GaussianBlur(2)).resize(refl.size)
+    fade = np.linspace(0.42, 0.0, refl.height, dtype=np.float32)[:, None]
+    refl.putalpha(Image.fromarray((np.asarray(refl.split()[3], np.float32) * fade).astype(np.uint8)))
+    im.alpha_composite(refl, (0, floor * K))
+    im.alpha_composite(lay)
+    d = ImageDraw.Draw(im)
+    # rain on the cold side, sparks on the warm side
+    rng = np.random.default_rng(5)
+    for _ in range(70):
+        x, y = rng.uniform(0, mid - 6), rng.uniform(0, floor + 40)
+        d.line([(x * K, y * K), ((x - 7) * K, (y + 28) * K)], fill=(150, 175, 220, 120), width=int(1.6 * K))
+    for _ in range(40):
+        x, y = rng.uniform(mid + 10, S), rng.uniform(80, floor - 10)
+        r = rng.uniform(1.5, 3.8)
+        d.ellipse([(x - r) * K, (y - r) * K, (x + r) * K, (y + r) * K], fill=(255, 222, 150, int(rng.uniform(120, 230))))
+    # the seam: a soft bright line
+    seam = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    sd = ImageDraw.Draw(seam)
+    sd.line([(mid * K, 0), (mid * K, S * K)], fill=(255, 240, 210, 255), width=10 * K)
+    im.alpha_composite(seam.filter(ImageFilter.GaussianBlur(9 * K)))
+    d = ImageDraw.Draw(im)
+    d.line([(mid * K, 0), (mid * K, S * K)], fill=(255, 246, 226, 255), width=2 * K)
+    # vignette
+    yy, xx2 = np.mgrid[0:S * K:4, 0:S * K:4].astype(np.float32) / K
+    r = np.sqrt((xx2 - S / 2) ** 2 + (yy - S / 2) ** 2) / (S / 2)
+    vig = Image.fromarray((np.clip((r - 0.75) * 2.2, 0, 1) * 200).astype(np.uint8)).resize(im.size)
+    v = Image.new("RGBA", im.size, (0, 0, 0, 255))
+    v.putalpha(vig)
+    im.alpha_composite(v)
+    return finish(im, "avatar-pro-C2-split.png", out)
+
+
+def preview_one(im, out, name):
+    sh = Image.new("RGB", (580, 420), (24, 24, 28))
+    for size, (ox, oy) in ((400, (10, 10)), (120, (430, 20)), (40, (470, 170))):
+        m = Image.new("L", (size, size), 0)
+        ImageDraw.Draw(m).ellipse([0, 0, size - 1, size - 1], fill=255)
+        sh.paste(im.resize((size, size), Image.LANCZOS), (ox, oy), m)
+    sh.save(os.path.join(out, name))
