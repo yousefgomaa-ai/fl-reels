@@ -534,16 +534,26 @@ def age_now(sc, st):
     return int(round(lerp(a0, a1, smooth(prog(st, 0.0, 0.55)))))
 
 
+def dad_num_col(age):
+    if age <= 50:
+        return (244, 240, 230)
+    if age <= 70:
+        return tuple(int(lerp(c0, c1, (age - 50) / 20)) for c0, c1 in zip((244, 240, 230), (232, 200, 140)))
+    return tuple(int(lerp(c0, c1, min(1, (age - 70) / 5))) for c0, c1 in zip((232, 200, 140), (236, 120, 110)))
+
+
 def age_counter(img, sc, st, t):
+    """two counters: YOU and DAD (always 30 years apart)"""
     if sc == 0 and st < 1.6:
         return
     d = ImageDraw.Draw(img)
     age = age_now(sc, st)
     k = hq.pop(st, 0.5, 0.3) if sc > 0 else hq.pop(st, 1.6, 0.3)
     fa = font(C.SERIF, 30)
-    PW.spaced(d, W / 2, 150, "AGE", fa, (170, 174, 186, 255), 10)
     fb = font(SERIF_B, max(8, int(96 * (0.85 + 0.15 * k))))
-    PW.spaced(d, W / 2, 186, str(age), fb, (244, 240, 230, 255), 4)
+    for cx, lab, val, col in ((330, "YOU", age, (244, 240, 230)), (750, "DAD", age + 30, dad_num_col(age + 30))):
+        PW.spaced(d, cx, 150, lab, fa, (170, 174, 186, 255), 10)
+        PW.spaced(d, cx, 186, str(val), fb, col + (255,), 4)
 
 
 def frame(t):
