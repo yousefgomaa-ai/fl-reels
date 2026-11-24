@@ -1,0 +1,19 @@
+# Reference channel's course site (owner, 2026-11-24): runs on the claude/two-paths branch only. Read-only research.
+name: Reference site study
+on:
+  push:
+    branches: [claude/two-paths]
+    paths: [study/site.py, .github/workflows/site-study.yml]
+permissions:
+  contents: write
+jobs:
+  study:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 study/site.py https://sticktoitstudio.de
+      - name: Commit
+        run: |
+          git config user.name "study" && git config user.email "actions@users.noreply.github.com"
+          git add study/site && git commit -m "Reference site study: output [skip ci]" && git pull -q --rebase origin claude/two-paths && git push || true
