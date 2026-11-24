@@ -36,3 +36,4 @@ Every reel: propose first, build after "نفذ"; send it with idea, title, first
 - v6 (owner: shorter): 23.85 s - CONSISTENT jogs 4.5 m/s, the sprinter's rest is 6.2 s, the rich kid's beats compressed; car crosses at 22.15, CONSISTENT at 22.52, rewind 23.05.
 - v7 (owner): mid-video re-hook 9.5-12.0 s - a progress bar at the top of each panel with the metres left (rich kid: 100.0 M LEFT in red) + a pop sound.
 - v8 (owner): 21.6 s (CONSISTENT 5 m/s, rest 5 s); the metres-left bars appear at 8 s and stay to the end.
+- v9 (owner): the metres-left bars now appear at 6 s.

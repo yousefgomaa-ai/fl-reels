@@ -1041,7 +1041,7 @@ def panel(t, st, lane):
     return im
 
 
-T_MAP0, T_MAP1 = 8.0, 99.0          # from 8 s to the end: how far each one still has to go
+T_MAP0, T_MAP1 = 6.0, 99.0          # from 6 s to the end: how far each one still has to go
 LANE_COL = [RED, (70, 140, 255), GOLD]
 
 
