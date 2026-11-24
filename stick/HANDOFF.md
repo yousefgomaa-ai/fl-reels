@@ -94,3 +94,4 @@ Every reel: propose first, build after "نفذ"; send it with idea, title, first
   he hauls him over the edge as the rope snaps. HE COULD HAVE CUT IT. / HE CHOSE NOT TO.
 - Music: "Immersed" (tension) then "Eternal Hope" from 228 s so its swell (244 s) lands on the rescue - both Kevin
   MacLeod, CC BY 4.0 (credit both in the description).
+- rope v2 (owner: not gripping - add more consequences while they hang): a rock knocked loose hits the stranger's helmet (crack, sparks), the anchor creaks out of the rock (cutaway), lightning + rain, the stranger's other hand slips (he hangs only from the hero's hand), a gust slams them into the wall, the edge crumbles under the hero's hand, the anchor rips free with the last strand; ROPE drops in jumps on each event; 21 s. The two hang side by side (no overlap).

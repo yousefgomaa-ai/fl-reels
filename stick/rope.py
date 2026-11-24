@@ -30,7 +30,7 @@ from perfect_wave import clamp, env, font, lerp, lerp_pose, mix_in, noise, prog,
 
 FPS = 30
 SR = 44100
-DUR = 20.0
+DUR = 21.0
 NF = int(round(DUR * FPS))
 SERIF_B = "/usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf"
 MDIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "study", "music")
@@ -38,18 +38,25 @@ STAND = PW.STAND
 LIP = (520, 640)              # where the rope goes over the rock edge (the fraying point)
 LEDGE_Y = 628
 YELLOW = (240, 196, 40)
-T_POINT0, T_POINT1 = 3.0, 4.8
-T_KNIFE = 5.0
-T_THROW = 8.0
-T_GRAB = 9.2
-T_SLIP = 12.4
-T_TOP = 14.0
-T_SNAP = 16.3
-T_LINES = 17.3
+T_ROCK, T_HIT = 2.3, 3.05         # a rock falls and hits the stranger's helmet
+T_POINT0, T_POINT1 = 4.0, 5.3
+T_KNIFE = 5.6
+T_PITON = 6.4                      # the anchor starts pulling out of the rock
+T_THROW = 8.6
+T_GRAB = 9.3
+T_BOLT = 10.0                      # lightning, then rain
+T_SSLIP = 10.7                     # the stranger's other hand slips off: he hangs only from the hero's hand
+T_GUST, T_WALL = 11.9, 12.4        # a gust slams them into the rock
+T_CLIMB = 12.9
+T_SLIP = 14.6                      # the edge crumbles under his hand
+T_TOP = 15.2
+T_SNAP = 17.0
+T_LINES = 18.0
 
 
 def rope_pct(t):
-    keys = [(0, 62), (5, 48), (8, 35), (12.4, 18), (14, 12), (T_SNAP, 0)]
+    keys = [(0, 62), (T_HIT - 0.01, 58), (T_HIT + 0.1, 50), (T_THROW, 38), (T_SSLIP, 31), (T_SSLIP + 0.1, 24),
+            (T_WALL, 20), (T_WALL + 0.1, 13), (T_SLIP, 9), (T_SLIP + 0.1, 5), (T_SNAP, 0)]
     if t >= T_SNAP:
         return 0.0
     for (a, va), (b, vb) in zip(keys, keys[1:]):
@@ -62,8 +69,12 @@ def sway(t):
     return 1.0 * math.sin(t * 1.3) + 0.4 * math.sin(t * 3.1)
 
 
+def gust(t):
+    return smooth(prog(t, T_GUST, T_WALL)) * (1 - smooth(prog(t, T_WALL + 0.25, T_WALL + 1.1)))
+
+
 def rope_x(y, t):
-    return LIP[0] + 40 + sway(t) * (y - LIP[1]) * 0.03
+    return LIP[0] + 40 + sway(t) * (y - LIP[1]) * 0.03 - 150 * gust(t) * (y - LIP[1]) / 700
 
 
 # ---------------------------------------------------------------- background (built once per worker)
@@ -116,7 +127,6 @@ def build_bg():
         for dx in (-4, 0, 4):
             line(d, [(x, LEDGE_Y - 6), (x + dx * 1.5, LEDGE_Y - 18)], (60, 80, 70, 255), 2)
     # the anchor (a piton) the rope is tied to
-    rrect(d, (LIP[0] - 70, LEDGE_Y - 30, LIP[0] - 50, LEDGE_Y), 3, (140, 144, 160, 255), outline=INK + (255,), w=2)
     return im
 
 
@@ -160,7 +170,7 @@ def draw_rope(d, t, y_bottom, snapped=False):
              (220, 186, 120, 255), 1.5)
 
 
-SNAPS = [0.5, 1.3, 2.1, 4.0, 6.4, 7.3, 10.1, 11.2, 12.4, 13.3, 15.2, 15.9]
+SNAPS = [0.5, 1.3, 2.0, 3.1, 4.6, 6.6, 7.5, 10.8, 12.45, 13.6, 14.65, 16.0, 16.6]
 
 
 def fibers(d, t):
@@ -220,6 +230,47 @@ def knife(d, p, ang, s, glint=0.0):
         line(d, [(gx, gy - 14), (gx, gy + 14)], (255, 255, 255, int(255 * glint)), 2)
 
 
+def rock(d, x, y, r, ang):
+    pts = []
+    for j in range(7):
+        a = ang + j * 2 * math.pi / 7
+        rr = r * (0.75 + 0.25 * math.sin(j * 2.3))
+        pts.append((x + rr * math.cos(a), y + rr * math.sin(a)))
+    poly(d, pts, (70, 72, 82, 255), outline=INK + (255,), w=2)
+    line(d, [pts[0], pts[2]], (110, 114, 130, 255), 2)
+
+
+def crack(d, head, s, t):
+    if t < T_HIT:
+        return
+    hx, hy = head
+    line(d, [(hx - 4 * s, hy - 34 * s), (hx + 4 * s, hy - 24 * s), (hx - 2 * s, hy - 16 * s), (hx + 8 * s, hy - 9 * s)],
+         INK + (255,), 2)
+
+
+def piton(d, t):
+    """the anchor the rope is tied to: pulling out of the rock, and ripping free at the snap"""
+    out = 0.0
+    for t0, t1, amt in ((T_PITON, T_PITON + 1.2, 0.25), (T_WALL, T_WALL + 0.3, 0.2), (T_SLIP, T_SLIP + 0.3, 0.2),
+                        (T_SNAP - 0.8, T_SNAP, 0.2)):
+        out += amt * smooth(prog(t, t0, t1))
+    bx, by = LIP[0] - 60, LEDGE_Y - 10
+    if t >= T_SNAP:
+        u = t - T_SNAP
+        bx, by = bx + 300 * u, by - 200 * u + 900 * u * u
+        ang = u * 12
+    else:
+        ang = -0.5 * out + 0.06 * math.sin(t * 30) * (out > 0.05)
+    L = 30 + 30 * out
+    c, s_ = math.cos(ang - math.pi / 2), math.sin(ang - math.pi / 2)
+    line(d, [(bx, by), (bx + L * c, by + L * s_)], (150, 154, 172, 255), 7)
+    ell(d, bx + L * c, by + L * s_, 8, 8, None, outline=(150, 154, 172, 255), w=3)
+    if 0.05 < out and t < T_SNAP:
+        rng = np.random.default_rng(int(t * 8))
+        for j in range(5):
+            ell(d, bx + rng.uniform(-12, 12), by + rng.uniform(-6, 4), 2.5, 2.5, (150, 140, 120, 160))
+
+
 def reach(pts, s, hand, target, sgn=1):
     side = hand[-1]
     pts = dict(pts)
@@ -237,35 +288,56 @@ SIT_G = {"head": (-16, -138), "neck": (-10, -96), "el": (-32, -52), "hl": (-52, 
 def scene(stage, d, t):
     """everything that moves. returns the hero's / stranger's key points for the camera"""
     # where the two are on the rope
-    if t < T_GRAB:
-        h_hand, s_hand = 860.0, 1290.0
+    jolt = 26 * math.exp(-(t - T_HIT) * 7) * (t >= T_HIT) + 30 * math.exp(-(t - T_SSLIP) * 7) * (t >= T_SSLIP)
+    if t < T_CLIMB:
+        h_hand = 780.0 + jolt * 0.4
+        s_hand = lerp(1270.0, 1030.0, smooth(prog(t, T_THROW + 0.2, T_GRAB))) + jolt     # he climbs up to him
     elif t < T_TOP:
-        u = prog(t, T_GRAB + 0.4, T_TOP)
-        slip = 40 * math.exp(-(t - T_SLIP) * 6) * (t >= T_SLIP)
-        h_hand = lerp(860, LIP[1] + 40, smooth(u)) + slip
-        s_hand = h_hand + 330 + slip * 0.5
+        u = prog(t, T_CLIMB, T_TOP)
+        slip = 46 * math.exp(-(t - T_SLIP) * 6) * (t >= T_SLIP)
+        h_hand = lerp(780, LIP[1] + 40, smooth(u)) + slip
+        s_hand = h_hand + 250 + slip * 0.5
     else:
         h_hand = LIP[1] + 40
-        s_hand = lerp(LIP[1] + 370, LIP[1] + 40, smooth(prog(t, T_TOP + 0.8, T_SNAP)))
+        s_hand = lerp(LIP[1] + 290, LIP[1] + 40, smooth(prog(t, T_TOP + 0.6, T_SNAP)))
     snapped = t >= T_SNAP
     bottom = s_hand + 300 if not snapped else LIP[1]
+    # lightning in the sky
+    for b0 in (T_BOLT, T_BOLT + 0.32):
+        if b0 <= t < b0 + 0.18:
+            rng = np.random.default_rng(int(b0 * 10))
+            pts = [(760 + rng.uniform(-30, 30), 0)]
+            while pts[-1][1] < 1450:
+                x, y = pts[-1]
+                pts.append((x + rng.uniform(-60, 60), y + rng.uniform(60, 130)))
+            a = int(255 * (1 - (t - b0) / 0.18))
+            line(d, pts, (220, 230, 255, a), 5)
+            line(d, pts, (255, 255, 255, a), 2)
+    piton(d, t)
     draw_rope(d, t, bottom, snapped)
     fibers(d, t)
     info = {}
     # --- the stranger
     if t < T_SNAP - 0.05:
-        sp, shp = hanging(s_hand, t, SS, 1.0, dx=-6)
+        sp, shp = hanging(s_hand, t, SS, 1.0, dx=-40)
         if T_POINT0 <= t < T_POINT1 + 0.6:
             k = smooth(prog(t, T_POINT0, T_POINT0 + 0.5)) * (1 - smooth(prog(t, T_POINT1, T_POINT1 + 0.6)))
             sp = lerp_pose(sp, dict(sp, head=(14, -154), el=(30, -150), hl=(56, -196)), k)
         if T_GRAB - 0.6 <= t < T_TOP + 0.8:
             sp = dict(sp, el=(20, -160), hl=(10, -214), head=(8, -152))
+        if T_SSLIP <= t < T_TOP + 0.6:
+            fl_ = math.sin(t * 7)
+            sp = dict(sp, er=(36, -110), hr=(60 + 14 * fl_, -80 - 10 * fl_))        # the other hand flails
+        if T_HIT <= t < T_HIT + 0.6:
+            k = 1 - (t - T_HIT) / 0.6
+            sp = dict(sp, head=(sp["head"][0] - 18 * k, sp["head"][1] + 10 * k))
         if t >= T_TOP + 0.8:
             sp = dict(sp, el=(10, -170), hl=(4, -224), er=(18, -176), hr=(6, -232))
         spts = place(sp, shp, 1, SS)
         backpack(d, spts["neck"], spts["hip"], 1, SS)
         figure(stage, spts, SS, light=(0.7, -0.7), body=(176, 184, 200))
         helmet(d, spts["head"], SS)
+        crack(d, spts["head"], SS, t)
         info["stranger"] = spts
     else:
         u = smooth(prog(t, T_SNAP - 0.05, T_SNAP + 0.5))
@@ -283,9 +355,10 @@ def scene(stage, d, t):
         info["stranger"] = spts
     # --- the hero
     if t < T_TOP:
-        hp, hhp = hanging(h_hand, t, SH, 0.0)
-        look = smooth(prog(t, 1.8, 2.6))
-        hp = dict(hp, head=(lerp(6, 18, look), lerp(-150, -138, look)))
+        hp, hhp = hanging(h_hand, t, SH, 0.0, dx=30)
+        look = smooth(prog(t, 1.6, 2.2))
+        duck = math.sin(math.pi * prog(t, T_ROCK + 0.05, T_ROCK + 0.5))
+        hp = dict(hp, head=(lerp(6, 18, look) - 26 * duck, lerp(-150, -138, look) + 10 * duck))
         # take the knife, hesitate, throw it
         kp = None
         if T_KNIFE <= t < T_THROW + 0.25:
@@ -336,6 +409,43 @@ def scene(stage, d, t):
             hpts = place(sp, (lerp(LIP[0] - 110, 70, u), LEDGE_Y - 12 * SH), 1, SH)
         figure(stage, hpts, SH, light=(0.7, -0.7), scarf=True, back=-1)
         info["hero"] = hpts
+    # the rock that hits the helmet
+    if T_ROCK <= t < T_HIT + 1.6:
+        u = t - T_ROCK
+        hit_y = info["stranger"]["head"][1] - 30 if "stranger" in info else 1250
+        g = 2 * (hit_y - (LIP[1] - 20)) / (T_HIT - T_ROCK) ** 2
+        if t < T_HIT:
+            rx, ry = rope_x(LIP[1], t) + 26, LIP[1] - 20 + 0.5 * g * u * u
+        else:
+            v = t - T_HIT
+            rx, ry = rope_x(hit_y, t) + 26 + 260 * v, hit_y - 120 * v + 900 * v * v
+        rock(d, rx, ry, 26, u * 4)
+        if T_HIT <= t < T_HIT + 0.35:
+            k = (t - T_HIT) / 0.35
+            sx, sy = info["stranger"]["head"][0], info["stranger"]["head"][1] - 34
+            rng = np.random.default_rng(3)
+            for j in range(14):
+                a = rng.uniform(0, 6.28)
+                rr = 10 + 60 * k
+                line(d, [(sx + rr * 0.6 * math.cos(a), sy + rr * 0.6 * math.sin(a)),
+                         (sx + rr * math.cos(a), sy + rr * math.sin(a))], (255, 230, 150, int(255 * (1 - k))), 2)
+    # the edge crumbles under his hand
+    if T_SLIP <= t < T_SLIP + 1.4:
+        v = t - T_SLIP
+        rng = np.random.default_rng(14)
+        for j in range(6):
+            x0 = LIP[0] - rng.uniform(0, 40)
+            rock(d, x0 + rng.uniform(-30, 60) * v, LIP[1] - 4 + 300 * v * v * rng.uniform(0.8, 1.4) + 30 * v,
+                 rng.uniform(7, 14), v * rng.uniform(2, 6) + j)
+    # rain after the lightning
+    if t >= T_BOLT:
+        a = smooth(prog(t, T_BOLT, T_BOLT + 0.8))
+        rng = np.random.default_rng(21)
+        for j in range(120):
+            x0, sp = rng.uniform(-100, W + 100), rng.uniform(1.0, 1.4)
+            y = ((t * sp * 1.6 + rng.uniform(0, 1)) % 1.0) * (H + 100) - 50
+            x = x0 - 0.25 * y
+            line(d, [(x, y), (x - 10, y + 40)], (160, 180, 220, int(130 * a)), 1.6)
     # the knife falling into the dark
     if T_THROW + 0.2 <= t < T_THROW + 2.5:
         u = t - T_THROW - 0.2
@@ -353,23 +463,30 @@ def scene(stage, d, t):
 
 def camera_at(t, info):
     lip = (rope_x(LIP[1] + 22, t), LIP[1] + 22)
-    if t < 2.6:
-        k = smooth(prog(t, 0.3, 2.6))
-        return lerp(lip[0], 600, k), lerp(lip[1], 1080, k), lerp(3.0, 1.3, k)
+    if t < T_ROCK:
+        k = smooth(prog(t, 0.3, T_ROCK))
+        return lerp(lip[0], 600, k), lerp(lip[1], 1000, k), lerp(3.0, 1.35, k)
+    if t < T_HIT + 0.6:                              # follow the rock down to the helmet
+        k = smooth(prog(t, T_ROCK, T_HIT))
+        return 600, lerp(1000, 1250, k), lerp(1.35, 1.6, k)
     if t < T_KNIFE:
-        k = smooth(prog(t, T_POINT0, T_POINT0 + 0.6))
-        return 600, lerp(1080, 1160, k), lerp(1.3, 1.45, k)
+        k = smooth(prog(t, T_HIT + 0.6, T_POINT0 + 0.4))
+        return 600, lerp(1250, 1120, k), lerp(1.6, 1.4, k)
     if t < T_THROW:
         hl = info["hero"]["hl"]
-        if 6.6 <= t < 7.3:                      # a cut to the fray
-            return lip[0], lip[1], 2.6
+        if 7.3 <= t < 7.9:                           # a cut to the anchor, pulling out
+            return LIP[0] - 50, LEDGE_Y - 20, 3.0
         k = smooth(prog(t, T_KNIFE, T_KNIFE + 0.8))
-        return lerp(600, hl[0], k), lerp(1160, hl[1], k), lerp(1.45, 2.1, k)
+        return lerp(600, hl[0], k), lerp(1120, hl[1], k), lerp(1.4, 2.1, k)
     if t < T_GRAB:
         k = smooth(prog(t, T_THROW, T_THROW + 0.5))
         return lerp(620, 700, k), lerp(1000, 1250, k), lerp(1.8, 1.3, k)
+    if t < T_CLIMB:
+        return 560, 1180, 1.4
     if t < T_TOP:
         hy = info["hero"]["hip"][1]
+        if T_SLIP - 0.1 <= t < T_SLIP + 0.5:
+            return LIP[0], LIP[1] + 40, 2.2
         return 580, hy + 120, 1.35
     if t < T_SNAP + 0.6:
         return 480, 760, 1.4
@@ -389,12 +506,15 @@ def frame(t):
     base.alpha_composite(stage)
     fx, fy, z = camera_at(t, info)
     sh = 0.0
-    for s0 in SNAPS + [T_SLIP, T_SNAP]:
+    for s0 in SNAPS + [T_HIT, T_SSLIP, T_WALL, T_SLIP, T_SNAP]:
         if s0 <= t < s0 + 0.3:
-            sh = max(sh, (1 - (t - s0) / 0.3) * (16 if s0 in (T_SLIP, T_SNAP) else 5))
+            sh = max(sh, (1 - (t - s0) / 0.3) * (16 if s0 in (T_HIT, T_SSLIP, T_WALL, T_SLIP, T_SNAP) else 5))
     dx = z * (W / 2 - fx) + sh * math.sin(t * 90)
     dy = z * (H / 2 - fy) + sh * 0.6 * math.cos(t * 77)
     im = hq.camera(base, z, dx * K, dy * K).resize((W, H), Image.LANCZOS)
+    for b0 in (T_BOLT, T_BOLT + 0.32):
+        if b0 <= t < b0 + 0.15:
+            im = Image.blend(im, Image.new("RGBA", im.size, (230, 236, 255, 255)), 0.55 * (1 - (t - b0) / 0.15))
     dq = ImageDraw.Draw(im)
     # ROPE counter
     pct = rope_pct(t)
@@ -461,6 +581,31 @@ def audio():
     mix_in(fx, tone(70, 0.4, (1, 0.5), a=0.002, d=0.15), T_SLIP, 0.16)                    # the slip
     mix_in(fx, noise(0.8, 10, lo=300, hi=6000)[:int(0.8 * SR)] * env(int(0.8 * SR), 0.001, 0.2), T_SNAP, 0.3)
     mix_in(fx, tone(60, 0.8, (1, 0.5), a=0.002, d=0.4), T_SNAP, 0.2)
+    # the rock: a rumble, the clank on the helmet
+    mix_in(fx, noise(0.7, 30, lo=80, hi=900)[:int(0.7 * SR)] * env(int(0.7 * SR), 0.05, 0.3), T_ROCK - 0.1, 0.1)
+    mix_in(fx, tone(1800, 0.5, (1, 2.7, 4.1), a=0.0005, d=0.15) + 0.4 * noise(0.5, 31, lo=1000, hi=8000)[
+        :int(0.5 * SR)] * env(int(0.5 * SR), 0.0005, 0.05), T_HIT, 0.22)
+    # the anchor creaking out of the rock
+    for t0 in (T_PITON + 0.2, T_PITON + 1.0, 7.4, T_WALL + 0.05, T_SLIP + 0.05, T_SNAP - 0.5):
+        sq = tone(900, 0.35, (1, 1.5, 2.2), a=0.02, d=0.2, sweep=700)
+        mix_in(fx, sq, t0, 0.04, -0.3)
+    # thunder and rain
+    th = noise(3.0, 32, lo=30, hi=400)[:3 * SR] * env(3 * SR, 0.02, 1.2)
+    mix_in(fx, th, T_BOLT + 0.05, 0.35)
+    mix_in(fx, noise(0.15, 33, lo=1000, hi=9000)[:int(0.15 * SR)] * env(int(0.15 * SR), 0.0005, 0.04), T_BOLT, 0.3)
+    rl = DUR - T_BOLT
+    rn = noise(rl, 34, lo=1200, hi=9000)[:int(rl * SR)] * np.minimum(1, np.arange(int(rl * SR)) / (0.8 * SR))
+    mix_in(fx, rn, T_BOLT, 0.06)
+    # the stranger's hand slips; the gust; the wall; the edge crumbling
+    mix_in(fx, noise(0.3, 35, lo=500, hi=4000)[:int(0.3 * SR)] * env(int(0.3 * SR), 0.001, 0.1), T_SSLIP, 0.1)
+    gw = noise(1.0, 36, lo=200, hi=2500)[:SR] * np.sin(np.linspace(0, np.pi, SR))
+    mix_in(fx, gw, T_GUST - 0.2, 0.15)
+    mix_in(fx, tone(60, 0.4, (1, 0.5), a=0.001, d=0.15) + 0.4 * noise(0.4, 37, lo=100, hi=2500)[:int(0.4 * SR)] *
+           env(int(0.4 * SR), 0.001, 0.06), T_WALL, 0.25)
+    for j in range(5):
+        mix_in(fx, noise(0.12, 38 + j, lo=300, hi=4000)[:int(0.12 * SR)] * env(int(0.12 * SR), 0.001, 0.04),
+               T_SLIP + j * 0.12, 0.08)
+    mix_in(fx, tone(2400, 0.4, (1, 2.6), a=0.0005, d=0.15), T_SNAP + 0.05, 0.06)
     # heavy breathing at the end
     for j in range(5):
         mix_in(fx, noise(0.5, 20 + j, lo=300, hi=2500)[:int(0.5 * SR)] * np.sin(np.linspace(0, np.pi, int(0.5 * SR))),
