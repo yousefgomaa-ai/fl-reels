@@ -1035,8 +1035,50 @@ def panel(t, st, lane):
         di.text((x + 2, 20), ch_, font=f, fill=(0, 0, 0, 160))
         di.text((x, 18), ch_, font=f, fill=(214, 220, 238, 255))
         x += f.getlength(ch_) + 9
+    if t < T_RW:
+        im = progress_bar(im, lane, st)
+        di = ImageDraw.Draw(im)
     di.rounded_rectangle([1, 1, PWD - 2, PHT - 2], 16, outline=(44, 54, 88, 255), width=3)
     return im
+
+
+T_MAP0, T_MAP1 = 9.5, 12.0          # mid-video re-hook: how far each one still has to go
+LANE_COL = [RED, (70, 140, 255), GOLD]
+
+
+def progress_bar(im, lane, st):
+    if not (T_MAP0 <= st < T_MAP1):
+        return im
+    k = hq.pop(st, T_MAP0 + 0.08 * lane, 0.3) * (1 - smooth(prog(st, T_MAP1 - 0.25, T_MAP1)))
+    if k < 0.02:
+        return im
+    m = [m_s, m_c, m_r][lane](st)
+    left = max(0.0, 100 - m)
+    ov = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    d = ImageDraw.Draw(ov)
+    a = int(255 * min(1, k))
+    y0 = 62 - 30 * (1 - min(1, k))
+    x0, x1 = 24, PWD - 24
+    d.rounded_rectangle([x0, y0, x1, y0 + 66], 16, fill=(6, 8, 20, int(215 * min(1, k))),
+                        outline=LANE_COL[lane] + (a,), width=3)
+    f = font("InterDisplay-Bold.otf", 34)
+    lab = f"{left:.1f} M LEFT"
+    col = (255, 90, 90) if lane == 2 else (240, 242, 250)
+    d.text((x0 + 22, y0 + 13), lab, font=f, fill=col + (a,))
+    tx0, tx1, ty = x0 + 330, x1 - 70, y0 + 33
+    d.line([(tx0, ty), (tx1, ty)], fill=(70, 80, 110, a), width=8)
+    px = lerp(tx0, tx1, m / 100)
+    d.line([(tx0, ty), (px, ty)], fill=LANE_COL[lane] + (a,), width=8)
+    d.ellipse([px - 15, ty - 15, px + 15, ty + 15], fill=(240, 242, 250, a), outline=LANE_COL[lane] + (a,), width=5)
+    fx = tx1 + 18
+    d.line([(fx, ty + 22), (fx, ty - 24)], fill=(220, 224, 236, a), width=3)
+    for r in range(3):
+        for c in range(4):
+            colc = (240, 240, 244, a) if (r + c) % 2 == 0 else (20, 20, 24, a)
+            d.rectangle([fx + 2 + c * 8, ty - 24 + r * 7, fx + 10 + c * 8, ty - 17 + r * 7], fill=colc)
+    out = im.copy()
+    out.alpha_composite(ov)
+    return out
 
 
 def title(img):
@@ -1468,6 +1510,10 @@ def audio():
     sk *= np.sin(2 * np.pi * 2200 * np.arange(len(sk)) / SR) * 0.5 + 0.5
     mix_in(fx, sk, T_CROSS + 0.05, 0.12, 0.3)
     mix_in(fx, tone(1000, 0.08, (1, 0.5), a=0.001, d=0.03, sweep=500), T_TOUCH, 0.06, -0.1)
+    # the progress bars pop in (one blip per lane) at the mid-video re-hook
+    mix_in(fx, noise(0.35, 90, lo=500, hi=6000) * np.sin(np.linspace(0, np.pi, int(0.35 * SR))), T_MAP0 - 0.15, 0.06)
+    for j, f_ in enumerate((660, 880, 330)):
+        mix_in(fx, tone(f_, 0.12, (1, 0.4), a=0.002, d=0.06), T_MAP0 + 0.08 * j, 0.07)
     rw = DUR - T_RW
     nrw = int(rw * SR)
     fr = 300 + 2200 * np.linspace(0, 1, nrw) ** 1.5
