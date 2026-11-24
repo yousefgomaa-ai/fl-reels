@@ -379,7 +379,7 @@ def consistent(t):
 
 # ---------------------------------------------------------------- the rich kid
 LOUNGE_X = 380             # world x (lounger centre), foreground
-LOUNGE_Y = 486
+LOUNGE_Y = 444
 KID_HIP = (LOUNGE_X - 6, LOUNGE_Y - 42)
 
 
@@ -1041,7 +1041,7 @@ def panel(t, st, lane):
     return im
 
 
-T_MAP0, T_MAP1 = 6.0, 99.0          # from 6 s to the end: how far each one still has to go
+T_MAP0, T_MAP1 = 4.0, 99.0          # from 4 s to the end: how far each one still has to go
 LANE_COL = [RED, (70, 140, 255), GOLD]
 
 
@@ -1056,25 +1056,25 @@ def progress_bar(im, lane, st):
     ov = Image.new("RGBA", im.size, (0, 0, 0, 0))
     d = ImageDraw.Draw(ov)
     a = int(255 * min(1, k))
-    y0 = 62 - 30 * (1 - min(1, k))
+    y0 = 446 + 30 * (1 - min(1, k))
     x0, x1 = 24, PWD - 24
-    d.rounded_rectangle([x0, y0, x1, y0 + 66], 16, fill=(6, 8, 20, int(215 * min(1, k))),
+    d.rounded_rectangle([x0, y0, x1, y0 + 46], 12, fill=(6, 8, 20, int(215 * min(1, k))),
                         outline=LANE_COL[lane] + (a,), width=3)
-    f = font("InterDisplay-Bold.otf", 34)
+    f = font("InterDisplay-Bold.otf", 27)
     lab = f"{left:.1f} M LEFT"
     col = (255, 90, 90) if (lane == 2 and left > 0.05) else (GOLD if lane == 2 else (240, 242, 250))
-    d.text((x0 + 22, y0 + 13), lab, font=f, fill=col + (a,))
-    tx0, tx1, ty = x0 + 330, x1 - 70, y0 + 33
-    d.line([(tx0, ty), (tx1, ty)], fill=(70, 80, 110, a), width=8)
+    d.text((x0 + 18, y0 + 8), lab, font=f, fill=col + (a,))
+    tx0, tx1, ty = x0 + 270, x1 - 60, y0 + 23
+    d.line([(tx0, ty), (tx1, ty)], fill=(70, 80, 110, a), width=6)
     px = lerp(tx0, tx1, m / 100)
-    d.line([(tx0, ty), (px, ty)], fill=LANE_COL[lane] + (a,), width=8)
-    d.ellipse([px - 15, ty - 15, px + 15, ty + 15], fill=(240, 242, 250, a), outline=LANE_COL[lane] + (a,), width=5)
+    d.line([(tx0, ty), (px, ty)], fill=LANE_COL[lane] + (a,), width=6)
+    d.ellipse([px - 11, ty - 11, px + 11, ty + 11], fill=(240, 242, 250, a), outline=LANE_COL[lane] + (a,), width=5)
     fx = tx1 + 18
-    d.line([(fx, ty + 22), (fx, ty - 24)], fill=(220, 224, 236, a), width=3)
+    d.line([(fx, ty + 16), (fx, ty - 17)], fill=(220, 224, 236, a), width=3)
     for r in range(3):
         for c in range(4):
             colc = (240, 240, 244, a) if (r + c) % 2 == 0 else (20, 20, 24, a)
-            d.rectangle([fx + 2 + c * 8, ty - 24 + r * 7, fx + 10 + c * 8, ty - 17 + r * 7], fill=colc)
+            d.rectangle([fx + 2 + c * 6, ty - 17 + r * 5, fx + 8 + c * 6, ty - 12 + r * 5], fill=colc)
     out = im.copy()
     out.alpha_composite(ov)
     return out

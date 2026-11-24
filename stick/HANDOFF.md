@@ -37,3 +37,4 @@ Every reel: propose first, build after "نفذ"; send it with idea, title, first
 - v7 (owner): mid-video re-hook 9.5-12.0 s - a progress bar at the top of each panel with the metres left (rich kid: 100.0 M LEFT in red) + a pop sound.
 - v8 (owner): 21.6 s (CONSISTENT 5 m/s, rest 5 s); the metres-left bars appear at 8 s and stay to the end.
 - v9 (owner): the metres-left bars now appear at 6 s.
+- v10 (owner): the metres-left bars sit at the bottom of each panel (slimmer), from 4 s to the end; the lounger moved up onto the road so the bar doesn't hide the rich kid.
