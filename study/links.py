@@ -32,6 +32,9 @@ for vid in IDS:
     if mp4:
         sh(f"ffmpeg -v error -y -i '{mp4[0]}' -vf 'fps=2,scale=180:-2,tile=8x6' -frames:v 1 -q:v 4 {d}/sheet.jpg")
         sh(f"ffmpeg -v error -y -i '{mp4[0]}' -vf 'select=eq(n\\,0),scale=540:-2' -frames:v 1 {d}/frame0.jpg")
+        sh(f"ffmpeg -v error -y -i '{mp4[0]}' -vf 'fps=4,scale=180:-2,tile=8x8' -q:v 4 {d}/dense_%02d.jpg")
+        for sec in (0.5, 1, 2, 3, 5, 8, 12, 16, 20, 25, 30, 40):
+            sh(f"ffmpeg -v error -y -ss {sec} -i '{mp4[0]}' -frames:v 1 -vf scale=540:-2 {d}/t{sec:05.1f}.jpg")
         os.remove(mp4[0])
     for f in glob.glob(f"{d}/*.jpg"):
         if os.path.getsize(f) < 2000:
