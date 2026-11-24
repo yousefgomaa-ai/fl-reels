@@ -33,3 +33,4 @@ Every reel: propose first, build after "نفذ"; send it with idea, title, first
 - v3 (owner): energetic synthesized race track (140 BPM, drums/bass/arps, build into the launch) instead of strings_am; no TIRED/2ND/1ST stamps - the gold 100 on the counter tells the result; 28.8 s.
 - v4 (owner): music = an epic hybrid cue on real GM instruments via FluidSynth (race.gm_score; needs `apt-get install -y fluidsynth fluid-soundfont-gm` and `pip install mido`); the gift bow no longer flies off the car at launch.
 - v5 (owner): opening close-up on all three (camera starts ~1.85x on each figure, pulls back by ~1.9 s), both runners caught mid-stride at frame 0, counter with one decimal (moves every frame), payoff 1.7 s before the end (DUR 27.95, rewind from 27.15).
+- v6 (owner: shorter): 23.85 s - CONSISTENT jogs 4.5 m/s, the sprinter's rest is 6.2 s, the rich kid's beats compressed; car crosses at 22.15, CONSISTENT at 22.52, rewind 23.05.

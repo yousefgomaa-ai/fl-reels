@@ -32,7 +32,7 @@ from perfect_wave import clamp, env, font, lerp, lerp_pose, midi, mix_in, noise,
 
 W, H, FPS = 1080, 1920, 30
 SR = 44100
-DUR = 27.95
+DUR = 23.85
 NF = int(round(DUR * FPS))
 K = hq.K
 BOLD = hq.BOLD
@@ -60,43 +60,44 @@ GREY = (120, 124, 134)
 CAR = (230, 40, 52)
 
 # ---------------------------------------------------------------- timeline (scene time)
-T_STOP_S = 7.2             # sprinter stops at 54 m
-T_EASY1 = 8.4
-T_PANT1 = 9.4
-T_SITDOWN = 9.9
-T_DRINK0, T_DRINK1 = 10.1, 12.1
-T_RELAX1 = 14.3
-T_ALERT = 16.0             # "!" on his phone
-T_RUN2 = 16.5
-T_CRAMP = 19.6
-T_FALL = 20.0
-T_UP = 21.0
-T_LIMP = 21.6
-T_RAIN0, T_RAIN1 = 10.0, 13.6
-T_TOUCH = 0.6 + (100 - 1.14) / 3.8      # 26.62: CONSISTENT reaches his tape
+VJOG = 4.5                 # CONSISTENT's steady jog (m/s)
+T_STOP_S = 7.2             # sprinter stops at 56.7 m
+T_EASY1 = 8.2
+T_PANT1 = 8.9
+T_SITDOWN = 9.3
+T_DRINK0, T_DRINK1 = 9.4, 10.8
+T_RELAX1 = 11.8
+T_ALERT = 13.0             # "!" on his phone, just after CONSISTENT passes him
+T_RUN2 = 13.4
+T_CRAMP = 15.4
+T_FALL = 15.8
+T_UP = 16.6
+T_LIMP = 17.1
+T_RAIN0, T_RAIN1 = 8.5, 11.5
+T_TOUCH = 0.6 + (100 - 0.3 * VJOG) / VJOG     # 22.52: CONSISTENT reaches his tape
 T_REACH = T_TOUCH - 0.6
-T_KEYS1 = 3.0
-T_JUICE1 = 5.5
-T_SELFIE = 6.55
-T_FAN0, T_FAN1 = 7.6, 10.0
-T_DRONE0, T_DRONE_HAND, T_DRONE1 = 10.0, 11.2, 12.6
-T_EAT1 = 15.0
-T_YAWN1 = 17.0
-T_WATCH1 = 19.6
-T_CAR0, T_CAR1 = 19.6, 21.2              # the car arrives
-T_HONK = 20.9
-T_CHAUF = 21.3                           # chauffeur steps out
-T_KSTAND = 21.4
-T_KWALK0, T_KWALK1 = 22.0, 22.8
-T_IN = 23.2
-T_IGN = 23.4
-T_LAUNCH = 24.3
-T_BOW = 24.45
-T_CROSS = 26.25            # the car's nose breaks its tape
+T_KEYS1 = 2.5
+T_JUICE1 = 4.5
+T_SELFIE = 5.3
+T_FAN0, T_FAN1 = 6.2, 8.2
+T_DRONE0, T_DRONE_HAND, T_DRONE1 = 8.2, 9.3, 10.6
+T_EAT1 = 12.3
+T_YAWN1 = 13.7
+T_WATCH1 = 15.6
+T_CAR0, T_CAR1 = 15.6, 17.0              # the car arrives
+T_HONK = 16.7
+T_CHAUF = 17.1                           # chauffeur steps out
+T_KSTAND = 17.2
+T_KWALK0, T_KWALK1 = 17.7, 18.4
+T_IN = 18.8
+T_IGN = 19.0
+T_LAUNCH = 20.2
+T_BOW = 99.0
+T_CROSS = T_TOUCH - 0.37   # the car's nose breaks its tape
 T_CUT = T_CROSS - 0.45     # the camera jumps to the finish line
-T_STOP = 26.6
-T_STAMP = 26.95
-T_RW = 27.15               # rewind into frame 0
+T_STOP = T_CROSS + 0.35
+T_STAMP = T_CROSS + 0.7
+T_RW = T_CROSS + 0.9       # rewind into frame 0
 
 
 def scene_t(t):
@@ -133,9 +134,9 @@ def m_s(t):
 
 def m_c(t):
     if t < 0.6:
-        return 3.8 * t * t / 1.2
+        return VJOG * t * t / 1.2
     if t < T_TOUCH:
-        return 1.14 + 3.8 * (t - 0.6)
+        return 0.3 * VJOG + VJOG * (t - 0.6)
     u = clamp((t - T_TOUCH) / 0.9)
     return 100 + 1.7 * (1 - (1 - u) ** 2)
 
