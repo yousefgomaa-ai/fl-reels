@@ -1,0 +1,22 @@
+# Reference Short + its channel's posting rhythm (owner, 2026-11-25): runs on the claude/two-paths branch only.
+name: Reference channel
+on:
+  push:
+    branches: [claude/two-paths]
+    paths: [study/ref_channel.py, .github/workflows/ref-channel.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  study:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q -U "yt-dlp[default]"
+      - run: python3 study/ref_channel.py MBghiGJ6Gso
+      - run: python3 study/links.py MBghiGJ6Gso || true
+      - name: Commit
+        run: |
+          git config user.name "study" && git config user.email "actions@users.noreply.github.com"
+          git add study/ref study/links && git commit -m "Reference channel: output [skip ci]" && git pull -q --rebase origin claude/two-paths && git push || true
