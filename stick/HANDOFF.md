@@ -38,3 +38,12 @@ Every reel: propose first, build after "نفذ"; send it with idea, title, first
 - v8 (owner): 21.6 s (CONSISTENT 5 m/s, rest 5 s); the metres-left bars appear at 8 s and stay to the end.
 - v9 (owner): the metres-left bars now appear at 6 s.
 - v10 (owner): the metres-left bars sit at the bottom of each panel (slimmer), from 4 s to the end; the lounger moved up onto the road so the bar doesn't hide the rich kid.
+
+## Nov 24 (night) - "When You Compare Yourself" (stick/compare.py -> compare.mp4)
+- Owner sent a Simply Animated Short ("When Your Ego Gets Hurt", 16K likes; study/links/vpC4AnQJ4Yo - YouTube blocked
+  the download, only the thumbnail + 3 preview frames). Format: a montage of short night scenes, one small serif line
+  each. Owner wanted the same professional night look and an energetic cinematic sound (not their track).
+- New engine in compare.py: stage_bg (black stage + spotlight cones + floor pool + vignette), volumetric figures
+  (figure(): lit edge / far-side shadow / dark outline from the silhouette mask), wet-floor reflection, depth of field,
+  dust in the light, spaced serif captions; music on FluidSynth (piano ostinato, cellos, taiko, strings, brass/choir
+  at the flip, hits on every cut). 19.3 s, 5 scenes + flip; the barefoot observer is hidden blurred in scene 1.
