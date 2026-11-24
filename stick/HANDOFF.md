@@ -31,3 +31,4 @@ Every reel: propose first, build after "نفذ"; send it with idea, title, first
   3.8 m/s jog); the rich kid starts on a lounger with no car, the car arrives with a chauffeur before the end; the
   sprinter rests (water, leans back, phone) instead of sleeping. 29.6 s; 25/50/75 M signs on the roads.
 - v3 (owner): energetic synthesized race track (140 BPM, drums/bass/arps, build into the launch) instead of strings_am; no TIRED/2ND/1ST stamps - the gold 100 on the counter tells the result; 28.8 s.
+- v4 (owner): music = an epic hybrid cue on real GM instruments via FluidSynth (race.gm_score; needs `apt-get install -y fluidsynth fluid-soundfont-gm` and `pip install mido`); the gift bow no longer flies off the car at launch.

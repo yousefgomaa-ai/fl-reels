@@ -36,7 +36,7 @@ DUR = 28.8
 NF = int(round(DUR * FPS))
 K = hq.K
 BOLD = hq.BOLD
-MUSIC = "hype_am_140 (race.hype)"
+MUSIC = "epic hybrid on FluidR3 GM (race.gm_score)"
 
 TITLE_H = 292
 PX0 = 20
@@ -928,13 +928,7 @@ def panel(t, st, lane):
         if T_CROSS <= st < T_STOP:
             moving = 1 - prog(st, T_CROSS, T_STOP)
         vib = 1.0 if T_IGN <= st < T_LAUNCH + 0.15 else 0.0
-        if st < T_BOW:
-            bow = (None, None, 0.0, 1.0)
-        else:
-            u = prog(st, T_BOW, T_BOW + 0.7)
-            bx0 = CAR_STOP - c - 23 * CXS
-            bow = (bx0 - 260 * u, FEET + 30 - 120 * CYS - 200 * u + 300 * u * u, 7 * u,
-                   1 - smooth(prog(st, T_BOW + 0.45, T_BOW + 0.7)))
+        bow = (None, None, 0.0, 1.0)
         if T_IGN <= st < T_STOP + 0.4:
             for j in range(5):
                 u = ((st * (1.6 if st < T_LAUNCH else 0.8) + j / 5) % 1.0)
@@ -1235,10 +1229,159 @@ def hype():
     return mus * 0.45
 
 
+SF2 = "/usr/share/sounds/sf2/FluidR3_GM.sf2"
+
+
+def gm_score():
+    """an epic hybrid action cue on real GM instruments (FluidSynth): staccato strings, distorted guitar chugs,
+    bass, rock kit, brass and horn theme, timpani, choir; full from the pistol, pulled back while the sprinter
+    rests, back with the horn theme, a snare/timpani build into the launch, a drop, a final hit on the tape"""
+    import mido
+    import tempfile
+    notes = []      # (start, dur, channel, note, vel)
+    prg = {0: 48, 1: 30, 2: 33, 3: 61, 4: 60, 5: 47, 6: 81, 7: 52, 8: 44}
+    B = BEAT
+    prog_ = [(45, 52), (41, 48), (48, 55), (43, 50)]      # Am F C G (root, fifth)
+    triad = {45: (57, 60, 64), 41: (53, 57, 60), 48: (55, 60, 64), 43: (55, 59, 62)}
+    theme = [(0, 2, 69), (2, 1, 72), (3, 1, 71), (4, 3, 69), (7, 1, 64),
+             (8, 2, 65), (10, 1, 69), (11, 1, 72), (12, 4, 71)]           # in beats over 4 bars
+    end = T_CROSS
+    nbeats = int(end / B) + 1
+    for b in range(nbeats):
+        t0 = b * B
+        if t0 >= end - 0.01:
+            break
+        bar = b // 4
+        root, fifth = prog_[(bar // 1) % 4]
+        rest = T_PANT1 - 0.3 <= t0 < T_RUN2 - 0.4
+        build = T_IGN - 1.75 <= t0 < T_LAUNCH
+        drop = t0 >= T_LAUNCH - 0.01
+        full = not rest
+        # drums
+        if full and not build:
+            notes.append((t0, 0.1, 9, 36, 118 if b % 2 == 0 else 100))
+            if b % 2 == 1:
+                notes.append((t0, 0.1, 9, 38, 112))
+            for e in range(2 if not drop else 4):
+                notes.append((t0 + e * B / (2 if not drop else 4), 0.05, 9, 42, 80 if e % 2 else 96))
+            if b % 8 == 7:
+                for j, tm in enumerate((50, 48, 45, 43)):
+                    notes.append((t0 + j * B / 4, 0.1, 9, tm, 110))
+        elif rest:
+            if b % 2 == 0:
+                notes.append((t0, 0.1, 9, 36, 96))
+            notes.append((t0 + B / 2, 0.05, 9, 42, 60))
+        if build:
+            u = prog(t0, T_IGN - 1.75, T_LAUNCH)
+            div = 2 if u < 0.35 else (4 if u < 0.75 else 8)
+            for e in range(div):
+                notes.append((t0 + e * B / div, 0.05, 9, 38, int(70 + 55 * u)))
+            notes.append((t0, 0.3, 5, 45, int(70 + 50 * u)))
+        if bar % 4 == 0 and b % 4 == 0 and full:
+            notes.append((t0, 0.5, 9, 49, 110))
+        # staccato strings ostinato (16ths), always
+        pat = [root + 12, root + 24, fifth + 12, root + 24]
+        for e in range(4):
+            notes.append((t0 + e * B / 4, B / 4 * 0.6, 0, pat[e], (70 if rest else 92) + (12 if drop else 0)))
+        # guitar chugs + bass 8ths
+        if full:
+            for e in range(2):
+                tt = t0 + e * B / 2
+                for nn in (root - 12 + 12, fifth - 12 + 12):
+                    notes.append((tt, B / 2 * 0.55, 1, nn, 100))
+                notes.append((tt, B / 2 * 0.8, 2, root - 12 + (12 if e == 1 and b % 2 else 0), 105))
+        else:
+            if b % 4 == 0:
+                notes.append((t0, 4 * B * 0.95, 2, root - 12, 85))
+                for nn in triad[root]:
+                    notes.append((t0, 4 * B * 0.98, 7, nn, 70))
+                    notes.append((t0, 4 * B * 0.98, 8, nn - 12, 55))
+        # brass stab on each bar's downbeat when full
+        if full and b % 4 == 0:
+            for nn in triad[root]:
+                notes.append((t0, B * 0.45, 3, nn, 100 if not drop else 118))
+        # horn theme after the sprinter gets back up, and in the drop
+        if (T_RUN2 - 0.4 <= t0 < T_IGN - 1.75) or drop:
+            pass
+        # drop: saw arps on top
+        if drop:
+            ar = list(triad[root]) + [triad[root][0] + 12]
+            for e in range(4):
+                notes.append((t0 + e * B / 4, B / 4 * 0.8, 6, ar[(b * 4 + e) % 4] + 12, 90))
+    # the horn theme (4 bars), placed on bar lines from the second sprint on, and once from the start
+    for start in (0.0 + 4 * 4 * B, ):
+        pass
+    for t_th in (4 * B, 40 * B):
+        for bb, du, nn in theme:
+            if t_th + bb * B < T_LAUNCH - 0.05:
+                notes.append((t_th + bb * B, du * B * 0.95, 4, nn, 104))
+                notes.append((t_th + bb * B, du * B * 0.95, 3, nn - 12, 72))
+    # opening hit with the pistol
+    for nn in (45, 57, 60, 64):
+        notes.append((0.0, 0.5, 3, nn, 120))
+    notes.append((0.0, 0.6, 5, 45, 120))
+    notes.append((0.0, 0.6, 9, 49, 120))
+    # the launch hit
+    for nn in (45, 57, 60, 64, 69):
+        notes.append((T_LAUNCH, 0.4, 3, nn, 127))
+    notes.append((T_LAUNCH, 0.6, 5, 45, 127))
+    notes.append((T_LAUNCH, 0.6, 9, 49, 127))
+    notes.append((T_LAUNCH, 0.6, 9, 57, 120))
+    # the final hit on the tape, held into the rewind
+    hold = T_RW - T_CROSS + 0.4
+    for nn in (33, 45, 52, 57, 60, 64, 69):
+        notes.append((T_CROSS, hold, 3 if nn > 40 else 2, nn, 120))
+    for nn in (57, 60, 64, 69):
+        notes.append((T_CROSS, hold, 7, nn, 100))
+        notes.append((T_CROSS, hold, 8, nn - 12, 90))
+    notes.append((T_CROSS, 1.0, 5, 45, 127))
+    notes.append((T_CROSS, 1.0, 9, 49, 127))
+    notes.append((T_CROSS, 1.0, 9, 57, 127))
+    notes.append((T_CROSS, 0.2, 9, 36, 127))
+    mid = mido.MidiFile(ticks_per_beat=960)
+    tr = mido.MidiTrack()
+    mid.tracks.append(tr)
+    tr.append(mido.MetaMessage("set_tempo", tempo=500000, time=0))      # 1 beat = 0.5 s -> 1920 ticks / s
+    vol = {0: 100, 1: 78, 2: 110, 3: 92, 4: 108, 5: 110, 6: 70, 7: 80, 8: 70, 9: 118}
+    for ch, pg in prg.items():
+        tr.append(mido.Message("program_change", channel=ch, program=pg, time=0))
+    for ch, v in vol.items():
+        tr.append(mido.Message("control_change", channel=ch, control=7, value=v, time=0))
+        tr.append(mido.Message("control_change", channel=ch, control=91, value=50 if ch != 9 else 30, time=0))
+    tr.append(mido.Message("control_change", channel=1, control=10, value=30, time=0))
+    tr.append(mido.Message("control_change", channel=6, control=10, value=96, time=0))
+    ev = []
+    for st_, du, ch, nn, v in notes:
+        ev.append((st_, 1, ch, nn, v))
+        ev.append((st_ + du, 0, ch, nn, 0))
+    ev.sort(key=lambda e: (e[0], e[1]))
+    now = 0
+    for st_, on, ch, nn, v in ev:
+        tk = int(round(max(0.0, st_) * 1920))
+        tr.append(mido.Message("note_on" if on else "note_off", channel=ch, note=int(nn), velocity=int(min(127, v)),
+                               time=max(0, tk - now)))
+        now = max(now, tk)
+    tmp = tempfile.mkdtemp()
+    mp, wp = os.path.join(tmp, "s.mid"), os.path.join(tmp, "s.wav")
+    mid.save(mp)
+    subprocess.run(["fluidsynth", "-ni", "-g", "0.6", "-r", str(SR), "-F", wp, SF2, mp], check=True,
+                   capture_output=True)
+    raw = subprocess.run(["ffmpeg", "-v", "error", "-i", wp, "-f", "f32le", "-ac", "2", "-ar", str(SR), "-"],
+                         capture_output=True).stdout
+    m = np.frombuffer(raw, np.float32).reshape(-1, 2).astype(np.float64)
+    n = int(DUR * SR)
+    out = np.zeros((n, 2))
+    out[:min(n, len(m))] = m[:n]
+    # gentle glue: soft-clip and level
+    out = np.tanh(out * 1.6) / np.tanh(1.6)
+    out /= np.abs(out).max() + 1e-9
+    return out * 0.5
+
+
 def audio():
     n = int(DUR * SR)
     fx = np.zeros((n, 2))
-    mus = hype()
+    mus = gm_score()
     tt = np.arange(n) / SR
     bed = noise(DUR, 3, lo=150, hi=900)[:n] * 0.02
     cr = np.sin(2 * np.pi * 4300 * tt) * (np.sin(2 * np.pi * 28 * tt) > 0.6) * (np.sin(2 * np.pi * 0.7 * tt) > 0)
@@ -1298,7 +1441,6 @@ def audio():
         lo, hi_ = int(tr * SR), int((tr + 0.2) * SR)
         idle[lo:hi_] *= 1.6
     mix_in(fx, idle * np.minimum(1, np.arange(len(idle)) / (0.05 * SR)), T_IGN, 0.16, 0.4)
-    mix_in(fx, noise(0.35, 70, lo=1500, hi=8000) * np.sin(np.linspace(0, np.pi, int(0.35 * SR))), T_BOW, 0.07, 0.4)
     for j in range(3):
         for k2, dt in enumerate((0.0, 0.17)):
             mix_in(fx, tone(48, 0.2, (1, 0.5), a=0.003, d=0.08), T_REACH - 0.6 + j * 0.42 + dt, 0.16 - 0.06 * k2)
