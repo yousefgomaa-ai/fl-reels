@@ -64,3 +64,12 @@ Every reel: propose first, build after "نفذ"; send it with idea, title, first
 - Bolder avatar options (owner keeps the old banner): stick/avatar_pro.py -> avatar-pro-A-fork / B-halo / C-split.png + avatar-pro-compare.png (circle at 400/120/40 px). Recommended B (halo).
 - Owner picked option C (split) to develop: avatar-pro-C2-split.png (rain on the cold side, light rays and sparks on the warm side, coloured rim glows, wet-floor reflections, a glowing seam, two-tailed scarf, vignette) + avatar-pro-C2-preview.png.
 - Facebook page art: stick/fb_cover.py -> stick/avatar/fb-cover.png (1640x924; desktop band 1640x624 and phone view with the profile circle checked: fb-cover-desktop.png, fb-cover-phone.png); profile = avatar-pro-C2-split.png.
+
+## Nov 25 - "Would You Press It?" (stick/button.py -> button.mp4, 20 s)
+- Owner wanted a strong hook. Frame 0: a big red button under a spotlight, a glowing $1,000,000 sign, header
+  WOULD YOU PRESS IT?. Split screen (top PRESSES = red-scarf hero, bottom READS FIRST), night-stage engine
+  (compare.py) rendered per panel and cropped to a band. Each press: money rains, the pile grows ($1M -> $6M) and he
+  ages 10 years (25 -> 85, hunch, grey, cane, colder grade). The reader reads the plate, shakes his head, walks to a
+  warm table with two friends. 15.8 s: the camera dives into the plate - EACH PRESS = 10 YEARS OF YOUR LIFE; the old
+  man reaches for the button again. YOU CAN EARN MONEY BACK. / NOT TIME. Music: accelerating ostinato + taiko and
+  a brass/timpani hit on every press, then a sad piano/cello turn, a low hit on the reveal, a held chord at the end.
