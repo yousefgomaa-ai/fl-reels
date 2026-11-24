@@ -8,17 +8,13 @@ Every reel: propose first, build after "نفذ"; send it with idea, title, first
 ## Where we are
 - Best reel so far: "The Only Difference Was One More Try" (gap_split.py): 54.5% stayed. Template = rule 15.
 - Channel data and lessons: WORKFLOW.md rules 13-17 (STICK TO IT study: they build with Claude Code too).
-- New engine in progress: **Blender (3D white figures, spotlights) + FluidSynth (real instruments)**.
-  - `stick/dishes_bl.py` renders one panel ("later" / "now") as PNGs with Cycles (~4 s/frame, 510 frames each).
-  - `stick/dishes.py` lays out both panels + "WILL IT FALL?", labels, DAY counter, closing lines, music, SFX.
-  - Status: the full render was running when the session ended - **re-render and assemble**:
-    ```
-    apt-get install -y fluidsynth fluid-soundfont-gm libegl1 && apt-get install -y --no-install-recommends blender
-    pip install mido pymunk skia-python
-    blender -b --python stick/dishes_bl.py -- later /tmp/dl/later all
-    blender -b --python stick/dishes_bl.py -- now /tmp/dl/now all
-    python3 stick/dishes.py /tmp/dl stick/dishes.mp4
-    ```
-  - Then review frames (frame 0 vs last frame must match), send to the owner with the review.
+- **Owner's decision (Nov 24): the new session keeps the OLD system** - the Python/PIL engine (`stick/hq.py`,
+  split-screen reels like `gap_split.py`, `couch.py`, `fishing.py`) with synthesized sound (`stick/music.py`).
+  Do not switch to Blender unless the owner asks.
+- Experimental, parked: a Blender + FluidSynth engine (`stick/dishes_bl.py`, `stick/dishes.py`, the "WILL IT FALL?"
+  dishes reel). Only if the owner asks for it again.
+- Next step: propose the next reel from IDEAS.md (Tier A) following rules 11-16 (split screen, one big visible
+  goal or one escalating thing, big thick white figures, one counter, answer held to the end, no tail, 15-18 s,
+  perfect loop), wait for "نفذ", build, review, send.
 - Owner's posting advice given: one reel a day, 6:15 PM Cairo (11:15 AM New York), video language English,
   don't share links with Egyptian friends in the first 24 h.
