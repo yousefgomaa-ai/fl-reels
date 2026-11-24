@@ -124,6 +124,7 @@ the other solves it in a clever, real-life way (label **FIGURED IT OUT**).
 | 32 | **The fly** (opens mid-leap in slow motion, 7 things broken, loops, fly.py) | Lights off + window open, the fly leaves | HE CHASED IT. HE SHOWED IT OUT. |
 | 6 | **Will it fit?** (split, bright, one big symbol, answer held to the end, couch.py) | Legs off, stand it on its end: FITS! vs ramming: NEW DOOR | (no line - the stamps answer) |
 | new | **Would you wait 60 min?** (split, sunset lake, golden fish visible from frame 0, perfect loop, fishing.py) | Left at 59:00 - the fish swims to his empty spot; the patient one catches it at 60:00 | (stamps: LEFT AT 59 / CAUGHT IT!) |
+| new | **Who wins? 3 lanes** (night look like perfect_wave, distance counter on top, 26.8 s, rewinds into frame 0, race.py) | SPRINTER sleeps + cramps, CONSISTENT one step from the tape, RICH KID's gift car wins at the last second | (stamps: TIRED / 2ND / 1ST) |
 
 ## Saved for their season
 

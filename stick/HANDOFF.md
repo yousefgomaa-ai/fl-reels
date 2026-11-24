@@ -18,3 +18,10 @@ Every reel: propose first, build after "نفذ"; send it with idea, title, first
   perfect loop), wait for "نفذ", build, review, send.
 - Owner's posting advice given: one reel a day, 6:15 PM Cairo (11:15 AM New York), video language English,
   don't share links with Egyptian friends in the first 24 h.
+
+## Nov 24 (later)
+- Built `stick/race.py` -> `who-wins.mp4`: the owner's own idea - three lanes (SPRINTER straight road / CONSISTENT
+  winding road / RICH KID with a gift car), 26.8 s (owner asked for 26 s+), night look copied from the perfect_wave
+  reference (navy sky, stars, moon halo, light-grey glowing figures, spaced Inter type), one counter on top:
+  DISTANCE (M) for all three; the rich kid sits at 0 until the last second. Loop = a fast rewind into frame 0.
+  Music strings_am. Waiting for the owner's numbers.
