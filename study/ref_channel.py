@@ -5,6 +5,8 @@ import json, re, subprocess, sys, urllib.request
 import xml.etree.ElementTree as ET
 vid = sys.argv[1]
 OUT = "study/ref"
+import os
+os.makedirs(OUT, exist_ok=True)
 res = {"video": vid}
 
 
