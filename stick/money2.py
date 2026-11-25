@@ -528,15 +528,16 @@ def render(i):
     return frame(i / FPS).tobytes()
 
 
+MUSIC_GAIN = 1.8   # music over the sound effects
 HIT = 30.0   # Rynos Theme: big entrance -> the door opens
 
 
 def audio():
     n = int(DUR * SR)
     out = np.zeros((n, 2))
-    put(out, track("Bittersweet.mp3", 2.0, T_GRIND + 0.6), 0.0, 0.9, fin=0.05, fout=0.6)
+    put(out, track("Bittersweet.mp3", 2.0, T_GRIND + 0.6), 0.0, 0.9 * MUSIC_GAIN, fin=0.05, fout=0.6)
     st = HIT - (T_ROOM + 2.0 - T_GRIND)
-    put(out, track("Rynos Theme.mp3", st, DUR - T_GRIND), T_GRIND - 0.1, 1.0, fin=0.4, fout=1.2)
+    put(out, track("Rynos Theme.mp3", st, DUR - T_GRIND), T_GRIND - 0.1, MUSIC_GAIN, fin=0.4, fout=1.2)
     # the ring
     for at, g in ((0.12, 0.5), (0.34, 0.25), (T_BENCH - 0.3 + RING_DROP + 0.3, 0.45)):
         mix_in(out, tone(2600, 0.5, (1, 2.7, 4.1), a=0.001, d=0.4), at, g * 0.5, 0.2)
