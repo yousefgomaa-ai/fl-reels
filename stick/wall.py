@@ -390,7 +390,7 @@ def wall_frame(t):
     obsession(stage, d, t)
     discipline(stage, d, t, stop)
     import race
-    race.bubble(stage, t, 3.2, 5.2, "I'LL FINISH IT MONDAY.", FIG_X[0] + 150, FLOOR - 230, size=26)
+    race.bubble(stage, t, 4.1, 5.3, "I'LL FINISH IT MONDAY.", FIG_X[0] + 150, FLOOR - 230, size=26)
     race.bubble(stage, t, 5.3, 6.4, "MONDAY!", FIG_X[0] + 40, FLOOR - 290, size=30)
     race.bubble(stage, t, 11.7, 12.8, "THIS TIME FOR REAL.", FIG_X[0] + 130, FLOOR - 290, size=26)
     weather(d, t)
@@ -474,8 +474,8 @@ def header(im, t, stop, z, cx, cy, tag=None):
 
 # ---------------------------------------------------------------- flashes: same three people, other stories
 # (story start s, video length, story rate during it, kind)
-FLASHES = [(7.6, 1.8, 0.3, "study"), (15.0, 1.8, 0.3, "race"), (T365, 1.8, 0.0, "end")]
-TAGS = {"study": "SAME PEOPLE. AT SCHOOL.", "dig": "SAME PEOPLE. CHASING GOLD.", "race": "SAME PEOPLE. ON THE TRACK."}
+FLASHES = [(3.45, 1.8, 0.3, "gym"), (7.6, 1.8, 0.3, "study"), (15.0, 1.8, 0.3, "race"), (T365, 1.8, 0.0, "end")]
+TAGS = {"gym": "SAME PEOPLE. AT THE GYM.", "study": "SAME PEOPLE. AT SCHOOL.", "dig": "SAME PEOPLE. CHASING GOLD.", "race": "SAME PEOPLE. ON THE TRACK."}
 
 
 SPEED = 1.15   # the wall plays 15% faster than real time
@@ -747,6 +747,50 @@ def dig(stage, d, u, ending=False):
                 ell(d, *pts[side], 14, 14, ORANGE + (90,))
 
 
+def barbell(d, x0, x1, y, big=False):
+    line(d, [(x0, y), (x1, y)], (190, 194, 204, 255), 5)
+    for x in (x0 + 8, x1 - 8):
+        for j in range(3 if big else 1):
+            r = (44 if big else 22) - j * 8
+            rrect(d, (x - 6 + (j * 12 if x < (x0 + x1) / 2 else -j * 12), y - r, x + 6 + (j * 12 if x < (x0 + x1) / 2 else -j * 12),
+                      y + r), 3, (40, 42, 50, 255), outline=(90, 94, 106, 255), w=1.5)
+
+
+def gym(stage, d, u, ending=False):
+    rng = np.random.default_rng(3)
+    # motivation: on the floor by the rack, phone
+    cx = FX[0]
+    for j in range(4):
+        rrect(d, (cx - 120, FLOOR - 40 - j * 34, cx - 60, FLOOR - 32 - j * 34), 3, (60, 62, 72, 255))
+    pts = fig(stage, SIT_PHONE, (cx - 30, FLOOR - 12 * S))
+    phone(d, pts)
+    # discipline: steady curls, one rep at a time
+    cx = FX[1]
+    ph = (u * 0.9) % 1.0
+    c = math.sin(math.pi * ph)
+    pts = place(dict(STAND), (cx - 20, FLOOR - 113 * S), 1, S)
+    hand = (pts["neck"][0] + 30 - 10 * c, pts["neck"][1] + 90 - 80 * c)
+    pts = arms_to(pts, (hand[0] - 26, pts["neck"][1] + 92), hand)
+    figure(stage, pts, S, light=(0.4, -0.9), scarf=True)
+    for hx, hy in (hand,):
+        line(d, [(hx - 16, hy), (hx + 16, hy)], (190, 194, 204, 255), 4)
+        rrect(d, (hx - 22, hy - 10, hx - 14, hy + 10), 2, (40, 42, 50, 255))
+        rrect(d, (hx + 14, hy - 10, hx + 22, hy + 10), 2, (40, 42, 50, 255))
+    # obsession: a huge bar overhead, shaking
+    cx = FX[2]
+    sh = 3 * math.sin(u * 60)
+    pose = dict(PW.ARMS_UP, kl=(-22, 50), fl=(-30, 113), kr=(22, 50), fr=(30, 113))
+    pts = place(pose, (cx - 40 + sh, FLOOR - 108 * S), 1, S)
+    figure(stage, pts, S, light=(0.4, -0.9))
+    by = min(pts["hl"][1], pts["hr"][1]) - 4
+    barbell(d, cx - 40 - 150 + sh, cx - 40 + 150 + sh, by + 2 * math.sin(u * 47), big=True)
+    for side in ("hl", "hr"):
+        ell(d, *pts[side], 14, 14, ORANGE + (90,))
+    for j in range(3):
+        v = (u * 2 + j / 3) % 1
+        ell(d, pts["head"][0] + 24 - 12 * j, pts["head"][1] + 20 * v + 10, 4, 6, (150, 200, 255, int(220 * (1 - v))))
+
+
 BENT = dict(STAND, neck=(36, -96), head=(62, -128), el=(30, -50), hl=(24, 40), er=(40, -48), hr=(30, 44))
 
 
@@ -759,20 +803,16 @@ def race_(stage, d, u, ending=False):
     for k in range(16):
         x = (k * 120 - u * 700) % (W + 120) - 60
         line(d, [(x, FLOOR + 50), (x + 60, FLOOR + 50)], (210, 210, 220, 200), 4)
-    if ending:
-        x = W / 2 - 40 + 120 * u
-        tx = W / 2 + 60
-        for px in (tx, tx):
-            line(d, [(px, FLOOR - 260), (px, FLOOR)], (220, 220, 230, 255), 6)
-        broke = x > tx - 40
-        if broke:
-            line(d, [(tx, FLOOR - 140), (tx - 60, FLOOR - 60)], (220, 50, 50, 255), 5)
-        else:
-            line(d, [(tx, FLOOR - 140), (tx + 300, FLOOR - 140)], (220, 50, 50, 255), 5)
-        pose = R.run_pose(u * 14, 0.7)
-        pose = dict(pose, el=(-28, -146), hl=(-44, -194), er=(26, -148), hr=(40, -196)) if broke else pose
-        hip = R.grounded(pose, x, FLOOR, S)
-        fig(stage, pose, hip, scarf=True)
+    if ending:   # he's through the tape: arms up, easing to a jog
+        tx = W / 2 - 120
+        line(d, [(tx, FLOOR - 260), (tx, FLOOR)], (220, 220, 230, 255), 6)
+        pts_ = [(tx + 4, FLOOR - 140)]
+        for j in range(1, 7):
+            pts_.append((tx + 4 + 6 * math.sin(u * 9 + j) * j / 6, FLOOR - 140 + j * 15))
+        line(d, pts_, (220, 50, 50, 255), 5)
+        x = W / 2 - 20 + 90 * u
+        pose = dict(R.walk_pose(u * 9, 0.3), el=(-28, -146), hl=(-44, -194), er=(26, -148), hr=(40, -196))
+        fig(stage, pose, R.grounded(pose, x, FLOOR, S), scarf=True)
         return
     # motivation sat down on the curb - he drifts away behind
     pts = fig(stage, SIT_PHONE, (FX[0] - 30 - 520 * u, FLOOR - 12 * S))
@@ -792,7 +832,7 @@ def race_(stage, d, u, ending=False):
             ell(d, pts["head"][0] + 20 + 10 * j, pts["head"][1] + 30 * v, 4, 6, (150, 200, 255, int(220 * (1 - v))))
 
 
-SCENES = {"study": study, "dig": dig, "race": race_}
+SCENES = {"gym": gym, "study": study, "dig": dig, "race": race_}
 END_CUTS = ["study", "race"]
 
 
