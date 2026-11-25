@@ -110,3 +110,9 @@ Music: The Escalation, MUSIC_HIT=308 at T365=18.5.
 27.8 s. Flash cuts with the same 3 (story clock keeps running at 0.3x): "SAME PEOPLE. AT SCHOOL." (7.6 s), "ON THE TRACK." (16.3 s).
 Mid re-hook at story 10 s; Obsession collapses late (video 19.1 s). Ending montage (A+ / finish tape) then the stair climb.
 Digging scenes exist in code (dig()) but were removed by the owner. Music: The Escalation, hit 308 s lands on the end lines.
+
+## She Chose The Money v2 (stick/money2.py, chars + faces in stick/money_chars.py)
+31 s. Hook: ring drops, "SHE SAID HE'D NEVER BE ENOUGH." Bench (faces: laugh/smug/cry). Grind shots with DAY counter
+(bike, noodles, 4:00 alarm, sold phone, REJECTED x10, sick) + rich guy cuts (LEASED car, DEBT, PAST DUE at APEX).
+Re-hook 3:00 AM "HE ALMOST QUIT." -> OFFER ACCEPTED. Twist 1: "APEX HAS A NEW OWNER." Twist 2: he gives back the ring.
+Music: Bittersweet (bench) + Rynos Theme (hit at the door). Old v1: stick/money.py.
