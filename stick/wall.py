@@ -351,7 +351,7 @@ def reveal(t):
     return smooth(prog(t, T_CLIMB + 0.2, T_CLIMB + ST_N * STEP_DT + 0.4))
 
 
-def frame(t):
+def wall_frame(t):
     stage = Image.new("RGBA", (W * K, H * K), (0, 0, 0, 0))
     d = ImageDraw.Draw(stage)
     # motivation's wall + the debris of every time he kicked it down
@@ -431,8 +431,10 @@ def frame(t):
     return np.asarray(im.convert("RGB"))
 
 
-def header(im, t, stop, z, cx, cy):
+def header(im, t, stop, z, cx, cy, tag=None):
     d = ImageDraw.Draw(im)
+    if tag:
+        PW.spaced(d, W / 2, 500, tag, font(SERIF_B, 46), GOLD + (255,), 4)
     hide = 1 - smooth(prog(t, T_CLIMB, T_CLIMB + 0.6))
     if hide > 0:
         a = int(255 * hide)
@@ -464,10 +466,350 @@ def header(im, t, stop, z, cx, cy):
         for j, s_ in enumerate(("ONE OF THESE WALLS", "WON'T MAKE IT TO DAY 365.")):
             PW.spaced(d, W / 2, 560 + j * 68, s_, fr, ((246, 240, 226) if j == 0 else ORANGE) + (int(255 * min(1, a)),), 4)
     f = font(SERIF_B, 62)
-    for j, s in enumerate(("IT WAS NEVER A WALL.", "IT WAS A WAY UP.")):
+    for j, s in enumerate(("IT WAS NEVER ABOUT THE WALL.", "ONE BRICK. EVERY DAY.")):
         a = smooth(prog(t, T_LINES + 0.8 * j, T_LINES + 0.8 * j + 0.4))
         if a > 0:
             PW.spaced(d, W / 2, 120 + j * 80, s, f, (246, 240, 226, int(255 * a)), 5)
+
+
+# ---------------------------------------------------------------- flashes: same three people, other stories
+# (story start s, video length, story rate during it, kind)
+FLASHES = [(7.6, 1.8, 0.3, "study"), (13.6, 1.8, 0.3, "dig"), (15.4, 1.8, 0.3, "race"), (T365, 2.7, 0.0, "end")]
+TAGS = {"study": "SAME PEOPLE. AT SCHOOL.", "dig": "SAME PEOPLE. CHASING GOLD.", "race": "SAME PEOPLE. ON THE TRACK."}
+
+
+def _segments():
+    """video-time windows of the flashes"""
+    out, shift = [], 0.0
+    for s0, dur, rate, kind in FLASHES:
+        v0 = s0 + shift
+        out.append((v0, dur, rate, kind))
+        shift += dur * (1 - rate)
+    return out, shift
+
+
+SEGS, _EXTRA = _segments()
+DUR = 23.5 + _EXTRA
+NF = int(round(DUR * FPS))
+
+
+def story(t):
+    """video time -> story time (the wall's clock)"""
+    s = t
+    for v0, dur, rate, _ in SEGS:
+        s -= clamp((t - v0) / dur) * dur * (1 - rate)
+    return s
+
+
+def video(s):
+    """story time -> video time (first moment)"""
+    t = s
+    for v0, dur, rate, _ in SEGS:
+        if story(v0) < s or (rate == 0 and story(v0) <= s and s > FLASHES[-1][0] - 1e-6 and False):
+            pass
+    lo, hi = 0.0, DUR
+    for _ in range(50):
+        mid = (lo + hi) / 2
+        if story(mid) < s:
+            lo = mid
+        else:
+            hi = mid
+    return hi
+
+
+def in_flash(t):
+    for v0, dur, rate, kind in SEGS:
+        if v0 <= t < v0 + dur:
+            return kind, t - v0, dur
+    return None
+
+
+SOIL = (52, 37, 27)
+WOOD = (118, 82, 54)
+FX = LX
+
+
+def compose(stage, z=1.08, cx=W / 2, cy=1080.0, extra=None):
+    spots = ((LX[0], 0.7), (LX[1], 1.0), (LX[2], 0.8))
+    base = C.stage_bg(spots).copy()
+    if extra is not None:
+        base.alpha_composite(extra)
+    tp = stage.crop((0, 0, W * K, FLOOR * K))
+    refl = tp.transpose(Image.FLIP_TOP_BOTTOM).crop((0, 0, W * K, (H - FLOOR) * K))
+    refl = refl.resize((W * K // 4, (H - FLOOR) * K // 4), Image.BILINEAR).filter(ImageFilter.GaussianBlur(3))
+    refl = refl.resize((W * K, (H - FLOOR) * K), Image.BILINEAR)
+    fade = np.linspace(0.3, 0.0, (H - FLOOR) * K, dtype=np.float32)[:, None]
+    refl.putalpha(Image.fromarray((np.asarray(refl.split()[3], np.float32) * fade).astype(np.uint8)))
+    base.alpha_composite(refl, (0, FLOOR * K))
+    base.alpha_composite(stage)
+    im = hq.camera(base, z, z * (W / 2 - cx) * K, z * (H / 2 - cy) * K)
+    return im.resize((W, H), Image.LANCZOS)
+
+
+def fig(stage, pose, hip, scarf=False):
+    pts = place(pose, hip, 1, S)
+    figure(stage, pts, S, light=(0.4, -0.9), scarf=scarf)
+    return pts
+
+
+def arms_to(pts, hl, hr):
+    pts = dict(pts)
+    pts["hl"], pts["hr"] = hl, hr
+    pts["el"] = ik(pts["neck"], hl, 42 * S, 40 * S, 1)
+    pts["er"] = ik(pts["neck"], hr, 42 * S, 40 * S, 1)
+    return pts
+
+
+def phone(d, pts):
+    hx, hy = pts["hr"]
+    rrect(d, (hx - 7, hy - 22, hx + 9, hy + 4), 3, (18, 18, 24, 255))
+    rrect(d, (hx - 5, hy - 19, hx + 7, hy + 1), 2, (150, 190, 255, 255))
+
+
+def table(d, x0, x1):
+    for x in (x0 + 10, x1 - 10):
+        line(d, [(x, FLOOR - 54), (x, FLOOR)], (80, 56, 38, 255), 6)
+    rrect(d, (x0, FLOOR - 64, x1, FLOOR - 52), 3, WOOD + (255,), outline=(60, 40, 26, 255), w=1.5)
+
+
+SIT_DESK = dict(SIT_PHONE)
+
+
+def study(stage, d, u, ending=False):
+    rng = np.random.default_rng(31)
+    if ending:   # he holds up the result
+        x = W / 2 - 40
+        pts = place(dict(PW.ARMS_UP), (x, FLOOR - 113 * S), 1, S)
+        figure(stage, pts, S, light=(0.4, -0.9), scarf=True)
+        hx = (pts["hl"][0] + pts["hr"][0]) / 2
+        hy = min(pts["hl"][1], pts["hr"][1])
+        k = hq.pop(u, 0.0, 0.3)
+        rrect(d, (hx - 70, hy - 170 * k, hx + 70, hy + 10), 4, (246, 244, 236, 255), outline=(120, 120, 130, 255), w=2)
+        PW.spaced(d, hx * K, (hy - 150 * k + 10) * K, "A+", font("InterDisplay-Bold.otf", 96 * K), (220, 40, 40, 255), 0)
+        calendar(d, x + 190, FLOOR - 420, 28)
+        return
+    for i in range(3):
+        cx = FX[i]
+        tx0, tx1 = cx - 30, cx + 100
+        hip = (cx - 70, FLOOR - 12 * S)
+        if i == 0:
+            table(d, tx0, tx1)
+            rrect(d, (cx + 30, FLOOR - 74, cx + 90, FLOOR - 64), 2, (70, 110, 170, 255))
+            pts = fig(stage, SIT_PHONE, hip)
+            phone(d, pts)
+        elif i == 1:
+            calendar(d, cx + 10, FLOOR - 400, int(10 + 9 * u / 1.8))
+            table(d, tx0, tx1)
+            bx = cx + 30
+            poly(d, [(bx - 40, FLOOR - 68), (bx, FLOOR - 64), (bx, FLOOR - 72), (bx - 38, FLOOR - 76)], (240, 236, 222, 255),
+                 outline=(150, 140, 120, 255), w=1.2)
+            poly(d, [(bx, FLOOR - 64), (bx + 40, FLOOR - 68), (bx + 38, FLOOR - 76), (bx, FLOOR - 72)], (240, 236, 222, 255),
+                 outline=(150, 140, 120, 255), w=1.2)
+            a = math.pi * clamp(((u * 1.4) % 1.0) / 0.5)
+            if 0 < a < math.pi:
+                poly(d, [(bx, FLOOR - 72), (bx, FLOOR - 64), (bx + 38 * math.cos(a), FLOOR - 68 - 30 * math.sin(a)),
+                         (bx + 36 * math.cos(a), FLOOR - 76 - 30 * math.sin(a))], (250, 248, 238, 255),
+                     outline=(150, 140, 120, 255), w=1.2)
+            pts = place(dict(SIT_PHONE, head=(14, -130)), hip, 1, S)
+            pts = arms_to(pts, (bx - 22, FLOOR - 74), (bx + 24, FLOOR - 74))
+            figure(stage, pts, S, light=(0.4, -0.9), scarf=True)
+        else:
+            table(d, tx0 - 20, tx1 + 10)
+            sway = 3 * math.sin(u * 5)
+            cols = [(170, 60, 60), (60, 120, 170), (210, 170, 60), (80, 150, 90), (140, 80, 160)]
+            for j in range(11):
+                yb = FLOOR - 64 - (j + 1) * 13
+                xb = cx + 50 + rng.uniform(-6, 6) + sway * j / 4
+                rrect(d, (xb, yb, xb + 60, yb + 12), 2, cols[j % 5] + (255,), outline=(30, 30, 36, 255), w=1)
+            for j in range(3):
+                xc = cx + 6 + j * 16 - 20
+                rrect(d, (xc, FLOOR - 84, xc + 12, FLOOR - 64), 2, (236, 236, 236, 255), outline=(90, 90, 96, 255), w=1)
+            pose = dict(SIT_PHONE, neck=(28, -90), head=(58, -78), el=(48, -62), hl=(86, -58), er=(52, -60),
+                        hr=(92, -56))
+            fig(stage, pose, hip)
+            for j in range(3):
+                v = (u * 0.8 + j / 3) % 1.0
+                PW.spaced(d, (cx + 70 + 30 * v + 12 * j) * K, (FLOOR - 150 - 120 * v) * K, "z", font(SERIF_B, (26 + 10 * j) * K),
+                          (200, 210, 240, int(255 * (1 - v))), 0)
+
+
+def calendar(d, x, y, n):
+    rrect(d, (x - 10, y - 30, x + 7 * 26 + 10, y + 4 * 26 + 10), 4, (236, 232, 222, 255), outline=(90, 90, 96, 255), w=2)
+    rrect(d, (x - 10, y - 30, x + 7 * 26 + 10, y - 6), 4, (200, 60, 60, 255))
+    for c in range(28):
+        cx_, cy_ = x + (c % 7) * 26 + 13, y + (c // 7) * 26 + 13
+        if c < n:
+            line(d, [(cx_ - 8, cy_ - 8), (cx_ + 8, cy_ + 8)], (200, 40, 40, 255), 3)
+            line(d, [(cx_ + 8, cy_ - 8), (cx_ - 8, cy_ + 8)], (200, 40, 40, 255), 3)
+        else:
+            ell(d, cx_, cy_, 2, 2, (150, 150, 156, 255))
+
+
+def soil(d):
+    poly(d, [(0, FLOOR), (W, FLOOR), (W, H), (0, H)], SOIL + (255,))
+    rng = np.random.default_rng(8)
+    for j in range(5):
+        y = FLOOR + 60 + j * 110
+        line(d, [(0, y), (W, y + 10)], (44, 31, 23, 255), 3)
+    for _ in range(60):
+        ell(d, rng.uniform(0, W), rng.uniform(FLOOR + 20, H), rng.uniform(4, 10), rng.uniform(3, 7), (74, 58, 46, 255))
+    line(d, [(0, FLOOR), (W, FLOOR)], (90, 120, 70, 255), 5)
+
+
+def hole(d, x0, x1, depth):
+    poly(d, [(x0, FLOOR - 1), (x1, FLOOR - 1), (x1 - 4, FLOOR + depth), (x0 + 4, FLOOR + depth)], (14, 10, 8, 255))
+
+
+def mound(d, x, w, h):
+    ell(d, x, FLOOR, w, h, (82, 60, 42, 255))
+
+
+def chest(d, x, y, open_=0.0, glint=0.0):
+    rrect(d, (x - 46, y - 34, x + 46, y + 20), 4, (120, 72, 30, 255), outline=(60, 34, 14, 255), w=2)
+    line(d, [(x - 46, y - 6), (x + 46, y - 6)], (210, 170, 60, 255), 4)
+    if open_ > 0:
+        ell(d, x, y - 40, 90 * open_, 70 * open_, GOLD + (int(120 * open_),))
+        poly(d, [(x - 46, y - 34), (x + 46, y - 34), (x + 40, y - 34 - 50 * open_), (x - 40, y - 34 - 50 * open_)],
+             (140, 86, 36, 255), outline=(60, 34, 14, 255), w=2)
+        for j in range(8):
+            a = -math.pi / 2 + (j - 3.5) * 0.25
+            line(d, [(x, y - 40), (x + 200 * open_ * math.cos(a), y - 40 + 200 * open_ * math.sin(a))],
+                 GOLD + (int(150 * open_),), 4)
+    if glint > 0:
+        ell(d, x + 30, y - 30, 10 * glint, 10 * glint, (255, 240, 180, int(220 * glint)))
+
+
+def shovel_pose(hip_x, feet_y, ph, fast=False):
+    lift = math.sin(ph * 2 * math.pi)
+    pose = dict(STAND, neck=(14 + 8 * lift, -104), head=(24 + 10 * lift, -144))
+    pts = dict(place(pose, (hip_x, feet_y - 113 * S), 1, S))
+    hand = (hip_x + 50, feet_y - 110 - 50 * lift)
+    pts = arms_to(pts, (hand[0] - 14, hand[1] - 18), hand)
+    return pts, hand, lift
+
+
+def shovel(d, hand, lift):
+    tip = (hand[0] + 30, hand[1] + 120 - 30 * lift)
+    line(d, [(hand[0] - 20, hand[1] - 30), tip], (150, 110, 70, 255), 5)
+    poly(d, [(tip[0] - 12, tip[1] - 6), (tip[0] + 12, tip[1] - 2), (tip[0] + 8, tip[1] + 26), (tip[0] - 10, tip[1] + 22)],
+         (170, 176, 186, 255), outline=(70, 72, 80, 255), w=1.5)
+
+
+def dig(stage, d, u, ending=False):
+    soil(d)
+    CHEST_Y = FLOOR + 500
+    if ending:
+        x = W / 2
+        hole(d, x - 110, x + 110, 300)
+        k = smooth(clamp(u / 0.4))
+        chest(d, x + 40, FLOOR + 280, open_=k)
+        pts = place(dict(PW.ARMS_UP), (x - 50, FLOOR + 300 - 113 * S), 1, S)
+        figure(stage, pts, S, light=(0.4, -0.9), scarf=True)
+        return
+    for i in range(3):
+        cx = FX[i]
+        chest(d, cx + 10, CHEST_Y, glint=(0.5 + 0.5 * math.sin(u * 8)) if i == 1 else 0.0)
+        if i == 0:
+            hole(d, cx - 20, cx + 40, 36)
+            mound(d, cx - 70, 50, 22)
+            line(d, [(cx + 60, FLOOR - 90), (cx + 50, FLOOR + 10)], (150, 110, 70, 255), 5)
+            pts = fig(stage, SIT_PHONE, (cx - 90, FLOOR - 12 * S - 16))
+            phone(d, pts)
+        elif i == 1:
+            depth = 330 + 70 * u / 1.8
+            hole(d, cx - 70, cx + 70, depth)
+            mound(d, cx - 120, 60, 40)
+            pts, hand, lift = shovel_pose(cx - 20, FLOOR + depth, u * 1.6)
+            figure(stage, pts, S, light=(0.4, -0.9), scarf=True)
+            shovel(d, hand, lift)
+            if lift > 0.6:
+                for j in range(4):
+                    ell(d, cx - 40 - j * 16, FLOOR - 20 - 60 * lift - j * 8, 7, 5, (82, 60, 42, 255))
+        else:
+            spots_ = [cx - 130, cx - 60, cx + 10, cx + 80]
+            for j, hx in enumerate(spots_):
+                hole(d, hx - 26, hx + 26, 28 + 14 * (j % 2))
+                mound(d, hx + 20, 22, 12)
+            j = int(u / 0.45) % 4
+            pts, hand, lift = shovel_pose(spots_[j] - 40, FLOOR, u * 4.0)
+            figure(stage, pts, S, light=(0.4, -0.9))
+            shovel(d, hand, lift)
+            for side in ("hl", "hr"):
+                ell(d, *pts[side], 14, 14, ORANGE + (90,))
+
+
+BENT = dict(STAND, neck=(36, -96), head=(62, -128), el=(30, -50), hl=(24, 40), er=(40, -48), hr=(30, 44))
+
+
+def race_(stage, d, u, ending=False):
+    import race as R
+    for k in range(10):   # poles scrolling past
+        x = (k * 260 - u * (700 if not ending else 300)) % (W + 260) - 130
+        line(d, [(x, FLOOR - 220), (x, FLOOR)], (70, 76, 92, 255), 5)
+        ell(d, x, FLOOR - 224, 8, 8, (240, 220, 160, 200))
+    for k in range(16):
+        x = (k * 120 - u * 700) % (W + 120) - 60
+        line(d, [(x, FLOOR + 50), (x + 60, FLOOR + 50)], (210, 210, 220, 200), 4)
+    if ending:
+        x = W / 2 - 40 + 120 * u
+        tx = W / 2 + 60
+        for px in (tx, tx):
+            line(d, [(px, FLOOR - 260), (px, FLOOR)], (220, 220, 230, 255), 6)
+        broke = x > tx - 40
+        if broke:
+            line(d, [(tx, FLOOR - 140), (tx - 60, FLOOR - 60)], (220, 50, 50, 255), 5)
+        else:
+            line(d, [(tx, FLOOR - 140), (tx + 300, FLOOR - 140)], (220, 50, 50, 255), 5)
+        pose = R.run_pose(u * 14, 0.7)
+        pose = dict(pose, el=(-28, -146), hl=(-44, -194), er=(26, -148), hr=(40, -196)) if broke else pose
+        hip = R.grounded(pose, x, FLOOR, S)
+        fig(stage, pose, hip, scarf=True)
+        return
+    # motivation sat down on the curb - he drifts away behind
+    pts = fig(stage, SIT_PHONE, (FX[0] - 30 - 520 * u, FLOOR - 12 * S))
+    phone(d, pts)
+    x = FX[1] - 120 + 130 * u
+    pose = R.run_pose(u * 13, 0.6)
+    fig(stage, pose, R.grounded(pose, x, FLOOR, S), scarf=True)
+    tire = smooth(clamp((u - 0.5) / 0.9))
+    xo = FX[2] - 60 - 90 * tire
+    if tire < 0.85:
+        pose = R.run_pose(u * (14 - 8 * tire), 0.7 - 0.5 * tire)
+        fig(stage, pose, R.grounded(pose, xo, FLOOR - 34, S))
+    else:
+        pts = fig(stage, BENT, (xo, FLOOR - 34 - 113 * S + 18))
+        for j in range(3):
+            v = (u * 2 + j / 3) % 1
+            ell(d, pts["head"][0] + 20 + 10 * j, pts["head"][1] + 30 * v, 4, 6, (150, 200, 255, int(220 * (1 - v))))
+
+
+SCENES = {"study": study, "dig": dig, "race": race_}
+END_CUTS = ["dig", "study", "race"]
+
+
+def frame(t):
+    f = in_flash(t)
+    if f is None:
+        return wall_frame(story(t))
+    kind, u, dur = f
+    stage = Image.new("RGBA", (W * K, H * K), (0, 0, 0, 0))
+    d = ImageDraw.Draw(stage)
+    s = story(t)
+    if kind == "end":
+        j = min(2, int(u / (dur / 3)))
+        uu = u - j * dur / 3
+        SCENES[END_CUTS[j]](stage, d, uu, ending=True)
+        z = 1.4 + 0.08 * uu
+        im = compose(stage, z, W / 2, 1230 if END_CUTS[j] == "dig" else 1080)
+        flash_a = 1 - clamp(uu / 0.12)
+    else:
+        SCENES[kind](stage, d, u)
+        im = compose(stage, 1.1 + 0.03 * u / dur, W / 2, 1150 if kind == "dig" else 1060)
+        header(im, s, FLOOR, 1.08, W / 2, 1080, tag=TAGS[kind])
+        flash_a = 1 - clamp(u / 0.12)
+    if flash_a > 0:
+        im = Image.blend(im.convert("RGB"), Image.new("RGB", (W, H), (255, 255, 255)), 0.7 * flash_a)
+    return np.asarray(im.convert("RGB"))
 
 
 def render(i):
