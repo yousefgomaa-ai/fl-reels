@@ -166,7 +166,9 @@ def hero(stage, pts, mode="broke", f=1, expr="neutral", t=0.0):
     if mode == "broke":
         nx, ny = pts["neck"]
         hx, hy = pts["hip"]
-        rrect(d, (nx - 34 * f - 18, ny + 6, nx - 34 * f + 18, hy - 14), 6, (86, 70, 54, 255), outline=(40, 32, 26, 255), w=2)
+        if hy - 14 > ny + 30:
+            rrect(d, (nx - 34 * f - 18, ny + 6, nx - 34 * f + 18, hy - 14), 6, (86, 70, 54, 255),
+                  outline=(40, 32, 26, 255), w=2)
         outfit(d, pts, HOOD, f, legs=False)
         line(d, [pts["hip"], pts["kl"], pts["fl"]], (64, 78, 110, 255), 24 * S)   # jeans
         line(d, [pts["hip"], pts["kr"], pts["fr"]], (64, 78, 110, 255), 24 * S)
