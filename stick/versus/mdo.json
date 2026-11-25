@@ -1,0 +1,26 @@
+{
+  "name": "mdo",
+  "title": "WHO MAKES IT TO DAY 365?",
+  "counter_label": "DAY",
+  "counter_scale": 3.65,
+  "left_word": "DAYS LEFT",
+  "duration": 21.5,
+  "bars_from": 4.0,
+  "winner": 1,
+  "lanes": [
+    {"label": "MOTIVATION", "acc": "band",
+     "dist": [[0, 0], [3.5, 30], [5.5, 38], [6.2, 39], [12.0, 39], [13.0, 43], [14.0, 44], [21.5, 44]],
+     "acts": [[0, "auto"], [6.2, "bent"], [7.2, "sit_phone"], [12.0, "auto"], [14.0, "sit_phone"]],
+     "bubbles": [[7.4, 9.0, "TOMORROW."], [14.2, 15.8, "MONDAY."]]},
+    {"label": "DISCIPLINE", "acc": "cap",
+     "dist": [[0, 0], [0.6, 2.4], [19.6, 100], [21.5, 103]],
+     "acts": [[0, "auto"], [20.3, "cheer"]]},
+    {"label": "OBSESSION", "acc": "rich", "road": "straight",
+     "dist": [[0, 0], [1.0, 6], [13.0, 86], [15.0, 92], [15.6, 92.5], [21.5, 92.5]],
+     "acts": [[0, "auto"], [15.0, "hop"], [15.6, "lie"]],
+     "bubbles": [[5.0, 6.4, "MORE!"], [15.0, 15.6, "OW!"]],
+     "marks": [[10.5, "!"]]}
+  ],
+  "lines": [[19.9, "MOTIVATION STARTS IT."], [20.5, "DISCIPLINE FINISHES IT."]],
+  "music": {"file": "Rynos Theme.mp3", "hit_track": 53.0, "hit_video": 19.6}
+}

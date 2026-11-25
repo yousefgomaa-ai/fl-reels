@@ -573,6 +573,9 @@ def _hash(k, lane, salt):
     return ((k * 73856093) ^ (lane * 19349663) ^ (salt * 83492791)) % 1000 / 1000.0
 
 
+SIGN_FMT = lambda mk: f"{mk} M"   # noqa: E731 (versus.py overrides it)
+
+
 def draw_world(d, lane, c, vc):
     """everything that scrolls: trees (parallax), the road and its dashes, grass, start, distance signs"""
     pc, pv = c * 0.45, abs(vc) * 0.45
@@ -621,7 +624,7 @@ def draw_world(d, lane, c, vc):
             d.rectangle([(sx - 3) * K, (fy - 70) * K, (sx + 3) * K, fy * K], fill=(150, 156, 176, 255))
             d.rounded_rectangle([(sx - 40) * K, (fy - 108) * K, (sx + 40) * K, (fy - 66) * K], int(8 * K),
                                 fill=(36, 120, 70, 255), outline=(220, 230, 240, 255), width=int(2 * K))
-            text_c(d, sx, fy - 104, f"{mk} M", 26, (240, 244, 250))
+            text_c(d, sx, fy - 104, SIGN_FMT(mk), 26 if len(SIGN_FMT(mk)) < 6 else 20, (240, 244, 250))
 
 
 def finish(d, lane, c, broken_at, t):
