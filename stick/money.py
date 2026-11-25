@@ -345,13 +345,13 @@ def split_scene(u, tv):
             stamp(d, LX + 60, FLOOR - 300, "FUNDED", (60, 200, 110), hq.pop(yu, 1.1, 0.2) if yu >= 1.1 else 0,
                   rot=0.12, size=40)
     elif yr == 3:     # a team
-        for j, x in enumerate((LX - 150, LX - 10, LX + 130)):
+        for j, x in enumerate((LX - 10, LX + 130)):
             desk(d, x - 20, x + 60, FLOOR - 92)
             laptop(d, x + 20, FLOOR - 102, f=1)
         for j, x in enumerate((LX - 10, LX + 130)):
             p = pts_of(STAND, x - 40, stand_hip(), 1)
             figure(stage, p, S * 0.98, light=(0.4, -0.9))
-        p = pts_of(dict(STAND, er=(30, -150), hr=(60, -180)), LX - 150 - 50, stand_hip(), 1)
+        p = pts_of(dict(STAND, er=(30, -150), hr=(60, -180)), LX - 120, stand_hip(), 1)
         hero(stage, p, "broke", 1)
     else:            # the tower
         hgt = 300 + 260 * smooth(clamp((u - 6.0) / 3.5))
