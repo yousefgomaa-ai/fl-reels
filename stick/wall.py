@@ -215,7 +215,7 @@ def frame(t):
         builder(stage, d, i, t, tops[i])
     if 4.4 <= t < 7.0:
         C_bubble = getattr(sys.modules[__name__], "_bubble")
-        C_bubble(stage, t, 4.4, 7.0, "I'LL FINISH IT MONDAY.", WALL_X[0] - 40, FLOOR - 220)
+        C_bubble(stage, t, 4.4, 7.0, "I'LL FINISH IT MONDAY.", WALL_X[0] + 70, FLOOR - 220)
     weather(d, t)
     spots = ((WALL_X[0], 0.7), (WALL_X[1], 1.0), (WALL_X[2], 0.8))
     base = C.stage_bg(spots).copy()
@@ -303,7 +303,7 @@ def audio():
 
 
 MUSIC_FILE = "The Escalation.mp3"
-MUSIC_HIT = 280.0
+MUSIC_HIT = 308.0
 
 
 def main():
