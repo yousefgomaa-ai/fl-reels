@@ -100,3 +100,8 @@ Every reel: propose first, build after "نفذ"; send it with idea, title, first
 ## Same Wall (stick/wall.py) — v1
 20 s, one night scene: MOTIVATION / DISCIPLINE / OBSESSION building walls; DAY counter; Obsession's wall collapses at 14.6 s; end "ONE BRICK A DAY. / EVERY DAY."
 Music: The Escalation, MUSIC_HIT=308 (track's biggest hit lands on DAY 365). Credit line printed by the script.
+
+## Same Wall v2 (stick/wall.py)
+23.5 s. Twists: Motivation restarts on "MONDAY!" and kicks it down (8→48→0→36→0); Obsession "+N AHEAD" then collapses (13 s);
+Discipline kneels in the rain, lays "+1"; Day 365 he climbs — it was a stair. Fog + moon reveal. "IT WAS NEVER A WALL. / IT WAS A WAY UP."
+Music: The Escalation, MUSIC_HIT=308 at T365=18.5.
