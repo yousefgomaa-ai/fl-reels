@@ -105,3 +105,8 @@ Music: The Escalation, MUSIC_HIT=308 (track's biggest hit lands on DAY 365). Cre
 23.5 s. Twists: Motivation restarts on "MONDAY!" and kicks it down (8→48→0→36→0); Obsession "+N AHEAD" then collapses (13 s);
 Discipline kneels in the rain, lays "+1"; Day 365 he climbs — it was a stair. Fog + moon reveal. "IT WAS NEVER A WALL. / IT WAS A WAY UP."
 Music: The Escalation, MUSIC_HIT=308 at T365=18.5.
+
+## Same Wall v4 (stick/wall.py)
+27.8 s. Flash cuts with the same 3 (story clock keeps running at 0.3x): "SAME PEOPLE. AT SCHOOL." (7.6 s), "ON THE TRACK." (16.3 s).
+Mid re-hook at story 10 s; Obsession collapses late (video 19.1 s). Ending montage (A+ / finish tape) then the stair climb.
+Digging scenes exist in code (dig()) but were removed by the owner. Music: The Escalation, hit 308 s lands on the end lines.

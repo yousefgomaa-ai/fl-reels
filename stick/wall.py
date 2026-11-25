@@ -465,16 +465,16 @@ def header(im, t, stop, z, cx, cy, tag=None):
         fr = font(SERIF_B, 54)
         for j, s_ in enumerate(("ONE OF THESE WALLS", "WON'T MAKE IT TO DAY 365.")):
             PW.spaced(d, W / 2, 560 + j * 68, s_, fr, ((246, 240, 226) if j == 0 else ORANGE) + (int(255 * min(1, a)),), 4)
-    f = font(SERIF_B, 62)
+    f = font(SERIF_B, 50)
     for j, s in enumerate(("IT WAS NEVER ABOUT THE WALL.", "ONE BRICK. EVERY DAY.")):
         a = smooth(prog(t, T_LINES + 0.8 * j, T_LINES + 0.8 * j + 0.4))
         if a > 0:
-            PW.spaced(d, W / 2, 120 + j * 80, s, f, (246, 240, 226, int(255 * a)), 5)
+            PW.spaced(d, W / 2, 120 + j * 72, s, f, (246, 240, 226, int(255 * a)), 2)
 
 
 # ---------------------------------------------------------------- flashes: same three people, other stories
 # (story start s, video length, story rate during it, kind)
-FLASHES = [(7.6, 1.8, 0.3, "study"), (13.6, 1.8, 0.3, "dig"), (15.4, 1.8, 0.3, "race"), (T365, 2.7, 0.0, "end")]
+FLASHES = [(7.6, 1.8, 0.3, "study"), (15.0, 1.8, 0.3, "race"), (T365, 1.8, 0.0, "end")]
 TAGS = {"study": "SAME PEOPLE. AT SCHOOL.", "dig": "SAME PEOPLE. CHASING GOLD.", "race": "SAME PEOPLE. ON THE TRACK."}
 
 
@@ -784,7 +784,7 @@ def race_(stage, d, u, ending=False):
 
 
 SCENES = {"study": study, "dig": dig, "race": race_}
-END_CUTS = ["dig", "study", "race"]
+END_CUTS = ["study", "race"]
 
 
 def frame(t):
@@ -796,8 +796,8 @@ def frame(t):
     d = ImageDraw.Draw(stage)
     s = story(t)
     if kind == "end":
-        j = min(2, int(u / (dur / 3)))
-        uu = u - j * dur / 3
+        j = min(1, int(u / (dur / 2)))
+        uu = u - j * dur / 2
         SCENES[END_CUTS[j]](stage, d, uu, ending=True)
         z = 1.4 + 0.08 * uu
         im = compose(stage, z, W / 2, 1230 if END_CUTS[j] == "dig" else 1080)
@@ -819,7 +819,7 @@ def render(i):
 def audio():
     n = int(DUR * SR)
     out = np.zeros((n, 2))
-    raw = subprocess.run(["ffmpeg", "-v", "error", "-ss", str(max(0.0, MUSIC_HIT - T365)), "-t", str(DUR), "-i",
+    raw = subprocess.run(["ffmpeg", "-v", "error", "-ss", str(max(0.0, MUSIC_HIT - video(T_LINES))), "-t", str(DUR), "-i",
                           os.path.join(MDIR, MUSIC_FILE), "-f", "f32le", "-ac", "2", "-ar", str(SR), "-"],
                          capture_output=True).stdout
     m = np.frombuffer(raw, np.float32).reshape(-1, 2).astype(np.float64)
@@ -829,21 +829,30 @@ def audio():
     for i in range(3):
         for f in range(int(DUR * 100)):
             t0, t1 = f / 100, (f + 1) / 100
-            r = building(i, t0)
-            if r and math.floor(t0 * r - 0.98) != math.floor(t1 * r - 0.98):
+            if in_flash(t0) or in_flash(t1):
+                continue
+            s0, s1 = story(t0), story(t1)
+            r = building(i, s0)
+            if r and math.floor(s0 * r - 0.98) != math.floor(s1 * r - 0.98):
                 mix_in(out, tone(320 - 40 * i, 0.08, (1, 2.1), a=0.001, d=0.03) * 0.8, t1, 0.04, (i - 1) * 0.5)
-    mix_in(out, tone(520, 0.5, (1, 2, 3), a=0.002, d=0.35), T_KNEEL + 1.15, 0.12, 0.0)
-    mix_in(out, noise(1.4, 5, lo=60, hi=2500)[:int(1.4 * SR)] * env(int(1.4 * SR), 0.005, 0.5), T_COLLAPSE, 0.35, 0.5)
+    V = video
+    mix_in(out, tone(520, 0.5, (1, 2, 3), a=0.002, d=0.35), V(T_KNEEL + 1.15), 0.12, 0.0)
+    mix_in(out, noise(1.4, 5, lo=60, hi=2500)[:int(1.4 * SR)] * env(int(1.4 * SR), 0.005, 0.5), V(T_COLLAPSE), 0.35, 0.5)
     for t0, _ in KNOCKS:
-        mix_in(out, noise(0.6, 6, lo=80, hi=2500)[:int(0.6 * SR)] * env(int(0.6 * SR), 0.005, 0.3), t0, 0.15, -0.6)
+        mix_in(out, noise(0.6, 6, lo=80, hi=2500)[:int(0.6 * SR)] * env(int(0.6 * SR), 0.005, 0.3), V(t0), 0.15, -0.6)
     for j in range(10):
-        mix_in(out, tone(260 + 30 * j, 0.06, (1, 2.1), a=0.001, d=0.02), T_COLLAPSE + 0.2 + j * 0.07, 0.05, 0.5)
+        mix_in(out, tone(260 + 30 * j, 0.06, (1, 2.1), a=0.001, d=0.02), V(T_COLLAPSE + 0.2 + j * 0.07), 0.05, 0.5)
     for j in range(ST_N):
-        mix_in(out, tone(180, 0.1, (1, 2), a=0.002, d=0.06), T_CLIMB + (j + 0.9) * STEP_DT, 0.08, 0.0)
+        mix_in(out, tone(180, 0.1, (1, 2), a=0.002, d=0.06), V(T_CLIMB + (j + 0.9) * STEP_DT), 0.08, 0.0)
     for j in range(5):
-        mix_in(out, tone(90 - 6 * j, 0.25, (1, 2.3, 3.1), a=0.01, d=0.2), T_RH + j * 0.14, 0.18, 0.5)
+        mix_in(out, tone(90 - 6 * j, 0.25, (1, 2.3, 3.1), a=0.01, d=0.2), V(T_RH + j * 0.14), 0.18, 0.5)
     for j in range(6):
-        mix_in(out, tone(300 + 25 * j, 0.06, (1, 2.1), a=0.001, d=0.02), T_RH + 0.75 + j * 0.06, 0.06, 0.5)
+        mix_in(out, tone(300 + 25 * j, 0.06, (1, 2.1), a=0.001, d=0.02), V(T_RH + 0.75 + j * 0.06), 0.06, 0.5)
+    whoosh = noise(0.35, 7, lo=300, hi=6000)[:int(0.35 * SR)] * env(int(0.35 * SR), 0.12, 0.2)
+    for v0, dur, rate, kind in SEGS:
+        cuts = [v0, v0 + dur] if kind != "end" else [v0, v0 + dur / 2, v0 + dur]
+        for c in cuts:
+            mix_in(out, whoosh, max(0.0, c - 0.15), 0.12, 0.0)
     out /= max(1.0, np.abs(out).max() / 0.9)
     return out
 
