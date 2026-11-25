@@ -836,7 +836,7 @@ SCENES = {"gym": gym, "study": study, "dig": dig, "race": race_}
 END_CUTS = ["study", "race"]
 
 
-def frame(t):
+def frame_core(t):
     f = in_flash(t)
     if f is None:
         return wall_frame(story(t))
@@ -861,20 +861,54 @@ def frame(t):
     return np.asarray(im.convert("RGB"))
 
 
+HOOK = 1.25          # cold open: the race, freeze, "WHICH ONE ARE YOU?"
+HOOK_FREEZE = 0.8
+CORE_DUR = DUR
+DUR = CORE_DUR + HOOK
+NF = int(round(DUR * FPS))
+
+
+def hook_frame(t):
+    stage = Image.new("RGBA", (W * K, H * K), (0, 0, 0, 0))
+    d = ImageDraw.Draw(stage)
+    u = 0.75 + 0.65 * min(t, HOOK_FREEZE) / HOOK_FREEZE
+    race_(stage, d, u)
+    pts = fig(stage, SIT_PHONE, (330 - 60 * u, FLOOR - 12 * S))   # motivation, sat on the curb
+    phone(d, pts)
+    z = 1.22 + 0.08 * smooth(clamp(t / HOOK_FREEZE)) + (0.05 * hq.pop(t, HOOK_FREEZE, 0.2) if t >= HOOK_FREEZE else 0)
+    im = compose(stage, z, 620, 1120)
+    if t >= HOOK_FREEZE:   # freeze: darken, the question
+        im = Image.blend(im.convert("RGB"), Image.new("RGB", (W, H), (0, 0, 0)), 0.35).convert("RGBA")
+        dd = ImageDraw.Draw(im)
+        k = hq.pop(t, HOOK_FREEZE, 0.2)
+        f = font(SERIF_B, int(118 * max(0.3, k)))
+        PW.spaced(dd, W / 2, 470, "WHICH ONE", f, (246, 240, 226, 255), 4)
+        PW.spaced(dd, W / 2, 470 + int(130 * max(0.3, k)), "ARE YOU?", f, GOLD + (255,), 4)
+    a = 1 - clamp(t / 0.08)
+    if a > 0:
+        im = Image.blend(im.convert("RGB"), Image.new("RGB", (W, H), (255, 255, 255)), 0.6 * a)
+    return np.asarray(im.convert("RGB"))
+
+
+def frame(t):
+    if t < HOOK:
+        return hook_frame(t)
+    return frame_core(t - HOOK)
+
+
 def render(i):
     return frame(i / FPS).tobytes()
 
 
 def audio():
-    n = int(DUR * SR)
+    n = int(CORE_DUR * SR)
     out = np.zeros((n, 2))
-    raw = subprocess.run(["ffmpeg", "-v", "error", "-ss", str(max(0.0, MUSIC_HIT - video(T_LINES))), "-t", str(DUR), "-i",
+    raw = subprocess.run(["ffmpeg", "-v", "error", "-ss", str(max(0.0, MUSIC_HIT - video(T_LINES) - HOOK)), "-t", str(DUR), "-i",
                           os.path.join(MDIR, MUSIC_FILE), "-f", "f32le", "-ac", "2", "-ar", str(SR), "-"],
                          capture_output=True).stdout
     m = np.frombuffer(raw, np.float32).reshape(-1, 2).astype(np.float64)
-    out[:min(n, len(m))] += m[:n] * np.minimum(1, np.arange(min(n, len(m))) / (0.15 * SR))[:, None]
+    music = m
     tt = np.arange(n) / SR
-    out *= np.clip((DUR - tt) / 0.8, 0.0, 1)[:, None]
     for i in range(3):
         for f in range(int(DUR * 100)):
             t0, t1 = f / 100, (f + 1) / 100
@@ -902,8 +936,21 @@ def audio():
         cuts = [v0, v0 + dur] if kind != "end" else [v0, v0 + dur / 2, v0 + dur]
         for c in cuts:
             mix_in(out, whoosh, max(0.0, c - 0.15), 0.12, 0.0)
-    out /= max(1.0, np.abs(out).max() / 0.9)
-    return out
+    # the cold open in front, the music under everything
+    n2 = int(DUR * SR)
+    full = np.zeros((n2, 2))
+    h = int(HOOK * SR)
+    full[h:h + n] += out[:n2 - h]
+    k = min(n2, len(music))
+    full[:k] += music[:k] * np.minimum(1, np.arange(k) / (0.05 * SR))[:, None]
+    mix_in(full, noise(0.5, 3, lo=40, hi=1800)[:int(0.5 * SR)] * env(int(0.5 * SR), 0.003, 0.35), HOOK_FREEZE, 0.45, 0.0)
+    mix_in(full, tone(55, 0.6, (1, 2), a=0.002, d=0.5), HOOK_FREEZE, 0.5, 0.0)
+    rew = noise(0.35, 9, lo=500, hi=7000)[:int(0.35 * SR)] * env(int(0.35 * SR), 0.25, 0.05)
+    mix_in(full, rew, HOOK - 0.3, 0.2, 0.0)
+    tt = np.arange(n2) / SR
+    full *= np.clip((DUR - tt) / 0.8, 0.0, 1)[:, None]
+    full /= max(1.0, np.abs(full).max() / 0.9)
+    return full
 
 
 MUSIC_FILE = "The Escalation.mp3"
