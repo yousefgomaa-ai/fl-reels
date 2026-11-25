@@ -36,7 +36,8 @@ SERIF_B = "/usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf"
 MDIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "study", "music")
 STAND = PW.STAND
 T365 = 18.5
-T_COLLAPSE = 13.0
+T_COLLAPSE = 16.6
+T_RH = 10.0                        # mid re-hook: obsession's wall wobbles
 T_KNEEL = 8.1
 T_CLIMB = 18.8
 STEP_DT = 0.34
@@ -62,9 +63,9 @@ def day(t):
 
 
 # ---------------------------------------------------------------- motivation's on/off story
-SITS = [(2.6, 5.3), (7.5, 10.8), (12.6, 99)]
-BUILDS = [(0.0, 2.6, 3.3), (5.6, 7.0, 5.0), (11.1, 12.1, 5.0)]
-KNOCKS = [(7.0, 48), (12.1, 36)]
+SITS = [(2.6, 5.3), (7.5, 11.7), (13.5, 99)]
+BUILDS = [(0.0, 2.6, 3.3), (5.6, 7.0, 5.0), (12.0, 13.0, 5.0)]
+KNOCKS = [(7.0, 48), (13.0, 36)]
 
 
 def mot_sit(t):
@@ -78,10 +79,10 @@ def mot_bricks(t):
         return 8
     if t < 7.0:
         return 8 + int(40 * (t - 5.6) / 1.4)
-    if t < 11.1:
+    if t < 12.0:
         return 0
-    if t < 12.1:
-        return int(36 * (t - 11.1) / 1.0)
+    if t < 13.0:
+        return int(36 * (t - 12.0) / 1.0)
     return 0
 
 
@@ -106,8 +107,13 @@ def bricks(i, t):
     return int(day(min(t, T_COLLAPSE - 0.01)) * 30)
 
 
+def wobble(t):
+    u = t - T_RH
+    return 0.0 if not 0 <= u < 1.4 else 0.035 * math.sin(u * 22) * (1 - u / 1.4)
+
+
 def lean(t):
-    return 0.0 if t < 3 else min(0.30, 0.02 + 0.28 * ((t - 3) / (T_COLLAPSE - 3)) ** 2)
+    return wobble(t) +  0.0 if t < 3 else min(0.30, 0.02 + 0.28 * ((t - 3) / (T_COLLAPSE - 3)) ** 2)
 
 
 # ---------------------------------------------------------------- bricks
@@ -368,13 +374,25 @@ def frame(t):
                 rr = 40 + 260 * u
                 ell(d, 965 + rr * math.cos(a), FLOOR - 40 + rr * 0.3 * math.sin(a), 18 + 30 * u, 12 + 20 * u,
                     (150, 140, 130, int(150 * (1 - u / 1.2))))
+    if T_RH + 0.15 <= t < T_RH + 2.5:
+        rows = min(40, 2 + 44 * (day(T_RH) / 365) ** 0.6)
+        h = rows * BH
+        rng = np.random.default_rng(21)
+        for j in range(6):
+            v = max(0.0, t - T_RH - 0.15 - j * 0.06)
+            y0 = FLOOR - h - BH
+            ground = FLOOR - BH
+            tl = math.sqrt((ground - y0) / 900)
+            vv = min(v, tl)
+            brick(d, OBS_X0 + 20 + j * 18 + h * math.sin(lean(T_RH)) + 60 * vv, y0 + 900 * vv * vv, shade(rng),
+                  rng.uniform(-4, 4) * vv)
     motivation(stage, d, t, mtop)
     obsession(stage, d, t)
     discipline(stage, d, t, stop)
     import race
     race.bubble(stage, t, 3.2, 5.2, "I'LL FINISH IT MONDAY.", FIG_X[0] + 150, FLOOR - 230, size=26)
     race.bubble(stage, t, 5.3, 6.4, "MONDAY!", FIG_X[0] + 40, FLOOR - 290, size=30)
-    race.bubble(stage, t, 10.8, 11.9, "THIS TIME FOR REAL.", FIG_X[0] + 130, FLOOR - 290, size=26)
+    race.bubble(stage, t, 11.7, 12.8, "THIS TIME FOR REAL.", FIG_X[0] + 130, FLOOR - 290, size=26)
     weather(d, t)
     spots = ((LX[0], 0.7), (LX[1], 1.0), (LX[2], 0.8))
     base = C.stage_bg(spots).copy()
@@ -440,6 +458,11 @@ def header(im, t, stop, z, cx, cy):
         sx = (ST_X0 + 40 - cx) * z + W / 2
         sy = (stop - 30 - 60 * u - cy) * z + H / 2
         PW.spaced(d, sx, sy, "+1", font("InterDisplay-Bold.otf", 54), GOLD + (int(255 * a),), 0)
+    a = hq.pop(t, T_RH + 0.2, 0.3) * (1 - smooth(prog(t, T_RH + 2.3, T_RH + 2.7))) if t >= T_RH + 0.2 else 0
+    if a > 0:
+        fr = font(SERIF_B, 54)
+        for j, s_ in enumerate(("ONE OF THESE WALLS", "WON'T MAKE IT TO DAY 365.")):
+            PW.spaced(d, W / 2, 560 + j * 68, s_, fr, ((246, 240, 226) if j == 0 else ORANGE) + (int(255 * min(1, a)),), 4)
     f = font(SERIF_B, 62)
     for j, s in enumerate(("IT WAS NEVER A WALL.", "IT WAS A WAY UP.")):
         a = smooth(prog(t, T_LINES + 0.8 * j, T_LINES + 0.8 * j + 0.4))
@@ -475,6 +498,10 @@ def audio():
         mix_in(out, tone(260 + 30 * j, 0.06, (1, 2.1), a=0.001, d=0.02), T_COLLAPSE + 0.2 + j * 0.07, 0.05, 0.5)
     for j in range(ST_N):
         mix_in(out, tone(180, 0.1, (1, 2), a=0.002, d=0.06), T_CLIMB + (j + 0.9) * STEP_DT, 0.08, 0.0)
+    for j in range(5):
+        mix_in(out, tone(90 - 6 * j, 0.25, (1, 2.3, 3.1), a=0.01, d=0.2), T_RH + j * 0.14, 0.18, 0.5)
+    for j in range(6):
+        mix_in(out, tone(300 + 25 * j, 0.06, (1, 2.1), a=0.001, d=0.02), T_RH + 0.75 + j * 0.06, 0.06, 0.5)
     out /= max(1.0, np.abs(out).max() / 0.9)
     return out
 
