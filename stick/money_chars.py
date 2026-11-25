@@ -64,7 +64,7 @@ TEAR = (120, 180, 255)
 INKF = (28, 28, 34)
 
 
-def face(d, pts, expr="neutral", f=1, t=0.0, glasses=False):
+def face(d, pts, expr="neutral", f=1, t=0.0, glasses=False, fem=False):
     """simple readable face on the head circle, turned a little toward f"""
     if not expr:
         return
@@ -74,8 +74,10 @@ def face(d, pts, expr="neutral", f=1, t=0.0, glasses=False):
     ey = cy - 5
     k = K
 
-    def arc(x, y, rw, rh, a0, a1, w=3):
-        d.arc(((x - rw) * k, (y - rh) * k, (x + rw) * k, (y + rh) * k), a0, a1, fill=INKF + (255,), width=int(w * k))
+    LIP = (196, 64, 96) if fem else INKF
+
+    def arc(x, y, rw, rh, a0, a1, w=3, col=INKF):
+        d.arc(((x - rw) * k, (y - rh) * k, (x + rw) * k, (y + rh) * k), a0, a1, fill=col + (255,), width=int(w * k))
 
     def brow(x, y, tilt, w=3):   # tilt>0: inner end up (sad); <0: inner end down (angry)
         sgn = 1 if x > cx else -1
@@ -105,6 +107,12 @@ def face(d, pts, expr="neutral", f=1, t=0.0, glasses=False):
         else:
             for x in ex:
                 ell(d, x, ey, 3, 3.8, INKF + (255,))
+    if fem and not glasses:   # lashes + blush
+        for j, x in enumerate(ex):
+            o = 1 if x > cx else -1
+            line(d, [(x + o * 4, ey - 3), (x + o * 9, ey - 8)], INKF + (255,), 2)
+            line(d, [(x + o * 1, ey - 4), (x + o * 4, ey - 10)], INKF + (255,), 2)
+            ell(d, x + o * 3, ey + 11, 6, 3.5, (250, 196, 206, 255))
     # brows
     by = ey - 10
     if expr in ("sad", "cry"):
@@ -125,12 +133,12 @@ def face(d, pts, expr="neutral", f=1, t=0.0, glasses=False):
     # mouth
     my = cy + 13
     if expr == "happy":
-        arc(cx, my - 4, 9, 6, 20, 160)
+        arc(cx, my - 4, 9, 6, 20, 160, col=LIP)
     elif expr == "laugh":
         d.chord(((cx - 10) * k, (my - 6) * k, (cx + 10) * k, (my + 10) * k), 0, 180, fill=(120, 30, 40, 255))
         line(d, [(cx - 10, my + 2), (cx + 10, my + 2)], INKF + (255,), 2)
     elif expr in ("sad", "tired"):
-        arc(cx, my + 5, 8, 5, 200, 340)
+        arc(cx, my + 5, 8, 5, 200, 340, col=LIP)
     elif expr == "cry":
         d.chord(((cx - 8) * k, (my - 3) * k, (cx + 8) * k, (my + 9) * k), 180, 360, fill=(90, 30, 40, 255))
         for j, x in enumerate(ex):
@@ -140,13 +148,16 @@ def face(d, pts, expr="neutral", f=1, t=0.0, glasses=False):
     elif expr == "shocked":
         ell(d, cx, my + 1, 6, 8, (90, 30, 40, 255))
     elif expr == "smug":
-        line(d, [(cx - 8, my), (cx + 2, my)], INKF + (255,), 3)
-        arc(cx + 6, my - 4, 6, 4, 20, 120)
+        line(d, [(cx - 8, my), (cx + 2, my)], LIP + (255,), 3)
+        arc(cx + 6, my - 4, 6, 4, 20, 120, col=LIP)
     elif expr == "nervous":
         line(d, [(cx - 9, my), (cx - 4, my - 2), (cx + 1, my + 1), (cx + 6, my - 2), (cx + 10, my)], INKF + (255,), 2.5)
         ell(d, hx - f * 22, hy - 14, 3, 5, TEAR + (220,))
     elif expr in ("determined", "angry", "neutral"):
-        line(d, [(cx - 7, my), (cx + 7, my)], INKF + (255,), 3)
+        if fem:
+            ell(d, cx, my, 6, 3, LIP + (255,))
+        else:
+            line(d, [(cx - 7, my), (cx + 7, my)], INKF + (255,), 3)
     if expr == "tired":
         for x in ex:
             arc(x, ey + 6, 5, 2, 20, 160, 2)
@@ -183,7 +194,77 @@ def scarf(d, pts, f=1):
     poly(d, [(nx, ny), (nx - f * 44 * S, ny + 26 * S), (nx - f * 30 * S, ny + 40 * S)], RED + (255,))
 
 
+HAIR_G = (58, 34, 26)
+HAIR_HI = (110, 70, 50)
+DRESS = (192, 108, 214)
+DRESS_D = (150, 76, 176)
+
+
 def girl(stage, pts, f=1, wind=0.0, expr="neutral", t=0.0):
+    hx, hy, _ = head_dir(pts)
+    r = 31 * S
+    d0 = ImageDraw.Draw(stage)
+    sway = 4 * math.sin(t * 2.2) + 22 * wind
+    # hair behind: volume around the head + long waves down the back
+    ell(d0, hx - f * 3, hy + 2, r + 10, r + 9, HAIR_G + (255,))
+    back = [(hx - f * (r + 8), hy - 6)]
+    for j in range(7):
+        yy = hy + 12 + j * 15
+        back.append((hx - f * (r + 10 + sway * j / 6 + 5 * math.sin(j * 1.3 + t * 3)), yy))
+    back += [(hx - f * (r * 0.2 + sway), hy + 112), (hx + f * (r * 0.5), hy + 70), (hx + f * (r + 6), hy + 20),
+             (hx + f * (r + 8), hy - 4)]
+    poly(d0, back, HAIR_G + (255,))
+    figure(stage, pts, S, light=(0.4, -0.9))
+    d = ImageDraw.Draw(stage)
+    # dress: fitted top, gold belt, flared skirt with a soft hem
+    nx, ny = pts["neck"]
+    px, py = pts["hip"]
+    wx, wy = lerp_pt((nx, ny), (px, py), 0.62)
+    kx = (pts["kl"][0] + pts["kr"][0]) / 2
+    ky = max(pts["kl"][1], pts["kr"][1])
+    poly(d, [(nx - 15, ny + 6), (nx + 15, ny + 6), (wx + 11, wy), (wx - 11, wy)], DRESS + (255,))
+    hem = []
+    for j in range(9):
+        u = j / 8
+        hem.append((kx - 46 + 92 * u, ky + 10 + 5 * math.sin(u * math.pi * 3 + t * 4)))
+    poly(d, [(wx - 11, wy), (wx + 11, wy)] + hem[::-1] if f < 0 else [(wx + 11, wy)] + hem[::-1] + [(wx - 11, wy)],
+         DRESS + (255,))
+    poly(d, [(wx, wy + 6), (kx + 12, ky + 8), (kx - 4, ky + 10)], DRESS_D + (255,))
+    line(d, [(wx - 12, wy), (wx + 12, wy)], GOLD + (255,), 4)
+    for side in ("el", "er"):   # little sleeves
+        line(d, [(nx, ny + 4), lerp_pt((nx, ny + 4), pts[side], 0.35)], DRESS + (255,), 20 * S)
+    # heels
+    for side in ("fl", "fr"):
+        fx, fy = pts[side]
+        poly(d, [(fx - 10, fy - 2), (fx + 14 * f, fy + 4), (fx + 14 * f, fy + 10), (fx - 8, fy + 10)], (40, 24, 30, 255))
+    # front hair: side-swept bangs + a lock framing the face
+    pts_b = []
+    for j in range(13):
+        a = math.pi * (1.05 + 0.9 * j / 12)
+        pts_b.append((hx + (r + 3) * math.cos(a), hy + (r + 3) * math.sin(a)))
+    if f > 0:
+        pts_b += [(hx + r * 0.95, hy - 6), (hx + r * 0.35, hy - r * 0.55), (hx - r * 0.2, hy - r * 0.35), (hx - r * 0.75, hy + 2)]
+    else:
+        pts_b = [(hx - x + hx, y) for x, y in pts_b]
+        pts_b += [(hx - r * 0.95, hy - 6), (hx - r * 0.35, hy - r * 0.55), (hx + r * 0.2, hy - r * 0.35), (hx + r * 0.75, hy + 2)]
+    poly(d, pts_b, HAIR_G + (255,))
+    d.arc(((hx - r + 6) * K, (hy - r + 2) * K, (hx + r - 6) * K, (hy + r - 6) * K), 215, 265, fill=HAIR_HI + (255,),
+          width=int(4 * K))
+    poly(d, [(hx - f * (r - 2), hy - 8), (hx - f * (r + 4), hy + 30), (hx - f * (r - 10), hy + 38), (hx - f * (r - 8), hy + 4)],
+         HAIR_G + (255,))
+    # gold purse on the far hand, earring
+    hx2, hy2 = pts["hl"]
+    line(d, [(hx2, hy2), (hx2 - 6, hy2 + 22)], GOLD + (255,), 2)
+    rrect(d, (hx2 - 18, hy2 + 20, hx2 + 6, hy2 + 38), 4, GOLD + (255,))
+    ell(d, hx - f * 16, hy + 16, 3, 3, GOLD + (255,))
+    face(d, pts, expr, f, t, fem=True)
+
+
+def lerp_pt(a, b, u):
+    return (a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u)
+
+
+def girl_old(stage, pts, f=1, wind=0.0, expr="neutral", t=0.0):
     hx, hy, _ = head_dir(pts)
     r = 31 * S
     d0 = ImageDraw.Draw(stage)
@@ -231,6 +312,26 @@ def rich(stage, pts, mode="rich", f=1, expr="neutral", t=0.0):
             a = math.pi * (1.1 + 0.2 * j)
             line(d, [(hx + 0.8 * r * math.cos(a), hy - 4 + 0.8 * r * math.sin(a)),
                      (hx + 1.3 * r * math.cos(a + 0.2), hy - 6 + 1.3 * r * math.sin(a + 0.2))], HAIR + (255,), 4)
+
+
+def girl_sheet():
+    tiles = []
+    for j, (fn, e, lab) in enumerate([(girl_old, "smug", "OLD"), (girl, "neutral", "NEW"), (girl, "laugh", "LAUGH"),
+                                       (girl, "smug", "SMUG"), (girl, "cry", "CRY"), (girl, "sad", "SAD")]):
+        stage = Image.new("RGBA", (W * K, H * K), (0, 0, 0, 0))
+        pts = place(STAND, (540, FLOOR - 113 * S), 1, S)
+        fn(stage, pts, 1, 0.2, e, 0.3)
+        base = C.stage_bg(((540, 1.0),)).copy()
+        base.alpha_composite(stage)
+        tile = base.crop((400 * K, (FLOOR - 300) * K, 680 * K, (FLOOR + 20) * K)).resize((280, 320), Image.LANCZOS)
+        PW.spaced(ImageDraw.Draw(tile), 140, 296, lab, font("Inter-SemiBold.otf", 16), (236, 238, 246, 255), 3)
+        tiles.append(tile)
+    out = Image.new("RGB", (280 * 6, 320))
+    for i, tl in enumerate(tiles):
+        out.paste(tl.convert("RGB"), (i * 280, 0))
+    p = os.path.join(os.path.dirname(os.path.abspath(__file__)), "money", "girl.png")
+    out.save(p)
+    print(p)
 
 
 def expr_sheet():
@@ -292,4 +393,4 @@ def sheet():
 
 
 if __name__ == "__main__":
-    expr_sheet() if "--faces" in sys.argv else sheet()
+    girl_sheet() if "--girl" in sys.argv else (expr_sheet() if "--faces" in sys.argv else sheet())
