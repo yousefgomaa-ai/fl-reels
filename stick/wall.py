@@ -478,27 +478,36 @@ FLASHES = [(7.6, 1.8, 0.3, "study"), (15.0, 1.8, 0.3, "race"), (T365, 1.8, 0.0, 
 TAGS = {"study": "SAME PEOPLE. AT SCHOOL.", "dig": "SAME PEOPLE. CHASING GOLD.", "race": "SAME PEOPLE. ON THE TRACK."}
 
 
+SPEED = 1.15   # the wall plays 15% faster than real time
+
+
 def _segments():
     """video-time windows of the flashes"""
-    out, shift = [], 0.0
+    out, v, sc = [], 0.0, 0.0
     for s0, dur, rate, kind in FLASHES:
-        v0 = s0 + shift
-        out.append((v0, dur, rate, kind))
-        shift += dur * (1 - rate)
-    return out, shift
+        v += (s0 - sc) / SPEED
+        out.append((v, dur, rate, kind))
+        v += dur
+        sc = s0 + dur * rate * SPEED
+    return out, v + (23.5 - sc) / SPEED
 
 
-SEGS, _EXTRA = _segments()
-DUR = 23.5 + _EXTRA
+SEGS, DUR = _segments()
 NF = int(round(DUR * FPS))
 
 
 def story(t):
     """video time -> story time (the wall's clock)"""
-    s = t
+    s, v = 0.0, 0.0
     for v0, dur, rate, _ in SEGS:
-        s -= clamp((t - v0) / dur) * dur * (1 - rate)
-    return s
+        if t < v0:
+            return s + (t - v) * SPEED
+        s += (v0 - v) * SPEED
+        if t < v0 + dur:
+            return s + (t - v0) * rate * SPEED
+        s += dur * rate * SPEED
+        v = v0 + dur
+    return s + (t - v) * SPEED
 
 
 def video(s):
