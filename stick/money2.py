@@ -165,7 +165,10 @@ def bench_scene(u, tv, hook=False):
     # the ring on the ground
     ry = ring_y(u)
     if ry is not None and not (u >= 5.9):
-        ring(d, 690, ry, glint=0.6 if ry >= FLOOR - 5 else 0.0)
+        gl = (0.7 + 0.3 * math.sin(tv * 12)) if ry >= FLOOR - 5 else 0.0
+        if hook:
+            ell(d, 690, ry, 40, 22, GOLD + (int(70 * gl),))
+        ring(d, 690, ry, glint=gl * (1.6 if hook else 0.6), r=16 if hook else 9)
         if ry >= FLOOR - 5:
             v = u - RING_DROP - 0.3
             for j in range(2):
@@ -175,7 +178,7 @@ def bench_scene(u, tv, hook=False):
     rain(d, tv, smooth(prog(u, 3.4, 4.2)))
     glow = cached("lamp", lambda: lamp_glow(900))
     if hook:   # tight on the ring, him crying behind it
-        return compose(st, glow, 2.6, 720, FLOOR - 130, spots=((700, 0.7),))
+        return compose(st, glow, 3.0, 700, FLOOR - 110, spots=((700, 0.7),))
     return compose(st, glow, 1.6, 640, 1170, spots=((700, 0.7),))
 
 
@@ -198,7 +201,7 @@ def shot_bike(st, d, u, tv):
     p = pts_of(pose, bx - 30, FLOOR - 100, 1)
     hero(st, p, "broke", 1, "tired", tv)
     rain(d, tv, 1.0)
-    return dict(z=1.7, cx=540, cy=1170)
+    return dict(z=1.95, cx=520, cy=1170)
 
 
 def shot_noodles(st, d, u, tv):
@@ -216,8 +219,8 @@ def shot_noodles(st, d, u, tv):
     p = set_arm(p, "l", (cx - 20, FLOOR - 120), 1)
     line(d, [(p["hr"][0], p["hr"][1]), (cx + 6, FLOOR - 150)], (200, 170, 110, 255), 3)
     hero(st, p, "broke", 1, "tired", tv)
-    clock(d, 680, FLOOR - 330, "11:58")
-    return dict(z=1.7, cx=470, cy=1150)
+    clock(d, 560, FLOOR - 300, "11:58")
+    return dict(z=1.95, cx=420, cy=1160)
 
 
 def shot_alarm(st, d, u, tv):
@@ -237,7 +240,7 @@ def shot_alarm(st, d, u, tv):
     if u < 0.6:
         for j in range(3):
             line(d, [(810 + 8 * j, FLOOR - 210 - 6 * j), (830 + 10 * j, FLOOR - 230 - 8 * j)], (240, 80, 80, 255), 3)
-    return dict(z=1.6, cx=560, cy=1170)
+    return dict(z=1.85, cx=600, cy=1170)
 
 
 def shot_richcard(st, d, u, tv):
@@ -267,7 +270,7 @@ def shot_phone(st, d, u, tv):
     if u >= 0.7:
         rrect(d, (hp["hr"][0] - 18, hp["hr"][1] - 8, hp["hr"][0] + 18, hp["hr"][1] + 8), 2, (110, 180, 110, 255))
     PW.spaced(d, 540 * K, (FLOOR - 420) * K, "SOLD HIS PHONE", font("InterDisplay-Bold.otf", 34 * K), (236, 238, 246, 220), 3)
-    return dict(z=1.6, cx=540, cy=1150)
+    return dict(z=1.9, cx=545, cy=1160)
 
 
 def shot_reject(st, d, u, tv):
@@ -284,7 +287,7 @@ def shot_reject(st, d, u, tv):
         stamp(d, 600 + rng.uniform(-150, 150), FLOOR - 260 - rng.uniform(0, 260), "REJECTED", (220, 50, 50), 1.0,
               rot=rng.uniform(-0.4, 0.4), size=26)
     PW.spaced(d, 540 * K, (FLOOR - 600) * K, f"x{n}", font("InterDisplay-Bold.otf", 60 * K), (220, 50, 50, 255), 2)
-    return dict(z=1.4, cx=540, cy=1110)
+    return dict(z=1.5, cx=500, cy=1110)
 
 
 def shot_sick(st, d, u, tv):
@@ -301,7 +304,7 @@ def shot_sick(st, d, u, tv):
     line(d, [(hx + 20, hy + 18), (hx + 46, hy + 24)], (230, 230, 236, 255), 3)
     ell(d, hx + 46, hy + 24, 3, 3, (230, 60, 60, 255))
     PW.spaced(d, (hx + 80) * K, (hy - 40) * K, "39°", font("InterDisplay-Bold.otf", 30 * K), (240, 90, 90, 255), 1)
-    return dict(z=1.7, cx=520, cy=1150)
+    return dict(z=2.0, cx=420, cy=1160)
 
 
 def shot_quit(st, d, u, tv):
@@ -309,7 +312,7 @@ def shot_quit(st, d, u, tv):
     off = u < 0.15 or u >= 1.6
     laptop(d, 480, FLOOR - 102, glow=not (0.15 <= u < 1.6) and u < 0.15, f=-1)
     chair(d, 330, SEAT + 6)
-    clock(d, 760, FLOOR - 400, "3:00")
+    clock(d, 560, FLOOR - 300, "3:00")
     if u < 1.6:   # head in his hands
         pose = dict(SIT, head=(30, -124), neck=(16, -100), el=(40, -60), hl=(34, -112), er=(46, -56), hr=(40, -108))
         p = pts_of(pose, 330, sit_hip(SEAT + 6), 1)
@@ -325,7 +328,7 @@ def shot_quit(st, d, u, tv):
     rrect(d, (px - 10, py - 30, px + 10, py + 2), 3, (18, 18, 24, 255))
     if u >= 1.5:
         rrect(d, (px - 8, py - 27, px + 8, py - 1), 2, GREEN + (255,))
-    return dict(z=1.7, cx=500, cy=1150)
+    return dict(z=1.9, cx=430, cy=1160)
 
 
 def shot_rise(st, d, u, tv):
@@ -464,8 +467,8 @@ def frame(t):
         im = bench_scene(u, t, hook=True)
         a = hq.pop(t, 0.35, 0.25) if t >= 0.35 else 0
         if a > 0:
-            text(im, W / 2, 330, "SHE SAID HE'D", int(100 * max(0.3, a)))
-            text(im, W / 2, 330 + int(112 * max(0.3, a)), "NEVER BE ENOUGH.", int(100 * max(0.3, a)), col=GOLD)
+            text(im, W / 2, 330, "SHE SAID HE'D", int(84 * max(0.3, a)))
+            text(im, W / 2, 330 + int(96 * max(0.3, a)), "NEVER BE ENOUGH.", int(84 * max(0.3, a)), col=GOLD)
     elif t < T_GRIND:
         u = t - T_BENCH + 0.3
         im = bench_scene(u, t)
@@ -510,11 +513,11 @@ def frame(t):
     else:
         u = t - T_OUT
         im = out_scene(u, t)
-        for j, s in enumerate(("HE KEPT THE RING.", "NOT THE PAIN.")):
+        for j, s in enumerate(("HE GAVE BACK THE RING.", "AND KEPT HIS PEACE.")):
             a = smooth(prog(u, 4.0 + 0.8 * j, 4.4 + 0.8 * j))
             if a > 0:
-                text(im, W / 2, 220 + j * 90, s, 76, col=(GOLD if j else (246, 240, 226)), a=a)
-    cuts = [T_BENCH, T_ROOM, T_OUT] + [s[1] for s in SHOTS]
+                text(im, W / 2, 220 + j * 80, s, 60, col=(GOLD if j else (246, 240, 226)), a=a)
+    cuts = [T_BENCH, T_GRIND, T_RH, T_ROOM, T_OUT]
     for c in cuts:
         if c <= t < c + 0.08:
             im = Image.blend(im.convert("RGB"), Image.new("RGB", (W, H), (255, 255, 255)), 0.5 * (1 - (t - c) / 0.08))
