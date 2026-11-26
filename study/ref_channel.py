@@ -15,9 +15,13 @@ def get(url):
 
 
 try:
+    if vid.startswith("@"):
+        raise StopIteration
     oe = json.loads(get(f"https://www.youtube.com/oembed?url=https://www.youtube.com/shorts/{vid}&format=json"))
     res["oembed"] = oe
     handle = oe["author_url"].rstrip("/").split("/")[-1]
+except StopIteration:
+    handle = vid
 except Exception as e:
     res["oembed_err"] = str(e)[:300]
     handle = None
@@ -31,6 +35,10 @@ if handle:
         m2 = re.search(r'"subscriberCountText":\{"accessibility":\{"accessibilityData":\{"label":"([^"]+)"', html) or \
             re.search(r'([0-9.,]+[KMB]?) subscribers', html)
         res["subscribers_text"] = m2.group(1) if m2 else None
+        m3 = re.search(r'"joinedDateText":\{[^}]*?"content":"([^"]+)"', html) or re.search(r'Joined ([A-Z][a-z]{2} [0-9]{1,2}, [0-9]{4})', html)
+        res["joined"] = m3.group(1) if m3 else None
+        m4 = re.search(r'"viewCountText":"([^"]+)"', html) or re.search(r'([0-9,]+) views"', html)
+        res["views_text"] = m4.group(1) if m4 else None
     except Exception as e:
         res["page_err"] = str(e)[:300]
 res["channel_id"] = cid
@@ -57,6 +65,17 @@ if handle:
                              for e in j.get("entries", [])]
     except Exception:
         res["shorts_err"] = r.stderr[-400:]
+# daily history from public trackers / archives (may be blocked)
+if handle:
+    h = handle.lstrip("@")
+    for name, url in (("socialblade", f"https://socialblade.com/youtube/handle/{h}"),
+                      ("socialblade_monthly", f"https://socialblade.com/youtube/handle/{h}/monthly"),
+                      ("wayback_cdx", f"http://web.archive.org/cdx/search/cdx?url=youtube.com/@{h}*&output=json&limit=50")):
+        try:
+            body = get(url).decode("utf-8", "ignore")
+            res[name] = body[:200000]
+        except Exception as e:
+            res[name + "_err"] = str(e)[:300]
 json.dump(res, open(f"{OUT}/channel_{vid}.json", "w"), indent=1, ensure_ascii=False)
 print(json.dumps({k: res.get(k) for k in ("handle", "channel_id", "subscribers_text")}), len(items),
       len(res.get("shorts_tab", [])))

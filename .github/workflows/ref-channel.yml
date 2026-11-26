@@ -1,4 +1,4 @@
-# Reference Short + its channel's posting rhythm (owner, 2026-11-25): runs on the claude/two-paths branch only.
+# Reference Short + its channel's posting rhythm (owner, 2026-11-25; @sticktoit-q4d 2026-11-26): runs on the claude/two-paths branch only.
 name: Reference channel
 on:
   push:
@@ -14,8 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: pip install -q -U "yt-dlp[default]"
-      - run: python3 study/ref_channel.py MBghiGJ6Gso
-      - run: python3 study/links.py MBghiGJ6Gso || true
+      - run: python3 study/ref_channel.py @sticktoit-q4d
       - name: Commit
         run: |
           git config user.name "study" && git config user.email "actions@users.noreply.github.com"
