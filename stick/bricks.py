@@ -52,16 +52,18 @@ def growth(t):
 # ---------------------------------------------------------------- bricks
 def tbrick(d, x, y, word, rot=0.0, sc=1.0):
     """a thrown brick with a word on it, centre x, y"""
-    w, h = 70 * sc, 30 * sc
+    sc *= 1.7
+    w, h = 74 * sc, 32 * sc
     c_, s_ = math.cos(rot), math.sin(rot)
     P = lambda px, py: (x + px * c_ - py * s_, y + px * s_ + py * c_)  # noqa
     poly(d, [P(-w / 2, -h / 2), P(w / 2, -h / 2), P(w / 2, h / 2), P(-w / 2, h / 2)], BRICK + (255,), outline=BRICK_D + (255,),
          w=2 * sc)
     if word:
-        fs = int(13 * sc * K)
+        fs = int(min(17 * sc, 1.25 * w / max(4, len(word))) * K)
         tmp = Image.new("RGBA", (int(w * K), int(h * K)), (0, 0, 0, 0))
         td = ImageDraw.Draw(tmp)
-        td.text((w * K / 2, h * K / 2), word, font=font("InterDisplay-Bold.otf", fs), fill=CREAM + (255,), anchor="mm")
+        td.text((w * K / 2, h * K / 2), word, font=font("InterDisplay-Bold.otf", fs), fill=(255, 255, 255, 255), anchor="mm",
+                stroke_width=int(2 * sc * K / 2), stroke_fill=(40, 16, 10, 255))
         tmp = tmp.rotate(-math.degrees(rot), resample=Image.BICUBIC, expand=True)
         d._image.alpha_composite(tmp, (int(x * K - tmp.size[0] / 2), int(y * K - tmp.size[1] / 2)))
 
@@ -212,12 +214,12 @@ def world(t, final=False):
             src = (CROWD[int(t0 * 10) % 3] + 40, FLOOR - 200)
             tx = {"v": (VX, FLOOR - 140), "f": (FX - 20, FLOOR - 190), "b": (BX - 30, by - 160)}[tg]
             x, y, u = flight(t, t0, d_, src, tx, arc=120 if tg != "b" else 200)
-            tbrick(d, x, y, w, rot=u * 6 * (1 if int(t0 * 7) % 2 else -1))
+            tbrick(d, x, y, w, rot=0.25 * math.sin(u * 3 + t0))
     # bricks the fighter throws back
     for tb in (7.8, 8.4, 9.0, 9.6):
         if tb + 0.15 <= t < tb + 0.6:
             x, y, u = flight(t, tb + 0.15, 0.45, (FX - 40, FLOOR - 230), (CROWD[2], FLOOR - 160), arc=60)
-            tbrick(d, x, y, "", rot=u * 8)
+            tbrick(d, x, y, "", rot=0.3 * math.sin(u * 4))
     return st
 
 
@@ -304,14 +306,14 @@ def frame(t):
     if t < HOOK:
         if t < 0.5:   # laughing faces, fast cuts
             j = min(2, int(t / 0.17))
-            st = world(3.0)
-            im = compose(st, None, 4.2, CROWD[j] + 10, FLOOR - 250, spots=SPOTS, back=background(3.0), refl=False)
+            st = world(2.4 + t)
+            im = compose(st, None, 4.2, CROWD[j] + 10, FLOOR - 250, spots=SPOTS, back=background(2.4 + t), refl=False)
         elif t < 0.9:  # a brick flies at the lens and cracks it
-            st = world(3.0)
+            st = world(2.4 + t)
             im = compose(st, None, 1.3, 520, 1150, spots=SPOTS, back=background(3.0), refl=False)
             u = smooth(clamp((t - 0.5) / 0.3))
             lay = Image.new("RGBA", (W * K, H * K), (0, 0, 0, 0))
-            tbrick(ImageDraw.Draw(lay), lerp(300, 420, u), lerp(1300, 760, u), "LOSER", rot=0.25 * u, sc=lerp(1.0, 9.0, u ** 2))
+            tbrick(ImageDraw.Draw(lay), lerp(300, 420, u), lerp(1300, 760, u), "LOSER", rot=0.25 * u, sc=lerp(0.6, 5.0, u ** 2))
             im.alpha_composite(lay.resize((W, H), Image.LANCZOS))
             im = crack(im, t, 0.8)
         else:          # close on him: catches LOSER an inch from his face
@@ -332,7 +334,7 @@ def frame(t):
             st = Image.new("RGBA", (W * K, H * K), (0, 0, 0, 0))
             d = ImageDraw.Draw(st)
             hero(st, p, "plain", -1, "determined", t)
-            tbrick(d, bx, hy + 6, "LOSER", rot=0.1, sc=1.4)
+            tbrick(d, bx - 10, hy + 6, "LOSER", rot=0.1, sc=0.9)
             im = compose(st, None, 3.6, BX - 40, hy + 20, spots=SPOTS, back=background(3.0), refl=False)
             im = crack(im, t, 0.8)
         a = hq.pop(t, 0.85, 0.2) if t >= 0.85 else 0
