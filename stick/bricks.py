@@ -25,15 +25,16 @@ import perfect_wave as PW  # noqa
 import hq  # noqa
 from compare import ell, line, rrect, poly, figure, place, ik, FLOOR, K, W, H  # noqa
 from perfect_wave import clamp, env, font, lerp, lerp_pose, mix_in, noise, prog, smooth, tone, write_wav  # noqa
-from money_chars import hero, face, S, GOLD, RED  # noqa
+from money_chars import hero, face, outfit, scarf, S, GOLD, RED  # noqa
 from money import text, compose, put, track  # noqa
 
 FPS, SR = 30, 44100
-HOOK, DUR = 1.8, 22.0
+HOOK, DUR = 1.8, 21.0
 NF = int(round(DUR * FPS))
 STAND = PW.STAND
 CROWD = [70, 150, 230]
-VX, FX, BX = 340, 490, 800
+CS, CA, CA2, CY = 0.6, 150, 95, FLOOR - 60     # the crowd: far away, smaller
+VX, FX, BX = 360, 570, 830
 BRICK = (176, 84, 58)
 BRICK_D = (70, 34, 24)
 CREAM = (236, 226, 200)
@@ -41,7 +42,7 @@ ORANGE = (240, 130, 40)
 VBODY = (178, 188, 206)
 GREY = (150, 154, 166)
 WORDS = ["LOSER", "YOU CAN'T", "FAILED", "WEIRD", "GIVE UP", "NOBODY", "TOO LATE", "QUIT", "JOKE", "NOT ENOUGH"]
-T_V, T_F, T_B, T_RH, T_END, T_LINES = 4.5, 7.5, 10.5, 13.6, 17.6, 18.6
+T_V, T_F, T_B, T_RH, T_END, T_LINES = 4.5, 7.5, 10.5, 13.6, 18.4, 19.4
 BW, BH = 30, 15            # castle bricks
 
 
@@ -140,6 +141,47 @@ def castle(d, g, cx=800):
 
 
 # ---------------------------------------------------------------- people
+HOODIE = (58, 92, 160)
+TANK = (232, 118, 36)
+WORK = (78, 84, 98)
+HAT = (246, 196, 40)
+
+
+def draw_victim(st, p, expr, t, f=1):
+    d0 = ImageDraw.Draw(st)
+    hx, hy = p["head"]
+    ell(d0, hx - f * 4, hy + 2, 36, 36, tuple(int(c * 0.8) for c in HOODIE) + (255,))     # hood
+    figure(st, p, S, light=(0.4, -0.9), body=VBODY)
+    d = ImageDraw.Draw(st)
+    outfit(d, p, HOODIE, f, legs=True)
+    face(d, p, expr, f, t)
+
+
+def draw_fighter(st, p, expr, t, f=1):
+    figure(st, p, S, light=(0.4, -0.9))
+    d = ImageDraw.Draw(st)
+    outfit(d, p, TANK, f, legs=False)
+    for side in ("l", "r"):
+        line(d, [p["hip"], p["k" + side]], (30, 30, 34, 255), 26 * S)      # black shorts
+    hx, hy = p["head"]
+    line(d, [(hx - 30, hy - 12), (hx + 30, hy - 14)], (220, 40, 40, 255), 8)
+    line(d, [(hx - f * 28, hy - 12), (hx - f * 48, hy + 8)], (220, 40, 40, 255), 6)
+    face(d, p, expr, f, t)
+    for side in ("hl", "hr"):
+        ell(d, *p[side], 17, 15, (210, 40, 40, 255))
+
+
+def draw_builder(st, p, expr, t, f=1):
+    figure(st, p, S, light=(0.4, -0.9))
+    d = ImageDraw.Draw(st)
+    outfit(d, p, WORK, f, legs=True)
+    face(d, p, expr, f, t)
+    scarf(d, p, f)
+    hx, hy = p["head"]
+    d.chord(((hx - 33) * K, (hy - 38) * K, (hx + 33) * K, (hy + 14) * K), 180, 360, fill=HAT + (255,))
+    line(d, [(hx - 40, hy - 12), (hx + 40, hy - 12)], tuple(int(c * 0.8) for c in HAT) + (255,), 6)
+
+
 def crowd_fig(st, x, t, expr, j, f=1, hit=False):
     arm = math.sin(t * 9 + j * 1.7)
     pose = dict(STAND, er=(30, -150), hr=(50 + 20 * arm, -200 + 30 * arm)) if expr == "laugh" else dict(STAND)
@@ -153,24 +195,33 @@ def crowd_fig(st, x, t, expr, j, f=1, hit=False):
     return p
 
 
-def world(t, final=False):
+def crowd_pt(x, y):
+    return CA2 + (x - CA) * CS, CY + (y - FLOOR) * CS
+
+
+def world(t, crowd_scale=CS):
     st = Image.new("RGBA", (W * K, H * K), (0, 0, 0, 0))
     d = ImageDraw.Draw(st)
     g = growth(t)
-    kt = castle(d, g)
-    # crowd
+    kt = castle(d, g, cx=BX)
+    # crowd (far back, smaller)
     hit = 8.4 <= t < 9.6
     cexpr = "laugh" if t < T_END + 0.4 else "shocked"
+    cl = Image.new("RGBA", (W * K, H * K), (0, 0, 0, 0))
     for j, x in enumerate(CROWD):
-        crowd_fig(st, x, t, cexpr, j, 1, hit=(hit and j == 2))
+        crowd_fig(cl, x, t, cexpr, j, 1, hit=(hit and j == 2))
+    if crowd_scale < 0.999:
+        cl = cl.resize((int(W * K * crowd_scale), int(H * K * crowd_scale)), Image.LANCZOS)
+        st.alpha_composite(cl, (int(CA2 * K - CA * K * crowd_scale), int(CY * K - FLOOR * K * crowd_scale)))
+    else:
+        st.alpha_composite(cl)
     # victim: covers his head, buried
     pile = 190 * smooth(prog(t, 2.0, 7.4))
     vk = smooth(prog(t, 2.2, 2.8))
     vpose = lerp_pose(STAND, dict(STAND, head=(20, -120), neck=(14, -90), el=(40, -120), hl=(10, -150), er=(46, -116),
                                   hr=(16, -146), kl=(30, 20), fl=(-10, 60), kr=(-20, 54), fr=(-60, 60)), vk)
     vp = place(vpose, (VX, lerp(FLOOR - 113 * S, FLOOR - 62 * S, vk)), 1, S)
-    figure(st, vp, S, light=(0.4, -0.9), body=VBODY)
-    face(d, vp, "cry" if t > 2.6 else "sad", 1, t)
+    draw_victim(st, vp, "cry" if t > 2.6 else "sad", t)
     rng = np.random.default_rng(7)
     rows = int(pile / 15)
     for r in range(rows):
@@ -186,10 +237,8 @@ def world(t, final=False):
         fpose = lerp_pose(fpose, dict(STAND, head=(16, -112), neck=(10, -80), el=(30, -40), hl=(40, 0), er=(36, -36),
                                       hr=(46, 4), kl=(50, 10), fl=(100, 20), kr=(46, 14), fr=(96, 24)), tired)
     fp = place(fpose, (FX, lerp(FLOOR - 113 * S, FLOOR - 50 * S, tired)), -1, S)
-    figure(st, fp, S, light=(0.4, -0.9))
+    draw_fighter(st, fp, "angry" if tired < 0.5 else "tired", t, -1)
     hx, hy = fp["head"]
-    line(d, [(hx - 29, hy - 10), (hx + 29, hy - 12)], ORANGE + (255,), 7)
-    face(d, fp, "angry" if tired < 0.5 else "tired", -1, t)
     if t > 9.4:   # bandage
         line(d, [(hx - 20, hy + 2), (hx + 6, hy - 22)], (240, 240, 240, 255), 6)
     # builder: on top of whatever he has built
@@ -202,7 +251,7 @@ def world(t, final=False):
         bpose = dict(STAND, el=(-30, -120), hl=(-60, -150), er=(-20, -126), hr=(-50, -160)) if catching else dict(STAND)
         bexpr = "determined"
     bp = place(bpose, (BX, by - 113 * S), -1, S)
-    hero(st, bp, "plain", -1, bexpr, t)
+    draw_builder(st, bp, bexpr, t, -1)
     if t >= T_END + 0.2:   # the flag
         fx_, fy_ = BX + 30, by
         line(d, [(fx_, fy_), (fx_, fy_ - 150)], (60, 60, 70, 255), 4)
@@ -211,14 +260,14 @@ def world(t, final=False):
     # bricks in the air
     for t0, d_, tg, w in THROWS:
         if t0 <= t < t0 + d_:
-            src = (CROWD[int(t0 * 10) % 3] + 40, FLOOR - 200)
+            src = crowd_pt(CROWD[int(t0 * 10) % 3] + 40, FLOOR - 200)
             tx = {"v": (VX, FLOOR - 140), "f": (FX - 20, FLOOR - 190), "b": (BX - 30, by - 160)}[tg]
             x, y, u = flight(t, t0, d_, src, tx, arc=120 if tg != "b" else 200)
             tbrick(d, x, y, w, rot=0.25 * math.sin(u * 3 + t0))
     # bricks the fighter throws back
     for tb in (7.8, 8.4, 9.0, 9.6):
         if tb + 0.15 <= t < tb + 0.6:
-            x, y, u = flight(t, tb + 0.15, 0.45, (FX - 40, FLOOR - 230), (CROWD[2], FLOOR - 160), arc=60)
+            x, y, u = flight(t, tb + 0.15, 0.45, (FX - 40, FLOOR - 230), crowd_pt(CROWD[2], FLOOR - 160), arc=60)
             tbrick(d, x, y, "", rot=0.3 * math.sin(u * 4))
     return st
 
@@ -288,25 +337,28 @@ SPOTS = ((340, 0.8), (800, 1.0))
 
 
 def shot(t):
-    """camera for the story"""
-    if t < T_V:
-        return 1.3, 520, 1150
-    if t < T_F:
-        return 2.0, VX, 1200
-    if t < T_B:
-        return 1.7, 330, 1180
-    if t < T_END:
+    """a moving camera for the story"""
+    if t < T_V:      # pan from the crowd to the three
+        k = smooth(prog(t, HOOK, T_V))
+        return lerp(1.7, 1.3, k), lerp(240, 600, k), lerp(1170, 1150, k)
+    if t < T_F:      # push in on the victim
+        k = smooth(prog(t, T_V, T_F))
+        return lerp(1.8, 2.3, k), VX, lerp(1190, 1215, k)
+    if t < T_B:      # the fighter, whip toward the crowd when he throws
+        k = smooth(prog(t, 7.9, 8.5)) * (1 - smooth(prog(t, 9.4, 10.0)))
+        return lerp(1.9, 1.5, k), lerp(FX, 330, k), 1190
+    if t < T_END:    # crane up with the castle
         g = growth(t)
-        return lerp(1.6, 1.15, g), 760, lerp(1180, 1000, g)
-    k = smooth(prog(t, T_END, T_END + 1.2))
-    return lerp(1.15, 1.0, k), lerp(760, 540, k), lerp(1000, 960, k)
+        return lerp(1.7, 1.15, g), lerp(BX - 30, BX - 120, g), lerp(1190, 960, g)
+    k = smooth(prog(t, T_END, T_LINES))
+    return lerp(1.15, 1.0, k), lerp(BX - 120, 540, k), lerp(960, 960, k)
 
 
 def frame(t):
     if t < HOOK:
         if t < 0.5:   # laughing faces, fast cuts
             j = min(2, int(t / 0.17))
-            st = world(2.4 + t)
+            st = world(2.4 + t, crowd_scale=1.0)
             im = compose(st, None, 4.2, CROWD[j] + 10, FLOOR - 250, spots=SPOTS, back=background(2.4 + t), refl=False)
         elif t < 0.9:  # a brick flies at the lens and cracks it
             st = world(2.4 + t)
@@ -323,7 +375,7 @@ def frame(t):
             k = smooth(clamp((u - 0.55) / 0.35))
             pose = dict(STAND, er=(lerp(10, -40, k), lerp(-58, -130, k)), hr=(lerp(14, -70, k), lerp(-10, -150, k)))
             p = place(pose, (BX, FLOOR - 113 * S), -1, S)
-            hero(st, p, "plain", -1, "determined", t)
+            draw_builder(st, p, "determined", t, -1)
             hx, hy = p["head"]
             stop = hx - 110
             bx = lerp(BX - 460, stop, min(1, u / 0.9))
@@ -333,7 +385,7 @@ def frame(t):
             p["er"] = ik(p["neck"], tgt, 42 * S, 40 * S, 1)
             st = Image.new("RGBA", (W * K, H * K), (0, 0, 0, 0))
             d = ImageDraw.Draw(st)
-            hero(st, p, "plain", -1, "determined", t)
+            draw_builder(st, p, "determined", t, -1)
             tbrick(d, bx - 10, hy + 6, "LOSER", rot=0.1, sc=0.9)
             im = compose(st, None, 3.6, BX - 40, hy + 20, spots=SPOTS, back=background(3.0), refl=False)
             im = crack(im, t, 0.8)
@@ -380,13 +432,13 @@ def render(i):
 
 
 MUSIC = "Hitman.mp3"
-HIT = 52.0
+HIT = 52.0   # lands on the end lines
 
 
 def audio():
     n = int(DUR * SR)
     out = np.zeros((n, 2))
-    put(out, track(MUSIC, HIT - T_END, DUR), 0.0, 1.8, fin=0.05, fout=1.0)
+    put(out, track(MUSIC, HIT - T_LINES, DUR), 0.0, 1.8, fin=0.05, fout=1.0)
     # laughter-ish chatter in the hook
     for j in range(3):
         mix_in(out, noise(0.2, 4 + j, lo=300, hi=2500)[:int(0.2 * SR)] * env(int(0.2 * SR), 0.01, 0.12), 0.02 + j * 0.17, 0.3, 0.0)
