@@ -395,29 +395,64 @@ MUSIC = "The Escalation.mp3"
 HIT = 308.0
 
 
+def _punch(strength=1.0, seed=0):
+    """a layered hit: sub thump with a pitch drop + leather smack + snap + short room tail"""
+    n = int(0.6 * SR)
+    tt = np.arange(n) / SR
+    rng = np.random.default_rng(seed)
+    f = 70 * np.exp(-tt * 14) + 38
+    sub = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-tt * 9)
+    sm = rng.normal(0, 1, n)
+    sm = np.convolve(sm, np.ones(6) / 6, "same") - np.convolve(sm, np.ones(60) / 60, "same")   # ~300-3k band
+    smack = sm * np.exp(-tt * 55) * 2.2
+    snap = rng.normal(0, 1, n) * np.exp(-tt * 260) * 0.6
+    tail = np.convolve(rng.normal(0, 1, n), np.ones(30) / 30, "same") * np.exp(-tt * 7) * 0.25
+    x = sub * (0.9 + 0.6 * strength) + smack * (0.6 + 0.4 * strength) + snap + tail * strength
+    return x / np.abs(x).max() * strength
+
+
+def _bell(seed=0):
+    """a boxing-ring bell: inharmonic partials, hard strike, long ring"""
+    n = int(1.6 * SR)
+    tt = np.arange(n) / SR
+    x = np.zeros(n)
+    for fr, a, dk in ((830, 1.0, 2.2), (2140, 0.6, 3.0), (2990, 0.35, 4.0), (4370, 0.2, 6.0), (1660, 0.3, 2.6)):
+        x += a * np.sin(2 * np.pi * fr * tt) * np.exp(-tt * dk)
+    x += np.random.default_rng(seed).normal(0, 1, n) * np.exp(-tt * 300) * 0.5
+    return x / np.abs(x).max()
+
+
 def audio():
     n = int(DUR * SR)
     out = np.zeros((n, 2))
-    put(out, track(MUSIC, HIT - T_LINES, DUR), 0.0, 1.6, fin=0.05, fout=1.0)
+    mus = np.zeros((n, 2))
+    put(mus, track(MUSIC, HIT - T_LINES, DUR), 0.0, 1.0, fin=0.05, fout=1.0)
+    tt = np.arange(n) / SR
     crowd = noise(DUR, 2, lo=200, hi=2500)[:n]
     crowd = np.pad(crowd, (0, n - len(crowd)))
-    tt = np.arange(n) / SR
-    lvl = 0.07 + 0.12 * np.clip((tt - T_DOWN) / 0.5, 0, 1) * np.clip((DUR - tt) / 2, 0, 1)
+    lvl = 0.03 + 0.08 * np.clip((tt - T_DOWN) / 0.5, 0, 1) * np.clip((DUR - tt) / 2, 0, 1)
     out += (crowd * lvl)[:, None]
     for c in COUNT_T:     # the count: a hard clap + boom
-        mix_in(out, noise(0.12, 5, lo=800, hi=6000)[:int(0.12 * SR)] * env(int(0.12 * SR), 0.001, 0.08), c, 0.4, 0.0)
-        mix_in(out, tone(70, 0.4, (1, 2), a=0.002, d=0.3), c, 0.45, 0.0)
+        mix_in(out, noise(0.12, 5, lo=800, hi=6000)[:int(0.12 * SR)] * env(int(0.12 * SR), 0.001, 0.08), c, 0.3, 0.0)
+        mix_in(out, tone(70, 0.4, (1, 2), a=0.002, d=0.3), c, 0.35, 0.0)
     for t0, t1, kind in MEMS:
         for c in (t0, t1):
-            mix_in(out, noise(0.3, 7, lo=400, hi=6000)[:int(0.3 * SR)] * env(int(0.3 * SR), 0.15, 0.1), c - 0.15, 0.15, 0.0)
-    thud = noise(0.25, 9, lo=40, hi=900)[:int(0.25 * SR)] * env(int(0.25 * SR), 0.002, 0.18)
-    for c, g in ((0.6, 0.35), (1.25, 0.35), (T_HIT - 0.1, 0.9), (COMBO[0] + 0.1, 0.5), (COMBO[1] + 0.1, 0.5),
-                 (COMBO[2] + 0.1, 0.6), (COMBO[3] + 0.12, 1.0)):
-        mix_in(out, thud, c, g, 0.2)
-    for c in (T_HIT - 0.1, COMBO[3] + 0.12):
-        mix_in(out, tone(50, 0.7, (1, 2), a=0.002, d=0.6), c, 0.7, 0.0)
-    mix_in(out, thud, T_FLOOR - 0.1, 0.7, -0.2)
-    mix_in(out, tone(1250, 1.4, (1, 2.7, 4.2), a=0.001, d=1.3), T_WIN, 0.35, 0.0)     # the bell
+            mix_in(out, noise(0.3, 7, lo=400, hi=6000)[:int(0.3 * SR)] * env(int(0.3 * SR), 0.15, 0.1), c - 0.15, 0.12, 0.0)
+    hits = [(0.6, 0.45), (1.25, 0.5), (T_HIT - 0.1, 1.0), (T_FLOOR - 0.1, 0.7), (COMBO[0] + 0.1, 0.7),
+            (COMBO[1] + 0.1, 0.75), (COMBO[2] + 0.1, 0.85), (COMBO[3] + 0.12, 1.0), (T_DOWN + 0.55, 0.7)]
+    duck = np.ones(n)
+    for j, (c, g) in enumerate(hits):
+        mix_in(out, _punch(g, j), c, 0.95 * g, 0.15 * (1 if j % 2 else -1))
+        if g >= 0.85:   # the music breathes out under the big ones
+            i0 = int(c * SR)
+            m = int(0.35 * SR)
+            if i0 + m < n:
+                duck[i0:i0 + m] = np.minimum(duck[i0:i0 + m], 0.35 + 0.65 * np.linspace(0, 1, m) ** 2)
+    bell = _bell()
+    for k in range(3):
+        mix_in(out, bell, T_WIN + 0.28 * k, 0.32, 0.0)
+    mus *= duck[:, None]
+    out = out + mus * 2.4
     out *= np.clip((DUR - tt) / 0.6, 0.0, 1)[:, None]
     out /= max(1.0, np.abs(out).max() / 0.9)
     return out
