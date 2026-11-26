@@ -262,7 +262,7 @@ def ring_scene(t):
     elif t < T_WIN + 0.3:
         rp = place(STAND, (170, FLOOR - 113 * S), 1, S)
     else:
-        rp = place(dict(STAND, er=(30, -150), hr=(50, -196)), (HX + 10, FLOOR - 113 * S), 1, S)
+        rp = place(dict(STAND, er=(40, -140), hr=(80, -180)), (HX - 60, FLOOR - 113 * S), 1, S)
     referee(st, rp, t, 1)
     front_ropes(d)
     if t >= T_WIN:
@@ -427,7 +427,7 @@ def frame(t):
         t0 = 23.0 if j == 0 else 23.3      # on the last punch, before he falls
         a = smooth(prog(t, t0, t0 + 0.3))
         if a > 0:
-            text(im, W / 2, 150 + j * 84, s_, 64, col=(GOLD if j else (246, 240, 226)), a=a)
+            text(im, W / 2, 150 + j * 84, s_, 54 if j == 0 else 76, col=(GOLD if j else (246, 240, 226)), a=a, sp=2)
     cuts = [m[0] for m in MEMS] + [m[1] for m in MEMS]
     if any(c <= t < c + 0.06 for c in cuts):
         im = Image.blend(im.convert("RGB"), Image.new("RGB", (W, H), (255, 255, 255)), 0.45).convert("RGBA")
