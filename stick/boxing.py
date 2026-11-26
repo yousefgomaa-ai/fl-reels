@@ -29,14 +29,16 @@ from money_chars import face, outfit, scarf, S, GOLD, RED  # noqa
 from money import text, compose, put, track  # noqa
 
 FPS, SR = 30, 44100
-DUR = 18.5
+DUR = 25.0
 NF = int(round(DUR * FPS))
 STAND = PW.STAND
-HX, DX = 470, 700         # him / DOUBT in the ring
-COUNT_T = [0.15, 1.4, 2.6, 3.8, 5.0, 6.2, 7.4, 8.6, 9.8]   # when each number is called (1..9)
-FLASH = {4: "gym", 5: "dawn", 6: "garage", 7: "quit", 8: "mom"}
-FL_IN, FL_LEN = 0.35, 0.85
-T_RISE, T_PUNCH, T_DOWN, T_WIN, T_LINES = 10.0, 13.0, 13.25, 14.6, 16.5
+HX, DX = 470, 650         # him / DOUBT in the ring
+T_HIT, T_FLOOR = 2.2, 2.9                      # he gets caught, he's down
+COUNT_T = [3.2, 5.6, 6.1, 8.2, 8.7, 10.8, 11.3, 13.4, 13.9]   # 1..9
+MEMS = [(4.0, 5.6, "gym"), (6.6, 8.2, "pullup"), (9.2, 10.8, "pushup"), (11.8, 13.4, "dawn")]
+T_RISE = 14.3
+COMBO = [16.6, 17.0, 17.5, 18.2]               # jab, jab, hook, uppercut
+T_DOWN, T_WIN, T_LINES = 18.35, 19.8, 22.6
 GLOVE_R = (214, 40, 40)
 GLOVE_K = (30, 30, 34)
 MAT = (214, 214, 222)
@@ -47,13 +49,12 @@ def count_at(t):
     for i, c in enumerate(COUNT_T):
         if t >= c:
             n = i + 1
-    return n if t < T_RISE else 0
+    return n if t < T_RISE + 0.6 else 0
 
 
 def flash_at(t):
-    for n, kind in FLASH.items():
-        t0 = COUNT_T[n - 1] + FL_IN
-        if t0 <= t < t0 + FL_LEN:
+    for t0, t1, kind in MEMS:
+        if t0 <= t < t1:
             return kind, t - t0
     return None
 
@@ -151,84 +152,117 @@ def front_ropes(d):
 
 
 # ---------------------------------------------------------------- scenes
+def hit_k(t, t0, d=0.35):
+    return math.sin(math.pi * clamp((t - t0) / d))
+
+
 def ring_scene(t):
     st = Image.new("RGBA", (W * K, H * K), (0, 0, 0, 0))
     d = ImageDraw.Draw(st)
     ring(d)
-    n = count_at(t)
-    # him
-    if t < T_RISE:
-        expr = "determined" if t >= COUNT_T[8] + 0.15 else "tired"
-        hp = place(LYING, (HX, FLOOR - 30), 1, S)
-        boxer_hero(st, hp, expr, t, 1)
+    bob = 5 * math.sin(t * 7)
+    # ---------------- him
+    if t < T_HIT:                       # the opening exchange
+        jab = hit_k(t, 1.1)
+        blk = hit_k(t, 0.5, 0.4)
+        pose = dict(GUARD, er=(36 + 30 * jab, -80), hr=(52 + 110 * jab, -124 - 10 * jab),
+                    el=(26 - 10 * blk, -80), hl=(40 - 10 * blk, -150))
+        hp = place(pose, (HX + 10 * jab, FLOOR - 113 * S + bob), 1, S)
+        hexpr = "determined"
+    elif t < T_RISE:                    # caught, spinning down, on the canvas
+        k = smooth(prog(t, T_HIT, T_FLOOR))
+        if k < 1:
+            pose = lerp_pose(dict(GUARD, head=(-30, -140), neck=(-16, -104)), LYING, k)
+            hp = place(pose, (HX - 30 * k, lerp(FLOOR - 113 * S, FLOOR - 30, k)), 1, S)
+        else:
+            hp = place(LYING, (HX - 30, FLOOR - 30), 1, S)
+        hexpr = "determined" if t >= COUNT_T[8] + 0.2 else ("shocked" if t < T_FLOOR else "tired")
     else:
         rise = smooth(prog(t, T_RISE, T_RISE + 0.9))
-        if t < T_PUNCH - 0.5:
+        punch = max(hit_k(t, c, 0.3) for c in COMBO)
+        upper = hit_k(t, COMBO[3], 0.4)
+        if t < T_WIN:
             pose = lerp_pose(dict(STAND, head=(30, -100), neck=(20, -70), kl=(40, 20), fl=(0, 60), kr=(-20, 54),
                                   fr=(-60, 60), el=(40, -20), hl=(60, 30), er=(30, -20), hr=(50, 40)), GUARD, rise)
-            hy = lerp(FLOOR - 60 * S, FLOOR - 113 * S, rise)
-            dodge = smooth(prog(t, 12.2, 12.5)) * (1 - smooth(prog(t, 12.5, 12.8)))
-            hp = place(dict(pose, head=(pose["head"][0] - 40 * dodge, pose["head"][1] + 20 * dodge)), (HX - 10 * dodge, hy), 1, S)
-        elif t < T_WIN:
-            k = smooth(prog(t, T_PUNCH - 0.5, T_PUNCH)) * (1 - smooth(prog(t, T_PUNCH + 0.4, T_PUNCH + 0.9)))
-            pose = dict(GUARD, er=(lerp(36, 60, k), lerp(-66, -150, k)), hr=(lerp(52, 110, k), lerp(-124, -200, k)),
-                        kl=(lerp(-9, -24, k), 56), fl=(lerp(-13, -40, k), 113))
-            hp = place(pose, (HX + 60 * k, FLOOR - 113 * S), 1, S)
+            side = "r" if any(c <= t < c + 0.3 for c in (COMBO[0], COMBO[2])) else "l"
+            if punch > 0:
+                if upper > 0:
+                    pose = dict(pose, er=(60, -150), hr=(110, -200))
+                elif side == "r":
+                    pose = dict(pose, er=(36 + 30 * punch, -80), hr=(52 + 120 * punch, -124))
+                else:
+                    pose = dict(pose, el=(26 + 30 * punch, -84), hl=(40 + 120 * punch, -128))
+            x = lerp(HX - 30, HX, rise) + 40 * smooth(prog(t, 16.3, 18.3))
+            hp = place(pose, (x, lerp(FLOOR - 60 * S, FLOOR - 113 * S, rise) + bob * rise), 1, S)
+            hexpr = "determined"
         else:
             up = smooth(prog(t, T_WIN, T_WIN + 0.4))
             pose = dict(STAND, er=(lerp(10, 26, up), lerp(-58, -148, up)), hr=(lerp(14, 40, up), lerp(-10, -196, up)))
             hp = place(pose, (HX + 40, FLOOR - 113 * S), 1, S)
-        expr = "determined" if t < T_WIN else "happy"
-        boxer_hero(st, hp, expr, t, 1)
-    # DOUBT
+            hexpr = "happy"
+    boxer_hero(st, hp, hexpr, t, 1)
+    # ---------------- DOUBT
     if t < T_DOWN:
-        walk_in = smooth(prog(t, T_RISE + 0.6, 12.0))
-        punch = smooth(prog(t, 12.0, 12.3)) * (1 - smooth(prog(t, 12.4, 12.8)))
-        pose = dict(GUARD, er=(36 + 30 * punch, -80), hr=(52 + 90 * punch, -120 - 10 * punch))
-        dp = place(pose, (lerp(DX + 140, DX, walk_in) - 40 * punch, FLOOR - 113 * S * 1.12), -1, S * 1.12)
-        boxer_doubt(st, dp, "smug" if t < T_PUNCH else "shocked", t)
+        jab = hit_k(t, 0.5, 0.4)
+        hook = hit_k(t, 1.9, 0.45)
+        rocked = max([hit_k(t, c + 0.12, 0.35) for c in COMBO] + [0])
+        pose = dict(GUARD, er=(36 + 30 * jab, -80), hr=(52 + 120 * jab, -120),
+                    el=(26 + 40 * hook, -110), hl=(40 + 130 * hook, -150 + 20 * hook),
+                    head=(-30 * rocked, -150 - 6 * rocked))
+        if T_FLOOR <= t < T_RISE:       # walks off, arms up, sure he won
+            pose = dict(PW.ARMS_UP)
+        x = DX if t < T_RISE else lerp(DX + 60, DX, smooth(prog(t, T_RISE + 0.4, 16.3)))
+        x += 30 * rocked
+        dexpr = "smug" if t < 16.6 else "shocked"
+        dp = place(pose, (x + (80 if T_FLOOR <= t < T_RISE else 0), FLOOR - 113 * S * 1.12 + bob), -1, S * 1.12)
+        boxer_doubt(st, dp, dexpr, t)
     else:
         fall = smooth(prog(t, T_DOWN, T_DOWN + 0.6))
         dpose = lerp_pose(dict(GUARD, head=(-20, -150)), dict(LYING, head=(150, -10), neck=(108, -6), kl=(-56, -24),
                                                              fl=(-113, -2), kr=(-56, -6), fr=(-113, 6)), fall)
-        dp = place(dpose, (DX + 40 * fall, lerp(FLOOR - 113 * S * 1.12, FLOOR - 30, fall)), -1, S * 1.12)
+        dp = place(dpose, (DX + 60 + 40 * fall, lerp(FLOOR - 113 * S * 1.12, FLOOR - 30, fall)), -1, S * 1.12)
         boxer_doubt(st, dp, "shocked" if fall < 1 else "tired", t)
-    # referee
-    if t < T_RISE + 0.6:
-        call = max([math.sin(math.pi * clamp((t - c) / 0.4)) for c in COUNT_T] + [0])
+    # ---------------- referee
+    if t < T_FLOOR:
+        rp = place(STAND, (170, FLOOR - 113 * S), 1, S)
+    elif t < T_RISE + 0.6:
+        call = max([hit_k(t, c, 0.4) for c in COUNT_T] + [0])
         rp = place(dict(STAND, head=(20, -128), neck=(12, -94), kl=(30, 14), fl=(-6, 60), kr=(-24, 52), fr=(-60, 60),
-                        er=(40, -130 - 30 * call), hr=(50, -180 - 40 * call)), (HX - 230, FLOOR - 70 * S), 1, S)
+                        er=(40, -130 - 30 * call), hr=(50, -180 - 40 * call)), (HX - 250, FLOOR - 70 * S), 1, S)
     elif t < T_WIN:
-        rp = place(STAND, (180, FLOOR - 113 * S), 1, S)
-    else:   # raises his arm
+        rp = place(STAND, (170, FLOOR - 113 * S), 1, S)
+    else:
         rp = place(dict(STAND, er=(30, -150), hr=(50, -196)), (HX - 30, FLOOR - 113 * S), 1, S)
     referee(st, rp, t, 1)
     front_ropes(d)
-    # confetti
     if t >= T_WIN:
         rng = np.random.default_rng(1)
         for _ in range(120):
             x0, sp, ph = rng.uniform(0, W), rng.uniform(0.25, 0.5), rng.uniform(0, 1)
             y = ((t - T_WIN) * sp + ph) % 1.0 * (FLOOR + 100) - 60
             c = [(240, 200, 60), (230, 60, 60), (240, 240, 245), (80, 160, 240)][int(ph * 40) % 4]
-            rrect(d, (x0 + 20 * math.sin(t * 3 + ph * 9), y, x0 + 20 * math.sin(t * 3 + ph * 9) + 10, y + 6), 1, c + (255,))
-    # camera
-    if t < 1.4:
-        z, cx, cy = 2.4, HX - 80, FLOOR - 90
+            xx = x0 + 20 * math.sin(t * 3 + ph * 9)
+            rrect(d, (xx, y, xx + 10, y + 6), 1, c + (255,))
+    # ---------------- camera
+    if t < T_HIT:
+        z, cx, cy = lerp(2.3, 2.1, t / T_HIT), 560, FLOOR - 160
+    elif t < T_FLOOR + 0.2:
+        z, cx, cy = 2.1, lerp(560, HX - 60, smooth(prog(t, T_HIT, T_FLOOR))), lerp(FLOOR - 160, FLOOR - 90, smooth(prog(t, T_HIT, T_FLOOR)))
     elif t < T_RISE:
-        z, cx, cy = lerp(2.6, 2.2, (t % 1.2) / 1.2), HX - 60, FLOOR - 70
-    elif t < T_PUNCH - 0.5:
-        k = smooth(prog(t, T_RISE, T_RISE + 1.0))
-        z, cx, cy = lerp(2.2, 2.0, k), lerp(HX - 60, 590, k), lerp(FLOOR - 70, FLOOR - 150, k)
+        z, cx, cy = 2.5 + 0.15 * math.sin(t * 2), HX - 90, FLOOR - 80
     elif t < T_WIN:
-        k = smooth(prog(t, T_PUNCH - 0.2, T_PUNCH + 0.1))
-        z, cx, cy = lerp(2.0, 2.4, k), lerp(590, 620, k), lerp(FLOOR - 150, FLOOR - 170, k)
+        k = smooth(prog(t, T_RISE, T_RISE + 1.0))
+        k2 = smooth(prog(t, COMBO[3] - 0.1, COMBO[3] + 0.15))
+        z, cx, cy = lerp(2.5, 2.1, k) + 0.3 * k2, lerp(HX - 90, 580, k), lerp(FLOOR - 80, FLOOR - 160, k)
     else:
         k = smooth(prog(t, T_WIN, T_WIN + 1.0))
         z, cx, cy = lerp(2.1, 1.75, k), 520, lerp(FLOOR - 170, FLOOR - 200, k)
     cheer = smooth(prog(t, T_DOWN, T_WIN + 0.5))
-    shake = 14 * (1 - (t - T_PUNCH) / 0.35) if T_PUNCH <= t < T_PUNCH + 0.35 else 0
-    im = compose(st, None, z, cx + shake * math.sin(t * 90), cy, spots=((HX, 1.0), (DX, 0.6)),
+    sh = 0
+    for c, a_ in ((T_HIT - 0.15, 12), (COMBO[3], 16)):
+        if c <= t < c + 0.35:
+            sh = a_ * (1 - (t - c) / 0.35)
+    im = compose(st, None, z, cx + sh * math.sin(t * 90), cy, spots=((HX, 1.0), (DX, 0.6)),
                  back=ring_back(cheer, t), refl=False)
     return im
 
@@ -265,6 +299,38 @@ def memory(kind, u, t):
         p = place(dict(GUARD, er=(40 + 50 * hit, -100), hr=(60 + 70 * hit, -120)), (520, FLOOR - 113 * S), 1, S)
         boxer_hero(st, p, "determined", t)
         cam = (1.9, 560, FLOOR - 160)
+    elif kind == "pullup":
+        for x in (380, 700):
+            line(d, [(x, FLOOR), (x, FLOOR - 470)], (90, 90, 96, 255), 9)
+        line(d, [(370, FLOOR - 460), (710, FLOOR - 460)], (150, 150, 156, 255), 7)
+        up = 0.5 - 0.5 * math.cos(t * 5)
+        hip_y = FLOOR - 272 - 60 * up
+        pose = {"head": (0, -150 + 20 * (1 - up)), "neck": (0, -108), "kl": (-6, 56), "fl": (-14, 112), "kr": (6, 56),
+                "fr": (-4, 112)}
+        p = dict(place(dict(pose, el=(0, 0), hl=(0, 0), er=(0, 0), hr=(0, 0)), (540, hip_y), 1, S))
+        for side, hx in (("l", 500), ("r", 580)):
+            tgt = (hx, FLOOR - 466)
+            p["h" + side] = tgt
+            p["e" + side] = ik(p["neck"], tgt, 42 * S, 40 * S, 1 if side == "r" else -1)
+        boxer_hero(st, p, "determined" if up > 0.5 else "tired", t, gloves=False)
+        cam = (1.8, 540, FLOOR - 250)
+    elif kind == "pushup":
+        up = 0.5 - 0.5 * math.cos(t * 6)
+        x = 470
+        hip = (x, FLOOR - 52 - 26 * up)
+        neck = (x + 100, FLOOR - 70 - 44 * up)
+        p = {"hip": hip, "neck": neck, "head": (neck[0] + 40, neck[1] - 4),
+             "kl": (x - 56, FLOOR - 34 - 14 * up), "fl": (x - 112, FLOOR - 12), "kr": (x - 56, FLOOR - 30 - 14 * up),
+             "fr": (x - 112, FLOOR - 8)}
+        for side, dx in (("l", -6), ("r", 6)):
+            tgt = (neck[0] + 6 + dx, FLOOR - 4)
+            p["h" + side] = tgt
+            p["e" + side] = ik(neck, tgt, 42 * S, 40 * S, -1)
+        boxer_hero(st, p, "determined", t, gloves=False)
+        rng = np.random.default_rng(int(t * 6))
+        for j in range(3):   # sweat
+            ell(d, p["head"][0] + rng.uniform(-10, 20), p["head"][1] + 30 + 40 * ((t * 2 + j / 3) % 1), 3, 5, (150, 200, 255, 220))
+        cam = (2.1, 520, FLOOR - 100)
     elif kind == "quit":
         p = place(dict(STAND, head=(16, -136)), (560, FLOOR - 113 * S), -1, S)
         boxer_hero(st, p, "sad", t, f=-1, gloves=False)
@@ -308,19 +374,15 @@ def frame(t):
         k = hq.pop(t, c, 0.18)
         f = font("InterDisplay-Bold.otf", int(260 * max(0.3, k)))
         PW.spaced(d, W / 2, 180, str(n), f, (255, 255, 255, 255), 0)
-    if t < 1.4:
-        a = hq.pop(t, 0.5, 0.2) if t >= 0.5 else 0
-        if a > 0:
-            text(im, W / 2, 1420, "GET UP.", int(150 * max(0.3, a)), col=GOLD)
-    if 9.8 <= t < T_RISE + 0.9:
-        a = hq.pop(t, COUNT_T[8] + 0.1, 0.2)
+    if COUNT_T[8] + 0.15 <= t < T_RISE + 0.9:
+        a = hq.pop(t, COUNT_T[8] + 0.15, 0.2)
         text(im, W / 2, 1420, "GET UP.", 150, col=GOLD, a=min(1, a))
     for j, s_ in enumerate(("THEY COUNTED HIM OUT.", "HE COUNTED ON HIMSELF.")):
-        a = smooth(prog(t, T_LINES + 0.7 * j, T_LINES + 0.7 * j + 0.35))
+        a = smooth(prog(t, T_LINES + 0.8 * j, T_LINES + 0.8 * j + 0.35))
         if a > 0:
             text(im, W / 2, 150 + j * 84, s_, 64, col=(GOLD if j else (246, 240, 226)), a=a)
-    if fl and fl[1] < 0.06 or (not fl and any(COUNT_T[m - 1] + FL_IN + FL_LEN <= t < COUNT_T[m - 1] + FL_IN + FL_LEN + 0.06
-                                                for m in FLASH)):
+    cuts = [m[0] for m in MEMS] + [m[1] for m in MEMS]
+    if any(c <= t < c + 0.06 for c in cuts):
         im = Image.blend(im.convert("RGB"), Image.new("RGB", (W, H), (255, 255, 255)), 0.45).convert("RGBA")
     return np.asarray(im.convert("RGB"))
 
@@ -340,16 +402,21 @@ def audio():
     crowd = noise(DUR, 2, lo=200, hi=2500)[:n]
     crowd = np.pad(crowd, (0, n - len(crowd)))
     tt = np.arange(n) / SR
-    lvl = 0.05 + 0.12 * np.clip((tt - T_DOWN) / 0.5, 0, 1) * np.clip((DUR - tt) / 2, 0, 1)
+    lvl = 0.07 + 0.12 * np.clip((tt - T_DOWN) / 0.5, 0, 1) * np.clip((DUR - tt) / 2, 0, 1)
     out += (crowd * lvl)[:, None]
     for c in COUNT_T:     # the count: a hard clap + boom
         mix_in(out, noise(0.12, 5, lo=800, hi=6000)[:int(0.12 * SR)] * env(int(0.12 * SR), 0.001, 0.08), c, 0.4, 0.0)
         mix_in(out, tone(70, 0.4, (1, 2), a=0.002, d=0.3), c, 0.45, 0.0)
-    for m in FLASH:
-        mix_in(out, noise(0.3, 7, lo=400, hi=6000)[:int(0.3 * SR)] * env(int(0.3 * SR), 0.15, 0.1), COUNT_T[m - 1] + FL_IN - 0.15,
-               0.15, 0.0)
-    mix_in(out, noise(0.3, 9, lo=40, hi=900)[:int(0.3 * SR)] * env(int(0.3 * SR), 0.002, 0.2), T_PUNCH, 0.9, 0.2)
-    mix_in(out, tone(50, 0.7, (1, 2), a=0.002, d=0.6), T_PUNCH, 0.7, 0.0)
+    for t0, t1, kind in MEMS:
+        for c in (t0, t1):
+            mix_in(out, noise(0.3, 7, lo=400, hi=6000)[:int(0.3 * SR)] * env(int(0.3 * SR), 0.15, 0.1), c - 0.15, 0.15, 0.0)
+    thud = noise(0.25, 9, lo=40, hi=900)[:int(0.25 * SR)] * env(int(0.25 * SR), 0.002, 0.18)
+    for c, g in ((0.6, 0.35), (1.25, 0.35), (T_HIT - 0.1, 0.9), (COMBO[0] + 0.1, 0.5), (COMBO[1] + 0.1, 0.5),
+                 (COMBO[2] + 0.1, 0.6), (COMBO[3] + 0.12, 1.0)):
+        mix_in(out, thud, c, g, 0.2)
+    for c in (T_HIT - 0.1, COMBO[3] + 0.12):
+        mix_in(out, tone(50, 0.7, (1, 2), a=0.002, d=0.6), c, 0.7, 0.0)
+    mix_in(out, thud, T_FLOOR - 0.1, 0.7, -0.2)
     mix_in(out, tone(1250, 1.4, (1, 2.7, 4.2), a=0.001, d=1.3), T_WIN, 0.35, 0.0)     # the bell
     out *= np.clip((DUR - tt) / 0.6, 0.0, 1)[:, None]
     out /= max(1.0, np.abs(out).max() / 0.9)
@@ -360,7 +427,7 @@ def main():
     here = os.path.dirname(os.path.abspath(__file__))
     os.makedirs(os.path.join(here, "boxing"), exist_ok=True)
     if "--stills" in sys.argv:
-        ts = [float(a) for a in sys.argv[2:]] or [0.8, 4.5, 5.7, 6.9, 8.1, 9.3, 10.3, 12.2, 13.4, 17.8]
+        ts = [float(a) for a in sys.argv[2:]] or [0.6, 2.3, 3.4, 4.8, 7.4, 10.0, 12.6, 14.2, 17.6, 18.3, 21.0, 24.0]
         sheet = Image.new("RGB", (360 * len(ts), 640))
         for j, t in enumerate(ts):
             sheet.paste(Image.fromarray(frame(t)).resize((360, 640), Image.LANCZOS), (j * 360, 0))
