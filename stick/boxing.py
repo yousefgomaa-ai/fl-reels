@@ -37,6 +37,7 @@ T_HIT, T_FLOOR = 2.2, 2.9                      # he gets caught, he's down
 COUNT_T = [3.2, 5.6, 6.1, 8.2, 8.7, 10.8, 11.3, 13.4, 13.9]   # 1..9
 MEMS = [(4.0, 5.6, "gym"), (6.6, 8.2, "pullup"), (9.2, 10.8, "pushup"), (11.8, 13.4, "dawn")]
 T_RISE = 14.3
+GYM_RATE = 2.6      # punches per second on the bag
 COMBO = [16.6, 17.0, 17.5, 18.2]               # jab, jab, hook, uppercut
 T_DOWN, T_WIN, T_LINES = 18.35, 19.8, 22.6
 GLOVE_R = (214, 40, 40)
@@ -272,12 +273,28 @@ def memory(kind, u, t):
     d = ImageDraw.Draw(st)
     cam = (2.0, 540, FLOOR - 130)
     if kind == "gym":
-        line(d, [(640, FLOOR - 480), (640, FLOOR - 330)], (120, 120, 120, 255), 4)
-        rrect(d, (612, FLOOR - 330, 668, FLOOR - 150), 20, (110, 60, 50, 255))
-        p = place(dict(GUARD, er=(60, -110), hr=(110, -130)), (530, FLOOR - 113 * S), 1, S)
+        ph = (u * GYM_RATE) % 1.0
+        ext = math.sin(math.pi * ph) ** 2
+        left = int(u * GYM_RATE) % 2 == 0
+        since = (u - (math.floor(u * GYM_RATE - 0.5) + 0.5) / GYM_RATE) if u * GYM_RATE >= 0.5 else 9
+        sw = 0.12 * math.exp(-since * 5) * math.sin(since * 14)          # the bag swings after each hit
+        bx, by = 640 + 300 * math.sin(sw), FLOOR - 330 + 300 * (1 - math.cos(sw))
+        line(d, [(640, FLOOR - 630), (bx, by)], (120, 120, 120, 255), 4)
+        c_, s_ = math.cos(sw), math.sin(sw)
+        poly(d, [(bx - 28 * c_, by + 28 * s_), (bx + 28 * c_, by - 28 * s_), (bx + 28 * c_ - 180 * s_, by - 28 * s_ + 180 * c_),
+                 (bx - 28 * c_ - 180 * s_, by + 28 * s_ + 180 * c_)], (110, 60, 50, 255))
+        pose = dict(GUARD)
+        if left:
+            pose = dict(pose, el=(26 + 50 * ext, -90), hl=(40 + 95 * ext, -118 + 10 * ext))
+        else:
+            pose = dict(pose, er=(36 + 50 * ext, -86), hr=(52 + 95 * ext, -114 + 10 * ext))
+        p = place(pose, (520 + 10 * ext, FLOOR - 113 * S + 4 * ext), 1, S)
         boxer_hero(st, p, "determined", t)
         for j, x in enumerate((300, 380)):
-            pp = place(dict(STAND, er=(40, -110), hr=(90, -120)), (x, FLOOR - 113 * S), 1, S)
+            bounce = abs(math.sin(t * 9 + j))
+            pp = place(dict(STAND, head=(4, -150 - 6 * bounce), er=(40, -110 + 8 * math.sin(t * 14 + j)),
+                            hr=(90, -120 + 12 * math.sin(t * 14 + j)), el=(-20, -70), hl=(-10, -30 - 10 * bounce)),
+                       (x, FLOOR - 113 * S - 5 * bounce), 1, S)
             plain(st, pp, "laugh", t)
         cam = (1.7, 470, FLOOR - 150)
     elif kind == "dawn":
@@ -448,6 +465,15 @@ def audio():
             m = int(0.35 * SR)
             if i0 + m < n:
                 duck[i0:i0 + m] = np.minimum(duck[i0:i0 + m], 0.35 + 0.65 * np.linspace(0, 1, m) ** 2)
+    g0 = [m[0] for m in MEMS if m[2] == "gym"][0]
+    g1 = [m[1] for m in MEMS if m[2] == "gym"][0]
+    k = 0
+    while True:
+        at = g0 + (k + 0.5) / GYM_RATE
+        if at >= g1:
+            break
+        mix_in(out, _punch(0.55, 20 + k), at, 0.55, 0.3)
+        k += 1
     bell = _bell()
     for k in range(3):
         mix_in(out, bell, T_WIN + 0.28 * k, 0.32, 0.0)
