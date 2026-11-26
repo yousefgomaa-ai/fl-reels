@@ -423,8 +423,8 @@ def frame(t):
     if COUNT_T[8] + 0.15 <= t < T_RISE + 0.9:
         a = hq.pop(t, COUNT_T[8] + 0.15, 0.2)
         text(im, W / 2, 1420, "GET UP.", 150, col=GOLD, a=min(1, a))
-    for j, s_ in enumerate(("THEY COUNTED HIM OUT.", "HE COUNTED ON HIMSELF.")):
-        t0 = T_LINES if j == 0 else T_DOWN + 0.15
+    for j, s_ in enumerate(("EVERYONE COUNTED HIM OUT.", "HE GOT UP.")):
+        t0 = 23.0 if j == 0 else 23.3      # on the last punch, before he falls
         a = smooth(prog(t, t0, t0 + 0.3))
         if a > 0:
             text(im, W / 2, 150 + j * 84, s_, 64, col=(GOLD if j else (246, 240, 226)), a=a)
