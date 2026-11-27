@@ -1,3 +1,13 @@
 import {makeProject} from '@motion-canvas/core';
-import jump from './scenes/jump?scene';
-export default makeProject({scenes: [jump]});
+import s01 from './scenes/s01_baby?scene';
+import s02 from './scenes/s02_bike?scene';
+import s03 from './scenes/s03_rope?scene';
+import s04 from './scenes/s04_flip?scene';
+import s05 from './scenes/s05_wall?scene';
+import s06 from './scenes/s06_long?scene';
+import s07 from './scenes/s07_pullup?scene';
+import s08 from './scenes/s08_penalty?scene';
+import s09 from './scenes/s09_lift?scene';
+import s10 from './scenes/s10_high?scene';
+import s11 from './scenes/s11_end?scene';
+export default makeProject({scenes: [s01, s02, s03, s04, s05, s06, s07, s08, s09, s10, s11]});

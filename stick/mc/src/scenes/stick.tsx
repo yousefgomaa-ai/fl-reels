@@ -1,11 +1,17 @@
 import {Circle, Line, Node, NodeProps, Polygon} from '@motion-canvas/2d';
-import {createSignal, SimpleSignal, Vector2} from '@motion-canvas/core';
+import {all, createSignal, SimpleSignal, Vector2} from '@motion-canvas/core';
 
 /** A rigged stick figure: forward kinematics, angles in radians measured from "straight down", + = forward. */
 export interface StickProps extends NodeProps {
   body?: string;
   scarf?: boolean;
+  head?: number;        // head diameter (baby: bigger)
+  mom?: boolean;
+  shirt?: string;
 }
+
+export type Pose = Partial<Record<'torso' | 'headTilt' | 'armL' | 'elbowL' | 'armR' | 'elbowR' | 'legL' | 'kneeL' | 'legR' | 'kneeR', number>>;
+export const STAND: Pose = {torso: 0, headTilt: 0, armL: 0.25, elbowL: 0.2, armR: -0.25, elbowR: 0.2, legL: 0.12, kneeL: 0, legR: -0.12, kneeR: 0};
 
 const UP = 104, HEAD = 44, ARM1 = 42, ARM2 = 40, LEG1 = 56, LEG2 = 57;
 
@@ -34,6 +40,14 @@ export class Stick extends Node {
     return [base, j, e];
   }
 
+  public *pose(p: Pose, secs: number, ease: (t: number) => number = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2) {
+    const tasks = Object.entries(p).map(([k, v]) => (this as any)[k](v, secs, ease));
+    yield* all(...tasks);
+  }
+  public set(p: Pose) {
+    for (const [k, v] of Object.entries(p)) (this as any)[k](v);
+  }
+
   public constructor(props?: StickProps) {
     super({...props});
     const col = props?.body ?? '#eceef4';
@@ -48,7 +62,16 @@ export class Stick extends Node {
       }
       this.add(<Line points={() => [hip(), this.neck()]} stroke={w > 21 ? ink : col} lineWidth={w} lineCap={'round'} />);
     }
-    this.add(<Circle position={this.headPos} size={66} fill={col} stroke={ink} lineWidth={3.5} />);
+    if (props?.shirt) {
+      this.add(<Line points={() => [hip().add(new Vector2(0, 6)), this.neck()]} stroke={props.shirt} lineWidth={30} lineCap={'round'} />);
+    }
+    if (props?.mom) {
+      this.add(<Line points={() => [this.neck().add(new Vector2(-16, 6)), this.neck().add(new Vector2(16, 6)),
+        hip().add(new Vector2(38, 70)), hip().add(new Vector2(-38, 70))]} closed fill={'#b86a8a'} />);
+      this.add(<Circle position={() => this.headPos().add(new Vector2(-14, -26))} size={34} fill={'#3a2a22'} />);
+    }
+    const hs = props?.head ?? 66;
+    this.add(<Circle position={this.headPos} size={hs} fill={col} stroke={ink} lineWidth={3.5} />);
     // face, turned a little toward +x
     const f = () => this.headPos().add(new Vector2(7, 4));
     this.add(<Circle position={() => f().add(new Vector2(-11, -6))} width={7} height={() => 1 + 8 * this.eyes()} fill={ink} />);
