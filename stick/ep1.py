@@ -32,16 +32,35 @@ FPS, SR = 30, 44100
 DUR = 15.0
 NF = int(round(DUR * FPS))
 STAND = PW.STAND
-SC = [(0.0, 3.4, "stone"), (3.4, 6.6, "seed"), (6.6, 9.8, "mirror"), (9.8, 13.4, "bamboo"), (13.4, DUR, "end")]
+ORIG = {"stone": 3.4, "seed": 3.2, "ice": 3.2, "mirror": 3.2, "views": 3.2, "bamboo": 3.6}
+ORDER = [("stone", 2.3), ("seed", 2.1), ("ice", 2.1), ("mirror", 2.1), ("views", 2.1), ("bamboo", 2.7)]
+SC = []
+_t = 0.0
+for _k, _d in ORDER:
+    SC.append((_t, _t + _d, _k))
+    _t += _d
+SC.append((_t, DUR, "end"))
+T_END = _t
 SOIL = (58, 40, 28)
 GREEN = (90, 190, 90)
 
 
 def scene_at(t):
+    """(kind, u on the scene's own clock, real length)"""
     for a, b, k in SC:
         if a <= t < b:
-            return k, t - a, b - a
+            return k, (t - a) * (ORIG.get(k, 1.0) / (b - a) if k in ORIG else 1.0), b - a
     return "end", t - SC[-1][0], 1.6
+
+
+def start(kind):
+    return [a for a, b, k in SC if k == kind][0]
+
+
+def at(kind, u):
+    """real time of a moment u on that scene's own clock"""
+    a, b = [(a, b) for a, b, k in SC if k == kind][0]
+    return a + u * (b - a) / ORIG[kind]
 
 
 def counter(im, s, col=(246, 246, 250), y=170, size=150, k=1.0):
@@ -171,6 +190,79 @@ def mirror(st, d, u):
     return (1.6, 580, FLOOR - 210)
 
 
+# ---------------------------------------------------------------- the ice cube
+MELT = 2.4
+
+
+def ice_temp(u):
+    if u >= MELT:
+        return 0
+    return -10 + int(10 * (u / MELT) ** 0.9)
+
+
+def ice(st, d, u):
+    rrect(d, (440, FLOOR - 92, 840, FLOOR - 80), 3, (90, 70, 52, 255))
+    for x in (460, 820):
+        line(d, [(x, FLOOR - 80), (x, FLOOR)], (60, 46, 34, 255), 7)
+    m = smooth(prog(u, MELT, MELT + 0.7))
+    w = 150 * (1 - 0.85 * m)
+    h = 130 * (1 - 0.9 * m)
+    cx = 640
+    if h > 4:
+        rrect(d, (cx - w / 2, FLOOR - 92 - h, cx + w / 2, FLOOR - 92), 14, (190, 225, 250, 255), outline=(120, 170, 210, 255), w=3)
+        line(d, [(cx - w / 2 + 16, FLOOR - 92 - h + 16), (cx - w / 2 + 40, FLOOR - 92 - h + 16)], (240, 250, 255, 255), 5)
+    if m > 0:
+        ell(d, cx, FLOOR - 92, 60 + 160 * m, 8 + 6 * m, (150, 200, 240, 220))
+        for j in range(4):
+            v = (u * 2 + j / 4) % 1
+            ell(d, cx + 160 * m - 20 + 10 * j, FLOOR - 80 + 80 * v, 3, 5, (150, 200, 240, int(220 * (1 - v))))
+    p = place(dict(STAND, head=(16, -146)), (330, FLOOR - 113 * S), 1, S)
+    hero(st, p, "plain", 1, "tired" if u < MELT else "shocked" if u < MELT + 0.3 else "happy", u)
+    # thermometer
+    rrect(d, (900, FLOOR - 420, 930, FLOOR - 150), 14, (230, 230, 236, 255))
+    lvl = (ice_temp(u) + 10) / 10
+    rrect(d, (906, FLOOR - 170 - 230 * lvl, 924, FLOOR - 150), 9, (220, 60, 60, 255))
+    ell(d, 915, FLOOR - 140, 26, 26, (220, 60, 60, 255))
+    return (1.55, 620, FLOOR - 190)
+
+
+# ---------------------------------------------------------------- the views
+VIRAL = 2.4
+
+
+def views_now(u):
+    if u >= VIRAL:
+        return int(1200000 * smooth(prog(u, VIRAL, VIRAL + 0.4)))
+    rng = np.random.default_rng(int(u * 6))
+    return int(rng.integers(6, 40))
+
+
+def views(st, d, u):
+    rrect(d, (520, FLOOR - 96, 860, FLOOR - 84), 3, (90, 70, 52, 255))
+    for x in (540, 840):
+        line(d, [(x, FLOOR - 84), (x, FLOOR)], (60, 46, 34, 255), 7)
+    # the laptop, screen toward us
+    rrect(d, (590, FLOOR - 290, 800, FLOOR - 140), 8, (30, 32, 40, 255), outline=(150, 154, 164, 255), w=3)
+    poly(d, [(570, FLOOR - 140), (820, FLOOR - 140), (840, FLOOR - 96), (550, FLOOR - 96)], (150, 154, 164, 255))
+    v = views_now(u)
+    col = GOLD if u >= VIRAL else (200, 204, 214)
+    PW.spaced(d, 695 * K, (FLOOR - 236) * K, f"{v:,}", font("InterDisplay-Bold.otf", (40 if v < 1000 else 34) * K), col + (255,), 1)
+    PW.spaced(d, 695 * K, (FLOOR - 186) * K, "VIEWS", font("Inter-SemiBold.otf", 18 * K), (150, 154, 170, 255), 4)
+    pose = dict(PW.SIT, head=(20, -146))
+    p = place(pose, (470, FLOOR - 90), 1, S)
+    p = set_arm(set_arm(p, "r", (548, FLOOR - 104 - 6 * abs(math.sin(u * 14))), 1), "l", (532, FLOOR - 104), 1)
+    rrect(d, (430, FLOOR - 92, 510, FLOOR - 80), 3, (40, 40, 46, 255))
+    line(d, [(470, FLOOR - 80), (470, FLOOR)], (40, 40, 46, 255), 6)
+    hero(st, p, "plain", 1, "tired" if u < VIRAL else ("shocked" if u < VIRAL + 0.5 else "happy"), u)
+    return (1.6, 600, FLOOR - 190)
+
+
+def video_no(u):
+    if u >= VIRAL:
+        return 100
+    return max(1, min(99, int(1 + 98 * (u / VIRAL) ** 1.3)))
+
+
 # ---------------------------------------------------------------- 4. the bamboo
 def bamboo(st, d, u):
     poly(d, [(0, FLOOR), (W, FLOOR), (W, H), (0, H)], SOIL + (255,))
@@ -200,7 +292,7 @@ def bamboo_year(u):
 
 
 # ---------------------------------------------------------------- frame
-FN = {"stone": stone, "seed": seed, "mirror": mirror, "bamboo": bamboo}
+FN = {"stone": stone, "seed": seed, "ice": ice, "mirror": mirror, "views": views, "bamboo": bamboo}
 
 
 def frame(t):
@@ -227,6 +319,12 @@ def frame(t):
         counter(im, f"DAY {max(1, int(1 + 89 * clamp(u / 2.6)))}", size=110)
     elif kind == "mirror":
         counter(im, f"MONTH {max(1, min(6, 1 + int(u / 0.45)))}", size=110)
+    elif kind == "ice":
+        tmp = ice_temp(u)
+        counter(im, f"{tmp}°C", GOLD if tmp == 0 else (170, 210, 250), size=130, k=hq.pop(u, MELT, 0.2) if tmp == 0 else 1.0)
+    elif kind == "views":
+        n = video_no(u)
+        counter(im, f"VIDEO #{n}", GOLD if n == 100 else (246, 246, 250), size=110)
     elif kind == "bamboo":
         yr = bamboo_year(u)
         counter(im, f"YEAR {yr}", GOLD if yr == 5 else (246, 246, 250), size=120)
@@ -255,21 +353,29 @@ def audio(sfx_only=False):
     n = int(DUR * SR)
     out = np.zeros((n, 2))
     if not sfx_only:
-        put(out, track(MUSIC, HIT - 12.2, DUR), 0.0, 2.2, fin=0.05, fout=1.0)
+        put(out, track(MUSIC, HIT - at("bamboo", 2.4), DUR), 0.0, 2.2, fin=0.05, fout=1.0)
     clank = lambda: tone(900, 0.25, (1, 2.76, 5.4), a=0.001, d=0.2)  # noqa
     for k in range(9):
-        mix_in(out, clank(), (k + 0.5) * HITS_AT / 9, 0.35, 0.2)
-    mix_in(out, noise(0.9, 4, lo=60, hi=3000)[:int(0.9 * SR)] * env(int(0.9 * SR), 0.002, 0.6), HITS_AT, 0.8, 0.0)
-    mix_in(out, tone(50, 0.7, (1, 2), a=0.002, d=0.6), HITS_AT, 0.7, 0.0)
-    mix_in(out, noise(2.6, 6, lo=1500, hi=7000)[:int(2.6 * SR)] * env(int(2.6 * SR), 0.2, 0.4), 3.6, 0.08, 0.3)   # water
-    for k in range(7):
-        mix_in(out, tone(2400, 0.12, (1, 2.3), a=0.001, d=0.08), 6.7 + k * 0.45, 0.12, -0.2)   # dumbbell clink
-    mix_in(out, tone(1300, 0.9, (1, 2, 3), a=0.002, d=0.8), 6.6 + 2.35, 0.2, 0.0)            # the change
+        mix_in(out, clank(), at("stone", (k + 0.5) * HITS_AT / 9), 0.35, 0.2)
+    boom = lambda: tone(50, 0.7, (1, 2), a=0.002, d=0.6)  # noqa
+    crack = noise(0.9, 4, lo=60, hi=3000)[:int(0.9 * SR)] * env(int(0.9 * SR), 0.002, 0.6)
+    mix_in(out, crack, at("stone", HITS_AT), 0.8, 0.0)
+    mix_in(out, boom(), at("stone", HITS_AT), 0.7, 0.0)
+    mix_in(out, noise(2.0, 6, lo=1500, hi=7000)[:int(2.0 * SR)] * env(int(2.0 * SR), 0.2, 0.4), start("seed"), 0.08, 0.3)
+    for k in range(9):   # the thermometer ticking up
+        mix_in(out, tone(1600, 0.05, (1, 2), a=0.001, d=0.03), at("ice", (k + 0.5) * MELT / 10), 0.12, 0.3)
+    mix_in(out, noise(0.8, 8, lo=300, hi=4000)[:int(0.8 * SR)] * env(int(0.8 * SR), 0.05, 0.6), at("ice", MELT), 0.3, 0.0)
+    for k in range(5):
+        mix_in(out, tone(2400, 0.12, (1, 2.3), a=0.001, d=0.08), at("mirror", 0.2 + k * 0.45), 0.12, -0.2)
+    mix_in(out, tone(1300, 0.9, (1, 2, 3), a=0.002, d=0.8), at("mirror", 2.35), 0.2, 0.0)
+    for k in range(10):  # keyboard
+        mix_in(out, tone(3000, 0.03, (1,), a=0.001, d=0.02), at("views", 0.1 + k * 0.22), 0.08, 0.2)
+    mix_in(out, tone(880, 0.6, (1, 2, 3), a=0.002, d=0.5), at("views", VIRAL), 0.25, 0.0)
     for k in range(4):
-        mix_in(out, tone(220, 0.12, (1, 2), a=0.001, d=0.08), 9.8 + k * 0.6, 0.3, 0.0)        # YEAR ticks
+        mix_in(out, tone(220, 0.12, (1, 2), a=0.001, d=0.08), at("bamboo", k * 0.6), 0.3, 0.0)
     whoosh = noise(1.0, 9, lo=200, hi=6000)[:int(1.0 * SR)] * env(int(1.0 * SR), 0.6, 0.3)
-    mix_in(out, whoosh, 9.8 + 2.35, 0.5, 0.0)
-    mix_in(out, tone(60, 0.8, (1, 2), a=0.002, d=0.7), 13.4, 0.5, 0.0)
+    mix_in(out, whoosh, at("bamboo", 2.35), 0.5, 0.0)
+    mix_in(out, boom(), T_END, 0.5, 0.0)
     tt = np.arange(n) / SR
     out *= np.clip((DUR - tt) / 0.5, 0.0, 1)[:, None]
     out /= max(1.0, np.abs(out).max() / 0.9)
@@ -279,7 +385,7 @@ def audio(sfx_only=False):
 def main():
     here = os.path.dirname(os.path.abspath(__file__))
     if "--stills" in sys.argv:
-        ts = [float(a) for a in sys.argv[2:]] or [0.8, 2.75, 4.0, 6.2, 7.5, 9.4, 10.8, 12.9, 14.4]
+        ts = [float(a) for a in sys.argv[2:]] or [0.8, 2.0, 3.6, 5.6, 6.9, 8.4, 9.6, 10.6, 11.7, 13.6, 14.6]
         sheet = Image.new("RGB", (360 * len(ts), 640))
         for j, t in enumerate(ts):
             sheet.paste(Image.fromarray(frame(t)).resize((360, 640), Image.LANCZOS), (j * 360, 0))
