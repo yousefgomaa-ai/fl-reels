@@ -1,8 +1,8 @@
 [
  {
-  "id": "xxHIICJ8uU4",
+  "id": "jL9-mTsGsJE",
   "oembed": {
-   "title": "Let Them Doubt You",
+   "title": "Work smart over hard",
    "author_name": "Simply Animated",
    "author_url": "https://www.youtube.com/@SimplyAnimatedVisuals",
    "type": "video",
@@ -13,10 +13,70 @@
    "provider_url": "https://www.youtube.com/",
    "thumbnail_height": 360,
    "thumbnail_width": 480,
-   "thumbnail_url": "https://i.ytimg.com/vi/xxHIICJ8uU4/hq2.jpg",
-   "html": "<iframe width=\"113\" height=\"200\" src=\"https://www.youtube.com/embed/xxHIICJ8uU4?feature=oembed\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen title=\"Let Them Doubt You\"></iframe>"
+   "thumbnail_url": "https://i.ytimg.com/vi/jL9-mTsGsJE/hq2.jpg",
+   "html": "<iframe width=\"113\" height=\"200\" src=\"https://www.youtube.com/embed/jL9-mTsGsJE?feature=oembed\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen title=\"Work smart over hard\"></iframe>"
   },
-  "meta_err": "] xxHIICJ8uU4: Sign in to confirm you’re not a bot. This helps protect our community. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies\n",
-  "dl_err": "from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies\n"
+  "meta_err": "ERROR: [youtube] jL9-mTsGsJE: Video unavailable. This content isn’t available.\n",
+  "dl_err": "ERROR: [youtube] jL9-mTsGsJE: Video unavailable. This content isn’t available.\n"
+ },
+ {
+  "id": "65JbnU2wZbQ",
+  "oembed": {
+   "title": "Make it happen, prove it to yourself",
+   "author_name": "Simply Animated",
+   "author_url": "https://www.youtube.com/@SimplyAnimatedVisuals",
+   "type": "video",
+   "height": 200,
+   "width": 113,
+   "version": "1.0",
+   "provider_name": "YouTube",
+   "provider_url": "https://www.youtube.com/",
+   "thumbnail_height": 360,
+   "thumbnail_width": 480,
+   "thumbnail_url": "https://i.ytimg.com/vi/65JbnU2wZbQ/hq2.jpg",
+   "html": "<iframe width=\"113\" height=\"200\" src=\"https://www.youtube.com/embed/65JbnU2wZbQ?feature=oembed\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen title=\"Make it happen, prove it to yourself\"></iframe>"
+  },
+  "meta_err": "ERROR: [youtube] 65JbnU2wZbQ: Video unavailable. This content isn’t available.\n",
+  "dl_err": "ERROR: [youtube] 65JbnU2wZbQ: Video unavailable. This content isn’t available.\n"
+ },
+ {
+  "id": "MYjL0aPNzVA",
+  "oembed": {
+   "title": "Great Things Always Start Small",
+   "author_name": "Simply Animated",
+   "author_url": "https://www.youtube.com/@SimplyAnimatedVisuals",
+   "type": "video",
+   "height": 200,
+   "width": 113,
+   "version": "1.0",
+   "provider_name": "YouTube",
+   "provider_url": "https://www.youtube.com/",
+   "thumbnail_height": 360,
+   "thumbnail_width": 480,
+   "thumbnail_url": "https://i.ytimg.com/vi/MYjL0aPNzVA/hq2.jpg",
+   "html": "<iframe width=\"113\" height=\"200\" src=\"https://www.youtube.com/embed/MYjL0aPNzVA?feature=oembed\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen title=\"Great Things Always Start Small\"></iframe>"
+  },
+  "meta_err": "ERROR: [youtube] MYjL0aPNzVA: Video unavailable. This content isn’t available.\n",
+  "dl_err": "ERROR: [youtube] MYjL0aPNzVA: Video unavailable. This content isn’t available.\n"
+ },
+ {
+  "id": "xhulfb0xl2s",
+  "oembed": {
+   "title": "Success is earned, never given",
+   "author_name": "Simply Animated",
+   "author_url": "https://www.youtube.com/@SimplyAnimatedVisuals",
+   "type": "video",
+   "height": 200,
+   "width": 113,
+   "version": "1.0",
+   "provider_name": "YouTube",
+   "provider_url": "https://www.youtube.com/",
+   "thumbnail_height": 360,
+   "thumbnail_width": 480,
+   "thumbnail_url": "https://i.ytimg.com/vi/xhulfb0xl2s/hq2.jpg",
+   "html": "<iframe width=\"113\" height=\"200\" src=\"https://www.youtube.com/embed/xhulfb0xl2s?feature=oembed\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen title=\"Success is earned, never given\"></iframe>"
+  },
+  "meta_err": "ERROR: [youtube] xhulfb0xl2s: Video unavailable. This content isn’t available.\n",
+  "dl_err": "ERROR: [youtube] xhulfb0xl2s: Video unavailable. This content isn’t available.\n"
  }
 ]
