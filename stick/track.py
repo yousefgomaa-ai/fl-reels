@@ -181,7 +181,7 @@ def pose_of(nm, s, hipx, gy, sc):
             p = blendp(p, trip, smooth(prog(s, S_HIT - 0.05, S_HIT + 0.08)))
             if s >= T1 - 0.08:         # ...and hits the track
                 u2 = clamp((s - T1) / (S_GROUND - T1))
-                dive = clip(DIVE).pts(lerp(3.3, 3.95, u2), x0=0, floor=gy, scale=sc, x_lock=hipx)
+                dive = clip(DIVE).pts(lerp(3.3, 3.95, u2), x0=0, floor=gy, scale=sc, x_lock=hipx, facing=-1)
                 p = blendp(p, dive, smooth(prog(s, T1 - 0.08, T1 + 0.08)))
         if s >= S_UP0 - 0.1:
             u = clamp((s - S_UP0) / (S_UP1 - S_UP0))
@@ -202,7 +202,7 @@ def pose_of(nm, s, hipx, gy, sc):
     return p
 
 
-GETUP_F = 1
+GETUP_F = -1
 LIMP_F = 1
 
 # ---------------------------------------------------------------- the stadium
