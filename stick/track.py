@@ -133,6 +133,12 @@ def cam(s):
     xs = [xat("YOU", s - k * 0.05) for k in range(8)]
     cx = sum(xs) / len(xs) + lead
     cy = 4 * LANE_GAP - 170 - 40 * (z - 1)
+    for s_at, nm, _d in FLASH[:4]:
+        kf = smooth(prog(s, s_at - 0.75, s_at - 0.08)) * (1 - smooth(prog(s, s_at + 0.05, s_at + 0.6)))
+        if kf > 0:
+            cx = lerp(cx, xat(nm, s) + 40, kf)
+            cy = lerp(cy, RUNNERS[nm][0] * LANE_GAP - 170 - 40 * 0.9, kf)
+            z = lerp(z, 1.9, kf)
     k = smooth(prog(s, S_LAUGH0 - 0.15, S_LAUGH0)) * (1 - smooth(prog(s, S_LAUGH1, S_LAUGH1 + 0.25)))
     if k > 0:
         cx, cy, z = lerp(cx, hx, k), lerp(cy, 1.4 * LANE_GAP - 120, k), lerp(z, 1.25, k)
@@ -375,6 +381,130 @@ def laugh_text(dd, s, people):
                   (255, 255, 255, int(255 * a)), 2)
 
 
+# ---------------------------------------------------------------- flashbacks (sepia memories)
+from compare import FLOOR as FB_FLOOR  # noqa
+from money_chars import scarf as _scarf  # noqa
+FB_TXT = {"LUCK": "IT ALL CAME EASY.", "TALENT": "NEVER HAD TO PRACTICE.", "MOTIVATION": "HYPED... THEN NOTHING.",
+          "EGO": "ALWAYS LAUGHING AT OTHERS.", "YOU": "5 AM. EVERY DAY."}
+_FY, _FX = np.mgrid[0:H, 0:W].astype(np.float32)
+FB_VIG = np.clip(0.25 + 0.9 * np.exp(-(((_FX - 540) / 620) ** 2 + ((_FY - 1060) / 900) ** 2)), 0, 1)[..., None]
+
+
+def body(st, d, p, nm, sc, expr, t, f=1):
+    figure(st, p, sc, light=(0.4, -0.9))
+    dd = ImageDraw.Draw(st)
+    if nm == "YOU":
+        face(dd, p, expr, f, t)
+        nx, ny = p["neck"]
+        ell(dd, nx, ny + 2, 21 * sc, 11 * sc, (214, 44, 44, 255))
+        poly(dd, [(nx, ny), (nx - f * 44 * sc, ny + 26 * sc), (nx - f * 30 * sc, ny + 40 * sc)], (214, 44, 44, 255))
+        headband(dd, p, (214, 44, 44))
+    else:
+        outfit(dd, p, RUNNERS[nm][1], f, legs=False)
+        face(dd, p, expr, f, t)
+        if nm == "EGO":
+            hx_, hy_ = p["head"]
+            rrect(dd, (hx_ - 4 * f - (34 if f < 0 else 0), hy_ - 10, hx_ + (30 if f > 0 else 4), hy_ + 2), 4, (12, 12, 16, 255))
+
+
+def flashback(kind, u, dur):
+    st = Image.new("RGBA", (W * K, H * K), (0, 0, 0, 0))
+    d = ImageDraw.Draw(st)
+    F = FB_FLOOR
+    sc = S * 1.6
+    k = u / dur
+    poly(d, [(0, 0), (W, 0), (W, F), (0, F)], (40, 34, 30, 255))
+    poly(d, [(0, F), (W, F), (W, H), (0, H)], (24, 20, 18, 255))
+    if kind == "LUCK":
+        for j in range(6):   # banknotes on the street
+            x = 640 + j * 34 - 80
+            if not (k > 0.45 and j < 4):
+                rrect(d, (x, F - 8, x + 46, F), 2, (110, 170, 90, 255))
+        p = clip("002/02_06").pts(lerp(0.9, 3.0, k), x0=0, floor=F, scale=sc, x_lock=470)
+        body(st, d, p, "LUCK", sc, "laugh" if k > 0.5 else "happy", u)
+        if k > 0.45:
+            hx_, hy_ = p["hr"]
+            for j in range(4):
+                rrect(d, (hx_ - 20 + j * 6, hy_ - 20 - j * 6, hx_ + 26 + j * 6, hy_ - 4 - j * 6), 2, (110, 170, 90, 255))
+            PW.spaced(d, hx_ * K, (hy_ - 120) * K, "$$$", font("InterDisplay-Bold.otf", 70 * K), (150, 220, 120, 255), 4)
+    elif kind == "TALENT":
+        rrect(d, (260, F - 150, 820, F - 60), 20, (120, 70, 60, 255))
+        rrect(d, (250, F - 230, 300, F - 60), 14, (110, 64, 56, 255))
+        lying = {"head": (-150, -10), "neck": (-108, -6), "el": (-80, 20), "hl": (-50, 40), "er": (-70, -30), "hr": (-120, -40),
+                 "kl": (56, -10), "fl": (113, -2), "kr": (56, 4), "fr": (110, 10)}
+        p = place(lying, (560, F - 172), -1, sc)
+        body(st, d, p, "TALENT", sc, "tired", u, -1)
+        for j in range(3):
+            v = (u * 1.2 + j / 3) % 1
+            PW.spaced(d, (300 + 30 * v + 14 * j) * K, (F - 300 - 120 * v) * K, "Z", font("InterDisplay-Bold.otf", (30 + 12 * j) * K),
+                      (230, 230, 240, int(255 * (1 - v))), 0)
+        # a trophy he never earned... and a poster of someone training
+        rrect(d, (780, F - 430, 930, F - 260), 6, (60, 52, 46, 255), outline=(140, 120, 90, 255), w=3)
+        rp = clip(RUN).pts(RUN_A + ((u * 1.6) % 1) * RUN_P, x0=0, floor=F - 280, scale=S * 0.55, x_lock=855)
+        figure(st, rp, S * 0.55, light=(0.4, -0.9))
+    elif kind == "MOTIVATION":
+        hyped = k < 0.5
+        if hyped:
+            bob = 30 * abs(math.sin(u * 14))
+            p = place(dict(PW.ARMS_UP), (430, F - 113 * sc - bob), 1, sc)
+            body(st, d, p, "MOTIVATION", sc, "laugh", u)
+            rrect(d, (640, F - 520, 900, F - 300), 14, (20, 20, 26, 255), outline=(150, 150, 160, 255), w=4)
+            poly(d, [(750, F - 450), (750, F - 370), (810, F - 410)], (240, 240, 245, 255))
+            PW.spaced(d, 770 * K, (F - 330) * K, "YOU CAN DO IT!", font("InterDisplay-Bold.otf", 22 * K), (240, 200, 90, 255), 2)
+        else:
+            rrect(d, (300, F - 120, 760, F - 40), 18, (90, 90, 110, 255))
+            p = place(dict(PW.SIT, head=(14, -138)), (470, F - 130), 1, sc)
+            body(st, d, p, "MOTIVATION", sc, "tired", u)
+            hx_, hy_ = p["hr"]
+            rrect(d, (hx_ - 12, hy_ - 34, hx_ + 14, hy_ + 6), 4, (20, 20, 26, 255))
+            rrect(d, (hx_ - 9, hy_ - 30, hx_ + 11, hy_ + 2), 3, (150, 190, 255, 255))
+    elif kind == "EGO":
+        rrect(d, (640, F - 560, 900, F - 20), 10, (60, 70, 90, 255), outline=(190, 160, 100, 255), w=8)
+        flex = dict(PW.STAND, el=(-50, -140), hl=(-30, -190), er=(50, -140), hr=(30, -190))
+        if k < 0.5:
+            p = place(flex, (520, F - 113 * sc), 1, sc)
+            body(st, d, p, "EGO", sc, "smug", u)
+            q = place(flex, (770, F - 113 * sc * 0.85 - 20), -1, sc * 0.85)
+            figure(st, q, sc * 0.85, light=(0.4, -0.9))
+            outfit(ImageDraw.Draw(st), q, RUNNERS["EGO"][1], -1, legs=False)
+        else:   # laughs at someone training
+            p = clip("079/79_70").pts(2.0 + (u * 1.3) % 2.0, x0=0, floor=F, scale=sc, x_lock=420, facing=1)
+            body(st, d, p, "EGO", sc, "laugh", u)
+            hp = place(dict(PW.STAND, head=(40, -100), neck=(34, -70), el=(70, -30), hl=(90, 10), er=(64, -26), hr=(84, 14),
+                            kl=(-50, 30), fl=(-110, 50), kr=(-46, 34), fr=(-104, 56)), (760, F - 60 * sc), -1, sc * 0.9)
+            figure(st, hp, sc * 0.9, light=(0.4, -0.9))
+            PW.spaced(d, 420 * K, (F - 470) * K, "HAHAHA", font("InterDisplay-Bold.otf", 44 * K), (255, 255, 255, 255), 2)
+    else:   # YOU: 5 AM, rain, alone
+        poly(d, [(0, 0), (W, 0), (W, F), (0, F)], (20, 26, 40, 255))
+        for j in range(6):
+            x = (j * 260 - u * 700) % (W + 260) - 130
+            line(d, [(x, F), (x, F - 520)], (60, 66, 80, 255), 8)
+            ell(d, x, F - 530, 22, 12, (255, 230, 170, 255))
+        p = clip(RUN).pts(RUN_A + ((u * 1.5) % 1) * RUN_P, x0=0, floor=F, scale=sc, x_lock=480)
+        body(st, d, p, "YOU", sc, "determined", u)
+        rng = np.random.default_rng(int(u * 30))
+        for _ in range(120):
+            x0_, y0_ = rng.uniform(-40, W), rng.uniform(0, F)
+            line(d, [(x0_, y0_), (x0_ - 8, y0_ + 40)], (170, 190, 230, 150), 2)
+        rrect(d, (760, 420, 980, 520), 10, (10, 10, 14, 255))
+        PW.spaced(d, 870 * K, 470 * K, "5:00", font("InterDisplay-Bold.otf", 64 * K), (240, 80, 80, 255), 2)
+    im = st.resize((W, H), Image.LANCZOS)
+    a = np.asarray(im.convert("RGB"), np.float32)
+    g = a.mean(-1, keepdims=True)
+    sep = g * np.array([1.12, 0.96, 0.78], np.float32)[None, None, :] + np.array([18, 10, 0], np.float32)
+    a = (a * 0.3 + sep * 0.7) * FB_VIG
+    rng = np.random.default_rng(int(u * 60))
+    a += rng.normal(0, 6, (H // 4, W // 4, 1)).repeat(4, 0).repeat(4, 1)
+    im = Image.fromarray(np.clip(a, 0, 255).astype(np.uint8)).convert("RGBA")
+    dd = ImageDraw.Draw(im)
+    lab = "DISCIPLINE" if kind == "YOU" else kind
+    al = smooth(clamp(u / 0.15))
+    PW.spaced(dd, W / 2, 300, lab, font("InterDisplay-Bold.otf", 84), (GOLD if kind == "YOU" else (246, 240, 226)) + (int(255 * al),), 8)
+    PW.spaced(dd, W / 2, 410, FB_TXT[kind], font("/usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf", 52),
+              (236, 228, 210, int(255 * smooth(clamp((u - 0.1) / 0.2)))), 3)
+    return im
+
+
 # ---------------------------------------------------------------- time
 HOOK = 1.4
 
@@ -389,9 +519,20 @@ def rate(s):
     return r
 
 
+FLASH = [(1.9, "LUCK", 1.15), (3.3, "TALENT", 1.15), (4.7, "MOTIVATION", 1.15), (6.3, "EGO", 1.15),
+         (S_LAUGH1 + 0.05, "YOU", 1.45)]
+FL_V = []          # (video start, video end, kind, story time)
 _V = [0.0]
 _S = [0.0]
+_fi = 0
 while _S[-1] < S_END:
+    if _fi < len(FLASH) and _S[-1] >= FLASH[_fi][0]:
+        s_at, kind_, d_ = FLASH[_fi]
+        FL_V.append((_V[-1], _V[-1] + d_, kind_, _S[-1]))
+        _V.append(_V[-1] + d_)
+        _S.append(_S[-1] + 1e-6)
+        _fi += 1
+        continue
     _S.append(_S[-1] + rate(_S[-1]) / 240)
     _V.append(_V[-1] + 1 / 240)
 DUR = HOOK + _V[-1]
@@ -404,12 +545,28 @@ def story(t):
     return float(np.interp(t - HOOK, _V, _S))
 
 
+def flash_at(t):
+    v = t - HOOK
+    for a, b, kind, s_at in FL_V:
+        if a <= v < b:
+            return kind, v - a, b - a
+    return None
+
+
 def video_of(s):
     return HOOK + float(np.interp(s, _S, _V))
 
 
 # ---------------------------------------------------------------- frame
 def frame(t):
+    fb = flash_at(t) if t >= HOOK else None
+    if fb:
+        kind, u, dur = fb
+        im = flashback(kind, u, dur)
+        for edge in (0.0, dur):
+            if abs(u - edge) < 0.1:
+                im.alpha_composite(Image.new("RGBA", im.size, (255, 255, 255, int(150 * (1 - abs(u - edge) / 0.1)))))
+        return np.asarray(im.convert("RGB"))
     s = story(t)
     c = cam(s)
     if t < HOOK:
@@ -507,6 +664,9 @@ def audio():
     gasp = noise(1.2, 4, lo=300, hi=2500)[:int(1.2 * SR)] * env(int(1.2 * SR), 0.05, 0.9)
     mix_in(out, gasp, video_of(S_HIT + 0.1), 0.4, 0.0)
     mix_in(out, noise(0.35, 9, lo=500, hi=7000)[:int(0.35 * SR)] * env(int(0.35 * SR), 0.25, 0.05), HOOK - 0.3, 0.2, 0.0)
+    for a, b, kind, s_at in FL_V:
+        for e in (a, b):
+            mix_in(out, noise(0.3, 11, lo=400, hi=6000)[:int(0.3 * SR)] * env(int(0.3 * SR), 0.15, 0.1), HOOK + e - 0.15, 0.22, 0.0)
     out *= np.clip((DUR - tt) / 0.7, 0.0, 1)[:, None]
     out /= max(1.0, np.abs(out).max() / 0.9)
     return out
