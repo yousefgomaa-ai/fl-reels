@@ -39,6 +39,26 @@ SERIF = "/usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf"
 PALE = (190, 196, 210)
 
 
+def ease_back(x, k=1.7):
+    """ease out with a little overshoot"""
+    x = clamp(x) - 1
+    return 1 + (k + 1) * x ** 3 + k * x ** 2
+
+
+def alive(pose, t, amp=1.0, seed=0.0):
+    """breathing + weight shift: nobody stands perfectly still"""
+    b = math.sin(t * 2.4 + seed)
+    w = math.sin(t * 1.3 + seed * 2)
+    q = dict(pose)
+    for k_ in ("head", "neck"):
+        x, y = q[k_]
+        q[k_] = (x + 3 * w * amp, y - 2.5 * b * amp)
+    for k_ in ("el", "hl", "er", "hr"):
+        x, y = q[k_]
+        q[k_] = (x + 1.5 * w * amp, y - 1.5 * b * amp)
+    return q
+
+
 def scene_at(t):
     for k, a, b in SCENES:
         if a <= t < b:
@@ -150,18 +170,29 @@ def target(d, x, y, flash=0.0):
 
 
 def archer(st, d, x, fl, t, mode):
-    bow_x = x + 70
     if mode == "wait":
         shake = 3 * math.sin(t * 40)
-        p = place(dict(STAND, el=(40, -110), hl=(78 + shake, -112), er=(10, -112), hr=(-20, -110)), (x, fl - 113 * S), 1, S)
+        pose = alive(dict(STAND, el=(40, -110), hl=(78 + shake, -112), er=(10, -112), hr=(-20, -110),
+                          head=(8, -148), neck=(4, -106)), t, 1.0)
         expr = "nervous" if t < 6.5 else "sad"
-        if t > 7.0:   # gives up, lowers the bow
-            p = place(dict(STAND, head=(10, -140)), (x, fl - 113 * S), 1, S)
+        if t > 7.0:   # gives up, lowers the bow slowly
+            k = smooth(prog(t, 7.0, 7.6))
+            pose = lerp_pose(pose, alive(dict(STAND, head=(14, -138), neck=(8, -104)), t, 0.6), k)
+        p = place(pose, (x, fl - 113 * S), 1, S)
     else:
-        ph = min((t - 0.35) % 0.4 / 0.4, 1.0) if t >= 0.35 and t < T_BULL else 1.0
-        draw = smooth(clamp(ph / 0.7))
-        p = place(dict(STAND, el=(40, -110), hl=(78, -112), er=(lerp(40, 10, draw), -112), hr=(lerp(60, -20, draw), -110)),
-                  (x, fl - 113 * S), 1, S)
+        if 0.35 <= t < T_BULL:
+            ph = ((t - 0.35) % 0.4) / 0.4
+        else:
+            ph = 1.0 if t >= T_BULL else 0.0
+        # 0-0.15 nock, 0.15-0.7 draw (ease in), 0.7 release: the string hand snaps back, the body recoils
+        draw = smooth(clamp((ph - 0.12) / 0.55)) ** 1.4
+        rel = clamp((ph - 0.72) / 0.28)
+        snap = math.sin(math.pi * min(1, rel * 2)) * (1 - rel)
+        hrx = lerp(60, -20, draw) if ph < 0.72 else lerp(-20, -40, ease_back(rel)) + 30 * rel
+        lean = -6 * snap
+        pose = dict(STAND, el=(40, -110 + 6 * snap), hl=(78 - 8 * snap, -112 + 4 * snap), er=(lerp(40, 10, draw), -112),
+                    hr=(hrx, -110 - 10 * snap), head=(8 + lean, -148), neck=(4 + lean * 0.6, -106))
+        p = place(alive(pose, t, 0.6, 1.0), (x, fl - 113 * S), 1, S)
         expr = "happy" if t >= T_BULL + 0.2 else "determined"
     hx, hy = p["hl"]
     d.arc(((hx - 30) * K, (hy - 90) * K, (hx + 30) * K, (hy + 90) * K), 270, 90, fill=(160, 110, 60, 255), width=int(5 * K))
@@ -246,28 +277,39 @@ def sky_cols(u):
 def skater(v, success, seed=0):
     """pose + hip + board for one attempt, v 0..1"""
     rng = np.random.default_rng(seed)
-    x = lerp(120, 900, v)
+    x = lerp(120, 900, smooth(clamp(v * 1.05)) * 0.35 + v * 0.65)
     gy = FLOOR
-    jump = 0.0
-    if 0.38 < v < 0.66:
-        jump = math.sin(math.pi * (v - 0.38) / 0.28) * 190
-    crouch = dict(STAND, kl=(20, 40), fl=(-6, 100), kr=(36, 46), fr=(30, 104), el=(-30, -80), hl=(-60, -60),
-                  er=(30, -90), hr=(70, -80))
+    J0, J1 = 0.38, 0.66
+    jump = math.sin(math.pi * (v - J0) / (J1 - J0)) * 200 if J0 < v < J1 else 0.0
+    ride = dict(STAND, el=(-34, -84), hl=(-66, -66), er=(34, -84), hr=(66, -70), kl=(-4, 54), fl=(-12, 112), kr=(14, 54), fr=(22, 112))
+    if v < 0.26:          # kick-pushing
+        k = math.sin(v * 2 * math.pi * 3)
+        ride = dict(ride, kr=(14 - 30 * max(0, k), 56 - 16 * max(0, k)), fr=(22 - 60 * max(0, k), 112 + 10 * max(0, k)),
+                    head=(10, -146), neck=(6, -104))
+    crouch_k = smooth(prog(v, 0.28, J0)) * (1 - smooth(prog(v, J0, J0 + 0.05)))    # anticipation
+    tuck = math.sin(math.pi * clamp((v - J0) / (J1 - J0))) if J0 < v < J1 else 0.0
+    land = math.sin(math.pi * clamp((v - J1) / 0.1)) if v > J1 else 0.0              # squash on landing
+    crouch = dict(ride, kl=(26, 34), fl=(-4, 100), kr=(40, 40), fr=(30, 104), head=(14, -128), neck=(8, -90))
+    air = dict(ride, kl=(30, 20), fl=(0, 80), kr=(44, 26), fr=(34, 84), el=(-50, -120), hl=(-80, -150), er=(50, -120), hr=(80, -150))
+    pose = lerp_pose(lerp_pose(ride, crouch, max(crouch_k, land * (1 if success else 0))), air, tuck)
     board = (x, gy - 8 - jump, 0.0)
     if success or v < 0.6:
-        pose = crouch if jump > 20 else dict(STAND, el=(-30, -80), hl=(-60, -70), er=(30, -80), hr=(60, -70))
-        hip = (x, gy - 16 - 113 * S + (20 if jump > 20 else 0) - jump)
-        if jump > 20:
-            board = (x, gy - 16 - jump + 2, 0.3 * math.sin(math.pi * (v - 0.38) / 0.28 * 2))
+        drop = 26 * max(crouch_k, land if success else 0)
+        hip = (x, gy - 16 - 113 * S + drop - jump + 26 * tuck)
+        if jump > 0:
+            board = (x, gy - 16 - jump + 2 + 20 * tuck, 0.5 * math.sin(math.pi * tuck) * (1 if seed % 2 else -1))
         return pose, hip, board, 0.0
-    # the fall: tumble forward
-    w = clamp((v - 0.6) / 0.25)
-    rot = w * (2.2 + rng.uniform(-0.3, 0.3))
-    fx = lerp(x, x + 60, w)
-    hip = (fx, lerp(gy - 113 * S - 40, gy - 40, w))
-    pose = lerp_pose(crouch, {"head": (-150, -10), "neck": (-108, -6), "el": (-80, 30), "hl": (-46, 40), "er": (-80, -44),
-                              "hr": (-40, -70), "kl": (56, -24), "fl": (113, -2), "kr": (56, -6), "fr": (113, 6)}, w)
-    board = (x + 140 * w + rng.uniform(0, 60), gy - 8 - 80 * math.sin(math.pi * w), w * 6)
+    # the fall: the board flies out, he tumbles and slides
+    w = clamp((v - 0.6) / 0.3)
+    ew = 1 - (1 - w) ** 2
+    rot = ew * (1.9 + rng.uniform(-0.3, 0.4))
+    fx = x + 120 * ew
+    hip = (fx, lerp(gy - 113 * S - 30, gy - 34, ew ** 0.7))
+    flail = math.sin(w * 18) * (1 - w)
+    pose = lerp_pose(dict(air, hl=(-90, -120 + 40 * flail), hr=(90, -160 - 40 * flail)),
+                     {"head": (-150, -10), "neck": (-108, -6), "el": (-80, 30), "hl": (-46, 40), "er": (-80, -44),
+                      "hr": (-40, -70), "kl": (56, -24), "fl": (113, -2), "kr": (56, -6), "fr": (113, 6)}, ew)
+    board = (x + 200 * ew + rng.uniform(0, 60), gy - 8 - 110 * math.sin(math.pi * min(1, w * 1.3)), w * 7)
     return pose, hip, board, rot
 
 
@@ -341,10 +383,29 @@ def slope_pt(s, side):
     return lerp(x0, 560, s), lerp(FLOOR + 600, 360, s)
 
 
+CLIMB_P = 0.7     # one pull
+
+
 def climber_pose(t):
-    a = math.sin(t * 7)
-    return dict(STAND, el=(20, -150 - 10 * a), hl=(40, -200 - 20 * a), er=(30, -150 + 10 * a), hr=(50, -200 + 20 * a),
-                kl=(16, 50 + 10 * a), fl=(10, 110), kr=(26, 50 - 10 * a), fr=(30, 110), head=(16, -148))
+    ph = (t % CLIMB_P) / CLIMB_P
+    side = int(t / CLIMB_P) % 2
+    reach = smooth(clamp(ph / 0.45))              # one hand reaches up...
+    pull = smooth(clamp((ph - 0.45) / 0.55))      # ...then he pulls himself up
+    hi, lo = (40, -214), (30, -150)
+    a_up = (lerp(lo[0], hi[0], reach), lerp(lo[1], hi[1], reach) + 50 * pull)
+    a_dn = (lerp(hi[0], lo[0], 0.3 + 0.7 * pull), lerp(hi[1] + 50, lo[1], 0.3 + 0.7 * pull))
+    hl, hr = (a_up, a_dn) if side == 0 else (a_dn, a_up)
+    kstep = math.sin(math.pi * pull)
+    return dict(STAND, hl=hl, hr=hr, el=((hl[0]) * 0.5 + 6, (hl[1] - 104) * 0.5 - 52), er=((hr[0]) * 0.5 + 10, (hr[1] - 104) * 0.5 - 52),
+                kl=(16 + 18 * kstep * (side == 0), 46 - 20 * kstep * (side == 0)), fl=(10, 110),
+                kr=(26 + 18 * kstep * (side == 1), 46 - 20 * kstep * (side == 1)), fr=(30, 110),
+                head=(18 - 6 * pull, -146 - 4 * pull), neck=(10, -104))
+
+
+def climb_progress(t):
+    """advances in pulls, not a smooth slide"""
+    n = t / CLIMB_P
+    return (int(n) + smooth(clamp(((n % 1) - 0.45) / 0.55))) * CLIMB_P
 
 
 def mountain(u):
@@ -369,7 +430,7 @@ def mountain(u):
     rrect(d, (cx - 30, cy - 70, cx + 10, cy - 30), 4, (255, 200, 110, 255))
     # QUITTING
     if u < T_QUIT:
-        s = 0.18 + 0.12 * (u / T_QUIT)
+        s = 0.18 + 0.12 * clamp(climb_progress(u) / T_QUIT)
         p = place(climber_pose(u), slope_pt(s, 0), 1, S * 0.9)
         plain(st, p, "tired", u)
     else:
@@ -383,7 +444,7 @@ def mountain(u):
             p = place(dict(STAND, el=(-20, -100), hl=(-50, -140), er=(30, -100), hr=(60, -140)), (x, y), 1, S * 0.9)
         plain(st, p, "sad" if w < 1 else "happy", u)
     # ONE MORE STEP
-    s = min(1.0, 0.18 + 0.82 * smooth(prog(u, 0.0, T_TOP)) ** 1.2)
+    s = min(1.0, 0.18 + 0.82 * clamp(climb_progress(u) / T_TOP))
     gust = math.sin(u * 3.1) * 8 * (1 - dawn)
     if u < T_TOP:
         p = place(climber_pose(u + 1), (slope_pt(s, 1)[0] + gust, slope_pt(s, 1)[1]), 1, S * 0.9)
@@ -481,10 +542,18 @@ def sculptor(u):
     # him with hammer and chisel
     if u < T_REVEAL:
         ph = ((u - STRIKE0) % STRIKE_P) / STRIKE_P if u >= STRIKE0 else 0.0
-        lift = math.cos(math.pi * min(1, ph / 0.2)) if ph < 0.2 else math.sin(math.pi * clamp((ph - 0.2) / 0.8))
-        p = place(STAND, (380, FLOOR - 113 * S), 1, S)
+        if ph < 0.14:        # the strike: fast, with a bounce off the chisel
+            lift = 1 - ease_back(ph / 0.14, 2.4)
+        elif ph < 0.3:       # recoil
+            lift = 0.12 * math.sin(math.pi * (ph - 0.14) / 0.16)
+        else:                # slow wind-up
+            lift = smooth((ph - 0.3) / 0.7) ** 1.3
+        lean = 1 - lift
+        pose = alive(dict(STAND, head=(18 + 14 * lean, -146 + 6 * lean), neck=(10 + 10 * lean, -104 + 4 * lean),
+                          kl=(-14, 56), fl=(-26, 113), kr=(16, 56), fr=(30, 113)), u, 0.5)
+        p = place(pose, (380 + 8 * lean, FLOOR - 113 * S), 1, S)
         p = set_arm(p, "l", (500, FLOOR - 330), 1)
-        p = set_arm(p, "r", (lerp(470, 440, lift), lerp(FLOOR - 330, FLOOR - 460, lift)), 1)
+        p = set_arm(p, "r", (lerp(472, 420, lift), lerp(FLOOR - 334, FLOOR - 480, lift)), 1)
         hero(st, p, "plain", 1, "determined", u)
         line(d, [(500, FLOOR - 330), (540, FLOOR - 330)], (190, 190, 200, 255), 5)
         hx_, hy_ = p["hr"]
@@ -541,7 +610,12 @@ def frame(t):
 
 
 def render(i):
-    return frame(i / FPS).tobytes()
+    """3 sub-frames across a 180-degree shutter: real motion blur"""
+    acc = None
+    for k in range(3):
+        f = frame((i + k / 6) / FPS).astype(np.float32)
+        acc = f if acc is None else acc + f
+    return (acc / 3).astype(np.uint8).tobytes()
 
 
 MUSIC = "Crossing the Chasm.mp3"
