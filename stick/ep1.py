@@ -32,8 +32,8 @@ FPS, SR = 30, 44100
 DUR = 15.0
 NF = int(round(DUR * FPS))
 STAND = PW.STAND
-ORIG = {"stone": 3.4, "seed": 3.2, "ice": 3.2, "mirror": 3.2, "views": 3.2, "bamboo": 3.6}
-ORDER = [("stone", 2.3), ("seed", 2.1), ("ice", 2.1), ("mirror", 2.1), ("views", 2.1), ("bamboo", 2.7)]
+ORIG = {"stone": 3.4, "seed": 3.2, "hoop": 3.2, "mirror": 3.2, "views": 3.2, "bamboo": 3.6}
+ORDER = [("stone", 2.3), ("seed", 2.1), ("hoop", 2.1), ("mirror", 2.1), ("views", 2.1), ("bamboo", 2.7)]
 SC = []
 _t = 0.0
 for _k, _d in ORDER:
@@ -242,6 +242,80 @@ def ice(st, d, u):
     return (1.55, 620, FLOOR - 190)
 
 
+# ---------------------------------------------------------------- the hoop
+SWISH = 2.4
+SHOT_P = 0.6
+RIM = (812, FLOOR - 430)
+NET_C = (845, FLOOR - 430)
+
+
+def hoop_shot_no(u):
+    if u >= SWISH:
+        return 100
+    return max(1, min(99, int(1 + 98 * (u / SWISH) ** 1.3)))
+
+
+def ball(d, x, y, rot=0.0):
+    ell(d, x, y, 24, 24, (230, 120, 40, 255))
+    d.arc(((x - 24) * K, (y - 24) * K, (x + 24) * K, (y + 24) * K), 0, 360, fill=(80, 40, 16, 255), width=int(3 * K))
+    line(d, [(x - 24 * math.cos(rot), y - 24 * math.sin(rot)), (x + 24 * math.cos(rot), y + 24 * math.sin(rot))], (80, 40, 16, 255), 3)
+    d.arc(((x - 14) * K, (y - 24) * K, (x + 34) * K, (y + 24) * K), 110, 250, fill=(80, 40, 16, 255), width=int(3 * K))
+
+
+def hoop(st, d, u):
+    # the hoop: pole, board, rim, net
+    line(d, [(930, FLOOR), (930, FLOOR - 520)], (90, 94, 104, 255), 12)
+    rrect(d, (900, FLOOR - 560, 916, FLOOR - 380), 3, (230, 232, 240, 255), outline=(120, 124, 134, 255), w=2)
+    line(d, [(916, FLOOR - 470), (930, FLOOR - 470)], (90, 94, 104, 255), 8)
+    swish = smooth(prog(u, SWISH + 0.25, SWISH + 0.45)) * (1 - smooth(prog(u, SWISH + 0.6, SWISH + 0.9)))
+    for j in range(5):    # net
+        x0 = RIM[0] + j * (900 - RIM[0]) / 4
+        x1 = NET_C[0] - 26 + j * 13
+        line(d, [(x0, RIM[1]), (x1 + 6 * swish * math.sin(u * 40 + j), RIM[1] + 70 + 10 * swish)], (236, 236, 240, 220), 2)
+    line(d, [(RIM[0] - 6, RIM[1]), (902, RIM[1])], (236, 96, 40, 255), 8)
+    for k in range(3):
+        y = RIM[1] + 22 * (k + 1)
+        line(d, [(RIM[0] + 8 * (k + 1), y), (900 - 8 * (k + 1), y)], (236, 236, 240, 200), 2)
+    # him: shoots, again and again
+    if u < SWISH:
+        ph = (u % SHOT_P) / SHOT_P
+    else:
+        ph = clamp((u - SWISH) / SHOT_P)
+    rel = 0.22         # release moment in the shot
+    up = math.sin(math.pi * clamp(ph / (rel * 2))) if ph < rel * 2 else 0.0
+    jump = 22 * up
+    pose = dict(STAND, el=(lerp(24, 10, up), lerp(-64, -160, up)), hl=(lerp(46, 20, up), lerp(-96, -210, up)),
+                er=(lerp(34, 24, up), lerp(-60, -160, up)), hr=(lerp(54, 36, up), lerp(-92, -214, up)),
+                kl=(-6, 56 - 10 * up), kr=(8, 56 - 10 * up))
+    happy = u >= SWISH + 0.5
+    if happy:
+        pose = dict(PW.ARMS_UP)
+    hx = 540
+    p = place(pose, (hx, FLOOR - 113 * S - jump), 1, S)
+    hero(st, p, "plain", 1, "happy" if happy else "determined", u)
+    # the ball
+    hand = ((p["hl"][0] + p["hr"][0]) / 2 + 6, (p["hl"][1] + p["hr"][1]) / 2 - 18)
+    made = u >= SWISH
+    if ph < rel:
+        bx, by = hand
+    else:
+        v = (ph - rel) / (1 - rel)
+        tgt = NET_C if made else RIM
+        fly = min(1.0, v / 0.62)
+        bx = lerp(hand[0], tgt[0], fly)
+        by = lerp(hand[1], tgt[1] - 26, fly) - 150 * 4 * fly * (1 - fly)
+        if v > 0.62:
+            w = (v - 0.62) / 0.38
+            if made:      # through the net to the floor
+                bx = tgt[0]
+                by = lerp(tgt[1] - 26, FLOOR - 24, min(1, w * 1.4))
+            else:         # off the rim, bounce away
+                bx = lerp(tgt[0], tgt[0] - 260, w)
+                by = lerp(tgt[1] - 26, FLOOR - 24, w ** 0.7) - 120 * math.sin(math.pi * min(1, w * 1.2)) * (1 - w)
+    ball(d, bx, by, rot=u * 9)
+    return (1.55, 700, FLOOR - 280)
+
+
 # ---------------------------------------------------------------- the views
 VIRAL = 2.4
 
@@ -308,7 +382,7 @@ def bamboo_year(u):
 
 
 # ---------------------------------------------------------------- look
-GRADE = {"stone": (1.08, 0.98, 0.9), "seed": (0.95, 1.06, 0.92), "ice": (0.88, 0.98, 1.12), "mirror": (1.08, 1.0, 0.88),
+GRADE = {"stone": (1.08, 0.98, 0.9), "seed": (0.95, 1.06, 0.92), "hoop": (1.06, 1.0, 0.92), "mirror": (1.08, 1.0, 0.88),
          "views": (0.9, 0.98, 1.1), "bamboo": (0.96, 1.08, 0.92), "end": (1.0, 1.0, 1.0)}
 _M = {}
 
@@ -355,7 +429,7 @@ def whip(im, amt):
 
 
 # ---------------------------------------------------------------- frame
-FN = {"stone": stone, "seed": seed, "ice": ice, "mirror": mirror, "views": views, "bamboo": bamboo}
+FN = {"stone": stone, "seed": seed, "hoop": hoop, "mirror": mirror, "views": views, "bamboo": bamboo}
 
 
 def frame(t):
@@ -388,9 +462,9 @@ def frame(t):
         counter(im, f"DAY {max(1, int(1 + 89 * clamp(u / 2.6)))}", size=110)
     elif kind == "mirror":
         counter(im, f"MONTH {max(1, min(6, 1 + int(u / 0.45)))}", size=110)
-    elif kind == "ice":
-        tmp = ice_temp(u)
-        counter(im, f"{tmp}°C", GOLD if tmp == 0 else (170, 210, 250), size=130, k=hq.pop(u, MELT, 0.2) if tmp == 0 else 1.0)
+    elif kind == "hoop":
+        n = hoop_shot_no(u)
+        counter(im, f"SHOT #{n}", GOLD if n == 100 else (246, 246, 250), size=120, k=hq.pop(u, SWISH, 0.2) if n == 100 else 1.0)
     elif kind == "views":
         n = video_no(u)
         counter(im, f"VIDEO #{n}", GOLD if n == 100 else (246, 246, 250), size=110)
@@ -428,9 +502,15 @@ def audio(sfx_only=False):
     mix_in(out, crack, at("stone", HITS_AT), 0.8, 0.0)
     mix_in(out, boom(), at("stone", HITS_AT), 0.7, 0.0)
     mix_in(out, noise(2.0, 6, lo=1500, hi=7000)[:int(2.0 * SR)] * env(int(2.0 * SR), 0.2, 0.4), start("seed"), 0.08, 0.3)
-    for k in range(9):   # the thermometer ticking up
-        mix_in(out, tone(1600, 0.05, (1, 2), a=0.001, d=0.03), at("ice", (k + 0.5) * MELT / 10), 0.12, 0.3)
-    mix_in(out, noise(0.8, 8, lo=300, hi=4000)[:int(0.8 * SR)] * env(int(0.8 * SR), 0.05, 0.6), at("ice", MELT), 0.3, 0.0)
+    k = 0
+    while k * SHOT_P + 0.22 * SHOT_P < SWISH:      # every miss: off the rim, then a bounce
+        t_rim = k * SHOT_P + SHOT_P * (0.22 + 0.78 * 0.62)
+        mix_in(out, tone(520, 0.3, (1, 2.4, 3.9), a=0.001, d=0.25), at("hoop", t_rim), 0.3, 0.4)
+        mix_in(out, tone(90, 0.12, (1, 2), a=0.001, d=0.1), at("hoop", t_rim + 0.2), 0.3, 0.1)
+        k += 1
+    swish = noise(0.45, 10, lo=2000, hi=9000)[:int(0.45 * SR)] * env(int(0.45 * SR), 0.05, 0.35)
+    mix_in(out, swish, at("hoop", SWISH + SHOT_P * (0.22 + 0.78 * 0.62)), 0.5, 0.4)
+    mix_in(out, tone(90, 0.12, (1, 2), a=0.001, d=0.1), at("hoop", SWISH + 0.55), 0.35, 0.3)
     for k in range(5):
         mix_in(out, tone(2400, 0.12, (1, 2.3), a=0.001, d=0.08), at("mirror", 0.2 + k * 0.45), 0.12, -0.2)
     mix_in(out, tone(1300, 0.9, (1, 2, 3), a=0.002, d=0.8), at("mirror", 2.35), 0.2, 0.0)
