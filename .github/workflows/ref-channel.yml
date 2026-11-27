@@ -1,4 +1,4 @@
-# Reference Short + its channel's posting rhythm (owner, 2026-11-25; @sticktoit-q4d 2026-11-26): runs on the claude/two-paths branch only.
+# Reference Short + its channel's posting rhythm (owner, 2026-11-25; @sticktoit-q4d 2026-11-26; @simplyanimatedvisuals 2026-11-27): runs on the claude/two-paths branch only.
 name: Reference channel
 on:
   push:
@@ -14,7 +14,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: pip install -q -U "yt-dlp[default]"
-      - run: python3 study/ref_channel.py @sticktoit-q4d
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null
+      - run: python3 study/ref_channel.py @simplyanimatedvisuals
+      - name: Frames of the channel's top 4 Shorts
+        run: |
+          ids=$(python3 -c "import json;d=json.load(open('study/ref/channel_@simplyanimatedvisuals.json'));st=sorted(d.get('shorts_tab',[]),key=lambda e:-(e.get('views') or 0));print(' '.join(e['id'] for e in st[:4]))")
+          python3 study/links.py $ids || true
       - name: Commit
         run: |
           git config user.name "study" && git config user.email "actions@users.noreply.github.com"
