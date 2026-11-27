@@ -24,7 +24,8 @@ import race as R  # noqa
 from compare import ell, line, rrect, poly, figure, place, ik, FLOOR, K, W, H  # noqa
 from perfect_wave import clamp, env, font, lerp, lerp_pose, mix_in, noise, prog, smooth, tone, write_wav  # noqa
 from money_chars import hero, face, outfit, S, GOLD, RED  # noqa
-from money import put, track  # noqa
+from money import put, track, compose  # noqa
+import compare as C  # noqa
 from failfast import bg, finish, spot, label, glow_text, glow_ell, whip, ease_back, alive, skater, draw_board, set_arm  # noqa
 
 FPS, SR = 30, 44100
@@ -445,17 +446,43 @@ FN = {"baby": baby, "bike": bike, "rope": rope, "hoop": hoop, "flip": flip, "ska
 
 
 # ---------------------------------------------------------------- frame
+SPOTS = ((360, 0.8), (720, 1.0))
+
+
+def sunrise(k):
+    g = Image.new("RGBA", (W * K, H * K), (0, 0, 0, 0))
+    if k <= 0:
+        return g
+    glow_ell(g, 820, 760, 300, 300, (255, 170, 90, int(140 * k)))
+    ImageDraw.Draw(g).ellipse(((820 - 90) * K, (760 - 90) * K, (820 + 90) * K, (760 + 90) * K), (255, 214, 140, int(255 * k)))
+    return g
+
+
+def header(im, t, n, done, pop=1.0, a=1.0):
+    d = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    dd = ImageDraw.Draw(d)
+    PW.spaced(dd, W / 2, 34, "HOW MANY TIMES WOULD YOU TRY?", font("InterDisplay-Bold.otf", 42), (236, 238, 246, int(255 * a)), 3)
+    col = GOLD if done else (246, 246, 250)
+    PW.spaced(dd, W / 2, 150, f"TRY {n}", font("InterDisplay-Bold.otf", int(110 * max(0.6, pop))), col + (int(255 * a),), 6)
+    im.alpha_composite(d)
+
+
 def frame(t):
     if t >= T_END:
         u = t - T_END
         st = Image.new("RGBA", (W * K, H * K), (0, 0, 0, 0))
         d = ImageDraw.Draw(st)
         z, cx, cy = baby(st, d, T_S + 1.2)
-        im = finish(st, bg((40, 30, 60), (12, 10, 18)), z, cx, cy)
-        im = spot(im, 560, 1100, 520, 700, 0.25)
-        glow_text(im, 540, 300, "YOU NEVER QUIT", 80, (246, 240, 226), a=smooth(prog(u, 0.0, 0.3)), serif=True)
-        glow_text(im, 540, 400, "AS A KID.", 80, (246, 240, 226), a=smooth(prog(u, 0.1, 0.4)), serif=True)
-        glow_text(im, 540, 560, "WHY QUIT NOW?", 96, GOLD, a=smooth(prog(u, 0.8, 1.1)), serif=True)
+        im = compose(st, None, z, cx, cy, spots=SPOTS, refl=True)
+        f = font("/usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf", 66)
+        lay = Image.new("RGBA", im.size, (0, 0, 0, 0))
+        ld = ImageDraw.Draw(lay)
+        for j, (s_, col, t0) in enumerate((("YOU NEVER QUIT", (246, 240, 226), 0.0), ("AS A KID.", (246, 240, 226), 0.15),
+                                            ("WHY QUIT NOW?", GOLD, 0.8))):
+            a = smooth(prog(u, t0, t0 + 0.35))
+            if a > 0:
+                PW.spaced(ld, W / 2, 200 + j * 90 + (40 if j == 2 else 0), s_, f, col + (int(255 * a),), 5)
+        im.alpha_composite(lay)
         return np.asarray(im.convert("RGB"))
     i = min(len(SC) - 1, int(t / L))
     kind, n = SC[i]
@@ -464,25 +491,18 @@ def frame(t):
     d = ImageDraw.Draw(st)
     z, cx, cy = FN[kind](st, d, u)
     done = u >= T_S
-    top = (60, 70, 130) if (kind == "jump" and done) else (14, 16, 26)
-    bot = (255, 160, 90) if (kind == "jump" and done) else (6, 6, 10)
     shake = 10 * max(0, 1 - (u - T_S) / 0.25) if done and u < T_S + 0.25 else 0
     push = 0.95 + 0.1 * clamp(u / L)
-    im = finish(st, bg(top, bot), z * push, cx + shake * math.sin(t * 80), cy)
-    im = spot(im, 540, 1150, 600, 850, 0.3)
-    if done and u < T_S + 0.5:
-        k = 1 - (u - T_S) / 0.5
-        g = Image.new("RGBA", im.size, (255, 220, 140, int(70 * k)))
-        im.alpha_composite(g)
-    label(im, 540, 140, "TRY", 34)
-    num = tries(u, n)
-    col = GOLD if done else (246, 246, 250)
-    pop = hq.pop(u, T_S, 0.2) if done else 1.0
-    glow_text(im, 540, 180, str(num), int(130 * max(0.5, pop)), col)
+    back = sunrise(smooth(prog(u, T_S - 0.2, T_S + 0.6))) if kind == "jump" else None
+    im = compose(st, None, z * push, cx + shake * math.sin(t * 80), cy, spots=SPOTS, back=back, refl=True)
+    if done and u < T_S + 0.4:
+        k = 1 - (u - T_S) / 0.4
+        im.alpha_composite(Image.new("RGBA", im.size, (255, 220, 140, int(60 * k))))
     if abs(u) < 0.12 and i > 0:
         im = whip(im, 1 - abs(u) / 0.12)
     elif abs(u - L) < 0.12:
         im = whip(im, 1 - abs(u - L) / 0.12)
+    header(im, t, tries(u, n), done, hq.pop(u, T_S, 0.2) if done else 1.0)
     return np.asarray(im.convert("RGB"))
 
 
