@@ -71,7 +71,7 @@ class Seq:
         sg = self.segs[i]
         c = clip(sg["clip"])
         tt = sg["t0"] + (sg["t1"] - sg["t0"]) * clamp(u / sg["dur"])
-        p = c.pts(tt, x0=0, floor=self.floor, scale=self.scale * sg.get("size", 1.0), x_lock=sg.get("lock"))
+        p = c.pts(tt, x0=0, floor=self.floor, scale=self.scale * sg.get("size", 1.0), x_lock=sg.get("lock"), facing=sg.get("facing", 1))
         if sg.get("vk", 1.0) != 1.0:
             p = vsquash(p, sg["vk"], self.floor)
         if sg.get("fwd"):      # a little more forward travel than the actor had
