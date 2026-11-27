@@ -42,6 +42,7 @@ def clip(n):
 
 RUN, RUN_A, RUN_P, STRIDE = "009/09_01", 0.30, 0.742, 430.0
 DIVE, GETUP, LIMP, WALK = "090/90_16", "140/140_01", "091/91_24", "091/91_04"
+TRIP = "104/104_13"
 STAND = PW.STAND
 SET = dict(STAND, head=(46, -126), neck=(34, -92), kl=(34, 36), fl=(4, 104), kr=(-12, 50), fr=(-44, 110),
            el=(46, -48), hl=(40, -6), er=(14, -50), hr=(6, -8))
@@ -173,10 +174,15 @@ def pose_of(nm, s, hipx, gy, sc):
     if nm == "EGO" and s > S_FIN + 1.2:
         p = blendp(p, static(KNEES, hipx, gy, sc, 108), smooth(prog(s, S_FIN + 1.2, S_FIN + 2.2)))
     if nm == "YOU":
-        if s >= S_HIT - 0.05:
-            u = clamp((s - (S_HIT - 0.05)) / (S_GROUND - S_HIT + 0.05))
-            dive = clip(DIVE).pts(lerp(2.95, 3.9, u), x0=0, floor=gy, scale=sc, x_lock=hipx)
-            p = blendp(p, dive, smooth(prog(s, S_HIT - 0.05, S_HIT + 0.1)))
+        if s >= S_HIT - 0.05:          # a real trip: he stumbles, pitches forward, hands out...
+            T1 = S_HIT + 0.5
+            u = clamp((s - (S_HIT - 0.05)) / (T1 - S_HIT + 0.05))
+            trip = clip(TRIP).pts(lerp(0.62, 1.18, u), x0=0, floor=gy, scale=sc, x_lock=hipx)
+            p = blendp(p, trip, smooth(prog(s, S_HIT - 0.05, S_HIT + 0.08)))
+            if s >= T1 - 0.08:         # ...and hits the track
+                u2 = clamp((s - T1) / (S_GROUND - T1))
+                dive = clip(DIVE).pts(lerp(3.3, 3.95, u2), x0=0, floor=gy, scale=sc, x_lock=hipx)
+                p = blendp(p, dive, smooth(prog(s, T1 - 0.08, T1 + 0.08)))
         if s >= S_UP0 - 0.1:
             u = clamp((s - S_UP0) / (S_UP1 - S_UP0))
             up = clip(GETUP).pts(lerp(1.7, 4.6, u), x0=0, floor=gy, scale=sc, x_lock=hipx, facing=GETUP_F)
@@ -394,7 +400,7 @@ NF = int(round(DUR * FPS))
 
 def story(t):
     if t < HOOK:
-        return S_HIT + 0.42 + 0.08 * t
+        return S_HIT + 0.28 + 0.07 * t
     return float(np.interp(t - HOOK, _V, _S))
 
 
