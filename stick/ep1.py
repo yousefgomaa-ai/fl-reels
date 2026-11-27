@@ -18,7 +18,7 @@ import sys
 from multiprocessing import Pool
 
 import numpy as np
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFilter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import perfect_wave as PW  # noqa
@@ -64,8 +64,11 @@ def at(kind, u):
 
 
 def counter(im, s, col=(246, 246, 250), y=170, size=150, k=1.0):
-    d = ImageDraw.Draw(im)
-    PW.spaced(d, W / 2, y, s, font("InterDisplay-Bold.otf", int(size * max(0.4, k))), col + (255,), 2)
+    f = font("InterDisplay-Bold.otf", int(size * max(0.4, k)))
+    g = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    PW.spaced(ImageDraw.Draw(g), W / 2, y, s, f, col + (150,), 2)
+    im.alpha_composite(g.filter(ImageFilter.GaussianBlur(18)))
+    PW.spaced(ImageDraw.Draw(im), W / 2, y, s, f, col + (255,), 2)
 
 
 def set_arm(p, side, tgt, sgn=1):
@@ -102,6 +105,19 @@ def stone(st, d, u):
             pts.append((x, y))
         pts = [(cx + off + x * math.cos(rot) - y * math.sin(rot), cy + x * math.sin(rot) + y * math.cos(rot)) for x, y in pts]
         poly(d, pts, (120, 120, 128, 255), outline=(60, 60, 66, 255), w=3)
+    rng_s = np.random.default_rng(8)
+    for j in range(40):    # texture
+        a = rng_s.uniform(0, 2 * math.pi)
+        r = rng_s.uniform(0, 0.85)
+        xx = cx + 110 * r * math.cos(a)
+        side = -1 if xx < cx else 1
+        ell(d, xx + side * 60 * split, cy + 90 * r * math.sin(a), rng_s.uniform(3, 10), rng_s.uniform(2, 7),
+            (96, 96, 104, 255) if j % 2 else (146, 146, 154, 255))
+    ell(d, cx - 40 - 60 * split, cy - 50, 40, 18, (160, 160, 168, 255))
+    if split <= 0:   # hairline cracks that never seem to matter
+        for j in range(min(6, int(u * 2.5))):
+            x0 = cx - 30 + 14 * j
+            line(d, [(x0, cy - 70 + 10 * j), (x0 + 12, cy - 40 + 8 * j), (x0 + 4, cy - 10 + 6 * j)], (60, 60, 66, 255), 2)
     if split > 0:   # the crack + dust
         rng = np.random.default_rng(3)
         for j in range(16):
@@ -282,13 +298,60 @@ def bamboo(st, d, u):
     p = place(dict(STAND, head=(10 - 16 * look, -150 - 6 * look), er=(30, -100), hr=(60, -110)), (430, FLOOR - 113 * S), 1, S)
     hero(st, p, "determined", 1, "shocked" if 2.5 < u < 3.0 else ("happy" if u >= 3.0 else "determined"), u)
     cam_y = lerp(FLOOR - 170, FLOOR - 1300, smooth(prog(u, 2.5, 3.4)))
-    return (1.6, 560, max(cam_y, 620))
+    return (1.6, 620, max(cam_y, 620))
 
 
 def bamboo_year(u):
     if u >= 2.4:
         return 5
     return 1 + min(3, int(u / 0.6))
+
+
+# ---------------------------------------------------------------- look
+GRADE = {"stone": (1.08, 0.98, 0.9), "seed": (0.95, 1.06, 0.92), "ice": (0.88, 0.98, 1.12), "mirror": (1.08, 1.0, 0.88),
+         "views": (0.9, 0.98, 1.1), "bamboo": (0.96, 1.08, 0.92), "end": (1.0, 1.0, 1.0)}
+_M = {}
+
+
+def spot_mask(cy):
+    key = int(cy)
+    if key not in _M:
+        yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
+        g = np.exp(-(((xx - W / 2) / 520) ** 2 + ((yy - cy) / 720) ** 2))
+        _M[key] = (0.22 + 0.95 * g)[..., None]
+    return _M[key]
+
+
+def look(im, kind, t):
+    a = np.asarray(im.convert("RGB"), np.float32)
+    a *= spot_mask(1150 if kind not in ("end",) else 760)
+    a *= np.array(GRADE[kind], np.float32)[None, None, :]
+    # a soft cone of light from above + dust in it
+    lay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    d = ImageDraw.Draw(lay)
+    d.polygon([(W / 2 - 60, 0), (W / 2 + 60, 0), (W / 2 + 420, H * 0.72), (W / 2 - 420, H * 0.72)], (255, 240, 210, 22))
+    rng = np.random.default_rng(5)
+    for _ in range(40):
+        x0, y0, sp = rng.uniform(250, 830), rng.uniform(0, 1400), rng.uniform(8, 24)
+        y = (y0 + t * sp) % 1400
+        x = x0 + 14 * math.sin(t * 0.7 + y0)
+        d.ellipse((x - 2, y - 2, x + 2, y + 2), (255, 240, 210, 90))
+    lay = lay.filter(ImageFilter.GaussianBlur(6))
+    out = Image.fromarray(np.clip(a, 0, 255).astype(np.uint8)).convert("RGBA")
+    out.alpha_composite(lay)
+    return out
+
+
+def whip(im, amt):
+    """a fast horizontal whip-pan blur between scenes"""
+    if amt <= 0.01:
+        return im
+    a = np.asarray(im.convert("RGB"), np.float32)
+    acc = np.zeros_like(a)
+    n = 8
+    for k in range(n):
+        acc += np.roll(a, int((k - n / 2) * 18 * amt), axis=1)
+    return Image.fromarray((acc / n).astype(np.uint8)).convert("RGBA")
 
 
 # ---------------------------------------------------------------- frame
@@ -301,7 +364,7 @@ def frame(t):
     d = ImageDraw.Draw(st)
     if kind == "end":
         z, cx, cy = bamboo(st, d, 3.4 + u * 0.3)
-        z, cx, cy = 1.6, 560, 620
+        z, cx, cy = 1.6, 520, 620
     else:
         z, cx, cy = FN[kind](st, d, u)
     shake = 0
@@ -311,7 +374,13 @@ def frame(t):
         else:
             ph = (u / (HITS_AT / 9)) % 1.0
             shake = 5 * max(0, 1 - abs(ph - 0.5) / 0.08)
-    im = compose(st, None, z, cx + shake * math.sin(t * 80), cy, spots=((540, 1.0),), refl=False)
+    push = 0.93 + 0.12 * clamp(u / max(0.5, ORIG.get(kind, 1.6)))
+    drift = 26 * math.sin(t * 0.9)
+    im = compose(st, None, z * push, cx + drift + shake * math.sin(t * 80), cy, spots=((540, 1.0),), refl=True)
+    im = look(im, kind, t)
+    for a_, b_, k_ in SC[1:]:
+        if abs(t - a_) < 0.12:
+            im = whip(im, 1 - abs(t - a_) / 0.12)
     if kind == "stone":
         n = stone_count(u)
         counter(im, str(n), GOLD if n == 100 else (246, 246, 250), k=hq.pop(u, HITS_AT, 0.2) if n == 100 else 1.0)
@@ -335,9 +404,6 @@ def frame(t):
     dd = ImageDraw.Draw(im)
     PW.spaced(dd, 70, 40, "#1", font("InterDisplay-Bold.otf", 34), (236, 70, 60, 255), 1)
     PW.spaced(dd, W / 2, 40, "LIFE IN ONE FRAME", font("Inter-SemiBold.otf", 22), (180, 186, 204, 255), 6)
-    for a, b, k in SC[1:]:
-        if a <= t < a + 0.06:
-            im = Image.blend(im.convert("RGB"), Image.new("RGB", (W, H), (255, 255, 255)), 0.4).convert("RGBA")
     return np.asarray(im.convert("RGB"))
 
 
