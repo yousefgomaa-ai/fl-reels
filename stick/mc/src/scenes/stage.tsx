@@ -1,5 +1,5 @@
 import {Circle, Line, Node, Polygon, Rect, Txt} from '@motion-canvas/2d';
-import {Color, createRef, createSignal, easeOutBack, SimpleSignal, Vector2} from '@motion-canvas/core';
+import {all, Color, createRef, createSignal, easeOutBack, SimpleSignal, Vector2} from '@motion-canvas/core';
 import {View2D} from '@motion-canvas/2d';
 import {Stick} from './stick';
 
@@ -31,11 +31,12 @@ export function stage(view: View2D, opts: {scale?: number; x?: number; y?: numbe
   view.add(<Txt y={-880} text={'HOW MANY TIMES WOULD YOU TRY?'} fontFamily={'Inter'} fontWeight={800} fontSize={42} fill={'#eceef6'} letterSpacing={3} />);
   const n = createSignal(1);
   const gold = createSignal(0);
-  view.add(<Txt y={-770} text={() => `TRY ${Math.round(n())}`} fontFamily={'Inter'} fontWeight={800} fontSize={() => 112 + 26 * gold()}
+  const final = createSignal(0);      // once it works, the counter shows the final number
+  view.add(<Txt y={-770} text={() => `TRY ${final() > 0 ? final() : Math.round(n())}`} fontFamily={'Inter'} fontWeight={800} fontSize={() => 112 + 26 * gold()}
                 fill={() => Color.lerp('#f6f6fa', '#f6c85a', gold())} letterSpacing={6} />);
   const flash = createSignal(0);
   view.add(<Rect size={[1080, 1920]} fill={'#ffdc8c'} opacity={() => 0.18 * flash()} />);
-  return {world: w, n, gold, sky, flash};
+  return {world: w, n, gold, sky, flash, final};
 }
 
 /** soft shadow under a figure */
@@ -43,9 +44,8 @@ export function shadow(w: Node, x: () => number, k: () => number = () => 1) {
   w.add(<Circle position={() => new Vector2(x(), FLOOR + 4)} size={() => [120 * k(), 18 * k()]} fill={'#000000'} opacity={0.45} />);
 }
 
-export function* success(s: {n: SimpleSignal<number>; gold: SimpleSignal<number>; flash: SimpleSignal<number>}, total: number) {
-  s.n(total);
+export function* success(s: any, total: number) {
+  s.final(total);
   s.flash(1);
-  yield* s.gold(1, 0.25, easeOutBack);
-  yield* s.flash(0, 0.2);
+  yield* all(s.gold(1, 0.25, easeOutBack), s.flash(0, 0.35));
 }
