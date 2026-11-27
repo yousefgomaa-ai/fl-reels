@@ -40,7 +40,7 @@ def clip(n):
     return _C[n]
 
 
-RUN, RUN_A, RUN_P, STRIDE = "009/09_01", 0.30, 0.742, 337.0
+RUN, RUN_A, RUN_P, STRIDE = "009/09_01", 0.30, 0.742, 430.0
 DIVE, GETUP, LIMP, WALK = "090/90_16", "140/140_01", "091/91_24", "091/91_04"
 STAND = PW.STAND
 SET = dict(STAND, head=(46, -126), neck=(34, -92), kl=(34, 36), fl=(4, 104), kr=(-12, 50), fr=(-44, 110),
@@ -53,17 +53,18 @@ VICTORY = dict(PW.ARMS_UP)
 S_BANG = 0.6
 S_HIT = 8.4            # EGO clips him
 S_GROUND = 9.35
-S_UP0, S_UP1 = 10.9, 12.3
-S_LIMP1 = 13.6
-S_RUN = 14.4
-S_FIN = 24.6
-S_END = 28.5
+S_LAUGH0, S_LAUGH1 = 10.0, 11.7
+S_UP0, S_UP1 = 11.9, 13.3
+S_LIMP1 = 14.5
+S_RUN = 15.2
+S_FIN = 24.0
+S_END = 27.9
 DT = 1 / 240
 TT = np.arange(0, S_END + 1, DT)
 
 RUNNERS = {
     # name: lane, colour, speed keys
-    "TALENT": (1, (222, 178, 60), [(0, 0), (S_BANG, 0), (1.2, 500), (12, 500), (17, 470), (21, 420), (S_END, 380)]),
+    "TALENT": (1, (222, 178, 60), [(0, 0), (S_BANG, 0), (1.2, 500), (12, 500), (15, 450), (18, 360), (S_END, 320)]),
     "MOTIVATION": (2, (70, 140, 230), [(0, 0), (S_BANG, 0), (1.1, 590), (3.4, 590), (5.0, 330), (S_END, 300)]),
     "YOU": (4, None, [(0, 0), (S_BANG, 0), (1.3, 500), (S_HIT, 490), (S_HIT + 0.3, 330), (S_GROUND, 60), (S_GROUND + 0.2, 0),
                       (S_UP1, 0), (S_UP1 + 0.3, 120), (S_LIMP1, 230), (S_RUN, 520), (S_RUN + 0.8, 760), (S_FIN - 2, 760),
@@ -75,14 +76,16 @@ RUNNERS = {
 ORDER = ["LUCK", "TALENT", "MOTIVATION", "EGO", "YOU"]   # far -> near
 
 
-def speed_curve(keys):
+def speed_curve(keys, nm=""):
     ks = np.array(keys, float)
+    fast = ~((ks[:, 0] > S_UP1) & (ks[:, 0] <= S_LIMP1)) if nm == "YOU" else np.ones(len(ks), bool)
+    ks[fast, 1] *= 2.0          # twice as fast
     return np.interp(TT, ks[:, 0], ks[:, 1])
 
 
 X = {}
 for nm, (lane, col, keys) in RUNNERS.items():
-    v = speed_curve(keys)
+    v = speed_curve(keys, nm)
     X[nm] = np.concatenate([[0.0], np.cumsum((v[1:] + v[:-1]) / 2 * DT)])
     X[nm] += {"TALENT": 0, "MOTIVATION": 0, "YOU": 0, "EGO": 0, "LUCK": 0}[nm]
 X_F = float(np.interp(S_FIN, TT, X["YOU"]))
@@ -124,11 +127,14 @@ def cam(s):
             (S_FIN - 0.6, 1.6), (S_FIN, 1.9), (S_FIN + 1.2, 1.45), (S_END, 1.6)]
     ks = np.array(keys)
     z = float(np.interp(s, ks[:, 0], ks[:, 1]))
-    lead = 120 * clamp(vat("YOU", s) / 500)          # look ahead of the runner
+    lead = 120 * clamp(vat("YOU", s) / 1000)          # look ahead of the runner
     # gently smoothed follow
     xs = [xat("YOU", s - k * 0.05) for k in range(8)]
     cx = sum(xs) / len(xs) + lead
     cy = 4 * LANE_GAP - 170 - 40 * (z - 1)
+    k = smooth(prog(s, S_LAUGH0 - 0.15, S_LAUGH0)) * (1 - smooth(prog(s, S_LAUGH1, S_LAUGH1 + 0.25)))
+    if k > 0:
+        cx, cy, z = lerp(cx, hx, k), lerp(cy, 1.4 * LANE_GAP - 120, k), lerp(z, 1.25, k)
     return cx, cy, z
 
 
@@ -331,6 +337,38 @@ def headband(d, p, col):
     line(d, [(cx_ - r * c_, cy_ - r * s_), (cx_ + r * c_, cy_ + r * s_)], col + (255,), 8)
 
 
+# ---------------------------------------------------------------- the people laughing at him
+LAUGHERS = [(-430, "079/79_70", 1.0, 5.6, -1), (-250, "014/014_18".replace("014_", "14_"), 1.8, 4.4, 1),
+            (-60, "014/14_17", 1.5, 4.6, -1), (140, "013/13_14", 9.8, 13.6, 1), (330, "079/79_70", 2.4, 5.8, -1),
+            (520, "014/14_18", 7.0, 10.6, 1)]
+
+
+def laughers(st, d, s, c):
+    out = []
+    if not (S_LAUGH0 - 0.2 <= s < S_LAUGH1 + 0.3):
+        return out
+    hx = xat("YOU", s)
+    for i, (dx, nm, a, b, f) in enumerate(LAUGHERS):
+        x, gy = to_screen(hx + dx, -40, c)
+        sc = S * c[2] * 0.8
+        ct = a + ((s - S_LAUGH0) * 1.0 + i * 0.37) % (b - a)
+        p = clip(nm).pts(ct, x0=0, floor=gy, scale=sc, x_lock=x, facing=f)
+        ell(d, x, gy + 3, 50 * sc / S, 8 * sc / S, (0, 0, 0, 80))
+        figure(st, p, sc, light=(0.4, -0.9), body=(200, 204, 216))
+        face(ImageDraw.Draw(st), p, "laugh", f, s)
+        out.append((p, i))
+    return out
+
+
+def laugh_text(dd, s, people):
+    for p, i in people:
+        hx, hy = p["head"]
+        bob = 10 * math.sin(s * 14 + i * 1.7)
+        a = smooth(prog(s, S_LAUGH0 + 0.1 * i, S_LAUGH0 + 0.1 * i + 0.15)) * (1 - smooth(prog(s, S_LAUGH1 - 0.15, S_LAUGH1)))
+        PW.spaced(dd, hx + 10 * math.sin(i * 2.3), hy - 90 + bob, "HAHAHA", font("InterDisplay-Bold.otf", 34 + 4 * (i % 2)),
+                  (255, 255, 255, int(255 * a)), 2)
+
+
 # ---------------------------------------------------------------- time
 HOOK = 1.4
 
@@ -373,6 +411,7 @@ def frame(t):
     st = Image.new("RGBA", (W * K, H * K), (0, 0, 0, 0))
     d = ImageDraw.Draw(st)
     stadium(st, d, s, c)
+    laughers_ = laughers(st, d, s, c)
     pts = {}
     for nm in ORDER:
         pts[nm] = runner(st, d, nm, s, c)
@@ -394,7 +433,7 @@ def frame(t):
             continue
         hx, hy = p["head"]
         col = (246, 200, 90) if nm == "YOU" else (220, 224, 236)
-        PW.spaced(dd, hx, hy - 70 * c[2] * 0.9, nm, font("Inter-SemiBold.otf", int(16 + 6 * c[2])), col + (255,), 4)
+        PW.spaced(dd, hx, hy - 70 * c[2] * 0.9, "DISCIPLINE" if nm == "YOU" else nm, font("Inter-SemiBold.otf", int(16 + 6 * c[2])), col + (255,), 4)
     # header: position
     if t >= HOOK and s >= 1.0:
         pos = position(s)
@@ -407,9 +446,11 @@ def frame(t):
         if k > 0:
             text(im, W / 2, 300, "EVERYONE", int(110 * max(0.3, k)))
             text(im, W / 2, 300 + int(124 * max(0.3, k)), "PASSED HIM.", int(110 * max(0.3, k)), col=GOLD)
-    if S_GROUND + 0.6 <= s < S_UP0 + 0.2:
-        a_ = smooth(prog(s, S_GROUND + 0.6, S_GROUND + 0.9)) * (1 - smooth(prog(s, S_UP0 - 0.1, S_UP0 + 0.2)))
+    if S_GROUND + 0.4 <= s < S_LAUGH0 + 0.1:
+        a_ = smooth(prog(s, S_GROUND + 0.4, S_GROUND + 0.6)) * (1 - smooth(prog(s, S_LAUGH0 - 0.1, S_LAUGH0 + 0.1)))
         text(im, W / 2, 330, "EVERYONE PASSED HIM.", 66, a=a_)
+    if S_LAUGH0 <= s < S_LAUGH1:
+        laugh_text(dd, s, laughers_)
     if S_UP1 - 0.3 <= s < S_LIMP1 + 0.4:
         a_ = smooth(prog(s, S_UP1 - 0.3, S_UP1)) * (1 - smooth(prog(s, S_LIMP1, S_LIMP1 + 0.4)))
         text(im, W / 2, 330, "BUT HE GOT UP.", 76, col=GOLD, a=a_)
