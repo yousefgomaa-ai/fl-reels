@@ -33,6 +33,8 @@ KICK_T, KICK_FOOT = 4.99, "fr"
 FREE, FREE_T = "124/124_04", 4.45
 SIT = next((a for a in sys.argv[1:] if a in ("penalty", "hoop", "pullup")), "penalty")
 SPEED = 1.25        # the final video plays this much faster
+COMBO = os.environ.get("DRILL_COMBO")            # "WHO:k" when rendering a piece of the combined video
+CHALLENGE = {"penalty": 1, "hoop": 2, "pullup": 3}
 WHO = ["LAZY", "EGO", "WORKER"]
 COL = {"LAZY": (120, 128, 140), "EGO": (140, 80, 200), "WORKER": None}
 SCARF = (214, 44, 44)
@@ -639,7 +641,15 @@ def frame(t):
     # header + scoreboard
     PW.spaced(dd, W / 2, 40, {"penalty": "PENALTY KICK", "hoop": "FREE THROW", "pullup": "PULL-UPS"}[SIT], font("InterDisplay-Bold.otf", 70), (246, 246, 250, 255), 6)
     res = results_so_far(t)
-    for j, w in enumerate(WHO):
+    if COMBO:
+        cw, k_ = COMBO.split(":")
+        prev = (int(k_) - 1) if cw == "WORKER" else 0
+        won = prev + (1 if (cw == "WORKER" and res[cw]) else 0)
+        PW.spaced(dd, W / 2, 128, f"CHALLENGE {CHALLENGE[SIT]}/3", font("Inter-SemiBold.otf", 26), (180, 186, 204, 255), 6)
+        col = (246, 200, 90) if cw == "WORKER" else (220, 224, 236)
+        PW.spaced(dd, W / 2 - 70, 176, cw, font("InterDisplay-Bold.otf", 44), col + (255,), 5)
+        PW.spaced(dd, W / 2 + 120, 168, f"{won}/3", font("InterDisplay-Bold.otf", 56), (GREEN if won else RED) + (255,), 2)
+    for j, w in enumerate(WHO if not COMBO else []):
         x = 220 + j * 320
         col = (246, 200, 90) if w == "WORKER" else (220, 224, 236)
         PW.spaced(dd, x, 150, w, font("Inter-SemiBold.otf", 30), col + (255,), 5)
@@ -667,13 +677,21 @@ def frame(t):
             text(im, W / 2, 470, word, int(110 * max(0.3, min(1, a))), col=col)
     if t < T_INTRO:
         a = smooth(prog(t, 0.1, 0.4)) * (1 - smooth(prog(t, T_INTRO - 0.3, T_INTRO)))
-        text(im, W / 2, 470, "ONE TRY EACH." if SIT == "pullup" else "ONE SHOT EACH.", 84, a=a)
+        text(im, W / 2, 470, "3 CHALLENGES." if COMBO else ("ONE TRY EACH." if SIT == "pullup" else "ONE SHOT EACH."), 84, a=a)
     if t >= T_LINE:
         u = t - T_LINE
         im = Image.blend(im.convert("RGB"), Image.new("RGB", (W, H), (0, 0, 0)), 0.75 * smooth(clamp(u / 0.4))).convert("RGBA")
         text(im, W / 2, 820, "SAME CHANCE.", 92, a=smooth(prog(u, 0.2, 0.5)))
         text(im, W / 2, 940, "DIFFERENT PREPARATION.", 74, col=GOLD, a=smooth(prog(u, 0.7, 1.0)))
     return np.asarray(im.convert("RGB"))
+
+
+class render_fb_factory:
+    def __init__(self, who, u0):
+        self.who, self.u0 = who, u0
+
+    def __call__(self, i):
+        return np.asarray(flashback(self.who, self.u0 + i / FPS).convert("RGB")).tobytes()
 
 
 def render(i):
@@ -687,10 +705,11 @@ def render(i):
 MUSIC = "Undaunted.mp3"
 
 
-def audio():
+def audio(sfx_only=False):
     n = int(DUR * SR)
     out = np.zeros((n, 2))
-    put(out, track(MUSIC, 40.0, DUR), 0.0, 1.5, fin=0.05, fout=1.0)
+    if not sfx_only:
+        put(out, track(MUSIC, 40.0, DUR), 0.0, 1.5, fin=0.05, fout=1.0)
     tt = np.arange(n) / SR
     crowd = np.pad(noise(DUR, 2, lo=250, hi=3000)[:n], (0, max(0, n - int(DUR * SR))))[:n]
     out += (crowd * 0.05)[:, None]
@@ -746,6 +765,30 @@ def main():
         p = os.path.join(here, "drill", f"{SIT}-stills.png")
         sheet.save(p)
         print(p, round(DUR, 1), {w: round(_K[w][1], 2) for w in WHO})
+        return
+    if "--range" in args or "--fb" in args:     # a raw piece for the combined video (normal speed, effects only)
+        i = args.index("--range") if "--range" in args else args.index("--fb")
+        a, b, out = float(args[i + 1]), float(args[i + 2]), args[i + 3]
+        who = args[i + 4] if "--fb" in args else None
+        n0, n1 = int(round(a * FPS)), int(round(b * FPS))
+        wav = out + ".wav"
+        if who is None:
+            full = audio(sfx_only=True)
+            piece = full[int(a * SR):int(b * SR)]
+        else:
+            piece = np.zeros((int((b - a) * SR), 2))
+        write_wav(wav, piece)
+        p = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS),
+                              "-i", "-", "-i", wav, "-c:v", "libx264", "-preset", "medium", "-crf", "16", "-pix_fmt", "yuv420p",
+                              "-c:a", "pcm_s16le", "-ar", str(SR), "-shortest", out], stdin=subprocess.PIPE)
+        with Pool(os.cpu_count()) as pool:
+            fn = render if who is None else render_fb_factory(who, a)
+            for buf in pool.imap(fn, range(n0, n1) if who is None else range(n1 - n0), chunksize=2):
+                p.stdin.write(buf)
+        p.stdin.close()
+        p.wait()
+        os.remove(wav)
+        print(out)
         return
     out = args[0]
     wav = out + ".wav"
