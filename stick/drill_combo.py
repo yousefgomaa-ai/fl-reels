@@ -11,7 +11,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 TMP = os.path.join(HERE, "drill", "_pieces")
-SPEED = 1.25
+SPEED = 1.5
 MUSIC = os.path.join(HERE, "..", "study", "music", "Undaunted.mp3")
 
 
@@ -36,28 +36,37 @@ def piece(name, sit, a, b, combo=None, fb=None):
     return out
 
 
+# trims (turn-relative seconds, before the speed-up): start on the action, cut right after the result
+TRIM = {("penalty", "LAZY"): (1.7, 3.5), ("penalty", "EGO"): (0.6, 2.85), ("penalty", "WORKER"): (0.1, 1.55),
+        ("hoop", "LAZY"): (1.3, 3.25), ("hoop", "EGO"): (0.6, 2.85), ("hoop", "WORKER"): (0.0, 1.8),
+        ("pullup", "LAZY"): (0.6, 3.4), ("pullup", "EGO"): (0.6, 3.4), ("pullup", "WORKER"): (0.6, 4.2)}
+
+
 def main():
     final = sys.argv[1]
     os.makedirs(TMP, exist_ok=True)
+    for f in os.listdir(TMP):
+        os.remove(os.path.join(TMP, f))
     SITS = ["penalty", "hoop", "pullup"]
     I = {s: info(s) for s in SITS}
     parts = []
-    t_intro = I["penalty"][0]
-    parts.append(piece("00_intro", "penalty", 0.0, t_intro, combo="LAZY:1"))
     n = 1
     for who in ("LAZY", "EGO", "WORKER"):
         for k, sit in enumerate(SITS, 1):
             a, d = I[sit][3][who]
-            parts.append(piece(f"{n:02d}_{who}_{sit}", sit, a, a + d, combo=f"{who}:{k}"))
+            s0, s1 = TRIM[(sit, who)]
+            parts.append(piece(f"{n:02d}_{who}_{sit}", sit, a + s0, a + min(d, s1), combo=f"{who}:{k}"))
             n += 1
         if who != "WORKER":
             parts.append(piece(f"{n:02d}_fb_{who}", "penalty", 0.0, 1.4, fb=who))
             n += 1
-    for sit, a, b in (("penalty", 0.0, 0.95), ("hoop", 0.05, 0.95), ("pullup", 0.05, 1.4)):
-        parts.append(piece(f"{n:02d}_fb_WORKER_{sit}", sit, a, b, fb="WORKER"))
+    for sit in SITS:
+        parts.append(piece(f"{n:02d}_fb_WORKER_{sit}", sit, 0.12, 1.02, fb="WORKER"))
         n += 1
-    t_line, dur = I["pullup"][1], I["pullup"][2]
-    parts.append(piece(f"{n:02d}_end", "pullup", t_line, dur, combo="WORKER:3"))
+    t_line = I["pullup"][1]
+    os.environ["DRILL_TROPHY"] = "1"
+    parts.append(piece(f"{n:02d}_end", "pullup", t_line, t_line + 1.3 + 2.1, combo="WORKER:3"))
+    del os.environ["DRILL_TROPHY"]
     lst = os.path.join(TMP, "list.txt")
     with open(lst, "w") as f:
         for p in parts:

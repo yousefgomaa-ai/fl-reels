@@ -33,7 +33,9 @@ KICK_T, KICK_FOOT = 4.99, "fr"
 FREE, FREE_T = "124/124_04", 4.45
 SIT = next((a for a in sys.argv[1:] if a in ("penalty", "hoop", "pullup")), "penalty")
 SPEED = 1.25        # the final video plays this much faster
-COMBO = os.environ.get("DRILL_COMBO")            # "WHO:k" when rendering a piece of the combined video
+COMBO = os.environ.get("DRILL_COMBO")
+TROPHY = os.environ.get("DRILL_TROPHY")           # the payoff at the end of the combined cut
+T_TROPHY = 1.3                                    # seconds of trophy before the closing line            # "WHO:k" when rendering a piece of the combined video
 CHALLENGE = {"penalty": 1, "hoop": 2, "pullup": 3}
 WHO = ["LAZY", "EGO", "WORKER"]
 COL = {"LAZY": (120, 128, 140), "EGO": (140, 80, 200), "WORKER": None}
@@ -600,7 +602,8 @@ def frame(t):
     for slot, w in enumerate(waiting[:2]):
         x, s_ = WAIT[slot]
         p = place(dict(STAND, head=(4, -150 + 3 * math.sin(t * 2 + slot))), (x, FLOOR - 46 - 113 * SC * s_), 1, SC * s_)
-        dress(st, p, w, "neutral" if w != "EGO" else "smug", t, SC * s_)
+        wexp = "shocked" if (TROPHY and t >= T_LINE) else ("neutral" if w != "EGO" else "smug")
+        dress(st, p, w, wexp, t, SC * s_)
     pts = {}
     if shooter:
         sq, tk = _K[shooter]
@@ -627,6 +630,26 @@ def frame(t):
             ball(d, SPOT if SIT != "hoop" else SHOOT_X + 60, FLOOR - 22, 0.0, col=BALL_COL)
     if SIT == "penalty":
         goal_front(d, max(0.0, bulge))
+    if TROPHY and t >= T_LINE:
+        u = t - T_LINE
+        k = smooth(clamp(u / 0.35))
+        tx, ty = BAR_X + 150, lerp(FLOOR - 700, FLOOR, 1 - (1 - k) ** 3) if k < 1 else FLOOR
+        bounce = 14 * math.sin(math.pi * clamp((u - 0.35) / 0.2)) if u > 0.35 else 0
+        ty -= bounce
+        rrect(d, (tx - 46, ty - 26, tx + 46, ty), 4, (150, 110, 40, 255))
+        rrect(d, (tx - 14, ty - 70, tx + 14, ty - 26), 3, (230, 180, 60, 255))
+        d.chord(((tx - 58) * K, (ty - 190) * K, (tx + 58) * K, (ty - 60) * K), 0, 180, fill=(246, 200, 90, 255))
+        rrect(d, (tx - 58, ty - 130, tx + 58, ty - 124), 2, (255, 230, 150, 255))
+        for side in (-1, 1):
+            d.arc(((tx + side * 58 - 26) * K, (ty - 160) * K, (tx + side * 58 + 26) * K, (ty - 100) * K),
+                  90 if side > 0 else 270, 270 if side > 0 else 90, fill=(230, 180, 60, 255), width=int(8 * K))
+        rng = np.random.default_rng(1)
+        for _ in range(140):
+            x0, sp, ph = rng.uniform(150, 1050), rng.uniform(0.3, 0.6), rng.uniform(0, 1)
+            yy = FLOOR - 900 + ((u * sp + ph) % 1.0) * 900
+            cc = [(240, 200, 60), (230, 60, 60), (240, 240, 245), (80, 160, 240)][int(ph * 40) % 4]
+            xx = x0 + 20 * math.sin(u * 3 + ph * 9)
+            rrect(d, (xx, yy, xx + 10, yy + 6), 1, cc + (255,))
     base = stadium().copy()
     base.alpha_composite(st)
     z, cx, cy = CAM
@@ -678,8 +701,10 @@ def frame(t):
     if t < T_INTRO:
         a = smooth(prog(t, 0.1, 0.4)) * (1 - smooth(prog(t, T_INTRO - 0.3, T_INTRO)))
         text(im, W / 2, 470, "3 CHALLENGES." if COMBO else ("ONE TRY EACH." if SIT == "pullup" else "ONE SHOT EACH."), 84, a=a)
-    if t >= T_LINE:
-        u = t - T_LINE
+    if TROPHY and T_LINE <= t < T_LINE + 0.25:
+        im.alpha_composite(Image.new("RGBA", im.size, (255, 220, 140, int(110 * (1 - (t - T_LINE) / 0.25)))))
+    if t >= T_LINE + (T_TROPHY if TROPHY else 0):
+        u = t - T_LINE - (T_TROPHY if TROPHY else 0)
         im = Image.blend(im.convert("RGB"), Image.new("RGB", (W, H), (0, 0, 0)), 0.75 * smooth(clamp(u / 0.4))).convert("RGBA")
         text(im, W / 2, 820, "SAME CHANCE.", 92, a=smooth(prog(u, 0.2, 0.5)))
         text(im, W / 2, 940, "DIFFERENT PREPARATION.", 74, col=GOLD, a=smooth(prog(u, 0.7, 1.0)))
@@ -775,6 +800,9 @@ def main():
         if who is None:
             full = audio(sfx_only=True)
             piece = full[int(a * SR):int(b * SR)]
+            need = int((b - a) * SR)
+            if len(piece) < need:
+                piece = np.concatenate([piece, np.zeros((need - len(piece), 2))])
         else:
             piece = np.zeros((int((b - a) * SR), 2))
         write_wav(wav, piece)
