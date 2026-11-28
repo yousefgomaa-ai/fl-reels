@@ -100,3 +100,12 @@
     builds, Film Doctor fixes, Post Writer writes captions), 6 looks, 100 ideas; ~1 hour per film. **Sounds come from
     free libraries**, added by hand - not synthesized. They sell the kit (19 EUR Black Friday, then 49 EUR).
     For us: our WORKFLOW.md is the rule book and hq.py the engine; the gaps are the figure renderer and real music/SFX.
+
+## THE CONSTITUTION (from "Fail Faster", our best retention so far — owner's rule, 2026-11-28)
+1. Second one = motion, no words. Open on action the viewer reads instantly (arrows flying, a fall, a kick).
+2. A new scene / place every 5–7 seconds. Never let the eye rest long enough to swipe.
+3. A counter climbing to a clear target (ATTEMPT 1…100, TRY n, REPS n, POSITION n/5).
+4. The meaning lives in the picture (ghosts of every fall, stone → statue). Text is a label, not an explanation.
+5. A visual payoff / surprise in the last 2 seconds, then one short line.
+6. 25 s or less. Sped up if it drags.
+Also: every movement from real motion capture (CMU, stick/mocap.py); motion = meaning, no fine hand-object work.
