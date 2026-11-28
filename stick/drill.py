@@ -433,10 +433,10 @@ def frame(t):
         if a > 0:
             col = GOLD if cur == "WORKER" else RED
             word = {"LAZY": "SAVED.", "EGO": "OVER THE BAR.", "WORKER": "GOAL!"}[cur]
-            text(im, W / 2, 330, word, int(110 * max(0.3, min(1, a))), col=col)
+            text(im, W / 2, 470, word, int(110 * max(0.3, min(1, a))), col=col)
     if t < T_INTRO:
         a = smooth(prog(t, 0.1, 0.4)) * (1 - smooth(prog(t, T_INTRO - 0.3, T_INTRO)))
-        text(im, W / 2, 330, "ONE SHOT EACH.", 84, a=a)
+        text(im, W / 2, 470, "ONE SHOT EACH.", 84, a=a)
     if t >= T_LINE:
         u = t - T_LINE
         im = Image.blend(im.convert("RGB"), Image.new("RGB", (W, H), (0, 0, 0)), 0.75 * smooth(clamp(u / 0.4))).convert("RGBA")
