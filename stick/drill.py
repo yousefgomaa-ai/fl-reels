@@ -39,18 +39,22 @@ SC = S
 
 # ---------------------------------------------------------------- timeline
 T_INTRO = 1.4
-TURN = {"LAZY": (1.4, 3.5), "EGO": (4.9, 3.3), "WORKER": (8.2, 3.2)}
-T_FB = 11.4
 FB_LEN = 1.4
-T_LINE = T_FB + 3 * FB_LEN
+TURN, FB_AT = {}, {}
+_t = T_INTRO
+for _w, _d in (("LAZY", 3.5), ("EGO", 3.3), ("WORKER", 3.2)):
+    TURN[_w] = (_t, _d)
+    FB_AT[_w] = _t + _d            # the flashback right after his kick
+    _t += _d + FB_LEN
+T_LINE = _t
 DUR = T_LINE + 2.2
 NF = int(round(DUR * FPS))
 
 # ---------------------------------------------------------------- the pitch
-GX, GH = 760, 270                  # goal post x, crossbar height
-SPOT = 500                         # the ball
-WAIT = {0: (305, 0.8), 1: (370, 0.8)}
-CAM = (1.7, 600, FLOOR - 288)
+GX, GH = 680, 270                  # goal post x, crossbar height
+SPOT = 430                         # the ball
+WAIT = {0: (290, 0.8), 1: (350, 0.8)}
+CAM = (1.55, 595, FLOOR - 316)
 
 
 def to_scr(x, y):
@@ -59,6 +63,10 @@ def to_scr(x, y):
 
 
 _B = {}
+_tb = np.zeros((H, W, 4), np.uint8)
+_tb[..., 3] = (np.clip(1 - np.arange(H) / 300.0, 0, 1) ** 1.2 * 235).astype(np.uint8)[:, None]
+_tb[..., :3] = (6, 7, 12)
+TOPBAND = Image.fromarray(_tb, "RGBA")
 
 
 def stadium():
@@ -73,11 +81,11 @@ def stadium():
     glow = Image.new("RGBA", im.size, (0, 0, 0, 0))
     gd = ImageDraw.Draw(glow)
     for x in (60, 400, 740, 1080):
-        gd.ellipse(((x - 220) * K, 260 * K, (x + 220) * K, 620 * K), (200, 220, 255, 70))
+        gd.ellipse(((x - 220) * K, 440 * K, (x + 220) * K, 800 * K), (200, 220, 255, 70))
     im.alpha_composite(glow.filter(ImageFilter.GaussianBlur(50 * K)))
     for x in (60, 400, 740, 1080):
-        line(d, [(x, 470), (x, FLOOR - 470)], (40, 42, 52, 255), 8)
-        rrect(d, (x - 60, 410, x + 60, 470), 6, (225, 232, 255, 255))
+        line(d, [(x, 640), (x, FLOOR - 470)], (40, 42, 52, 255), 8)
+        rrect(d, (x - 60, 590, x + 60, 640), 6, (225, 232, 255, 255))
     rng = np.random.default_rng(3)
     for row in range(8):     # crowd
         y = FLOOR - 470 + row * 40
@@ -97,11 +105,69 @@ def stadium():
     return im
 
 
+# 3/4 view: the mouth faces the shooter. near post is closer to us (lower on screen), far post further (higher).
+def _goal_pts(bulge=0.0):
+    nb, fb = (GX, FLOOR + 22), (GX + 95, FLOOR - 32)                 # post bottoms (near, far)
+    nt, ft = (nb[0], nb[1] - GH), (fb[0], fb[1] - GH * 0.86)         # post tops
+    D = (150, 6)                                                    # depth vector (into the net)
+    bulge_dx = 40 * bulge
+    nbb, fbb = (nb[0] + D[0] + bulge_dx, nb[1] + D[1]), (fb[0] + D[0] + bulge_dx, fb[1] + D[1])
+    ntb, ftb = (nt[0] + D[0] * 0.8 + bulge_dx, nt[1] + 40), (ft[0] + D[0] * 0.8 + bulge_dx, ft[1] + 36)
+    return nb, fb, nt, ft, nbb, fbb, ntb, ftb
+
+
+def _mesh(d, a, b, c, e, n1, n2, col):
+    """grid on quad a-b-c-e (a->b one edge, e->c the opposite)"""
+    for i in range(n1 + 1):
+        u = i / n1
+        p0 = (lerp(a[0], b[0], u), lerp(a[1], b[1], u))
+        p1 = (lerp(e[0], c[0], u), lerp(e[1], c[1], u))
+        line(d, [p0, p1], col, 1.6)
+    for j in range(n2 + 1):
+        v = j / n2
+        p0 = (lerp(a[0], e[0], v), lerp(a[1], e[1], v))
+        p1 = (lerp(b[0], c[0], v), lerp(b[1], c[1], v))
+        line(d, [p0, p1], col, 1.6)
+
+
+def _post(d, a, b, w=10):
+    line(d, [a, b], (160, 162, 170, 255), w + 3)
+    line(d, [a, b], (250, 250, 252, 255), w)
+    line(d, [(a[0] - 2, a[1]), (b[0] - 2, b[1])], (255, 255, 255, 255), 3)
+
+
+def goal_back(d, bulge=0.0):
+    nb, fb, nt, ft, nbb, fbb, ntb, ftb = _goal_pts(bulge)
+    poly(d, [nb, fb, fbb, nbb], (20, 60, 30, 120))                          # shadow on the grass
+    net = (232, 236, 240, 150)
+    _mesh(d, fb, ft, ftb, fbb, 8, 6, net)            # far side net
+    _mesh(d, fbb, ftb, ntb, nbb, 8, 9, net)          # back net
+    _mesh(d, ft, nt, ntb, ftb, 9, 6, net)            # roof net
+    line(d, [fbb, ftb], (200, 202, 210, 255), 4)     # back stanchions
+    line(d, [ftb, ntb], (200, 202, 210, 255), 4)
+    line(d, [nbb, fbb], (200, 202, 210, 255), 3)
+    _post(d, fb, ft, 9)                               # far post
+
+
+def goal_front(d, bulge=0.0):
+    nb, fb, nt, ft, nbb, fbb, ntb, ftb = _goal_pts(bulge)
+    _mesh(d, nb, nt, ntb, nbb, 8, 6, (232, 236, 240, 110))   # near side net
+    line(d, [nbb, ntb], (200, 202, 210, 255), 4)
+    _post(d, nt, ft, 10)                              # crossbar
+    _post(d, nb, nt, 11)                              # near post
+
+
+def mouth(a, h):
+    """a point in the goal mouth: a 0 near..1 far post, h 0 ground..1 crossbar"""
+    nb, fb, nt, ft, *_ = _goal_pts()
+    bx, by = lerp(nb[0], fb[0], a), lerp(nb[1], fb[1], a)
+    tx, ty = lerp(nt[0], ft[0], a), lerp(nt[1], ft[1], a)
+    return lerp(bx, tx, h), lerp(by, ty, h)
+
+
 def goal(d, bulge=0.0):
-    for j in range(9):
-        line(d, [(GX + 6, FLOOR - GH + 8 + j * 31), (GX + 150 + 40 * bulge * math.sin(j * 0.9), FLOOR - GH + 26 + j * 29)],
-             (220, 220, 226, 150), 2)
-    line(d, [(GX, FLOOR), (GX, FLOOR - GH), (GX + 160, FLOOR - GH + 30), (GX + 160, FLOOR)], (245, 245, 248, 255), 9)
+    goal_back(d, bulge)
+    goal_front(d, bulge)
 
 
 # ---------------------------------------------------------------- the three
@@ -147,20 +213,21 @@ def ball_pos(who, v):
         return SPOT, FLOOR - 22, 0.0
     w = clamp((v - tk) / FLIGHT[who])
     if who == "LAZY":         # a weak roller, straight to the keeper
-        x = lerp(SPOT, GX - 70, 1 - (1 - w) ** 2)
+        x = lerp(SPOT, GX - 40, 1 - (1 - w) ** 2)
         return x, FLOOR - 22, (v - tk) * 6
     if who == "EGO":          # way over the bar
-        x, y = lerp(SPOT, GX + 120, w), lerp(FLOOR - 22, FLOOR - 560, w) - 80 * math.sin(math.pi * w)
+        x, y = lerp(SPOT, GX + 130, w), lerp(FLOOR - 22, FLOOR - 600, w) - 80 * math.sin(math.pi * w)
         return x, y, (v - tk) * 14
+    tx, ty = mouth(0.78, 0.84)
     if w < 1:                 # top corner
-        return lerp(SPOT, GX + 40, w), lerp(FLOOR - 22, FLOOR - GH + 40, w) - 60 * math.sin(math.pi * w), (v - tk) * 16
+        return lerp(SPOT, tx, w), lerp(FLOOR - 22, ty, w) - 60 * math.sin(math.pi * w), (v - tk) * 16
     u = v - tk - FLIGHT[who]
-    return GX + 40 + 60 * min(u, 0.25), min(FLOOR - 22, FLOOR - GH + 40 + 900 * u * u), 0.0
+    return tx + 420 * min(u, 0.25), min(FLOOR - 40, ty + 20 + 900 * u * u), 0.0
 
 
 def keeper(st, who, v):
     sq, tk = _K[who]
-    x, y, rot = GX - 50, FLOOR - 113 * SC, 0.0
+    x, y, rot = GX - 10, FLOOR - 113 * SC, 0.0
     pose = dict(STAND, el=(-36, -96), hl=(-60, -80), er=(36, -96), hr=(60, -80), kl=(-26, 52), fl=(-40, 113), kr=(26, 52), fr=(40, 113))
     if who == "LAZY" and v > tk + FLIGHT["LAZY"] * 0.7:
         k = smooth(clamp((v - tk - FLIGHT["LAZY"] * 0.7) / 0.3))
@@ -295,9 +362,9 @@ def flashback(who, u):
 
 # ---------------------------------------------------------------- frame
 def frame(t):
-    if T_FB <= t < T_LINE:
-        k = min(2, int((t - T_FB) / FB_LEN))
-        return np.asarray(flashback(WHO[k], t - T_FB - k * FB_LEN).convert("RGB"))
+    for w in WHO:
+        if FB_AT[w] <= t < FB_AT[w] + FB_LEN:
+            return np.asarray(flashback(w, t - FB_AT[w]).convert("RGB"))
     st = Image.new("RGBA", (W * K, H * K), (0, 0, 0, 0))
     d = ImageDraw.Draw(st)
     cur, v = turn_at(t)
@@ -310,7 +377,7 @@ def frame(t):
     if shooter == "WORKER":
         sq, tk = _K["WORKER"]
         bulge = math.sin(math.pi * clamp((sv - tk - FLIGHT["WORKER"]) / 0.4))
-    goal(d, max(0.0, bulge))
+    goal_back(d, max(0.0, bulge))
     keeper(st, shooter or "LAZY", sv if shooter else 0.0)
     # waiting players, a little further back
     waiting = [w for w in WHO if w != shooter] if shooter else WHO[:2]
@@ -329,10 +396,11 @@ def frame(t):
         bx, by, br = ball_pos(shooter, sv)
         ball(d, bx, by, br, col=(245, 245, 245))
     else:   # intro: all three lined up
-        p = place(STAND, (430, FLOOR - 113 * SC), 1, SC)
+        p = place(STAND, (370, FLOOR - 113 * SC), 1, SC)
         dress(st, p, "WORKER", "determined", t, SC)
         pts["WORKER"] = p
         ball(d, SPOT, FLOOR - 22, 0.0, col=(245, 245, 245))
+    goal_front(d, max(0.0, bulge))
     base = stadium().copy()
     base.alpha_composite(st)
     z, cx, cy = CAM
@@ -342,6 +410,7 @@ def frame(t):
         if tk + FLIGHT["WORKER"] <= sv < tk + FLIGHT["WORKER"] + 0.3:
             shake = 10 * (1 - (sv - tk - FLIGHT["WORKER"]) / 0.3)
     im = hq.camera(base, z, (z * (W / 2 - cx) + shake * math.sin(t * 80)) * K, z * (H / 2 - cy) * K).resize((W, H), Image.LANCZOS)
+    im.alpha_composite(TOPBAND)
     dd = ImageDraw.Draw(im)
     # header + scoreboard
     PW.spaced(dd, W / 2, 40, "PENALTY KICK", font("InterDisplay-Bold.otf", 70), (246, 246, 250, 255), 6)
@@ -405,7 +474,7 @@ def audio():
             mix_in(out, tone(1320, 0.6, (1, 2, 3), a=0.002, d=0.5), hit, 0.25, 0.0)
         else:
             mix_in(out, noise(1.0, 4, lo=200, hi=1500)[:int(1.0 * SR)] * env(int(1.0 * SR), 0.1, 0.8), hit, 0.35, 0.0)  # "ohh"
-    for e in (T_FB, T_FB + FB_LEN, T_FB + 2 * FB_LEN, T_LINE):
+    for e in [FB_AT[w] for w in WHO] + [FB_AT[w] + FB_LEN for w in WHO]:
         mix_in(out, noise(0.3, 11, lo=400, hi=6000)[:int(0.3 * SR)] * env(int(0.3 * SR), 0.15, 0.1), e - 0.15, 0.22, 0.0)
     mix_in(out, tone(55, 1.0, (1, 2), a=0.002, d=0.9), T_LINE + 0.7, 0.5, 0.0)
     out *= np.clip((DUR - tt) / 0.6, 0.0, 1)[:, None]
