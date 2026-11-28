@@ -30,6 +30,9 @@ SERIF = "/usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf"
 STAND = PW.STAND
 WALK, KICK, HAPPY, UPSET, LAUGH, RUN = "007/07_01", "010/10_01", "079/79_69", "079/79_74", "079/79_70", "009/09_01"
 KICK_T, KICK_FOOT = 4.99, "fr"
+FREE, FREE_T = "124/124_04", 4.45
+SIT = next((a for a in sys.argv[1:] if a in ("penalty", "hoop", "pullup")), "penalty")
+SPEED = 1.25        # the final video plays this much faster
 WHO = ["LAZY", "EGO", "WORKER"]
 COL = {"LAZY": (120, 128, 140), "EGO": (140, 80, 200), "WORKER": None}
 SCARF = (214, 44, 44)
@@ -83,9 +86,6 @@ def stadium():
     for x in (60, 400, 740, 1080):
         gd.ellipse(((x - 220) * K, 440 * K, (x + 220) * K, 800 * K), (200, 220, 255, 70))
     im.alpha_composite(glow.filter(ImageFilter.GaussianBlur(50 * K)))
-    for x in (60, 400, 740, 1080):
-        line(d, [(x, 640), (x, FLOOR - 470)], (40, 42, 52, 255), 8)
-        rrect(d, (x - 60, 590, x + 60, 640), 6, (225, 232, 255, 255))
     rng = np.random.default_rng(3)
     for row in range(8):     # crowd
         y = FLOOR - 470 + row * 40
@@ -97,9 +97,13 @@ def stadium():
             if rng.uniform() < 0.04:
                 ell(d, xx, y - 4, 3, 3, (255, 250, 230, 255))
     d.rectangle((0, (FLOOR - 150) * K, W * K, (FLOOR - 120) * K), (34, 54, 110, 255))   # advertising board
-    for j in range(12):     # grass stripes
+    for j in range(12):     # grass stripes / court planks
         y0, y1 = FLOOR - 120 + j * 60, FLOOR - 60 + j * 60
-        d.rectangle((0, y0 * K, W * K, y1 * K), ((36, 92, 48) if j % 2 else (42, 104, 54)) + (255,))
+        if SIT == "hoop":
+            col = (168, 112, 66) if j % 2 else (178, 120, 72)
+        else:
+            col = (36, 92, 48) if j % 2 else (42, 104, 54)
+        d.rectangle((0, y0 * K, W * K, y1 * K), col + (255,))
     line(d, [(-10, FLOOR + 30), (W + 10, FLOOR + 30)], (230, 236, 230, 200), 4)
     _B["bg"] = im
     return im
@@ -202,12 +206,84 @@ def kick_seq(who):
     return Seq(segs, SPOT - 28 - fx), tk
 
 
-_K = {w: kick_seq(w) for w in WHO}
-OUTCOME = {"LAZY": "SAVED", "EGO": "OVER", "WORKER": "GOAL"}
-FLIGHT = {"LAZY": 1.1, "EGO": 0.55, "WORKER": 0.32}
+HOOP_X, RIM_Y = 700, FLOOR - 430
+BALL_COL = (230, 120, 40) if SIT == "hoop" else (245, 245, 245)
+SHOOT_X = 420
+
+
+def hoop(d, sway=0.0):
+    line(d, [(820, FLOOR), (820, FLOOR - 470)], (90, 94, 104, 255), 14)
+    line(d, [(820, FLOOR - 470), (790, FLOOR - 470)], (90, 94, 104, 255), 10)
+    rrect(d, (774, FLOOR - 560, 792, FLOOR - 370), 3, (236, 238, 244, 255), outline=(140, 144, 156, 255), w=2)
+    rrect(d, (777, RIM_Y - 70, 789, RIM_Y), 2, (220, 60, 50, 255))
+    for j in range(7):
+        x0 = HOOP_X - 50 + j * 100 / 6
+        x1 = HOOP_X - 28 + j * 56 / 6 + 8 * sway * math.sin(j * 2.1)
+        line(d, [(x0, RIM_Y), (x1, RIM_Y + 82 + 10 * sway)], (240, 240, 244, 210), 2)
+    for k in range(1, 4):
+        y = RIM_Y + 20 * k
+        line(d, [(HOOP_X - 50 + 6 * k, y), (HOOP_X + 50 - 6 * k, y)], (240, 240, 244, 170), 2)
+    d.ellipse(((HOOP_X - 52) * K, (RIM_Y - 7) * K, (HOOP_X + 52) * K, (RIM_Y + 7) * K), outline=(236, 96, 40, 255), width=int(5 * K))
+    line(d, [(HOOP_X + 52, RIM_Y), (776, RIM_Y)], (236, 96, 40, 255), 5)
+
+
+def hand_mid(p):
+    return ((p["hl"][0] + p["hr"][0]) / 2, (p["hl"][1] + p["hr"][1]) / 2)
+
+
+def shot_seq(who):
+    if who == "LAZY":
+        segs = [seg(WALK, 0.3, 1.0, 0.9), seg(FREE, 3.6, 5.6, 2.3, lock=0)]
+    elif who == "EGO":
+        segs = [seg(HAPPY, 0.3, 1.6, 1.1, lock=0), seg(FREE, 3.6, 5.6, 1.3, lock=0)]
+    else:
+        segs = [seg(FREE, 3.6, 5.6, 1.3, lock=0)]
+    probe = Seq(segs, 0)
+    tk = probe.starts[-1] + segs[-1]["dur"] * (FREE_T - 3.6) / 2.0
+    end = probe.pts(probe.dur - 1e-3)["hip"][0]
+    return Seq(segs, SHOOT_X - end), tk
+
+
+if SIT == "hoop":
+    _K = {w: shot_seq(w) for w in WHO}
+    OUTCOME = {"LAZY": "MISS", "EGO": "MISS", "WORKER": "GOAL"}
+    FLIGHT = {"LAZY": 0.8, "EGO": 0.6, "WORKER": 0.62}
+else:
+    _K = {w: kick_seq(w) for w in WHO}
+    OUTCOME = {"LAZY": "SAVED", "EGO": "OVER", "WORKER": "GOAL"}
+    FLIGHT = {"LAZY": 1.1, "EGO": 0.55, "WORKER": 0.32}
+
+
+def hoop_ball(who, v):
+    sq, tk = _K[who]
+    if v < tk:
+        hx, hy = hand_mid(sq.pts(min(v, sq.dur - 1e-3)))
+        return hx + 4, hy - 26, 0.0
+    hx, hy = hand_mid(sq.pts(tk))
+    a = (hx + 4, hy - 26)
+    w = clamp((v - tk) / FLIGHT[who])
+    u = v - tk - FLIGHT[who]
+    if who == "LAZY":           # airball: falls well short
+        tgt, h = (HOOP_X - 170, FLOOR - 24), 150
+        if u > 0:
+            return tgt[0] + 60 * min(u, 0.6), FLOOR - 24 - 50 * abs(math.sin(u * 7)) * math.exp(-u * 3), u * 5
+    elif who == "EGO":          # front of the rim, bounces out
+        tgt, h = (HOOP_X - 50, RIM_Y - 18), 210
+        if u > 0:
+            w2 = clamp(u / 0.6)
+            return lerp(tgt[0], HOOP_X - 300, w2), lerp(tgt[1], FLOOR - 24, w2) - 140 * math.sin(math.pi * w2 * 0.8), u * 8
+    else:                       # swish
+        tgt, h = (HOOP_X, RIM_Y - 22), 240
+        if u > 0:
+            return HOOP_X, min(FLOOR - 24, RIM_Y - 22 + 700 * u * u + 120 * u), 0.0
+    x = lerp(a[0], tgt[0], w)
+    y = lerp(a[1], tgt[1], w) - h * 4 * w * (1 - w)
+    return x, y, (v - tk) * 9
 
 
 def ball_pos(who, v):
+    if SIT == "hoop":
+        return hoop_ball(who, v)
     sq, tk = _K[who]
     if v < tk:
         return SPOT, FLOOR - 22, 0.0
@@ -292,6 +368,8 @@ def results_so_far(t):
 
 # ---------------------------------------------------------------- flashbacks
 FB_TXT = {"LAZY": "SKIPPED PRACTICE.", "EGO": "TOO GOOD TO PRACTICE.", "WORKER": "1,000 KICKS. EVERY DAY."}
+if SIT == "hoop":
+    FB_TXT = {"LAZY": "\"I'LL PRACTICE TOMORROW.\"", "EGO": "\"I WAS BORN FOR THIS.\"", "WORKER": "1,000 SHOTS. EVERY NIGHT."}
 _FY, _FX = np.mgrid[0:H, 0:W].astype(np.float32)
 FB_VIG = np.clip(0.25 + 0.9 * np.exp(-(((_FX - 540) / 620) ** 2 + ((_FY - 1060) / 900) ** 2)), 0, 1)[..., None]
 
@@ -325,7 +403,27 @@ def flashback(who, u):
         q = place(flex, (770, F - 113 * sc * 0.85 - 20), -1, sc * 0.85)
         figure(st, q, sc * 0.85, light=(0.4, -0.9))
         outfit(ImageDraw.Draw(st), q, COL["EGO"], -1, legs=False)
-        PW.spaced(d, 520 * K, (F - 520) * K, "I'M A NATURAL.", font(SERIF, 40 * K), (240, 230, 210, 255), 2)
+        if SIT == "penalty":
+            PW.spaced(d, 520 * K, (F - 520) * K, "I'M A NATURAL.", font(SERIF, 40 * K), (240, 230, 210, 255), 2)
+    elif SIT == "hoop":
+        poly(d, [(0, 0), (W, 0), (W, F), (0, F)], (20, 26, 40, 255))
+        hoop(d)
+        for j in range(9):
+            ball(d, 560 + (j * 41) % 220, F - 24, 0.0, col=(230, 120, 40))
+        c = clip(FREE)
+        ph = (u * 1.3) % 1.0
+        ct = 3.6 + ph * 2.0
+        p = c.pts(ct, x0=0, floor=F, scale=sc, x_lock=380)
+        dress(st, p, "WORKER", "determined", u, sc)
+        rel = (FREE_T - 3.6) / 2.0
+        if ph < rel:
+            hx, hy = hand_mid(p)
+            ball(d, hx + 4, hy - 30, 0.0, col=(230, 120, 40))
+        else:
+            w = clamp((ph - rel) / 0.35)
+            ball(d, lerp(430, HOOP_X, w), lerp(F - 330, RIM_Y - 22, w) - 260 * 4 * w * (1 - w), w * 9, col=(230, 120, 40))
+        rrect(d, (90, 620, 330, 720), 10, (10, 10, 14, 255))
+        PW.spaced(d, 210 * K, 670 * K, "11:00 PM", font("InterDisplay-Bold.otf", 44 * K), (240, 80, 80, 255), 2)
     else:
         poly(d, [(0, 0), (W, 0), (W, F), (0, F)], (20, 26, 40, 255))
         goal(d)
@@ -377,8 +475,11 @@ def frame(t):
     if shooter == "WORKER":
         sq, tk = _K["WORKER"]
         bulge = math.sin(math.pi * clamp((sv - tk - FLIGHT["WORKER"]) / 0.4))
-    goal_back(d, max(0.0, bulge))
-    keeper(st, shooter or "LAZY", sv if shooter else 0.0)
+    if SIT == "hoop":
+        hoop(d, max(0.0, bulge))
+    else:
+        goal_back(d, max(0.0, bulge))
+        keeper(st, shooter or "LAZY", sv if shooter else 0.0)
     # waiting players, a little further back
     waiting = [w for w in WHO if w != shooter] if shooter else WHO[:2]
     for slot, w in enumerate(waiting[:2]):
@@ -394,13 +495,14 @@ def frame(t):
         dress(st, p, shooter, expr_of(shooter, sv, tk, done), t, SC)
         pts[shooter] = p
         bx, by, br = ball_pos(shooter, sv)
-        ball(d, bx, by, br, col=(245, 245, 245))
+        ball(d, bx, by, br, col=BALL_COL)
     else:   # intro: all three lined up
-        p = place(STAND, (370, FLOOR - 113 * SC), 1, SC)
+        p = place(STAND, (SHOOT_X if SIT == "hoop" else 370, FLOOR - 113 * SC), 1, SC)
         dress(st, p, "WORKER", "determined", t, SC)
         pts["WORKER"] = p
-        ball(d, SPOT, FLOOR - 22, 0.0, col=(245, 245, 245))
-    goal_front(d, max(0.0, bulge))
+        ball(d, SPOT if SIT != "hoop" else SHOOT_X + 60, FLOOR - 22, 0.0, col=BALL_COL)
+    if SIT != "hoop":
+        goal_front(d, max(0.0, bulge))
     base = stadium().copy()
     base.alpha_composite(st)
     z, cx, cy = CAM
@@ -413,7 +515,7 @@ def frame(t):
     im.alpha_composite(TOPBAND)
     dd = ImageDraw.Draw(im)
     # header + scoreboard
-    PW.spaced(dd, W / 2, 40, "PENALTY KICK", font("InterDisplay-Bold.otf", 70), (246, 246, 250, 255), 6)
+    PW.spaced(dd, W / 2, 40, {"penalty": "PENALTY KICK", "hoop": "FREE THROW"}[SIT], font("InterDisplay-Bold.otf", 70), (246, 246, 250, 255), 6)
     res = results_so_far(t)
     for j, w in enumerate(WHO):
         x = 220 + j * 320
@@ -432,7 +534,8 @@ def frame(t):
         a = hq.pop(v, tk + FLIGHT[cur], 0.25) if v >= tk + FLIGHT[cur] else 0
         if a > 0:
             col = GOLD if cur == "WORKER" else RED
-            word = {"LAZY": "SAVED.", "EGO": "OVER THE BAR.", "WORKER": "GOAL!"}[cur]
+            word = ({"LAZY": "AIRBALL.", "EGO": "OFF THE RIM.", "WORKER": "SWISH!"} if SIT == "hoop" else
+                    {"LAZY": "SAVED.", "EGO": "OVER THE BAR.", "WORKER": "GOAL!"})[cur]
             text(im, W / 2, 470, word, int(110 * max(0.3, min(1, a))), col=col)
     if t < T_INTRO:
         a = smooth(prog(t, 0.1, 0.4)) * (1 - smooth(prog(t, T_INTRO - 0.3, T_INTRO)))
@@ -467,8 +570,16 @@ def audio():
     for w in WHO:
         a = TURN[w][0]
         sq, tk = _K[w]
-        mix_in(out, thud, a + tk, 0.7, 0.0)
+        if SIT != "hoop":
+            mix_in(out, thud, a + tk, 0.7, 0.0)
         hit = a + tk + FLIGHT[w]
+        if SIT == "hoop":
+            if w == "EGO":
+                mix_in(out, tone(520, 0.4, (1, 2.4, 3.9), a=0.001, d=0.3), hit, 0.45, 0.4)     # clang
+            for b in (0.35, 0.65):
+                mix_in(out, tone(90, 0.12, (1, 2), a=0.001, d=0.1), hit + b, 0.35, 0.0)    # bounces
+            if w == "WORKER":
+                mix_in(out, noise(0.45, 10, lo=2000, hi=9000)[:int(0.45 * SR)] * env(int(0.45 * SR), 0.05, 0.35), hit, 0.5, 0.4)
         if w == "WORKER":
             mix_in(out, noise(1.8, 6, lo=300, hi=3500)[:int(1.8 * SR)] * env(int(1.8 * SR), 0.05, 1.4), hit, 0.6, 0.0)   # roar
             mix_in(out, tone(1320, 0.6, (1, 2, 3), a=0.002, d=0.5), hit, 0.25, 0.0)
@@ -485,7 +596,7 @@ def audio():
 def main():
     here = os.path.dirname(os.path.abspath(__file__))
     os.makedirs(os.path.join(here, "drill"), exist_ok=True)
-    args = [a for a in sys.argv[1:] if a != "penalty"]
+    args = [a for a in sys.argv[1:] if a not in ("penalty", "hoop", "pullup")]
     if "--stills" in args:
         ts = [float(a) for a in args[1:]] or [0.7, 2.2, 3.6, 4.4, 5.4, 6.4, 7.2, 8.6, 9.2, 10.0, 11.9, 13.3, 14.7, 17.0]
         cols = 7
@@ -493,7 +604,7 @@ def main():
         sheet = Image.new("RGB", (220 * cols, 391 * rows))
         for j, t in enumerate(ts):
             sheet.paste(Image.fromarray(frame(t)).resize((220, 391), Image.LANCZOS), ((j % cols) * 220, (j // cols) * 391))
-        p = os.path.join(here, "drill", "penalty-stills.png")
+        p = os.path.join(here, "drill", f"{SIT}-stills.png")
         sheet.save(p)
         print(p, round(DUR, 1), {w: round(_K[w][1], 2) for w in WHO})
         return
@@ -511,6 +622,12 @@ def main():
     p.stdin.close()
     p.wait()
     os.remove(wav)
+    fast = out + ".fast.mp4"
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", out, "-filter_complex",
+                    f"[0:v]setpts=PTS/{SPEED},fps={FPS}[v];[0:a]atempo={SPEED}[a]", "-map", "[v]", "-map", "[a]",
+                    "-c:v", "libx264", "-preset", "slow", "-crf", "17", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k",
+                    "-movflags", "+faststart", fast], check=True)
+    os.replace(fast, out)
     print(out)
     print(f'Credit: Music: "{MUSIC[:-4]}" by Kevin MacLeod (incompetech.com), CC BY 4.0')
 
