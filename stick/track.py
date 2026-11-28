@@ -88,7 +88,8 @@ X = {}
 for nm, (lane, col, keys) in RUNNERS.items():
     v = speed_curve(keys, nm)
     X[nm] = np.concatenate([[0.0], np.cumsum((v[1:] + v[:-1]) / 2 * DT)])
-    X[nm] += {"TALENT": 0, "MOTIVATION": 0, "YOU": 0, "EGO": 0, "LUCK": 0}[nm]
+    stag = {"LUCK": 520, "TALENT": 390, "MOTIVATION": 260, "EGO": 130, "YOU": 0}[nm]   # staggered start
+    X[nm] += stag * (1 - np.vectorize(smooth)(np.clip((TT - S_BANG) / 3.2, 0, 1)))
 X_F = float(np.interp(S_FIN, TT, X["YOU"]))
 # EGO must be just behind at the line: scale his race so he's 45 px short at S_FIN
 _e = float(np.interp(S_FIN, TT, X["EGO"]))
@@ -123,7 +124,7 @@ LANE_GAP = 92
 def cam(s):
     """(camx, camy, zoom) in world units"""
     hx = xat("YOU", s)
-    keys = [(0, 1.15), (S_BANG, 1.15), (2.0, 0.95), (6.5, 1.05), (S_HIT - 0.8, 1.55), (S_HIT, 1.75), (S_GROUND, 1.9),
+    keys = [(0, 2.7), (S_BANG + 0.05, 2.5), (1.5, 1.2), (2.2, 0.95), (6.5, 1.05), (S_HIT - 0.8, 1.55), (S_HIT, 1.75), (S_GROUND, 1.9),
             (S_GROUND + 0.6, 1.35), (S_UP0, 1.6), (S_UP1, 2.0), (S_LIMP1, 1.5), (S_RUN + 0.6, 1.05), (S_FIN - 3, 1.15),
             (S_FIN - 0.6, 1.6), (S_FIN, 1.9), (S_FIN + 1.2, 1.45), (S_END, 1.6)]
     ks = np.array(keys)
@@ -132,7 +133,7 @@ def cam(s):
     # gently smoothed follow
     xs = [xat("YOU", s - k * 0.05) for k in range(8)]
     cx = sum(xs) / len(xs) + lead
-    cy = 4 * LANE_GAP - 170 - 40 * (z - 1)
+    cy = 4 * LANE_GAP - 170 - 40 * (z - 1) + 130 * clamp((z - 1.2) / 1.5) * (1 - smooth(prog(s, S_BANG, 1.6)))
     for s_at, nm, _d in FLASH[:4]:
         kf = smooth(prog(s, s_at - 0.75, s_at - 0.08)) * (1 - smooth(prog(s, s_at + 0.05, s_at + 0.6)))
         if kf > 0:
@@ -506,7 +507,7 @@ def flashback(kind, u, dur):
 
 
 # ---------------------------------------------------------------- time
-HOOK = 1.4
+HOOK = 0.0
 
 
 def rate(s):
@@ -519,7 +520,7 @@ def rate(s):
     return r
 
 
-FLASH = [(1.9, "LUCK", 1.15), (3.3, "TALENT", 1.15), (4.7, "MOTIVATION", 1.15), (6.3, "EGO", 1.15),
+FLASH = [(2.6, "LUCK", 1.15), (3.8, "TALENT", 1.15), (5.0, "MOTIVATION", 1.15), (6.4, "EGO", 1.15),
          (S_LAUGH1 + 0.05, "YOU", 1.45)]
 FL_V = []          # (video start, video end, kind, story time)
 _V = [0.0]
@@ -592,13 +593,13 @@ def frame(t):
     dd = ImageDraw.Draw(im)
     # labels above heads
     for nm, p in pts.items():
-        if p is None or t < HOOK and nm not in ("YOU", "EGO"):
+        if p is None or (s < 1.7 and nm != "YOU"):
             continue
         hx, hy = p["head"]
         col = (246, 200, 90) if nm == "YOU" else (220, 224, 236)
         PW.spaced(dd, hx, hy - 70 * c[2] * 0.9, "DISCIPLINE" if nm == "YOU" else nm, font("Inter-SemiBold.otf", int(16 + 6 * c[2])), col + (255,), 4)
     # header: position
-    if t >= HOOK and s >= 1.0:
+    if s >= 1.8:
         pos = position(s)
         gold = pos == 1 and s >= S_FIN
         PW.spaced(dd, W / 2, 60, "POSITION", font("Inter-SemiBold.otf", 26), (200, 206, 224, 255), 6)
@@ -622,8 +623,10 @@ def frame(t):
         a_ = smooth(prog(s, t0, t0 + 0.4))
         if a_ > 0:
             text(im, W / 2, 300 + j * 88 + (30 if j == 2 else 0), line_, 72, col=col, a=a_)
-    if abs(t - HOOK) < 0.12:
-        im = whip(im, 1 - abs(t - HOOK) / 0.12)
+    if t < 1.8:   # the opening line
+        a_ = smooth(prog(t, 0.1, 0.35)) * (1 - smooth(prog(t, 1.5, 1.8)))
+        text(im, W / 2, 300, "5 RUNNERS.", 92, a=a_)
+        text(im, W / 2, 410, "1 FALL.", 92, col=(230, 70, 60), a=smooth(prog(t, 0.45, 0.7)) * (1 - smooth(prog(t, 1.5, 1.8))))
     if S_HIT <= s < S_HIT + 0.25 or S_FIN - 0.05 <= s < S_FIN + 0.15:
         k = 1 - (s - (S_HIT if s < S_FIN - 1 else S_FIN - 0.05)) / 0.25
         im.alpha_composite(Image.new("RGBA", im.size, (255, 255, 255, int(70 * clamp(k)))))
@@ -663,7 +666,6 @@ def audio():
     mix_in(out, tone(50, 0.8, (1, 2), a=0.002, d=0.7), video_of(S_GROUND - 0.35), 0.6, 0.0)
     gasp = noise(1.2, 4, lo=300, hi=2500)[:int(1.2 * SR)] * env(int(1.2 * SR), 0.05, 0.9)
     mix_in(out, gasp, video_of(S_HIT + 0.1), 0.4, 0.0)
-    mix_in(out, noise(0.35, 9, lo=500, hi=7000)[:int(0.35 * SR)] * env(int(0.35 * SR), 0.25, 0.05), HOOK - 0.3, 0.2, 0.0)
     for a, b, kind, s_at in FL_V:
         for e in (a, b):
             mix_in(out, noise(0.3, 11, lo=400, hi=6000)[:int(0.3 * SR)] * env(int(0.3 * SR), 0.15, 0.1), HOOK + e - 0.15, 0.22, 0.0)
