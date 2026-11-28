@@ -18,7 +18,7 @@ from PIL import Image, ImageDraw, ImageFilter
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import perfect_wave as PW  # noqa
 import hq  # noqa
-from compare import ell, line, rrect, poly, figure, place, FLOOR, K, W, H  # noqa
+from compare import ell, line, rrect, poly, figure, place, ik, FLOOR, K, W, H  # noqa
 from perfect_wave import clamp, env, font, lerp, mix_in, noise, prog, smooth, tone, write_wav  # noqa
 from money_chars import face, outfit, S, GOLD  # noqa
 from money import put, track, text  # noqa
@@ -45,7 +45,7 @@ T_INTRO = 1.4
 FB_LEN = 1.4
 TURN, FB_AT = {}, {}
 _t = T_INTRO
-for _w, _d in (("LAZY", 3.5), ("EGO", 3.3), ("WORKER", 3.2)):
+for _w, _d in ((("LAZY", 3.4), ("EGO", 3.4), ("WORKER", 4.2)) if SIT == "pullup" else (("LAZY", 3.5), ("EGO", 3.3), ("WORKER", 3.2))):
     TURN[_w] = (_t, _d)
     FB_AT[_w] = _t + _d            # the flashback right after his kick
     _t += _d + FB_LEN
@@ -101,6 +101,8 @@ def stadium():
         y0, y1 = FLOOR - 120 + j * 60, FLOOR - 60 + j * 60
         if SIT == "hoop":
             col = (168, 112, 66) if j % 2 else (178, 120, 72)
+        elif SIT == "pullup":
+            col = (54, 56, 64) if j % 2 else (60, 62, 70)
         else:
             col = (36, 92, 48) if j % 2 else (42, 104, 54)
         d.rectangle((0, y0 * K, W * K, y1 * K), col + (255,))
@@ -244,7 +246,99 @@ def shot_seq(who):
     return Seq(segs, SHOOT_X - end), tk
 
 
-if SIT == "hoop":
+# ---------------------------------------------------------------- pull-ups
+BAR_X, BAR_Y = 560, FLOOR - 470
+GRAB0 = 0.85           # walked in, jumps up to the bar
+REPS = {"LAZY": 0, "EGO": 2, "WORKER": 10}
+
+
+def hang_pts(x, bar_y, up, sc, sway=0.0, kick=0.0, shake=0.0):
+    """hands locked on the bar, body rising with `up` (0 dead hang .. 1 chin over the bar)"""
+    neck = (x + shake, bar_y + lerp(78, 6, up) * sc / S)
+    hip = (neck[0] + 4 * sc / S, neck[1] + 104 * sc / S)
+    head = (neck[0] + 4 * sc / S, neck[1] - 44 * sc / S)
+    p = {"neck": neck, "hip": hip, "head": head}
+    for side, dx in (("l", -40), ("r", 40)):
+        hand = (x + dx * sc / S, bar_y)
+        p["h" + side] = hand
+        p["e" + side] = ik(neck, hand, 42 * sc / S, 40 * sc / S, 1 if side == "r" else -1)
+    k1 = 0.25 + 0.6 * kick
+    for side, ph in (("l", 0.0), ("r", math.pi)):
+        a = 0.08 * math.sin(ph) + kick * 0.9 * math.sin(kick * 6 + ph)
+        kn = (hip[0] + 56 * sc / S * math.sin(a + 0.15), hip[1] + 56 * sc / S * math.cos(a + 0.15))
+        ft = (kn[0] + 57 * sc / S * math.sin(a - k1), kn[1] + 57 * sc / S * math.cos(a - k1))
+        p["k" + side], p["f" + side] = kn, ft
+    if sway:
+        c_, s_ = math.cos(sway), math.sin(sway)
+        p = {j: (x + (px - x) * c_ - (py - bar_y) * s_, bar_y + (px - x) * s_ + (py - bar_y) * c_) for j, (px, py) in p.items()}
+    return p
+
+
+def reps_up(who, v):
+    """(up 0..1, reps done, still hanging?)"""
+    t = v - GRAB0 - 0.25
+    if t < 0:
+        return 0.0, 0, True
+    if who == "LAZY":
+        if t < 1.7:
+            return 0.12 * abs(math.sin(t * 2.4)), 0, True
+        return 0.0, 0, t < 1.9
+    if who == "EGO":
+        if t < 1.0:
+            return 0.5 - 0.5 * math.cos(t / 0.5 * 2 * math.pi), int(t / 0.5 + 0.5), True
+        if t < 1.8:
+            return 0.35 * math.sin(math.pi * clamp((t - 1.0) / 0.8)), 2, True
+        return 0.0, 2, t < 2.0
+    per = 0.27
+    n = min(10, int(t / per + 0.5))
+    if t < 10 * per:
+        return 0.5 - 0.5 * math.cos(t / per * 2 * math.pi), n, True
+    return (1.0 if t < 10 * per + 0.5 else 0.0), 10, t < 10 * per + 0.6
+
+
+def pull_pose(who, v):
+    """walk in, grab, reps, drop"""
+    walk = Seq([seg(WALK, 0.3, 1.1, GRAB0)], 0)
+    end = walk.pts(GRAB0 - 1e-3)["hip"][0]
+    walk = Seq([seg(WALK, 0.3, 1.1, GRAB0)], BAR_X - end)
+    if v < GRAB0:
+        return walk.pts(v)
+    up, n, hanging = reps_up(who, v)
+    t = v - GRAB0 - 0.25
+    sway = 0.06 * math.sin(v * 3.1) + (0.12 * math.sin(t * 12) if who == "EGO" and 0 < t < 1.0 else 0)
+    kick = 0.45 * clamp(1 - abs(t - 0.5) / 0.5) if who == "EGO" else 0.0
+    shake = 2.5 * math.sin(v * 70) if (who == "LAZY" and hanging) or (who == "EGO" and 1.0 < t < 1.8) else 0.0
+    hp = hang_pts(BAR_X, BAR_Y, up, SC, sway, kick, shake)
+    stand = place(STAND, (BAR_X, FLOOR - 113 * SC), 1, SC)
+    if v < GRAB0 + 0.25:
+        return blend(walk.pts(GRAB0 - 1e-3), hp, smooth((v - GRAB0) / 0.25))
+    if not hanging:
+        # drops back to the floor
+        t_drop = {"LAZY": 1.7, "EGO": 1.8, "WORKER": 10 * 0.27 + 0.5}[who]
+        k = smooth(clamp((t - t_drop) / 0.25))
+        hp0 = hang_pts(BAR_X, BAR_Y, 0.0, SC)
+        p = blend(hp0, stand, k)
+        if who == "WORKER" and t > t_drop + 0.3:
+            p = blend(stand, place(PW.ARMS_UP, (BAR_X, FLOOR - 113 * SC), 1, SC), smooth(clamp((t - t_drop - 0.3) / 0.3)))
+        if who == "LAZY" and t > t_drop + 0.3:
+            p = blend(stand, place(dict(STAND, head=(18, -136), neck=(10, -100)), (BAR_X, FLOOR - 113 * SC), 1, SC), 0.8)
+        return p
+    return hp
+
+
+def gym(d):
+    for x in (BAR_X - 180, BAR_X + 180):
+        line(d, [(x, FLOOR), (x, BAR_Y - 10)], (70, 72, 84, 255), 12)
+        line(d, [(x - 30, FLOOR), (x + 30, FLOOR)], (70, 72, 84, 255), 8)
+    line(d, [(BAR_X - 186, BAR_Y), (BAR_X + 186, BAR_Y)], (200, 204, 214, 255), 9)
+    line(d, [(BAR_X - 186, BAR_Y - 2), (BAR_X + 186, BAR_Y - 2)], (250, 250, 252, 255), 3)
+
+
+if SIT == "pullup":
+    _K = {w: (None, {"LAZY": GRAB0 + 0.25 + 1.95, "EGO": GRAB0 + 0.25 + 2.05, "WORKER": GRAB0 + 0.25 + 10 * 0.27}[w]) for w in WHO}
+    OUTCOME = {"LAZY": "MISS", "EGO": "MISS", "WORKER": "GOAL"}
+    FLIGHT = {w: 0.0 for w in WHO}
+elif SIT == "hoop":
     _K = {w: shot_seq(w) for w in WHO}
     OUTCOME = {"LAZY": "MISS", "EGO": "MISS", "WORKER": "GOAL"}
     FLIGHT = {"LAZY": 0.8, "EGO": 0.6, "WORKER": 0.62}
@@ -368,6 +462,8 @@ def results_so_far(t):
 
 # ---------------------------------------------------------------- flashbacks
 FB_TXT = {"LAZY": "SKIPPED PRACTICE.", "EGO": "TOO GOOD TO PRACTICE.", "WORKER": "1,000 KICKS. EVERY DAY."}
+if SIT == "pullup":
+    FB_TXT = {"LAZY": "SKIPPED THE GYM.", "EGO": "\"I DON'T NEED TO TRAIN.\"", "WORKER": "ONE MORE REP. EVERY DAY."}
 if SIT == "hoop":
     FB_TXT = {"LAZY": "\"I'LL PRACTICE TOMORROW.\"", "EGO": "\"I WAS BORN FOR THIS.\"", "WORKER": "1,000 SHOTS. EVERY NIGHT."}
 _FY, _FX = np.mgrid[0:H, 0:W].astype(np.float32)
@@ -405,6 +501,21 @@ def flashback(who, u):
         outfit(ImageDraw.Draw(st), q, COL["EGO"], -1, legs=False)
         if SIT == "penalty":
             PW.spaced(d, 520 * K, (F - 520) * K, "I'M A NATURAL.", font(SERIF, 40 * K), (240, 230, 210, 255), 2)
+    elif SIT == "pullup":
+        poly(d, [(0, 0), (W, 0), (W, F), (0, F)], (20, 26, 40, 255))
+        by = F - 560
+        for x in (300, 760):
+            line(d, [(x, F), (x, by - 10)], (70, 72, 84, 255), 14)
+        line(d, [(294, by), (766, by)], (200, 204, 214, 255), 10)
+        per = 0.42
+        up = 0.5 - 0.5 * math.cos(u / per * 2 * math.pi)
+        p = hang_pts(530, by, up, sc, 0.04 * math.sin(u * 3))
+        dress(st, p, "WORKER", "determined", u, sc)
+        rng = np.random.default_rng(int(u * 20))
+        for _ in range(10):   # chalk dust
+            ell(d, 490 + rng.uniform(-60, 140), by + rng.uniform(-20, 40), 4, 4, (240, 240, 240, 160))
+        rrect(d, (90, 620, 330, 720), 10, (10, 10, 14, 255))
+        PW.spaced(d, 210 * K, 670 * K, f"REP {87 + int(u / per)}", font("InterDisplay-Bold.otf", 44 * K), (240, 80, 80, 255), 2)
     elif SIT == "hoop":
         poly(d, [(0, 0), (W, 0), (W, F), (0, F)], (20, 26, 40, 255))
         hoop(d)
@@ -477,6 +588,8 @@ def frame(t):
         bulge = math.sin(math.pi * clamp((sv - tk - FLIGHT["WORKER"]) / 0.4))
     if SIT == "hoop":
         hoop(d, max(0.0, bulge))
+    elif SIT == "pullup":
+        gym(d)
     else:
         goal_back(d, max(0.0, bulge))
         keeper(st, shooter or "LAZY", sv if shooter else 0.0)
@@ -490,18 +603,27 @@ def frame(t):
     if shooter:
         sq, tk = _K[shooter]
         done = sv > tk + FLIGHT[shooter]
-        p = shooter_pose(shooter, sv)
+        if SIT == "pullup":
+            p = pull_pose(shooter, sv)
+            up, n_, hanging = reps_up(shooter, sv)
+            ex = {"LAZY": "tired" if not done else "sad", "EGO": ("smug" if sv < GRAB0 + 1.25 else "nervous") if not done else "shocked",
+                  "WORKER": "determined" if not done else "happy"}[shooter]
+        else:
+            p = shooter_pose(shooter, sv)
+            ex = expr_of(shooter, sv, tk, done)
         ell(d, p["hip"][0], FLOOR + 3, 60, 10, (0, 0, 0, 90))
-        dress(st, p, shooter, expr_of(shooter, sv, tk, done), t, SC)
+        dress(st, p, shooter, ex, t, SC)
         pts[shooter] = p
-        bx, by, br = ball_pos(shooter, sv)
-        ball(d, bx, by, br, col=BALL_COL)
+        if SIT != "pullup":
+            bx, by, br = ball_pos(shooter, sv)
+            ball(d, bx, by, br, col=BALL_COL)
     else:   # intro: all three lined up
-        p = place(STAND, (SHOOT_X if SIT == "hoop" else 370, FLOOR - 113 * SC), 1, SC)
+        p = place(STAND, {"hoop": SHOOT_X, "pullup": 420}.get(SIT, 370), FLOOR - 113 * SC) if False else place(STAND, ({"hoop": SHOOT_X, "pullup": 420}.get(SIT, 370), FLOOR - 113 * SC), 1, SC)
         dress(st, p, "WORKER", "determined", t, SC)
         pts["WORKER"] = p
-        ball(d, SPOT if SIT != "hoop" else SHOOT_X + 60, FLOOR - 22, 0.0, col=BALL_COL)
-    if SIT != "hoop":
+        if SIT != "pullup":
+            ball(d, SPOT if SIT != "hoop" else SHOOT_X + 60, FLOOR - 22, 0.0, col=BALL_COL)
+    if SIT == "penalty":
         goal_front(d, max(0.0, bulge))
     base = stadium().copy()
     base.alpha_composite(st)
@@ -515,7 +637,7 @@ def frame(t):
     im.alpha_composite(TOPBAND)
     dd = ImageDraw.Draw(im)
     # header + scoreboard
-    PW.spaced(dd, W / 2, 40, {"penalty": "PENALTY KICK", "hoop": "FREE THROW"}[SIT], font("InterDisplay-Bold.otf", 70), (246, 246, 250, 255), 6)
+    PW.spaced(dd, W / 2, 40, {"penalty": "PENALTY KICK", "hoop": "FREE THROW", "pullup": "PULL-UPS"}[SIT], font("InterDisplay-Bold.otf", 70), (246, 246, 250, 255), 6)
     res = results_so_far(t)
     for j, w in enumerate(WHO):
         x = 220 + j * 320
@@ -528,18 +650,24 @@ def frame(t):
     for w, p in pts.items():
         hx, hy = to_scr(*p["head"])
         PW.spaced(dd, hx, hy - 90, w, font("Inter-SemiBold.otf", 26), ((246, 200, 90) if w == "WORKER" else (220, 224, 236)) + (255,), 4)
+    if SIT == "pullup" and cur and GRAB0 < v:
+        up, n_, hanging = reps_up(cur, v)
+        bx_, by_ = to_scr(BAR_X + 250, BAR_Y - 40)
+        PW.spaced(dd, bx_, by_, "REPS", font("Inter-SemiBold.otf", 28), (200, 206, 224, 255), 6)
+        PW.spaced(dd, bx_, by_ + 36, str(n_), font("InterDisplay-Bold.otf", 96), (GOLD if n_ >= 10 else (246, 246, 250)) + (255,), 2)
     # the outcome word
     if cur:
         sq, tk = _K[cur]
         a = hq.pop(v, tk + FLIGHT[cur], 0.25) if v >= tk + FLIGHT[cur] else 0
         if a > 0:
             col = GOLD if cur == "WORKER" else RED
-            word = ({"LAZY": "AIRBALL.", "EGO": "OFF THE RIM.", "WORKER": "SWISH!"} if SIT == "hoop" else
-                    {"LAZY": "SAVED.", "EGO": "OVER THE BAR.", "WORKER": "GOAL!"})[cur]
+            word = {"hoop": {"LAZY": "AIRBALL.", "EGO": "OFF THE RIM.", "WORKER": "SWISH!"},
+                    "pullup": {"LAZY": "0 REPS.", "EGO": "2 REPS.", "WORKER": "10 REPS!"},
+                    "penalty": {"LAZY": "SAVED.", "EGO": "OVER THE BAR.", "WORKER": "GOAL!"}}[SIT][cur]
             text(im, W / 2, 470, word, int(110 * max(0.3, min(1, a))), col=col)
     if t < T_INTRO:
         a = smooth(prog(t, 0.1, 0.4)) * (1 - smooth(prog(t, T_INTRO - 0.3, T_INTRO)))
-        text(im, W / 2, 470, "ONE SHOT EACH.", 84, a=a)
+        text(im, W / 2, 470, "ONE TRY EACH." if SIT == "pullup" else "ONE SHOT EACH.", 84, a=a)
     if t >= T_LINE:
         u = t - T_LINE
         im = Image.blend(im.convert("RGB"), Image.new("RGB", (W, H), (0, 0, 0)), 0.75 * smooth(clamp(u / 0.4))).convert("RGBA")
@@ -570,9 +698,20 @@ def audio():
     for w in WHO:
         a = TURN[w][0]
         sq, tk = _K[w]
-        if SIT != "hoop":
+        if SIT == "penalty":
             mix_in(out, thud, a + tk, 0.7, 0.0)
         hit = a + tk + FLIGHT[w]
+        if SIT == "pullup":
+            mix_in(out, tone(700, 0.2, (1, 2.7), a=0.001, d=0.15), a + GRAB0 + 0.2, 0.3, 0.0)          # hands on the bar
+            for r in range(REPS[w]):
+                at = a + GRAB0 + 0.25 + (r + 0.5) * (0.5 if w == "EGO" else 0.27)
+                mix_in(out, tone(880 + 40 * r, 0.12, (1, 2), a=0.002, d=0.08), at, 0.18, 0.0)
+            mix_in(out, noise(0.2, 3, lo=60, hi=900)[:int(0.2 * SR)] * env(int(0.2 * SR), 0.002, 0.15), hit + 0.2, 0.5, 0.0)
+            if w == "WORKER":
+                mix_in(out, noise(1.8, 6, lo=300, hi=3500)[:int(1.8 * SR)] * env(int(1.8 * SR), 0.05, 1.4), hit, 0.6, 0.0)
+            else:
+                mix_in(out, noise(1.0, 4, lo=200, hi=1500)[:int(1.0 * SR)] * env(int(1.0 * SR), 0.1, 0.8), hit, 0.35, 0.0)
+            continue
         if SIT == "hoop":
             if w == "EGO":
                 mix_in(out, tone(520, 0.4, (1, 2.4, 3.9), a=0.001, d=0.3), hit, 0.45, 0.4)     # clang
